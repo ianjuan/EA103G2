@@ -1,0 +1,65 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%  int rowsPerPage = 3;  //每頁的筆數  
+    int rowNumber=0;      //總比數
+    int pageNumber=0;     //總頁數     
+    int whichPage=1;      //第幾頁
+    int pageIndexArray[]=null;
+    int pageIndex=0; 
+%>
+
+<%  
+    rowNumber=list.size();
+    if (rowNumber%rowsPerPage !=0)
+         pageNumber=rowNumber/rowsPerPage + 1;
+    else pageNumber=rowNumber/rowsPerPage;    
+
+    pageIndexArray=new int[pageNumber]; 
+    for (int i=1 ; i<=pageIndexArray.length ; i++)
+         pageIndexArray[i-1]=i*rowsPerPage-rowsPerPage;
+%>
+
+<%  try {
+       whichPage = Integer.parseInt(request.getParameter("whichPage"));
+       pageIndex=pageIndexArray[whichPage-1];
+    } catch (NumberFormatException e) { //第一次執行的時候
+       whichPage=1;
+       pageIndex=0;
+    } catch (ArrayIndexOutOfBoundsException e) { //總頁數之外的錯誤頁數
+    	
+         if (pageNumber>0){
+              whichPage=pageNumber;
+              pageIndex=pageIndexArray[pageNumber-1];
+         }
+    } 
+%>
+
+<%if (rowsPerPage<rowNumber) {%>
+	<ul class="pagination justify-content-center" style="margin-top:15px;">
+		<li class="page-item">     
+    	<%if(pageIndex>=rowsPerPage){%>
+	        <a class="page-link" href="<%=request.getRequestURI()%>?lldno=<%=lldno%>&whichPage=<%=whichPage-1%>" aria-label="Previous">       
+	        	<span aria-hidden="true">&laquo;</span>
+	        	<span class="sr-only">Previous</span>
+	        </a>
+      	<%}%>  
+		</li>
+        
+		<%if (pageNumber>1) {%>
+			<%for (int i=1; i<=pageNumber; i++){%>
+				<li class="page-item">
+					<a class="page-link" href="<%=request.getRequestURI()%>?lldno=<%=lldno%>&whichPage=<%=i%>" style=<%=whichPage==i?"color:orange;":""%>><%=i%></a>
+				</li>
+			<%}%> 
+		<%}%>
+	      
+		<li class="page-item">
+			<%if(pageIndex<pageIndexArray[pageNumber-1]){%>
+				<a class="page-link" href="<%=request.getRequestURI()%>?lldno=<%=lldno%>&whichPage=<%=whichPage+1%>" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+	        	</a>
+	        <%}%>
+	     </li>
+    </ul>
+<%}%>    
