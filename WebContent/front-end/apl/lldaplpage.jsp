@@ -19,14 +19,11 @@
 	}
 	pageContext.setAttribute("list", list);	
 
-	Con_aplService Con_aplSvc = new Con_aplService();
    List<Con_aplVO> listapl = (List<Con_aplVO>)session.getAttribute("list");
    pageContext.setAttribute("listapl",listapl);
-   pageContext.setAttribute("Con_aplSvc",Con_aplSvc);
-   
-   
 %>
 
+<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 
@@ -118,28 +115,36 @@
 					</div>
 					<div class="cinfo">
 						<ul>
-							<li><span class="infotitle">租屋申請編號 : </span><span>${con_aplVO.apl_no}</span></li>
+<%-- 							<li><span class="infotitle">租屋申請編號 : </span><span>${con_aplVO.apl_no}</span></li> --%>
 							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(con_aplVO.hos_no).hos_name}</span></li>
 							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(con_aplVO.tnt_no).tnt_name}</span></li>
 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li>
 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li>
 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li>
+							<li><span class="infotitle">申請狀態 : </span><span>${aplSvc.getCon_statusText(con_aplVO.getApl_status())}</span></li>
 						</ul>
 					</div>					
 						<div class="rinfo">
 							<ul>
-								<li><button id="btn1">房屋資訊</button></li>
-								
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-			     				<li><button id="btn2" type="submit">資訊修改</button></li>
-			     				<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
+								<li><button id="btn1">接受申請</button></li>
+								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
+			     				<input type="hidden" name="apl_status" value=1>
 			     				<input type="hidden" name="lld_no" value="<%=lldno%>">
-			     				<input type="hidden" name="action"	value="getOne_For_Update">
+			     				<input type="hidden" name="action"	value="lldupdate">
 			     				</FORM>
+			     				
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+								<li><button id="btn2">拒絕申請</button></li>
+								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
+			     				<input type="hidden" name="apl_status" value=2>
+			     				<input type="hidden" name="lld_no" value="<%=lldno%>">
+			     				<input type="hidden" name="action"	value="lldupdate">
+			     				</FORM>
+			     				
+								<li><button id="btn3">聊天</button></li>
 								
-								<li><button id="btn3">合約資訊</button></li>
-								<li><button id="btn4">帳單設定</button></li>
-								<li><button id="btn5">聊天</button></li>								
+														
 							</ul>
 						</div>					
 					</div>
