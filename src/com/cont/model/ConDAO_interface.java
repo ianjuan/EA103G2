@@ -4,8 +4,12 @@ import java.util.List;
 import com.cont.model.ConVO;
 
 public interface ConDAO_interface {
-	public void insert(ConVO conVO);
 	public void update(ConVO conVO);
+	public void beforerentinsert(ConVO conVO);
+	public void beforerentupdate(ConVO conVO);
+	public void rentupdate(ConVO conVO);
+	public void beforecheckoutupdate(ConVO conVO);
+	public void checkoutupdate(ConVO conVO);
 	public void delete(String con_no);
 	public ConVO findByPrimaryKey(String con_no);
 	public List<ConVO> getAll();

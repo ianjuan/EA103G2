@@ -16,6 +16,7 @@ public class ConVO {
 	private Integer con_out_normal;
 	private Timestamp con_date;
 	private Date con_che_date;
+	private Integer hos_dep;
 	private Date con_dep_bkdate;
 	private Integer con_dep_sta;
 	private Integer con_bill_paid;
@@ -109,6 +110,14 @@ public class ConVO {
 		this.con_date = con_date;
 	}
 
+	public Integer getHos_dep() {
+		return hos_dep;
+	}
+
+	public void setHos_dep(Integer hos_dep) {
+		this.hos_dep = hos_dep;
+	}
+
 	public Date getCon_che_date() {
 		return con_che_date;
 	}
@@ -196,6 +205,7 @@ public class ConVO {
 	public void setCon_is_chr(Integer con_is_chr) {
 		this.con_is_chr = con_is_chr;
 	}
+	
 
 	public Integer getCon_rent_agn() {
 		return con_rent_agn;
