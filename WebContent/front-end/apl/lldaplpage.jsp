@@ -118,7 +118,7 @@
 					</div>
 					<div class="cinfo">
 						<ul>
-							<li><span class="infotitle">申請編號 : </span><span>${con_aplVO.apl_no}</span></li>
+							<li><span class="infotitle">租屋申請編號 : </span><span>${con_aplVO.apl_no}</span></li>
 							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(con_aplVO.hos_no).hos_name}</span></li>
 							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(con_aplVO.tnt_no).tnt_name}</span></li>
 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li>
