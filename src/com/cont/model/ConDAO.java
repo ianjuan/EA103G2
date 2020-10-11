@@ -34,20 +34,20 @@ public class ConDAO implements ConDAO_interface {
 
 	private static final String CHECKOUT_UPDATE_STMT = "UPDATE CONTRACT SET CON_RENT_AGN = ?, CON_BILL_PAID = ?, CON_LASTB_PDATE = ?, CON_DEP_BKDATE = ?, CON_OUT_NORMAL = ? WHERE CON_NO = ?";
 
-	private static final String GET_ALL_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd'), CON_TNT_SIGH, "
-			+ "to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd'), to_char(CON_DATE, 'yyyy-mm-dd'), to_char(CON_CHE_DATE, 'yyyy-mm-dd'), CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd'), "
-			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd'), CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
-			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd'), to_char(CON_DEP_BKDATE, 'yyyy-mm-dd'), CON_OUT_NORMAL, CON_STA "
+	private static final String GET_ALL_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_LLD_SIGNTIME, "
+			+ "CON_TNT_SIGN, to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_TNT_SIGNTIME, to_char(CON_DATE, 'yyyy-mm-dd hh:mm:ss')CON_DATE, to_char(CON_CHE_DATE, 'yyyy-mm-dd')CON_CHE_DATE, CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd')CON_CHKDATE, "
+			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd')CON_COMCHKDATE, CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
+			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd')CON_LASTB_PDATE, to_char(CON_DEP_BKDATE, 'yyyy-mm-dd')CON_DEP_BKDATE, CON_OUT_NORMAL, CON_STA "
 			+ "FROM CONTRACT ORDER BY CON_NO";
 
-	private static final String GET_ONE_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd'), CON_TNT_SIGH, "
-			+ "to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd'), to_char(CON_DATE, 'yyyy-mm-dd'), to_char(CON_CHE_DATE, 'yyyy-mm-dd'), CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd'), "
-			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd'), CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
-			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd'), to_char(CON_DEP_BKDATE, 'yyyy-mm-dd'), CON_OUT_NORMAL, CON_STA "
-			+ "FROM CONTRACT WHERE CON_NO";
+	private static final String GET_ONE_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_LLD_SIGNTIME, "
+			+ "CON_TNT_SIGN, to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_TNT_SIGNTIME, to_char(CON_DATE, 'yyyy-mm-dd hh:mm:ss')CON_DATE, to_char(CON_CHE_DATE, 'yyyy-mm-dd')CON_CHE_DATE, CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd')CON_CHKDATE, "
+			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd')CON_COMCHKDATE, CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
+			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd')CON_LASTB_PDATE, to_char(CON_DEP_BKDATE, 'yyyy-mm-dd')CON_DEP_BKDATE, CON_OUT_NORMAL, CON_STA "
+			+ "FROM CONTRACT WHERE CON_NO = ?";
 
-	private static final String UPDATE_CONTRACT_STMT = "UPDATE CONTRACT SET APL_NO = ?, TNT_NO = ?, HOS_NO = ?, CON_LLD_SIGN = ?, CON_LLD_SIGNTIME = ?, CON_TNT_SIGH = ?, "
-			+ "CON_TNT_SIGNTIME = ?, CON_OUT_NORMAL = ?, CON_DATE = ?, CON_CHE_DATE = ?,  CON_DEP_BKDATE = ?, CON_DEP_STA = ?, CON_BILL_PAID = ?, CON_LASTB_PDATE = ?, "
+	private static final String UPDATE_CONTRACT_STMT = "UPDATE CONTRACT SET APL_NO = ?, TNT_NO = ?, HOS_NO = ?, CON_LLD_SIGN = ?, CON_TNT_SIGH = ?, "
+			+ "CON_OUT_NORMAL = ?, CON_CHE_DATE = ?,  CON_DEP_BKDATE = ?, HOS_DEP = ?, CON_DEP_STA = ?, CON_BILL_PAID = ?, CON_LASTB_PDATE = ?, "
 			+ "CON_CHKDATE = ?, CON_COMCHKDATE = ?, CON_CHK_STA = ?, CON_CHR_FEE = ?, CON_CHR_ITM = ?, CON_IS_CHR = ?, CON_RENT_AGN = ?, "
 			+ "CON_STA = ? WHERE CON_NO = ?";
 
@@ -106,25 +106,23 @@ public class ConDAO implements ConDAO_interface {
 			pstmt.setString(2, conVO.getTnt_no());
 			pstmt.setString(3, conVO.getHos_no());
 			pstmt.setBytes(4, conVO.getCon_lld_sign());
-			pstmt.setTimestamp(5, conVO.getCon_lld_signtime());
-			pstmt.setBytes(6, conVO.getCon_tnt_sign());
-			pstmt.setTimestamp(7, conVO.getCon_tnt_signtime());
-			pstmt.setInt(8, conVO.getCon_out_normal());
-			pstmt.setTimestamp(9, conVO.getCon_date());
-			pstmt.setDate(10, conVO.getCon_che_date());
-			pstmt.setDate(11, conVO.getCon_dep_bkdate());
-			pstmt.setInt(12, conVO.getCon_dep_sta());
-			pstmt.setInt(13, conVO.getCon_bill_paid());
-			pstmt.setDate(14, conVO.getCon_lastb_pdate());
-			pstmt.setDate(15, conVO.getCon_chkdate());
-			pstmt.setInt(16, conVO.getCon_comchkdate());
-			pstmt.setInt(17, conVO.getCon_chk_sta());
-			pstmt.setInt(18, conVO.getCon_chr_fee());
-			pstmt.setString(19, conVO.getCon_chr_itm());
-			pstmt.setInt(20, conVO.getCon_is_chr());
-			pstmt.setInt(21, conVO.getCon_rent_agn());
-			pstmt.setInt(22, conVO.getCon_sta());
-			pstmt.setString(23, conVO.getCon_no());
+			pstmt.setBytes(5, conVO.getCon_tnt_sign());
+			pstmt.setInt(6, conVO.getCon_out_normal());
+			pstmt.setDate(7, conVO.getCon_che_date());
+			pstmt.setDate(8, conVO.getCon_dep_bkdate());
+			pstmt.setInt(9, conVO.getHos_dep());
+			pstmt.setInt(10, conVO.getCon_dep_sta());
+			pstmt.setInt(11, conVO.getCon_bill_paid());
+			pstmt.setDate(12, conVO.getCon_lastb_pdate());
+			pstmt.setDate(13, conVO.getCon_chkdate());
+			pstmt.setInt(14, conVO.getCon_comchkdate());
+			pstmt.setInt(15, conVO.getCon_chk_sta());
+			pstmt.setInt(16, conVO.getCon_chr_fee());
+			pstmt.setString(17, conVO.getCon_chr_itm());
+			pstmt.setInt(18, conVO.getCon_is_chr());
+			pstmt.setInt(19, conVO.getCon_rent_agn());
+			pstmt.setInt(20, conVO.getCon_sta());
+			pstmt.setString(21, conVO.getCon_no());
 
 			pstmt.executeUpdate();
 
