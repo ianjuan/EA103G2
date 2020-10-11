@@ -25,7 +25,7 @@
 	
 	<!-- From Terry -->
 	<servlet-mapping>
-       <servlet-name>resource</servlet-name>
+       <servlet-name>default</servlet-name>
        <url-pattern>/resource/*</url-pattern>
    </servlet-mapping>
 
