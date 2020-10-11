@@ -1,0 +1,52 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "ci": "npm run lint && npm run test",
+    "docs": "rm -rf docs/ && typedoc .",
+    "format": "sort-package-json && prettier *.json *.js --write && lerna run format",
+    "lint": "lerna run lint",
+    "prepare": "lerna run prepare",
+    "test": "lerna run test"
+  },
+  "dependencies": {
+    "@google/markerclusterer": "file:packages/markerclusterer",
+    "@google/markerclustererplus": "file:packages/markerclustererplus",
+    "@google/markerwithlabel": "file:packages/markerwithlabel",
+    "@googlemaps/jest-mocks": "file:packages/jest-mocks",
+    "@googlemaps/loader": "file:packages/loader",
+    "@googlemaps/markermanager": "file:packages/markermanager",
+    "@googlemaps/ogc": "file:packages/ogc"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.7.6",
+    "@babel/runtime-corejs3": "^7.8.7",
+    "@types/googlemaps": "^3.38.1",
+    "@types/jest": "^24.0.19",
+    "@typescript-eslint/eslint-plugin": "^2.4.0",
+    "@typescript-eslint/parser": "^2.0.0",
+    "codecov": ">=3.6.5",
+    "core-js": "^3.6.4",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-jest": "^22.19.0",
+    "eslint-plugin-license-header": "^0.2.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^25.1.0",
+    "lerna": "^3.16.4",
+    "prettier": "^1.18.2",
+    "query-string": "^6.8.3",
+    "rollup": "^1.24.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.1.3",
+    "rollup-plugin-typescript2": "^0.24.3",
+    "sort-package-json": "^1.22.1",
+    "ts-jest": "^24.1.0",
+    "typedoc": "^0.15.0",
+    "typedoc-plugin-lerna-packages": "^0.2.1",
+    "typescript": "^3.7.2"
+  }
+}

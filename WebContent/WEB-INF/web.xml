@@ -3,11 +3,10 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
 	http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-	id="WebApp_ID" 
-	version="4.0">
+	id="WebApp_ID" version="4.0">
 
 	<display-name>EA103G2</display-name>
-	
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -24,6 +23,12 @@
 		<res-auth>Container</res-auth>
 	</resource-ref>
 	
+	<!-- From Terry -->
+	<servlet-mapping>
+       <servlet-name>resource</servlet-name>
+       <url-pattern>/resource/*</url-pattern>
+   </servlet-mapping>
+
 	<servlet>
 		<servlet-name>Con_aplServlet</servlet-name>
 		<servlet-class>com.apl.controller.Con_aplServlet</servlet-class>
@@ -32,7 +37,7 @@
 		<servlet-name>Con_aplServlet</servlet-name>
 		<url-pattern>/apl/Con_aplServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>HouseServlet</servlet-name>
 		<servlet-class>com.housemanage.controller.HouseServlet</servlet-class>
@@ -40,6 +45,53 @@
 	<servlet-mapping>
 		<servlet-name>HouseServlet</servlet-name>
 		<url-pattern>/house_manage/house.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>bookingServlet</servlet-name>
+		<servlet-class>com.booking.controller.bookingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>bookingServlet</servlet-name>
+		<url-pattern>/booking/bookingServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>collectionServlet</servlet-name>
+		<servlet-class>com.collection.controller.collectionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>collectionServlet</servlet-name>
+		<url-pattern>/collection/collectionServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GMapServlet</servlet-name>
+		<servlet-class>com.houserch.controller.GMapServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GMapServlet</servlet-name>
+		<url-pattern>/Housearch/GMapServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>SelectpageServlet</servlet-name>
+		<servlet-class>com.houserch.controller.SelectpageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SelectpageServlet</servlet-name>
+		<url-pattern>/Housearch/SelectpageServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>HouseDetServlet</servlet-name>
+		<servlet-class>com.housedet.controller.HouseDetServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HouseDetServlet</servlet-name>
+		<url-pattern>/HouseDet/HouseDetServlet</url-pattern>
 	</servlet-mapping>
 
 </web-app>
