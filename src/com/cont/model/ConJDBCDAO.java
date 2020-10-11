@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.apl.model.Con_aplVO;
+
 public class ConJDBCDAO implements ConDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -24,17 +26,17 @@ public class ConJDBCDAO implements ConDAO_interface {
 
 	private static final String CHECKOUT_UPDATE_STMT = "UPDATE CONTRACT SET CON_RENT_AGN = ?, CON_BILL_PAID = ?, CON_LASTB_PDATE = ?, CON_DEP_BKDATE = ?, CON_OUT_NORMAL = ? WHERE CON_NO = ?";
 
-	private static final String GET_ALL_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd'), CON_TNT_SIGH, "
-			+ "to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd'), to_char(CON_DATE, 'yyyy-mm-dd'), to_char(CON_CHE_DATE, 'yyyy-mm-dd'), CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd'), "
-			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd'), CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
-			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd'), to_char(CON_DEP_BKDATE, 'yyyy-mm-dd'), CON_OUT_NORMAL, CON_STA "
+	private static final String GET_ALL_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_LLD_SIGNTIME, "
+			+ "CON_TNT_SIGN, to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_TNT_SIGNTIME, to_char(CON_DATE, 'yyyy-mm-dd hh:mm:ss')CON_DATE, to_char(CON_CHE_DATE, 'yyyy-mm-dd')CON_CHE_DATE, CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd')CON_CHKDATE, "
+			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd')CON_COMCHKDATE, CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
+			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd')CON_LASTB_PDATE, to_char(CON_DEP_BKDATE, 'yyyy-mm-dd')CON_DEP_BKDATE, CON_OUT_NORMAL, CON_STA "
 			+ "FROM CONTRACT ORDER BY CON_NO";
 
-	private static final String GET_ONE_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd'), CON_TNT_SIGH, "
-			+ "to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd'), to_char(CON_DATE, 'yyyy-mm-dd'), to_char(CON_CHE_DATE, 'yyyy-mm-dd'), CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd'), "
-			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd'), CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
-			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd'), to_char(CON_DEP_BKDATE, 'yyyy-mm-dd'), CON_OUT_NORMAL, CON_STA "
-			+ "FROM CONTRACT WHERE CON_NO";
+	private static final String GET_ONE_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_LLD_SIGNTIME, "
+			+ "CON_TNT_SIGN, to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_TNT_SIGNTIME, to_char(CON_DATE, 'yyyy-mm-dd hh:mm:ss')CON_DATE, to_char(CON_CHE_DATE, 'yyyy-mm-dd')CON_CHE_DATE, CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd')CON_CHKDATE, "
+			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd')CON_COMCHKDATE, CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
+			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd')CON_LASTB_PDATE, to_char(CON_DEP_BKDATE, 'yyyy-mm-dd')CON_DEP_BKDATE, CON_OUT_NORMAL, CON_STA "
+			+ "FROM CONTRACT WHERE CON_NO = ?";
 
 	private static final String UPDATE_CONTRACT_STMT = "UPDATE CONTRACT SET APL_NO = ?, TNT_NO = ?, HOS_NO = ?, CON_LLD_SIGN = ?, CON_LLD_SIGNTIME = ?, CON_TNT_SIGH = ?, "
 			+ "CON_TNT_SIGNTIME = ?, CON_OUT_NORMAL = ?, CON_DATE = ?, CON_CHE_DATE = ?,  CON_DEP_BKDATE = ?, CON_DEP_STA = ?, CON_BILL_PAID = ?, CON_LASTB_PDATE = ?, "
@@ -365,7 +367,9 @@ public class ConJDBCDAO implements ConDAO_interface {
 
 	@Override
 	public ConVO findByPrimaryKey(String con_no) {
+
 		ConVO conVO = null;
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -381,6 +385,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+
 				conVO = new ConVO();
 
 				conVO.setCon_no(rs.getString("CON_NO"));
@@ -442,6 +447,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 
 	@Override
 	public List<ConVO> getAll() {
+		
 		List<ConVO> list = new ArrayList<ConVO>();
 		ConVO conVO = null;
 
@@ -528,39 +534,37 @@ public class ConJDBCDAO implements ConDAO_interface {
 //		conVO1.setCon_che_date(java.sql.Date.valueOf("2020-10-02"));
 //		dao.beforerentinsert(conVO1);
 //		System.out.println("Insert successfully");
-		
-		// Update
-		ConVO conVO2 = new ConVO();
-		
-		
-//		conVO2.setCon_no("CON000002");
-		conVO2.setApl_no("APL000001");
-		conVO2.setTnt_no("TNT000001");
-		conVO2.setHos_no("HOS000001");
-		conVO2.setCon_dep_sta(1);
-		conVO2.setCon_che_date(java.sql.Date.valueOf("2020-10-02"));
-		
-		conVO2.setHos_dep(32970);
-		conVO2.setCon_dep_sta(1);
-		conVO2.setCon_chkdate(java.sql.Date.valueOf("2020-10-02"));
-		conVO2.setCon_comchkdate(1);
-//		conVO2.setCon_no("CON000002");
-		
 
-		conVO2.setHos_dep(32970);
-		conVO2.setCon_dep_sta(2);
-		conVO2.setCon_chk_sta(2);
-		conVO2.setCon_chr_fee(32789);
-		conVO2.setCon_chr_itm("hiwoehiof");
-		conVO2.setCon_is_chr(8);
-		conVO2.setCon_no("CON000003");
-		
-		conVO2.setCon_rent_agn(1);
-		conVO2.setCon_bill_paid(2);
-		conVO2.setCon_dep_bkdate(java.sql.Date.valueOf("2020-10-02"));
-		conVO2.setCon_lastb_pdate(java.sql.Date.valueOf("2020-10-02"));
-		conVO2.setCon_out_normal(2);
-		
+		// Update
+//		ConVO conVO2 = new ConVO();
+
+//		conVO2.setCon_no("CON000002");
+//		conVO2.setApl_no("APL000001");
+//		conVO2.setTnt_no("TNT000001");
+//		conVO2.setHos_no("HOS000001");
+//		conVO2.setCon_dep_sta(1);
+//		conVO2.setCon_che_date(java.sql.Date.valueOf("2020-10-02"));
+//		
+//		conVO2.setHos_dep(32970);
+//		conVO2.setCon_dep_sta(1);
+//		conVO2.setCon_chkdate(java.sql.Date.valueOf("2020-10-02"));
+//		conVO2.setCon_comchkdate(1);
+//		conVO2.setCon_no("CON000002");
+
+//		conVO2.setHos_dep(32970);
+//		conVO2.setCon_dep_sta(2);
+//		conVO2.setCon_chk_sta(2);
+//		conVO2.setCon_chr_fee(32789);
+//		conVO2.setCon_chr_itm("hiwoehiof");
+//		conVO2.setCon_is_chr(8);
+//		conVO2.setCon_no("CON000003");
+//		
+//		conVO2.setCon_rent_agn(1);
+//		conVO2.setCon_bill_paid(2);
+//		conVO2.setCon_dep_bkdate(java.sql.Date.valueOf("2020-10-02"));
+//		conVO2.setCon_lastb_pdate(java.sql.Date.valueOf("2020-10-02"));
+//		conVO2.setCon_out_normal(2);
+
 		// conVO2.setCon_lld_sign();
 		// conVO2.setCon_lld_signtime();
 		// conVO2.setCon_tnt_sign();
@@ -580,15 +584,63 @@ public class ConJDBCDAO implements ConDAO_interface {
 //		conVO2.setCon_is_chr(1);
 //		conVO2.setCon_rent_agn(0);
 //		conVO2.setCon_sta(3);
-		dao.checkoutupdate(conVO2);
-		System.out.println("Update successfully");
+//		dao.checkoutupdate(conVO2);
+//		System.out.println("Update successfully");
 
 //		//Delete
 //		dao.delete("CON000004");
 //		System.out.println("Delete successfully");
 
-//		//Search
-//		ConVO conVO3 = dao.findByPrimaryKey("CON000001");
+		// Search
+//		ConVO conVO3 = dao.findByPrimaryKey("CON000002");
 //		System.out.println(conVO3.getHos_no());
+//		System.out.println(conVO3.getApl_no());
+//		System.out.println(conVO3.getCon_chr_itm());
+//		System.out.println(conVO3.getCon_no());
+//		System.out.println(conVO3.getTnt_no());
+//		System.out.println(conVO3.getCon_bill_paid());
+//		System.out.println(conVO3.getCon_che_date());
+//		System.out.println(conVO3.getCon_chk_sta());
+//		System.out.println(conVO3.getCon_chkdate());
+//		System.out.println(conVO3.getCon_chr_fee());
+//		System.out.println(conVO3.getCon_comchkdate());
+//		System.out.println(conVO3.getCon_date());
+//		System.out.println(conVO3.getCon_dep_bkdate());
+//		System.out.println(conVO3.getCon_dep_sta());
+//		System.out.println(conVO3.getCon_is_chr());
+//		System.out.println(conVO3.getHos_dep());
+//		System.out.println(conVO3.getCon_tnt_signtime());
+//		System.out.println(conVO3.getCon_tnt_sign());
+//		System.out.println(conVO3.getCon_sta());
+//		System.out.println(conVO3.getCon_rent_agn());
+//		System.out.println(conVO3.getCon_out_normal());
+//		System.out.println(conVO3.getCon_lld_signtime());
+
+		List<ConVO> list = dao.getAll();
+		for (ConVO aCon : list) {
+			System.out.print(aCon.getHos_no());
+			System.out.print(aCon.getApl_no());
+			System.out.print(aCon.getCon_chr_itm());
+			System.out.print(aCon.getCon_no());
+			System.out.print(aCon.getTnt_no());
+			System.out.print(aCon.getCon_bill_paid());
+			System.out.print(aCon.getCon_che_date());
+			System.out.print(aCon.getCon_chk_sta());
+			System.out.print(aCon.getCon_chkdate());
+			System.out.print(aCon.getCon_chr_fee());
+			System.out.print(aCon.getCon_comchkdate());
+			System.out.print(aCon.getCon_date());
+			System.out.print(aCon.getCon_dep_bkdate());
+			System.out.print(aCon.getCon_dep_sta());
+			System.out.print(aCon.getCon_is_chr());
+			System.out.print(aCon.getHos_dep());
+			System.out.print(aCon.getCon_tnt_signtime());
+			System.out.print(aCon.getCon_tnt_sign());
+			System.out.print(aCon.getCon_sta());
+			System.out.print(aCon.getCon_rent_agn());
+			System.out.print(aCon.getCon_out_normal());
+			System.out.println(aCon.getCon_lld_signtime());
+			System.out.println("---------------------");
+		}
 	}
 }

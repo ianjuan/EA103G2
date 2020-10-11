@@ -381,6 +381,7 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 	
 	@Override
 	public List<Con_aplVO> lldgetAll(String lld_no) {
+		
 		List<Con_aplVO> list = new ArrayList<Con_aplVO>();
 		Con_aplVO con_aplVO = null;
 
@@ -488,30 +489,30 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 //		System.out.println("---------------------");
 		
 ////		//SEARCH
-////		List<Con_aplVO> list = dao.getAll();
-////		for (Con_aplVO aApl : list) {
-////			System.out.print(aApl.getApl_no()+ ",");
-////			System.out.print(aApl.getTnt_no()+ ",");
-////			System.out.print(aApl.getHos_no()+ ",");
-////			System.out.print(aApl.getApl_str()+ ",");
-////			System.out.print(aApl.getApl_end()+ ",");
-////			System.out.print(aApl.getApl_time()+ ",");
-////			System.out.print(aApl.getApl_status());
-////			System.out.println("---------------------");
-////		}
+		List<Con_aplVO> list = dao.getAll();
+		for (Con_aplVO aApl : list) {
+			System.out.print(aApl.getApl_no()+ ",");
+			System.out.print(aApl.getTnt_no()+ ",");
+			System.out.print(aApl.getHos_no()+ ",");
+			System.out.print(aApl.getApl_str()+ ",");
+			System.out.print(aApl.getApl_end()+ ",");
+			System.out.print(aApl.getApl_time()+ ",");
+			System.out.println(aApl.getApl_status());
+			System.out.println("---------------------");
+		}
 		
 		//SEARCH
-	List<Con_aplVO> list = dao.lldgetAll("LLD000994");
-	for (Con_aplVO aApl : list) {
-		System.out.print(aApl.getApl_no()+ ",");
-		System.out.print(aApl.getTnt_no()+ ",");
-		System.out.print(aApl.getHos_no()+ ",");
-		System.out.print(aApl.getApl_str()+ ",");
-		System.out.print(aApl.getApl_end()+ ",");
-		System.out.print(aApl.getApl_time()+ ",");
-		System.out.println(aApl.getApl_status());
-		System.out.println("---------------------");
-	}
+//	List<Con_aplVO> list = dao.lldgetAll("LLD000994");
+//	for (Con_aplVO aApl : list) {
+//		System.out.print(aApl.getApl_no()+ ",");
+//		System.out.print(aApl.getTnt_no()+ ",");
+//		System.out.print(aApl.getHos_no()+ ",");
+//		System.out.print(aApl.getApl_str()+ ",");
+//		System.out.print(aApl.getApl_end()+ ",");
+//		System.out.print(aApl.getApl_time()+ ",");
+//		System.out.println(aApl.getApl_status());
+//		System.out.println("---------------------");
+//	}
 	
 	}
 }
