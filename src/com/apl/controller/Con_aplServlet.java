@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.apl.model.Con_aplDAO;
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
+import com.cont.model.ConService;
 import com.housemanage.model.HouseService;
 import com.lld.model.LldService;
 import com.lld.model.LldVO;
@@ -398,7 +399,14 @@ public class Con_aplServlet extends HttpServlet {
 				con_aplService.lldUpdateCon_apl(apl_no, apl_status);
 				List<Con_aplVO> list = con_aplService.lldgetAll(lldno);
 
-				// Send the use back to the form, if there were errors
+				if (apl_status == 1) {
+					Con_aplVO con_aplVO = new Con_aplVO();
+					String tnt_no = con_aplVO.getTnt_no();
+					String hos_no = con_aplVO.getHos_no();
+					
+					ConService conService = new ConService();
+					conService.addbeforerent(apl_no, tnt_no, hos_no);
+				}
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("con_aplSvc", con_aplService);
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/lldaplpage.jsp");
