@@ -13,9 +13,6 @@ import com.apl.model.Con_aplDAO;
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
 import com.cont.model.ConService;
-import com.housemanage.model.HouseService;
-import com.lld.model.LldService;
-import com.lld.model.LldVO;
 
 public class Con_aplServlet extends HttpServlet {
 
