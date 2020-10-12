@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class TntVO implements java.io.Serializable {
 
 	// -------profile-------
+	public String test;
 	private String tnt_no;
 	private String tnt_email;
 	private String tnt_acc;
