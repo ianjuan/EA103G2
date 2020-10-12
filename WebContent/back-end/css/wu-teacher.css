@@ -1,0 +1,33 @@
+
+table#table-1 {
+/* 	background-color: #CCCCFF; */
+	text-align: center;
+	border-radius: 30px;
+	border: 0px;
+}
+
+table#table-1 h4 {
+	color: red;
+	display: block;
+	margin-bottom: 1px;
+}
+
+h4 {
+	color: blue;
+	display: inline;
+}
+table {
+	width: 100%;
+	background-color: white;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	
+}
+
+th, td {
+	padding: 5px;
+	text-align: center;
+	border-radius: 30px;
+}
+
+
