@@ -1,6 +1,7 @@
 package com.cont.controller;
 
 import java.io.IOException;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,17 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.apl.model.Con_aplDAO;
-import com.apl.model.Con_aplService;
-import com.apl.model.Con_aplVO;
 import com.cont.model.ConDAO;
 import com.cont.model.ConService;
 import com.cont.model.ConVO;
-import com.housemanage.model.HouseService;
-import com.housemanage.model.HouseVO;
-import com.lld.model.LldService;
-import com.lld.model.LldVO;
 
 public class ConServlet extends HttpServlet {
 
@@ -46,23 +39,37 @@ public class ConServlet extends HttpServlet {
 			successView.forward(req, res);
 			return;
 		}
-		
-		if ("getlldcontract".equals(action)) {
-			String lld_no = new String(req.getParameter("lld_no"));
 
-			HouseService houseSvc = new HouseService();
-			HouseVO houseVOlld = houseSvc.getHouseLld(lld_no);
-			String lldno = houseVOlld.getLld_no();
-			
-			LldService lldSvc = new LldService();
-		    LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
-			
-			req.setAttribute("lldno", lldno);
-			req.setAttribute("lldVO", lldVO);
-			req.setAttribute("houseVOlld", houseVOlld);
-			String url = "/front-end/contract/lldlistcontract.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+		if ("getlldcontract".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String lld_no = new String(req.getParameter("lld_no"));
+
+				String lldno = null;
+				try {
+					lldno = new String(lld_no);
+				} catch (Exception e) {
+					errorMsgs.add("房東編號格式不正確");
+				}
+
+				System.out.println(lld_no + 1);
+				ConService conService = new ConService();
+				List<ConVO> list = conService.lldgetcon(lld_no);
+
+				req.setAttribute("lldno", lld_no);
+				req.setAttribute("list", list);
+				String url = "/front-end/contract/lldlistcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
 		}
 
 		if ("getOne_For_Display".equals(action)) {

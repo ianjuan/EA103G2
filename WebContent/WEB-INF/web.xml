@@ -37,6 +37,15 @@
 		<servlet-name>Con_aplServlet</servlet-name>
 		<url-pattern>/apl/Con_aplServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ConServlet</servlet-name>
+		<servlet-class>com.cont.controller.ConServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConServlet</servlet-name>
+		<url-pattern>/cont/ConServlet</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>HouseServlet</servlet-name>

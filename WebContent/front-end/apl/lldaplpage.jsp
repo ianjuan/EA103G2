@@ -17,7 +17,7 @@
 		HouseService houseSvc = new HouseService();
 		list = houseSvc.getLldRentHouse(lldno);
 	}
-	pageContext.setAttribute("list", list);	
+// 	pageContext.setAttribute("list", list);	
 
    List<Con_aplVO> listapl = (List<Con_aplVO>)session.getAttribute("list");
    pageContext.setAttribute("listapl",listapl);
@@ -100,7 +100,7 @@
 						<button type="submit" class="link" style="color: #D37707;">租屋申請</button><br>
 						<span id="count">共<%=listapl.size()%>個申請</span>
 					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/ConServlet">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lldno%>">
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link">合約管理</button><br>

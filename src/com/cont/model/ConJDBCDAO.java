@@ -446,8 +446,9 @@ public class ConJDBCDAO implements ConDAO_interface {
 	}
 	
 	@Override
-	public ConVO getconlld(String lld_no) {
+	public List<ConVO> getconlld(String lld_no) {
 
+		List<ConVO> list = new ArrayList<ConVO>();
 		ConVO conVO = null;
 
 		Connection con = null;
@@ -459,9 +460,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(GET_CON_LLD);
-
 			pstmt.setString(1, lld_no);
-
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -469,7 +468,8 @@ public class ConJDBCDAO implements ConDAO_interface {
 				conVO = new ConVO();
 
 				conVO.setCon_no(rs.getString("CON_NO"));
-
+				list.add(conVO);
+				
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -500,7 +500,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 				}
 			}
 		}
-		return conVO;
+		return list;
 	}
 
 	@Override
@@ -676,7 +676,10 @@ public class ConJDBCDAO implements ConDAO_interface {
 //			System.out.println("---------------------");
 //		}
 		
-//		ConVO conVO3 = dao.getconlld("LLD000128");
-//		System.out.println(conVO3.getCon_no());
+		List<ConVO> list = dao.getconlld("LLD000128");
+		for (ConVO aaaVo : list) {
+			System.out.println(aaaVo.getCon_no());
+		}
+		
 	}
 }

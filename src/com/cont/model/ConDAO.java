@@ -52,7 +52,7 @@ public class ConDAO implements ConDAO_interface {
 			+ "CON_STA = ? WHERE CON_NO = ?";
 
 	private static final String DELETE = "DELETE FROM CONTRACT WHERE CON_NO = ?";
-	
+
 	private static final String GET_CON_LLD = "SELECT CON_NO FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
 
 	@Override
@@ -128,7 +128,7 @@ public class ConDAO implements ConDAO_interface {
 
 			pstmt.executeUpdate();
 
-	// Handle any SQL errors
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -171,7 +171,7 @@ public class ConDAO implements ConDAO_interface {
 
 			pstmt.executeUpdate();
 
-		// Handle any SQL errors
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -211,7 +211,7 @@ public class ConDAO implements ConDAO_interface {
 
 			pstmt.executeUpdate();
 
-		// Handle any SQL errors
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -253,7 +253,7 @@ public class ConDAO implements ConDAO_interface {
 
 			pstmt.executeUpdate();
 
-		// Handle any SQL errors
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -294,7 +294,7 @@ public class ConDAO implements ConDAO_interface {
 
 			pstmt.executeUpdate();
 
-		// Handle any SQL errors
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -323,7 +323,8 @@ public class ConDAO implements ConDAO_interface {
 		PreparedStatement pstmt = null;
 		try {
 
-			con = ds.getConnection();pstmt = con.prepareStatement(DELETE);
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setString(1, con_no);
 
@@ -395,61 +396,6 @@ public class ConDAO implements ConDAO_interface {
 				conVO.setCon_sta(rs.getInt("CON_STA"));
 
 			}
-		// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return conVO;
-	}
-	
-	@Override
-	public ConVO getconlld(String lld_no) {
-
-		ConVO conVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_CON_LLD);
-
-			pstmt.setString(1, lld_no);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-
-				conVO = new ConVO();
-
-				conVO.setCon_no(rs.getString("CON_NO"));
-
-			}
-
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -481,6 +427,63 @@ public class ConDAO implements ConDAO_interface {
 	}
 
 	@Override
+	public List<ConVO> getconlld(String lld_no) {
+
+		List<ConVO> list = new ArrayList<ConVO>();
+
+		ConVO conVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_CON_LLD);
+
+			pstmt.setString(1, lld_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				conVO = new ConVO();
+
+				conVO.setCon_no(rs.getString("CON_NO"));
+				list.add(conVO);
+
+			}
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
 	public List<ConVO> getAll() {
 		List<ConVO> list = new ArrayList<ConVO>();
 		ConVO conVO = null;
@@ -490,7 +493,7 @@ public class ConDAO implements ConDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			
+
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();

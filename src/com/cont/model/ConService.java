@@ -131,6 +131,10 @@ public class ConService {
 	public List<ConVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<ConVO> lldgetcon(String lld_no){
+		return dao.getconlld(lld_no);
+	}
 
 	public ConStatus[] getConStatusAll() {
 		return ConStatus.values();

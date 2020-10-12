@@ -20,6 +20,9 @@
 		list = houseSvc.getLldRentHouse(lldno);
 	}
 	
+	List<ConVO> listcon = (List<ConVO>)request.getAttribute("list");
+	   pageContext.setAttribute("listcon",listcon);
+	
 	LldVO lldVO = (LldVO) request.getAttribute("lldVO");
 	HouseVO houseVOlld = (HouseVO) request.getAttribute("houseVOlld");
 	pageContext.setAttribute("lldVO", lldVO);
@@ -119,7 +122,7 @@
 		</div>
 		<div id="center">
 			<%@ include file="page1.file"%>
-			<c:forEach var="con_aplVO" items="${listapl}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="conVO" items="${listcon}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<img
@@ -128,13 +131,13 @@
 					</div>
 					<div class="cinfo">
 						<ul>
-							<li><span class="infotitle">合約申請編號 : </span><span>${conVO.con_no}</span></li>
-							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(con_aplVO.hos_no).hos_name}</span></li>
-							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(con_aplVO.tnt_no).tnt_name}</span></li>
+							<li><span class="infotitle">合約編號 : </span><span>${conVO.con_no}</span></li>
+<%-- 							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(conVO.hos_no).hos_name}</span></li> --%>
+<%-- 							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(conVO.tnt_no).tnt_name}</span></li> --%>
 <%-- 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li> --%>
 <%-- 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li> --%>
 <%-- 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li> --%>
-							<li><span class="infotitle">合約狀態 : </span><span>${conSvc.getConstatusText(conVO.getcon_status())}</span></li>
+<%-- 							<li><span class="infotitle">合約狀態 : </span><span>${conSvc.getConstatusText(conVO.getcon_status())}</span></li> --%>
 						</ul>
 					</div>					
 						<div class="rinfo">
