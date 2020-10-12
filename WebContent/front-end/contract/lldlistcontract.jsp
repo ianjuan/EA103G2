@@ -106,14 +106,13 @@
 						<input type="hidden" name="lld_no" value="<%=lldno%>">
 						<input type="hidden" name="action" value="getLldRentHouse">
 						<button type="submit" class="link">租屋申請</button><br>
-						<span id="count">共<%=listapl.size()%>個申請</span>
 					</FORM>
 					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lldno%>">
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
-						<span id="count">共<%=listapl.size()%>個合約</span>
+<%-- 						<span id="count">共<%=listapl.size()%>個合約</span> --%>
 					</FORM>
 				</div>
 			</nav>

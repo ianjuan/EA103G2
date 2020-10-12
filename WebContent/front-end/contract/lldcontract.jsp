@@ -112,7 +112,7 @@
 							<tr>
 								<th>房東姓名:</th>
 								<td>
-									<input type="text" class="text1" name="hos_name" value="<%=(lldSvc.getOneLldProfile(conVO.gethos)==null) ? "" : houseVO.getHos_name()%>">
+<%-- 									<input type="text" class="text1" name="hos_name" value="<%=(houseVO.getHos_add()) ? "" : houseVO.getHos_name()%>"> --%>
 								</td>
 							</tr>
 							<tr>
