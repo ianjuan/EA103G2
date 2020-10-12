@@ -14,7 +14,7 @@ public class TntService {
 
 	public TntVO addTnt(String tnt_email, String tnt_acc, String tnt_pwd, String tnt_id, String tnt_name,
 			Date tnt_birth, Boolean tnt_sex, String tnt_mobile, String tnt_city, String tnt_dist, String tnt_add, byte[] tnt_pic) {
-
+		//
 		TntVO tntVO = new TntVO();
 //		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_email(tnt_email);
@@ -29,6 +29,17 @@ public class TntService {
 		tntVO.setTnt_dist(tnt_dist);
 		tntVO.setTnt_add(tnt_add);
 		tntVO.setTnt_pic(tnt_pic);
+		dao.insert_profile(tntVO);
+
+		return tntVO;
+	}
+	public TntVO addTnt2(String tnt_email) {
+		System.out.println(tnt_email + 1);
+		//, byte[] tnt_pic
+		TntVO tntVO = new TntVO();
+//		tntVO.setTnt_no(tnt_no);
+		tntVO.setTnt_email(tnt_email);
+		System.out.println(tnt_email + 2);
 		dao.insert_profile(tntVO);
 
 		return tntVO;

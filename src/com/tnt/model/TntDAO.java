@@ -23,6 +23,8 @@ public class TntDAO implements TenantDAO_interface {
 	// =================================1.profile==================================
 	private static final String INSERT_PROFILE_STMT = "INSERT INTO TENANT (TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC)"
 			+ "VALUES ('TNT' || lpad(SEQ_TNT_NO.NEXTVAL, 5, '0'),?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_PROFILE_STMT2 = "INSERT INTO TENANT (TNT_NO, TNT_EMAIL)"
+			+ "VALUES ('TNT' || lpad(SEQ_TNT_NO.NEXTVAL, 5, '0'),?)";
 	private static final String UPDATE_PROFILE_STMT = "UPDATE TENANT set TNT_EMAIL=?, TNT_ACC=?, TNT_PWD=?, TNT_ID=?, TNT_NAME=?, TNT_BIRTH=?, TNT_SEX=?, TNT_MOBILE=?, TNT_CITY=?, TNT_DIST=?, TNT_ADD=?, TNT_PIC=?, TNT_STATUS=? where TNT_NO = ?";
 	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT where TNT_NO = ?";
 	private static final String GET_ALL_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT order by TNT_NO";
@@ -36,20 +38,9 @@ public class TntDAO implements TenantDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_PROFILE_STMT);
+			pstmt = con.prepareStatement(INSERT_PROFILE_STMT2);
 
 			pstmt.setString(1, tntVO.getTnt_email());
-			pstmt.setString(2, tntVO.getTnt_acc());
-			pstmt.setString(3, tntVO.getTnt_pwd());
-			pstmt.setString(4, tntVO.getTnt_id());
-			pstmt.setString(5, tntVO.getTnt_name());
-			pstmt.setDate(6, tntVO.getTnt_birth());
-			pstmt.setBoolean(7, tntVO.getTnt_sex());
-			pstmt.setString(8, tntVO.getTnt_mobile());
-			pstmt.setString(9, tntVO.getTnt_city());
-			pstmt.setString(10, tntVO.getTnt_dist());
-			pstmt.setString(11, tntVO.getTnt_add());
-			pstmt.setBytes(12, tntVO.getTnt_pic());
 
 			pstmt.executeUpdate();
 
