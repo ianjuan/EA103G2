@@ -398,8 +398,11 @@ public class Con_aplServlet extends HttpServlet {
 
 				if (apl_status == 1) {
 					Con_aplVO con_aplVO = new Con_aplVO();
+					con_aplVO = con_aplService.getOneCon_apl(apl_no);
 					String tnt_no = con_aplVO.getTnt_no();
 					String hos_no = con_aplVO.getHos_no();
+					System.out.println(tnt_no);
+					System.out.println(hos_no);
 					
 					ConService conService = new ConService();
 					conService.addbeforerent(apl_no, tnt_no, hos_no);

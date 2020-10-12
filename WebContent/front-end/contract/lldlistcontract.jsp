@@ -1,3 +1,4 @@
+<%@page import="com.lld.model.LldVO"%>
 <%@page import="com.tnt.model.TntService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,6 +6,7 @@
 <%@ page import="com.housemanage.model.*"%>
 <%@ page import="com.apl.model.*"%>
 <%@ page import="com.tnt.model.*"%>
+<%@ page import="com.cont.model.*"%>
 
 <%
 	String lldno = (String) request.getAttribute("lldno");
@@ -17,10 +19,12 @@
 		HouseService houseSvc = new HouseService();
 		list = houseSvc.getLldRentHouse(lldno);
 	}
-	pageContext.setAttribute("list", list);	
+	
+	LldVO lldVO = (LldVO) request.getAttribute("lldVO");
+	HouseVO houseVOlld = (HouseVO) request.getAttribute("houseVOlld");
+	pageContext.setAttribute("lldVO", lldVO);
+	pageContext.setAttribute("houseVOlld", houseVOlld);
 
-   List<Con_aplVO> listapl = (List<Con_aplVO>)session.getAttribute("list");
-   pageContext.setAttribute("listapl",listapl);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -83,29 +87,34 @@
 						<input type="hidden" name="action" value="getLldUnRentHouse">
 						<button type="submit" class="link">待租房屋</button>
 					</FORM>
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
 						<input type="hidden" name="lld_no" value="<%=lldno%>">
 						<input type="hidden" name="action" value="getLldRentHouse">
 						<button type="submit" class="link">已租房屋</button><br>
 					</FORM>
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
 						<input type="hidden" name="lld_no" value="<%=lldno%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">上架房屋</button>
 					</FORM>
+					
 					<button type="submit" class="link">預約管理</button>
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lldno%>">
 						<input type="hidden" name="action" value="getLldRentHouse">
-						<button type="submit" class="link" style="color: #D37707;">租屋申請</button><br>
+						<button type="submit" class="link">租屋申請</button><br>
 						<span id="count">共<%=listapl.size()%>個申請</span>
 					</FORM>
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lldno%>">
 						<input type="hidden" name="action" value="getlldcontract">
-						<button type="submit" class="link">合約管理</button><br>
+						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
+						<span id="count">共<%=listapl.size()%>個合約</span>
 					</FORM>
-					
 				</div>
 			</nav>
 		</div>
@@ -120,13 +129,13 @@
 					</div>
 					<div class="cinfo">
 						<ul>
-<%-- 							<li><span class="infotitle">租屋申請編號 : </span><span>${con_aplVO.apl_no}</span></li> --%>
+							<li><span class="infotitle">合約申請編號 : </span><span>${conVO.con_no}</span></li>
 							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(con_aplVO.hos_no).hos_name}</span></li>
 							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(con_aplVO.tnt_no).tnt_name}</span></li>
-							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li>
-							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li>
-							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li>
-							<li><span class="infotitle">申請狀態 : </span><span>${aplSvc.getCon_statusText(con_aplVO.getApl_status())}</span></li>
+<%-- 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li> --%>
+<%-- 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li> --%>
+<%-- 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li> --%>
+							<li><span class="infotitle">合約狀態 : </span><span>${conSvc.getConstatusText(conVO.getcon_status())}</span></li>
 						</ul>
 					</div>					
 						<div class="rinfo">

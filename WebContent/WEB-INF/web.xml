@@ -24,10 +24,10 @@
 	</resource-ref>
 	
 	<!-- From Terry -->
-	<servlet-mapping>
-       <servlet-name>default</servlet-name>
-       <url-pattern>/resource/*</url-pattern>
-   </servlet-mapping>
+<!-- 	<servlet-mapping> -->
+<!--        <servlet-name>default</servlet-name> -->
+<!--        <url-pattern>/resource/*</url-pattern> -->
+<!--    </servlet-mapping> -->
 
 	<servlet>
 		<servlet-name>Con_aplServlet</servlet-name>

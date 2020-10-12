@@ -44,6 +44,8 @@ public class ConJDBCDAO implements ConDAO_interface {
 			+ "CON_STA = ? WHERE CON_NO = ?";
 
 	private static final String DELETE = "DELETE FROM CONTRACT WHERE CON_NO = ?";
+	
+	private static final String GET_CON_LLD = "SELECT CON_NO FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
 
 	@Override
 	public void beforerentinsert(ConVO conVO) {
@@ -442,6 +444,64 @@ public class ConJDBCDAO implements ConDAO_interface {
 		}
 		return conVO;
 	}
+	
+	@Override
+	public ConVO getconlld(String lld_no) {
+
+		ConVO conVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(GET_CON_LLD);
+
+			pstmt.setString(1, lld_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				conVO = new ConVO();
+
+				conVO.setCon_no(rs.getString("CON_NO"));
+
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return conVO;
+	}
 
 	@Override
 	public List<ConVO> getAll() {
@@ -529,36 +589,36 @@ public class ConJDBCDAO implements ConDAO_interface {
 //		System.out.println("Insert successfully");
 
 		// Update
-		ConVO conVO2 = new ConVO();
-
-		conVO2.setCon_no("CON000001");
-		conVO2.setApl_no("APL000011");
-		conVO2.setTnt_no("TNT000011");
-		conVO2.setHos_no("HOS000011");
-		conVO2.setCon_dep_sta(1);
-		conVO2.setCon_che_date(java.sql.Date.valueOf("2020-10-02"));
-		
-		conVO2.setHos_dep(32970);
-		conVO2.setCon_dep_sta(1);
-		conVO2.setCon_chkdate(java.sql.Date.valueOf("2020-10-02"));
-		conVO2.setCon_comchkdate(1);
-
-		conVO2.setHos_dep(32970);
-		conVO2.setCon_dep_sta(2);
-		conVO2.setCon_chk_sta(2);
-		conVO2.setCon_chr_fee(32789);
-		conVO2.setCon_chr_itm("hiwoehiof");
-		conVO2.setCon_is_chr(8);
-
-		conVO2.setCon_rent_agn(1);
-		conVO2.setCon_bill_paid(2);
-		conVO2.setCon_dep_bkdate(java.sql.Date.valueOf("2020-10-02"));
-		conVO2.setCon_lastb_pdate(java.sql.Date.valueOf("2020-10-02"));
-		conVO2.setCon_out_normal(2);
-		conVO2.setCon_sta(1);
-
-		dao.update(conVO2);
-		System.out.println("Update successfully");
+//		ConVO conVO2 = new ConVO();
+//
+//		conVO2.setCon_no("CON000001");
+//		conVO2.setApl_no("APL000011");
+//		conVO2.setTnt_no("TNT000011");
+//		conVO2.setHos_no("HOS000011");
+//		conVO2.setCon_dep_sta(1);
+//		conVO2.setCon_che_date(java.sql.Date.valueOf("2020-10-02"));
+//		
+//		conVO2.setHos_dep(32970);
+//		conVO2.setCon_dep_sta(1);
+//		conVO2.setCon_chkdate(java.sql.Date.valueOf("2020-10-02"));
+//		conVO2.setCon_comchkdate(1);
+//
+//		conVO2.setHos_dep(32970);
+//		conVO2.setCon_dep_sta(2);
+//		conVO2.setCon_chk_sta(2);
+//		conVO2.setCon_chr_fee(32789);
+//		conVO2.setCon_chr_itm("hiwoehiof");
+//		conVO2.setCon_is_chr(8);
+//
+//		conVO2.setCon_rent_agn(1);
+//		conVO2.setCon_bill_paid(2);
+//		conVO2.setCon_dep_bkdate(java.sql.Date.valueOf("2020-10-02"));
+//		conVO2.setCon_lastb_pdate(java.sql.Date.valueOf("2020-10-02"));
+//		conVO2.setCon_out_normal(2);
+//		conVO2.setCon_sta(1);
+//
+//		dao.update(conVO2);
+//		System.out.println("Update successfully");
 
 //		//Delete
 //		dao.delete("CON000004");
@@ -615,5 +675,8 @@ public class ConJDBCDAO implements ConDAO_interface {
 //			System.out.println(aCon.getCon_lld_signtime());
 //			System.out.println("---------------------");
 //		}
+		
+//		ConVO conVO3 = dao.getconlld("LLD000128");
+//		System.out.println(conVO3.getCon_no());
 	}
 }

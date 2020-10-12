@@ -17,6 +17,10 @@ import com.apl.model.Con_aplVO;
 import com.cont.model.ConDAO;
 import com.cont.model.ConService;
 import com.cont.model.ConVO;
+import com.housemanage.model.HouseService;
+import com.housemanage.model.HouseVO;
+import com.lld.model.LldService;
+import com.lld.model.LldVO;
 
 public class ConServlet extends HttpServlet {
 
@@ -41,6 +45,24 @@ public class ConServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			return;
+		}
+		
+		if ("getlldcontract".equals(action)) {
+			String lld_no = new String(req.getParameter("lld_no"));
+
+			HouseService houseSvc = new HouseService();
+			HouseVO houseVOlld = houseSvc.getHouseLld(lld_no);
+			String lldno = houseVOlld.getLld_no();
+			
+			LldService lldSvc = new LldService();
+		    LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
+			
+			req.setAttribute("lldno", lldno);
+			req.setAttribute("lldVO", lldVO);
+			req.setAttribute("houseVOlld", houseVOlld);
+			String url = "/front-end/contract/lldlistcontract.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
 		}
 
 		if ("getOne_For_Display".equals(action)) {
