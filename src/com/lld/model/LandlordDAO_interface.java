@@ -3,6 +3,9 @@ package com.lld.model;
 import java.util.List;
 
 public interface LandlordDAO_interface {
+	
+	public List<LldVO> getAll_account();
+
 	public void insert_profile(LldVO lldVO);
     public void update_profile(LldVO lldVO);
     public LldVO findByPK_profile(String lld_no);

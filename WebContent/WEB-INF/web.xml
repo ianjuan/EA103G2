@@ -60,6 +60,24 @@
 		<servlet-name>TntServlet2</servlet-name>
 		<url-pattern>/tnt/TntServlet2</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>TntServlet3</servlet-name>
+		<servlet-class>com.tnt.controller.TntServlet3</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TntServlet3</servlet-name>
+		<url-pattern>/tnt/TntServlet3</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LldServlet</servlet-name>
+		<servlet-class>com.lld.controller.LldServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LldServlet</servlet-name>
+		<url-pattern>/lld/LldServlet</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ImgReader</servlet-name>
@@ -70,6 +88,34 @@
 		<servlet-name>ImgReader</servlet-name>
 		<url-pattern>/ImgReader</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+		<filter-name>setCharacterEncoding</filter-name>
+		<filter-class>filters.SetCharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>setCharacterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+<!-- 	<filter> -->
+<!-- 		<filter-name>loginFilter</filter-name> -->
+<!-- 		<filter-class>filters.LoginFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>loginFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 		<dispatcher>REQUEST</dispatcher> -->
+<!-- 		<dispatcher>FORWARD</dispatcher> -->
+<!-- 		<dispatcher>INCLUDE</dispatcher> -->
+<!-- 		<dispatcher>ERROR</dispatcher> -->
+<!-- 		<dispatcher>ASYNC</dispatcher> -->
+<!-- 	</filter-mapping> -->
+	
 
 <!-- 	Big Snake -->
 	<servlet>

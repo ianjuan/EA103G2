@@ -14,7 +14,7 @@ public class LldService {
 
 	public LldVO addLld(String lld_email, String lld_acc, String lld_pwd, String lld_id, String lld_name,
 			Date lld_birth, Boolean lld_sex, String lld_mobile, String lld_city, String lld_dist, String lld_add, byte[] lld_pic) {
-
+		//
 		LldVO lldVO = new LldVO();
 //		lldVO.setLld_no(lld_no);
 		lldVO.setLld_email(lld_email);
@@ -29,6 +29,17 @@ public class LldService {
 		lldVO.setLld_dist(lld_dist);
 		lldVO.setLld_add(lld_add);
 		lldVO.setLld_pic(lld_pic);
+		dao.insert_profile(lldVO);
+
+		return lldVO;
+	}
+	public LldVO addLld2(String lld_email) {
+		System.out.println(lld_email + 1);
+		//, byte[] lld_pic
+		LldVO lldVO = new LldVO();
+//		lldVO.setLld_no(lld_no);
+		lldVO.setLld_email(lld_email);
+		System.out.println(lld_email + 2);
 		dao.insert_profile(lldVO);
 
 		return lldVO;
@@ -64,6 +75,10 @@ public class LldService {
 
 	public List<LldVO> getAllProfile() {
 		return dao.getAll_profile();
+	}
+	
+	public List<LldVO> getAllAccount() {
+		return dao.getAll_account();
 	}
 
 	public LldVO updateLldPocket(int lld_blance) {
@@ -111,7 +126,7 @@ public class LldService {
 	}
 
 	public LldVO updateLldVrf(byte[] lld_id_picf, byte[] lld_id_picb, byte[] lld_id_pic2,
-			Timestamp lld_id_uploadtime, int lld_id_isvrfed, String lld_id_disapprove, Timestamp lld_id_vrftime) {
+			Timestamp lld_id_uploadtime, int lld_id_isupload, int lld_id_result, String lld_id_disapprove, Timestamp lld_id_vrftime) {
 
 		LldVO lldVO = new LldVO();
 
@@ -119,7 +134,8 @@ public class LldService {
 		lldVO.setLld_id_picb(lld_id_picb);
 		lldVO.setLld_id_pic2(lld_id_pic2);
 		lldVO.setLld_id_uploadtime(lld_id_uploadtime);
-		lldVO.setLld_id_isvrfed(lld_id_isvrfed);
+		lldVO.setLld_id_isupload(lld_id_isupload);
+		lldVO.setLld_id_result(lld_id_result);
 		lldVO.setLld_id_disapprove(lld_id_disapprove);
 		lldVO.setLld_id_vrftime(lld_id_vrftime);
 		dao.update_vrf(lldVO);

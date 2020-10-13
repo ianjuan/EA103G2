@@ -1,19 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.tnt.model.*"%>
+<%@ page import="com.lld.model.*"%>
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.Date" %>
 <%
-  TntVO tntVO = (TntVO) request.getAttribute("tntVO");
+  LldVO lldVO = (LldVO) request.getAttribute("lldVO");
 %>
-<%-- <%=tntVO==null %> --${tntVO.deptno}-- = tntVO.getDeptno()
-<!--此寫法tntVO如果null, 送你500!--> --%>
+<%-- <%=lldVO==null %> --${lldVO.deptno}-- = lldVO.getDeptno()
+<!--此寫法lldVO如果null, 送你500!--> --%>
 <%String[] cities = {"台北市", "新北市", "基隆市", "桃園市", "新竹縣", "新竹市", "苗栗縣", "台中市", "南投縣", "彰化縣", "雲林縣", "嘉義縣", "嘉義市", "台南市", "高雄市", "屏東縣", "宜蘭縣", "花蓮縣", "台東縣", "澎湖縣", "金門縣", "連江縣"};%>
 <html>
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>房客資料新增 - addTnt.jsp</title>
+    <title>房東資料新增 - addLld.jsp</title>
     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
     <style>
         table#table-1 {
@@ -48,16 +48,16 @@
 </head>
 
 <body bgcolor='white'>
-    ${tntVO.tnt_city==null}
-    ${tntVO.tnt_dist==null}
-    <%-- ${tntVO.tnt_dist==0} --%>
+    ${lldVO.lld_city==null}
+    ${lldVO.lld_dist==null}
+    <%-- ${lldVO.lld_dist==0} --%>
     <table id="table-1">
         <tr>
             <td>
-                <h3>房客資料新增 - addTnt.jsp</h3>
+                <h3>房東資料新增 - addLld.jsp</h3>
             </td>
             <td>
-                <h4><a href="<%=request.getContextPath()%>/back-end/tnt/select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
+                <h4><a href="<%=request.getContextPath()%>/back-end/lld/select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
             </td>
         </tr>
     </table>
@@ -71,54 +71,54 @@
             </c:forEach>
         </ul>
     </c:if>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/tnt/TntServlet" name="addTnt" enctype="multipart/form-data">
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/lld/LldServlet" name="addLld" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>信箱:</td>
-                <td><input type="text" name="tnt_email" value="<%= (tntVO==null)? "" : tntVO.getTnt_email()%>" /></td>
+                <td><input type="text" name="lld_email" value="<%= (lldVO==null)? "" : lldVO.getLld_email()%>" /></td>
             </tr>
             <tr>
                 <td>帳號:</td>
-                <td><input type="text" name="tnt_acc" value="<%= (tntVO==null)? "" : tntVO.getTnt_acc()%>" /></td>
+                <td><input type="text" name="lld_acc" value="<%= (lldVO==null)? "" : lldVO.getLld_acc()%>" /></td>
             </tr>
             <tr>
                 <td>密碼:</td>
-                <td><input type="password" name="tnt_pwd" /></td> <!-- value="<%= (tntVO==null)? "" : tntVO.getTnt_pwd()%>" -->
+                <td><input type="password" name="lld_pwd" /></td> <!-- value="<%= (lldVO==null)? "" : lldVO.getLld_pwd()%>" -->
             </tr>
             <tr>
                 <td>確認密碼:</td>
-                <td><input type="password" name="tnt_pwd2" /></td> <!-- value="<%= (tntVO==null)? "" : tntVO.getTnt_pwd()%>" -->
+                <td><input type="password" name="lld_pwd2" /></td> <!-- value="<%= (lldVO==null)? "" : lldVO.getLld_pwd()%>" -->
             </tr>
             <tr>
                 <td>身分證:</td>
-                <td><input type="text" name="tnt_id" size="10" value="<%= (tntVO==null)? "" : tntVO.getTnt_id()%>" /></td>
+                <td><input type="text" name="lld_id" size="10" value="<%= (lldVO==null)? "" : lldVO.getLld_id()%>" /></td>
             </tr>
             <tr>
                 <td>姓名:</td>
-                <td><input type="text" name="tnt_name" value="<%= (tntVO==null)? "" : tntVO.getTnt_name()%>"></td>
+                <td><input type="text" name="lld_name" value="<%= (lldVO==null)? "" : lldVO.getLld_name()%>"></td>
             </tr>
             <tr>
                 <td>生日:</td>
-                <td><input type="text" name="tnt_birth" id="f_date1" /></td>
+                <td><input type="text" name="lld_birth" id="f_date1" /></td>
             </tr>
             <td>性別:</td>
-            <td><input type="radio" name="tnt_sex" required value=true ${(tntVO.tnt_sex)?'checked':''}>男
-                <input type="radio" name="tnt_sex" required value=false ${!(tntVO.tnt_sex)?'checked':''}>女
+            <td><input type="radio" name="lld_sex" required value=true ${(lldVO.lld_sex)?'checked':''}>男
+                <input type="radio" name="lld_sex" required value=false ${!(lldVO.lld_sex)?'checked':''}>女
             </td>
             </tr>
             <tr>
                 <td>手機:</td>
-                <td><input type="text" name="tnt_mobile" value="<%= (tntVO==null)? "" : tntVO.getTnt_mobile()%>" /></td>
+                <td><input type="text" name="lld_mobile" value="<%= (lldVO==null)? "" : lldVO.getLld_mobile()%>" /></td>
             </tr>
             <tr>
                 <td>縣市:</td>
                 <td>
-                    <select name="tnt_city" id="tnt_city">
-                        <!--如果原始資料有tntVO.tnt_city, 增加第一個選項"選擇縣市", 用value傳給js判斷原始資料是哪個原始資料, -->
+                    <select name="lld_city" id="lld_city">
+                        <!--如果原始資料有lldVO.lld_city, 增加第一個選項"選擇縣市", 用value傳給js判斷原始資料是哪個原始資料, -->
                         <!--設為selected, 判斷完、新增完選項, 再把"選擇縣市"的value值改成0 -->
                         <!--如果沒有原始資料, 不新增"選擇縣市", 在js"選擇縣市"跟所有縣市一起新增-->
-                        <c:if test="${tntVO.tnt_city!=null}">
-                            <option value="${tntVO.tnt_city}" id="city_default">選擇縣市
+                        <c:if test="${lldVO.lld_city!=null}">
+                            <option value="${lldVO.lld_city}" id="city_default">選擇縣市
                         </c:if>
                     </select>
                 </td>
@@ -126,22 +126,22 @@
             <tr>
                 <td>區域:</td>
                 <td>
-                    <select name="tnt_dist" id="tnt_dist">
-                        <c:if test="${tntVO.tnt_dist!=null}">
-                            <option value="${tntVO.tnt_dist}" id="dist_default">選擇區域
+                    <select name="lld_dist" id="lld_dist">
+                        <c:if test="${lldVO.lld_dist!=null}">
+                            <option value="${lldVO.lld_dist}" id="dist_default">選擇區域
                         </c:if>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>地址:</td>
-                <td><input type="text" name="tnt_add" value="<%= (tntVO==null)? "" : tntVO.getTnt_add()%>" /></td>
+                <td><input type="text" name="lld_add" value="<%= (lldVO==null)? "" : lldVO.getLld_add()%>" /></td>
             </tr>
             <tr>
                 <td><label for="myfiles">大頭貼:</label></td>
                 <td>
                     <div id="container">
-                        <div id="upload"><input id="myfiles" type="file" name="tnt_pic" accept="image/*"> <!--  multiple="multiple" -->
+                        <div id="upload"><input id="myfiles" type="file" name="lld_pic" accept="image/*"> <!--  multiple="multiple" -->
                             <button id="remove">刪除</button>
                         </div>
                     </div>
@@ -155,13 +155,13 @@
 </body>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 <% 
- java.sql.Date tnt_birth = null;
+ java.sql.Date lld_birth = null;
  Calendar cal = new GregorianCalendar(2000, Calendar.JANUARY, 1);
   try {
-    tnt_birth = tntVO.getTnt_birth();
+    lld_birth = lldVO.getLld_birth();
    } catch (Exception e) {
-     tnt_birth = new java.sql.Date(System.currentTimeMillis());
-//     tnt_birth = new java.sql.Date(cal.getTime().getTime());
+     lld_birth = new java.sql.Date(System.currentTimeMillis());
+//     lld_birth = new java.sql.Date(cal.getTime().getTime());
    }
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
@@ -254,7 +254,7 @@
             timepicker: false, //timepicker:true,
             step: 1, //step: 60 (這是timepicker的預設間隔60分鐘)
             format: 'Y-m-d', //format:'Y-m-d H:i:s',
-            value: '<%=tnt_birth%>', // value:   new Date(),
+            value: '<%=lld_birth%>', // value:   new Date(),
             //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
             //startDate:             '2017/07/10',  // 起始日
             //minDate:               '-1970-01-01', // 去除今日(不含)之前
@@ -306,43 +306,43 @@
         $(document).ready(function() {
             var city_key = Object.keys(area_data);
 
-            //若無原始tntVO資料, 新增"選擇縣市"跟所有縣市, 區域僅新增"選擇區域"
-            if ($('#tnt_city').val() === null) {
-                $("#tnt_city").append('<option value="0" id="city_default">選擇縣市');
+            //若無原始lldVO資料, 新增"選擇縣市"跟所有縣市, 區域僅新增"選擇區域"
+            if ($('#lld_city').val() === null) {
+                $("#lld_city").append('<option value="0" id="city_default">選擇縣市');
                 city_key.forEach(function(item, index, array) {
-                    $("#tnt_city").append('<option value="' + item + '">' + item);
+                    $("#lld_city").append('<option value="' + item + '">' + item);
                 });
-                $("#tnt_dist").append('<option value="0" id="dist_default">選擇區域');
-                //若有原始tntVO資料, 新增所有縣市, 判斷有無selected縣市
+                $("#lld_dist").append('<option value="0" id="dist_default">選擇區域');
+                //若有原始lldVO資料, 新增所有縣市, 判斷有無selected縣市
             } else {
                 var index_city;
                 city_key.forEach(function(item, index, array) {
-                    if (item === $('#tnt_city').val()) {
+                    if (item === $('#lld_city').val()) {
                         var tmp = ' selected';
                         index_city = index;
                     }
-                    $("#tnt_city").append('<option value="' + item + '"' + tmp + '>' + item);
+                    $("#lld_city").append('<option value="' + item + '"' + tmp + '>' + item);
                 });
                 $('#city_default').val("0");
                 //若有selected縣市,新增所有區域, 如無selected縣市, 不動
                 if (typeof(index_city) !== "undefined") {
                     var dist_values_selectedcity = Object.values(area_data)[index_city];
                     dist_values_selectedcity.forEach(function(item, index, array) {
-                        var tmp = (item === $('#tnt_dist').val()) ? ' selected' : '';
-                        $("#tnt_dist").append('<option value="' + item + '"' + tmp + '>' + item);
+                        var tmp = (item === $('#lld_dist').val()) ? ' selected' : '';
+                        $("#lld_dist").append('<option value="' + item + '"' + tmp + '>' + item);
                     });
                 }
                 $('#dist_default').val("0");
             }
 
             //選擇縣市, 區域連動
-            $("#tnt_city").change(function() {
+            $("#lld_city").change(function() {
                 city_key.forEach(function(item, index, array) {
-                    if (item === $("#tnt_city").val()) {
+                    if (item === $("#lld_city").val()) {
                         $("#dist_default ~ option").remove();
                         var dist_values = Object.values(area_data)[index];
                         dist_values.forEach(function(item, index, array) {
-                            $("#tnt_dist").append(
+                            $("#lld_dist").append(
                                 '<option value="' + item + '">' + item);
                         });
                     }

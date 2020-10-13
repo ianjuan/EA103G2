@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
 
 <head>
     <title>Login</title>
@@ -25,16 +25,14 @@
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
-    <link rel="stylesheet" type="text/css" href="css/main_login.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
 </head>
 
 <body class="landing">
     <!-- Header -->
     <header id="header">
-        <h1>
-            <a href="index.html">愛租I-ZU</a>
-        </h1>
+        <h1><a href="index.html">愛租I-ZU</a></h1>
         <nav id="nav">
             <ul>
                 <li><a href="index.html">尋找房源</a></li>
@@ -46,50 +44,60 @@
     </header>
     <div class="limiter">
         <div class="container-login100">
-            <div class="login100-form validate-form">
-                <form class="" id="loginform" enctype="multipart/form-data">
-                    <span class="login100-form-title p-b-10"> 房客登入 </span>
-                    <hr class="login100-form-title p-b-10">
-                    <div class="wrap-register100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="register100" type="text" name="tnt_email" id="tnt_email">
-                        <div class="focus-register100"></div>
-                        <div class="label-register100">信箱</div>
-                    </div>
-                    <div class="wrap-register100 validate-input" data-validate="Less than 8 [a-zA-Z0-9]">
-                        <input class="register100" type="password" name="tnt_pwd" id="tnt_pwd">
-                        <span class="focus-register100"></span>
-                        <span class="label-register100">密碼</span>
-                    </div>
-                </form>
-                <div class="wrap-validate-login" data-validate="帳號密碼錯誤">
-<!--                      validate-input alert-validate-login -->
+            <!-- <div class="wrap-login100" style="border:1px solid blue"> -->
+            <form class="login100-form validate-form">
+                <span class="login100-form-title p-b-10">
+                    房客登入
+                </span>
+                <hr class="login100-form-title p-b-10">
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <input class="input100" type="text" name="tnt_email">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">信箱</span>
                 </div>
-                <div class=" container-login100-form-btn">
-                    <button class="login100-form-btn m-t-16" id="btnLogin">Login</button>
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input class="input100" type="password" name="tnt_pwd">
+                    <span class="focus-input100"></span>
+                    <span class="label-input100">密碼</span>
                 </div>
-                <!--divbtnRegister-->
-                <div class="flex-sb-m w-full p-t-3 p-t-20 p-b-20">
+                <div class="flex-sb-m w-full p-t-3 p-b-32">
                     <div class="contact100-form-checkbox">
-                        <!-- <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me"> -->
-                        <!-- <label class="label-checkbox100" for="ckb1"> -->
-                        <!-- Remember me -->
-                        <!-- </label> -->
+                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                        <label class="label-checkbox100" for="ckb1">
+                            Remember me
+                        </label>
                     </div>
-                    <div class="m-r-10">
-                        <a href="#" class="txt1">忘記密碼?</a>
+                    <div>
+                        <a href="#" class="txt1">
+                            忘記密碼?
+                            <!-- Forgot Password -->
+                        </a>
                     </div>
                 </div>
-                <!-- <div class="text-center p-r-10"> -->
-                <!-- <span class="txt2">or sign up using </span> -->
-                <!-- <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5"> -->
-                <!-- <i class="fa fa-facebook-f" aria-hidden="true"></i> -->
-                <!-- </a> -->
-                <!-- </div> -->
-            </div>
-            <!--login100-form-->
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn">
+                        Login
+                    </button>
+                </div>
+                <div class="text-center p-t-46 p-b-20">
+                    <span class="txt2">
+                        or sign up using
+                    </span>
+                </div>
+                <div class="login100-form-social flex-c-m">
+                    <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
+                        <i class="fa fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </form>
+            <!-- <div class="login100-more" style="background-image: url('images/bg-01.jpg');">
+</div> -->
+            <!-- </div> -->
         </div>
     </div>
-    <canvas class="cyan" width="368" height="294" id="paper-view-7" style="-webkit-user-drag: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas>
     <footer id="footer">
         <div class="container">
             <section class="links">
@@ -146,10 +154,18 @@
                 </div>
                 <div class="4u$ 12u$(medium)">
                     <ul class="icons">
-                        <li><a class="icon rounded fa-facebook"><span class="label">Facebook</span></a></li>
-                        <li><a class="icon rounded fa-twitter"><span class="label">Twitter</span></a></li>
-                        <li><a class="icon rounded fa-google-plus"><span class="label">Google+</span></a></li>
-                        <li><a class="icon rounded fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                        <li>
+                            <a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+                        </li>
+                        <li>
+                            <a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
+                        </li>
+                        <li>
+                            <a class="icon rounded fa-google-plus"><span class="label">Google+</span></a>
+                        </li>
+                        <li>
+                            <a class="icon rounded fa-linkedin"><span class="label">LinkedIn</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -170,11 +186,7 @@
     <!--===============================================================================================-->
     <script src="vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.datetimepicker.full.js"></script>
-    <!--===============================================================================================-->
-    <script src="js/main_login.js"></script>
-    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
 </body>
 
 </html>

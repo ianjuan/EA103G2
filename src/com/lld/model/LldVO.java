@@ -38,7 +38,8 @@ public class LldVO implements java.io.Serializable {
 	private byte[] lld_id_picb;
 	private byte[] lld_id_pic2;
 	private Timestamp lld_id_uploadtime;
-	private int lld_id_isvrfed;
+	private int lld_id_isupload;
+	private int lld_id_result;
 	private String lld_id_disapprove;
 	private Timestamp lld_id_vrftime;
 	// -------RPT&AUTH-------
@@ -47,7 +48,7 @@ public class LldVO implements java.io.Serializable {
 	private Integer lld_auth_res;
 	private Integer lld_auth_cmt;
 	private Integer lld_auth_rpt;
-    private Integer lld_auth_hos;
+	private Integer lld_auth_hos;
 	public String getLld_no() {
 		return lld_no;
 	}
@@ -216,11 +217,17 @@ public class LldVO implements java.io.Serializable {
 	public void setLld_id_uploadtime(Timestamp lld_id_uploadtime) {
 		this.lld_id_uploadtime = lld_id_uploadtime;
 	}
-	public int getLld_id_isvrfed() {
-		return lld_id_isvrfed;
+	public int getLld_id_isupload() {
+		return lld_id_isupload;
 	}
-	public void setLld_id_isvrfed(int lld_id_isvrfed) {
-		this.lld_id_isvrfed = lld_id_isvrfed;
+	public void setLld_id_isupload(int lld_id_isupload) {
+		this.lld_id_isupload = lld_id_isupload;
+	}
+	public int getLld_id_result() {
+		return lld_id_result;
+	}
+	public void setLld_id_result(int lld_id_result) {
+		this.lld_id_result = lld_id_result;
 	}
 	public String getLld_id_disapprove() {
 		return lld_id_disapprove;

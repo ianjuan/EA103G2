@@ -290,13 +290,13 @@
 [ Form ]*/
 
         .login100-form {
-            width: 800px;
+            width: 600px;/*450px*/
             /* min-height: 100vh; */
-            height: 930px;
+            height: 500px;/*480px*/
             /*800px*/
             display: block;
             background-color: #f7f7f7;
-            padding: 55px 100px 55px 100px;
+            padding: 55px;/*50px 30px*/
             /* border: 1px solid red; */
             border-radius: .625rem;
             box-shadow: 0 6px 6px 0 rgba(0, 0, 0, .1);
@@ -314,8 +314,6 @@
             line-height: 1.2;
             text-align: center;
         }
-
-
 
         /*------------------------------------------------------------------
 [ Input ]*/
@@ -335,7 +333,7 @@
             border: 1px solid #e6e6e6;
             border-radius: 50px;
             /*靜:改input圓角*/
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .label-register100 {
@@ -691,8 +689,62 @@
                 opacity: 1;
             }
         }
+        /*test=============================================================================*/
 
 
+        .alert-validate-login::before {
+            content: attr(data-validate);
+            position: absolute;
+            z-index: 100;
+            max-width: 70%;
+            background-color: #fff;
+            border: 1px solid #c80000;
+            border-radius: 2px;
+            padding: 4px 10px 4px 25px;
+            top: 50%;
+            pointer-events: none;
+
+            font-family: Poppins-Regular;
+            color: #c80000;
+            font-size: 13px;
+            line-height: 1.4;
+
+            visibility: visible;
+            opacity: 1;
+
+            -webkit-transition: opacity 0.4s;
+            -o-transition: opacity 0.4s;
+            -moz-transition: opacity 0.4s;
+            transition: opacity 0.4s;
+        }
+
+        .alert-validate-login::after {
+            content: "\f12a";
+            font-family: FontAwesome;
+            display: inline-block;
+            position: absolute;
+            z-index: 110;
+            color: #c80000;
+            font-size: 16px;
+            top: 50%;
+            left: 10px;
+            padding-top: 2px;
+        }
+        .wrap-validate-login {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            /*             width: 100%; */
+            height: 10px;
+            position: relative;
+            margin-bottom: 30px;
+            left:10px;
+
+        }
 
         /*==================================================================
 [ Social ]*/
@@ -867,145 +919,10 @@
             cursor: pointer;
         }
         /*泓元區end*/
-
-        /*===============大吳-datetimepicker========================================
-[ datetimepicker ]*/
-        .xdsoft_datetimepicker .xdsoft_datepicker {
-            width: 300px;
-            /* width:  300px; */
-        }
-        .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-            height: 151px;
-            /* height:  151px; */
-        }
-
-        /*===============select========================================
-[ select ]*/
-        select.wrap-register100 {
-            /*移除箭頭樣式*/
-            appearance: none -moz-appearance: none;
-            -webkit-appearance: none;
-            /*改變右邊箭頭樣式*/
-            /*background: url("images/icons/angle-down.png") no-repeat right center transparent;*/
-            font-size: 18px;
-            color: #777777;
-            line-height: 3.2;
-            padding: 0 26px;
-            font-family: Montserrat-Regular;
-
-        }
-        /*IE隱藏箭頭樣式*/
-        select::-ms-expand {
-            display: none;
-        }
-        select.wrap-register100:focus {
-            border: 1px solid #3a8c68;
-            outline: none;
-        }
-
-        option {
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        select.wrap-register100.alert-validate-select:not(:focus) {
-            border: 1px solid #c80000;
-        }
-
-        select.wrap-register100.alert-validate-selects {
-            border: 1px solid #c80000;
-        }
-
-        /*===============程昕upload========================================
-[ 程昕upload ]*/
-        .wrapperBackground {
-            display: flex;
-            align-items: center;
-            z-index: -1;
-            text-align: center;
-            margin: 0px;
-            /* margin-top: 12vh; */
-            width: 100%;
-            /*680px*/
-            height: 300px;
-            /* background-color: rgba(255, 255, 255, 0.8); */
-            /* box-shadow: 0px 3px 1px 0px rgba(87, 87, 87, 0.3) */
-        }
-        #wrapperUploadHandler {
-            width: 95%;
-            /*650px*/
-            height: 270px;
-            /* border-width: 0.5vh; */
-            /*0.2vh*/
-            /* border-radius: 15%; */
-            /* border-style: solid; */
-            /*dotted;*/
-            /* border-color: #AACFBF; */
-            border: 5px dashed #AACFBF;
-            border-radius: 50px;
-            margin: auto;
-            box-sizing: border-box;
-            /* padding-top: 10%; */
-            overflow: hidden;
-            font-family: sans-serif;
-        }
-        label #inputF {
-            visibility: hidden;
-            position: absolute;
-
-        }
-        #fileInput {
-            display: block;
-            color: #AACFBF;
-            font-size: 40px;
-            cursor: pointer;
-            padding-top: 10%;
-        }
-        #uploadContent {
-            margin: auto;
-            margin-top: 36px;
-            text-align: center;
-        }
-        #uploadContent img {
-            /* width: auto; */
-            height: 300px;
-        }
-        #uploadContent div {
-            display: inline-block;
-        }
-        #del {
-            margin-top: 9%;
-            margin-left: -3px;
-            text-decoration: none;
-            color: #C76363;
-            border: solid #C76363;
-            border-radius: 15px;
-            width: 100px;
-            height: 50px;
-            font-size: 20px;
-            box-shadow: 3px 3px 1px 0px rgba(87, 87, 87, 0.3), inset 3px 3px 1px 0px rgba(87, 87, 87, 0.3);
-            text-shadow: 2.5px 2.5px 0px rgba(87, 87, 87, 0.3);
-            background-color: transparent;
-            outline: none;
-            opacity: 0.7;
-        }
-        /*頭貼預覽*/
-        #picWrapper {
-            height: 360px
-        }
-        .picPreview {
-            text-align: center;
-        }
-        .picCheckbox {
-            display: block;
-            margin: auto;
-        }
-        #tnt_pic {
-            padding: 20px;
-            border-radius: 10px;
-            border: #1d1d52 dashed 2px;
-            box-sizing: border-box;
-            margin-top: 20px;
-            height: 300px;
-            width: auto;
+        /*==================================================================
+[ forgetPwd ]*/
+        
+        .txt-email-hint{
+        	text-align: center;
+        	color: #3a8c68;
         }

@@ -76,6 +76,10 @@ public class TntService {
 	public List<TntVO> getAllProfile() {
 		return dao.getAll_profile();
 	}
+	
+	public List<TntVO> getAllAccount() {
+		return dao.getAll_account();
+	}
 
 	public TntVO updateTntPocket(int tnt_blance) {
 
