@@ -154,15 +154,15 @@ public class ConServlet extends HttpServlet {
 				ConService conSvc = new ConService();
 				ConVO conVO = conSvc.getOneCon(con_no);
 				
-//				LldService lldSvc = new LldService();
-//				LldVO lldVO = lldSvc.getOneLldProfile("LLD000001");
+				LldService lldSvc = new LldService();
+				LldVO lldVO = lldSvc.getOneLldProfile("LLD000001");
 				
 				HouseService hosSvc = new HouseService();
 				HouseVO hosVO = hosSvc.getHouseInfo(hos_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
-//				req.setAttribute("lldVO", lldVO);
+				req.setAttribute("lldVO", lldVO);
 				req.setAttribute("lld_no", lld_no);
 				req.setAttribute("hosVO", hosVO);
 				String url = "/front-end/contract/lldcontract.jsp";

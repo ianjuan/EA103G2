@@ -112,40 +112,42 @@
 				<div id="cbody">				
 					<div id="cbody1">
 						<table cellpadding="11">
+							
 							<tr>
-								<th>房東姓名:</th>
+								<th>姓名:</th>
 								<td>
-									<input type="text" class="text1" name="lld_name" value="123">
+									<%=lldVO.getLld_name()%>
 								</td>
 							</tr>
-<!-- 							<tr> -->
-<!-- 								<th>生日:</th> -->
-<!-- 								<td>									 -->
-<%-- 									<textarea rows="2" wrap="hard" onkeyup="checkLen1(this)" name="hos_liffun"><%=(houseVO==null) ? "" : houseVO.getHos_liffun()%></textarea> --%>
-<!-- 									<div class="fontstyle">您還可以輸入 <span id="count1">200</span> 個文字</div> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<th>性別:</th> -->
-<!-- 								<td>									 -->
-<%-- 									<textarea rows="2" wrap="hard" onkeyup="checkLen2(this)" name="hos_trans"><%=(houseVO==null) ? "" : houseVO.getHos_trans()%></textarea> --%>
-<!-- 									<div class="fontstyle">您還可以輸入 <span id="count2">200</span> 個文字</div> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<th>手機:</th> -->
-<!-- 								<td> -->
-<%-- 									<input type="text" class="text1" name="hos_add" value="<%=(houseVO==null) ? "" : houseVO.getHos_add()%>" id="hos_add"> --%>
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<th>身分證:</th> -->
-<!-- 								<td>									 -->
-<!-- 									<label><input type="radio" name="hos_type" value="透天厝">透天厝</label> -->
-<!-- 									<label><input type="radio" name="hos_type" value="公寓">公寓</label> -->
-<!-- 									<label><input type="radio" name="hos_type" value="電梯大樓">電梯大樓</label> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
+							
+							<tr>
+								<th>性別:</th>
+								<td>
+									${(lldVO.lld_sex)?'男':'女'}
+								</td>
+							</tr>
+							
+							<tr>
+								<th>身份證:</th>
+								<td>
+									<%=lldVO.getLld_id()%>
+								</td>
+							</tr>
+							
+							<tr>
+								<th>生日:</th>
+								<td>
+									<%=lldVO.getLld_birth()%>
+								</td>
+							</tr>
+							
+							<tr>
+								<th>手機:</th>
+								<td>
+									<input type="TEXT" name="lld_mobile" value="<%=lldVO.getLld_mobile()%>" />
+								</td>
+							</tr>
+							
 						</table>
 					</div>
 					<div id="cbody2">
