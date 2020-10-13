@@ -21,7 +21,7 @@
 	}
 	
 	List<ConVO> listcon = (List<ConVO>)request.getAttribute("list");
-	   pageContext.setAttribute("listcon",listcon);
+	pageContext.setAttribute("listcon",listcon);
 	
 	LldVO lldVO = (LldVO) request.getAttribute("lldVO");
 	HouseVO houseVOlld = (HouseVO) request.getAttribute("houseVOlld");
@@ -145,10 +145,10 @@
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 								<li><button id="btn1">合約管理</button></li>
-								<input type="hidden" name="apl_no"  value="${conVO.con_no}">
+								<input type="hidden" name="con_no"  value="${conVO.con_no}">
 								<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lldno%>">
-			     				<input type="hidden" name="action"	value="lldupdate">
+			     				<input type="hidden" name="action"	value="lldupdatecontract">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
