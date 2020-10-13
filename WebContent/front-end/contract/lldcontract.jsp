@@ -4,15 +4,18 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.housemanage.model.*"%>
 <%@ page import="com.cont.model.*"%>
+<%@ page import="com.lld.model.*"%>
 
 <%
 	HouseVO houseVO = (HouseVO) request.getAttribute("houseVO");
+	ConVO conVO = (ConVO)request.getAttribute("conVO");
+ 	LldVO lldVO = (LldVO)request.getAttribute("lldVO");
+ 	
 	String lldno = (String) request.getAttribute("lldno");
 	
-	ConVO conVO = (ConVO)request.getAttribute("conVO");
-	String apl_no = (String) request.getAttribute("apl_no");
-	String acon_no = (String) request.getAttribute("con_no");
-	
+	pageContext.setAttribute("houseVO", houseVO);
+	pageContext.setAttribute("conVO", conVO);
+	pageContext.setAttribute("lldVO", lldVO);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -91,7 +94,7 @@
                 </div>
             </nav>
 		</div>
-		<form class="table" name="houseForm" METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
+		<form class="table" name="conForm" METHOD="post" ACTION="<%=request.getContextPath()%>/contConServlet">
 			<div id="center">
 				<div id="chead">
 					<ul>
@@ -112,74 +115,43 @@
 							<tr>
 								<th>房東姓名:</th>
 								<td>
-<%-- 									<input type="text" class="text1" name="hos_name" value="<%=(houseVO.getHos_add()) ? "" : houseVO.getHos_name()%>"> --%>
+									<input type="text" class="text1" name="lld_name" value="123">
 								</td>
 							</tr>
-							<tr>
-								<th>生活機能:</th>
-								<td>									
-									<textarea rows="2" wrap="hard" onkeyup="checkLen1(this)" name="hos_liffun"><%=(houseVO==null) ? "" : houseVO.getHos_liffun()%></textarea>
-									<div class="fontstyle">您還可以輸入 <span id="count1">200</span> 個文字</div>
-								</td>
-							</tr>
-							<tr>
-								<th>附近交通:</th>
-								<td>									
-									<textarea rows="2" wrap="hard" onkeyup="checkLen2(this)" name="hos_trans"><%=(houseVO==null) ? "" : houseVO.getHos_trans()%></textarea>
-									<div class="fontstyle">您還可以輸入 <span id="count2">200</span> 個文字</div>
-								</td>
-							</tr>
-							<tr>
-								<th>地址:</th>
-								<td>
-									<input type="text" class="text1" name="hos_add" value="<%=(houseVO==null) ? "" : houseVO.getHos_add()%>" id="hos_add">
-								</td>
-							</tr>
-							<tr>
-								<th>房屋型態:</th>
-								<td>									
-									<label><input type="radio" name="hos_type" value="透天厝">透天厝</label>
-									<label><input type="radio" name="hos_type" value="公寓">公寓</label>
-									<label><input type="radio" name="hos_type" value="電梯大樓">電梯大樓</label>
-								</td>
-							</tr>
-							<tr>
-								<th>房間型態:</th>
-								<td>									
-									<label><input type="radio" name="hos_room" value="雅房">雅房</label>
-									<label><input type="radio" name="hos_room" value="獨立套房">獨立套房</label>
-									<label><input type="radio" name="hos_room" value="分租套房">分租套房</label>
-									<label><input type="radio" name="hos_room" value="整層住家">整層住家</label>
-								</td>
-							</tr>
-							<tr>
-								<th>格局:</th>
-								<td>
-									<input type="text" class="text1" name="hos_pat"
-									value="<%=(houseVO==null) ? "" : houseVO.getHos_pat()%>">
-								</td>
-							</tr>
-							<tr>
-								<th>樓層:</th>
-								<td>
-									<input type="text" class="text1" name="hos_floor"
-									value="<%=(houseVO==null) ? "" : houseVO.getHos_floor()%>">
-								</td>
-							</tr>
-							<tr>
-								<th>坪數:</th>
-								<td>
-									<input type="number" class="num1" min="1" step="0.01" name="hos_pnum"
-									value="<%=(houseVO==null) ? "" : houseVO.getHos_pnum()%>">
-									<font size="2">坪</font>
-								</td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<th>生日:</th> -->
+<!-- 								<td>									 -->
+<%-- 									<textarea rows="2" wrap="hard" onkeyup="checkLen1(this)" name="hos_liffun"><%=(houseVO==null) ? "" : houseVO.getHos_liffun()%></textarea> --%>
+<!-- 									<div class="fontstyle">您還可以輸入 <span id="count1">200</span> 個文字</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<th>性別:</th> -->
+<!-- 								<td>									 -->
+<%-- 									<textarea rows="2" wrap="hard" onkeyup="checkLen2(this)" name="hos_trans"><%=(houseVO==null) ? "" : houseVO.getHos_trans()%></textarea> --%>
+<!-- 									<div class="fontstyle">您還可以輸入 <span id="count2">200</span> 個文字</div> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<th>手機:</th> -->
+<!-- 								<td> -->
+<%-- 									<input type="text" class="text1" name="hos_add" value="<%=(houseVO==null) ? "" : houseVO.getHos_add()%>" id="hos_add"> --%>
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<th>身分證:</th> -->
+<!-- 								<td>									 -->
+<!-- 									<label><input type="radio" name="hos_type" value="透天厝">透天厝</label> -->
+<!-- 									<label><input type="radio" name="hos_type" value="公寓">公寓</label> -->
+<!-- 									<label><input type="radio" name="hos_type" value="電梯大樓">電梯大樓</label> -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
 						</table>
 					</div>
 					<div id="cbody2">
 						<table>
 							<tr>
-								<th rowspan="3">房屋圖片:</th>
+								<th rowspan="3">房東簽名:</th>
 								<td>
 									<input type="file" id="loadPic" multiple onchange="load()">									
 									<input type="button" class="funbtn" value="刪除" onclick="del()" checked>

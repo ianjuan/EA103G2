@@ -2,6 +2,7 @@ package com.cont.controller;
 
 import java.io.IOException;
 
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +15,10 @@ import javax.servlet.http.HttpSession;
 import com.cont.model.ConDAO;
 import com.cont.model.ConService;
 import com.cont.model.ConVO;
+import com.housemanage.model.*;
+import com.houserch.model.HousearchService;
+import com.lld.model.LldService;
+import com.lld.model.LldVO;
 
 public class ConServlet extends HttpServlet {
 
@@ -131,7 +136,7 @@ public class ConServlet extends HttpServlet {
 			}
 		}
 
-		if ("getOne_For_Update".equals(action)) {
+		if ("lldupdatecontract".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -139,21 +144,35 @@ public class ConServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				String con_no = new String(req.getParameter("con_no"));
+				String lld_no = new String(req.getParameter("lld_no"));
+				String hos_no = new String(req.getParameter("hos_no"));
+				System.out.println(con_no);
+				System.out.println(lld_no);
+				System.out.println(hos_no);
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();
 				ConVO conVO = conSvc.getOneCon(con_no);
+				
+//				LldService lldSvc = new LldService();
+//				LldVO lldVO = lldSvc.getOneLldProfile("LLD000001");
+				
+				HouseService hosSvc = new HouseService();
+				HouseVO hosVO = hosSvc.getHouseInfo(hos_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
-				String url = "/front-end/apl/updateCon_apl_input.jsp";
+//				req.setAttribute("lldVO", lldVO);
+				req.setAttribute("lld_no", lld_no);
+				req.setAttribute("hosVO", hosVO);
+				String url = "/front-end/contract/lldcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/listAllCon_apl.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
