@@ -32,6 +32,7 @@
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
+<jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 
 <!DOCTYPE html>
@@ -132,26 +133,26 @@
 					<div class="cinfo">
 						<ul>
 							<li><span class="infotitle">合約編號 : </span><span>${conVO.con_no}</span></li>
-<%-- 							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(conVO.hos_no).hos_name}</span></li> --%>
-<%-- 							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(conVO.tnt_no).tnt_name}</span></li> --%>
+							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(conVO.hos_no).hos_name}</span></li>
+							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(conVO.tnt_no).tnt_name}</span></li>
 <%-- 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li> --%>
 <%-- 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li> --%>
 <%-- 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li> --%>
-<%-- 							<li><span class="infotitle">合約狀態 : </span><span>${conSvc.getConstatusText(conVO.getcon_status())}</span></li> --%>
+							<li><span class="infotitle">合約狀態 : </span><span>${conSvc.getConstatusText(conVO.con_sta)}</span></li>
 						</ul>
 					</div>					
 						<div class="rinfo">
 							<ul>
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-								<li><button id="btn1">接受申請</button></li>
-								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
-			     				<input type="hidden" name="apl_status" value=1>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+								<li><button id="btn1">合約管理</button></li>
+								<input type="hidden" name="apl_no"  value="${conVO.con_no}">
+								<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lldno%>">
 			     				<input type="hidden" name="action"	value="lldupdate">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-								<li><button id="btn2">拒絕申請</button></li>
+								<li><button id="btn2">定期費用</button></li>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=2>
 			     				<input type="hidden" name="lld_no" value="<%=lldno%>">

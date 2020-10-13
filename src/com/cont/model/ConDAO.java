@@ -53,7 +53,7 @@ public class ConDAO implements ConDAO_interface {
 
 	private static final String DELETE = "DELETE FROM CONTRACT WHERE CON_NO = ?";
 
-	private static final String GET_CON_LLD = "SELECT CON_NO FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
+	private static final String GET_CON_LLD = "SELECT CON_NO, CON_STA, C.HOS_NO, C.TNT_NO, C.APL_NO FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
 
 	@Override
 	public void beforerentinsert(ConVO conVO) {
@@ -449,6 +449,10 @@ public class ConDAO implements ConDAO_interface {
 				conVO = new ConVO();
 
 				conVO.setCon_no(rs.getString("CON_NO"));
+				conVO.setCon_sta(rs.getInt("CON_STA"));
+				conVO.setApl_no(rs.getString("APL_NO"));
+				conVO.setTnt_no(rs.getString("TNT_NO"));
+				conVO.setHos_no(rs.getString("HOS_NO"));
 				list.add(conVO);
 
 			}

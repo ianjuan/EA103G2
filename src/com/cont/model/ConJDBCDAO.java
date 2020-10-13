@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.apl.model.Con_aplVO;
+import com.lld.model.LldDAO;
+import com.lld.model.LldVO;
 
 public class ConJDBCDAO implements ConDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -45,7 +47,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 
 	private static final String DELETE = "DELETE FROM CONTRACT WHERE CON_NO = ?";
 	
-	private static final String GET_CON_LLD = "SELECT CON_NO FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
+	private static final String GET_CON_LLD = "SELECT CON_NO, C.HOS_NO, C.TNT_NO, C.APL_NO, CON_STA FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
 
 	@Override
 	public void beforerentinsert(ConVO conVO) {
@@ -468,6 +470,10 @@ public class ConJDBCDAO implements ConDAO_interface {
 				conVO = new ConVO();
 
 				conVO.setCon_no(rs.getString("CON_NO"));
+				conVO.setApl_no(rs.getString("APL_NO"));
+				conVO.setTnt_no(rs.getString("TNT_NO"));
+				conVO.setHos_no(rs.getString("HOS_NO"));
+				conVO.setCon_sta(rs.getInt("CON_STA"));
 				list.add(conVO);
 				
 			}
@@ -676,9 +682,13 @@ public class ConJDBCDAO implements ConDAO_interface {
 //			System.out.println("---------------------");
 //		}
 		
-		List<ConVO> list = dao.getconlld("LLD000128");
+		List<ConVO> list = dao.getconlld("LLD000944");
 		for (ConVO aaaVo : list) {
 			System.out.println(aaaVo.getCon_no());
+			System.out.println(aaaVo.getApl_no());
+			System.out.println(aaaVo.getHos_no());
+			System.out.println(aaaVo.getTnt_no());
+			System.out.println(aaaVo.getCon_sta());
 		}
 		
 	}
