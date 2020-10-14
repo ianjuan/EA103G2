@@ -9,15 +9,15 @@
 <%@ page import="com.cont.model.*"%>
 
 <%
-	String lldno = (String) request.getAttribute("lldno");
-	if (lldno == null) {
-		lldno = request.getParameter("lldno");
+	String lld_no = (String) request.getAttribute("lldno");
+	if (lld_no == null) {
+		lld_no = request.getParameter("lldno");
 	}
 	
 	List<HouseVO> list = (List<HouseVO>) request.getAttribute("houseVO");
 	if (list == null) {
 		HouseService houseSvc = new HouseService();
-		list = houseSvc.getLldRentHouse(lldno);
+		list = houseSvc.getLldRentHouse(lld_no);
 	}
 	
 	List<ConVO> listcon = (List<ConVO>)request.getAttribute("list");
@@ -60,7 +60,7 @@
                 <div class="navbar-nav ml-auto">
                     <a class="nav-item nav-link active" href="#">尋找房源<span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="#">地圖找房</a>
-                    <a class="nav-item nav-link" href="<%=request.getContextPath()%>/front-end/house_manage/select_page.jsp">我的房屋</a>
+                    <a class="nav-item nav-link" href="<%=request.getContextPath()%>/front-end/house_manage/housemanage_index.jsp">我的房屋</a>
                     <li class="nav-item dropdown">
                         <span data-toggle="dropdown" class="member">
                             <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
@@ -86,38 +86,49 @@
 					<div class="line line--3"></div>
 				</div>
 				<div class="nav-links">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
-						<input type="hidden" name="lld_no" value="<%=lldno%>">
+                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldAllHouse">
+						<button type="submit" class="link">首頁</button>
+					</FORM>
+					
+                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldUnRentHouse">
 						<button type="submit" class="link">待租房屋</button>
 					</FORM>
 					
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
-						<input type="hidden" name="lld_no" value="<%=lldno%>">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldRentHouse">
-						<button type="submit" class="link">已租房屋</button><br>
+						<button type="submit" class="link">已租房屋</button>
 					</FORM>
 					
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
-						<input type="hidden" name="lld_no" value="<%=lldno%>">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldOffHouse">
+						<button type="submit" class="link">下架房屋</button>
+					</FORM>
+					
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">上架房屋</button>
-					</FORM>
-					
-					<button type="submit" class="link">預約管理</button>
+					</FORM>					
 					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-						<input type="hidden" name="lld_no" value="<%=lldno%>">
-						<input type="hidden" name="action" value="getLldRentHouse">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="lldgetAll">
 						<button type="submit" class="link">租屋申請</button><br>
 					</FORM>
 					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/ConServlet">
-						<input type="hidden" name="lld_no" value="<%=lldno%>">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
-						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
-<%-- 						<span id="count">共<%=listapl.size()%>個合約</span> --%>
+						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
+						<span id="count">共<%=listcon.size()%>個合約</span>
 					</FORM>
+					
 				</div>
 			</nav>
 		</div>
@@ -147,7 +158,7 @@
 								<li><button id="btn1">合約管理</button></li>
 								<input type="hidden" name="con_no"  value="${conVO.con_no}">
 								<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
-			     				<input type="hidden" name="lld_no" value="<%=lldno%>">
+			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 			     				<input type="hidden" name="action"	value="lldupdatecontract">
 			     				</FORM>
 			     				
@@ -155,7 +166,7 @@
 								<li><button id="btn2">定期費用</button></li>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=2>
-			     				<input type="hidden" name="lld_no" value="<%=lldno%>">
+			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 			     				<input type="hidden" name="action"	value="lldupdate">
 			     				</FORM>
 			     				

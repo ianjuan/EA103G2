@@ -55,6 +55,9 @@ public class HouseVO implements java.io.Serializable {
 	private Integer hos_electfeetype;
 	private byte[] hos_pic;
 	private String pic_no;
+	private String tnt_name;
+	private Date apl_str;
+	private Date apl_end;
 	
 	public String getHos_no() {
 		return hos_no;
@@ -367,5 +370,23 @@ public class HouseVO implements java.io.Serializable {
 	}
 	public void setPic_no(String pic_no) {
 		this.pic_no = pic_no;
-	}		
+	}
+	public String getTnt_name() {
+		return tnt_name;
+	}
+	public void setTnt_name(String tnt_name) {
+		this.tnt_name = tnt_name;
+	}
+	public Date getApl_str() {
+		return apl_str;
+	}
+	public void setApl_str(Date apl_str) {
+		this.apl_str = apl_str;
+	}
+	public Date getApl_end() {
+		return apl_end;
+	}
+	public void setApl_end(Date apl_end) {
+		this.apl_end = apl_end;
+	}	
 }

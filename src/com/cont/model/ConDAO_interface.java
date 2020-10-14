@@ -12,6 +12,7 @@ public interface ConDAO_interface {
 	public void checkoutupdate(ConVO conVO);
 	public void delete(String con_no);
 	public ConVO findByPrimaryKey(String con_no);
+	public ConVO findByHosno(String hos_no);
 	public List<ConVO> getAll();
 	public List<ConVO> getconlld(String lld_no);
     //萬用複合查詢(傳入參數型態Map)(回傳 List)

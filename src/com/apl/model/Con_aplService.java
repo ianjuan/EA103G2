@@ -25,6 +25,19 @@ public class Con_aplService {
 
 		return con_aplVO;
 	}
+	
+	public Con_aplVO addfromhouse(String tnt_no, String hos_no, java.sql.Date apl_str, java.sql.Date apl_end) {
+
+		Con_aplVO con_aplVO = new Con_aplVO();
+
+		con_aplVO.setTnt_no(tnt_no);
+		con_aplVO.setHos_no(hos_no);
+		con_aplVO.setApl_str(apl_str);
+		con_aplVO.setApl_end(apl_end);
+		dao.insert(con_aplVO);
+
+		return con_aplVO;
+	}
 
 	public Con_aplVO updateCon_apl(String apl_no, String tnt_no, String hos_no, java.sql.Date apl_str,
 			java.sql.Date apl_end, java.sql.Date apl_time, Integer apl_status) {

@@ -341,8 +341,6 @@ public class HouseServlet extends HttpServlet {
 			/*************************** 要刪除的照片編號 **********************/
 			
 			String[] pic_no = req.getParameterValues("pic_no");
-			System.out.println(pic_no.length);
-			System.out.println(pic_no[0]);
 
 			/*************************** 傳入參數 **********************/
 

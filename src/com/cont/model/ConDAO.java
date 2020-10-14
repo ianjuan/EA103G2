@@ -55,6 +55,8 @@ public class ConDAO implements ConDAO_interface {
 
 	private static final String GET_CON_LLD = "SELECT CON_NO, CON_STA, C.HOS_NO, C.TNT_NO, C.APL_NO FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
 
+	private static final String GET_CON_BY_HOS_NO = "SELECT CON_NO FROM CONTRACT WHERE HOS_NO = ?";
+	
 	@Override
 	public void beforerentinsert(ConVO conVO) {
 
@@ -397,6 +399,59 @@ public class ConDAO implements ConDAO_interface {
 
 			}
 			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return conVO;
+	}
+	
+	@Override
+	public ConVO findByHosno(String hos_no) {
+
+		ConVO conVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_CON_BY_HOS_NO);
+
+			pstmt.setString(1, hos_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				conVO = new ConVO();
+
+				conVO.setCon_no(rs.getString("CON_NO"));
+
+			}
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources

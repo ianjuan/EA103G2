@@ -95,9 +95,16 @@
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">上架房屋</button>
 					</FORM>
-					<button type="submit" class="link">預約管理</button>
-					<button type="submit" class="link">租屋申請</button>
-					<button type="submit" class="link">合約管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="lldgetAll">
+						<button type="submit" class="link">租屋申請</button><br>
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getlldcontract">
+						<button type="submit" class="link">歷史合約</button><br>
+					</FORM>
 				</div>
 			</nav>
 		</div>
@@ -113,8 +120,9 @@
 							<li><span class="infotitle">房屋編號 : </span><span>${houseVO.hos_no}</span></li>
 							<li><span class="infotitle">房屋名稱 : </span><span>${houseVO.hos_name}</span></li>
 							<li><span class="infotitle">地址 : </span><span>${houseVO.hos_add}</span></li>
+							<li><span class="infotitle">房間類型 : </span><span>${houseVO.hos_room}</span></li>
+							<li><span class="infotitle">每月租金 : </span><span>${houseVO.hos_rentfee}</span></li>
 							<li><span class="infotitle">房屋狀態 : </span><span>${houseVO.hos_status}</span></li>
-							<li><span class="infotitle">瀏覽次數 : </span><span>${houseVO.hos_bro}</span></li>
 						</ul>
 					</div>
 					<div class="rinfo">

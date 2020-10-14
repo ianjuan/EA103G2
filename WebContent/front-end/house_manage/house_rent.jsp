@@ -94,9 +94,16 @@
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">上架房屋</button>
 					</FORM>
-					<button type="submit" class="link">預約管理</button>
-					<button type="submit" class="link">租屋申請</button>
-					<button type="submit" class="link">合約管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="lldgetAll">
+						<button type="submit" class="link">租屋申請</button><br>
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getlldcontract">
+						<button type="submit" class="link">歷史合約</button><br>
+					</FORM>
 				</div>
 			</nav>
 		</div>
@@ -112,9 +119,9 @@
 						<ul>
 							<li><span class="infotitle">房屋編號 : </span><span>${houseVO.hos_no}</span></li>
 							<li><span class="infotitle">地址 : </span><span>${houseVO.hos_add}</span></li>
-							<li><span class="infotitle">房客 : </span><span>吳永志</span></li>
-							<li><span class="infotitle">出租開始時間 : </span><span>2020/01/01</span></li>
-							<li><span class="infotitle">出租結束時間 : </span><span>2020/12/31</span></li>
+							<li><span class="infotitle">房客 : </span><span>${houseVO.tnt_name}</span></li>
+							<li><span class="infotitle">出租開始時間 : </span><span>${houseVO.apl_str}</span></li>
+							<li><span class="infotitle">出租結束時間 : </span><span>${houseVO.apl_end}</span></li>
 							<li><span class="infotitle">每月租金 : </span><span>${houseVO.hos_rentfee}</span></li>
 						</ul>
 					</div>					

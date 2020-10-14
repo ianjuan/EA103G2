@@ -127,6 +127,10 @@ public class ConService {
 	public ConVO getOneCon(String con_no) {
 		return dao.findByPrimaryKey(con_no);
 	}
+	
+	public ConVO getConbyhos(String hos_no) {
+		return dao.findByHosno(hos_no);
+	}
 
 	public List<ConVO> getAll() {
 		return dao.getAll();

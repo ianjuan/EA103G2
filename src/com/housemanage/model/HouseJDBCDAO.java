@@ -32,8 +32,9 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	private static final String GET_WATERFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000001'";
 	private static final String GET_ELECTFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000002'";
 	private static final String GET_LLDHOUSEPIC = "SELECT pic_no FROM HOUSE_PICTURE where hos_no=?";
-	private static final String GET_LLDUNRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_bro FROM HOUSE where lld_no=? AND hos_status NOT LIKE '出租中' order by hos_no";
-	private static final String GET_LLDRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '出租中' order by hos_no";
+	private static final String GET_LLDUNRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_bro FROM HOUSE where lld_no=? AND hos_status LIKE '待出租' order by hos_no";
+	private static final String GET_LLDRENTHOUSE = "SELECT h.hos_no,hos_add,hos_status,hos_rentfee,apl_str,apl_end,tnt_name "
+			+ "FROM HOUSE h JOIN CONTRACT_APPLICATION ca on h.hos_no = ca.hos_no JOIN TENANT t on ca.tnt_no = t.tnt_no where lld_no=? AND hos_status LIKE '出租中' order by hos_no";
 	private static final String GET_LLDOFFHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_bro FROM HOUSE where lld_no=? AND hos_status LIKE '已下架' order by hos_no";
 	private static final String DELETE_HOUSEPIC = "DELETE FROM HOUSE_PICTURE where pic_no=?";
 	private static final String DELETE_HOUSEINFO = "DELETE FROM HOUSE where hos_no=?";
@@ -456,7 +457,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		}
 		return houseVO;
 	}
-
+	
 	@Override
 	public List<HouseVO> getLldHousePic(String hos_no) {
 		List<HouseVO> list = new ArrayList<HouseVO>();
@@ -538,10 +539,12 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 				// empVO �]�٬� Domain objects
 				houseVO = new HouseVO();
 				houseVO.setHos_no(rs.getString("hos_no"));
-				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_add(rs.getString("hos_add"));
 				houseVO.setHos_status(rs.getString("hos_status"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
+				houseVO.setApl_str(rs.getDate("apl_str"));
+				houseVO.setApl_end(rs.getDate("apl_end"));
+				houseVO.setTnt_name(rs.getString("tnt_name"));
 				list.add(houseVO); // Store the row in the list
 			}
 
@@ -995,27 +998,29 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		System.out.print(houseVO5.getHos_electfee() + ",");
 //
 //		System.out.println("---------------------");
-
+			
 		// 查詢房屋圖片編號
-		List<HouseVO> list1 = dao.getLldHousePic("HOS014046");
-		System.out.print(list1.get(0).getPic_no() + ",");
+//		List<HouseVO> list1 = dao.getLldHousePic("HOS014046");
+//		System.out.print(list1.get(0).getPic_no() + ",");
 //		for (HouseVO aHouse : list1) {
 //			System.out.print(aHouse.getPic_no() + ",");
 //			System.out.println("---------------------");
 //			System.out.println();
 //		}
 		
-//		// 查詢房東已出租房屋
-//		List<HouseVO> list2 = dao.getLldRentHouse("LLD000001");
-//		for (HouseVO aHouse : list2) {
-//			System.out.print(aHouse.getHos_no() + ",");
-//			System.out.print(aHouse.getHos_name() + ",");
-//			System.out.print(aHouse.getHos_add() + ",");
-//			System.out.print(aHouse.getHos_status() + ",");
-//			System.out.print(aHouse.getHos_bro() + ",");
-//			System.out.println("---------------------");
-//			System.out.println();
-//		}
+		// 查詢房東已出租房屋
+		List<HouseVO> list2 = dao.getLldRentHouse("LLD000001");
+		for (HouseVO aHouse : list2) {
+			System.out.print(aHouse.getHos_no() + ",");
+			System.out.print(aHouse.getHos_add() + ",");
+			System.out.print(aHouse.getHos_status() + ",");
+			System.out.print(aHouse.getHos_rentfee() + ",");
+			System.out.print(aHouse.getApl_str() + ",");
+			System.out.print(aHouse.getApl_end() + ",");
+			System.out.print(aHouse.getTnt_name() + ",");
+			System.out.println("---------------------");
+			System.out.println();
+		}
 //
 //		// 查詢房東未出租房屋
 //		List<HouseVO> list3 = dao.getLldUnRentHouse("LLD000001");
