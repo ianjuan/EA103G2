@@ -89,7 +89,6 @@
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">上架房屋</button>
 					</FORM>
-					<button type="submit" class="link">預約管理</button>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
@@ -152,7 +151,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th>*房屋型態:</th>
+								<th>*房屋類型:</th>
 								<td>									
 									<label><input type="radio" name="hos_type" value="透天厝" <%=(houseVO.getHos_type().equals("透天厝")) ? "checked" : ""%> required>透天厝</label>
 									<label><input type="radio" name="hos_type" value="公寓" <%=(houseVO.getHos_type().equals("公寓")) ? "checked" : ""%> required>公寓</label>
@@ -160,7 +159,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th>*房間型態:</th>
+								<th>*房間類型:</th>
 								<td>									
 									<label><input type="radio" name="hos_room" value="雅房" <%=(houseVO.getHos_room().equals("雅房")) ? "checked" : ""%> required>雅房</label>
 									<label><input type="radio" name="hos_room" value="獨立套房" <%=(houseVO.getHos_room().equals("獨立套房")) ? "checked" : ""%> required>獨立套房</label>

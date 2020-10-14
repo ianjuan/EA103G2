@@ -85,7 +85,6 @@
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">上架房屋</button>
 					</FORM>
-					<button type="submit" class="link">預約管理</button>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
@@ -111,7 +110,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldUnRentHouse">
-						<button type="submit" class="link">點我進入</button>
+						<button type="submit" class="link">查看清單</button>
 					</FORM>
 				</div>
 			</div>
@@ -126,7 +125,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldRentHouse">
-						<button type="submit" class="link">點我進入</button>
+						<button type="submit" class="link">查看清單</button>
 					</FORM>
 				</div>
 			</div>
@@ -141,7 +140,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldOffHouse">
-						<button type="submit" class="link">點我進入</button>
+						<button type="submit" class="link">查看清單</button>
 					</FORM>
 				</div>
 			</div>
@@ -157,21 +156,6 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">點我進入</button>
-					</FORM>
-				</div>
-			</div>
-			<div class="houseinfo">
-				<div class="linfo">
-					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/reservation.jpg" class="pic"/>
-				</div>
-				<div class="cinfo">
-					<span class="fontstyle">來看看自己的行程吧~</span>
-				</div>
-				<div class="rinfo">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="lldgetAll">
-						<button type="submit" class="link">點我進入</button><br>
 					</FORM>
 				</div>
 			</div>
@@ -195,7 +179,7 @@
 					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/contract.jpg" class="pic"/>
 				</div>
 				<div class="cinfo">
-					<span class="fontstyle">來看看收入來源吧~</span>
+					<span class="fontstyle">來看看過去的爸爸們吧~</span>
 				</div>
 				<div class="rinfo">
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">

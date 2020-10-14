@@ -147,7 +147,7 @@ public class HouseService {
 	public HouseVO getHouseElectfee(String hos_no) {
 		return dao.getHouseElectfee(hos_no);
 	}
-		
+	
 	public List<HouseVO> getLldHousePic(String hos_no) {
 		return dao.getLldHousePic(hos_no);
 	}
