@@ -95,8 +95,16 @@
 						<button type="submit" class="link">上架房屋</button>
 					</FORM>
 					<button type="submit" class="link">預約管理</button>
-					<button type="submit" class="link">租屋申請</button>
-					<button type="submit" class="link">合約管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="lldgetAll">
+						<button type="submit" class="link">租屋申請</button><br>
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getlldcontract">
+						<button type="submit" class="link">歷史合約</button><br>
+					</FORM>
 				</div>
 			</nav>
 		</div>
