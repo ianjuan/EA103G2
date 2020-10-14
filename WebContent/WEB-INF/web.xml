@@ -197,6 +197,25 @@
 <!--        <servlet-name>default</servlet-name> -->
 <!--        <url-pattern>/resource/*</url-pattern> -->
 <!--    </servlet-mapping> -->
+
+<!-- chi -->
+    <servlet>
+  	<servlet-name>Repair_pictureServlet</servlet-name>
+  	<servlet-class>com.repair.controller.Repair_pictureServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+		<servlet-name>Repair_pictureServlet</servlet-name>
+		<url-pattern>/repair/repair_picture.servlet</url-pattern>
+	</servlet-mapping>
+	
+   <servlet>
+  	<servlet-name>HcmServlet</servlet-name>
+  	<servlet-class>com.house_comments.controller.House_commentsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+		<servlet-name>HcmServlet</servlet-name>
+		<url-pattern>/house_comments/house_comments.servlet</url-pattern>
+	</servlet-mapping>
 	
 <!-- 	Wayne -->
 	<servlet>

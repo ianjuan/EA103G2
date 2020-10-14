@@ -49,6 +49,8 @@ public class ConJDBCDAO implements ConDAO_interface {
 	
 	private static final String GET_CON_LLD = "SELECT CON_NO, C.HOS_NO, C.TNT_NO, C.APL_NO, CON_STA FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
 
+	private static final String GET_CON_BY_HOS_NO = "SELECT CON_NO FROM CONTRACT WHERE HOS_NO = ?";
+	
 	@Override
 	public void beforerentinsert(ConVO conVO) {
 		Connection con = null;
@@ -448,6 +450,64 @@ public class ConJDBCDAO implements ConDAO_interface {
 	}
 	
 	@Override
+	public ConVO findByHosno(String hos_no) {
+
+		ConVO conVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(GET_CON_BY_HOS_NO);
+
+			pstmt.setString(1, hos_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				conVO = new ConVO();
+
+				conVO.setCon_no(rs.getString("CON_NO"));
+
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return conVO;
+	}
+	
+	@Override
 	public List<ConVO> getconlld(String lld_no) {
 
 		List<ConVO> list = new ArrayList<ConVO>();
@@ -682,14 +742,17 @@ public class ConJDBCDAO implements ConDAO_interface {
 //			System.out.println("---------------------");
 //		}
 		
-		List<ConVO> list = dao.getconlld("LLD000944");
-		for (ConVO aaaVo : list) {
-			System.out.println(aaaVo.getCon_no());
-			System.out.println(aaaVo.getApl_no());
-			System.out.println(aaaVo.getHos_no());
-			System.out.println(aaaVo.getTnt_no());
-			System.out.println(aaaVo.getCon_sta());
-		}
+//		List<ConVO> list = dao.getconlld("LLD000944");
+//		for (ConVO aaaVo : list) {
+//			System.out.println(aaaVo.getCon_no());
+//			System.out.println(aaaVo.getApl_no());
+//			System.out.println(aaaVo.getHos_no());
+//			System.out.println(aaaVo.getTnt_no());
+//			System.out.println(aaaVo.getCon_sta());
+//		}
+		
+		ConVO conVO3 = dao.findByHosno("HOS011358");
+		System.out.println(conVO3.getCon_no());
 		
 	}
 }

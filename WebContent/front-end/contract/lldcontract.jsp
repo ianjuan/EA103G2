@@ -11,11 +11,12 @@
 	ConVO conVO = (ConVO)request.getAttribute("conVO");
  	LldVO lldVO = (LldVO)request.getAttribute("lldVO");
  	
-	String lld_no = (String) request.getAttribute("lldno");
+	String lld_no = (String) request.getAttribute("lld_no");
 	
 	pageContext.setAttribute("houseVO", houseVO);
 	pageContext.setAttribute("conVO", conVO);
 	pageContext.setAttribute("lldVO", lldVO);
+	pageContext.setAttribute("lld_no", lld_no);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />

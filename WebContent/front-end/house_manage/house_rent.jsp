@@ -136,6 +136,10 @@
 									<li><button id="btn2" type="submit">資訊修改</button></li>
 								</FORM>	
 								<li><button id="btn3">合約資訊</button></li>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/ConServlet">
+								<input type="hidden" name="lld_no" value="<%=lld_no%>">
+								<input type="hidden" name="action" value="getlldcontract">
+								</FORM>
 								<li><button id="btn4">帳單設定</button></li>
 								<li><button id="btn5">聊天</button></li>								
 							</ul>
