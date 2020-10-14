@@ -3,9 +3,12 @@ package com.housemanage.controller;
 import java.io.*;
 import java.util.*;
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.housemanage.model.*;
+
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 10 * 10 * 1024 * 1024)
 
 public class HouseServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -16,17 +19,32 @@ public class HouseServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		
+		if ("getLldAllHouse".equals(action)) {
+			String lld_no = new String(req.getParameter("lld_no"));
 
+			HouseService houseSvc = new HouseService();
+			List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
+			List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
+			List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
+
+			req.setAttribute("houseVOrent", houseVOrent);
+			req.setAttribute("houseVOunrent", houseVOunrent);
+			req.setAttribute("houseVOoff", houseVOoff);
+			req.setAttribute("lld_no", lld_no);
+			String url = "/front-end/house_manage/house_index.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
+		
 		if ("getLldRentHouse".equals(action)) {
 			String lld_no = new String(req.getParameter("lld_no"));
 
 			HouseService houseSvc = new HouseService();
-			List<HouseVO> houseVO = houseSvc.getLldRentHouse(lld_no);
-			HouseVO houseVOlld = houseSvc.getHouseLld(lld_no);
-			String lldno = houseVOlld.getLld_no();
+			List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
 
-			req.setAttribute("houseVO", houseVO);
-			req.setAttribute("lldno", lldno);
+			req.setAttribute("houseVOrent", houseVOrent);
+			req.setAttribute("lld_no", lld_no);
 			String url = "/front-end/house_manage/house_rent.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -36,25 +54,31 @@ public class HouseServlet extends HttpServlet {
 			String lld_no = new String(req.getParameter("lld_no"));
 
 			HouseService houseSvc = new HouseService();
-			List<HouseVO> houseVO = houseSvc.getLldUnRentHouse(lld_no);
-			HouseVO houseVOlld = houseSvc.getHouseLld(lld_no);
-			String lldno = houseVOlld.getLld_no();
+			List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
 			
-			req.setAttribute("houseVO", houseVO);
-			req.setAttribute("lldno", lldno);
+			req.setAttribute("houseVOunrent", houseVOunrent);
+			req.setAttribute("lld_no", lld_no);
 			String url = "/front-end/house_manage/house_unrent.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 		
-		if ("getLldPub".equals(action)) {
+		if ("getLldOffHouse".equals(action)) {
 			String lld_no = new String(req.getParameter("lld_no"));
 
 			HouseService houseSvc = new HouseService();
-			HouseVO houseVOlld = houseSvc.getHouseLld(lld_no);
-			String lldno = houseVOlld.getLld_no();
+			List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
+			
+			req.setAttribute("houseVOoff", houseVOoff);
+			req.setAttribute("lld_no", lld_no);
+			String url = "/front-end/house_manage/house_off.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
 
-			req.setAttribute("lldno", lldno);
+		if ("getLldPub".equals(action)) {
+			String lld_no = new String(req.getParameter("lld_no"));
+			req.setAttribute("lld_no", lld_no);
 			String url = "/front-end/house_manage/house_pub.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -68,13 +92,13 @@ public class HouseServlet extends HttpServlet {
 			HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
 			HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
 			HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
-			HouseVO houseVOlld = houseSvc.getHouseLld(lld_no);
-			String lldno = houseVOlld.getLld_no();
+			List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
 
 			req.setAttribute("houseVO", houseVO);
 			req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 			req.setAttribute("houseVOelectfee", houseVOelectfee);
-			req.setAttribute("lldno", lldno);
+			req.setAttribute("houseVOpicno", houseVOpicno);
+			req.setAttribute("lld_no", lld_no);
 			String url = "/front-end/house_manage/house_modify.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -98,7 +122,7 @@ public class HouseServlet extends HttpServlet {
 			Double hos_lat = new Double(req.getParameter("hos_lat").trim());
 			String hos_status = req.getParameter("hos_status");
 			Integer hos_bro = getReqNum(req, "hos_bro");
-			
+
 			/*************************** 新增房屋家具 **********************/
 
 			Integer hos_table = getReqNum(req, "hos_table");
@@ -129,18 +153,18 @@ public class HouseServlet extends HttpServlet {
 
 			/*************************** 新增房屋固定費用 **********************/
 
-			Integer hos_rentfee = new Integer(req.getParameter("hos_rentfee").trim());
-			Integer hos_gasfee = new Integer(req.getParameter("hos_gasfee").trim());
-			Integer hos_manafee = new Integer(req.getParameter("hos_manafee").trim());
-			Integer hos_netfee = new Integer(req.getParameter("hos_netfee").trim());
-			Integer hos_puwaterfee = new Integer(req.getParameter("hos_puwaterfee").trim());
-			Integer hos_puelefee = new Integer(req.getParameter("hos_puelefee").trim());
-			Integer hos_parkfee = new Integer(req.getParameter("hos_parkfee").trim());
-			
+			Integer hos_rentfee = getReqNum(req, "hos_rentfee");
+			Integer hos_gasfee = getReqNum(req, "hos_gasfee");
+			Integer hos_manafee = getReqNum(req, "hos_manafee");
+			Integer hos_netfee = getReqNum(req, "hos_netfee");
+			Integer hos_puwaterfee = getReqNum(req, "hos_puwaterfee");
+			Integer hos_puelefee = getReqNum(req, "hos_puelefee");
+			Integer hos_parkfee = getReqNum(req, "hos_parkfee");
+
 			/*************************** 新增房屋浮動費用 **********************/
 
-			Integer hos_waterfeetype = new Integer(req.getParameter("hos_waterfeetype"));
-			
+			Integer hos_waterfeetype = getReqNum(req, "hos_waterfeetype");
+
 			Double hos_waterfee;
 			if (hos_waterfeetype == 1) {
 				hos_waterfee = new Double(req.getParameter("hos_waterfee1").trim());
@@ -149,9 +173,9 @@ public class HouseServlet extends HttpServlet {
 			} else {
 				hos_waterfee = 0.0;
 			}
-			
-			Integer hos_electfeetype = new Integer(req.getParameter("hos_electfeetype"));
-			
+
+			Integer hos_electfeetype = getReqNum(req, "hos_electfeetype");
+
 			Double hos_electfee;
 			if (hos_electfeetype == 1) {
 				hos_electfee = new Double(req.getParameter("hos_electfee1").trim());
@@ -161,23 +185,51 @@ public class HouseServlet extends HttpServlet {
 				hos_electfee = 0.0;
 			}
 
+			/*************************** 新增房屋照片 **********************/
+						
+			Collection<Part> parts = req.getParts();
+			List<HouseVO> hos_picArr = new ArrayList<HouseVO>();
+			if (parts.size() != 0) {
+				for (Part part : parts) {
+					if (part.getContentType() != null) {						
+						String header = part.getHeader("Content-Disposition");
+		                String filename = header.substring(header.indexOf("filename=\"") + 10, header.lastIndexOf("\""));
+		                if(! "".equals(filename)) {		                	 
+		                	InputStream in = part.getInputStream();
+							byte[] hos_pic = new byte[in.available()];
+							in.read(hos_pic);
+							in.close();
+								
+							HouseVO houseVO = new HouseVO();
+							houseVO.setHos_pic(hos_pic);
+							hos_picArr.add(houseVO);	 
+		                 }
+					}
+				}
+			}	
+
 			/*************************** 傳入參數 **********************/
 
 			HouseService houseSvc = new HouseService();
-			HouseVO houseVOinfo = houseSvc.insertHouseInfo(lld_no, hos_name, hos_liffun, hos_trans, hos_add, hos_type, hos_room,
-					hos_pat, hos_floor, hos_pnum, hos_lng, hos_lat, hos_status, hos_table, hos_chair, hos_bed,
+			houseSvc.insertHouseInfo(lld_no, hos_name, hos_liffun, hos_trans, hos_add, hos_type,
+					hos_room, hos_pat, hos_floor, hos_pnum, hos_lng, hos_lat, hos_status, hos_table, hos_chair, hos_bed,
 					hos_closet, hos_sofa, hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth,
 					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
-					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee, hos_bro,
-					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee);
-			List<HouseVO> houseVO = houseSvc.getLldUnRentHouse(lld_no);
-			HouseVO houseVOlld = houseSvc.getHouseLld(lld_no);
-			String lldno = houseVOlld.getLld_no();
-			
-			req.setAttribute("houseVO", houseVO);
-			req.setAttribute("lldno", lldno);
-			
-			String url = "/front-end/house_manage/house_unrent.jsp";
+					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
+					hos_bro, hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr);
+														
+			req.setAttribute("lld_no", lld_no);
+
+			String url;
+			if (hos_status.equals("待出租")) {
+				List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
+				req.setAttribute("houseVOunrent", houseVOunrent);
+				url = "/front-end/house_manage/house_unrent.jsp";
+			} else {
+				List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
+				req.setAttribute("houseVOoff", houseVOoff);
+				url = "/front-end/house_manage/house_off.jsp";
+			}
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -200,7 +252,7 @@ public class HouseServlet extends HttpServlet {
 			String hos_status = req.getParameter("hos_status");
 			String hos_no = req.getParameter("hos_no");
 			String lld_no = req.getParameter("lld_no");
-			
+
 			/*************************** 更新房屋家具 **********************/
 
 			Integer hos_table = getReqNum(req, "hos_table");
@@ -230,19 +282,19 @@ public class HouseServlet extends HttpServlet {
 			String hos_smoke = req.getParameter("hos_smoke");
 
 			/*************************** 更新房屋固定費用 **********************/
-
-			Integer hos_rentfee = new Integer(req.getParameter("hos_rentfee").trim());
-			Integer hos_gasfee = new Integer(req.getParameter("hos_gasfee").trim());
-			Integer hos_manafee = new Integer(req.getParameter("hos_manafee").trim());
-			Integer hos_netfee = new Integer(req.getParameter("hos_netfee").trim());
-			Integer hos_puwaterfee = new Integer(req.getParameter("hos_puwaterfee").trim());
-			Integer hos_puelefee = new Integer(req.getParameter("hos_puelefee").trim());
-			Integer hos_parkfee = new Integer(req.getParameter("hos_parkfee").trim());
 			
+			Integer hos_rentfee = getReqNum(req, "hos_rentfee");
+			Integer hos_gasfee = getReqNum(req, "hos_gasfee");
+			Integer hos_manafee = getReqNum(req, "hos_manafee");
+			Integer hos_netfee = getReqNum(req, "hos_netfee");
+			Integer hos_puwaterfee = getReqNum(req, "hos_puwaterfee");
+			Integer hos_puelefee = getReqNum(req, "hos_puelefee");
+			Integer hos_parkfee = getReqNum(req, "hos_parkfee");
+
 			/*************************** 更新房屋浮動費用 **********************/
 
-			Integer hos_waterfeetype = new Integer(req.getParameter("hos_waterfeetype"));
-			
+			Integer hos_waterfeetype = getReqNum(req, "hos_waterfeetype");
+
 			Double hos_waterfee;
 			if (hos_waterfeetype == 1) {
 				hos_waterfee = new Double(req.getParameter("hos_waterfee1").trim());
@@ -251,9 +303,9 @@ public class HouseServlet extends HttpServlet {
 			} else {
 				hos_waterfee = 0.0;
 			}
-			
-			Integer hos_electfeetype = new Integer(req.getParameter("hos_electfeetype"));
-			
+
+			Integer hos_electfeetype = getReqNum(req, "hos_electfeetype");
+
 			Double hos_electfee;
 			if (hos_electfeetype == 1) {
 				hos_electfee = new Double(req.getParameter("hos_electfee1").trim());
@@ -263,28 +315,61 @@ public class HouseServlet extends HttpServlet {
 				hos_electfee = 0.0;
 			}
 			
+			/*************************** 更新房屋照片 **********************/
+			
+			Collection<Part> parts = req.getParts();
+			List<HouseVO> hos_picArr = new ArrayList<HouseVO>();
+			if (parts.size() != 0) {
+				for (Part part : parts) {
+					if (part.getContentType() != null) {
+						 String header = part.getHeader("Content-Disposition");
+		                 String filename = header.substring(header.indexOf("filename=\"") + 10, header.lastIndexOf("\""));
+		                 if(! "".equals(filename)) {		                	 
+		                	 InputStream in = part.getInputStream();
+							 byte[] hos_pic = new byte[in.available()];
+							 in.read(hos_pic);
+							 in.close();
+								
+							 HouseVO houseVO = new HouseVO();
+							 houseVO.setHos_pic(hos_pic);
+							 hos_picArr.add(houseVO);	 
+		                 }
+					}
+				}
+			}
+			
+			/*************************** 要刪除的照片編號 **********************/
+			
+			String[] pic_no = req.getParameterValues("pic_no");
+			System.out.println(pic_no.length);
+			System.out.println(pic_no[0]);
+
 			/*************************** 傳入參數 **********************/
 
 			HouseService houseSvc = new HouseService();
-			
-			HouseVO houseVOinfo = houseSvc.updateHouseInfo(hos_name, hos_liffun, hos_trans, hos_add, hos_type, hos_room, hos_pat,
-					hos_floor, hos_pnum, hos_lng, hos_lat, hos_status, hos_table, hos_chair, hos_bed, hos_closet,
-					hos_sofa, hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth, hos_net,
-					hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
+
+			houseSvc.updateHouseInfo(hos_name, hos_liffun, hos_trans, hos_add, hos_type, hos_room,
+					hos_pat, hos_floor, hos_pnum, hos_lng, hos_lat, hos_status, hos_table, hos_chair, hos_bed,
+					hos_closet, hos_sofa, hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth,
+					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
 					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
-					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_no);
-			List<HouseVO> houseVO = houseSvc.getLldUnRentHouse(lld_no);
-			HouseVO houseVOlld = houseSvc.getHouseLld(lld_no);
-			String lldno = houseVOlld.getLld_no();
-			
-			req.setAttribute("houseVO", houseVO);
-			req.setAttribute("lldno", lldno);
-			
+					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no, hos_no);
+															
+			req.setAttribute("lld_no", lld_no);
+
 			String url;
 			if (hos_status.equals("出租中")) {
+				List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
+				req.setAttribute("houseVOrent", houseVOrent);
 				url = "/front-end/house_manage/house_rent.jsp";
-			} else {
+			} else if (hos_status.equals("待出租")) {
+				List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
+				req.setAttribute("houseVOunrent", houseVOunrent);
 				url = "/front-end/house_manage/house_unrent.jsp";
+			} else {
+				List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
+				req.setAttribute("houseVOoff", houseVOoff);
+				url = "/front-end/house_manage/house_off.jsp";
 			}
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -295,11 +380,12 @@ public class HouseServlet extends HttpServlet {
 	public Integer getReqNum(HttpServletRequest req, String reqKey) {
 		String reqValue = req.getParameter(reqKey);
 		Integer result;
-		try {
-			result = new Integer(reqValue);
-		} catch (NumberFormatException e) {
+		
+		if(reqValue == null || (reqValue.trim()).length() == 0) {
 			result = 0;
-		}
+		} else {
+			result = new Integer(reqValue);
+		}		
 		return result;
 	}
 }

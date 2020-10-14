@@ -5,17 +5,17 @@
 <%@ page import="com.housemanage.model.*"%>
 
 <%
-	String lldno = (String) request.getAttribute("lldno");
-	if (lldno == null) {
-		lldno = request.getParameter("lldno");
+	String lld_no = (String) request.getAttribute("lld_no");
+	if (lld_no == null) {
+		lld_no = request.getParameter("lld_no");
 	}
 
-	List<HouseVO> list = (List<HouseVO>) request.getAttribute("houseVO");
+	List<HouseVO> list = (List<HouseVO>) request.getAttribute("houseVOunrent");
 	if (list == null) {
 		HouseService houseSvc = new HouseService();
-		list = houseSvc.getLldUnRentHouse(lldno);
+		list = houseSvc.getLldUnRentHouse(lld_no);
 	}
-	pageContext.setAttribute("list", list);
+	pageContext.setAttribute("list", list);	
 %>
 
 <!DOCTYPE html>
@@ -24,23 +24,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>House_Unrent</title>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-	crossorigin="anonymous"></script>
-<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/css/house_unrent.css">
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/house_unrent.js" charset="UTF-8"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_unrent.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 <body>
@@ -54,11 +43,11 @@
 				<div class="navbar-nav ml-auto">
 					<a class="nav-item nav-link active" href="#">尋找房源<span class="sr-only">(current)</span></a>
 					<a class="nav-item nav-link" href="#">地圖找房</a>
-					<a class="nav-item nav-link" href="<%=request.getContextPath()%>/front-end/house_manage/select_page.jsp">我的房屋</a>
+					<a class="nav-item nav-link" href="<%=request.getContextPath()%>/front-end/house_manage/housemanage_index.jsp">我的房屋</a>
 					<li class="nav-item dropdown">
 						<span data-toggle="dropdown" class="member">
 							<input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
-							<span class="membername">明金城來啦</span>
+							<span class="membername">彭于晏</span>
 						</span>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<a class="dropdown-item" href="#">最新通知</a>
@@ -80,23 +69,35 @@
 					<div class="line line--3"></div>
 				</div>
 				<div class="nav-links">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
-						<input type="hidden" name="lld_no" value="<%=lldno%>">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldAllHouse">
+						<button type="submit" class="link">首頁</button>
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldUnRentHouse">
 						<button type="submit" class="link" style="color: #D37707;">待租房屋</button>
 						<br><span id="count">共<%=list.size()%>間</span>
 					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
-						<input type="hidden" name="lld_no" value="<%=lldno%>">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldRentHouse">
 						<button type="submit" class="link">已租房屋</button>
 					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
-						<input type="hidden" name="lld_no" value="<%=lldno%>">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldOffHouse">
+						<button type="submit" class="link">下架房屋</button>
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">上架房屋</button>
 					</FORM>
 					<button type="submit" class="link">預約管理</button>
+					<button type="submit" class="link">租屋申請</button>
+					<button type="submit" class="link">合約管理</button>
 				</div>
 			</nav>
 		</div>
@@ -105,7 +106,7 @@
 			<c:forEach var="houseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
-						<img src="https://doqvf81n9htmm.cloudfront.net/data/jamiesu_149/2019Oct/1029/NCU.jpg" class="pic" />
+						<img src="<%=request.getContextPath()%>/ImgReader?id=${houseVO.hos_no}" class="pic" />
 					</div>
 					<div class="cinfo">
 						<ul>
@@ -119,9 +120,9 @@
 					<div class="rinfo">
 						<ul>
 							<li><button id="btn1" type="submit" value="送出">房屋資訊</button></li>
-							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/house.do">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 								<input type="hidden" name="hos_no" value="${houseVO.hos_no}">
-								<input type="hidden" name="lld_no" value="<%=lldno%>">
+								<input type="hidden" name="lld_no" value="<%=lld_no%>">
 								<input type="hidden" name="action" value="getHouseInfo">
 								<li><button id="btn2" type="submit">資訊修改</button></li>
 							</FORM>
@@ -129,10 +130,9 @@
 					</div>
 				</div>
 			</c:forEach>
-					
-			<div id="right"></div>
-		</div>
-		<div id="foot"></div>
+		<div id="right"></div>
+	</div>
+	<div id="foot"></div>
 		<div id="outerdiv"
 			style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;">
 			<div id="innerdiv" style="position: absolute;">
