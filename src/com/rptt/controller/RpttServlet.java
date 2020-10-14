@@ -1,6 +1,7 @@
 package com.rptt.controller;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -51,14 +52,15 @@ public class RpttServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/list_reported_tenant.jsp";
+				String url = "/back-end/rptt/first_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				System.out.println("轉部過來");
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 
 			} catch (Exception e) {
-				System.out.println("無法取得");
+				System.out.println("無法取得555");
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
 				failureView.forward(req, res);
@@ -100,7 +102,7 @@ public class RpttServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("rpttVO", rpttVO);
-				System.out.println(rpttVO.getRptt_result()+22);
+				System.out.println(rpttVO.getRptt_result() + 22);
 				System.out.println(rpttVO.getRptt_result());
 				System.out.println(rpttVO.getRptt_note());
 				String url = "/back-end/rptt/list_one_rpttno.jsp";
@@ -117,7 +119,6 @@ public class RpttServlet extends HttpServlet {
 			}
 
 		}
-
 		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -143,7 +144,8 @@ public class RpttServlet extends HttpServlet {
 					errorMsgs.add("房東編號: 只能是LLD後面接上6位數");
 				}
 
-				String rptt_content = req.getParameter("rptt_content");
+				String rptt_content = req.getParameter("rptt_content").trim();
+				System.out.println(rptt_content);
 				if (rptt_content == null || rptt_content.trim().length() == 0) {
 					errorMsgs.add("寶寶檢舉內容空白!寶寶不說");
 				}
@@ -154,19 +156,19 @@ public class RpttServlet extends HttpServlet {
 				rpttVO.setRptt_content(rptt_content);
 
 				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("rpttVO", rpttVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rptt/rptt_form.jsp");
-					failureView.forward(req, res);
-					return;
-				}
+//				if (!errorMsgs.isEmpty()) {
+//					req.setAttribute("rpttVO", rpttVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rptt/rptt_form.jsp");
+//					failureView.forward(req, res);
+//					return;
+//				}
 
 				/*************************** 2.開始新增資料 ***************************************/
 				RpttService rpttSvc = new RpttService();
 				rpttVO = rpttSvc.addRptt(tnt_no, lld_no, rptt_content);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/front-end/rptt/rptt_form.jsp";
+				String url = "/back-end/rptt/listAllRptt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				System.out.println("新增完成");
 				successView.forward(req, res);
@@ -198,6 +200,49 @@ public class RpttServlet extends HttpServlet {
 				String url = "/back-end/rptt/update_rptt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/listAllRptt.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
+		if ("update_employee".equals(action)) { // 來自addEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rptt_no = req.getParameter("rptt_no");
+				System.out.println(rptt_no);
+				String emp_no = req.getParameter("emp_no");
+				System.out.println(emp_no);
+				if(emp_no ==null) {
+					System.out.println("找不到員工編號");
+				}
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RpttVO rpttVO1 = new RpttVO();
+				rpttVO1.setRptt_no(rptt_no);
+				rpttVO1.setEmp_no(emp_no);
+				
+				RpttService rpttSvc = new RpttService();
+				rpttVO1 = rpttSvc.updateEmp(rptt_no, emp_no);
+				System.out.println("emp有更新了");
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
+				req.setAttribute("rpttVO", rpttVO);
+				String url = "/back-end/rptt/first_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("4.emp轉不過來");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -285,6 +330,7 @@ public class RpttServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
 
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 
@@ -292,25 +338,24 @@ public class RpttServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-	
+
 			try {
-				/***************************1.接收請求參數***************************************/
+				/*************************** 1.接收請求參數 ***************************************/
 				String rptt_no = req.getParameter("rptt_no");
-				
-				/***************************2.開始刪除資料***************************************/
+
+				/*************************** 2.開始刪除資料 ***************************************/
 				RpttService rpttSvc = new RpttService();
 				rpttSvc.deleteRptt(rptt_no);
-				
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+
+				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 				String url = "/back-end/rptt/listAllRptt.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
-				
-				/***************************其他可能的錯誤處理**********************************/
+
+				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
+				errorMsgs.add("刪除資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 				failureView.forward(req, res);
 			}
 		}
