@@ -106,7 +106,7 @@
 				<div class="houseinfo">
 					<div class="linfo">
 						<img
-							src="<%=request.getContextPath()%>/ImgReader?id=${houseVO.hos_no}" class="pic" />
+							src="<%=request.getContextPath()%>/HouseSingleImgReader?id=${houseVO.hos_no}" class="pic" />
 					</div>
 					<div class="cinfo">
 						<ul>

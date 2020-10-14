@@ -126,6 +126,24 @@
 		<servlet-name>HouseServlet</servlet-name>
 		<url-pattern>/house_manage/HouseServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>HouseSingleImgReader</servlet-name>
+		<servlet-class>com.housemanage.controller.HouseSingleImgReader</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>HouseSingleImgReader</servlet-name>
+		<url-pattern>/HouseSingleImgReader</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>HouseImgReader</servlet-name>
+		<servlet-class>com.housemanage.controller.HouseImgReader</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>HouseImgReader</servlet-name>
+		<url-pattern>/HouseImgReader</url-pattern>
+	</servlet-mapping>
 
 <!-- 	Terry -->
 	<servlet>
