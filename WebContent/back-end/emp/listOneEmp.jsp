@@ -9,9 +9,9 @@
 
 <html>
 <head>
-<link rel="icon" href="<%=request.getContextPath()%>/back-end/img/castle.ico" type="image/x-icon" />
-<link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/img/castle.ico" type="image/x-icon" />
-
+<link rel="icon" href="<%=request.getContextPath()%>/back-end/images/castle.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/images/castle.ico" type="image/x-icon" />
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 <link href="<%=request.getContextPath()%>/back-end/css/wu-teacher.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -19,6 +19,14 @@
 
 </head>
 <body>
+        <div class="container-fluid">
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">全體員工資料</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
 	<table id="table-1">
 		<tr>
 			<td>
@@ -31,14 +39,14 @@
 		</tr>
 	</table>
 
-	<table>
+	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		<tr>
 			<th>員工編號</th>
 			<th>員工帳號</th>
 			<th>員工密碼</th>
 			<th>員工職稱</th>
 			<th>姓名</th>
-			<th>是否刪除</th>
+			<th>是否在職</th>
 			<th>照片</th>
 
 		</tr>
@@ -58,7 +66,7 @@
 				%>
 			</td>
 			<td><%=empVO.getEmp_name()%></td>
-			<td><%=empVO.getEmp_is_delete() == 0 ? "未刪除":"已刪除"%></td>
+			<td><%=empVO.getEmp_is_delete() == 0 ? "在職":"離職"%></td>
 			<td>
 				<%
 					if (empVO.getEmp_pic()!=null) {
@@ -75,18 +83,23 @@
 			</td>
 
 		</tr>
-		<tr><td style="text-align:left">
-		<jsp:useBean id="funSvc" scope="page" class="com.fun.model.FunctionService" />
-	擁有的權限<br>
-		<c:forEach var="rigVO" items="${rigVO}">
+	<tr>
+	<td style="text-align:left">
+	<jsp:useBean id="funSvc" scope="page" class="com.fun.model.FunctionService" />
+	目前擁有的權限<br>
+	<c:forEach var="rigVO" items="${rigVO}">
 		<c:forEach var="funVO" items="${funSvc.all}">
-    <c:if test="${funVO.fun_no == rigVO.fun_no }">【${rigVO.fun_no}】 ${funVO.fun_name}<br>
-    </c:if>
+   			 <c:if test="${funVO.fun_no == rigVO.fun_no }">【${rigVO.fun_no}】 ${funVO.fun_name}<br>
+   			 </c:if>
 		</c:forEach>
 	</c:forEach>
 	</td>
-		</tr>
+	</tr>
 	</table>
-	
+	</div>
+            </div>
+          </div>
+
+        </div>
 </body>
 </html>

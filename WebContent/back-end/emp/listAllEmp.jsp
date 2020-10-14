@@ -7,61 +7,62 @@
 	List<EmployeeVO> list = empSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
 
-<link rel="icon" href="<%=request.getContextPath()%>/back-end/img/castle.ico" type="image/x-icon" />
-<link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/img/castle.ico" type="image/x-icon" />
-<!-- 外部js匯入 -->
-<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
-<link href="<%=request.getContextPath()%>/back-end/css/wu-teacher.css" rel="stylesheet" type="text/css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Custom fonts for this template -->
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-<style>
-body {
-	margin: 10;
-}
-</style>
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
-<body>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>全體員工資料</h3>
-				<h4>
-					<a href="index.jsp"><i class="fas fa-home"></i>回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+<body id="page-top">
 
-	<table>
-		<tr>
-			<th>員工編號</th>
-			<th>員工帳號</th>
-			<th>員工密碼</th>
-			<th>員工職稱</th>
-			<th>姓名</th>
-			<th>是否刪除</th>
-			<th>照片</th>
-			<th>修改</th>
-		</tr>
-		<%@ include file="page1.file"%>
-		<c:forEach var="employeeVO" items="${list}" begin="<%=pageIndex%>"
-			end="<%=pageIndex+rowsPerPage-1%>">
-
-			<tr>
+        <div class="container-fluid">
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">全體員工資料</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                 	    <th>員工編號</th>
+						<th>員工帳號</th>
+						<th>員工密碼</th>
+						<th>員工職稱</th>
+						<th>姓名</th>
+						<th>是否離職</th>
+						<th>照片</th>
+						<th>修改</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                 	    <th>員工編號</th>
+						<th>員工帳號</th>
+						<th>員工密碼</th>
+						<th>員工職稱</th>
+						<th>姓名</th>
+						<th>是否離職</th>
+						<th>照片</th>
+						<th>修改</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  <c:forEach var="employeeVO" items="${list}">
+                    <tr>
 				<td>${employeeVO.emp_no}</td>
 				<td>${employeeVO.emp_acc}</td>
 				<td>${employeeVO.emp_pwd}</td>
@@ -71,7 +72,7 @@ body {
 						<c:when test="${employeeVO.emp_title eq 2}"> 經理</c:when>
 					</c:choose></td>
 				<td>${employeeVO.emp_name}</td>
-				<td>${employeeVO.emp_is_delete eq 0? "未刪除":"已刪除"}</td>
+				<td>${employeeVO.emp_is_delete eq 0? "在職":"離職"}</td>
 				<td><c:if test="${not empty employeeVO.emp_pic}">
 						<img src="data:image/png;base64,${employeeVO.emp_pic}"
 							width="100px">
@@ -91,6 +92,36 @@ body {
 				</td>
 
 			</tr>
-		</c:forEach>
-	</table>
-	<%@ include file="page2.file"%>
+                    		</c:forEach>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      <!-- End of Main Content -->
+
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="<%=request.getContextPath()%>/back-end/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="<%=request.getContextPath()%>/back-end/js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>
