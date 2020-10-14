@@ -23,7 +23,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House_Unrent</title>
+<title>House_Off</title>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -95,7 +95,6 @@
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="submit" class="link">上架房屋</button>
 					</FORM>
-					<button type="submit" class="link">預約管理</button>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
@@ -121,8 +120,9 @@
 							<li><span class="infotitle">房屋編號 : </span><span>${houseVO.hos_no}</span></li>
 							<li><span class="infotitle">房屋名稱 : </span><span>${houseVO.hos_name}</span></li>
 							<li><span class="infotitle">地址 : </span><span>${houseVO.hos_add}</span></li>
+							<li><span class="infotitle">房間類型 : </span><span>${houseVO.hos_room}</span></li>
+							<li><span class="infotitle">每月租金 : </span><span>${houseVO.hos_rentfee}</span></li>
 							<li><span class="infotitle">房屋狀態 : </span><span>${houseVO.hos_status}</span></li>
-							<li><span class="infotitle">瀏覽次數 : </span><span>${houseVO.hos_bro}</span></li>
 						</ul>
 					</div>
 					<div class="rinfo">
