@@ -1,5 +1,6 @@
 package com.rptt.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class RpttService {
@@ -34,6 +35,15 @@ public class RpttService {
 		rpttVO.setRptt_result(rptt_result);
 		rpttVO.setRptt_note(rptt_note);
 		dao.update(rpttVO);
+		return rpttVO;
+	}
+	
+	public RpttVO updateEmp(String rptt_no, String emp_no) {
+
+		RpttVO rpttVO = new RpttVO();
+		rpttVO.setRptt_no(rptt_no);
+		rpttVO.setEmp_no(emp_no);
+		dao.updateEmp(rpttVO);
 		return rpttVO;
 	}
 

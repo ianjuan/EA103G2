@@ -38,6 +38,8 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 	private static final String GET_LLD_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE LLD_NO=? ";
 	private static final String GET_EMP_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE EMP_NO=? ";
 	private static final String GET_STATUS_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE RPTT_STATUS=? ";
+	private static final String UPDATEEMP = "UPDATE REPORT_TENANT SET EMP_NO=? WHERE RPTT_NO=?";
+
 
 	@Override
 	public void insert(RpttVO rpttVO) {
@@ -124,7 +126,48 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 		}
 
 	}
+	
+	
+	public void updateEmp(RpttVO rpttVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
 
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATEEMP);
+
+		
+			pstmt.setString(1, rpttVO.getEmp_no());
+			pstmt.setString(2, rpttVO.getRptt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	
 	@Override
 	public void delete(String rptt_no) {
 
