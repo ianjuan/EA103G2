@@ -124,7 +124,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>HouseServlet</servlet-name>
-		<url-pattern>/house_manage/house.do</url-pattern>
+		<url-pattern>/house_manage/HouseServlet</url-pattern>
 	</servlet-mapping>
 
 <!-- 	Terry -->

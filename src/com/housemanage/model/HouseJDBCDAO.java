@@ -24,20 +24,23 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			+ "hos_rentfee=?,hos_gasfee=?,hos_manafee=?,hos_netfee=?,hos_puwaterfee=?,hos_puelefee=?,hos_parkfee=? where hos_no=?";
 	private static final String UPDATE_WATERFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000001'";
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
+	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
 	private static final String GET_HOUSEINFO = "SELECT hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
 			+ "hos_table,hos_chair,hos_bed,hos_closet,hos_sofa,hos_tv,hos_drink,hos_aircon,hos_refrig,hos_wash,hos_hoter,hos_forth,hos_net,hos_gas,"
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
 			+ "hos_rentfee,hos_gasfee,hos_manafee,hos_netfee,hos_puwaterfee,hos_puelefee,hos_parkfee FROM HOUSE where hos_no=?";
 	private static final String GET_WATERFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000001'";
 	private static final String GET_ELECTFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000002'";
-	private static final String GET_HOUSELLD = "SELECT lld_no FROM HOUSE where lld_no=?";
+	private static final String GET_LLDHOUSEPIC = "SELECT pic_no FROM HOUSE_PICTURE where hos_no=?";
 	private static final String GET_LLDUNRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_bro FROM HOUSE where lld_no=? AND hos_status NOT LIKE '出租中' order by hos_no";
 	private static final String GET_LLDRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '出租中' order by hos_no";
+	private static final String GET_LLDOFFHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_bro FROM HOUSE where lld_no=? AND hos_status LIKE '已下架' order by hos_no";
+	private static final String DELETE_HOUSEPIC = "DELETE FROM HOUSE_PICTURE where pic_no=?";
 	private static final String DELETE_HOUSEINFO = "DELETE FROM HOUSE where hos_no=?";
 	private static final String GET_ALLHOUSE = "SELECT hos_no,lld_no,hos_name,hos_add,hos_status FROM HOUSE";
 
 	@Override
-	public void insertHouseInfo(HouseVO houseVO) {
+	public void insertHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -135,7 +138,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	}
 		
 	@Override
-	public void updateHouseInfo(HouseVO houseVO) {
+	public void updateHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr, String[] pic_no) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -207,6 +210,22 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			pstmt.setString(3, houseVO.getHos_no());
 			
 			pstmt.executeUpdate();
+			pstmt.clearParameters();
+			
+			for(HouseVO hos_pic : hos_picArr) {				
+				pstmt = con.prepareStatement(UPDATE_HOSPIC);
+				pstmt.setString(1, houseVO.getHos_no());
+				pstmt.setBytes(2, hos_pic.getHos_pic());
+				pstmt.executeUpdate();
+				pstmt.clearParameters();
+			}
+			
+			for(int i=0; i<pic_no.length; i++) {
+				pstmt = con.prepareStatement(DELETE_HOUSEPIC);
+				pstmt.setString(1, pic_no[i]);
+				pstmt.executeUpdate();
+				pstmt.clearParameters();
+			}
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -439,24 +458,28 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	}
 
 	@Override
-	public HouseVO getHouseLld(String lld_no) {
+	public List<HouseVO> getLldHousePic(String hos_no) {
+		List<HouseVO> list = new ArrayList<HouseVO>();
 		HouseVO houseVO = null;
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_HOUSELLD);
+			pstmt = con.prepareStatement(GET_LLDHOUSEPIC);
 
-			pstmt.setString(1, lld_no);
+			pstmt.setString(1, hos_no);
+
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				houseVO = new HouseVO();
-				houseVO.setLld_no(rs.getString("lld_no"));
+				houseVO.setPic_no(rs.getString("pic_no"));
+				list.add(houseVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -489,7 +512,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 				}
 			}
 		}
-		return houseVO;
+		return list;
 	}
 
 	@Override
@@ -576,6 +599,68 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
+				houseVO = new HouseVO();
+				houseVO.setHos_no(rs.getString("hos_no"));
+				houseVO.setHos_name(rs.getString("hos_name"));
+				houseVO.setHos_add(rs.getString("hos_add"));
+				houseVO.setHos_status(rs.getString("hos_status"));
+				houseVO.setHos_bro(rs.getInt("hos_bro"));
+				list.add(houseVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<HouseVO> getLldOffHouse(String lld_no) {
+		List<HouseVO> list = new ArrayList<HouseVO>();
+		HouseVO houseVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_LLDOFFHOUSE);
+
+			pstmt.setString(1, lld_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
 				houseVO = new HouseVO();
 				houseVO.setHos_no(rs.getString("hos_no"));
 				houseVO.setHos_name(rs.getString("hos_name"));
@@ -843,74 +928,83 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //
 //		dao.updateHouseInfo(houseVO2);
 
-		// 查詢房屋資訊
-		HouseVO houseVO3 = dao.getHouseInfo("HOS000001");
-		System.out.print(houseVO3.getHos_no() + ",");
-		System.out.print(houseVO3.getHos_name() + ",");
-		System.out.print(houseVO3.getHos_liffun() + ",");
-		System.out.print(houseVO3.getHos_trans() + ",");
-		System.out.print(houseVO3.getHos_add() + ",");
-		System.out.print(houseVO3.getHos_type() + ",");
-		System.out.print(houseVO3.getHos_room() + ",");
-		System.out.print(houseVO3.getHos_pat() + ",");
-		System.out.print(houseVO3.getHos_floor() + ",");
-		System.out.print(houseVO3.getHos_pnum() + ",");
-		System.out.print(houseVO3.getHos_lng() + ",");
-		System.out.print(houseVO3.getHos_lat() + ",");
-		System.out.print(houseVO3.getHos_status() + ",");
-		System.out.println("---------------------");
+//		// 查詢房屋資訊
+//		HouseVO houseVO3 = dao.getHouseInfo("HOS000001");
+//		System.out.print(houseVO3.getHos_no() + ",");
+//		System.out.print(houseVO3.getHos_name() + ",");
+//		System.out.print(houseVO3.getHos_liffun() + ",");
+//		System.out.print(houseVO3.getHos_trans() + ",");
+//		System.out.print(houseVO3.getHos_add() + ",");
+//		System.out.print(houseVO3.getHos_type() + ",");
+//		System.out.print(houseVO3.getHos_room() + ",");
+//		System.out.print(houseVO3.getHos_pat() + ",");
+//		System.out.print(houseVO3.getHos_floor() + ",");
+//		System.out.print(houseVO3.getHos_pnum() + ",");
+//		System.out.print(houseVO3.getHos_lng() + ",");
+//		System.out.print(houseVO3.getHos_lat() + ",");
+//		System.out.print(houseVO3.getHos_status() + ",");
+//		System.out.println("---------------------");
+//
+//		// 查詢房屋家具
+//		System.out.print(houseVO3.getHos_table() + ",");
+//		System.out.print(houseVO3.getHos_chair() + ",");
+//		System.out.print(houseVO3.getHos_bed() + ",");
+//		System.out.print(houseVO3.getHos_closet() + ",");
+//		System.out.print(houseVO3.getHos_sofa() + ",");
+//		System.out.print(houseVO3.getHos_tv() + ",");
+//		System.out.print(houseVO3.getHos_drink() + ",");
+//		System.out.print(houseVO3.getHos_aircon() + ",");
+//		System.out.print(houseVO3.getHos_refrig() + ",");
+//		System.out.print(houseVO3.getHos_wash() + ",");
+//		System.out.print(houseVO3.getHos_hoter() + ",");
+//		System.out.print(houseVO3.getHos_forth() + ",");
+//		System.out.print(houseVO3.getHos_net() + ",");
+//		System.out.print(houseVO3.getHos_gas() + ",");
+//		System.out.println("---------------------");
+//
+//		// 查詢房屋限制
+//		System.out.print(houseVO3.getHos_mdate() + ",");
+//		System.out.print(houseVO3.getHos_mindate() + ",");
+//		System.out.print(houseVO3.getHos_park() + ",");
+//		System.out.print(houseVO3.getHos_sex() + ",");
+//		System.out.print(houseVO3.getHos_iden() + ",");
+//		System.out.print(houseVO3.getHos_pet() + ",");
+//		System.out.print(houseVO3.getHos_cook() + ",");
+//		System.out.print(houseVO3.getHos_smoke() + ",");
+//		System.out.println("---------------------");
+//
+//		// 查詢房屋固定費用
+//		System.out.print(houseVO3.getHos_rentfee() + ",");
+//		System.out.print(houseVO3.getHos_gasfee() + ",");
+//		System.out.print(houseVO3.getHos_manafee() + ",");
+//		System.out.print(houseVO3.getHos_netfee() + ",");
+//		System.out.print(houseVO3.getHos_puwaterfee() + ",");
+//		System.out.print(houseVO3.getHos_puelefee() + ",");
+//		System.out.print(houseVO3.getHos_parkfee() + ",");
+//		System.out.println("---------------------");
+//		
+//		// 查詢房屋浮動費用
+//		HouseVO houseVO4 = dao.getHouseWaterfee("HOS000001");
+//		System.out.print(houseVO4.getHos_waterfeetype() + ",");
+//		System.out.print(houseVO4.getHos_waterfee() + ",");
+//
+//		System.out.println("---------------------");
+//		
+//		HouseVO houseVO5 = dao.getHouseElectfee("HOS000001");
+//		System.out.print(houseVO5.getHos_electfeetype() + ",");
+//		System.out.print(houseVO5.getHos_electfee() + ",");
+//
+//		System.out.println("---------------------");
 
-		// 查詢房屋家具
-		System.out.print(houseVO3.getHos_table() + ",");
-		System.out.print(houseVO3.getHos_chair() + ",");
-		System.out.print(houseVO3.getHos_bed() + ",");
-		System.out.print(houseVO3.getHos_closet() + ",");
-		System.out.print(houseVO3.getHos_sofa() + ",");
-		System.out.print(houseVO3.getHos_tv() + ",");
-		System.out.print(houseVO3.getHos_drink() + ",");
-		System.out.print(houseVO3.getHos_aircon() + ",");
-		System.out.print(houseVO3.getHos_refrig() + ",");
-		System.out.print(houseVO3.getHos_wash() + ",");
-		System.out.print(houseVO3.getHos_hoter() + ",");
-		System.out.print(houseVO3.getHos_forth() + ",");
-		System.out.print(houseVO3.getHos_net() + ",");
-		System.out.print(houseVO3.getHos_gas() + ",");
-		System.out.println("---------------------");
-
-		// 查詢房屋限制
-		System.out.print(houseVO3.getHos_mdate() + ",");
-		System.out.print(houseVO3.getHos_mindate() + ",");
-		System.out.print(houseVO3.getHos_park() + ",");
-		System.out.print(houseVO3.getHos_sex() + ",");
-		System.out.print(houseVO3.getHos_iden() + ",");
-		System.out.print(houseVO3.getHos_pet() + ",");
-		System.out.print(houseVO3.getHos_cook() + ",");
-		System.out.print(houseVO3.getHos_smoke() + ",");
-		System.out.println("---------------------");
-
-		// 查詢房屋固定費用
-		System.out.print(houseVO3.getHos_rentfee() + ",");
-		System.out.print(houseVO3.getHos_gasfee() + ",");
-		System.out.print(houseVO3.getHos_manafee() + ",");
-		System.out.print(houseVO3.getHos_netfee() + ",");
-		System.out.print(houseVO3.getHos_puwaterfee() + ",");
-		System.out.print(houseVO3.getHos_puelefee() + ",");
-		System.out.print(houseVO3.getHos_parkfee() + ",");
-		System.out.println("---------------------");
+		// 查詢房屋圖片編號
+		List<HouseVO> list1 = dao.getLldHousePic("HOS014046");
+		System.out.print(list1.get(0).getPic_no() + ",");
+//		for (HouseVO aHouse : list1) {
+//			System.out.print(aHouse.getPic_no() + ",");
+//			System.out.println("---------------------");
+//			System.out.println();
+//		}
 		
-		// 查詢房屋浮動費用
-		HouseVO houseVO4 = dao.getHouseWaterfee("HOS000001");
-		System.out.print(houseVO4.getHos_waterfeetype() + ",");
-		System.out.print(houseVO4.getHos_waterfee() + ",");
-
-		System.out.println("---------------------");
-		
-		HouseVO houseVO5 = dao.getHouseElectfee("HOS000001");
-		System.out.print(houseVO5.getHos_electfeetype() + ",");
-		System.out.print(houseVO5.getHos_electfee() + ",");
-
-		System.out.println("---------------------");
-
 //		// 查詢房東已出租房屋
 //		List<HouseVO> list2 = dao.getLldRentHouse("LLD000001");
 //		for (HouseVO aHouse : list2) {

@@ -53,6 +53,8 @@ public class HouseVO implements java.io.Serializable {
 	private Integer hos_waterfeetype;
 	private Double hos_electfee;
 	private Integer hos_electfeetype;
+	private byte[] hos_pic;
+	private String pic_no;
 	
 	public String getHos_no() {
 		return hos_no;
@@ -354,5 +356,16 @@ public class HouseVO implements java.io.Serializable {
 	public void setHos_electfeetype(Integer hos_electfeetype) {
 		this.hos_electfeetype = hos_electfeetype;
 	}
-	
+	public byte[] getHos_pic() {
+		return hos_pic;
+	}
+	public void setHos_pic(byte[] hos_pic) {
+		this.hos_pic = hos_pic;
+	}
+	public String getPic_no() {
+		return pic_no;
+	}
+	public void setPic_no(String pic_no) {
+		this.pic_no = pic_no;
+	}		
 }

@@ -17,7 +17,8 @@ public class HouseService {
 			Integer hos_gas, String hos_mdate, String hos_mindate, String hos_park, String hos_sex, String hos_iden,
 			String hos_pet, String hos_cook, String hos_smoke, Integer hos_rentfee, Integer hos_gasfee,
 			Integer hos_manafee, Integer hos_netfee, Integer hos_puwaterfee, Integer hos_puelefee,
-			Integer hos_parkfee, Integer hos_bro, Integer hos_waterfeetype, Double hos_waterfee, Integer hos_electfeetype, Double hos_electfee) {
+			Integer hos_parkfee, Integer hos_bro, Integer hos_waterfeetype, Double hos_waterfee,
+			Integer hos_electfeetype, Double hos_electfee, List<HouseVO> hos_picArr) {
 		HouseVO houseVO = new HouseVO();
 
 		houseVO.setLld_no(lld_no);
@@ -67,7 +68,7 @@ public class HouseService {
 		houseVO.setHos_waterfee(hos_waterfee);
 		houseVO.setHos_electfeetype(hos_electfeetype);
 		houseVO.setHos_electfee(hos_electfee);
-		dao.insertHouseInfo(houseVO);
+		dao.insertHouseInfo(houseVO, hos_picArr);
 
 		return houseVO;
 	}
@@ -80,7 +81,8 @@ public class HouseService {
 			Integer hos_gas, String hos_mdate, String hos_mindate, String hos_park, String hos_sex, String hos_iden,
 			String hos_pet, String hos_cook, String hos_smoke, Integer hos_rentfee, Integer hos_gasfee,
 			Integer hos_manafee, Integer hos_netfee, Integer hos_puwaterfee, Integer hos_puelefee, Integer hos_parkfee,
-			Integer hos_waterfeetype, Double hos_waterfee, Integer hos_electfeetype, Double hos_electfee, String hos_no) {
+			Integer hos_waterfeetype, Double hos_waterfee, Integer hos_electfeetype, Double hos_electfee,
+			List<HouseVO> hos_picArr, String[] pic_no, String hos_no) {
 		HouseVO houseVO = new HouseVO();
 
 		houseVO.setHos_name(hos_name);
@@ -129,7 +131,7 @@ public class HouseService {
 		houseVO.setHos_electfeetype(hos_electfeetype);
 		houseVO.setHos_electfee(hos_electfee);
 		houseVO.setHos_no(hos_no);
-		dao.updateHouseInfo(houseVO);
+		dao.updateHouseInfo(houseVO, hos_picArr, pic_no);
 
 		return houseVO;
 	}
@@ -145,17 +147,21 @@ public class HouseService {
 	public HouseVO getHouseElectfee(String hos_no) {
 		return dao.getHouseElectfee(hos_no);
 	}
-	
-	public HouseVO getHouseLld(String lld_no) {
-		return dao.getHouseLld(lld_no);
+		
+	public List<HouseVO> getLldHousePic(String hos_no) {
+		return dao.getLldHousePic(hos_no);
 	}
-
+	
 	public List<HouseVO> getLldRentHouse(String lld_no) {
 		return dao.getLldRentHouse(lld_no);
 	}
 
 	public List<HouseVO> getLldUnRentHouse(String lld_no) {
 		return dao.getLldUnRentHouse(lld_no);
+	}
+	
+	public List<HouseVO> getLldOffHouse(String lld_no) {
+		return dao.getLldOffHouse(lld_no);
 	}
 
 	public void deleteHouseInfo(String hos_no) {
