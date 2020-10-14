@@ -106,7 +106,7 @@
 			<c:forEach var="houseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
-						<img src="<%=request.getContextPath()%>/ImgReader?id=${houseVO.hos_no}" class="pic" />
+						<img src="<%=request.getContextPath()%>/HouseSingleImgReader?id=${houseVO.hos_no}" class="pic" />
 					</div>
 					<div class="cinfo">
 						<ul>
