@@ -373,64 +373,124 @@ public class Con_aplServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/updateCon_apl_input.jsp");
 				failureView.forward(req, res);
 			}
-		}
 
-		if ("lldupdate".equals(action)) {
+			if ("addfromhouse".equals(action)) {
 
-			List<String> errorMsgs = new LinkedList<String>();
+//				List<String> errorMsgs = new LinkedList<String>();
+//				// Store this set in the request scope, in case we need to
+//				// send the ErrorPage view.
+//				req.setAttribute("errorMsgs", errorMsgs);
+
+				try {
+					/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+					String tnt_no = req.getParameter("tnt_no");
+					String hos_no = req.getParameter("hos_no");
+
+					java.sql.Date apl_str = null;
+					try {
+						apl_str = java.sql.Date.valueOf(req.getParameter("apl_str").trim());
+					} catch (IllegalArgumentException e) {
+						apl_str = new java.sql.Date(System.currentTimeMillis());
+						errorMsgs.add("請輸入日期!");
+					}
+
+					java.sql.Date apl_end = null;
+					try {
+						apl_end = java.sql.Date.valueOf(req.getParameter("apl_end").trim());
+					} catch (IllegalArgumentException e) {
+						apl_end = new java.sql.Date(System.currentTimeMillis());
+						errorMsgs.add("請輸入日期!");
+					}
+
+					Con_aplVO con_aplVO = new Con_aplVO();
+					con_aplVO.setTnt_no(tnt_no);
+					con_aplVO.setHos_no(hos_no);
+
+					// Send the use back to the form, if there were errors
+					if (!errorMsgs.isEmpty()) {
+						req.setAttribute("con_aplVO", con_aplVO);
+						RequestDispatcher failureView = req
+								.getRequestDispatcher("/front-end/apl/updateCon_apl_input.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+
+					/*************************** 2.開始修改資料 *****************************************/
+					Con_aplService con_aplSvc = new Con_aplService();
+					con_aplVO = con_aplSvc.addfromhouse(tnt_no, hos_no, apl_str, apl_end);
+
+					/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
+					req.setAttribute("con_aplVO", con_aplVO); // 資料庫update成功後,正確的的empVO物件,存入req
+					String url = "/front-end/apl/listOneCon_apl.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
+					successView.forward(req, res);
+
+					/*************************** 其他可能的錯誤處理 *************************************/
+				} catch (Exception e) {
+					e.printStackTrace();
+					errorMsgs.add("修改資料失敗:" + e.getMessage());
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/updateCon_apl_input.jsp");
+					failureView.forward(req, res);
+				}
+			}
+
+			if ("lldupdate".equals(action)) {
+
+//			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
+//			req.setAttribute("errorMsgs", errorMsgs);
 
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String apl_no = new String(req.getParameter("apl_no").trim());
-				String lldno = req.getParameter("lld_no");
+				try {
+					/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+					String apl_no = new String(req.getParameter("apl_no").trim());
+					String lldno = req.getParameter("lld_no");
 
-				Integer apl_status = new Integer(req.getParameter("apl_status").trim());
-				System.out.println(apl_no);
-				System.out.println(apl_status);
+					Integer apl_status = new Integer(req.getParameter("apl_status").trim());
+					System.out.println(apl_no);
+					System.out.println(apl_status);
 
-				/*************************** 2.開始修改資料 *****************************************/
-				Con_aplService con_aplService = new Con_aplService();
-				con_aplService.lldUpdateCon_apl(apl_no, apl_status);
-				List<Con_aplVO> list = con_aplService.lldgetAll(lldno);
+					/*************************** 2.開始修改資料 *****************************************/
+					Con_aplService con_aplService = new Con_aplService();
+					con_aplService.lldUpdateCon_apl(apl_no, apl_status);
+					List<Con_aplVO> list = con_aplService.lldgetAll(lldno);
 
-				if (apl_status == 1) {
-					Con_aplVO con_aplVO = new Con_aplVO();
-					con_aplVO = con_aplService.getOneCon_apl(apl_no);
-					String tnt_no = con_aplVO.getTnt_no();
-					String hos_no = con_aplVO.getHos_no();
-					System.out.println(tnt_no);
-					System.out.println(hos_no);
-					
-					ConService conService = new ConService();
-					conService.addbeforerent(apl_no, tnt_no, hos_no);
-				}
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("con_aplSvc", con_aplService);
+					if (apl_status == 1) {
+						Con_aplVO con_aplVO = new Con_aplVO();
+						con_aplVO = con_aplService.getOneCon_apl(apl_no);
+						String tnt_no = con_aplVO.getTnt_no();
+						String hos_no = con_aplVO.getHos_no();
+						System.out.println(tnt_no);
+						System.out.println(hos_no);
+
+						ConService conService = new ConService();
+						conService.addbeforerent(apl_no, tnt_no, hos_no);
+					}
+					if (!errorMsgs.isEmpty()) {
+						req.setAttribute("con_aplSvc", con_aplService);
+						RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/lldaplpage.jsp");
+						failureView.forward(req, res);
+						return;
+					}
+
+					/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+					HttpSession session = req.getSession();
+					// 資料庫取出的list物件,存入session
+					req.setAttribute("lldno", lldno);
+					session.setAttribute("list", list);
+					// Send the Success view
+					String url = "/front-end/apl/lldaplpage.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+					return;
+
+					/*************************** 其他可能的錯誤處理 *************************************/
+				} catch (Exception e) {
+					e.printStackTrace();
+					errorMsgs.add("修改資料失敗:" + e.getMessage());
 					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/lldaplpage.jsp");
 					failureView.forward(req, res);
-					return;
 				}
-
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				HttpSession session = req.getSession();
-				// 資料庫取出的list物件,存入session
-				req.setAttribute("lldno", lldno);
-				session.setAttribute("list", list);
-				// Send the Success view
-				String url = "/front-end/apl/lldaplpage.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				return;
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				e.printStackTrace();
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/lldaplpage.jsp");
-				failureView.forward(req, res);
 			}
 		}
 	}
