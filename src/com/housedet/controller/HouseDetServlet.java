@@ -30,6 +30,7 @@ public class HouseDetServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+		//組長Github教學//
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		if(false) {
