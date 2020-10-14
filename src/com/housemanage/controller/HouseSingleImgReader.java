@@ -1,3 +1,4 @@
+package com.housemanage.controller;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import javax.sql.DataSource;
 
 import com.housemanage.model.HouseVO;
 
-public class ImgReader extends HttpServlet {
+public class HouseSingleImgReader extends HttpServlet {
 
 	private static final String GET_LLDHOUSEPIC = "SELECT hos_pic FROM HOUSE_PICTURE where hos_no=?";
 
