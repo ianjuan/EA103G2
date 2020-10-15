@@ -38,11 +38,12 @@ public class RpttService {
 		return rpttVO;
 	}
 	
-	public RpttVO updateEmp(String rptt_no, String emp_no) {
+	public RpttVO updateEmp(String rptt_no, String emp_no, Integer rptt_status) {
 
 		RpttVO rpttVO = new RpttVO();
 		rpttVO.setRptt_no(rptt_no);
 		rpttVO.setEmp_no(emp_no);
+		rpttVO.setRptt_status(rptt_status);
 		dao.updateEmp(rpttVO);
 		return rpttVO;
 	}

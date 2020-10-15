@@ -55,7 +55,7 @@ public class RpttServlet extends HttpServlet {
 				String url = "/back-end/rptt/first_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉部過來");
+				System.out.println("成功轉過去囉");
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 
@@ -226,14 +226,18 @@ public class RpttServlet extends HttpServlet {
 				if(emp_no ==null) {
 					System.out.println("找不到員工編號");
 				}
+				Integer rptt_status = new Integer(req.getParameter("rptt_status").trim());
+				System.out.println(rptt_status);
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				RpttVO rpttVO1 = new RpttVO();
 				rpttVO1.setRptt_no(rptt_no);
 				rpttVO1.setEmp_no(emp_no);
+				rpttVO1.setRptt_status(rptt_status);
+				System.out.println("裝入完畢");
 				
 				RpttService rpttSvc = new RpttService();
-				rpttVO1 = rpttSvc.updateEmp(rptt_no, emp_no);
+				rpttVO1 = rpttSvc.updateEmp(rptt_no, emp_no,rptt_status);
 				System.out.println("emp有更新了");
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
