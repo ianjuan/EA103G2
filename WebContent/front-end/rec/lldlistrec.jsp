@@ -7,21 +7,16 @@
 <%@ page import="com.apl.model.*"%>
 <%@ page import="com.tnt.model.*"%>
 <%@ page import="com.cont.model.*"%>
+<%@ page import="com.rec.model.*"%>
 
 <%
-	String lld_no = (String) request.getAttribute("lldno");
+	String lld_no = (String) request.getAttribute("lld_no");
 	if (lld_no == null) {
-		lld_no = request.getParameter("lldno");
+		lld_no = request.getParameter("lld_no");
 	}
 	
-	List<HouseVO> list = (List<HouseVO>) request.getAttribute("houseVO");
-	if (list == null) {
-		HouseService houseSvc = new HouseService();
-		list = houseSvc.getLldRentHouse(lld_no);
-	}
-	
-	List<ConVO> listcon = (List<ConVO>)request.getAttribute("list");
-	pageContext.setAttribute("listcon",listcon);
+	List<RecVO> list = (List<RecVO>)request.getAttribute("list");
+	pageContext.setAttribute("list",list);
 	
 	LldVO lldVO = (LldVO) request.getAttribute("lldVO");
 	HouseVO houseVOlld = (HouseVO) request.getAttribute("houseVOlld");
@@ -127,7 +122,6 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
-						<span id="count">共<%=listcon.size()%>個合約</span>
 					</FORM>
 					
 				</div>
@@ -135,7 +129,7 @@
 		</div>
 		<div id="center">
 			<%@ include file="page1.file"%>
-			<c:forEach var="conVO" items="${listcon}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<img
@@ -144,23 +138,23 @@
 					</div>
 					<div class="cinfo">
 						<ul>
-							<li><span class="infotitle">合約編號 : </span><span>${conVO.con_no}</span></li>
-							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(conVO.hos_no).hos_name}</span></li>
-							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(conVO.tnt_no).tnt_name}</span></li>
-<%-- 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li> --%>
-<%-- 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li> --%>
-<%-- 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li> --%>
-							<li><span class="infotitle">合約狀態 : </span><span>${conSvc.getConstatusText(conVO.con_sta)}</span></li>
+							<li><span class="infotitle">訂單編號 : </span><span>${recVO.rec_no}</span></li>
+							<li><span class="infotitle">合約編號 : </span><span>${recVO.con_no}</span></li>
+							<li><span class="infotitle">房屋編號 : </span><span>${recVO.hos_no}</span></li>
+							<li><span class="infotitle">本月使用水量 : </span><span>${recVO.rec_water}</span></li>
+							<li><span class="infotitle">本月使用電量 : </span><span>${recVO.rec_elec}</span></li>
+							<li><span class="infotitle">帳單狀態 : </span><span>${recSvc.getRecStatusText(recVO.rec_sta)}</span></li>
 						</ul>
 					</div>					
 						<div class="rinfo">
+							
 							<ul>
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
-								<li><button id="btn1">合約管理</button></li>
-								<input type="hidden" name="con_no"  value="${conVO.con_no}">
-								<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+								<li><button id="btn1">填寫帳單</button></li>
+								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
+								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-			     				<input type="hidden" name="action"	value="lldupdatecontract">
+			     				<input type="hidden" name="action"	value="getOne_For_Update">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">

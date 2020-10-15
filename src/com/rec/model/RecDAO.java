@@ -26,7 +26,7 @@ public class RecDAO implements RecDAO_interface{
 	}
 	private static final String INSERT_STMT = 
 			"INSERT INTO RECURRING_ORDER (REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, REC_STA) VALUES"
-			+ " (SEQ_REC_NO.NEXTVAL, ?, ?, ?, ?, ?, ?)";
+			+ " ('REC' || lpad(SEQ_REC_NO.NEXTVAL, 6, '0'), ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA FROM RECURRING_ORDER ORDER BY REC_NO";
 	private static final String GET_ONE_STMT = "SELECT REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA FROM RECURRING_ORDER WHERE REC_NO = ?";
 	private static final String DELETE = "DELETE FROM RECURRING_ORDER WHERE REC_NO = ?";

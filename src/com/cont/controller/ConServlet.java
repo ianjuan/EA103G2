@@ -146,9 +146,7 @@ public class ConServlet extends HttpServlet {
 				String con_no = new String(req.getParameter("con_no"));
 				String lld_no = new String(req.getParameter("lld_no"));
 				String hos_no = new String(req.getParameter("hos_no"));
-				System.out.println(con_no);
-				System.out.println(lld_no);
-				System.out.println(hos_no);
+
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();

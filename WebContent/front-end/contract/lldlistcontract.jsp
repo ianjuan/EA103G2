@@ -162,12 +162,11 @@
 			     				<input type="hidden" name="action"	value="lldupdatecontract">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 								<li><button id="btn2">定期費用</button></li>
-								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
-			     				<input type="hidden" name="apl_status" value=2>
+			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-			     				<input type="hidden" name="action"	value="lldupdate">
+			     				<input type="hidden" name="action"	value="getlldrec">
 			     				</FORM>
 			     				
 								<li><button id="btn3">聊天</button></li>
