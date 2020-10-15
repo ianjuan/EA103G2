@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface HouseDetDAO_interface {
 	
-	 public List<HosDetVO> getHosDetfromHOSNO (String HOS_NO);
+	 public List<HosDetVO> getHosDetfromHOSNO (String hos_no);
 
 
 }

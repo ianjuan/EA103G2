@@ -38,7 +38,9 @@ public class BookingDAO implements BookingDAO_interface	{
 			    	  try {						
 						      con = ds.getConnection();
 					      //可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令  可增加指令彈性
-							pstmt = con.prepareStatement("SELECT * FROM RESERVATION_DATE WHERE LLD_NO = ? ");
+							pstmt = con.prepareStatement("SELECT r.RESD_NO,r.LLD_NO,r.RESD_DATE,r.RESD_STATUS FROM RESERVATION_DATE r " + 
+									"INNER JOIN HOUSE h on h.lld_no=r.lld_no " + 
+									"WHERE h.hos_no = ? ");
 							pstmt.setString(1,hoId);
 
 							rs = pstmt.executeQuery();
@@ -87,7 +89,7 @@ public class BookingDAO implements BookingDAO_interface	{
 			    	  return list;
 			    }
 			
-				public ArrayList<String> insert(ArrayList<String> strings) throws SQLException {
+				public ArrayList<String> insert(ArrayList<String> strings,String lld_no) throws SQLException {
 //			    	public String insert(String date,String id) throws SQLException{
 					ArrayList<String> list = new ArrayList<String>();
 					Connection con = null;
@@ -112,47 +114,20 @@ public class BookingDAO implements BookingDAO_interface	{
 //							if(dim>10&&dim<100)ran="LLD000"+dim;
 //							if(dim>100&&dim<1000)ran="LLD00"+dim;
 
-							pstmt.setString(2,ran);
+							pstmt.setString(2,lld_no);
 
 							pstmt.executeUpdate();
 							
 							  rs = pstmt.getGeneratedKeys();
 							    while(rs.next())
-							    {	
+							    {
 							        System.out.println("rs.getString(1)="+rs.getString(1)); 
 							        list.add(rs.getString(1));
 							        System.out.println("recall="+list);
 							        
 							    }
 							}
-//							pstmt.addBatch();
-//							++i;
-//							if(i>=500) {
-//								pstmt.executeBatch();
-//								i=0;
-//							}
-						}
-//						for(int i=0;i<arrayList.;i++) {
-//						pstmt.setString(1,arrayList[i]);
-//						pstmt.addBatch();
-//						}
-//						System.out.println("有跑道這嗎");
-//						pstmt.executeBatch();
-//						System.out.println("那有跑道這嗎");
-//
-//						con.commit();   
-//						System.out.println("那有跑道這嗎");
-
-
-//						 ResultSet rs = pstmt.getGeneratedKeys();
-//						    while(rs.next())
-//						    {	
-//						        System.out.println("rs.getString(1)="+rs.getString(1)); 
-//						        list.add(rs.getString(1));
-//						        System.out.println("recall="+list);
-//						        
-//						    }
-//						}
+					}
 					catch(SQLException e){
 				    	e.printStackTrace();
 				    	System.out.println("SQL壞了 ");
@@ -246,6 +221,9 @@ public class BookingDAO implements BookingDAO_interface	{
 				        	}
 			    }
 
+			    
+//			    insert into reservartion_order (RES_NO,TNT_NO,HOS_NO,ORDER_DATE,RES_TYPE,RES_STATUS,RES_ODD)
+//			    value('RES' || lpad(SEQ_RESD_NO.NEXTVAL, 6, '0'),?,?,?,?,?,?);
 				
 		  }
 

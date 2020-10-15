@@ -14,8 +14,8 @@ public class BookingService {
 	public BookingService() {
 			dao=new BookingDAO();
 		}
-	public String getinfobyid(String i) {
-		List<BookingVO> list=dao.getBookingInfoListBylldno(i);
+	public String getinfobyid(String hos_no) {
+		List<BookingVO> list=dao.getBookingInfoListBylldno(hos_no);
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(list);
 		

@@ -35,7 +35,7 @@ public class collectionServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+		System.out.println("有道這");
 		
 		
 		if ("insert".equals(request.getParameter("action"))) {			

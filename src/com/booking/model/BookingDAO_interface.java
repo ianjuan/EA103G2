@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookingDAO_interface {
 	
-	public ArrayList<String> insert(ArrayList<String> arrayList)throws SQLException;
+	public ArrayList<String> insert(ArrayList<String> arrayList,String lld_no)throws SQLException;
     public void update(String sta)throws SQLException;
     public void delet(String bid)throws SQLException;
 	public List<BookingVO> getBookingInfoListBylldno(String id);

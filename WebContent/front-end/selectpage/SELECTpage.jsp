@@ -5,558 +5,639 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	
 
-	<link rel="stylesheet"
-		href="<%=request.getContextPath()%>/resource/dist/css/bootstrap.min.css">
-			<%@ page import="com.houserch.model.*"%>
-		<%
+
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resource/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+	
+<%@ page import="com.houserch.model.*"%>
+<%
 			HousearchService ser = new HousearchService();
 			String list = ser.getAll();
 			pageContext.setAttribute("list", list);//KEY，VALUE
 		%>
-        <style type="text/css" media="screen">
-        body, html {
-            height: 100%;
-            width: 100%;
-        }
-
-        .head {
-            /*background-color: green;*/
-            height: 10%;
-        }
-
-        .body {
-            /*background-color: navy;*/
-
-        }
-
-        .foot {
-            /*background-color: orange;*/
-            height: 10%;
-        }
-
-        .sharchbox {
-            /*background-color: orange;*/
-
-        }
-
-        .btn-cho {
-            background-color: #6c757d;
-			border-radius:60px;
-        }
-
-        .turn {
-            background-color: lightblue;
-            border-radius:2.25rem;
-
-        }
-
-        .card {
-            /*background-color: cyan;*/
-
-        }
-
-        /*城市*/
-       @media screen and(max-width:1200px) {
-       }#searchbar {
-       	margin-top:6px;
-        }
-
-        .my-0 {
-            background-color: pink;
-            /*搜索按鈕*/
-        }
-
-        .mr-auto {
-            margin-top: 33px;
-        }
-
-	.form-control{
-	border-radius:2.25rem;}
-	#btn-search{
-	width:80px;
-	border-radius:25px;}
-        #town {
-            /*外層DIV*/
-            height: 20px;
-            display: inline;
-            float: left;
-            float: left;
- margin-top:38px;
-                        margin-left:20px;
-                        width:110px;        }
-
-        .form-inline .form-control {
-            width: 70%;
-        }
-
-        #townch {
-            /*搜索框*/
-            text-align: center;
-            width: 110px;
-            height: 40px;
-            border-radius: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: Microsoft JhengHei;
-            outline:none;
-            
-        }
-
-        #city {
-            /*外層DIV*/
-            height: 20px;
-            display: inline;
-            float: left;
-            border-radius: 50px;
-            margin-top:38px;
-            width:110px;
-        }
-
-        #citych {
-            /*搜索框*/
-            text-align: center;
-            width: 110px;
-            height: 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: "黑體-繁", "微軟正黑體", sans-serif;
-            font-size: 20px;
-            outline:none;
-        }
-
-        .allcity {
-            /*城市列表選單*/
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: "黑體-繁", "微軟正黑體", sans-serif;
-            text-align: center;
-            font-size: 20px;
-            border: 2px #A67F78 ridge;
-            width: 150px;
-            height: 40px;
-            border-radius: 5px;
-            z-index: 5;
-            position: relative;
-            display: none;
-            background-color: #E1DCD9;
-        }
-
-        .allcity:hover {
-            background-color: green;
-        }
-
-        .towns {
-            /*鄉鎮列表選單*/
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: Microsoft JhengHei;
-            text-align: center;
-            border: 2px #FFAC55 ridge;
-            font-size: 20px;
-            width: 150px;
-            height: 40px;
-            border-radius: 50px;
-            z-index: 5;
-            position: relative;
-            display: none;
-            background-color: #FBE1FA;
-        }
-
-        .towns:hover {
-            background-color: green;
-        }
-
-        /*城市--------------------------------*/
-        /*開關*/
-        .onoffswitch {
-            position: relative;
-            width: 50px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            float: right;
-        }
-
-        .onoffswitch-checkbox {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .onoffswitch-label {
-            display: block;
-            overflow: hidden;
-            cursor: pointer;
-            height: 21px;
-            width: 50px;
-            padding: 0;
-            line-height: 21px;
-            border: 2px solid #E3E3E3;
-            border-radius: 21px;
-            background-color: #FFFFFF;
-            transition: background-color 0.3s ease-in;
-            margin-bottom:0px;
-        }
-
-        .onoffswitch-label:before {
-            content: "";
-            display: block;
-            width: 21px;
-            margin: 0px;
-            background: #FFFFFF;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 27px;
-            border: 2px solid #E3E3E3;
-            border-radius: 21px;
-            transition: all 0.3s ease-in 0s;
-        }
-
-        .onoffswitch-checkbox:checked+.onoffswitch-label {
-            background-color: #49E845;
-        }
-
-        .onoffswitch-checkbox:checked+.onoffswitch-label, .onoffswitch-checkbox:checked+.onoffswitch-label:before {
-            border-color: #49E845;
-        }
-
-        .onoffswitch-checkbox:checked+.onoffswitch-label:before {
-            right: 0px;
-        }
-
-        /*開關*/
-        /*卡片*/
-        .card {
-            margin: 5% 0%;
-        }
-
-        .card-body {
-            margin: 0% 0% 0% 3%;
-            padding: 6% 0%;
-            text-align: center
-        }
-
-        .card-body button {
-            border: none;
-            outline: 0;
-            padding: 12px;
-            color: white;
-            background-color: #952C2C;
-            text-align: center;
-            cursor: pointer;
-            width: 90%;
-            font-size: 18px;
-            border-radius: 50px;
-        }
-
-
-.someoption{
-    width: 100%%;
-    padding-top: 2.5%;
-    padding-bottom:1%;
+<style type="text/css" media="screen">
+body, html {
+	height: 100%;
+	width: 100%;
 }
-footer{
-    bottom: 0;
-    background-color: green;
-    height: 100px; 
-    width: 100%
+
+
+
+.body {
+	/*background-color: navy;*/
+	
 }
-.btn-group button{
-    height: 38px;
-    border-radius:20px;
+
+.foot {
+	/*background-color: orange;*/
+	height: 10%;
 }
-.btn-group{
+
+.sharchbox {
+	/*background-color: orange;*/
+	
+}
+.btn-secondary{
+	background-color: #AACFBF;
+	border-color:transparent;
+	
+}
+.btn-secondary:hover{
+	background-color: #779085;
+border-color:transparent;
+}
+.btn-cho {
+	background-color: #AACFBF;
+	border-radius: 60px;
+}
+
+.turn {
+	background-color: lightblue;
+	border-radius: 2.25rem;
+}
+
+.card {
+background-color: #C8D9C1;	
+}
+
+/*城市*/
+@media screen and(max-width:1200px) {
+}
+
+#searchbar {
+	margin-top: 6px;
+}
+
+.my-0 {
+	background-color: #ACCBD3;
+	/*搜索按鈕*/
+}
+.my-0:hover {
+	background-color: #4974a5;
+	/*搜索按鈕*/
+}
+.turn{
+background-color:#D8BBC8;}
+.mr-auto {
+	margin-top: 33px;
+}
+
+.form-control {
+	border-radius: 2.25rem;
+}
+
+#btn-search {
+	width: 80px;
+	border-radius: 25px;
+}
+
+#town {
+	/*外層DIV*/
+	height: 20px;
+	display: inline;
+	float: left;
+	float: left;
+	margin-top: 38px;
+	margin-left: 20px;
+	width: 110px;
+}
+
+.form-inline .form-control {
+	width: 70%;
+}
+
+#townch {
+	/*搜索框*/
+	text-align: center;
+	width: 110px;
+	height: 40px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: Microsoft JhengHei;
+	outline: none;
+}
+
+#city {
+	/*外層DIV*/
+	height: 20px;
+	display: inline;
+	float: left;
+	border-radius: 50px;
+	margin-top: 38px;
+	width: 110px;
+}
+
+#citych {
+	/*搜索框*/
+	text-align: center;
+	width: 110px;
+	height: 40px;
+	border-radius: 50px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: "黑體-繁", "微軟正黑體", sans-serif;
+	font-size: 20px;
+	outline: none;
+}
+
+.allcity {
+	/*城市列表選單*/
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: "黑體-繁", "微軟正黑體", sans-serif;
+	text-align: center;
+	font-size: 20px;
+	border: 2px #D4E7DF ridge;
+	width: 150px;
+	height: 40px;
+	border-radius: 5px;
+	z-index: 5;
+	position: relative;
+	display: none;
+	background-color: #D4E7DF;
+}
+
+.allcity:hover {
+	background-color: green;
+}
+
+.towns {
+	/*鄉鎮列表選單*/
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: "黑體-繁", "微軟正黑體", sans-serif;
+	text-align: center;
+	font-size: 20px;
+	border: 2px #D4E7DF ridge;
+	width: 150px;
+	height: 40px;
+	border-radius: 5px;
+	z-index: 5;
+	position: relative;
+	display: none;
+	background-color: #D4E7DF;
+}
+
+.towns:hover {
+	background-color: green;
+}
+
+/*城市--------------------------------*/
+/*開關*/
+.onoffswitch {
+	position: relative;
+	width: 50px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	float: right;
+}
+
+.onoffswitch-checkbox {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.onoffswitch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	height: 21px;
+	width: 50px;
+	padding: 0;
+	line-height: 21px;
+	border: 2px solid #E3E3E3;
+	border-radius: 21px;
+	background-color: #FFFFFF;
+	transition: background-color 0.3s ease-in;
+	margin-bottom: 0px;
+}
+
+.onoffswitch-label:before {
+	content: "";
+	display: block;
+	width: 21px;
+	margin: 0px;
+	background: #FFFFFF;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 27px;
+	border: 2px solid #E3E3E3;
+	border-radius: 21px;
+	transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label {
+	background-color: #49E845;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label, .onoffswitch-checkbox:checked+.onoffswitch-label:before
+	{
+	border-color: #49E845;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label:before {
+	right: 0px;
+}
+
+/*開關*/
+/*卡片*/
+.card {
+	margin: 5% 0%;
+}
+
+.card-body {
+	margin: 0% 0% 0% 3%;
+	padding: 6% 0%;
+	text-align: center
+}
+
+.card-body button {
+	border: none;
+	outline: 0;
+	padding: 12px;
+	color: white;
+	background-color: #952C2C;
+	text-align: center;
+	cursor: pointer;
+	width: 90%;
+	font-size: 18px;
+	border-radius: 50px;
+}
+
+.someoption {
+	width: 100%%;
+	padding-top: 2.5%;
+	padding-bottom: 1%;
+}
+
+footer {
+	bottom: 0;
+	background-color: green;
+	height: 100px;
+	width: 100%
+}
+
+.btn-group button {
+	height: 38px;
+	border-radius: 20px;
+}
+
+.btn-group {
 	display: flex;
 }
-@media (max-width:550px){
 
-.moneybtn{
-padding:0px 0px;
-margin-right:14px;
-}
-}
-.moneyside,.houseside{
-    width: 50%;
-    
-}
-@media (min-width:551px) and (max-width:767px){
-#selectforwhat{
-margin-bottom:8px;}
-
+@media ( max-width :550px) {
+	.moneybtn {
+		padding: 0px 0px;
+		margin-right: 14px;
+	}
 }
 
-@media (min-width:999px){
-.houseside{
-border-left-color:white;
-border-left-width:7px;
-border-left-style:outset;
-
+.moneyside, .houseside {
+	width: 50%;
 }
+
+@media ( min-width :551px) and (max-width:767px) {
+	#selectforwhat {
+		margin-bottom: 8px;
+	}
+}
+
+@media ( min-width :999px) {
+	.houseside {
+		border-left-color: white;
+		border-left-width: 7px;
+		border-left-style: outset;
+	}
 }
 /* .moneyside{ */
 /* border-right-color:white; */
 /* border-right-width:7px; */
 /* border-right-style:inset;} */
-
- @media (min-width:1200px){ 
- #money{margin-left: 55px;} 
-} 
-#selectforwhat{
-margin-top:6px;
-text-align: center;}
-
-@media (min-width:768px) and (max-width:996px){
-#selectforwhat{
-margin-top:20px;
+@media ( min-width :1200px) {
+	#money {
+		margin-left: 55px;
+	}
 }
-}
-#sort{
-margin-top:10px;}
-#btn-choice{
-margin-top:25px;
-margin-bottom:7px;
 
+#selectforwhat {
+	margin-top: 6px;
+	text-align: center;
 }
-        </style>
+
+@media ( min-width :768px) and (max-width:996px) {
+	#selectforwhat {
+		margin-top: 20px;
+	}
+}
+
+#sort {
+	margin-top: 10px;
+}
+
+#btn-choice {
+	margin-top: 25px;
+	margin-bottom: 7px;
+}
+/*  .btn-img { */
+/*             background-image: "https://www.flaticon.com/svg/static/icons/svg/236/236831.svg"; */
+/*         } */
+
+/*         .bg-light { */
+/*             background-color: #AACFBF !important; */
+/*         } */
+
+/*         .navbar-light .navbar-nav .nav-link { */
+/*             color: #393939 !important; */
+/*             font-weight: bold; */
+/*         } */
+
+/*         .nav-item .member { */
+/*             display: flex; */
+/*             margin-left: 10px; */
+/*         } */
+
+/*         .nav-item .member .memberpic { */
+/*             width: 40px; */
+/*             margin-right: 5px; */
+/*             outline: none; */
+/*         } */
+
+/*         .nav-item .member .membername { */
+/*             float: right; */
+/*             align-self: center; */
+/*             display: block; */
+/*         } */
+        .btn-group>.btn {
+        flex: 1 1 auto;}
+</style>
 </head>
 
-        <body>
-        
-            <div class="col-12 head">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
+<body>
 
-  <a class="navbar-brand" href="#">愛租I-ZU</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ml-auto">
- <a class="nav-item nav-link active" href="https://codepen.io/">尋找房源<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">地圖找房</a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">我的房屋</a>
-      <li class="nav-item dropdown">
-        <span data-toggle="dropdown">
-        <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" style="width:40px" />
-          古天樂
-</span>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">最新通知</a>
-          <a class="dropdown-item" href="#">個人資訊</a>
-          <a class="dropdown-item" href="#">我的錢包</a>
-          <a class="dropdown-item" href="#">登出</a>
-        </div>
-      </li>
-    </div>
-  </div></div>
-</nav>
-            </div>
-            <div class="col-12 body">
-                <!-- 縣市 -->
-                <div class="container sharchbox">
+  	 <div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
 
-                    <div class="row ">
-                    <div class="col-xl-3 col-lg-4">
-                        <div id="city">
-                            <input type="text" id="citych" value="選擇城市"><br>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="台北市"> 台北市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="新北市"> 新北市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="基隆市"> 基隆市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="桃園市"> 桃園市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="新竹縣"> 新竹縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="新竹市"> 新竹市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="苗栗縣"> 苗栗縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="臺中市"> 臺中市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="南投縣"> 南投縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="彰化縣"> 彰化縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="雲林縣"> 雲林縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="嘉義縣"> 嘉義縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="嘉義市"> 嘉義市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="臺南市"> 臺南市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel" > <input type="radio" name="city" class="cityinput" value="高雄市"> 高雄市
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="屏東縣"> 屏東縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="宜蘭縣"> 宜蘭縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="花蓮縣"> 花蓮縣
-                                </label>
-                            </div>
-                            <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="臺東縣"> 臺東縣
-                                </label>
-                            </div>
-                        </div>
-                        <div  id="town">
-                            <input type="text" id="townch" value="選擇鄉鎮"><br>
-                        </div>
-                        </div>
-                        <div class="col-xl-9 col-lg-8" id="searchbar">
-                            <form class="form-inline mr-auto">
-                                <input class="form-control mr-sm-2" id="searchbox"type="text" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-unique btn-rounded btn-sm my-0" id="btn-search"type="button">Search</button>
-                            </form>
-                        </div>
-                        <!-- 縣市 -->
-                    </div>
-                   
-                </div>
-                <div class="container" id="btn-choice">
-                <div class="row btn-cho">
-                    <div class="col-12 col-lg-4 col-xl-6 moneyside">
-                        <div id="money">
-                            <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-secondary moneybtn" id="btn-left1" value="">不限</button>
-                            <button type="button" class="btn btn-secondary moneybtn" id="btn-left2" value="<5000">5000以下</button>
-                                <button type="button" class="btn btn-secondary moneybtn" id="btn-left3" value="BETWEEN 5000 AND 10000">5000-10000</button>
-                                <button type="button" class="btn btn-secondary moneybtn" id="btn-left4" value="BETWEEN 10000 AND 15000">10000-15000</button>
-                                <button type="button" class="btn btn-secondary moneybtn" id="btn-left5" value=">15000">15000以上</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-4 offset-lg-2 offset-xl-0 col-xl-6 houseside">
-                        <div id="housestyle">
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-secondary housebtn" value="">不限</button>
-                                <button type="button" class="btn btn-secondary housebtn" value="整層住家">整層住家</button>
-                                <button type="button" class="btn btn-secondary housebtn" value="獨立套房">獨立套房</button>
-                                <button type="button" class="btn btn-secondary housebtn" value="分租套房">分租套房</button>
-                                <button type="button" class="btn btn-secondary housebtn" value="雅房">雅房</button>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="container" id="sort">
-                <div class="row turn">
-                    <div class="col-12 col-md-6"><div class="someoption"><label class="item_name">可開伙&nbsp;&nbsp;
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="furniture" class="onoffswitch-checkbox" id="coke" tabindex="0"> <label class="onoffswitch-label" for="coke"></label>
-                            </div>
-                        </label> <label class="item_name"><i class="fas fa-paw"></i>
+	<div class="col-12 body">
+		<!-- 縣市 -->
+		<div class="container sharchbox">
 
-可養寵&nbsp;&nbsp;
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="furniture" class="onoffswitch-checkbox" id="pet" tabindex="0"> <label class="onoffswitch-label" for="pet"></label>
-                            </div>
-                        </label> <label class="item_name">可開車&nbsp;&nbsp;
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="furniture" class="onoffswitch-checkbox" id="deriver" tabindex="0">
-                                <label class="onoffswitch-label" for="deriver"></label>
-                            </div>
-                        </label> <label class="item_name">可新增&nbsp;&nbsp;
-                            <div class="onoffswitch">
-                                <input type="checkbox" name="furniture" class="onoffswitch-checkbox" id="try14" tabindex="0"> <label class="onoffswitch-label" for="try14"></label>
-                            </div>
-                        </label></div></div>
-                    <div class="col-12 col-md-4 offset-md-2 offset-lg-2">
-                        <div id="selectforwhat">
-                           <select class="form-control" id="selectbox">
-                                    <option value="HOS_DATE DESC" selected disabled hidden>選擇排序</option>
-                                    <option value="HOS_DATE DESC">已上架時間 短->長</option>
-                                    <option value="HOS_DATE">已上架時間 長->短</option>                                    
-                                    <option value="HOS_RENTFEE">出租價格 低->高</option>
-                                    <option value="HOS_RENTFEE DESC">出租價格 高->低</option>
-                                    <option value="HOS_PNUM DESC">房屋坪數 大->小</option>
-                                    <option value="HOS_PNUM">房屋坪數 小->大</option>
-                                   </select>
-                        </div>
-                    </div>
-                    </div>                </div>
-                <div class="container" id="card-container">
-                    <!-- Card deck -->
-                    <div class="row"><p>本次搜尋到的房屋數量:<p id="conter"></p>
-                    </div>
-                    <div class="card-deck row">
-                        <div class="col-12" style="height:1000px;color:blue; letter-spacing:20px; font-size:80px;">
-                        <p>尚未查詢房源，請利用搜索欄位開始搜尋有興趣的房源</p>
-                         </div>
-                            <!-- Card -->
-                        </div>
-                    </div>
-                    <!-- Card deck -->
-                
-            </div>
-<footer>
-    
-</footer>        
-	<script	src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
-		<script
+			<div class="row ">
+				<div class="col-xl-3 col-lg-4">
+					<div id="city">
+						<input type="text" id="citych" value="選擇城市" autocomplete="off"><br>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="台北市"> 台北市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="新北市"> 新北市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="基隆市"> 基隆市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="桃園市"> 桃園市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="新竹縣"> 新竹縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="新竹市"> 新竹市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="苗栗縣"> 苗栗縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="臺中市"> 臺中市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="南投縣"> 南投縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="彰化縣"> 彰化縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="雲林縣"> 雲林縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="嘉義縣"> 嘉義縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="嘉義市"> 嘉義市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="臺南市"> 臺南市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="高雄市"> 高雄市
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="屏東縣"> 屏東縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="宜蘭縣"> 宜蘭縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="花蓮縣"> 花蓮縣
+							</label>
+						</div>
+						<div class="allcity">
+							<label id="citylabel"> <input type="radio" name="city"
+								class="cityinput" value="臺東縣"> 臺東縣
+							</label>
+						</div>
+					</div>
+					<div id="town">
+						<input type="text" id="townch" value="選擇鄉鎮" autocomplete="off"><br>
+					</div>
+				</div>
+				<div class="col-xl-9 col-lg-8" id="searchbar">
+					<form class="form-inline mr-auto">
+						<input class="form-control mr-sm-2" id="searchbox" type="text"
+							placeholder="Search" aria-label="Search">
+						<button class="btn btn-unique btn-rounded btn-sm my-0"
+							id="btn-search" type="button">Search</button>
+					</form>
+				</div>
+				<!-- 縣市 -->
+			</div>
+
+		</div>
+		<div class="container" id="btn-choice">
+			<div class="row btn-cho">
+				<div class="col-12 col-lg-4 col-xl-6 moneyside">
+					<div id="money">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-secondary moneybtn"
+								id="btn-left1" value="">不限</button>
+							<button type="button" class="btn btn-secondary moneybtn"
+								id="btn-left2" value="<5000">5000以下</button>
+							<button type="button" class="btn btn-secondary moneybtn"
+								id="btn-left3" value="BETWEEN 5000 AND 10000">5000-10000</button>
+							<button type="button" class="btn btn-secondary moneybtn"
+								id="btn-left4" value="BETWEEN 10000 AND 15000">10000-15000</button>
+							<button type="button" class="btn btn-secondary moneybtn"
+								id="btn-left5" value=">15000">15000以上</button>
+						</div>
+					</div>
+				</div>
+				<div
+					class="col-12 col-lg-4 offset-lg-2 offset-xl-0 col-xl-6 houseside">
+					<div id="housestyle">
+						<div class="btn-group" role="group">
+							<button type="button" class="btn btn-secondary housebtn" value="">不限</button>
+							<button type="button" class="btn btn-secondary housebtn"
+								value="整層住家">整層住家</button>
+							<button type="button" class="btn btn-secondary housebtn"
+								value="獨立套房">獨立套房</button>
+							<button type="button" class="btn btn-secondary housebtn"
+								value="分租套房">分租套房</button>
+							<button type="button" class="btn btn-secondary housebtn"
+								value="雅房">雅房</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="container" id="sort">
+			<div class="row turn">
+				<div class="col-12 col-md-6">
+					<div class="someoption">
+						<label class="item_name">可開伙&nbsp;&nbsp;
+							<div class="onoffswitch">
+								<input type="checkbox" name="furniture"
+									class="onoffswitch-checkbox" id="coke" tabindex="0"> <label
+									class="onoffswitch-label" for="coke"></label>
+							</div>
+						</label> <label class="item_name"><i class="fas fa-paw"></i>
+
+							可養寵&nbsp;&nbsp;
+							<div class="onoffswitch">
+								<input type="checkbox" name="furniture"
+									class="onoffswitch-checkbox" id="pet" tabindex="0"> <label
+									class="onoffswitch-label" for="pet"></label>
+							</div> </label> <label class="item_name">可開車&nbsp;&nbsp;
+							<div class="onoffswitch">
+								<input type="checkbox" name="furniture"
+									class="onoffswitch-checkbox" id="deriver" tabindex="0">
+								<label class="onoffswitch-label" for="deriver"></label>
+							</div>
+						</label> <label class="item_name">可新增&nbsp;&nbsp;
+							<div class="onoffswitch">
+								<input type="checkbox" name="furniture"
+									class="onoffswitch-checkbox" id="try14" tabindex="0"> <label
+									class="onoffswitch-label" for="try14"></label>
+							</div>
+						</label>
+					</div>
+				</div>
+				<div class="col-12 col-md-4 offset-md-2 offset-lg-2">
+					<div id="selectforwhat">
+						<select class="form-control" id="selectbox">
+							<option value="HOS_DATE DESC" selected disabled hidden>選擇排序</option>
+							<option value="HOS_DATE DESC">已上架時間 短->長</option>
+							<option value="HOS_DATE">已上架時間 長->短</option>
+							<option value="HOS_RENTFEE">出租價格 低->高</option>
+							<option value="HOS_RENTFEE DESC">出租價格 高->低</option>
+							<option value="HOS_PNUM DESC">房屋坪數 大->小</option>
+							<option value="HOS_PNUM">房屋坪數 小->大</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" id="card-container">
+			<!-- Card deck -->
+			<div class="row">
+				<div class="col-4">
+					<p id="conter"></p>
+				</div>
+				<div class="col-8">
+					<nav aria-label="Page navigation example" class="aboutpage">
+						
+					</nav>
+				</div>
+			</div>
+			<div class="card-deck row">
+				<div class="col-12"
+					style="height: 1000px; color: blue; letter-spacing: 20px; font-size: 80px;">
+					<p>尚未查詢房源，請利用搜索欄位開始搜尋有興趣的房源</p>
+				</div>
+				<!-- Card -->
+			</div>
+		</div>
+		<!-- Card deck -->
+
+	</div>
+	<footer> </footer>
+	<script
+		src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
+	<script
 		src="<%=request.getContextPath()%>/resource/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 
-	var obj,moneybtn,housebtn;
+	var obj,moneybtn,housebtn,pagebtn;
 	moneybtn="getall";
 	housebtn="getall";
+	pagebtn=1;
 	 obj= JSON.parse('${list}');
 	function ajax(){
 		$.ajax({//存入資料庫階段
-			  url:"GMapServlet",
+			  url:"<%=request.getContextPath()%>/Housearch/GMapServlet",
 		 	  type:"GET",
 		 	  data:{action:"search",
 		 		  data:$("#citych").val()+$("#townch").val()+$("#searchbox").val(),
 		 		  sort:$("#selectbox").val(),
 		 		  money:moneybtn,
-		 		  house:housebtn
+		 		  house:housebtn,
+		 		  page:pagebtn
 		 		  },
 		 	  success:function(data){//以上成功才執行
 		 		  console.log("data="+data);
-		 			 obj=JSON.parse(data); 			
+		 			 obj=JSON.parse(data); 
+		 			
 		             loading();
 		 		  	console.log("res棒");
 		 		  	}
@@ -594,13 +675,15 @@ margin-bottom:7px;
                             "<h4 class='card-title'>"+value.hos_name+"</h4>"+
                            " <p class='price'>$"+value.hos_rentfee+"元/月</p>"+
                             "<p class='card-text'>"+value.hos_room+"|" +value.hos_pnum +"坪| 樓層："+value.hos_floor+"</p>"+
-                            "<button type='button' class='btn btn-light-blue btn-md'>查看詳情</button>"+
+                            "<button type='button' class='btn btn-light-blue btn-md' value='"+value.hos_no+"'>查看詳情</button>"+
                        "</div>"+
                     "</div>"+	
                   "</div>"	 
 );
 }); 		 		  
-$("#conter").text(count);
+$("#conter").text("本次搜尋到的房屋數量:"+count);
+$("#conter").val(count);
+pagechange();
 }
     
    $("#btn-search").click(function() {
@@ -616,9 +699,13 @@ $("#conter").text(count);
 		
 		$("#city").click(function() {
             $(".allcity").toggle();
+            $(".towns").hide();
+
         });
         $("#town").click(function() {
             $(".towns").toggle();
+            $(".allcity").hide();
+
         });
         $(".cityinput").click(function() {
             $(".allcity").toggle();
@@ -639,6 +726,7 @@ $("#conter").text(count);
         $(document).on("change", ".towninput", function() {
             $("#townch").val($(this).val());
             $(".towns").toggle();
+            $(".allcity").hide();
 
         });
         $(document).on("click", ".moneybtn", function() {
@@ -651,8 +739,70 @@ $("#conter").text(count);
         	housebtn=$(this).val();
      	   ajax();
 
-		}
+		});
+        $(document).on("click", ".btn-md", function() {
+        	window.location.href='<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos='+$(this).val();
+		});
+        
+        
+        $(document).on("click", ".pagination li.page-item", function() {//分頁
+        	if($(this).val()!==999){
+         	   
+        	pagebtn=$(this).val();
+        	ajax();
+        }}
 		);
+        
+    	function pagechange(){
+        	$(".pagination li.page-item").css("color","black");
+    		$(".pagination").remove();
+
+        	if($("#conter").val()!=="15"){
+        		if (pagebtn==1){
+            		$(".aboutpage").append(
+            				"<ul class='pagination'>"+
+            				"<li class='page-item' value='999'><a class='page-link' >第一頁</a>"+
+            				"<li class='page-item' value='"+pagebtn+"' style='color:red'><a class='page-link' >"+pagebtn+"</a></li>"+
+            				"<li class='page-item' value='999'><a class='page-link' >最後一頁</a>"+
+            				"</li>"+
+            			"</ul>"
+            			)
+            	}else{
+        			$(".aboutpage").append(
+        					"<ul class='pagination'>"+
+                    		"<li class='page-item' value='"+(pagebtn-1)+"'><a class='page-link' >上一頁</a></li>"+
+            				"<li class='page-item' value='"+(pagebtn-1)+"'><a class='page-link' >"+(pagebtn-1)+"</a></li>"+
+            				"<li class='page-item' value='"+pagebtn+"' style='color:red'><a class='page-link' >"+pagebtn+"</a></li>"+
+            				"<li class='page-item' value='999'><a class='page-link' >最後一頁</a>"+
+            				"</li>"+
+            			"</ul>"
+            			)}
+        	}else{
+        		if (pagebtn==1){
+            		$(".aboutpage").append(
+            				"<ul class='pagination'>"+
+            				"<li class='page-item' value='999'><a class='page-link' >第一頁</a>"+
+            				"<li class='page-item' value='"+pagebtn+"' style='color:red'><a class='page-link' >"+pagebtn+"</a></li>"+
+            				"<li class='page-item' value='"+(pagebtn+1)+"'><a class='page-link' >"+(pagebtn+1)+"</a></li>"+
+            				"<li class='page-item' value='"+(pagebtn+2)+"'><a class='page-link' >"+(pagebtn+2)+"</a></li>"+
+            				"<li class='page-item' value='"+(pagebtn+1)+"'><a class='page-link' >下一頁</a>"+
+            				"</li>"+
+            			"</ul>"
+            			)
+            	}else{
+        		$(".aboutpage").append(
+        				"<ul class='pagination'>"+
+                		"<li class='page-item' value='"+(pagebtn-1)+"'><a class='page-link' >上一頁</a></li>"+
+        				"<li class='page-item' value='"+(pagebtn-1)+"'><a class='page-link' >"+(pagebtn-1)+"</a></li>"+
+        				"<li class='page-item' value='"+pagebtn+"' style='color:red'><a class='page-link' >"+pagebtn+"</a></li>"+
+        				"<li class='page-item' value='"+(pagebtn+1)+"'><a class='page-link' >"+(pagebtn+1)+"</a></li>"+
+        				"<li class='page-item' value='"+(pagebtn+1)+"'><a class='page-link' >下一頁</a>"+
+        				"</li>"+
+        			"</ul>"
+        			)}
+        	}
+			$(this).css("color","#CD4A2D");}
+        
 		var area_data = {
 	            '台北市': [
 	                '中正區', '大同區', '中山區', '萬華區', '信義區', '松山區', '大安區', '南港區', '北投區', '內湖區', '士林區', '文山區'

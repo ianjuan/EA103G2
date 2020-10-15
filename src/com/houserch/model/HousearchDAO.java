@@ -96,7 +96,8 @@ public class HousearchDAO {
 	      con = ds.getConnection();
 	      //可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令  可增加指令彈性
 		      String i=  "select hp.PIC_NO,h.HOS_NO,  h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee"
-		       	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租'  ";
+		       	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO)  "
+		    		  +"";
 				pstmt = con.prepareStatement(i);
 
 			rs = pstmt.executeQuery();
@@ -153,9 +154,7 @@ public class HousearchDAO {
     	Connection con = null;
         ResultSet rs = null;
         PreparedStatement pstmt=null;
-		ArrayList<String> checklist = new ArrayList<String>();
-
-		final Base64.Encoder encoder = Base64.getEncoder();
+		int rownum=vo.getPage()*15;
 
     	try {
 			System.out.println("傳進來的地址是"+vo.getHos_add()+"排序條件"+vo.getSort()+"價位區間"+vo.getMoney()+"房屋型態"+vo.getHos_type());
@@ -164,8 +163,9 @@ public class HousearchDAO {
 	      //可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令  可增加指令彈性
 	 	
 
-	      String i=  "select hp.PIC_NO,h.HOS_NO,  h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee"
-    	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? ";
+	      String i=  "select hp.PIC_NO,h.HOS_NO, rownum r, h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee"
+    	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? "
+    	   +"AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) ";
     	
     	  if(houseList.contains(vo.getHos_type())) {
     		  i=i+" AND h.hos_room LIKE '%"+vo.getHos_type()+"%'";
@@ -176,17 +176,20 @@ public class HousearchDAO {
     	  if(sortList.contains(vo.getSort())) {
   	 		 i=i+" ORDER BY h."+vo.getSort();
   	 	 }
+    	  
+    	  i="SELECT * from( "+i+" )where r > ? and r <= ?";
 
 	    	  System.out.println(i);
 			pstmt = con.prepareStatement(i);
 			
 			pstmt.setString(1,"%"+vo.getHos_add()+"%");
+			pstmt.setInt(2, rownum-15);
+			pstmt.setInt(3, rownum);
+
 			rs = pstmt.executeQuery();
 			System.out.println("空部空"+rs);
 			  while (rs.next()) {
 				  HousearchVO revo=new HousearchVO();
-    	    	  if(checklist.contains(rs.getString("HOS_NAME"))!=true) {
-    	    	checklist.add(rs.getString("HOS_NAME"));
 //    	    	String encodedText = encoder.encodeToString(rs.getBytes("HOS_PIC"));
 //    	    	revo.setHos_pic(encodedText);
     	    	revo.setHos_pic(rs.getString("PIC_NO"));
@@ -198,7 +201,7 @@ public class HousearchDAO {
 				  revo.setHos_rentfee(rs.getInt("HOS_RENTFEE"));
 
 				  map.put(revo.getHos_no(), revo);
-    	    	  }};
+    	    	  };
 
 		
     	
@@ -278,4 +281,146 @@ public class HousearchDAO {
             	}
         	return checklist;}
         
+        public Map<String,HousearchVO> getGMapfromSearchKey(HousearchVO vo){//搜索條件
+
+        	Map<String,HousearchVO> map =new LinkedHashMap<String,HousearchVO>();
+        	Connection con = null;
+            ResultSet rs = null;
+            PreparedStatement pstmt=null;
+
+
+        	try {
+    			System.out.println("傳進來的地址是"+vo.getHos_add()+"排序條件"+vo.getSort()+"價位區間"+vo.getMoney()+"房屋型態"+vo.getHos_type());
+
+    	      con = ds.getConnection();
+    	      //可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令  可增加指令彈性
+    	 	
+
+    	      String i=  "select hp.PIC_NO,h.HOS_NO, h.hos_add ,h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee,h.hos_lng,h.hos_lat"
+        	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) ";
+        	
+        	  if(houseList.contains(vo.getHos_type())) {
+        		  i=i+" AND h.hos_room LIKE '%"+vo.getHos_type()+"%'";
+        	  }
+        	  if(moneyList.contains(vo.getMoney())) {
+        		  i=i+" AND h.hos_rentfee " + vo.getMoney();
+        	  }
+        	  if(sortList.contains(vo.getSort())) {
+      	 		 i=i+" ORDER BY h."+vo.getSort();
+      	 	 }
+
+    	    	  System.out.println(i);
+    			pstmt = con.prepareStatement(i);
+    			
+    			pstmt.setString(1,"%"+vo.getHos_add()+"%");
+    			rs = pstmt.executeQuery();
+    			System.out.println("空部空"+rs);
+    			  while (rs.next()) {
+    				  HousearchVO revo=new HousearchVO();
+//        	    	String encodedText = encoder.encodeToString(rs.getBytes("HOS_PIC"));
+//        	    	revo.setHos_pic(encodedText);
+        	    	revo.setHos_pic(rs.getString("PIC_NO"));
+    				  revo.setHos_no(rs.getString("HOS_NO"));
+    				  revo.setHos_name(rs.getString("HOS_NAME"));
+    				  revo.setHos_room(rs.getString("HOS_ROOM"));
+    				  revo.setHos_floor(rs.getString("HOS_FLOOR"));
+    				  revo.setHos_pnum(rs.getDouble("HOS_PNUM"));
+    				  revo.setHos_rentfee(rs.getInt("HOS_RENTFEE"));
+    				  revo.setHos_lat(rs.getDouble("HOS_LAT"));
+    				  revo.setHos_lng(rs.getDouble("HOS_LNG"));
+    				  revo.setHos_add(rs.getString("HOS_ADD"));
+    				  map.put(revo.getHos_no(), revo);
+        	    	  };
+
+    		
+        	
+        }catch(SQLException e){
+        	e.printStackTrace();
+        	System.out.println("SQL壞了 ");
+        }	finally {
+        	if (rs != null) {
+    			try {
+    				rs.close();
+    			} catch (SQLException se) {
+    				se.printStackTrace(System.err);
+    			}
+    		}
+    		if (pstmt != null) {
+    			try {
+    				pstmt.close();
+    			} catch (SQLException se) {
+    				se.printStackTrace(System.err);
+    			}
+    		}
+    		if (con != null) {
+    			try {
+    				con.close();
+    			} catch (Exception e) {
+    				e.printStackTrace(System.err);
+    			}
+    		}
+        	}
+    		
+    	
+    		return map;}
+        
+        public Map<String,HousearchVO> getAllGmap(){
+    		Map<String,HousearchVO> map =new LinkedHashMap<String,HousearchVO>();
+    		Connection con = null;
+    	    ResultSet rs = null;
+    	    PreparedStatement pstmt=null;
+        	try {		
+    	      con = ds.getConnection();
+    	      //可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令  可增加指令彈性
+    		      String i=  "select hp.PIC_NO,h.HOS_NO,h.hos_add,  h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee,h.hos_lng,h.hos_lat"
+    		       	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' AND h.hos_add LIKE '%台北市%' AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) " + 
+    		       	   "";
+    				pstmt = con.prepareStatement(i);
+
+    			rs = pstmt.executeQuery();
+    			  while (rs.next()) { 
+    				  HousearchVO revo=new HousearchVO();
+        	    	revo.setHos_pic(rs.getString("PIC_NO"));
+    				  revo.setHos_no(rs.getString("HOS_NO"));
+    				  revo.setHos_add(rs.getString("HOS_ADD"));
+    				  revo.setHos_name(rs.getString("HOS_NAME"));
+    				  revo.setHos_room(rs.getString("HOS_ROOM"));
+    				  revo.setHos_floor(rs.getString("HOS_FLOOR"));
+    				  revo.setHos_pnum(rs.getDouble("HOS_PNUM"));
+    				  revo.setHos_rentfee(rs.getInt("HOS_RENTFEE"));
+    				  revo.setHos_lat(rs.getDouble("HOS_LAT"));
+    				  revo.setHos_lng(rs.getDouble("HOS_LNG"));
+    				  map.put(revo.getHos_no(), revo);}
+    				 			  
+
+    		
+        	
+        }catch(SQLException e){
+        	e.printStackTrace();
+        	System.out.println("SQL壞了 ");
+        }
+        	finally {
+            	if (rs != null) {
+        			try {
+        				rs.close();
+        			} catch (SQLException se) {
+        				se.printStackTrace(System.err);
+        			}
+        		}
+        		if (pstmt != null) {
+        			try {
+        				pstmt.close();
+        			} catch (SQLException se) {
+        				se.printStackTrace(System.err);
+        			}
+        		}
+        		if (con != null) {
+        			try {
+        				con.close();
+        			} catch (Exception e) {
+        				e.printStackTrace(System.err);
+        			}
+        		}
+            	}
+        	return map;}
 }
