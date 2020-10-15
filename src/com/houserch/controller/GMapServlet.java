@@ -39,21 +39,31 @@ public class GMapServlet extends HttpServlet {
 			System.out.println("igotu"+request.getParameter("sort"));
 			
 			HousearchService gs= new HousearchService();
-//			String data =gs.getMapfromSearchKey(request.getParameter("data"),request.getParameter("sort"));
 
 			String data =gs.getMapfromSearchKey(request.getParameter("data"),
-					request.getParameter("sort"),request.getParameter("money"),request.getParameter("house"));
+					request.getParameter("sort"),request.getParameter("money"),request.getParameter("house"),
+					request.getParameter("page")
+					);
 
-//			String data =gs.getMapfromSearchKey(request.getParameter("data"));
 			PrintWriter out = response.getWriter();
-//			System.out.println("data="+data);
 			out.print(data);
 			out.close();
-
+			return;
 		}
-//		if("searchbypage".equals(request.getParameter("action"))) {
-//			
-//		}
+		if ("gmapsearch".equals(request.getParameter("action"))) {
+			System.out.println("igotu"+request.getParameter("sort"));
+			
+			HousearchService gs= new HousearchService();
+
+			String data =gs.getGMapfromSearchKey(request.getParameter("data"),
+					request.getParameter("sort"),request.getParameter("money"),request.getParameter("house"));
+
+			PrintWriter out = response.getWriter();
+			out.print(data);
+			out.close();
+			return;
+		}
+
 		else {
 			RequestDispatcher failureView = request.getRequestDispatcher("/front-end/mapserach/gmap2.jsp");
 

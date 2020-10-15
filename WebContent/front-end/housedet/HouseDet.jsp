@@ -7,33 +7,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1280, initial-scale=1.0" />
     <title>租屋 - 房屋資訊</title>
+           <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/materialize.min.css" />
+ 
+    
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/swiper.min.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/style.min.css" />
-<!-- 	<script -->
-<!--   src="https://code.jquery.com/jquery-3.5.1.js" -->
-<!--   integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" -->
-<!--   crossorigin="anonymous"></script> -->
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+    
+
   <script
 		src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
   
 </head>
 <%@ page import="com.housedet.model.*" %>
+<%@ page import="com.collection.model.CollectionDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.google.gson.*" %>
 <%HouseDetService hds =new HouseDetService();
+session.setAttribute("TNT","TNT000001");
 Gson gson = new Gson();
- 	List<HosDetVO> list = hds.getHosDetfromHOSNO("HOS000015");
+String tntno=(String)session.getAttribute("TNT");
+String hosno=request.getParameter("hos");
+session.setAttribute("HOS",hosno);
+
+ 	List<HosDetVO> list = hds.getHosDetfromHOSNO(hosno);
  	HosDetVO vo=(HosDetVO)list.get(0);
 	pageContext.setAttribute("picnum",gson.toJson(vo.getHos_pic().size()));
 %> 
 <body>
+  	 <div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
+
     <div id="wrapper">
         <div class="container">
             <div class="row">
                 <!--左側內容-->
-                <div class="col s8" id="left-site">
+                <div class="col-8" id="left-site">
                     <!--標題-->
                     <h1 class="title"><%= vo.getHos_name() %></h1>
                     <h6><%= vo.getHos_add() %></h6>
@@ -42,13 +52,7 @@ Gson gson = new Gson();
                         <!--大圖-->
                         <div class="swiper-container gallery-top">
                             <div class="swiper-wrapper">
-<%--                                 <div class="swiper-slide"><a href="<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHOS_PIC().get(0) %>" data-fancybox="data-fancybox"><img src='<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHOS_PIC().get(1) %>' alt="slide-1" /></a></div> --%>
-<%--                                 <div class="swiper-slide"><a href="<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHOS_PIC().get(1) %>" data-fancybox="data-fancybox"><img src="<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHOS_PIC().get(1) %>" alt="slide-2" /></a></div> --%>
-<%--                                 <div class="swiper-slide"><a href="<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHOS_PIC().get(0) %>" data-fancybox="data-fancybox"><img src="<%=request.getContextPath()%>/resource/dist/images/home3.jpg" alt="slide-3" /></a></div> --%>
-<%--                                 <div class="swiper-slide"><a href="<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHOS_PIC().get(0) %>" data-fancybox="data-fancybox"><img src="<%=request.getContextPath()%>/resource/dist/images/home.jpg" alt="slide-4" /></a></div> --%>
-<%--                                 <div class="swiper-slide"><a href="<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHOS_PIC().get(0) %>" data-fancybox="data-fancybox"><img src="<%=request.getContextPath()%>/resource/dist/images/home2.jpg" alt="slide-5" /></a></div> --%>
-<%--                                 <div class="swiper-slide"><a href="<%=request.getContextPath()%>/resource/Mycol/images/home3.jpg" data-fancybox="data-fancybox"><img src="<%=request.getContextPath()%>/resource/dist/images/home3.jpg" alt="slide-6" /></a></div> --%>
-                            </div>
+                           </div>
                             <div class="swiper-pagination"></div>
                             <div class="swiper-button-next swiper-button-white"></div>
                             <div class="swiper-button-prev swiper-button-white"></div>
@@ -56,12 +60,6 @@ Gson gson = new Gson();
                         <!--小圖-->
                         <div class="swiper-container gallery-thumbs">
                             <div class="swiper-wrapper">
-<%--                                 <div class="swiper-slide"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.jpg" alt="slide-1" /></div> --%>
-<%--                                 <div class="swiper-slide"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home2.jpg" alt="slide-2" /></div> --%>
-<%--                                 <div class="swiper-slide"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home3.jpg" alt="slide-3" /></div> --%>
-<%--                                 <div class="swiper-slide"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.jpg" alt="slide-4" /></div> --%>
-<%--                                 <div class="swiper-slide"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home2.jpg" alt="slide-5" /></div> --%>
-<%--                                 <div class="swiper-slide"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home3.jpg" alt="slide-6" /></div> --%>
                             </div>
                         </div>
                     </div>
@@ -75,7 +73,7 @@ Gson gson = new Gson();
                                 <p><%= vo.getHos_park() %></p>
                             </li>
                             <li><span>管理費</span>
-                                <p id="fee">NT$1,000</p>
+                                <p id="fee">NT$<%= vo.getHos_manafee() %></p>
                             </li>
                             <li><span>最短租期</span>
                                 <p id="MRP"><%= vo.getHos_mindate() %></p>
@@ -162,16 +160,21 @@ Gson gson = new Gson();
                         </ul>
                     </div>
                     <!--屋況說明-->
-                    <div class="info detail">
-                        <h2>屋況說明</h2>
-                        <p>回家的位置:<br><br>《捷運》走路7分鐘就到台電大樓站。<br><br>《公園綠地》走路2分鐘有泰順公園，運動、休閒的好去處...假日想要運動久一點，可以到大安森林公園或是到國立台灣大學校園，吸取最高學府的日月精華，感受菁英輩出的人文氣息。<br><br>《便利》走路2分鐘就有小七、全聯，生活購物超方便，附近有許多琳瑯滿目的美食，放假走出門就可以買買逛逛回家展現廚藝，就算不想煮，師大夜市也只要走路5分鐘就到，都可以滿足喔!!<br><br>回家多舒服<br><br>一開門映入眼簾是寬闊舒適的雙人沙發休閒茶几區，還有我們的雙人獨立筒床墊休憩區，對面還有可以埋頭苦幹的工作區及大衣櫥都幫你準備好囉!!最後來到獨立陽台完整三合一陽台門大面採光，想全關可以隔絕聲音，打開也可以空氣流通，這樣的空間，陰雨綿綿都很舒服，難得一見房東貼心設計師用心好套房!!<br><br>回家有多好<br><br>公用空間固定清潔服務、公共空間感應照明、24小時公用空間走道監控設備、住戶單純、精華地區、鬧中取靜。<br><br>房東要求住戶注意生活品質，皆經篩選，若有不良嗜好者，會影響其它房客生活者勿試。我們的房客都非常優質，工作正當，也歡迎單純的上班族或學生入住。我們的套房住房期間，提供優質的租後服務。</p>
-                    </div>
+                    <div class="info">
+                        <h2>地圖位置</h2>                    
+                    <div class="map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.396775446296!2d121.52616831500599!3d25.020605483978564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a98e596b4a89%3A0xeeee920255b63d69!2z5Y-w6Zu75aSn5qiT56uZ!5e0!3m2!1szh-TW!2stw!4v1600146985805!5m2!1szh-TW!2stw" frameborder="0"></iframe>
+                    </div></div>
                     <!--地圖-->
                     <div class="info">
-                        <h2>地圖位置</h2>
-                        <div class="map">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.396775446296!2d121.52616831500599!3d25.020605483978564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a98e596b4a89%3A0xeeee920255b63d69!2z5Y-w6Zu75aSn5qiT56uZ!5e0!3m2!1szh-TW!2stw!4v1600146985805!5m2!1szh-TW!2stw" frameborder="0"></iframe>
+                        <h2>預約看房</h2>
+                        <div class="booking">
+<%-- 						<jsp:include page="/front-end/booking/bookingforhouse.jsp" /> --%>
+                  <iframe src="<%= request.getContextPath() %>/front-end/booking/bookingforhouse.jsp" frameborder ="0">
+                  </iframe>     
                         </div>
+                        
+                        
                     </div>
                     <div class="info" id="message">
                         <h2>房屋問答</h2>
@@ -208,7 +211,7 @@ Gson gson = new Gson();
                     </div>
                 </div>
                 <!--右側內容-->
-                <div class="col s4" id="right-site">
+                <div class="col-4" id="right-site">
                     <!--價格簡述-->
                     <div class="info description">
                         <div class="fav">
@@ -243,18 +246,98 @@ Gson gson = new Gson();
                                 <p><%= vo.getLld_mobile() %></p>
                             </a></div>
                         <div class="functions"><a class="no-service" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a><a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a><a class="red" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />檢舉</a>
-                            <a class="full" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />我要入住</a>
+                    	   <a class="full select-live" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.svg" alt=""/>我要入住</a>
                         </div>
                     </div>
                     <!--提醒-->
                     <div class="info tips">
                         <p><img src="<%=request.getContextPath()%>/resource/Mycol/images/error.svg" alt="" />愛租網提醒您: 在簽訂線上租賃契約之前,請詳閱合約內容,以免上當受騙.</p>
-                    </div>
+                  </div>
                 </div>
             </div>
         </div>
     </div>
+   
+    
+    
 </body>
+<div id="datepicker-container">
+    <form class="form">
+      <div class="content">
+        <p>請選擇您要入住以及退租的期間！</p>
+        <p class="ps">注意：請務必選取入住以及退租的時間</p>
+      </div>
+      <button class="close"></button>
+      <div class="input-field">
+        <label for="start">入住日期</label>
+        <input class="start date" id="start" type="text"/>
+      </div>
+      <div class="input-field">
+        <label for="end">退租日期</label>
+        <input class="start date" id="end" type="text" readonly="readonly"/>
+      </div>
+      <div class="input-field">
+        <button class="btn" type="submit">送出</button>
+      </div>
+    </form>
+  </div>
+ <style>
+    .booking {
+        padding-bottom: 50%;
+    margin-bottom: 10px;
+    position: relative;
+    height: 656.2px;
+    }
+       .booking iframe{
+      position: absolute;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    }
+    #right-site{
+    padding-left:0px;
+    }
+    #wrapper{
+    padding-top:30px;}
+            /* 以下為NAVBAR*/
+    
+    .btn-img {
+            background-image: "https://www.flaticon.com/svg/static/icons/svg/236/236831.svg";
+        }
+
+        .bg-light {
+            background-color: #D7C8B6 !important;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #393939 !important;
+            font-weight: bold;
+        }
+
+        .nav-item .member {
+            display: flex;
+            margin-left: 10px;
+            margin-top:8px;
+            color:#393939 !important;		
+        }
+
+        .nav-item .member .memberpic {
+            width: 40px;
+            margin-right: 5px;
+            outline: none;
+        }
+
+        .nav-item .member .membername {
+            float: right;
+            align-self: center;
+            display: block;
+        }
+        @media ( max-width :991px) {
+        .navbar{
+        height:auto;}}
+        /* 以上為NAVBAR*/
+    </style>
 <script> 
 
 var picnum = JSON.parse('${picnum}');
@@ -278,6 +361,49 @@ $(".gallery-thumbs .swiper-wrapper").append(
 	)	
 	<%}%>
 
+    $(document).on("click", ".description .fav", function() {
+    	if($(".fav").hasClass("saved")){
+    		$.ajax({//存入資料庫階段
+    			  url:"<%=request.getContextPath()%>/collection/collectionServlet",
+    		 	  type:"POST",
+    		 	  data:{ action:"insert",
+    		 		  tnt:"<%= tntno %>",
+    		 		 hos:"<%= hosno %>"
+    		 		   //JSON.stringify({})
+    		 	  },
+    		 	  success:function(data)
+    		 	  {	
+					alert("加入收藏清單成功")
+    		 	  }//以上成功才執行
+    		 	  ,
+    		 	  error:function(data)
+    		 	  {
+    		 		 alert("加入收藏清單失敗，伺服器忙碌中，請稍後再試")   
+    		 		 }
+    		  
+    		  })
+		
+}else{
+	$.ajax({//存入資料庫階段
+		  url:"<%=request.getContextPath()%>/collection/collectionServlet",
+	 	  type:"GET",
+	 	  data:{action:"delete",
+	 		 tnt:"<%= tntno %>",
+	 		 hos:"<%= hosno %>"
+	 		  },
+	 	  success:function(data){//以上成功才執行
+				alert("取消收藏成功")
+	 		  	}
+	 	  ,
+	 	  error:function(data)
+	 	  {
+		 		 alert("取消收藏失敗，伺服器忙碌中，請稍後再試")   
+	 	  }			  
+	  } )
+	
+}
+
+	})
 
 console.log(picnum);
 
@@ -288,6 +414,8 @@ console.log(picnum);
  
 <div id="notice">
     <p> </p>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.fancybox.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.cookie.min.js"></script>

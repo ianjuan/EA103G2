@@ -27,7 +27,7 @@ public class HouseDetDAO implements HouseDetDAO_interface {
 	
 
 
- public List<HosDetVO> getHosDetfromHOSNO (String HOS_NO) {
+ public List<HosDetVO> getHosDetfromHOSNO (String hos_no) {
 	 List <HosDetVO> list = new ArrayList<HosDetVO>();
 	    Connection con = null;
 		ResultSet rs = null;
@@ -41,7 +41,7 @@ public class HouseDetDAO implements HouseDetDAO_interface {
 	 		" INNER JOIN house_picture hp on h.HOS_ID =hp.hos_no " + 
             "INNER JOIN LANDLORd l on l.LLD_no = h.lld_no"+
 	 		"  WHERE h.HOS_NO = ? " );	 
-	 pstmt.setString(1,HOS_NO);
+	 pstmt.setString(1,hos_no);
 //	 SELECT * FROM HOUSE WHERE HOS_NO = HOS00001
 	 rs = pstmt.executeQuery();
 	 System.out.println();
@@ -107,11 +107,7 @@ public class HouseDetDAO implements HouseDetDAO_interface {
 	 }vo.setHos_pic(pic);		
    	  list.add(vo);
 }
-	 
-	 
-	 
-	 
-	 
+	  
 	 }catch(Exception se){
 		 se.printStackTrace();
 		 

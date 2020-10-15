@@ -29,75 +29,16 @@
 
 
 <title>Insert title here</title>
-<button name="btn" onclick="change()">變房客</button>
 
-<button name="btn" onclick="changetwo()">變房東</button>
-                    <div class="row">
 
-<div class="col-8" id='calendar'></div>
-<div class="col-4" id='who'>
 
-<div class="row">
-<div class="business-card centered">
-  <div class="title">
-	即將到來的預約
-  </div>
-  <div class="content span2">
-    <img src="https://i.imgur.com/afYq1aQ.jpg" alt="" class="avatar" />
-  </div>
+<div id='calendar'></div>
 
-  <div class="content span2">
-    預約人:劉德華<br />
-    <span class="finer-print">預約時段:12月20號12:30分<br />
-     預約房屋物件:中央大學優質宿舍 近7-11<br />
-    地址: 桃園市中壢區中大路216巷<br />     
-    </span>
-  </div>
-
-</div>
-</div>
-<div class="row">
-<div class="business-card centered">
-  <div class="title">
-	即將到來的預約
-  </div>
-  <div class="content span2">
-    <img src="https://i.imgur.com/afYq1aQ.jpg" alt="avatar" class="avatar" />
-  </div>
-
-  <div class="content span2">
-    預約人:張學友<br />
-    <span class="finer-print">預約時段:12月25號14:00分<br />
-     預約房屋物件:澄清湖旁美公寓 近山面湖<br />
-    地址: 高雄市鳥松區澄清路三段216號3樓<br />     
-    </span>
-  </div>
-
-</div>
-</div>
-<div class="row">
-<div class="business-card centered">
-  <div class="title">
-	即將到來的預約
-  </div>
-  <div class="content span2">
-    <img src="https://i.imgur.com/afYq1aQ.jpg" alt="avatar" class="avatar" />
-  </div>
-
-  <div class="content span2">
-    預約人:劉德華<br />
-    <span class="finer-print">預約時段:12月20號12:30分<br />
-     預約房屋物件:中央大學優質宿舍 近7-11<br />
-    地址: 桃園市中壢區中大路216巷<br />     
-    </span>
-  </div>
-
-</div>
-</div>
-</div>
-</div>
 </head>
 <style>
+body{
+background-color:transparent;
+}
   .centered {  
     margin: 0 auto;  
   }  
@@ -154,10 +95,8 @@
     border-top: 1px solid; 
     width: 96%; 
   } 
-<!-- </style> -->
+ </style> 
 <body>
-
-
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -171,9 +110,7 @@
 					</button>
 				</div>
 				<div class="modal-body" id="datetimeStart">
-
 					<td><input id="date" type="text"></td>
-
 				</div>
 				<div class="modal-footer">
 					<input type="checkbox" id="allday" />選擇整天
@@ -191,8 +128,11 @@
 	<%@ page import="com.google.gson.*"%>
 	<%
 		BookingService bks = new BookingService();
-			String list = bks.getinfobyid("HOS000918");
+	String hosno=(String)session.getAttribute("HOS");
+			String list = bks.getinfobyid(hosno);
 			pageContext.setAttribute("list", list);//KEY，VALUE
+			String tntno=(String)session.getAttribute("TNT");
+		
 	%>
 </body>
 
@@ -203,6 +143,7 @@
 
 //---------------------------------------------------------------
 var list= JSON.parse('${list}');//JSON轉JS格式
+// if(list[0].lld_no.substr(0,2))
 var acc=true;
 var ob;
 var allowtime=['10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00'];
@@ -232,12 +173,12 @@ $('#save').click(function(){//確認新增預約
 	   	}
 	   	console.log(arrayfortime);
 	  $.ajax({//存入資料庫階段
-		  url:"bookingServlet",
+		  url:"<%=request.getContextPath()%>/booking/bookingServlet",
 	 	  type:"POST",
 	 	  data:{
 	 		  action:"insert",
-	 		  data:JSON.stringify(arrayfortime)	 		
-	 	 //	  id:request.getParameter("LLD_NO");
+	 		  data:JSON.stringify(arrayfortime),	
+	 	 	  lld_no:list[0].lld_no
 	 	  },
 		success:function(id){//以上成功才執行
 	 		  console.log(id+"HEN棒");
@@ -267,6 +208,15 @@ $('#save').click(function(){//確認新增預約
 	 	  });
 	 	 	
   document.addEventListener('DOMContentLoaded', function() {
+	  var open=false;
+	  var booking=true;
+	  console.log(list[0]==undefined);
+ 	  if(list[0]!==undefined){
+	 	 if(list[0].lld_no=="<%=tntno %>"){open=true};
+	  	 if("<%=tntno %>".substr(0,3)!=="TNT"&&open==false){
+		  booking=false;
+	  	}
+	  }
     var calendarEl = document.getElementById('calendar');   
     calendar = new FullCalendar.Calendar(calendarEl, {
      headerToolbar: {
@@ -284,11 +234,13 @@ $('#save').click(function(){//確認新增預約
       locale: 'zh-tw',
       initialDate: new Date(),//初始時間 目前為當前時間
       navLinks: true, //日期可點嗎?
-      selectable: true,/////可以新增日期嗎? ---------------------------------------此條記得改----------房東?房客?
+      selectable: open,/////可以新增日期嗎? ---------------------------------------此條記得改----------房東?房客?
       selectMirror: true,
       selectHelper :true,
       unselectAuto: true,
-
+      validRange: {
+    	    start: new Date()
+    	  },
 
       select: function(info) {
     	  dateStr = info.startStr;
@@ -318,13 +270,15 @@ $('#save').click(function(){//確認新增預約
        console.log(arg.event);
     	   console.log(arg.event.extendedProps);       	
     	   console.log(arg.event.extendedProps.resdno);
-    	   if(acc){ //如果是房東
+    	   if(open){ //如果是房東
     		   if (confirm('確定要刪除該時段嗎?')) {//按鈕確認是否 回傳相對應ture false
     			   $.ajax({//存入資料庫階段
-    					  url:"bookingServlet",
+    					  url:"<%=request.getContextPath()%>/booking/bookingServlet",
     				 	  type:"POST",
     				 	  data:{ action:"delete",
     				 		  data:arg.event.extendedProps.resdno
+<%--     				 		  "<%=tntno %>" --%>
+    				 			  
     				 		   //JSON.stringify({})
     				 	  },
     				 	  success:function(data){//以上成功才執行
@@ -341,22 +295,24 @@ $('#save').click(function(){//確認新增預約
     				  })
         			 
        				}}
-       else {//房客
+       else if(booking) {//房客
     	   if (confirm('確定要預約該時段嗎?')) {//按鈕確認是否 回傳相對應ture false
         	 
         	   $.ajax({//存入資料庫階段
-        			  url:"bookingServlet",
+        			  url:"<%=request.getContextPath()%>/booking/bookingServlet",
 				 	  type:"POST",
 				 	  data:{
 				 		  action:"update",
-				 		  data:arg.event.extendedProps.resdno
-				 		  //,session.getAttribute("hoid")
-				 		  
+				 		  data: arg.event.extendedProps.resdno
+<%-- 				 			  "<%=tntno %>" --%>
+				 		   //JSON.stringify({})
 				 			 //JSON.stringify({})
 				 	  },
 				 	  success:function(data){//以上成功才執行
 				 		 arg.el.style.backgroundColor="pink";
 			        	   arg.el.style.pointerEvents = "none";
+			        	   arg.event.title="WW";
+
 				 		  	console.log("res棒");
 				 	  },
 				 	  error:function(data)
@@ -367,6 +323,9 @@ $('#save').click(function(){//確認新增預約
 				  });
 				  
         	        	   }}
+       else{
+    	   alert("無法預約其他房東");
+       }
     	
        
        },
@@ -404,7 +363,5 @@ $('#save').click(function(){//確認新增預約
      })
     calendar.render();
   });
-
-
   </script>
 </html>

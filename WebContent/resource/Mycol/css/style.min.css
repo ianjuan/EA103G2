@@ -1,6 +1,6 @@
 * {
-    vertical-align: middle;
-    font-family: 'Microsoft JhengHei'
+  vertical-align: middle;
+  font-family: 'Microsoft JhengHei'
 }
 
 h1,
@@ -10,981 +10,1083 @@ h4,
 h5,
 h6,
 p {
-    margin: 0
+  margin: 0
 }
 
 ul {
-    margin: 0;
-    padding: 0
+  margin: 0;
+  padding: 0
 }
 
 ul li {
-    list-style-type: none
+  list-style-type: none
 }
 
 [data-bg] {
-    display: block;
-    width: 100%;
-    height: auto;
-    background-size: cover;
-    background-repeat: no-repeat
+  display: block;
+  width: 100%;
+  height: auto;
+  background-size: cover;
+  background-repeat: no-repeat
 }
 
 .flex-row {
-    display: flex;
-    flex-wrap: wrap
+  display: flex;
+  flex-wrap: wrap
 }
 
 body {
-    animation: fade 2s 1s both
+  animation: fade 2s 1s both
 }
 
 h1 {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    color: #22223B
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  color: #22223B
 }
 
 h2 {
-    display: block;
-    padding-bottom: 15px;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    font-size: 20px;
-    border-bottom: solid 2px rgba(74, 78, 105, 0.2);
-    color: #4A4E69;
-    font-weight: bold;
-    position: relative
+  display: block;
+  padding-bottom: 15px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  border-bottom: solid 2px rgba(74, 78, 105, 0.2);
+  color: #4A4E69;
+  font-weight: bold;
+  position: relative
 }
 
 h2:after {
-    content: "";
-    display: block;
-    width: 85px;
-    height: 2px;
-    background-color: #52b788;
-    position: absolute;
-    bottom: -2px;
-    left: 0
+  content: "";
+  display: block;
+  width: 85px;
+  height: 2px;
+  background-color: #52b788;
+  position: absolute;
+  bottom: -2px;
+  left: 0
 }
 
 h3 {
-    font-size: 18px;
-    padding: 20px 0;
-    font-weight: bold;
-    color: #4A4E69
+  font-size: 18px;
+  padding: 20px 0;
+  font-weight: bold;
+  color: #4A4E69
 }
 
 h4 {
-    font-size: 16px
+  font-size: 16px
 }
 
 h5 {
-    font-size: 14px
+  font-size: 14px
 }
 
 h6 {
-    font-size: 12px;
-    color: #777
+  font-size: 12px;
+  color: #777
 }
 
 p {
-    color: #4a4e69
+  color: #4a4e69
 }
 
 #wrapper {
-    padding: 100px 0;
-    border-top: solid 10px #22223B;
-    border-bottom: solid 10px #22223B;
-    background-color: #f8f8f8
+  padding: 100px 0;
+  border-top: solid 10px #22223B;
+  border-bottom: solid 10px #22223B;
+  background-color: #f8f8f8
 }
 
 .container {
-    width: 1280px
+  width: 1280px
 }
 
 .fade {
-    opacity: 0
+  opacity: 0
 }
 
 .fade.animated {
-    animation: fade 1s both
+  animation: fade 1s both
 }
 
 @keyframes fade {
-    0% {
-        opacity: 0
-    }
+  0% {
+    opacity: 0
+  }
 
-    100% {
-        opacity: 1
-    }
+  100% {
+    opacity: 1
+  }
 }
 
 .fadeDown {
-    opacity: 0
+  opacity: 0
 }
 
 .fadeDown.animated {
-    animation: fadeDown 1s both
+  animation: fadeDown 1s both
 }
 
 @keyframes fadeDown {
-    0% {
-        transform: translateY(-50px);
-        opacity: 0
-    }
+  0% {
+    transform: translateY(-50px);
+    opacity: 0
+  }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0)
-    }
+  100% {
+    opacity: 1;
+    transform: translateY(0)
+  }
 }
 
 .fadeUp {
-    opacity: 0
+  opacity: 0
 }
 
 .fadeUp.animated {
-    animation: fadeUp 1s both
+  animation: fadeUp 1s both
 }
 
 @keyframes fadeUp {
-    0% {
-        transform: translateY(50px);
-        opacity: 0
-    }
+  0% {
+    transform: translateY(50px);
+    opacity: 0
+  }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0)
-    }
+  100% {
+    opacity: 1;
+    transform: translateY(0)
+  }
 }
 
 .fadeLeft {
-    opacity: 0
+  opacity: 0
 }
 
 .fadeLeft.animated {
-    animation: fadeLeft 1s both
+  animation: fadeLeft 1s both
 }
 
 @keyframes fadeLeft {
-    0% {
-        transform: translateX(-50px);
-        opacity: 0
-    }
+  0% {
+    transform: translateX(-50px);
+    opacity: 0
+  }
 
-    100% {
-        opacity: 1;
-        transform: translateX(0)
-    }
+  100% {
+    opacity: 1;
+    transform: translateX(0)
+  }
 }
 
 .fadeRight {
-    opacity: 0
+  opacity: 0
 }
 
 .fadeRight.animated {
-    animation: fadeRight 1s both
+  animation: fadeRight 1s both
 }
 
 @keyframes fadeRight {
-    0% {
-        transform: translateX(50px);
-        opacity: 0
-    }
+  0% {
+    transform: translateX(50px);
+    opacity: 0
+  }
 
-    100% {
-        opacity: 1;
-        transform: translateX(0)
-    }
+  100% {
+    opacity: 1;
+    transform: translateX(0)
+  }
 }
 
 .fadeScale {
-    opacity: 0
+  opacity: 0
 }
 
 .fadeScale.animated {
-    animation: fadeScale 1s both
+  animation: fadeScale 1s both
 }
 
 @keyframes fadeScale {
-    0% {
-        transform: scale(0.9) translateY(10px);
-        opacity: 0
-    }
+  0% {
+    transform: scale(0.9) translateY(10px);
+    opacity: 0
+  }
 
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0px)
-    }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0px)
+  }
 }
 
 @keyframes shake {
-    0% {
-        transform: rotate(0deg)
-    }
+  0% {
+    transform: rotate(0deg)
+  }
 
-    100% {
-        transform: rotate(20deg)
-    }
+  100% {
+    transform: rotate(20deg)
+  }
 }
 
 @keyframes billing {
-    0% {
-        opacity: 0.7;
-        transform: scale(1)
-    }
+  0% {
+    opacity: 0.7;
+    transform: scale(1)
+  }
 
-    33% {
-        opacity: 1;
-        transform: scale(1.05)
-    }
+  33% {
+    opacity: 1;
+    transform: scale(1.05)
+  }
 
-    66% {
-        opacity: 0.7;
-        transform: scale(1)
-    }
+  66% {
+    opacity: 0.7;
+    transform: scale(1)
+  }
 
-    100% {
-        opacity: 1;
-        transform: scale(1.05)
-    }
+  100% {
+    opacity: 1;
+    transform: scale(1.05)
+  }
 }
 
 @keyframes fav {
-    0% {
-        transform: scale(1) rotate(0deg)
-    }
+  0% {
+    transform: scale(1) rotate(0deg)
+  }
 
-    20%,
-    80% {
-        transform: scale(0) rotate(180deg)
-    }
+  20%,
+  80% {
+    transform: scale(0) rotate(180deg)
+  }
 
-    100% {
-        transform: scale(1) rotate(360deg);
-        filter: grayscale(0)
-    }
+  100% {
+    transform: scale(1) rotate(360deg);
+    filter: grayscale(0)
+  }
+}
+
+body.blur #wrapper {
+  filter: blur(1px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden
 }
 
 .swiper-slide img {
-    display: block;
-    width: 100%
+  display: block;
+  width: 100%
 }
 
 #left-site .pic-container {
-    position: relative;
-    margin-bottom: 15px
+  position: relative;
+  margin-bottom: 15px
 }
 
 #left-site .gallery-top {
-    padding-right: 140px;
-    padding-bottom: 30px
+  padding-right: 140px;
+  padding-bottom: 30px
 }
 
 #left-site .gallery-top .swiper-slide img {
-    object-fit: cover;
-    object-position: 50% 50%;
-    opacity: 0;
-    transition-duration: 1s
+  object-fit: cover;
+  object-position: 50% 50%;
+  opacity: 0;
+  transition-duration: 1s
 }
 
 #left-site .gallery-top .swiper-slide.swiper-slide-active img {
-    opacity: 1
+  opacity: 1
 }
 
 #left-site .gallery-top .swiper-button-next {
-    right: 150px
+  right: 150px
 }
 
 #left-site .gallery-top .swiper-pagination {
-    width: calc(100% - 140px);
-    padding: 5px 0;
-    bottom: 0;
-    font-size: 12px;
-    line-height: 19px;
-    background-color: #22223B;
-    border-radius: 2px;
-    color: #fff
+  width: calc(100% - 140px);
+  padding: 5px 0;
+  bottom: 0;
+  font-size: 12px;
+  line-height: 19px;
+  background-color: #22223B;
+  border-radius: 2px;
+  color: #fff
 }
 
 #left-site .gallery-thumbs {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 130px;
-    height: 100%
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 130px;
+  height: 100%
 }
 
 #left-site .gallery-thumbs .swiper-slide {
-    cursor: pointer;
-    overflow: hidden;
-    opacity: 0.6;
-    transition-duration: .5s
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0.6;
+  transition-duration: .5s
 }
 
 #left-site .gallery-thumbs .swiper-slide.swiper-slide-thumb-active {
-    opacity: 1
+  opacity: 1
 }
 
 #left-site .gallery-thumbs .swiper-slide img {
-    width: auto;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 50%
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%
 }
 
 #right-site {
-    padding-top: 50px;
-    position: relative;
-    top: 0;
-    left: 0
+  padding-top: 50px;
+  position: relative;
+  top: 0;
+  left: 0
 }
 
 .info {
-    padding: 20px 25px 10px;
-    margin-bottom: 15px;
-    background-color: rgba(74, 78, 105, 0.1);
-    border-radius: 2px
+  padding: 20px 25px 10px;
+  margin-bottom: 15px;
+  background-color: rgba(74, 78, 105, 0.1);
+  border-radius: 2px
 }
 
 .info ul {
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 2px
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 2px
 }
 
 .info ul li {
-    display: flex;
-    margin-bottom: 10px;
-    width: calc(100% / 3);
-    font-size: 14px;
-    border-radius: 2px
+  display: flex;
+  margin-bottom: 10px;
+  width: calc(100% / 3);
+  font-size: 14px;
+  border-radius: 2px
 }
 
 .info ul.full li {
-    width: 100%
+  width: 100%
 }
 
 .info span {
-    display: block;
-    padding-right: 10px;
-    margin-right: 10px;
-    min-width: 80px;
-    text-align: justify;
-    text-align-last: justify;
-    border-right: solid 1px rgba(34, 34, 59, 0.3);
-    color: rgba(34, 34, 59, 0.5)
+  display: block;
+  padding-right: 10px;
+  margin-right: 10px;
+  min-width: 80px;
+  text-align: justify;
+  text-align-last: justify;
+  border-right: solid 1px rgba(34, 34, 59, 0.3);
+  color: rgba(34, 34, 59, 0.5)
 }
 
 .info a {
-    text-decoration: none;
-    color: #22223B
+  text-decoration: none;
+  color: #22223B
 }
 
 .info p {
-    display: flex;
-    align-items: center;
-    letter-spacing: 1px;
-    font-weight: bold
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+  font-weight: bold
 }
 
 .info p.yes:before,
 .info p.no:before,
 .info p img {
-    display: block;
-    margin-right: 15px;
-    width: 20px;
-    height: 20px
+  display: block;
+  margin-right: 15px;
+  width: 20px;
+  height: 20px
 }
 
 .info p.yes:before,
 .info p.no:before {
-    content: "";
-    background-size: cover
+  content: "";
+  background-size: cover
 }
 
 .info p.yes:before {
-    background-image: url(../images/yes.svg)
+  background-image: url(../images/yes.svg)
 }
 
 .info p.no:before {
-    background-image: url(../images/no.svg)
+  background-image: url(../images/no.svg)
 }
 
 .map {
-    padding-bottom: 50%;
-    margin-bottom: 10px;
-    position: relative
+  padding-bottom: 50%;
+  margin-bottom: 10px;
+  position: relative
 }
 
 .map iframe {
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    width: 100%;
-    height: 100%
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  width: 100%;
+  height: 100%
 }
 
 .detail {
-    padding-bottom: 20px
+  padding-bottom: 20px
 }
 
 .description {
-    padding-bottom: 20px;
-    position: relative
+  padding-bottom: 20px;
+  position: relative
 }
 
 .description .fav {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    right: 25px;
-    top: 20px;
-    cursor: pointer
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 25px;
+  top: 20px;
+  cursor: pointer
 }
 
 .description .fav p {
-    font-size: 12px;
-    font-weight: normal
+  font-size: 12px;
+  font-weight: normal
 }
 
 .description .fav img {
-    display: block;
-    margin-left: 5px;
-    width: 30px;
-    height: auto;
-    filter: grayscale(1)
+  display: block;
+  margin-left: 5px;
+  width: 30px;
+  height: auto;
+  filter: grayscale(1)
 }
 
 .description .fav.saved img {
-    animation: fav 1s both
+  animation: fav 1s both
 }
 
 .description .price {
-    margin-bottom: 20px
+  margin-bottom: 20px
 }
 
 .description h4 {
-    display: flex;
-    margin-bottom: 10px;
-    align-items: flex-end;
-    font-size: 28px;
-    font-weight: bold;
-    color: #f25c54
+  display: flex;
+  margin-bottom: 10px;
+  align-items: flex-end;
+  font-size: 28px;
+  font-weight: bold;
+  color: #f25c54
 }
 
 .description h4 i {
-    display: block;
-    margin-left: 10px;
-    font-style: inherit;
-    font-size: 16px;
-    line-height: 20px
+  display: block;
+  margin-left: 10px;
+  font-style: inherit;
+  font-size: 16px;
+  line-height: 20px
 }
 
 .description li {
-    padding: 5px 10px;
-    background-color: rgba(74, 78, 105, 0.1)
+  padding: 5px 10px;
+  background-color: rgba(74, 78, 105, 0.1)
 }
 
 .contact .person {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px
 }
 
 .contact .person .head {
-    border-radius: 50%;
-    background-color: rgba(74, 78, 105, 0.1);
-    overflow: hidden;
-    width: 100px;
-    height: 100px
+  border-radius: 50%;
+  background-color: rgba(74, 78, 105, 0.1);
+  overflow: hidden;
+  width: 100px;
+  height: 100px
 }
 
 .contact .person .head img {
-    display: block;
-    margin: 0 auto;
-    height: 100%;
-    width: auto;
-    object-fit: cover
+  display: block;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+  object-fit: cover
 }
 
 .contact .person p {
-    margin-left: 10px;
-    align-items: flex-end;
-    width: calc(100% - 120px)
+  margin-left: 10px;
+  align-items: flex-end;
+  width: calc(100% - 120px)
 }
 
 .contact .person p i {
-    font-style: inherit;
-    font-size: 12px;
-    line-height: 21px
+  font-style: inherit;
+  font-size: 12px;
+  line-height: 21px
 }
 
 .contact .phone {
-    margin-bottom: 15px;
-    background-color: #ffe1a8;
-    border-radius: 100px
+  margin-bottom: 15px;
+  background-color: #ffe1a8;
+  border-radius: 100px
 }
 
 .contact .phone a {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    padding-left: 50px
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  padding-left: 50px
 }
 
 .contact .phone a img {
-    display: block;
-    width: 30px;
-    height: 30px;
-    animation: shake .5s infinite alternate
+  display: block;
+  width: 30px;
+  height: 30px;
+  animation: shake .5s infinite alternate
 }
 
 .contact .phone a p {
-    padding-right: 20px;
-    width: calc(100% - 30px);
-    font-size: 24px;
-    justify-content: center
+  padding-right: 20px;
+  width: calc(100% - 30px);
+  font-size: 24px;
+  justify-content: center
 }
 
 .contact .functions {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding-bottom: 10px
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-bottom: 10px
 }
 
 .contact .functions a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-    padding: 10px;
-    border-radius: 100px;
-    width: calc(100% / 3 - 10px);
-    color: #fff;
-    background-color: #0db39e
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 100px;
+  width: calc(100% / 3 - 10px);
+  color: #fff;
+  background-color: #0db39e
 }
 
 .contact .functions a.no-service {
-    background-color: rgba(74, 78, 105, 0.2);
-    cursor: not-allowed
+  background-color: rgba(74, 78, 105, 0.2);
+  cursor: not-allowed
 }
 
 .contact .functions a.red {
-    background-color: #f25c54
+  background-color: #f25c54
 }
 
 .contact .functions a.full {
-    width: calc(100% - 10px)
+  width: calc(100% - 10px)
 }
 
 .contact .functions a img {
-    display: block;
-    margin-right: 10px;
-    width: 16px;
-    height: 16px
+  display: block;
+  margin-right: 10px;
+  width: 16px;
+  height: 16px
 }
 
 .tips {
-    padding-bottom: 20px
+  padding-bottom: 20px
 }
 
 .tips p img {
-    width: 50px;
-    height: 50px;
-    animation: billing 1.5s infinite alternate linear
+  width: 50px;
+  height: 50px;
+  animation: billing 1.5s infinite alternate linear
 }
 
 #message {
-    padding-bottom: 20px
+  padding-bottom: 20px
 }
 
 #message h3 {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end
 }
 
 #message span {
-    text-align-last: left;
-    text-align: left;
-    padding: 0;
-    margin: 0;
-    border: none;
-    font-size: 12px
+  text-align-last: left;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-size: 12px
 }
 
 #message li {
-    display: block;
-    position: relative;
-    padding-bottom: 20px;
-    border-bottom: solid 1px rgba(74, 78, 105, 0.1)
+  display: block;
+  position: relative;
+  padding-bottom: 20px;
+  border-bottom: solid 1px rgba(74, 78, 105, 0.1)
 }
 
 #message li:last-of-type {
-    border-bottom: none;
-    padding-bottom: 0
+  border-bottom: none;
+  padding-bottom: 0
 }
 
 #message .date {
-    position: absolute;
-    right: 0;
-    top: 4px;
-    color: rgba(74, 78, 105, 0.5)
+  position: absolute;
+  right: 0;
+  top: 4px;
+  color: rgba(74, 78, 105, 0.5)
 }
 
 #message .reply h4 {
-    display: flex;
-    align-items: center;
-    width: calc(100% - 135px);
-    padding-right: 20px;
-    margin-bottom: 10px
+  display: flex;
+  align-items: center;
+  width: calc(100% - 135px);
+  padding-right: 20px;
+  margin-bottom: 10px
 }
 
 #message .reply h4:before {
-    display: block;
-    content: "";
-    margin-right: 10px;
-    width: 30px;
-    height: 30px;
-    background-size: contain;
-    background-image: url("../images/question.svg")
+  display: block;
+  content: "";
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-image: url("../images/question.svg")
 }
 
 #message .reply h4 em {
-    color: rgba(74, 78, 105, 0.5);
-    font-style: inherit;
-    font-size: 12px
+  color: rgba(74, 78, 105, 0.5);
+  font-style: inherit;
+  font-size: 12px
 }
 
 #message .reply .anwser {
-    background-color: #f8f9fa;
-    width: calc(100% - 30px);
-    margin-left: 30px;
-    padding: 10px 20px;
-    border-radius: 1000px;
-    position: relative
+  background-color: #f8f9fa;
+  width: calc(100% - 30px);
+  margin-left: 30px;
+  padding: 10px 20px;
+  border-radius: 1000px;
+  position: relative
 }
 
 #message .reply .anwser:before {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: 100%;
-    left: 30px;
-    width: 0;
-    height: 0;
-    border: solid 6px transparent;
-    border-bottom-color: #f8f9fa
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 100%;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border: solid 6px transparent;
+  border-bottom-color: #f8f9fa
 }
 
 #message textarea {
-    background-color: #f8f9fa;
-    border-color: rgba(74, 78, 105, 0.2);
-    border-radius: 2px;
-    height: 200px;
-    padding: 10px 10px 50px;
-    resize: none
+  background-color: #f8f9fa;
+  border-color: rgba(74, 78, 105, 0.2);
+  border-radius: 2px;
+  height: 200px;
+  padding: 10px 10px 50px;
+  resize: none
 }
 
 #message textarea:focus {
-    outline: none
+  outline: none
 }
 
 #message .txt-area {
-    margin-bottom: 15px;
-    position: relative
+  margin-bottom: 15px;
+  position: relative
 }
 
 #message .txt-area .nums {
-    display: flex;
-    align-items: flex-end;
-    position: absolute;
-    bottom: 10px;
-    right: 15px;
-    font-size: 16px;
-    letter-spacing: 2px
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-size: 16px;
+  letter-spacing: 2px
 }
 
 #message .txt-area .nums i {
-    font-size: 20px;
-    font-style: inherit;
-    color: #2bbbad
+  font-size: 20px;
+  font-style: inherit;
+  color: #2bbbad
 }
 
 #notice {
-    display: none;
-    position: fixed;
-    right: 50%;
-    top: 5%;
-    transform: translate(50%, 0%);
-    z-index: 5;
-    background-color: #fff;
-    padding: 10px 25px;
-    border-radius: 100px
+  display: none;
+  position: fixed;
+  right: 50%;
+  top: 5%;
+  transform: translate(50%, 0%);
+  z-index: 5;
+  background-color: #fff;
+  padding: 10px 25px;
+  border-radius: 100px
 }
 
 #notice p {
-    color: #fff
+  color: #fff
 }
 
 #notice.successed {
-    background-color: #0db39e
+  background-color: #0db39e
 }
 
 #notice.failed {
-    background-color: #f25c54
+  background-color: #f25c54
 }
 
 #fav-container .fav-head {
-    background-color: rgba(74, 78, 105, 0.1);
-    padding: 20px 25px;
-    margin-bottom: 30px;
-    border-radius: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between
+  background-color: rgba(74, 78, 105, 0.1);
+  padding: 30px 25px 20px;
+  margin-bottom: 30px;
+  border-radius: 2px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between
 }
 
 #fav-container .fav-head .fav-search {
-    display: flex;
-    align-items: center
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 80%
 }
 
 #fav-container .fav-head .input {
-    display: flex;
-    align-items: center;
-    margin-right: 20px
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  margin-bottom: 10px
 }
 
 #fav-container .fav-head .input label {
-    padding-left: 25px;
-    min-width: 60px;
-    font-size: 16px;
-    color: #22223B
+  padding-left: 25px;
+  min-width: 60px;
+  font-size: 16px;
+  color: #22223B
 }
 
 #fav-container .fav-head .input label:before {
-    margin-top: 4px
+  margin-top: 4px
 }
 
 #fav-container .fav-head .input select {
-    display: block
+  display: block
 }
 
 #fav-container .fav-head .input select+label {
-    padding-left: 5px
+  padding-left: 5px
 }
 
 #fav-container .fav-body .body-tool {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-left: 15px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    border-bottom: solid 1px rgba(74, 78, 105, 0.1)
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-left: 15px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  border-bottom: solid 1px rgba(74, 78, 105, 0.1)
 }
 
 #fav-container .fav-body .body-tool label {
-    padding-left: 25px;
-    color: #22223B
+  padding-left: 25px;
+  color: #22223B
 }
 
 #fav-container .fav-body .body-tool .btn {
-    width: 39px;
-    height: 39px;
-    padding: 0;
-    margin-left: 20px;
-    background-image: url(../images/bin.svg);
-    background-size: 20px auto;
-    background-repeat: no-repeat;
-    background-position: center center
+  width: 39px;
+  height: 39px;
+  padding: 0;
+  margin-left: 20px;
+  background-image: url(../images/bin.svg);
+  background-size: 20px auto;
+  background-repeat: no-repeat;
+  background-position: center center
 }
 
 #fav-container .fav-body .item {
-    display: flex;
-    margin-bottom: 30px;
-    padding-bottom: 30px;
-    border-bottom: solid 1px rgba(74, 78, 105, 0.2);
-    position: relative
+  display: flex;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: solid 1px rgba(74, 78, 105, 0.2);
+  position: relative
 }
 
 #fav-container .fav-body .item:last-of-type {
-    margin-bottom: 0;
-    border-bottom: none
+  margin-bottom: 0;
+  border-bottom: none
 }
 
-#fav-container .fav-body .item .btn.delete {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 39px;
-    height: 39px;
-    padding: 0;
-    background-image: url(../images/bin.svg);
-    background-size: 20px auto;
-    background-repeat: no-repeat;
-    background-position: center center
-}
-
-#fav-container .fav-body .item .btn.checkin{
-    float: right;
+#fav-container .fav-body .item .btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 39px;
+  height: 39px;
+  padding: 0;
+  background-image: url(../images/bin.svg);
+  background-size: 20px auto;
+  background-repeat: no-repeat;
+  background-position: center center
 }
 
 #fav-container .fav-body .item .price {
-    display: flex;
-    align-items: flex-end;
-    position: absolute;
-    bottom: 20px;
-    left: 20px
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 20px;
+  left: 20px
 }
 
 #fav-container .fav-body .item .price h4 {
-    display: flex;
-    align-items: flex-end;
-    font-size: 28px;
-    font-weight: bold;
-    margin-right: 10px;
-    margin-bottom: -1px;
-    color: #f25c54
+  display: flex;
+  align-items: flex-end;
+  font-size: 28px;
+  font-weight: bold;
+  margin-right: 10px;
+  margin-bottom: -1px;
+  color: #f25c54
 }
 
 #fav-container .fav-body .item .price h4 i {
-    display: block;
-    margin-left: 10px;
-    font-style: inherit;
-    font-size: 16px;
-    line-height: 20px
+  display: block;
+  margin-left: 10px;
+  font-style: inherit;
+  font-size: 16px;
+  line-height: 20px
 }
 
 #fav-container .fav-body .item .date {
-    display: flex;
-    position: absolute;
-    bottom: 20px;
-    right: 20px
+  display: flex;
+  position: absolute;
+  bottom: 20px;
+  right: 20px
 }
 
 #fav-container .fav-body .item .date i,
 #fav-container .fav-body .item .date p {
-    font-style: inherit;
-    font-size: 14px;
-    color: rgba(74, 78, 105, 0.5)
+  font-style: inherit;
+  font-size: 14px;
+  color: rgba(74, 78, 105, 0.5)
 }
 
 #fav-container .fav-body .item .date p {
-    margin-right: 5px
+  margin-right: 5px
 }
 
 #fav-container .fav-body .item figure {
-    margin: 0;
-    width: 30%;
-    overflow: hidden
+  margin: 0;
+  width: 30%;
+  overflow: hidden
 }
 
 #fav-container .fav-body .item figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    transition-duration: 2s
+  display: block;
+  width: 100%;
+  height: auto;
+  transition-duration: 2s
 }
 
 #fav-container .fav-body .item figure:hover img {
-    transform: scale(1.1)
+  transform: scale(1.1)
 }
 
 #fav-container .fav-body .item figcaption.info {
-    margin: 0;
-    padding-bottom: 50px;
-    width: 65%;
-    position: relative
+  margin: 0;
+  padding-bottom: 50px;
+  width: 65%;
+  position: relative
 }
 
 #fav-container .fav-body .item figcaption.info h2 {
-    width: calc(100% - 50px)
+  width: calc(100% - 50px)
+}
+
+#fav-container .fav-body .item figcaption.info .contact {
+  width: 70%;
+  float: right;
+  padding-top: 10px;
+  margin-right: -10px
+}
+
+#fav-container .fav-body .item figcaption.info .contact .functions {
+  justify-content: flex-end;
+  padding-bottom: 0
+}
+
+#fav-container .fav-body .item figcaption.info .contact .functions a {
+  width: calc(100% / 4 - 10px)
 }
 
 #fav-container .fav-body .item .select {
-    width: 5%;
-    display: flex;
-    align-items: center;
-    justify-content: center
+  width: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center
 }
 
 #fav-container .fav-foot {
-    display: flex;
-    justify-content: center;
-    padding: 40px 0
+  display: flex;
+  justify-content: center;
+  padding: 40px 0
 }
 
 #fav-container .fav-foot .pagination li.active a {
-    background-color: #22223B
+  background-color: #22223B
+}
+
+.datepicker-date-display {
+  display: none
+}
+
+.datepicker-modal {
+  max-width: 340px;
+  min-width: 340px
+}
+
+.modal-overlay {
+  visibility: hidden
+}
+
+#datepicker-container {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5)
+}
+
+#datepicker-container .content {
+  padding: 20px;
+  border-radius: 3px;
+  margin-bottom: 30px;
+  background-color: #efefef
+}
+
+#datepicker-container .input-field {
+  margin-bottom: 20px
+}
+
+#datepicker-container .form {
+  padding: 50px 40px 20px;
+  background-color: #f8f8f8;
+  position: absolute;
+  bottom: 50%;
+  right: calc(50% - 200px);
+  transform: translateY(50%);
+  width: 400px;
+  min-height: 340px;
+  border-radius: 5px
+}
+
+#datepicker-container .form .close {
+  padding: 0;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  background-image: url("../images/close.svg");
+  background-size: 15px auto;
+  background-repeat: no-repeat;
+  background-position: center
+}
+
+#datepicker-container .form .btn {
+  margin-top: 20px;
+  width: 100%
+}
+
+#datepicker-container .form p {
+  color: #22223B;
+  font-size: 14px
+}
+
+#datepicker-container .form p.ps {
+  color: #f25c54
 }
 
 .navs-row {
-    display: table;
-    margin: 0 auto;
-    padding: 30px;
-    position: relative
+  display: table;
+  margin: 0 auto;
+  padding: 30px;
+  position: relative
 }
 
 .navs-row ul {
-    display: flex;
-    margin: 0;
-    padding: 0
+  display: flex;
+  margin: 0;
+  padding: 0
 }
 
 .navs-row ul li {
-    list-style-type: none;
-    color: #333;
-    padding: 0 5px;
-    margin: 0 3px;
-    transition: all .5s;
-    cursor: pointer
+  list-style-type: none;
+  color: #333;
+  padding: 0 5px;
+  margin: 0 3px;
+  transition: all .5s;
+  cursor: pointer
 }
 
 .navs-row ul li.active,
 .navs-row ul li:hover {
-    background-color: #e5ac2e
+  background-color: #e5ac2e
 }
 
 .navs-row span.next,
 .navs-row span.prev {
-    display: table;
-    width: 0;
-    height: 0;
-    position: absolute;
-    bottom: calc(50% - 5px);
-    cursor: pointer;
-    transition: all .5s;
-    border-top: transparent 5px solid;
-    border-bottom: transparent 5px solid;
-    border-left: transparent 8px solid;
-    border-right: transparent 8px solid
+  display: table;
+  width: 0;
+  height: 0;
+  position: absolute;
+  bottom: calc(50% - 5px);
+  cursor: pointer;
+  transition: all .5s;
+  border-top: transparent 5px solid;
+  border-bottom: transparent 5px solid;
+  border-left: transparent 8px solid;
+  border-right: transparent 8px solid
 }
 
 .navs-row span.next {
-    border-left-color: #333;
-    right: 0
+  border-left-color: #333;
+  right: 0
 }
 
 .navs-row span.next:hover {
-    border-left-color: #e5ac2e
+  border-left-color: #e5ac2e
 }
 
 .navs-row span.prev {
-    border-right-color: #333;
-    left: 0
+  border-right-color: #333;
+  left: 0
 }
 
 .navs-row span.prev:hover {
-    border-right-color: #e5ac2e
+  border-right-color: #e5ac2e
 }
 
 /*# sourceMappingURL=style.min.css.map */

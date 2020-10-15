@@ -1,3 +1,4 @@
+
 package com.houserch.model;
 
 import java.sql.Date;
@@ -28,6 +29,14 @@ public class HousearchVO {
 	private String sort;
 	private String hos_pic;
 	
+	private Integer page;
+	
+	public Integer getPage() {
+		return page;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
 	public String getHos_no() {
 		return hos_no;
 	}

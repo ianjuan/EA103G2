@@ -41,42 +41,43 @@ public class bookingServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		//
-		if ("insert".equals(request.getParameter("action"))) {
+		String action=request.getParameter("action");
+		String data =request.getParameter("data");
+		String lld_no=request.getParameter("lld_no");
+		if ("insert".equals(action)) {
 			BookingDAO dao = new BookingDAO();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			// 進行轉換
 			try {
 			    BookingService bks= new BookingService();
-				System.out.println(bks.chang(request.getParameter("data"))+"jasdipsd");
-				ArrayList<String> thow =dao.insert(bks.chang(request.getParameter("data")));
+				System.out.println(bks.chang(data)+"jasdipsd");
+				ArrayList<String> thow =dao.insert(bks.chang(data),lld_no);
 				PrintWriter out = response.getWriter();
 				out.println(thow);
 
-//				String thow = dao.insert(request.getParameter("data"));			
-//				String thow = dao.insert(request.getParameter("data"),request.getParameter("LLD_NO");
-				
 				out.close();
+			
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-		} else if ("getByHoid".equals(request.getParameter("action"))) {
+		} else if ("getByHoid".equals(action)) {
 			BookingDAO dao = new BookingDAO();
 			dao.getBookingInfoListBylldno(request.getParameter("hoId"));
 			
-		} else if ("delete".equals(request.getParameter("action"))) {
+		} else if ("delete".equals(action)) {
 			BookingDAO dao =new BookingDAO();
 			try {
-				dao.delet(request.getParameter("data"));
+				dao.delet(data);
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}}
-		else if ("update".equals(request.getParameter("action"))) {
+		else if ("update".equals(action)) {
 				BookingDAO dao =new BookingDAO();
 				try {
-					dao.update(request.getParameter("data"));
+					dao.update(data);
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -85,7 +86,7 @@ public class bookingServlet extends HttpServlet {
 
 		 else {
 			response.getWriter().append("Served at: ").append(request.getContextPath());
-			RequestDispatcher failureView = request.getRequestDispatcher("/front-end/booking/booking.jsp");
+			RequestDispatcher failureView = request.getRequestDispatcher("/front-end/booking/bookingforhouse.jsp");
 			failureView.forward(request, response);
 		}
 	}
