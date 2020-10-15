@@ -1,18 +1,18 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%-- <%@ page import="com.tnt.model.*"%> --%>
-<%-- ¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È --%>
+<%-- æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼ --%>
 
 <%-- <% --%>
-<!--  TntVO tntVO = (TntVO) request.getAttribute("tntVO"); //TntServlet.java(Concroller), ¦s¤JreqªºtntVOª«¥ó  -->
+<!--  TntVO tntVO = (TntVO) request.getAttribute("tntVO"); //TntServlet.java(Concroller), å­˜å…¥reqçš„tntVOç‰©ä»¶  -->
 <%-- %>  --%>
-<%String[] accStatuses = {"¥¼±Ò¥Î", "¤w±Ò¥Î", "±b¸¹¥¢®Ä"};%>
+<%String[] accStatuses = {"æœªå•Ÿç”¨", "å·²å•Ÿç”¨", "å¸³è™Ÿå¤±æ•ˆ"};%>
 
 <html>
 <head>
-<title>©Ğ«È¸ê®Æ - listOneTnt.jsp</title>
+<title>æˆ¿å®¢è³‡æ–™ - listOneTnt.jsp</title>
 
 <style>
 table#table-1 {
@@ -54,14 +54,14 @@ th, td {
 </head>
 <body bgcolor='white'>
 
-	<h4>¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È:</h4>
+	<h4>æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼:</h4>
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>©Ğ«È¸ê®Æ - ListOneTnt.jsp</h3>
+				<h3>æˆ¿å®¢è³‡æ–™ - ListOneTnt.jsp</h3>
 				<h4>
 					<a href="<%=request.getContextPath()%>/back-end/tnt/select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">¦^­º­¶</a>
+						width="100" height="32" border="0">å›é¦–é </a>
 				</h4>
 			</td>
 		</tr>
@@ -69,21 +69,21 @@ th, td {
 
 	<table>
 		<tr>
-			<th>©Ğ«È½s¸¹</th>
-			<th>«H½c</th>
-			<th>±b¸¹</th>
-			<th>±K½X</th>
-			<th>¨­¤ÀÃÒ</th>
-			<th>©m¦W</th>
-			<th>¥Í¤é</th>
-			<th>©Ê§O</th>
-			<th>¤â¾÷</th>
-			<th>¿¤¥«</th>
-			<th>°Ï°ì</th>
-			<th>¦a§}</th>
-			<th>ÀY¶K</th>
-			<th>ª¬ºA</th>
-			<th>¥[¤J®É¶¡</th>
+			<th>æˆ¿å®¢ç·¨è™Ÿ</th>
+			<th>ä¿¡ç®±</th>
+			<th>å¸³è™Ÿ</th>
+			<th>å¯†ç¢¼</th>
+			<th>èº«åˆ†è­‰</th>
+			<th>å§“å</th>
+			<th>ç”Ÿæ—¥</th>
+			<th>æ€§åˆ¥</th>
+			<th>æ‰‹æ©Ÿ</th>
+			<th>ç¸£å¸‚</th>
+			<th>å€åŸŸ</th>
+			<th>åœ°å€</th>
+			<th>é ­è²¼</th>
+			<th>ç‹€æ…‹</th>
+			<th>åŠ å…¥æ™‚é–“</th>
 		</tr>
 		<tr>
 			<%-- 		<td><%=tntVO.getTnt_no()%></td> --%>
@@ -108,7 +108,7 @@ th, td {
 			<td>${tntVO.tnt_id}</td>
 			<td>${tntVO.tnt_name}</td>
 			<td>${tntVO.tnt_birth}</td>
-			<td>${(tntVO.tnt_sex)?'¨k':'¤k'}</td>
+			<td>${(tntVO.tnt_sex)?'ç”·':'å¥³'}</td>
 			<td>${tntVO.tnt_mobile}</td>
 			<td>${tntVO.tnt_city}</td>
 			<td>${tntVO.tnt_dist}</td>

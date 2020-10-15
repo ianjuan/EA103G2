@@ -29,6 +29,7 @@ public class LldServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		System.out.println("1");
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 

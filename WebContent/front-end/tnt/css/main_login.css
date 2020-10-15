@@ -926,3 +926,27 @@
         	text-align: center;
         	color: #3a8c68;
         }
+                /*==================================================================
+[ Identify ]*/
+        
+        #login100-form-identify.login100-form{
+        	width: 800px;
+        	height: 600px;
+        }
+        .identity-img-wrap{
+        	display: inline-block;
+        	font-size:0;
+        }
+        .identity-wrap{
+			width: 100%;
+			text-align: center;
+        }
+        .identity-img-wrap img{
+        	padding:20px;
+        }
+        .btnIdentify{
+        	width: 70%;
+        }
+        .btnIdentify:hover{
+        	width: 90%;
+        }

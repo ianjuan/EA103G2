@@ -61,7 +61,7 @@
             })
             // 地址
             $('#tnt_add.register100').on('blur', function() {
-                if ($('#tnt_sex').val().trim() === '') {
+                if ($('#tnt_add').val().trim() === '') {
                     showValidate($(this));
                 }
             })
@@ -70,6 +70,8 @@
                 if ($('#tnt_sex').val().trim() == '') {
                     $('#tnt_sex').addClass('alert-validate');
                     $('#tnt_sex').addClass('alert-validate-select');
+                } else {
+                    $('#tnt_sex').addClass('select-has-val');
                 }
             })
             $('#tnt_sex').on('focus', function() {
@@ -82,6 +84,8 @@
                 if ($('#tnt_city').val().trim() == '') {
                     $('#tnt_city').addClass('alert-validate');
                     $('#tnt_city').addClass('alert-validate-select');
+                } else {
+                    $('#tnt_city').addClass('select-has-val');
                 }
             })
             $('#tnt_city').on('focus', function() {
@@ -94,6 +98,8 @@
                 if ($('#tnt_dist').val().trim() == '') {
                     $('#tnt_dist').addClass('alert-validate');
                     $('#tnt_dist').addClass('alert-validate-select');
+                } else {
+                    $('#tnt_dist').addClass('select-has-val');
                 }
             })
             $('#tnt_dist').on('focus', function() {
@@ -181,9 +187,10 @@
 
         var somedate2 = new Date();
         somedate2.setFullYear(somedate2.getFullYear() - 18);
+        console.log(somedate2);
         var somedate3 = new Date();
         somedate3.setFullYear(somedate3.getFullYear() - 18);
-        somedate3 = somedate3.setDate(somedate3.getDate() + 1);
+        somedate3.setDate(somedate3.getDate() + 1);
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
             theme: '', // theme: 'dark',
@@ -564,6 +571,36 @@
 
         /*
          * ================================================================== 
+         *    [ Quick Input ]
+         */
+        var quickInputData = ['yjwuws@gmail.com', '吳永志', 'N221219585', '0917597127', '12345678', '12345678', '', '中大路300號'];
+        var quickInputDataSelects = ['1', '桃園市', '中壢區'];
+
+
+
+        $('#quickpick').click(function() {
+            var inputs = $('.validate-input .register100');
+            var selects = $('select.wrap-register100');
+            // var inputs_js = document.querySelectorAll('.register100');
+            for (var i = 0; i < inputs.length; i++) {
+                if (i !== 8) {
+                    $(inputs[i]).focus();
+                    $(inputs[i]).val(quickInputData[i]);
+                }
+                // $(selects[0]).focus();
+                // $(selects[0]).val(quickInputDataSelects[0]);
+                // $(selects[0]).blur();
+            }
+            $('#tnt_sex').focus();
+            $('#tnt_sex').val('1');
+            $('#tnt_sex').blur();
+
+            $('#f_date1').val('2000-11-12');
+            $('#f_date1').blur();
+        });
+
+        /*
+         * ================================================================== 
          *    [ 按鈕Ajax ]
          */
         //next page
@@ -590,29 +627,17 @@
 
         function ajax_register(formData) {
             $.ajax({ // 存入資料庫階段
-                url: "/EA103G2/tnt/TntServlet3",
+                url: "/EA103G2/tnt/TntServlet2",
                 type: "POST",
                 data: formData,
                 // 告訴jQuery不要去處理髮送的資料
                 processData: false,
                 // 告訴jQuery不要去設定Content-Type請求頭
                 contentType: false,
-                //      data : {
-                //          action : "insert",
-                //          tnt_email : $("#tnt_email").val(),
-                // tnt_pwd:$("#tnt_pwd").val(),
-                // tnt_pwd2:$("#tnt_pwd2").val(),
-                // tnt_name:$("#tnt_name").val(),
-                // tnt_sex:$("#tnt_sex").val(),
-                // tnt_id:$("#tnt_id").val(),
-                // tnt_birth:$("#tnt_birth").val(),
-                // tnt_city:$("#tnt_city").val(),
-                // tnt_dist:$("#tnt_dist").val(),
-                // tnt_add:$("#tnt_add").val()
-                //      },
+   
                 success: function() { // 以上成功才執行
                     console.log("res棒");
-                    ajax_testGet();
+                    redirect();
                 },
                 error: function() {
                     console.log("真的不棒")
@@ -620,18 +645,6 @@
             })
         }
 
-        function ajax_testGet() {
-            $.ajax({ // 存入資料庫階段
-                url: "http://localhost:8081/EA103G2/back-end/tnt/select_page.jsp",
-                type: "GET",
-                success: function(data) { // 以上成功才執行
-                    console.log("data=" + data);
-
-                    $('html').html(data);
-                    console.log("res棒");
-                },
-                error: function() {
-                    console.log("真的不棒")
-                }
-            })
+        function redirect() {
+        	window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
         }
