@@ -42,6 +42,15 @@
 		<url-pattern>/cont/ConServlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>RecServlet</servlet-name>
+		<servlet-class>com.rec.controller.RecServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RecServlet</servlet-name>
+		<url-pattern>/rec/RecServlet</url-pattern>
+	</servlet-mapping>
+	
 <!-- 	YiJing -->
 		<servlet>
 		<servlet-name>TntServlet</servlet-name>
