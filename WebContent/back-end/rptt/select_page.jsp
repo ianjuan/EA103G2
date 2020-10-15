@@ -92,8 +92,8 @@ h4 {
 		<li>
 			<FORM METHOD="post" ACTION="RpttServlet">
 				<b>檢舉狀態:</b> <select size="1" name="Number">
-					<option value="0">未處理
-					<option value="1">處理中
+					<option value="0">未解決
+					<option value="1">以解決
 				</select> 
 				<input type="hidden" name="action" value="get_want_display">
 				<input type="submit" value="送出">

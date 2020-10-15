@@ -37,8 +37,8 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 	private static final String GET_TNT_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE TNT_NO=? ";
 	private static final String GET_LLD_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE LLD_NO=? ";
 	private static final String GET_EMP_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE EMP_NO=? ";
-	private static final String GET_STATUS_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE RPTT_STATUS=? ";
-	private static final String UPDATEEMP = "UPDATE REPORT_TENANT SET EMP_NO=? WHERE RPTT_NO=?";
+	private static final String GET_RESULT_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE RPTT_RESULT=? ";
+	private static final String UPDATEEMP = "UPDATE REPORT_TENANT SET EMP_NO=?,RPTT_STATUS=? WHERE RPTT_NO=? ";
 
 
 	@Override
@@ -138,7 +138,8 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 
 		
 			pstmt.setString(1, rpttVO.getEmp_no());
-			pstmt.setString(2, rpttVO.getRptt_no());
+			pstmt.setInt(2, rpttVO.getRptt_status());
+			pstmt.setString(3, rpttVO.getRptt_no());
 
 			pstmt.executeUpdate();
 
@@ -354,7 +355,7 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 			} else if (Number.startsWith("E")) {
 				pstmt = con.prepareStatement(GET_EMP_STMT);
 			} else if (Number.equals("0")||Number.equals("1")) {
-				pstmt = con.prepareStatement(GET_STATUS_STMT);
+				pstmt = con.prepareStatement(GET_RESULT_STMT);
 			} else {
 				System.out.println("wrong sql");
 			}
