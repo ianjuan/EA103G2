@@ -8,4 +8,5 @@ public interface RecDAO_interface {
 	public void delete(String rec_no);
 	public RecVO findByPrimaryKey(String rec_no);
 	public List<RecVO> getAll();
+	public List<RecVO> getLddAllByCon(String con_no);
 }

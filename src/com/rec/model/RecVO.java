@@ -11,6 +11,7 @@ public class RecVO implements java.io.Serializable{
 	private Integer rec_water;
 	private Integer rec_elec;
 	private Timestamp rec_time;
+	private Integer rec_sta;
 	
 	public String getRec_no() {
 		return rec_no;
@@ -53,5 +54,11 @@ public class RecVO implements java.io.Serializable{
 	}
 	public void setRec_time(Timestamp rec_time) {
 		this.rec_time = rec_time;
+	}
+	public Integer getRec_sta() {
+		return rec_sta;
+	}
+	public void setRec_sta(Integer rec_sta) {
+		this.rec_sta = rec_sta;
 	}
 }
