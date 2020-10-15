@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans:ital,wght@1,600&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
+    <style type="text/css">
+        html.hs-messages-widget-open.hs-messages-mobile, html.hs-messages-widget-open.hs-messages-mobile body {
+            overflow: hidden !important;
+            position: relative !important
+        }
+        html.hs-messages-widget-open.hs-messages-mobile body {
+            height: 100% !important;
+            margin: 0 !important
+        }
+        #hubspot-messages-iframe-container {
+            display: initial !important;
+            z-index: 2147483647;
+            position: fixed !important;
+            bottom: 0 !important
+        }
+        #hubspot-messages-iframe-container.widget-align-left {
+            left: 0 !important
+        }
+        #hubspot-messages-iframe-container.widget-align-right {
+            right: 0 !important
+        }
+        #hubspot-messages-iframe-container.internal {
+            z-index: 1016
+        }
+        #hubspot-messages-iframe-container.internal iframe {
+            min-width: 108px
+        }
+        #hubspot-messages-iframe-container .shadow-container {
+            display: initial !important;
+            z-index: -1;
+            position: absolute;
+            width: 0;
+            height: 0;
+            bottom: 0;
+            content: ""
+        }
+        #hubspot-messages-iframe-container .shadow-container.internal {
+            display: none !important
+        }
+        #hubspot-messages-iframe-container .shadow-container.active {
+            width: 400px;
+            height: 400px
+        }
+        #hubspot-messages-iframe-container iframe {
+            display: initial !important;
+            width: 100% !important;
+            height: 100% !important;
+            border: none !important;
+            position: absolute !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            background: transparent !important
+        }
+    </style>
+    <noscript data-hid="gtm-noscript" data-pbody="true"><iframe src="//www.googletagmanager.com/ns.html?id=GTM-T85DVSW&l=dataLayer" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="__nuxt">
+        <!---->
+        <div id="__layout">
+            <section>
+                <nav class="navbar shadow-sm bg-white navbar-light fixed-top navbar-expand-lg">
+                    <div class="container"><a href="#" class="navbar-toggler-icon"></a> <a href="/" class="navbar-brand nuxt-link-active" target="_self"><img width="130" src="/_nuxt/img/fed4874.svg" alt="租租通DDROOM"></a>
+                        <div id="nav-collapse" class="navbar-collapse collapse" style="display: none;">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item"><a href="/house" class="nav-link" target="_self"><img width="24" height="24" src="/_nuxt/img/0775ccd.png" class="mr-2">尋找房源
+                                    </a></li>
+                                <li class="nav-item b-nav-dropdown dropdown" id="__BVID__205"><a aria-haspopup="true" aria-expanded="false" target="_self" href="#" class="nav-link dropdown-toggle" id="__BVID__205__BV_button_"><img width="18" height="18" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAWlBMVEUAAADvgGDueWHud2bteWDseWHxgGPteWHteGHteWD/AADsemLteWHueGHueWHseWHteWHteWHuemLse2PseGLte2DteWHueGLteGHteWHwfF/teWLteWEAAACcob4XAAAAHHRSTlMAEL8Pyc4SypCPAYiYob5unrpJNkQ4qGbYuyPuZvP1UAAAAAFiS0dEAIgFHUgAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfkBwMKEBHMcTe/AAAAkklEQVQoz83PWw6DIBRF0YstldIqPqoVPfMfZ/EqRB4D6PkgZi9NhChMVJWgwm53QD7yLmoohVoU3n9qemXfHJ0y8T0V15U+n6/i+tt30ipI1C+S9CDu/5uoO2n2+7SASS9lgJa6vgR9RzQw6PHDGzXDQB4mnJsSGDB/3WZOMRgK6S9gsdZKPu0CyecO64Zs20o/ejoTdljrOrcAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDctMDNUMTA6MTY6MTcrMDA6MDA3+CmqAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTA3LTAzVDEwOjE2OjE3KzAwOjAwRqWRFgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAASUVORK5CYII=" style="margin-right: 0.7rem; margin-left: 3px;">主題房源
+                                    </a>
+                                    <ul tabindex="-1" class="dropdown-menu" aria-labelledby="__BVID__205__BV_button_">
+                                        <li role="presentation" class="mx-0 text-center"><a href="/theme/cat" class="dropdown-item" role="menuitem" target="_self"><img width="24" height="24" src="/_nuxt/img/928dcdf.png" alt="貓咪房源" class="mr-2">
+                                                貓咪房源
+                                            </a></li>
+                                        <li role="presentation" class="mx-0 text-center"><a href="/theme/girl" class="dropdown-item" role="menuitem" target="_self"><img width="24" height="24" src="/_nuxt/img/781e64d.png" alt="女子房源" class="mr-2">
+                                                女子房源
+                                            </a></li>
+                                        <li role="presentation" class="mx-0 text-center"><a href="/theme/socialHouse" class="dropdown-item" role="menuitem" target="_self"><img width="24" height="24" src="/_nuxt/img/d4884d7.png" class="mr-2">
+                                                社會住宅
+                                            </a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a href="/blog" class="nav-link" target="_self"><svg height="24" width="24" p-id="1338" version="1.1" viewBox="0 0 1024 1024" class="fill-primary mr-2" t="1591850848293" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                                            <defs xmlns="http://www.w3.org/2000/svg">
+                                                <style type="text/css"></style>
+                                            </defs>
+                                            <path xmlns="http://www.w3.org/2000/svg" d="M369.437585 678.288281l64.901149 86.490863 22.083971 0L607.479073 605.751221l119.321596 159.027923 71.447239 0L607.479073 513.579985 445.380208 688.829358 369.437585 585.346495 233.094314 764.780167l71.446215 0L369.437585 678.288281zM274.238386 272.66096l63.698764 0 0 63.698764-63.698764 0L274.238386 272.66096 274.238386 272.66096zM385.055285 272.66096l365.597629 0 0 63.698764L385.055285 336.359724 385.055285 272.66096 385.055285 272.66096zM274.238386 400.058488l63.698764 0 0 62.822814-63.698764 0L274.238386 400.058488 274.238386 400.058488zM385.055285 400.058488l365.597629 0 0 62.822814L385.055285 462.881302 385.055285 400.058488 385.055285 400.058488zM892.880195 257.394255c0-70.117964-56.839543-126.957507-126.959553-126.957507L258.096754 130.436748c-70.117964 0-126.95853 56.839543-126.95853 126.957507l0 507.817748c0 70.120011 56.840566 126.960577 126.95853 126.960577l507.823887 0c70.120011 0 126.959553-56.840566 126.959553-126.960577L892.880195 257.394255 892.880195 257.394255zM849.773422 756.258073c0 50.774407-41.159422 91.934852-91.933829 91.934852l-490.787886 0c-50.773384 0-91.933829-41.160445-91.933829-91.934852L175.117878 265.479397c0-50.77236 41.160445-91.938945 91.933829-91.938945l490.787886 0c50.774407 0 91.933829 41.166585 91.933829 91.938945L849.773422 756.258073 849.773422 756.258073zM830.055334 741.916437" p-id="1339"></path>
+                                        </svg> <span class="text-dark">部落格</span></a></li>
+                                <!---->
+                                <!---->
+                                <!---->
+                                <!---->
+                                <!---->
+                                <li class="nav-item text-secondary btn-landlord"><a href="/landlord" class="nav-link" target="_self">我是房東</a></li>
+                                <!---->
+                                <!---->
+                                <!---->
+                            </ul>
+                        </div>
+                        <!----> <a class="text-primary">登入</a>
+                        <!---->
+                    </div>
+                    <!---->
+                </nav>
+                <section class="content login-content py-sm-7 py-5">
+                    <div class="login px-sm-7 px-4 bg-white rounded shadow-special">
+                        <div>
+                            <h2 class="text-center border-bottom">選擇您的身份</h2>
+                            <div class="login__content pt-sm-5 pt-3 d-sm-flex justify-content-between">
+                                <div class="login__content__identity text-center mb-sm-0 mb-3"><img src="https://www.dd-room.com/_nuxt/img/2b7ea73.png" width="260" class="d-block">
+                                    <div><a class="login__content__identity__link landlord">
+                                            我是房東
+                                            <i class="icon icon-arrow-right icon-lg ml-3"></i></a></div>
+                                </div>
+                                <div class="login__content__identity text-center"><img src="https://www.dd-room.com/_nuxt/img/78b1566.png" width="260" class="d-block">
+                                    <div><a class="login__content__identity__link member">
+                                            我是房客
+                                            <i class="icon icon-arrow-right icon-lg ml-3"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <footer class="">
+                    <div class="container text-center py-lg-8 py-sm-6 py-4 footer__downMenu"><a href="/about" class="text-primary mx-4" target="_self">關於租租通DDROOM</a> <a href="/service" class="text-primary mx-4" target="_self">服務條款</a> <a href="/tips" class="text-primary mx-4" target="_self">操作提示</a> <a href="/question" class="text-primary mx-4" target="_self">常見問題</a> <a href="/contact" class="text-primary mx-4" target="_self">異業合作</a> <a href="https://www.facebook.com/ddroomtw/" target="_blank" rel="noopener" class="text-white bg-primary mx-4 footer__icon"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-facebook-f fa-w-10">
+                                <path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z" class=""></path>
+                            </svg></a> <a href="https://www.instagram.com/ddroomtw/?hl=zh-tw" target="_blank" rel="noopener" class="text-white bg-primary mx-4 footer__icon"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="instagram" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-instagram fa-w-14">
+                                <path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" class=""></path>
+                            </svg></a> <a href="https://line.me/R/ti/p/%40jnk5994v" target="_blank" rel="noopener" class="text-white bg-primary mx-4 footer__icon"><img width="20" height="20" alt="租租通DDROOM-Line" style="margin-top: -2px;" data-src="/_nuxt/img/8befd5d.png" src="/_nuxt/img/8befd5d.png" lazy="loaded"></a></div>
+                    <div class="footer__copyright py-lg-5 py-4 bg-primary">
+                        <div class="container d-lg-flex justify-content-between align-items-center"><img alt="downLogo" width="130" class="mb-lg-0 mb-2" data-src="/_nuxt/img/885158f.svg" src="/_nuxt/img/885158f.svg" lazy="loaded">
+                            <p class="text-white mb-0">阿珥楠股份有限公司 ©2019</p>
+                        </div>
+                    </div>
+                    <!---->
+                </footer>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -233,7 +233,7 @@ public class TntServlet extends HttpServlet {
 
 				String tnt_pwd = req.getParameter("tnt_pwd");
 				String tnt_pwd2 = req.getParameter("tnt_pwd2");
-				String pwdReg = "^[\\w]{7,}$";
+				String pwdReg = "^[\\w]{8,16}$";
 				if (tnt_pwd == null || tnt_pwd.trim().length() == 0) {
 					errorMsgs.add("密碼: 請勿空白");
 				} else if (!tnt_pwd.trim().matches(pwdReg)) {
