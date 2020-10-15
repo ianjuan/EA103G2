@@ -81,7 +81,7 @@
                         <!-- </label> -->
                     </div>
                     <div class="m-r-10">
-                        <a href="<%=request.getContextPath()%>/front-end/index/tnt/forgetPwd.html" class="txt1">忘記密碼?</a>
+                        <a href="<%=request.getContextPath()%>/front-end/index/tnt/forgetPwd.html" class="txt1 forgetPwd">忘記密碼?</a>
                     </div>
                 </div>
                 <!-- <div class="text-center p-r-10"> -->
@@ -185,8 +185,10 @@
         <c:forEach var="message" items="${errorMsgs}">
             $('.wrap-validate-login').attr('data-validate', '${message}');
         	$('.wrap-validate-login').addClass('validate-input alert-validate-login');
+            errorMsgsJs = '${message}';
         </c:forEach>
 	</c:if>
+
 	if (typeof(errorMsgsJs)!=='undefined'){
 		var inputs = $('.register100');
 		console.log(inputs);

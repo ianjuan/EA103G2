@@ -290,13 +290,16 @@
 [ Form ]*/
 
         .login100-form {
-            width: 600px;/*450px*/
+            width: 600px;
+            /*450px*/
             /* min-height: 100vh; */
-            height: 500px;/*480px*/
+            height: 500px;
+            /*480px*/
             /*800px*/
             display: block;
             background-color: #f7f7f7;
-            padding: 55px;/*50px 30px*/
+            padding: 55px;
+            /*50px 30px*/
             /* border: 1px solid red; */
             border-radius: .625rem;
             box-shadow: 0 6px 6px 0 rgba(0, 0, 0, .1);
@@ -742,7 +745,7 @@
             height: 10px;
             position: relative;
             margin-bottom: 30px;
-            left:10px;
+            left: 10px;
 
         }
 
@@ -921,32 +924,37 @@
         /*ªl¤¸°Ïend*/
         /*==================================================================
 [ forgetPwd ]*/
-        
-        .txt-email-hint{
-        	text-align: center;
-        	color: #3a8c68;
+
+        .txt-email-hint {
+            text-align: center;
+            color: #3a8c68;
         }
-                /*==================================================================
+        a.forgetPwd:hover {
+            color: #3a8c68;
+            font-weight: bold;
+        }
+
+        /*==================================================================
 [ Identify ]*/
-        
-        #login100-form-identify.login100-form{
-        	width: 800px;
-        	height: 600px;
+
+        #login100-form-identify.login100-form {
+            width: 800px;
+            height: 600px;
         }
-        .identity-img-wrap{
-        	display: inline-block;
-        	font-size:0;
+        .identity-img-wrap {
+            display: inline-block;
+            font-size: 0;
         }
-        .identity-wrap{
-			width: 100%;
-			text-align: center;
+        .identity-wrap {
+            width: 100%;
+            text-align: center;
         }
-        .identity-img-wrap img{
-        	padding:20px;
+        .identity-img-wrap img {
+            padding: 20px;
         }
-        .btnIdentify{
-        	width: 70%;
+        .btnIdentify {
+            width: 70%;
         }
-        .btnIdentify:hover{
-        	width: 90%;
+        .btnIdentify:hover {
+            width: 90%;
         }

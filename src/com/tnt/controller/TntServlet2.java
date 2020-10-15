@@ -53,7 +53,7 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println(tnt_email);
 
 				String tnt_pwd = req.getParameter("tnt_pwd");
-				String pwdReg = "^[\\w]{8,}$";
+				String pwdReg = "^[\\w]{8,16}$";
 				if (tnt_pwd == null || tnt_pwd.trim().length() == 0) {
 //					errorMsgs.add("密碼: 請勿空白");
 				} else if (!tnt_pwd.trim().matches(pwdReg)) {
@@ -159,7 +159,7 @@ public class TntServlet2 extends HttpServlet {
 
 				String tnt_pwd = req.getParameter("tnt_pwd");
 				String tnt_pwd2 = req.getParameter("tnt_pwd2");
-				String pwdReg = "^[\\w]{7,}$";
+				String pwdReg = "^[\\w]{8,16}$";
 				if (tnt_pwd == null || tnt_pwd.trim().length() == 0) {
 					errorMsgs.add("密碼: 請勿空白");
 				} else if (!tnt_pwd.trim().matches(pwdReg)) {

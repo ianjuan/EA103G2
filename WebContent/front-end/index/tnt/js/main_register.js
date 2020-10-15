@@ -13,7 +13,7 @@
                         $(this).removeClass('has-val');
                     }
                 })
-            })
+            });
 
             /*
              * ================================================================== 
@@ -25,14 +25,14 @@
                     // if (validate($(this)) == false) {
                     showValidate($(this));
                 }
-            })
+            });
             // 姓名
             $('#tnt_name.register100').on('blur', function() {
                 if (/^[(\u4e00-\u9fa5)(a-zA-Z)]{2,19}$/.test($(this).val()
                         .trim()) === false) {
                     showValidate($(this));
                 }
-            })
+            });
             // 身分證
             $('#tnt_id.register100').on('blur', function() {
                 if (/^[A-Za-z][12][0-9]{8}$/.test($(this).val().trim()) === false) {
@@ -40,31 +40,31 @@
                 } else if (id_validate($(this).val().trim()) === false) {
                     showValidate($(this));
                 }
-            })
+            });
             // 手機
             $('#tnt_mobile.register100').on('blur', function() {
                 if (/^[0][9][0-9]{8}$/.test($(this).val().trim()) === false) {
                     showValidate($(this));
                 }
-            })
+            });
             // 密碼
             $('#tnt_pwd.register100').on('blur', function() {
-                if (/^[A-Za-z0-9]{8}$/.test($(this).val()) === false) {
+                if (/^[\w]{8,16}$/.test($(this).val()) === false) {
                     showValidate($(this));
                 }
-            })
+            });
             // 確認密碼
             $('#tnt_pwd2.register100').on('blur', function() {
-                if ($(this).val() !== $('#tnt_pwd.register100').val()) {
+                if (($('#tnt_add').val().trim() === '') || ($(this).val() !== $('#tnt_pwd.register100').val())) {
                     showValidate($(this));
                 }
-            })
+            });
             // 地址
             $('#tnt_add.register100').on('blur', function() {
                 if ($('#tnt_add').val().trim() === '') {
                     showValidate($(this));
                 }
-            })
+            });
             //下拉 - 性別
             $('#tnt_sex').on('blur', function() {
                 if ($('#tnt_sex').val().trim() == '') {
@@ -73,12 +73,12 @@
                 } else {
                     $('#tnt_sex').addClass('select-has-val');
                 }
-            })
+            });
             $('#tnt_sex').on('focus', function() {
                 $('#tnt_sex').removeClass('alert-validate');
                 $('#tnt_sex').removeClass('alert-validate-select');
                 $('#tnt_sex').removeClass('alert-validate-selects');
-            })
+            });
             //下拉 - 縣市
             $('#tnt_city').on('blur', function() {
                 if ($('#tnt_city').val().trim() == '') {
@@ -87,12 +87,12 @@
                 } else {
                     $('#tnt_city').addClass('select-has-val');
                 }
-            })
+            });
             $('#tnt_city').on('focus', function() {
                 $('#tnt_city').removeClass('alert-validate');
                 $('#tnt_city').removeClass('alert-validate-select');
                 $('#tnt_city').removeClass('alert-validate-selects');
-            })
+            });
             //下拉 - 區域
             $('#tnt_dist').on('blur', function() {
                 if ($('#tnt_dist').val().trim() == '') {
@@ -101,12 +101,12 @@
                 } else {
                     $('#tnt_dist').addClass('select-has-val');
                 }
-            })
+            });
             $('#tnt_dist').on('focus', function() {
                 $('#tnt_dist').removeClass('alert-validate');
                 $('#tnt_dist').removeClass('alert-validate-select');
                 $('#tnt_dist').removeClass('alert-validate-selects');
-            })
+            });
 
 
             var letter = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M",
@@ -634,7 +634,7 @@
                 processData: false,
                 // 告訴jQuery不要去設定Content-Type請求頭
                 contentType: false,
-   
+
                 success: function() { // 以上成功才執行
                     console.log("res棒");
                     redirect();
@@ -642,9 +642,9 @@
                 error: function() {
                     console.log("真的不棒")
                 }
-            })
+            });
         }
 
         function redirect() {
-        	window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
+            window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
         }
