@@ -27,11 +27,13 @@ public class HouseServlet extends HttpServlet {
 			List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
 			List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
 			List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 
 			req.setAttribute("houseVOrent", houseVOrent);
 			req.setAttribute("houseVOunrent", houseVOunrent);
 			req.setAttribute("houseVOoff", houseVOoff);
 			req.setAttribute("lld_no", lld_no);
+			req.setAttribute("lldInfo", lldInfo);
 			String url = "/front-end/house_manage/house_index.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -42,9 +44,11 @@ public class HouseServlet extends HttpServlet {
 
 			HouseService houseSvc = new HouseService();
 			List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 
 			req.setAttribute("houseVOrent", houseVOrent);
 			req.setAttribute("lld_no", lld_no);
+			req.setAttribute("lldInfo", lldInfo);
 			String url = "/front-end/house_manage/house_rent.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -55,9 +59,11 @@ public class HouseServlet extends HttpServlet {
 
 			HouseService houseSvc = new HouseService();
 			List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 			
 			req.setAttribute("houseVOunrent", houseVOunrent);
 			req.setAttribute("lld_no", lld_no);
+			req.setAttribute("lldInfo", lldInfo);
 			String url = "/front-end/house_manage/house_unrent.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -68,9 +74,11 @@ public class HouseServlet extends HttpServlet {
 
 			HouseService houseSvc = new HouseService();
 			List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 			
 			req.setAttribute("houseVOoff", houseVOoff);
 			req.setAttribute("lld_no", lld_no);
+			req.setAttribute("lldInfo", lldInfo);
 			String url = "/front-end/house_manage/house_off.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -78,8 +86,21 @@ public class HouseServlet extends HttpServlet {
 
 		if ("getLldPub".equals(action)) {
 			String lld_no = new String(req.getParameter("lld_no"));
+			Integer lld_balance = new Integer(req.getParameter("lld_balance"));
+			
+			HouseService houseSvc = new HouseService();
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+			
 			req.setAttribute("lld_no", lld_no);
-			String url = "/front-end/house_manage/house_pub.jsp";
+			req.setAttribute("lldInfo", lldInfo);
+			
+			String url = null;
+			if(lld_balance < 1000) {
+				url = "/front-end/house_manage/addmoney.jsp";
+			}else {
+				url = "/front-end/house_manage/house_pub.jsp";
+			}
+			
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -93,12 +114,14 @@ public class HouseServlet extends HttpServlet {
 			HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
 			HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
 			List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 
 			req.setAttribute("houseVO", houseVO);
 			req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 			req.setAttribute("houseVOelectfee", houseVOelectfee);
 			req.setAttribute("houseVOpicno", houseVOpicno);
 			req.setAttribute("lld_no", lld_no);
+			req.setAttribute("lldInfo", lldInfo);
 			String url = "/front-end/house_manage/house_modify.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -206,7 +229,11 @@ public class HouseServlet extends HttpServlet {
 		                 }
 					}
 				}
-			}	
+			}
+			
+			/*************************** 電子錢包金額 **********************/
+			
+			Integer lld_balance = getReqNum(req, "lld_balance");
 
 			/*************************** 傳入參數 **********************/
 
@@ -216,9 +243,11 @@ public class HouseServlet extends HttpServlet {
 					hos_closet, hos_sofa, hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth,
 					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
 					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
-					hos_bro, hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr);
+					hos_bro, hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, lld_balance);
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 														
 			req.setAttribute("lld_no", lld_no);
+			req.setAttribute("lldInfo", lldInfo);
 
 			String url;
 			if (hos_status.equals("待出租")) {
@@ -352,8 +381,10 @@ public class HouseServlet extends HttpServlet {
 					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
 					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
 					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no, hos_no);
-															
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+			
 			req.setAttribute("lld_no", lld_no);
+			req.setAttribute("lldInfo", lldInfo);
 
 			String url;
 			if (hos_status.equals("出租中")) {
@@ -372,9 +403,33 @@ public class HouseServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
+		
+		if ("addmoney".equals(action)) {
+			String lld_no = new String(req.getParameter("lld_no"));
+			Integer lld_balance = new Integer(req.getParameter("lld_balance"));
+			Integer hos_rentfee = new Integer(req.getParameter("hos_rentfee"));
+			Integer total = lld_balance + hos_rentfee;
+			
+			HouseService houseSvc = new HouseService();
+			houseSvc.addmoney(lld_no, total);
+			List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
+			List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
+			List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
+			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 
+			req.setAttribute("houseVOrent", houseVOrent);
+			req.setAttribute("houseVOunrent", houseVOunrent);
+			req.setAttribute("houseVOoff", houseVOoff);
+			req.setAttribute("lld_no", lld_no);
+			req.setAttribute("lldInfo", lldInfo);
+			
+			String url = "/front-end/house_manage/house_index.jsp";
+			
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}		
 	}
-
+	
 	public Integer getReqNum(HttpServletRequest req, String reqKey) {
 		String reqValue = req.getParameter(reqKey);
 		Integer result;

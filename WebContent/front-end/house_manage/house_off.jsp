@@ -9,6 +9,12 @@
 	if (lld_no == null) {
 		lld_no = request.getParameter("lld_no");
 	}
+	
+	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
+	if (lldInfo == null) {
+		HouseService houseSvc = new HouseService();
+		lldInfo = houseSvc.getLldInfo(lld_no);
+	}
 
 	List<HouseVO> list = (List<HouseVO>) request.getAttribute("houseVOoff");
 	if (list == null) {
@@ -47,7 +53,7 @@
 					<li class="nav-item dropdown">
 						<span data-toggle="dropdown" class="member">
 							<input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
-							<span class="membername">彭于晏</span>
+							<span class="membername"><%=lldInfo.getLld_name()%></span>
 						</span>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<a class="dropdown-item" href="#">最新通知</a>
@@ -92,8 +98,9 @@
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
-						<button type="submit" class="link">上架房屋</button>
+						<button type="submit" class="link" onclick="return checkmoney();">上架房屋</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">

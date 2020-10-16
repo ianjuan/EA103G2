@@ -25,6 +25,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	private static final String UPDATE_WATERFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000001'";
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
+	private static final String GET_LLDINFO = "SELECT lld_name,lld_balance FROM LANDLORD where lld_no=?";
 	private static final String GET_HOUSEINFO = "SELECT hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
 			+ "hos_table,hos_chair,hos_bed,hos_closet,hos_sofa,hos_tv,hos_drink,hos_aircon,hos_refrig,hos_wash,hos_hoter,hos_forth,hos_net,hos_gas,"
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
@@ -251,6 +252,60 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public HouseVO getLldInfo(String lld_no) {
+		HouseVO houseVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_LLDINFO);
+
+			pstmt.setString(1, lld_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				houseVO = new HouseVO();
+				houseVO.setLld_name(rs.getString("lld_name"));
+				houseVO.setLld_balance(rs.getInt("lld_balance"));
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return houseVO;
 	}
 
 	@Override
@@ -806,6 +861,12 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public HouseVO addMoney(HouseVO houseVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public static void main(String[] args) {
 
@@ -998,6 +1059,13 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		System.out.print(houseVO5.getHos_electfee() + ",");
 //
 //		System.out.println("---------------------");
+		
+		// 查詢房東名字
+		HouseVO houseVO6 = dao.getLldInfo("LLD000001");
+		System.out.print(houseVO6.getLld_name() + ",");
+		System.out.print(houseVO6.getLld_balance() + ",");
+
+		System.out.println("---------------------");
 			
 		// 查詢房屋圖片編號
 //		List<HouseVO> list1 = dao.getLldHousePic("HOS014046");
@@ -1007,20 +1075,20 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //			System.out.println("---------------------");
 //			System.out.println();
 //		}
-		
-		// 查詢房東已出租房屋
-		List<HouseVO> list2 = dao.getLldRentHouse("LLD000001");
-		for (HouseVO aHouse : list2) {
-			System.out.print(aHouse.getHos_no() + ",");
-			System.out.print(aHouse.getHos_add() + ",");
-			System.out.print(aHouse.getHos_status() + ",");
-			System.out.print(aHouse.getHos_rentfee() + ",");
-			System.out.print(aHouse.getApl_str() + ",");
-			System.out.print(aHouse.getApl_end() + ",");
-			System.out.print(aHouse.getTnt_name() + ",");
-			System.out.println("---------------------");
-			System.out.println();
-		}
+				
+//		// 查詢房東已出租房屋
+//		List<HouseVO> list2 = dao.getLldRentHouse("LLD000001");
+//		for (HouseVO aHouse : list2) {
+//			System.out.print(aHouse.getHos_no() + ",");
+//			System.out.print(aHouse.getHos_add() + ",");
+//			System.out.print(aHouse.getHos_status() + ",");
+//			System.out.print(aHouse.getHos_rentfee() + ",");
+//			System.out.print(aHouse.getApl_str() + ",");
+//			System.out.print(aHouse.getApl_end() + ",");
+//			System.out.print(aHouse.getTnt_name() + ",");
+//			System.out.println("---------------------");
+//			System.out.println();
+//		}
 //
 //		// 查詢房東未出租房屋
 //		List<HouseVO> list3 = dao.getLldUnRentHouse("LLD000001");

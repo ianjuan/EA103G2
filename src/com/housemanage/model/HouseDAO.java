@@ -37,6 +37,8 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String UPDATE_WATERFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000001'";
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
+	private static final String UPDATE_LLDBALANCE = "UPDATE LANDLORD set lld_balance=? where lld_no=?";
+	private static final String GET_LLDINFO = "SELECT lld_name,lld_balance FROM LANDLORD where lld_no=?";
 	private static final String GET_HOUSEINFO = "SELECT hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
 			+ "hos_table,hos_chair,hos_bed,hos_closet,hos_sofa,hos_tv,hos_drink,hos_aircon,hos_refrig,hos_wash,hos_hoter,hos_forth,hos_net,hos_gas,"
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
@@ -130,6 +132,13 @@ public class HouseDAO implements HouseDAO_interface {
 				pstmt.executeUpdate();
 				pstmt.clearParameters();
 			}
+			
+			pstmt = con.prepareStatement(UPDATE_LLDBALANCE);
+
+			pstmt.setInt(1, houseVO.getLld_balance()-1000);
+			pstmt.setString(2, houseVO.getLld_no());
+
+			pstmt.executeUpdate();
 						
 			// Handle any driver errors
 		} catch (SQLException se) {
@@ -265,6 +274,56 @@ public class HouseDAO implements HouseDAO_interface {
 		}
 	}
 	
+	@Override
+	public HouseVO getLldInfo(String lld_no) {
+		HouseVO houseVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_LLDINFO);
+
+			pstmt.setString(1, lld_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				houseVO = new HouseVO();
+				houseVO.setLld_name(rs.getString("lld_name"));
+				houseVO.setLld_balance(rs.getInt("lld_balance"));
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return houseVO;
+	}
+
 	@Override
 	public HouseVO getHouseInfo(String hos_no) {
 		HouseVO houseVO = null;
@@ -773,4 +832,41 @@ public class HouseDAO implements HouseDAO_interface {
 		}
 		return list;
 	}
+
+	@Override
+	public HouseVO addMoney(HouseVO houseVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_LLDBALANCE);
+
+			pstmt.setInt(1, houseVO.getLld_balance());
+			pstmt.setString(2, houseVO.getLld_no());
+			pstmt.executeQuery();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return houseVO;
+	}
+	
 }
