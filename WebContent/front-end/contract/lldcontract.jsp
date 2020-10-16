@@ -187,7 +187,7 @@
 							</tr>
 							<tr>	
 								<td>
-									<div id="preview" name="HOS_PIC"></div>
+									<div id="preview" name="lld_sign"></div>
 								</td>
 							</tr>
 						</table>
@@ -475,7 +475,7 @@
 				<div id="rhead">
 					<ul>
 						<li class="title1"><button type="button" class="titlebtn" id="btn6" onclick="show1()">基本資訊</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="show2()">房屋圖片</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="show2()">房東簽名</button></li>
 						<li class="title1"><button type="button" class="titlebtn" id="btn8" onclick="show3()">家具設備</button></li>
 						<li class="title1"><button type="button" class="titlebtn" id="btn9" onclick="show4()">各項費用</button></li>
 						<li class="title1"><button type="button" class="titlebtn" id="btn10" onclick="show5()">其他條件</button></li>
