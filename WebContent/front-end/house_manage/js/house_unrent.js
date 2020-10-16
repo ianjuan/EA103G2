@@ -61,3 +61,21 @@ function imgShow(outerdiv, innerdiv, bigimg, _this){
                 $(this).fadeOut("fast");  
             });  
         }
+
+function checkmoney(){
+	var money = document.getElementById("lld_balance");
+	if(money.value < 1000){
+		alert("您的電子錢包餘額為 : " + money.value + "元");
+		if(window.confirm("上架費一次為 1000 元, 請問是否要儲值?") == false){
+			return false;
+		} else {		
+			return true;
+		}
+	}else {
+		if(window.confirm("目前電子錢包金額為" + money.value + "元, 上架費一次 1000 元, 是否上架房屋?") == false){
+			return false;
+		} else {		
+			return true;
+		}
+	}
+}

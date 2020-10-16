@@ -34,23 +34,51 @@ function map(){
 }
 
 function notice1(){		
-	var pic = document.getElementsByClassName("pic").length;
-	var pic1 = document.getElementsByClassName("pic1").length;
-	 if(pic + pic1 < 5){
-		 window.alert("目前才" + (pic + pic1) + "圖片欸, 拜託至少來個5張吧...");
-		 return false;
-	 } else {
-		 if(window.confirm("確定要送出資訊了嗎?") == false){
-			return false;
-		} else {		
-			return true;
-		}
-	 }	
+	if(window.confirm("確定要送出資訊了嗎?") == false){
+		return false;
+	} else {		
+		alert("電子錢包扣款1000元, 上架成功!!");
+		return true;
+	}	 	
 }
 
 function notice2(){
 	var reset = document.getElementById("reset");
 	window.confirm("確定要重新填寫嗎?");
+}
+
+function notice3(){		
+	var pic = document.getElementsByClassName("pic").length;
+	var pic1 = document.getElementsByClassName("pic1").length;
+	 if(pic + pic1 < 5){
+		 alert("目前才" + (pic + pic1) + "圖片欸, 至少再上傳個"+ (5-pic1) + "張吧...");
+		 return false;
+	 } else {
+		 if(window.confirm("確定要送出資訊了嗎?") == false){
+			return false;
+		} else {		
+			alert("更新成功!!");
+			return true;
+		}
+	 }	
+}
+
+function checkmoney(){
+	var money = document.getElementById("lld_balance");
+	if(money.value < 1000){
+		alert("您的電子錢包餘額為 : " + money.value + "元");
+		if(window.confirm("上架費一次為 1000 元, 請問是否要儲值?") == false){
+			return false;
+		} else {		
+			return true;
+		}
+	}else {
+		if(window.confirm("目前電子錢包金額為" + money.value + "元, 上架費一次 1000 元, 是否上架房屋?") == false){
+			return false;
+		} else {		
+			return true;
+		}
+	}
 }
 
 function floatfee1(){
@@ -264,13 +292,41 @@ function show5(){
 
 function load(){
 	var files = document.getElementById("loadPic").files;
+	
+	if(files.length > 10){
+		alert("大家都只能傳10張圖片，就你" + files.length + "張，請再少一點！");
+		document.getElementById("loadPic").value = "";
+	} else if(files.length < 5){
+		alert("拜託至少來個5張圖片吧，只有" + files.length + "張還是別租了，請再多一點！");
+		document.getElementById("loadPic").value = "";
+	} else {						
+		var optobj = document.querySelectorAll(".pic");
+		for (var i = 0; i < optobj.length; i++) {
+			optobj[i].remove();		
+		}
+		alert("上傳了" + files.length + "張圖片，棒棒！");
+		for(var i = 0; i < files.length; i++){							
+			if(files[i].type.indexOf('image') > -1){				
+				var reader = new FileReader();
+				reader.addEventListener('load', openfile);
+				reader.readAsDataURL(files[i]);
+			} else {
+				alert('請上傳圖片');
+				document.getElementById("loadPic").value = "";
+			}			
+		}		
+	}
+}
+
+function load1(){
+	var files = document.getElementById("loadPic").files;
 	var pic1 = document.querySelectorAll(".pic1");
 	
 	if(files.length + pic1.length > 10){
-		alert("大家都只能傳10張圖片，就你" + (files.length+pic1.length) + "張，請再少一點！");
+		alert("最多10張圖片，您上傳了" + files.length + "張要爆炸啦，只能再上傳" + (10-pic1.length) + "張而已，請重傳一次！");
 		document.getElementById("loadPic").value = "";
 	} else if(files.length + pic1.length < 5){
-		alert("拜託至少來個5張圖片吧，只有" + (files.length+pic1.length) + "張還是別租了，請再多一點！");
+		alert("最少要5張圖片，才上傳" + files.length + "張哪夠，至少要來個" + (5-pic1.length) + "張，請重傳一次！");
 		document.getElementById("loadPic").value = "";
 	} else {						
 		var optobj = document.querySelectorAll(".pic");

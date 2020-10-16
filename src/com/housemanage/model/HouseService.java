@@ -18,7 +18,7 @@ public class HouseService {
 			String hos_pet, String hos_cook, String hos_smoke, Integer hos_rentfee, Integer hos_gasfee,
 			Integer hos_manafee, Integer hos_netfee, Integer hos_puwaterfee, Integer hos_puelefee,
 			Integer hos_parkfee, Integer hos_bro, Integer hos_waterfeetype, Double hos_waterfee,
-			Integer hos_electfeetype, Double hos_electfee, List<HouseVO> hos_picArr) {
+			Integer hos_electfeetype, Double hos_electfee, List<HouseVO> hos_picArr, Integer lld_balance) {
 		HouseVO houseVO = new HouseVO();
 
 		houseVO.setLld_no(lld_no);
@@ -68,6 +68,7 @@ public class HouseService {
 		houseVO.setHos_waterfee(hos_waterfee);
 		houseVO.setHos_electfeetype(hos_electfeetype);
 		houseVO.setHos_electfee(hos_electfee);
+		houseVO.setLld_balance(lld_balance);
 		dao.insertHouseInfo(houseVO, hos_picArr);
 
 		return houseVO;
@@ -136,6 +137,10 @@ public class HouseService {
 		return houseVO;
 	}
 	
+	public HouseVO getLldInfo(String lld_no) {
+		return dao.getLldInfo(lld_no);
+	}
+	
 	public HouseVO getHouseInfo(String hos_no) {
 		return dao.getHouseInfo(hos_no);
 	}
@@ -170,5 +175,15 @@ public class HouseService {
 
 	public List<HouseVO> getAllHouse() {
 		return dao.getAllHouse();
+	}
+	
+	public HouseVO addmoney(String lld_no, Integer total) {
+		HouseVO houseVO = new HouseVO();
+
+		houseVO.setLld_no(lld_no);
+		houseVO.setLld_balance(total);
+		dao.addMoney(houseVO);
+
+		return houseVO;
 	}
 }

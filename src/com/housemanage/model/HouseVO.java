@@ -58,6 +58,8 @@ public class HouseVO implements java.io.Serializable {
 	private String tnt_name;
 	private Date apl_str;
 	private Date apl_end;
+	private String lld_name;
+	private Integer lld_balance;
 	
 	public String getHos_no() {
 		return hos_no;
@@ -388,5 +390,17 @@ public class HouseVO implements java.io.Serializable {
 	}
 	public void setApl_end(Date apl_end) {
 		this.apl_end = apl_end;
+	}
+	public String getLld_name() {
+		return lld_name;
+	}
+	public void setLld_name(String lld_name) {
+		this.lld_name = lld_name;
+	}
+	public Integer getLld_balance() {
+		return lld_balance;
+	}
+	public void setLld_balance(Integer lld_balance) {
+		this.lld_balance = lld_balance;
 	}	
 }

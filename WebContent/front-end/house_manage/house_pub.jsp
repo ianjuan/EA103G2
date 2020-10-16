@@ -6,6 +6,7 @@
 <%
 	HouseVO houseVO = (HouseVO) request.getAttribute("houseVO");
 	String lld_no = (String) request.getAttribute("lld_no");
+	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
 %>
 
 <!DOCTYPE html>
@@ -38,7 +39,7 @@
                     <li class="nav-item dropdown">
                         <span data-toggle="dropdown" class="member">
                             <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
-                            <span class="membername">彭于晏</span>
+                            <span class="membername"><%=lldInfo.getLld_name()%></span>
                         </span>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">最新通知</a>
@@ -82,8 +83,9 @@
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
-						<button type="submit" class="link" style="color: #D37707;">上架房屋</button>
+						<button type="submit" class="link" onclick="return checkmoney();">上架房屋</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -150,6 +152,7 @@
 									<label><input type="radio" name="hos_type" value="透天厝" required>透天厝</label>
 									<label><input type="radio" name="hos_type" value="公寓" required>公寓</label>
 									<label><input type="radio" name="hos_type" value="電梯大樓" required>電梯大樓</label>
+									<label><input type="radio" name="hos_type" value="別墅" required>別墅</label>
 								</td>
 							</tr>
 							<tr>
@@ -478,7 +481,8 @@
 					</div>			        				
 				</div>
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-				<input type="hidden" name="hos_bro" value="0">				
+				<input type="hidden" name="hos_bro" value="0">
+				<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 				<div id="cfoot">
 					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
