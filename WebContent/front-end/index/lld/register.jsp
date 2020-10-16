@@ -51,20 +51,20 @@
         <div class="container-login100">
             <div class="login100-form validate-form">
                 <form id="registerform" enctype="multipart/form-data">
-                    <span class="login100-form-title p-b-10"> 註冊成為房客 </span>
+                    <span class="login100-form-title p-b-10"> 註冊成為房東 </span>
                     <hr class="login100-form-title p-b-10">
                     <div id="divProfile">
                         <div class="wrap-register100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                            <input class="register100" type="text" name="tnt_email" id="tnt_email">
+                            <input class="register100" type="text" name="lld_email" id="lld_email">
                             <div class="focus-register100"></div>
                             <div class="label-register100">信箱</div>
                         </div>
                         <div class="wrap-register100 validate-input" data-validate="Must be between 2-19 characters">
-                            <input class="register100" type="text" name="tnt_name" id="tnt_name">
+                            <input class="register100" type="text" name="lld_name" id="lld_name">
                             <span class="focus-register100"></span>
                             <span class="label-register100">姓名</span>
                         </div>
-                        <select class="wrap-register100 validate-input" data-validate="Gender is required" name="tnt_sex" id="tnt_sex" style="background-color: #f7f7f7;">
+                        <select class="wrap-register100 validate-input" data-validate="Gender is required" name="lld_sex" id="lld_sex" style="background-color: #f7f7f7;">
                             <span class="focus-register100"></span>
                             <span class="label-register100">
                                 <option value="">選擇性別
@@ -73,41 +73,41 @@
                             </span>
                         </select>
                         <div class="wrap-register100 validate-input" data-validate="Valid ID is required">
-                            <input class="register100" type="text" name="tnt_id" id="tnt_id">
+                            <input class="register100" type="text" name="lld_id" id="lld_id">
                             <span class="focus-register100"></span>
                             <span class="label-register100">身分證號碼</span>
                         </div>
                         <div class="wrap-register100 validate-input" data-validate="Mobile is required">
-                            <input class="register100" type="text" name="tnt_mobile" id="tnt_mobile">
+                            <input class="register100" type="text" name="lld_mobile" id="lld_mobile">
                             <span class="focus-register100"></span>
                             <span class="label-register100">手機</span>
                         </div>
                         <div class="wrap-register100 validate-input" data-validate="Less than 8 [a-zA-Z0-9]">
-                            <input class="register100" type="password" name="tnt_pwd" id="tnt_pwd">
+                            <input class="register100" type="password" name="lld_pwd" id="lld_pwd">
                             <span class="focus-register100"></span>
                             <span class="label-register100">密碼</span>
                         </div>
                         <div class="wrap-register100 validate-input" data-validate="Password is not the same">
-                            <input class="register100" type="password" name="tnt_pwd2" id="tnt_pwd2">
+                            <input class="register100" type="password" name="lld_pwd2" id="lld_pwd2">
                             <span class="focus-register100"></span> <span class="label-register100">確認密碼</span>
                         </div>
                         <div class="wrap-register100 validate-input" data-validate="Birthday is required">
-                            <input class="register100" type="text" name="tnt_birth" id="f_date1">
+                            <input class="register100" type="text" name="lld_birth" id="f_date1">
                             <span class="focus-register100"></span>
                             <span class="label-register100 label-register100-birth"></span>
                         </div>
                         <!--                                ------------------------------------ -->
-                        <select class="wrap-register100 validate-input" data-validate="City is required" name="tnt_city" id="tnt_city" style="background-color: #f7f7f7;">
+                        <select class="wrap-register100 validate-input" data-validate="City is required" name="lld_city" id="lld_city" style="background-color: #f7f7f7;">
                             <span class="focus-register100"></span>
                             <span class="label-register100">
                                 <option id="city_default" value="">選擇縣市
                             </span>
                         </select>
-                        <select class="wrap-register100 validate-input" data-validate="District is required" name="tnt_dist" id="tnt_dist" style="background-color: #f7f7f7;">
+                        <select class="wrap-register100 validate-input" data-validate="District is required" name="lld_dist" id="lld_dist" style="background-color: #f7f7f7;">
                             <option id="dist_default" value="">選擇區域
                         </select>
                         <div class="wrap-register100 validate-input" data-validate="Address is required">
-                            <input class="register100" type="text" name="tnt_add" id="tnt_add">
+                            <input class="register100" type="text" name="lld_add" id="lld_add">
                             <span class="focus-register100"></span>
                             <span class="label-register100">地址</span>
                         </div>
@@ -119,7 +119,7 @@
                         <div class="wrapperBackground">
                             <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
                                 <label id="fileInput" for="inputF">
-                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic"> Upload Files
+                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="lld_pic"> Upload Files
                                 </label>
                                 <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
                             </div>
@@ -208,24 +208,24 @@
         </div>
     </footer>
         <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/animsition/js/animsition.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/bootstrap/js/popper.js"></script>
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/bootstrap/js/popper.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/select2/select2.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/daterangepicker/moment.min.js"></script>
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/daterangepicker/moment.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/countdowntime/countdowntime.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/js/jquery.js"></script>
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/js/jquery.datetimepicker.full.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/js/jquery.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/js/jquery.datetimepicker.full.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/index/tnt/js/main_register.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/index/lld/js/main_register.js"></script>
     <!--===============================================================================================-->
     
 </body>
