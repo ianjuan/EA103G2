@@ -51,7 +51,7 @@ public class RecService {
 		recVO.setRec_elec(rec_elec);
 		recVO.setRec_no(rec_no);
 		recVO.setRec_sta(rec_sta);
-		dao.update(recVO);
+		dao.lldupdate(recVO);
 		
 		return recVO;
 	}
