@@ -33,6 +33,7 @@ public class LldServlet2 extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = null;
+		System.out.println("0"+action);
 		
 		if ("login".equals(action)) {
 			System.out.println("1:" + action);

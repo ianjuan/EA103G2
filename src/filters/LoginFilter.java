@@ -36,17 +36,15 @@ public class LoginFilter implements Filter {
 		HttpSession session = req.getSession(); // 【從 session 判斷此user是否登入過】
 		Object tnt_no = session.getAttribute("tnt_no");
 		Object lld_no = session.getAttribute("lld_no");
-//		String location  = (String) session.getAttribute("location"); //看看是否已有來源網頁 (-->如沒有則儲存)
-//		System.out.println("1.org:"+location);
+
 
 		if (ispathprotected && (tnt_no == null) && (lld_no == null)) {// protected path
-//			if (location == null) {
+
 				session.setAttribute("location", req.getRequestURI());
-//				System.out.println("2.location no attribute:"+req.getRequestURI());
 				res.sendRedirect(req.getContextPath() + "/front-end/index/Identify.jsp");
 //				System.out.println("3.重導去Identify.jsp");
 				return;
-//			}
+
 		} else {
 			chain.doFilter(req, res);
 		}
