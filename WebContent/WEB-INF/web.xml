@@ -70,6 +70,15 @@
 		<servlet-name>LldServlet</servlet-name>
 		<url-pattern>/lld/LldServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LldServlet2</servlet-name>
+		<servlet-class>com.lld.controller.LldServlet2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LldServlet</servlet-name>
+		<url-pattern>/lld/LldServlet2</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ImgReader</servlet-name>
