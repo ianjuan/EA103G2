@@ -7,6 +7,9 @@ public interface RpttDAO_interface {
 	public void insert(RpttVO rpttVo);
 	public void update(RpttVO rpttVo);
 	public void updateEmp(RpttVO rpttVo);
+	public void assignEmp(RpttVO rpttVo);
+	public void saveNote(RpttVO rpttVo);
+	public void fail(RpttVO rpttVo);
 	public void delete(String rptt_no);
     public RpttVO findByPrimaryKey(String rptt_no);
     public List<RpttVO> findByNo(String Number);

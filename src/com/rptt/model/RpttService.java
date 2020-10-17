@@ -47,6 +47,35 @@ public class RpttService {
 		dao.updateEmp(rpttVO);
 		return rpttVO;
 	}
+	
+	public RpttVO assignEmp(String rptt_no, String emp_no, String rptt_note) {
+
+		RpttVO rpttVO = new RpttVO();
+		rpttVO.setRptt_no(rptt_no);
+		rpttVO.setEmp_no(emp_no);
+		rpttVO.setRptt_note(rptt_note);
+		dao.assignEmp(rpttVO);
+		return rpttVO;
+	}
+	
+	public RpttVO saveNote(String rptt_no, String rptt_note) {
+
+		RpttVO rpttVO = new RpttVO();
+		rpttVO.setRptt_no(rptt_no);
+		rpttVO.setRptt_note(rptt_note);
+		dao.assignEmp(rpttVO);
+		return rpttVO;
+	}
+	
+	public RpttVO fail(String rptt_no, Integer rptt_result, String rptt_note) {
+
+		RpttVO rpttVO = new RpttVO();
+		rpttVO.setRptt_no(rptt_no);
+		rpttVO.setRptt_result(rptt_result);
+		rpttVO.setRptt_note(rptt_note);
+		dao.fail(rpttVO);
+		return rpttVO;
+	}
 
 	public void deleteRptt(String rptt_no) {
 		dao.delete(rptt_no);
