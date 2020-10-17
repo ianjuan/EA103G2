@@ -181,10 +181,11 @@ button:active {
 			font-weight: bold;
 		}
 	</style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 </head>
 <body>	
 	<div class="container">		
-		<form autocomplete="off" METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+		<form autocomplete="off" name="addmoney" METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 			<span id="notice">請輸入要加值的金額 :</span>
 			<div class="finder">
 				<div class="finder__outer">
@@ -192,11 +193,11 @@ button:active {
 						<div class="finder__icon" ref="icon"></div>						
 						<input class="finder__input" id="lld_balance" min="0" step="100" type="number" name="hos_rentfee" value="<%=(houseVO==null) ? "" : houseVO.getHos_rentfee()%>"/>
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
+						<input type="hidden" id="bank" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="addmoney">
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
 						<div>
-							<button class="black noselect" type="submit" onclick="return checkmoney();">儲值</button>
+							<button class="black noselect" type="button" onclick="checkmoney()">儲值</button>
 						</div>
 					</div>
 				</div>
@@ -219,14 +220,22 @@ button:active {
 			});
 			
 			function checkmoney(){
-				var money = document.getElementById("lld_balance");
-		    		
-		    	if(window.confirm("是否確定儲值" + money.value + "元?") == false){
-		    		return false;
-		    	} else {
-		    		alert("儲值成功!!");
-		    		return true;
-		    	}
+				var money = document.getElementById("lld_balance").value;
+				var bank = document.getElementById("bank").value;
+				var status1 = money < 1000 ? "也儲太少了, 可憐哪" : "挺有錢的呢";
+				var status2 = parseInt(money)+parseInt(bank) < 1000 ? "真窮, 可憐哪" : "爸爸歡迎回家";
+		    	
+				swal({title:"是否確定儲值" + money + "元?", text:status1 , icon:"info", buttons: {
+				      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+				    }}).then(function(isConfirm){
+					if(isConfirm){	
+						swal("儲值成功!! 電子錢包增加" + money + "元", "電子錢包目前共" + (parseInt(money)+parseInt(bank)) + "元! " + status2, "success", {button: "確認"}).then(function(){
+							document.addmoney.submit();
+						});
+					} else {
+						return false;
+					}
+				});
 			}
 	</script>
 </body>

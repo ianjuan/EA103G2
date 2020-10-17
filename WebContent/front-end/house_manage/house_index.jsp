@@ -23,6 +23,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_index.css">
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -81,11 +82,11 @@
 						<input type="hidden" name="action" value="getLldOffHouse">
 						<button type="submit" class="link">下架房屋</button>
 					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
-						<button type="submit" class="link" onclick="return checkmoney();">上架房屋</button>
+						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -154,11 +155,11 @@
 					<span class="fontstyle">來刊登自己的房子吧~</span>
 				</div>
 				<div class="rinfo">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+					<FORM METHOD="post" name="pub1" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
-						<button type="submit" class="link" onclick="return checkmoney();">點我進入</button>
+						<button type="button" class="link" onclick="checkmoney1()">點我進入</button>
 					</FORM>
 				</div>
 			</div>
@@ -192,7 +193,7 @@
 					</FORM>
 				</div>
 			</div>
-		</div>					
+		</div>
 		<div id="right"></div>
 	</div>
 	<div id="foot"></div>
@@ -216,22 +217,70 @@
 	        lineThree.classList.toggle('line-cross');
 	        link.classList.toggle('fade-in');
 	    })
-	    
+	    	    
 	    function checkmoney(){
 	    	var money = document.getElementById("lld_balance");
 	    	if(money.value < 1000){
-	    		alert("您的電子錢包餘額為 : " + money.value + "元");
-	    		if(window.confirm("上架費一次為 1000 元, 請問是否要儲值?") == false){
-	    			return false;
-	    		} else {		
-	    			return true;
-	    		}
-	    	}else {
-	    		if(window.confirm("目前電子錢包金額為" + money.value + "元, 上架費一次 1000 元, 是否上架房屋?") == false){
-	    			return false;
-	    		} else {		
-	    			return true;
-	    		}
+	    		swal("您的電子錢包餘額為 : " + money.value + "元").then(function(){
+	    			swal({title:"請問是否要儲值?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
+	    			      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+	    			    }}).then(function(isConfirm){
+	    				if(isConfirm){
+	    					swal("爸爸辛苦了, 等您回來!", {button: "確認"}).then(function(){
+	    						document.pub.submit();
+	    					});
+	    				} else {
+	    					return false;
+	    				}	    				
+	    			})
+	    		});
+	    	} else {
+	    		swal("目前電子錢包金額為" + money.value + "元").then(function(){
+	    			swal({title:"是否上架房屋?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
+	    			      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+	    			    }}).then(function(isConfirm){
+	    				if(isConfirm){
+	    					swal("開始上架房屋!!", {button: "確認"}).then(function(){
+	    						document.pub.submit();
+	    					});
+	    				} else {
+	    					return false;
+	    				}	    				
+	    			})
+	    		});
+	    	}
+	    }
+	    
+	    function checkmoney1(){
+	    	var money = document.getElementById("lld_balance");
+	    	if(money.value < 1000){
+	    		swal("您的電子錢包餘額為 : " + money.value + "元", {button: "確認"}).then(function(){
+	    			swal({title:"請問是否要儲值?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
+	    			      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+	    			    }}).then(function(isConfirm){
+	    				if(isConfirm){	    					
+	    					swal("爸爸辛苦了, 等您回來!", {button: "確認"}).then(function(){
+	    						document.pub1.submit();
+	    					});
+	    				} else {
+	    					return false;
+	    				}	    				
+	    			})
+	    		});
+	    	} else {
+	    		swal("目前電子錢包金額為" + money.value + "元", {button: "確認"}).then(function(){
+	    			swal({title:"是否上架房屋?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
+	    			      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+	    			    }}).then(function(isConfirm){
+	    				if(isConfirm){
+	    					swal("開始上架房屋!!", {button: "確認"}).then(function(){
+	    						document.pub1.submit();
+	    					});
+	    				} else {
+	    					return false;
+	    				}	    				
+	    			})
+	    		});
 	    	}
 	    }
 	</script>

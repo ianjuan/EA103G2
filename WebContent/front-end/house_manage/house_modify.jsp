@@ -27,6 +27,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_pub.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -85,10 +86,11 @@
 						<input type="hidden" name="action" value="getLldOffHouse">
 						<button type="submit" class="link">下架房屋</button>
 					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
-						<button type="submit" class="link">上架房屋</button>
+						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -147,8 +149,6 @@
 								<th>*地址:</th>
 								<td>
 									<input type="text" class="text1" name="hos_add" value="<%=houseVO.getHos_add()%>" id="hos_add" onchange="map()" required>
-									<input type="hidden" name="hos_lng" value="121.194406" id="lng">
-									<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
 								</td>
 							</tr>
 							<tr>
@@ -511,13 +511,14 @@
 				</div>
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-				
+				<input type="hidden" name="hos_lng" value="121.194406" id="lng">
+				<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
 				<div id="cfoot">
-					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>
+					<button class="btn" type="button" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne1" type="button" onclick="next()">下頁</button>
 					<input type="hidden" name="action" value="updateHouseInfo">
-					<button class="btn" id="submit" type="submit" onclick="return notice3();">修改資訊</button>					
+					<button class="btn" type="button" onclick="notice3()">修改資訊</button>					
 				</div>				
 			</div>
 			<div id="right">
@@ -531,10 +532,10 @@
 					</ul>
 				</div>
 				<div id="rfoot">					
-					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>
+					<button class="btn" type="button" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr2" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne2" type="button" onclick="next()">下頁</button>
-					<button class="btn" id="submit" type="submit" onclick="notice3();">修改資訊</button>
+					<button class="btn" type="button" onclick="notice3()">修改資訊</button>
 					<input type="hidden" name="action" value="updateHouseInfo">
 				</div>
 			</div>
