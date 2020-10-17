@@ -552,7 +552,7 @@
             top: -9px;
             font-size: 13px;
             /* border: 1px solid red; */
-            background-color: #f7f7f7;
+            background-color: #fff;
             color: #3a8c68;
             /*width: 60px;*/
             padding: 0px 5px;
@@ -1138,14 +1138,21 @@
               padding-bottom: 50px;
 
           }
+          
           #registerform{
-    padding: 10px 50px 10px 50px;
-		}
+    		  padding: 10px 50px 10px 50px;
+		  }
+		  
 		.infoBtn{
-		font-size:17px;
+			  font-size:17px;
 		}
+		
 		.infoBtn:hover{
-		font-size:20px;
+			font-size:20px;
+		}
+		
+		a.basicInfo__menu__link {
+		font-size: 18px;
 		}
 
 
