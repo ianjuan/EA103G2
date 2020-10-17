@@ -467,13 +467,50 @@
 											%>
 											<td>
 												<button class="check" data-toggle="modal"
-													data-target="#exampleModal">查看詳情</button>
+													data-target="#<%=rpttvo.getRptt_no()%>">查看詳情</button>
 											</td>
 											<%
 												}
 											%>
 										</tr>
-
+										<!-- Modal HTML -->
+										<div class="modal fade" id="<%=rpttvo.getRptt_no()%>"
+											tabindex="-1" role="dialog">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<div class="modal-body1">
+															<form action="RpttServlet" method="post" name="detail" id="detail" onclick="return false">
+																<input type="hidden" name="rptt_no"
+																	value="<%=rpttvo.getRptt_no()%>"><label
+																	for="name">檢舉原因:</label>
+																<textarea class="reason1" name="rptt_content" readonly><%=rpttvo.getRptt_content()%></textarea>
+																<div class="form-group">
+																	<label for="a">結果註記:</label>
+																	<textarea id="a" name="rptt_note"><%=rpttvo.getRptt_note()%></textarea>
+																</div>
+																<button type="submit" class="pass" name="action"
+																	value="pass">通過</button>
+																<button type="submit" class="fail" name="action"
+																	value="fail">不通過</button>
+																<button type="submit" class="send" name="action"
+																	value="assign_employee">指派</button>
+																<button type="submit" class="save" name="action"
+																	value="save_note">儲存</button>
+																<select class="emp_no" name="emp_no" size="1">
+																	<option value="" disabled selected>---請選擇將指派的同仁---</option>
+																	<option value="EMP000021">EMP000021</option>
+																	<option value="EMP000022">EMP000022</option>
+																	<option value="EMP000023">EMP000023</option>
+																	<option value="EMP000024">EMP000024</option>
+																	<option value="EMP000025">EMP000025</option>
+																</select>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 										<%
 											}
 										%>
@@ -486,43 +523,8 @@
 
 
 
-					<!-- Modal HTML -->
-					<div class="modal fade" id="exampleModal" tabindex="-1"
-						role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<div class="modal-body1">
-										<form action="RpttServlet" method="post" >
-											<label for="name">檢舉原因:</label>
-											<textarea class="reason1" name="rptt_content" readonly>此房客多次在半夜，發酒瘋的按鄰居電鈴，已多次報警處理</textarea>
-											<div class="form-group">
-												<label for="a">結果註記:</label>
-												<textarea id="a" name="rptt_note"></textarea>
-											</div>
-											<input type="hidden" name="action" value="insert">
-											<button type="submit" class="pass" >通過</button>
-											<input type="hidden" name="action" value="insert">
-											<button type="submit" class="fail">不通過</button>
-											<input type="hidden" name="action" value="update_employee">
-											<button type="submit" class="send" >指派</button>
-											<input type="hidden" name="action" value="insert">
-											<button type="submit" class="save">儲存</button>
-											<select name="helper" size="1">
-												<option value="" disabled selected>---請選擇將指派的同仁---</option>
-												<option namevalue="EMP000005">EMP000021</option>
-												<option name="emp_no" value="EMP000022">EMP000022</option>
-												<option name="emp_no" value="EMP000023">EMP000023</option>
-												<option name="emp_no" value="EMP000024">EMP000024</option>
-												<option name="emp_no" value="EMP000025">EMP000025</option>
-											</select>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
+
+
 
 					<footer class="sticky-footer bg-white">
 						<div class="container my-auto">
@@ -565,7 +567,7 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/back-end/css/vendor/jquery/jquery.min.js"></script>

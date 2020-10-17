@@ -38,7 +38,10 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 	private static final String GET_LLD_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE LLD_NO=? ";
 	private static final String GET_EMP_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE EMP_NO=? ";
 	private static final String GET_RESULT_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE RPTT_RESULT=? ";
-	private static final String UPDATEEMP = "UPDATE REPORT_TENANT SET EMP_NO=?,RPTT_STATUS=? WHERE RPTT_NO=? ";
+	private static final String UPDATE_EMP = "UPDATE REPORT_TENANT SET EMP_NO=?,RPTT_STATUS=? WHERE RPTT_NO=? ";
+	private static final String ASSIGN_EMP = "UPDATE REPORT_TENANT SET EMP_NO=?,RPTT_NOTE=? WHERE RPTT_NO=? ";
+	private static final String SAVE_NOTE = "UPDATE REPORT_TENANT SET RPTT_NOTE=? WHERE RPTT_NO=? ";
+	private static final String FAIL_STMT = "UPDATE REPORT_TENANT SET RPTT_RESULT=?,RPTT_NOTE=? WHERE RPTT_NO=? ";
 
 	@Override
 	public void insert(RpttVO rpttVO) {
@@ -132,7 +135,7 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATEEMP);
+			pstmt = con.prepareStatement(UPDATE_EMP);
 
 			pstmt.setString(1, rpttVO.getEmp_no());
 			pstmt.setInt(2, rpttVO.getRptt_status());
@@ -164,7 +167,123 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 		}
 
 	}
+	
+	public void assignEmp(RpttVO rpttVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
 
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(ASSIGN_EMP);
+
+			pstmt.setString(1, rpttVO.getEmp_no());
+			pstmt.setString(2, rpttVO.getRptt_note());
+			pstmt.setString(3, rpttVO.getRptt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void fail(RpttVO rpttVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FAIL_STMT);
+
+			pstmt.setInt(1, rpttVO.getRptt_result());
+			pstmt.setString(2, rpttVO.getRptt_note());
+			pstmt.setString(3, rpttVO.getRptt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+
+	public void saveNote(RpttVO rpttVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SAVE_NOTE);
+
+		
+			pstmt.setString(1, rpttVO.getRptt_note());
+			pstmt.setString(2, rpttVO.getRptt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
 	@Override
 	public void delete(String rptt_no) {
 

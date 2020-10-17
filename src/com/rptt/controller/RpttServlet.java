@@ -211,7 +211,7 @@ public class RpttServlet extends HttpServlet {
 		
 		
 		if ("update_employee".equals(action)) { // 來自addEmp.jsp的請求
-
+            System.out.println("現在跑update_employee");
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
@@ -256,6 +256,135 @@ public class RpttServlet extends HttpServlet {
 			}
 		}
 
+		if ("assign_employee".equals(action)) { // 來自addEmp.jsp的請求
+            System.out.println("現在跑assign_employee");
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rptt_no = req.getParameter("rptt_no");
+				System.out.println(rptt_no);
+				String emp_no = req.getParameter("emp_no");
+				System.out.println(emp_no);
+				if(emp_no ==null) {
+					System.out.println("找不到員工編號");
+				}
+				String rptt_note = req.getParameter("rptt_note");
+				System.out.println(rptt_note);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RpttVO rpttVO1 = new RpttVO();
+				rpttVO1.setRptt_no(rptt_no);
+				rpttVO1.setEmp_no(emp_no);
+				rpttVO1.setRptt_note(rptt_note);
+				System.out.println("裝入完畢");
+				
+				RpttService rpttSvc = new RpttService();
+				rpttVO1 = rpttSvc.assignEmp(rptt_no, emp_no,rptt_note);
+				System.out.println("emp有更新了");
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
+				req.setAttribute("rpttVO", rpttVO);
+				String url = "/back-end/rptt/first_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("4.emp轉不過來");
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/listAllRptt.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("save_note".equals(action)) { // 來自addEmp.jsp的請求
+            System.out.println("現在跑save_note");
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rptt_no = req.getParameter("rptt_no");
+				System.out.println(rptt_no);
+				String rptt_note = req.getParameter("rptt_note");
+				System.out.println(rptt_note);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RpttVO rpttVO1 = new RpttVO();
+				rpttVO1.setRptt_no(rptt_no);
+				rpttVO1.setRptt_note(rptt_note);
+				System.out.println("裝入完畢");
+				
+				RpttService rpttSvc = new RpttService();
+				rpttVO1 = rpttSvc.saveNote(rptt_no,rptt_note);
+				System.out.println("note有更新了");
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
+				req.setAttribute("rpttVO", rpttVO);
+				String url = "/back-end/rptt/first_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("4.emp轉不過來");
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/listAllRptt.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("fail".equals(action)) { // 來自addEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rptt_no = req.getParameter("rptt_no");
+				System.out.println(rptt_no);
+				Integer rptt_result = 2;
+				System.out.println(rptt_result);
+				String rptt_note = req.getParameter("rptt_note");
+				System.out.println(rptt_note);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RpttVO rpttVO1 = new RpttVO();
+				rpttVO1.setRptt_no(rptt_no);
+				rpttVO1.setRptt_result(rptt_result);
+				rpttVO1.setRptt_note(rptt_note);
+				System.out.println("裝入完畢");
+				
+				RpttService rpttSvc = new RpttService();
+				rpttVO1 = rpttSvc.fail(rptt_no,rptt_result, rptt_note);
+				System.out.println("result有更新了");
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
+				req.setAttribute("rpttVO", rpttVO);
+				String url = "/back-end/rptt/first_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("4.emp轉不過來");
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/listAllRptt.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
