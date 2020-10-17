@@ -7,6 +7,7 @@
 <%
 	RecVO recVO = (RecVO) request.getAttribute("recVO");
 	String lld_no = (String) request.getAttribute("lld_no");
+	String con_no = (String) request.getAttribute("con_no");
 %>
 
 <!DOCTYPE html>
@@ -99,7 +100,7 @@
                 </div>
             </nav>
 		</div>
-		<form class="table" name="houseForm" METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet" enctype="multipart/form-data">
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet" name="form1">
 			<div id="center">
 				<div id="cbody">
 				    <div id="cbody1">				
@@ -117,8 +118,10 @@
 						</table>
 					</div>
 				</div>
-					
-				<input type="hidden" name="lld_no" value="<%=lld_no%>">		
+				
+				<input type="hidden" name="rec_no" value="${recVO.rec_no}">	
+				<input type="hidden" name="lld_no" value="<%=lld_no%>">	
+				<input type="hidden" name="con_no" value="<%=con_no%>">		
 				<div id="cfoot">
 					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>	
 					<input type="hidden" name="action" value="getOne_lld_Update">

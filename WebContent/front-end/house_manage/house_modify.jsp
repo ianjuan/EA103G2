@@ -10,6 +10,7 @@
 	List<HouseVO> piclist = (List<HouseVO>) request.getAttribute("houseVOpicno");
 	pageContext.setAttribute("piclist", piclist);	
 	String lld_no = (String) request.getAttribute("lld_no");
+	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
 %>
 
 <!DOCTYPE html>
@@ -42,7 +43,7 @@
                     <li class="nav-item dropdown">
                         <span data-toggle="dropdown" class="member">
                             <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
-                            <span class="membername">彭于晏</span>
+                            <span class="membername"><%=lldInfo.getLld_name()%>></span>
                         </span>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">最新通知</a>
@@ -156,6 +157,7 @@
 									<label><input type="radio" name="hos_type" value="透天厝" <%=(houseVO.getHos_type().equals("透天厝")) ? "checked" : ""%> required>透天厝</label>
 									<label><input type="radio" name="hos_type" value="公寓" <%=(houseVO.getHos_type().equals("公寓")) ? "checked" : ""%> required>公寓</label>
 									<label><input type="radio" name="hos_type" value="電梯大樓" <%=(houseVO.getHos_type().equals("電梯大樓")) ? "checked" : ""%> required>電梯大樓</label>
+									<label><input type="radio" name="hos_type" value="別墅" <%=(houseVO.getHos_type().equals("別墅")) ? "checked" : ""%> required>別墅</label>
 								</td>
 							</tr>
 							<tr>
@@ -196,7 +198,7 @@
 								<td>
 									
 									<label>
-										<input type="file" id="loadPic" multiple onchange="load()" name="hos_pic">
+										<input type="file" id="loadPic" multiple onchange="load1()" name="hos_pic">
 										<img src="https://www.flaticon.com/svg/static/icons/svg/3378/3378213.svg" class="uploadpic"/>
 										<span class="uploadfont" for="loadPic">&nbsp;&nbsp;上傳圖片&nbsp;&nbsp;</span>
 									</label>									
@@ -515,7 +517,7 @@
 					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne1" type="button" onclick="next()">下頁</button>
 					<input type="hidden" name="action" value="updateHouseInfo">
-					<button class="btn" id="submit" type="submit" onclick="return notice1();">修改資訊</button>					
+					<button class="btn" id="submit" type="submit" onclick="return notice3();">修改資訊</button>					
 				</div>				
 			</div>
 			<div id="right">
@@ -532,7 +534,7 @@
 					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr2" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne2" type="button" onclick="next()">下頁</button>
-					<button class="btn" id="submit" type="submit" onclick="notice1();">修改資訊</button>
+					<button class="btn" id="submit" type="submit" onclick="notice3();">修改資訊</button>
 					<input type="hidden" name="action" value="updateHouseInfo">
 				</div>
 			</div>

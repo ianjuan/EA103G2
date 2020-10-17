@@ -5,7 +5,7 @@ window.onload = function(){
     var lineTwo = document.querySelector('#housenav .menu-btn .line--2');
     var lineThree = document.querySelector('#housenav .menu-btn .line--3');
     var link = document.querySelector('#housenav .nav-links');
-    menuBtn.addEventListener('click', function(){
+    menuBtn.addEventListener('click', function() {
         nav.classList.toggle('nav-open');
         lineOne.classList.toggle('line-cross');
         lineTwo.classList.toggle('line-fade-out');
@@ -20,6 +20,8 @@ window.onload = function(){
             });  
     });
 }
+
+
 
 function imgShow(outerdiv, innerdiv, bigimg, _this){  
             var src = _this.attr("src");//獲取當前點選的pimg元素中的src屬性  
@@ -59,3 +61,21 @@ function imgShow(outerdiv, innerdiv, bigimg, _this){
                 $(this).fadeOut("fast");  
             });  
         }
+
+function checkmoney(){
+	var money = document.getElementById("lld_balance");
+	if(money.value < 1000){
+		alert("您的電子錢包餘額為 : " + money.value + "元");
+		if(window.confirm("上架費一次為 1000 元, 請問是否要儲值?") == false){
+			return false;
+		} else {		
+			return true;
+		}
+	}else {
+		if(window.confirm("目前電子錢包金額為" + money.value + "元, 上架費一次 1000 元, 是否上架房屋?") == false){
+			return false;
+		} else {		
+			return true;
+		}
+	}
+}

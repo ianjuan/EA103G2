@@ -40,7 +40,6 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 	private static final String GET_RESULT_STMT = "SELECT RPTT_NO,TNT_NO,LLD_NO,RPTT_TIME,RPTT_CONTENT,EMP_NO,RPTT_DONE_TIME,RPTT_STATUS,RPTT_RESULT,RPTT_NOTE FROM REPORT_TENANT WHERE RPTT_RESULT=? ";
 	private static final String UPDATEEMP = "UPDATE REPORT_TENANT SET EMP_NO=?,RPTT_STATUS=? WHERE RPTT_NO=? ";
 
-
 	@Override
 	public void insert(RpttVO rpttVO) {
 
@@ -126,8 +125,7 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 		}
 
 	}
-	
-	
+
 	public void updateEmp(RpttVO rpttVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -136,7 +134,6 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATEEMP);
 
-		
 			pstmt.setString(1, rpttVO.getEmp_no());
 			pstmt.setInt(2, rpttVO.getRptt_status());
 			pstmt.setString(3, rpttVO.getRptt_no());
@@ -167,8 +164,7 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 		}
 
 	}
-	
-	
+
 	@Override
 	public void delete(String rptt_no) {
 
@@ -352,9 +348,11 @@ public class RpttJNDIDAO implements RpttDAO_interface {
 				pstmt = con.prepareStatement(GET_TNT_STMT);
 			} else if (Number.startsWith("L")) {
 				pstmt = con.prepareStatement(GET_LLD_STMT);
+			} else if (Number.startsWith("R")) {
+				pstmt = con.prepareStatement(GET_RPTT_STMT);
 			} else if (Number.startsWith("E")) {
 				pstmt = con.prepareStatement(GET_EMP_STMT);
-			} else if (Number.equals("0")||Number.equals("1")) {
+			} else if (Number.equals("0") || Number.equals("1")) {
 				pstmt = con.prepareStatement(GET_RESULT_STMT);
 			} else {
 				System.out.println("wrong sql");

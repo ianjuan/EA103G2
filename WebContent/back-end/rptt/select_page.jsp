@@ -58,8 +58,8 @@ h4 {
 
 		<li>
 			<FORM METHOD="post" ACTION="RpttServlet">
-				<b>檢舉事件編號 (e.g.RPTT000001):</b> <input type="text" name="Rptt_no">
-				<input type="hidden" name="action" value="get_one_display">
+				<b>檢舉事件編號 (e.g.RPTT000001):</b> <input type="text" name="Number">
+				<input type="hidden" name="action" value="get_want_display">
 				<input type="submit" value="送出">
 			</FORM>
 		</li>

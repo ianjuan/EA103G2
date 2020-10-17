@@ -5,6 +5,7 @@
 
 <%
 	String lld_no = (String) request.getAttribute("lld_no");
+	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
 	List<HouseVO> listunrent = (List<HouseVO>) request.getAttribute("houseVOunrent");
 	List<HouseVO> listrent = (List<HouseVO>) request.getAttribute("houseVOrent");
 	List<HouseVO> listoff = (List<HouseVO>) request.getAttribute("houseVOoff");
@@ -38,7 +39,7 @@
 					<li class="nav-item dropdown">
 						<span data-toggle="dropdown" class="member">
 							<input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
-							<span class="membername">彭于晏</span>
+							<span class="membername"><%=lldInfo.getLld_name()%></span>
 						</span>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<a class="dropdown-item" href="#">最新通知</a>
@@ -82,8 +83,9 @@
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
-						<button type="submit" class="link">上架房屋</button>
+						<button type="submit" class="link" onclick="return checkmoney();">上架房屋</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -154,8 +156,9 @@
 				<div class="rinfo">
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
-						<button type="submit" class="link">點我進入</button>
+						<button type="submit" class="link" onclick="return checkmoney();">點我進入</button>
 					</FORM>
 				</div>
 			</div>
@@ -213,6 +216,24 @@
 	        lineThree.classList.toggle('line-cross');
 	        link.classList.toggle('fade-in');
 	    })
+	    
+	    function checkmoney(){
+	    	var money = document.getElementById("lld_balance");
+	    	if(money.value < 1000){
+	    		alert("您的電子錢包餘額為 : " + money.value + "元");
+	    		if(window.confirm("上架費一次為 1000 元, 請問是否要儲值?") == false){
+	    			return false;
+	    		} else {		
+	    			return true;
+	    		}
+	    	}else {
+	    		if(window.confirm("目前電子錢包金額為" + money.value + "元, 上架費一次 1000 元, 是否上架房屋?") == false){
+	    			return false;
+	    		} else {		
+	    			return true;
+	    		}
+	    	}
+	    }
 	</script>
 </body>
 </html>

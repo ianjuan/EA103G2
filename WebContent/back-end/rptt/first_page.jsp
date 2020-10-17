@@ -41,6 +41,7 @@
 <link
 	href="${pageContext.request.contextPath}/back-end/vendor/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="main_back.css" type="text/css">
 
 
@@ -141,25 +142,29 @@
 							class="collapse-item" href="blank.html">Blank Page</a>
 					</div>
 				</div></li>
+			<form METHOD="post" ACTION="RpttServlet" name="clickTable">
+				<!-- Nav Item - Charts -->
+				<li class="nav-item"><a class="nav-link" href="charts.html">
+						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
+				</a></li>
 
-			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-			</a></li>
+				<!-- Nav Item - Tables -->
+				<li class="nav-item active"><a class="nav-link" href="#"
+					onclick="del()"> <i class="fas fa-fw fa-table"></i>
+						<form METHOD="post" ACTION="RpttServlet" name="clickTable">
 
-			<!-- Nav Item - Tables -->
-			<li class="nav-item active"><a class="nav-link"
-				href="tables.html"> <i class="fas fa-fw fa-table"></i> <span>Tables</span></a>
-			</li>
+							<input type="hidden" name="Number" value="0"> <input
+								type="hidden" name="action" value="get_want_display"> <span
+								onclick="clickTable.submit()">Tables </span>
+						</form></a></li>
 
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
+				<!-- Divider -->
+				<hr class="sidebar-divider d-none d-md-block">
 
-			<!-- Sidebar Toggler (Sidebar) -->
-			<div class="text-center d-none d-md-inline">
-				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
-
+				<!-- Sidebar Toggler (Sidebar) -->
+				<div class="text-center d-none d-md-inline">
+					<button class="rounded-circle border-0" id="sidebarToggle"></button>
+				</div>
 		</ul>
 		<!-- End of Sidebar -->
 
@@ -372,29 +377,40 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Tables</h1>
-					<p class="mb-4">
-						DataTables is a third party plugin that is used to generate the
-						demo table below. For more information about DataTables, please
-						visit the <a target="_blank" href="https://datatables.net">official
-							DataTables documentation</a>.
-					</p>
+
+
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">檢舉房客</h6>
+							<div class="row">
+								<div class="col-md-9">
+									<h4 class="m-0 font-weight-bold text-primary">檢舉房客</h4>
+								</div>
+								<div class="col-md-3">
+									<form METHOD="post" ACTION="RpttServlet">
+										<h4>
+											搜尋: <input type="text" size="24" name="Number"
+												placeholder="輸入房客/ 房東/ 員工編號"> <input type="hidden"
+												name="action" value="get_want_display"> <input
+												type="submit"
+												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+												tabindex="-1" />
+										</h4>
+									</form>
+								</div>
+							</div>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100px">
+								<table class="table table-bordered" id="dataTable">
 									<thead>
 										<tr>
 											<th>檢舉編號</th>
 											<th>房客編號</th>
 											<th>房東編號</th>
-											<th>檢舉時間</th>
+											<th width="10%">檢舉時間</th>
 											<th>檢舉內容</th>
-											<th class="emppp">員工編號</th>
+											<th>員工編號</th>
 
 											<th>處理結果</th>
 
@@ -406,9 +422,9 @@
 											<th>檢舉編號</th>
 											<th>房客編號</th>
 											<th>房東編號</th>
-											<th>檢舉時間</th>
+											<th width="10%">檢舉時間</th>
 											<th>檢舉內容</th>
-											<th class="td4">員工編號</th>
+											<th>員工編號</th>
 
 											<th>處理結果</th>
 
@@ -421,20 +437,19 @@
 											for (RpttVO rpttvo : rpttVO) {
 										%>
 										<tr>
-											<td class="td1"><%=rpttvo.getRptt_no()%></td>
-											<td class="td1"><%=rpttvo.getTnt_no()%></td>
-											<td class="td1"><%=rpttvo.getLld_no()%></td>
-											<td class="td2"><%=rpttvo.getRptt_time()%></td>
-											<td class="td3"><%=rpttvo.getRptt_content()%></td>
+											<td><%=rpttvo.getRptt_no()%></td>
+											<td><%=rpttvo.getTnt_no()%></td>
+											<td><%=rpttvo.getLld_no()%></td>
+											<td width="10%"><%=rpttvo.getRptt_time()%></td>
+											<td><%=rpttvo.getRptt_content()%></td>
 
 											<%
 												if (rpttvo.getEmp_no() != null) {
 											%>
-											<td class="td4"><%=rpttvo.getEmp_no()%></td>
+											<td><%=rpttvo.getEmp_no()%></td>
 											<%
 												} else {
-											%><td class="td4"><form action="RpttServlet"
-													method="post">
+											%><td><form action="RpttServlet" method="post">
 													<input type="hidden" name="action" value="update_employee">
 													<input type="hidden" name="emp_no"
 														value="<%=pageContext.getAttribute("emp_no")%>"> <input
@@ -450,7 +465,7 @@
 											<%
 												if (rpttvo.getRptt_result() == 0) {
 											%>
-											<td class="td4">
+											<td>
 												<button class="check" data-toggle="modal"
 													data-target="#exampleModal">查看詳情</button>
 											</td>
@@ -478,7 +493,7 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<div class="modal-body1">
-										<form action="RpttServlet" method="post" id="myForm">
+										<form action="RpttServlet" method="post" >
 											<label for="name">檢舉原因:</label>
 											<textarea class="reason1" name="rptt_content" readonly>此房客多次在半夜，發酒瘋的按鄰居電鈴，已多次報警處理</textarea>
 											<div class="form-group">
@@ -486,20 +501,20 @@
 												<textarea id="a" name="rptt_note"></textarea>
 											</div>
 											<input type="hidden" name="action" value="insert">
-											<button type="submit" class="button2">通過</button>
+											<button type="submit" class="pass" >通過</button>
 											<input type="hidden" name="action" value="insert">
-											<button type="submit" class="button2">不通過</button>
-											<input type="hidden" name="action" value="insert">
-											<button type="submit" class="send">指派</button>
+											<button type="submit" class="fail">不通過</button>
+											<input type="hidden" name="action" value="update_employee">
+											<button type="submit" class="send" >指派</button>
 											<input type="hidden" name="action" value="insert">
 											<button type="submit" class="save">儲存</button>
 											<select name="helper" size="1">
 												<option value="" disabled selected>---請選擇將指派的同仁---</option>
-												<option value="EMP000005">EMP000021</option>
-												<option value="EMP000006">EMP000022</option>
-												<option value="EMP000007">EMP000023</option>
-												<option value="EMP000007">EMP000024</option>
-												<option value="EMP000007">EMP000025</option>
+												<option namevalue="EMP000005">EMP000021</option>
+												<option name="emp_no" value="EMP000022">EMP000022</option>
+												<option name="emp_no" value="EMP000023">EMP000023</option>
+												<option name="emp_no" value="EMP000024">EMP000024</option>
+												<option name="emp_no" value="EMP000025">EMP000025</option>
 											</select>
 										</form>
 									</div>
@@ -507,25 +522,7 @@
 							</div>
 						</div>
 					</div>
-					<script type="text/javascript">
-						var form = $('#myForm');
-
-						form.bootstrapValidator({
-
-							fields : {
-
-								rptt_content : {
-									validators : {
-										notEmpty : {
-											message : '註解不能為空'
-										},
-
-									}
-								}
-							}
-
-						});
-					</script>
+					
 
 					<footer class="sticky-footer bg-white">
 						<div class="container my-auto">
@@ -592,6 +589,12 @@
 	<!-- Page level custom scripts -->
 	<script
 		src="${pageContext.request.contextPath}/back-end/css/js/demo/datatables-demo.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 </body>
 
 </html>

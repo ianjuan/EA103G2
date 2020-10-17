@@ -121,9 +121,11 @@ public class RecServlet extends HttpServlet{
 				/*************************** 1.接收請求參數 ****************************************/
 				String rec_no = req.getParameter("rec_no");
 				String lld_no = req.getParameter("lld_no");
+				String con_no = req.getParameter("con_no");
 				
 				System.out.println(rec_no);
 				System.out.println(lld_no);
+				System.out.println(con_no);
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				RecService recSvc = new RecService();
@@ -131,6 +133,7 @@ public class RecServlet extends HttpServlet{
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("recVO", recVO); 
+				req.setAttribute("con_no", con_no);
 				req.setAttribute("lld_no", lld_no);
 				String url = "/front-end/rec/lldfillrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -155,22 +158,28 @@ public class RecServlet extends HttpServlet{
 				/*************************** 1.接收請求參數 ****************************************/
 				String rec_no = req.getParameter("rec_no");
 				String lld_no = req.getParameter("lld_no");
+				String con_no = req.getParameter("con_no");
 				Integer rec_water= new Integer(req.getParameter("rec_water"));
 				Integer rec_elec= new Integer(req.getParameter("rec_elec"));
 				Integer rec_sta = 1;
 				
 				System.out.println(rec_no);
 				System.out.println(lld_no);
+				System.out.println(con_no);
 				System.out.println(rec_water);
 				System.out.println(rec_elec);
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				RecService recSvc = new RecService();
 				RecVO recVO = recSvc.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta);
+				
+				RecService recService = new RecService();
+				List<RecVO> list = recService.getLddAllByCon(con_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("recVO", recVO); 
 				req.setAttribute("lld_no", lld_no);
+				req.setAttribute("list", list);
 				String url = "/front-end/rec/lldlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

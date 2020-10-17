@@ -153,16 +153,26 @@ public class ConServlet extends HttpServlet {
 				ConVO conVO = conSvc.getOneCon(con_no);
 				
 				LldService lldSvc = new LldService();
-				LldVO lldVO = lldSvc.getOneLldProfile("LLD000001");
+				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
 				
-				HouseService hosSvc = new HouseService();
-				HouseVO hosVO = hosSvc.getHouseInfo(hos_no);
+				HouseService houseSvc = new HouseService();
+				HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
+				HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
+				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
+				List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
+				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+
+
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
 				req.setAttribute("lldVO", lldVO);
 				req.setAttribute("lld_no", lld_no);
-				req.setAttribute("hosVO", hosVO);
+				req.setAttribute("houseVO", houseVO);
+				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
+				req.setAttribute("houseVOelectfee", houseVOelectfee);
+				req.setAttribute("houseVOpicno", houseVOpicno);// lld_sign
+				req.setAttribute("lldInfo", lldInfo);
 				String url = "/front-end/contract/lldcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

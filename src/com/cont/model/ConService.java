@@ -148,6 +148,14 @@ public class ConService {
 		return ConStatus.findByPrimaryKey(num).getText();
 	}
 	
+	public NumEnum[] getNumEnumAll() {
+		return NumEnum.values();
+	}
+
+	public String getNumEnumText(Integer num) {
+		return NumEnum.findByPrimaryKey(num).getText();
+	}
+	
 	public DepStatus[] getDepStatusAll() {
 		return DepStatus.values();
 	}
