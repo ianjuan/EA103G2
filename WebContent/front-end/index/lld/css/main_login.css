@@ -391,7 +391,7 @@
             /* top: -1px; */
             /* left: -1px; */
             pointer-events: none;
-            border: 1px solid #3a8c68;
+            border: 1px solid #916a3c;
             /*靜:改focus框框顏色 #6675df*/
             border-radius: 50px;
 
@@ -449,7 +449,7 @@
             font-size: 13px;
             /* border: 1px solid red; */
             background-color: #f7f7f7;
-            color: #3a8c68;
+            color: #916a3c;
             /*width: 60px;*/
             padding: 0px 5px;
             margin-left: 20px;
@@ -464,7 +464,7 @@
         .has-val {
             height: 50px !important;
             border-radius: 50px;
-            border: 1px solid #AACFBF;
+            border: 1px solid #D7C8B6;
             /*             background-color: green; */
         }
         .has-val+.focus-register100+.label-register100 {
@@ -472,7 +472,7 @@
             top: -8px;
             /*14px;*/
             font-size: 13px;
-            color: #3a8c68;
+            color: #916a3c;
             background-color: #f7f7f7;
             /*transparent*/
             /*             font-weight:bold; */
@@ -560,15 +560,15 @@
             width: 100%;
             height: 50px;
             border-radius: 10px;
-            /*  background: #3a8c68; */
+            /*  background: #916a3c; */
             /*靜:改登入按鈕顏色#6675df*/
-            background: #AACFBF;
+            background: #D7C8B6;
 
             font-family: Montserrat-Bold;
             font-size: 13px;
             font-weight: bold;
             /* color: #fff; */
-            color: #3a8c68;
+            color: #916a3c;
             line-height: 1.2;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -580,9 +580,9 @@
         }
 
         .login100-form-btn:hover {
-            /*  background: #AACFBF;
-            color: #3a8c68;*/
-            background: #3a8c68;
+            /*  background: #D7C8B6;
+            color: #916a3c;*/
+            background: #916a3c;
             color: #fff;
             font-size: 17px;
             /*靜:改按鈕hoever顏色, 字體大小*/
@@ -767,7 +767,7 @@
         /*========泓元區==========================================================
 [ Header ]*/
         body.landing #header {
-            background-color: #AACFBF;
+            background-color: #D7C8B6;
             left: 0;
             position: fixed;
             top: 0;
@@ -927,10 +927,10 @@
 
         .txt-email-hint {
             text-align: center;
-            color: #3a8c68;
+            color: #916a3c;
         }
         a.forgetPwd:hover {
-            color: #3a8c68;
+            color: #916a3c;
             font-weight: bold;
         }
 

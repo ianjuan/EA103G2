@@ -33,6 +33,7 @@ public class LldServlet2 extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = null;
+		System.out.println("0"+action);
 		
 		if ("login".equals(action)) {
 			System.out.println("1:" + action);
@@ -117,7 +118,7 @@ public class LldServlet2 extends HttpServlet {
 						res.sendRedirect(location);
 						return;
 					}
-					res.sendRedirect(req.getContextPath() + "/front-end/index/index.html"); // *工作3:
+					res.sendRedirect(req.getContextPath() + "/front-end/index/index_lld.html"); // *工作3:
 																								// (-->如無來源網頁:則重導至login_success.jsp)
 				}
 

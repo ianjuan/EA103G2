@@ -20,21 +20,21 @@
              * [ Validate for each input By myself]
              */
             // 信箱
-            $('#lld_email.register100').on('blur', function() {
+            $('#email.register100').on('blur', function() {
                 if (/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/.test($(this).val().trim()) === false) {
                     // if (validate($(this)) == false) {
                     showValidate($(this));
                 }
             });
             // 姓名
-            $('#lld_name.register100').on('blur', function() {
+            $('#name.register100').on('blur', function() {
                 if (/^[(\u4e00-\u9fa5)(a-zA-Z)]{2,19}$/.test($(this).val()
                         .trim()) === false) {
                     showValidate($(this));
                 }
             });
             // 身分證
-            $('#lld_id.register100').on('blur', function() {
+            $('#id.register100').on('blur', function() {
                 if (/^[A-Za-z][12][0-9]{8}$/.test($(this).val().trim()) === false) {
                     showValidate($(this));
                 } else if (id_validate($(this).val().trim()) === false) {
@@ -42,70 +42,70 @@
                 }
             });
             // 手機
-            $('#lld_mobile.register100').on('blur', function() {
+            $('#mobile.register100').on('blur', function() {
                 if (/^[0][9][0-9]{8}$/.test($(this).val().trim()) === false) {
                     showValidate($(this));
                 }
             });
             // 密碼
-            $('#lld_pwd.register100').on('blur', function() {
+            $('#pwd.register100').on('blur', function() {
                 if (/^[\w]{8,16}$/.test($(this).val()) === false) {
                     showValidate($(this));
                 }
             });
             // 確認密碼
-            $('#lld_pwd2.register100').on('blur', function() {
-                if (($('#lld_add').val().trim() === '') || ($(this).val() !== $('#lld_pwd.register100').val())) {
+            $('#pwd2.register100').on('blur', function() {
+                if (($('#add').val().trim() === '') || ($(this).val() !== $('#pwd.register100').val())) {
                     showValidate($(this));
                 }
             });
             // 地址
-            $('#lld_add.register100').on('blur', function() {
-                if ($('#lld_add').val().trim() === '') {
+            $('#add.register100').on('blur', function() {
+                if ($('#add').val().trim() === '') {
                     showValidate($(this));
                 }
             });
             //下拉 - 性別
-            $('#lld_sex').on('blur', function() {
-                if ($('#lld_sex').val().trim() == '') {
-                    $('#lld_sex').addClass('alert-validate');
-                    $('#lld_sex').addClass('alert-validate-select');
+            $('#sex').on('blur', function() {
+                if ($('#sex').val().trim() == '') {
+                    $('#sex').addClass('alert-validate');
+                    $('#sex').addClass('alert-validate-select');
                 } else {
-                    $('#lld_sex').addClass('select-has-val');
+                    $('#sex').addClass('select-has-val');
                 }
             });
-            $('#lld_sex').on('focus', function() {
-                $('#lld_sex').removeClass('alert-validate');
-                $('#lld_sex').removeClass('alert-validate-select');
-                $('#lld_sex').removeClass('alert-validate-selects');
+            $('#sex').on('focus', function() {
+                $('#sex').removeClass('alert-validate');
+                $('#sex').removeClass('alert-validate-select');
+                $('#sex').removeClass('alert-validate-selects');
             });
             //下拉 - 縣市
-            $('#lld_city').on('blur', function() {
-                if ($('#lld_city').val().trim() == '') {
-                    $('#lld_city').addClass('alert-validate');
-                    $('#lld_city').addClass('alert-validate-select');
+            $('#city').on('blur', function() {
+                if ($('#city').val().trim() == '') {
+                    $('#city').addClass('alert-validate');
+                    $('#city').addClass('alert-validate-select');
                 } else {
-                    $('#lld_city').addClass('select-has-val');
+                    $('#city').addClass('select-has-val');
                 }
             });
-            $('#lld_city').on('focus', function() {
-                $('#lld_city').removeClass('alert-validate');
-                $('#lld_city').removeClass('alert-validate-select');
-                $('#lld_city').removeClass('alert-validate-selects');
+            $('#city').on('focus', function() {
+                $('#city').removeClass('alert-validate');
+                $('#city').removeClass('alert-validate-select');
+                $('#city').removeClass('alert-validate-selects');
             });
             //下拉 - 區域
-            $('#lld_dist').on('blur', function() {
-                if ($('#lld_dist').val().trim() == '') {
-                    $('#lld_dist').addClass('alert-validate');
-                    $('#lld_dist').addClass('alert-validate-select');
+            $('#dist').on('blur', function() {
+                if ($('#dist').val().trim() == '') {
+                    $('#dist').addClass('alert-validate');
+                    $('#dist').addClass('alert-validate-select');
                 } else {
-                    $('#lld_dist').addClass('select-has-val');
+                    $('#dist').addClass('select-has-val');
                 }
             });
-            $('#lld_dist').on('focus', function() {
-                $('#lld_dist').removeClass('alert-validate');
-                $('#lld_dist').removeClass('alert-validate-select');
-                $('#lld_dist').removeClass('alert-validate-selects');
+            $('#dist').on('focus', function() {
+                $('#dist').removeClass('alert-validate');
+                $('#dist').removeClass('alert-validate-select');
+                $('#dist').removeClass('alert-validate-selects');
             });
 
 
@@ -197,7 +197,7 @@
             timepicker: false, // timepicker:true,
             step: 1, // step: 60 (這是timepicker的預設間隔60分鐘)
             format: 'Y-m-d', // format:'Y-m-d H:i:s',
-            value: somedate3, // '<%=lld_birth%>', // value: new Date(),
+            value: somedate3, // '<%=birth%>', // value: new Date(),
             // disabledDates: ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
             // startDate: '2017/07/10', // 起始日
             // minDate: '-1970-01-01', // 去除今日(不含)之前
@@ -301,24 +301,24 @@
             var city_key = Object.keys(area_data);
 
             // 若無原始lldVO資料, 新增"選擇縣市"跟所有縣市, 區域僅新增"選擇區域"
-            if ($('#lld_city').val() === null) {
-                $("#lld_city").append(
+            if ($('#city').val() === null) {
+                $("#city").append(
                     '<option value="" id="city_default">選擇縣市');
                 city_key.forEach(function(item, index, array) {
-                    $("#lld_city").append(
+                    $("#city").append(
                         '<option value="' + item + '">' + item);
                 });
-                $('#lld_dist').append(
+                $('#dist').append(
                     '<option value="" id="dist_default">選擇區域');
                 // 若有原始lldVO資料, 新增所有縣市, 判斷有無selected縣市
             } else {
                 var index_city;
                 city_key.forEach(function(item, index, array) {
-                    if (item === $('#lld_city').val()) {
+                    if (item === $('#city').val()) {
                         var tmp = ' selected';
                         index_city = index;
                     }
-                    $("#lld_city").append(
+                    $("#city").append(
                         '<option value="' + item + '"' + tmp + '>' +
                         item);
                 });
@@ -329,9 +329,9 @@
                         .values(area_data)[index_city];
                     dist_values_selectedcity
                         .forEach(function(item, index, array) {
-                            var tmp = (item === $('#lld_dist')
+                            var tmp = (item === $('#dist')
                                 .val()) ? ' selected' : '';
-                            $("#lld_dist").append(
+                            $("#dist").append(
                                 '<option value="' + item + '"' +
                                 tmp + '>' + item);
                         });
@@ -340,16 +340,16 @@
             }
 
             // 選擇縣市, 區域連動
-            $("#lld_city").change(
+            $("#city").change(
                 function() {
                     city_key.forEach(function(item, index, array) {
-                        if (item === $("#lld_city").val()) {
+                        if (item === $("#city").val()) {
                             $("#dist_default ~ option").remove();
                             var dist_values = Object
                                 .values(area_data)[index];
                             dist_values.forEach(function(item,
                                 index, array) {
-                                $("#lld_dist").append(
+                                $("#dist").append(
                                     '<option value="' + item +
                                     '">' + item);
                             });
@@ -438,7 +438,7 @@
                         div.setAttribute("name", filename); //LIne 122 important
                         div.setAttribute("class", "picPreview");
                         input.setAttribute("class", "picCheckbox");
-                        img.setAttribute("id", "lld_pic");
+                        img.setAttribute("id", "pic");
 
                         // a();
 
@@ -591,9 +591,9 @@
                 // $(selects[0]).val(quickInputDataSelects[0]);
                 // $(selects[0]).blur();
             }
-            $('#lld_sex').focus();
-            $('#lld_sex').val('1');
-            $('#lld_sex').blur();
+            $('#sex').focus();
+            $('#sex').val('1');
+            $('#sex').blur();
 
             $('#f_date1').val('2000-11-12');
             $('#f_date1').blur();
@@ -627,7 +627,7 @@
 
         function ajax_register(formData) {
             $.ajax({ // 存入資料庫階段
-                url: "/EA103G2/lld//LldServlet2",
+                url: "/EA103G2/lld/LldServlet2",
                 type: "POST",
                 data: formData,
                 // 告訴jQuery不要去處理髮送的資料

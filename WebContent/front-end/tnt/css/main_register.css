@@ -316,7 +316,6 @@
         }
 
 
-
         /*------------------------------------------------------------------
 [ Input ]*/
 
@@ -335,7 +334,7 @@
             border: 1px solid #e6e6e6;
             border-radius: 50px;
             /*ÀR:§ïinput¶ê¨¤*/
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .label-register100 {

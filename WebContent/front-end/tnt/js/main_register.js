@@ -1,4 +1,6 @@
-        (function($) {
+/*------------------------------------------------------------------
+[ Origin-Register ]*/       
+(function($) {
             "use strict";
 
             /*
@@ -187,7 +189,7 @@
 
         var somedate2 = new Date();
         somedate2.setFullYear(somedate2.getFullYear() - 18);
-        console.log(somedate2);
+        // console.log(somedate2);
         var somedate3 = new Date();
         somedate3.setFullYear(somedate3.getFullYear() - 18);
         somedate3.setDate(somedate3.getDate() + 1);
@@ -302,14 +304,17 @@
 
             // 若無原始tntVO資料, 新增"選擇縣市"跟所有縣市, 區域僅新增"選擇區域"
             if ($('#tnt_city').val() === null) {
+                console.log('aaaaaa');
                 $("#tnt_city").append(
                     '<option value="" id="city_default">選擇縣市');
                 city_key.forEach(function(item, index, array) {
+                    console.log(item);
                     $("#tnt_city").append(
                         '<option value="' + item + '">' + item);
                 });
                 $('#tnt_dist').append(
                     '<option value="" id="dist_default">選擇區域');
+                console.log('bbbbbb');
                 // 若有原始tntVO資料, 新增所有縣市, 判斷有無selected縣市
             } else {
                 var index_city;
@@ -646,5 +651,18 @@
         }
 
         function redirect() {
-        	window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
+            window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
         }
+        /*------------------------------------------------------------------
+        [ End-Origin-Register ]*/  
+        
+        
+        $('#angle-down-up').click(function() {
+        	$('form#registerform').toggle();
+        	$("[data-icon='chevron-up']").toggle();
+
+        	$("[data-icon='chevron-down']").toggle();
+        	});
+        
+        
+        
