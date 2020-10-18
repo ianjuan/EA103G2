@@ -33,17 +33,6 @@ public class TntService {
 
 		return tntVO;
 	}
-	public TntVO addTnt2(String tnt_email) {
-		System.out.println(tnt_email + 1);
-		//, byte[] tnt_pic
-		TntVO tntVO = new TntVO();
-//		tntVO.setTnt_no(tnt_no);
-		tntVO.setTnt_email(tnt_email);
-		System.out.println(tnt_email + 2);
-		dao.insert_profile(tntVO);
-
-		return tntVO;
-	}
 
 	public TntVO updateTntProfile(String tnt_no, String tnt_email, String tnt_acc, String tnt_pwd, String tnt_id,
 			String tnt_name, Date tnt_birth, Boolean tnt_sex, String tnt_mobile, String tnt_city, String tnt_dist,
@@ -151,23 +140,37 @@ public class TntService {
 		return dao.getAll_vrf();
 	}
 
-	public TntVO updateTntRptAuth(
-			int tnt_reported_count, int tnt_auth_chat, int tnt_auth_res, int tnt_auth_cmt, int tnt_auth_rpt) {
+	public TntVO updateTntRpt(
+			int tnt_reported_count) {
 
 		TntVO tntVO = new TntVO();
 
 		tntVO.setTnt_reported_count(tnt_reported_count);
-		tntVO.setTnt_auth_chat(tnt_auth_chat);
-		tntVO.setTnt_auth_res(tnt_auth_res);
-		tntVO.setTnt_auth_cmt(tnt_auth_cmt);
-		tntVO.setTnt_auth_rpt(tnt_auth_rpt);
-		dao.update_rpt_auth(tntVO);
+		dao.update_rpt(tntVO);
 
 		return tntVO;
 	}
 
-	public TntVO getOneRptAuth(String tnt_no) {
-		return dao.findByPK_rpt_auth(tnt_no);
+	public TntVO getOneRpt(String tnt_no) {
+		return dao.findByPK_rpt(tnt_no);
+	}
+	
+	
+	public TntVO updateTntAuth(int tnt_auth_chat, int tnt_auth_res, int tnt_auth_cmt, int tnt_auth_rpt) {
+
+		TntVO tntVO = new TntVO();
+
+		tntVO.setTnt_auth_chat(tnt_auth_chat);
+		tntVO.setTnt_auth_res(tnt_auth_res);
+		tntVO.setTnt_auth_cmt(tnt_auth_cmt);
+		tntVO.setTnt_auth_rpt(tnt_auth_rpt);
+		dao.update_auth(tntVO);
+
+		return tntVO;
+	}
+
+	public TntVO getOneAuth(String tnt_no) {
+		return dao.findByPK_auth(tnt_no);
 	}
 
 

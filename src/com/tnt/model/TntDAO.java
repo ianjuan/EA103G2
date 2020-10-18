@@ -728,24 +728,20 @@ public class TntDAO implements TenantDAO_interface {
 	}
 
 	// =================================6.rpt&auth==================================
-	private static final String UPDATE_RPT_AUTH_STMT = "UPDATE TENANT set tnt_reported_count=?, tnt_auth_chat=?, tnt_auth_res=?, tnt_auth_cmt=?, tnt_auth_rpt=? where tnt_no=?";
-	private static final String GET_ONE_RPT_AUTH_STMT = "SELECT tnt_reported_count, tnt_auth_chat, tnt_auth_res, tnt_auth_cmt, tnt_auth_rpt from TENANT where tnt_no=?";
+	private static final String UPDATE_RPT_STMT = "UPDATE TENANT set tnt_reported_count=? where tnt_no=?";
+	private static final String GET_ONE_RPT_STMT = "SELECT tnt_reported_count from TENANT where tnt_no=?";
 
 	@Override
-	public void update_rpt_auth(TntVO tntVO) {
+	public void update_rpt(TntVO tntVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_RPT_AUTH_STMT);
+			pstmt = con.prepareStatement(UPDATE_RPT_STMT);
 
 			pstmt.setInt(1, tntVO.getTnt_reported_count());
-			pstmt.setInt(2, tntVO.getTnt_auth_chat());
-			pstmt.setInt(3, tntVO.getTnt_auth_res());
-			pstmt.setInt(4, tntVO.getTnt_auth_cmt());
-			pstmt.setInt(5, tntVO.getTnt_auth_rpt());
-			pstmt.setString(6, tntVO.getTnt_no());
+			pstmt.setString(2, tntVO.getTnt_no());
 
 			pstmt.executeUpdate();
 
@@ -770,7 +766,7 @@ public class TntDAO implements TenantDAO_interface {
 	}
 
 	@Override
-	public TntVO findByPK_rpt_auth(String tnt_no) {
+	public TntVO findByPK_rpt(String tnt_no) {
 		TntVO tntVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -778,17 +774,13 @@ public class TntDAO implements TenantDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_RPT_AUTH_STMT);
+			pstmt = con.prepareStatement(GET_ONE_RPT_STMT);
 
 			pstmt.setString(1, tnt_no);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				tntVO.setTnt_reported_count(rs.getInt("tnt_reported_count"));
-				tntVO.setTnt_auth_chat(rs.getInt("tnt_auth_chat"));
-				tntVO.setTnt_auth_res(rs.getInt("tnt_auth_res"));
-				tntVO.setTnt_auth_cmt(rs.getInt("tnt_auth_cmt"));
-				tntVO.setTnt_auth_rpt(rs.getInt("tnt_auth_rpt"));
 			}
 
 		} catch (SQLException se) {
@@ -818,5 +810,95 @@ public class TntDAO implements TenantDAO_interface {
 		}
 		return tntVO;
 	}
+	
+	// =================================7.auth==================================
+		private static final String UPDATE_AUTH_STMT = "UPDATE TENANT set tnt_auth_chat=?, tnt_auth_res=?, tnt_auth_cmt=?, tnt_auth_rpt=? where tnt_no=?";
+		private static final String GET_ONE_AUTH_STMT = "SELECT tnt_auth_chat, tnt_auth_res, tnt_auth_cmt, tnt_auth_rpt from TENANT where tnt_no=?";
+
+		@Override
+		public void update_auth(TntVO tntVO) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(UPDATE_AUTH_STMT);
+
+				pstmt.setInt(1, tntVO.getTnt_auth_chat());
+				pstmt.setInt(2, tntVO.getTnt_auth_res());
+				pstmt.setInt(3, tntVO.getTnt_auth_cmt());
+				pstmt.setInt(4, tntVO.getTnt_auth_rpt());
+				pstmt.setString(5, tntVO.getTnt_no());
+
+				pstmt.executeUpdate();
+
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error ocurred." + se.getMessage());
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
+		@Override
+		public TntVO findByPK_auth(String tnt_no) {
+			TntVO tntVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ONE_AUTH_STMT);
+
+				pstmt.setString(1, tnt_no);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					tntVO.setTnt_auth_chat(rs.getInt("tnt_auth_chat"));
+					tntVO.setTnt_auth_res(rs.getInt("tnt_auth_res"));
+					tntVO.setTnt_auth_cmt(rs.getInt("tnt_auth_cmt"));
+					tntVO.setTnt_auth_rpt(rs.getInt("tnt_auth_rpt"));
+				}
+
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured" + se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return tntVO;
+		}
 
 }

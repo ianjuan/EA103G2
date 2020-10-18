@@ -23,9 +23,11 @@ public interface LandlordDAO_interface {
     public void update_vrf(LldVO lldVO);
     public LldVO findByPK_vrf(String lld_no);
     public List<LldVO> getAll_vrf();
-    
-    public void update_rpt_auth(LldVO lldVO);
-    public LldVO findByPK_rpt_auth(String lld_no);
-    
 
+    public void update_rpt(LldVO lldVO);
+    public LldVO findByPK_rpt(String lld_no);
+    
+    public void update_auth(LldVO lldVO);
+    public LldVO findByPK_auth(String lld_no);
+    
 }

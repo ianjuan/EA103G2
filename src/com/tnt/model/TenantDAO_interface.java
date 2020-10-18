@@ -24,8 +24,14 @@ public interface TenantDAO_interface {
     public TntVO findByPK_vrf(String tnt_no);
     public List<TntVO> getAll_vrf();
     
-    public void update_rpt_auth(TntVO tntVO);
-    public TntVO findByPK_rpt_auth(String tnt_no);
+//    public void update_rpt_auth(TntVO tntVO);
+//    public TntVO findByPK_rpt_auth(String tnt_no);
+    
+    public void update_rpt(TntVO tntVO);
+    public TntVO findByPK_rpt(String tnt_no);
+    
+    public void update_auth(TntVO tntVO);
+    public TntVO findByPK_auth(String tnt_no);
     
 
 }

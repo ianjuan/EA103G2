@@ -33,17 +33,6 @@ public class LldService {
 
 		return lldVO;
 	}
-	public LldVO addLld2(String lld_email) {
-		System.out.println(lld_email + 1);
-		//, byte[] lld_pic
-		LldVO lldVO = new LldVO();
-//		lldVO.setLld_no(lld_no);
-		lldVO.setLld_email(lld_email);
-		System.out.println(lld_email + 2);
-		dao.insert_profile(lldVO);
-
-		return lldVO;
-	}
 
 	public LldVO updateLldProfile(String lld_no, String lld_email, String lld_acc, String lld_pwd, String lld_id,
 			String lld_name, Date lld_birth, Boolean lld_sex, String lld_mobile, String lld_city, String lld_dist,
@@ -151,23 +140,38 @@ public class LldService {
 		return dao.getAll_vrf();
 	}
 
-	public LldVO updateLldRptAuth(
-			int lld_reported_count, int lld_auth_chat, int lld_auth_res, int lld_auth_cmt, int lld_auth_rpt) {
+	public LldVO updateLldRpt(
+			int lld_reported_count) {
 
 		LldVO lldVO = new LldVO();
 
 		lldVO.setLld_reported_count(lld_reported_count);
-		lldVO.setLld_auth_chat(lld_auth_chat);
-		lldVO.setLld_auth_res(lld_auth_res);
-		lldVO.setLld_auth_cmt(lld_auth_cmt);
-		lldVO.setLld_auth_rpt(lld_auth_rpt);
-		dao.update_rpt_auth(lldVO);
+		dao.update_rpt(lldVO);
 
 		return lldVO;
 	}
 
-	public LldVO getOneRptAuth(String lld_no) {
-		return dao.findByPK_rpt_auth(lld_no);
+	public LldVO getOneRpt(String lld_no) {
+		return dao.findByPK_rpt(lld_no);
+	}
+	
+	
+	public LldVO updateLldAuth(int lld_auth_chat, int lld_auth_res, int lld_auth_cmt, int lld_auth_rpt, int lld_auth_hos) {
+
+		LldVO lldVO = new LldVO();
+
+		lldVO.setLld_auth_chat(lld_auth_chat);
+		lldVO.setLld_auth_res(lld_auth_res);
+		lldVO.setLld_auth_cmt(lld_auth_cmt);
+		lldVO.setLld_auth_rpt(lld_auth_rpt);
+		lldVO.setLld_auth_hos(lld_auth_hos);
+		dao.update_auth(lldVO);
+
+		return lldVO;
+	}
+
+	public LldVO getOneAuth(String lld_no) {
+		return dao.findByPK_auth(lld_no);
 	}
 
 
