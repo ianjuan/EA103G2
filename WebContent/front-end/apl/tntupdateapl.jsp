@@ -91,28 +91,28 @@
 						<table>
 							<tr>
 								<td>租屋開始時間:</td>
-									<td><input name="apl_str" id="f_date2" type="text"></td>
+									<td><input name="apl_str" id="f_date1" type="text"></td>
 							</tr>
 	
 							<tr>
 									<td>租屋結束時間:</td>
-								<td><input name="apl_end" id="f_date3" type="text"></td>
+								<td><input name="apl_end" id="f_date2" type="text"></td>
 							</tr>
 						</table>
 					</div>
 				</div>
 				
 				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">	
-				<input type="hidden" name="apl_no" value="<%=apl_no%>">		
+				<input type="hidden" name="apl_no" value="<%=con_aplVO.getApl_no()%>">		
 				<div id="cfoot">
-					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>	
-					<input type="hidden" name="action" value="getOne_lld_Update">
-					<button class="btn" id="submit" type="submit">送出訂單</button>					
+					<button class="btn" id="reset" type="reset" onclick="notice2()">重填</button>	
+					<input type="hidden" name="action" value="tntupdate">
+					<button class="btn" id="submit" type="submit">送出修改</button>					
 				</div>				
 				<div id="rfoot">
-					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>
-					<input type="hidden" name="action" value="getOne_lld_Update">
-					<button class="btn" id="submit" type="submit">送出訂單</button>
+					<button class="btn" id="reset" type="reset" onclick="notice2()">重填</button>
+					<input type="hidden" name="action" value="tntupdate">
+					<button class="btn" id="submit" type="submit">送出修改</button>
 				</div>
 			</div>
 		</form>
@@ -136,7 +136,7 @@
 <script>
         
         $.datetimepicker.setLocale('zh');
-        $('#f_date2').datetimepicker({
+        $('#f_date1').datetimepicker({
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
@@ -147,7 +147,7 @@
         });
         
         $.datetimepicker.setLocale('zh');
-        $('#f_date3').datetimepicker({
+        $('#f_date2').datetimepicker({
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
@@ -155,4 +155,5 @@
 		   value: '<%=con_aplVO.getApl_end()%>', // value:   new Date(),
            minDate:  '<%=con_aplVO.getApl_str()%>'
         });
+</script>
 </html>									

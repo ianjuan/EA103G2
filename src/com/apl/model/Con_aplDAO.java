@@ -27,7 +27,7 @@ public class Con_aplDAO implements Con_aplDAO_interface {
 
 	private static final String INSERT_STMT = "INSERT INTO CONTRACT_APPLICATION(APL_NO, TNT_NO, HOS_NO, APL_STR, APL_END, APL_TIME, APL_STATUS)"
 			+ "VALUES('APL' || lpad(SEQ_APL_NO.NEXTVAL, 6, '0'), ?, ?, ?, ?, ?, ?)";
-	private static final String TNT_UPDATE_STMT = "UPDATE CONTRACT_APPLICATION SET APL_STR= ?, APL_END= ?, APL_TIME= ? WHERE APL_NO= ?";
+	private static final String TNT_UPDATE_STMT = "UPDATE CONTRACT_APPLICATION SET APL_STR= ?, APL_END= ?, APL_TIME= CURRENT_TIMESTAMP WHERE APL_NO= ?";
 	private static final String LLD_UPDATE_STMT = "UPDATE CONTRACT_APPLICATION SET APL_STATUS= ? WHERE APL_NO= ?";
 	private static final String UPDATE_STMT = "UPDATE CONTRACT_APPLICATION SET TNT_NO = ?, HOS_NO = ?, APL_STR = ?, APL_END = ?, APL_TIME = ?, APL_STATUS = ? WHERE APL_NO = ?";
 	private static final String GET_ONE_STMT = "SELECT APL_NO, TNT_NO, HOS_NO, to_char(APL_STR,'yyyy-mm-dd') APL_STR, to_char(APL_END, 'yyyy-mm-dd')APL_END, "
@@ -141,8 +141,7 @@ public class Con_aplDAO implements Con_aplDAO_interface {
 
 			pstmt.setDate(1, con_aplVO.getApl_str());
 			pstmt.setDate(2, con_aplVO.getApl_end());
-			pstmt.setDate(3, con_aplVO.getApl_time());
-			pstmt.setString(4, con_aplVO.getApl_no());
+			pstmt.setString(3, con_aplVO.getApl_no());
 
 			pstmt.executeUpdate();
 

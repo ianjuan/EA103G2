@@ -20,7 +20,7 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 			+ "VALUES('APL' || lpad(SEQ_APL_NO.NEXTVAL, 6, '0'), ?, ?, ?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE CONTRACT_APPLICATION SET TNT = ?, HOS_NO = ?, APL_TIME = ?, "
 			+ "APL_STR = ?, APL_END = ? WHERE APL_NO = ?";
-	private static final String TNT_UPDATE_STMT = "UPDATE CONTRACT_APPLICATION SET APL_STR= ?, APL_END= ?, APL_TIME= ? WHERE APL_NO= ?";
+	private static final String TNT_UPDATE_STMT = "UPDATE CONTRACT_APPLICATION SET APL_STR= ?, APL_END= ?, APL_TIME= CURRENT_TIMESTAMP WHERE APL_NO= ?";
 	private static final String LLD_UPDATE_STMT = "UPDATE CONTRACT_APPLICATION SET APL_STATUS= ? WHERE APL_NO= ?";
 	private static final String GET_ONE_STMT = "SELECT APL_NO, TNT_NO, HOS_NO, to_char(APL_STR,'yyyy-mm-dd') APL_STR, to_char(APL_END, 'yyyy-mm-dd')APL_END, "
 			+ "to_char(APL_TIME, 'yyyy-mm-dd')APL_TIME, APL_STATUS FROM CONTRACT_APPLICATION WHERE APL_NO= ?";
@@ -139,8 +139,7 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 
 			pstmt.setDate(1, con_aplVO.getApl_str());
 			pstmt.setDate(2, con_aplVO.getApl_end());
-			pstmt.setDate(3, con_aplVO.getApl_time());
-			pstmt.setString(4, con_aplVO.getApl_no());
+			pstmt.setString(3, con_aplVO.getApl_no());
 
 			pstmt.executeUpdate();
 
@@ -579,13 +578,12 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 //		System.out.println("新增成功");
 //		
 //		//UPDATE
-//		Con_aplVO con_aplVO2 = new Con_aplVO();
-//		con_aplVO2.setApl_no("APL000001");
-//		con_aplVO2.setApl_str(java.sql.Date.valueOf("2020-09-19"));
-//		con_aplVO2.setApl_end(java.sql.Date.valueOf("2020-10-31"));
-//		con_aplVO2.setApl_time(java.sql.Date.valueOf("2020-11-31"));
-//		dao.tntUpdate(con_aplVO2);
-//		System.out.println("房客修改成功");
+		Con_aplVO con_aplVO2 = new Con_aplVO();
+		con_aplVO2.setApl_no("APL000001");
+		con_aplVO2.setApl_str(java.sql.Date.valueOf("2020-09-19"));
+		con_aplVO2.setApl_end(java.sql.Date.valueOf("2020-10-31"));
+		dao.tntUpdate(con_aplVO2);
+		System.out.println("房客修改成功");
 		
 		//UPDATE
 //		Con_aplVO con_aplVO3 = new Con_aplVO();
@@ -599,10 +597,10 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 //		System.out.println("被限制擋住啦");
 		
 		//SEARCH
-		Con_aplVO con_aplVO4 = dao.getaplbyhos("HOS003009");
-		System.out.print(con_aplVO4.getApl_no()+ ",");
-
-		System.out.println("---------------------");
+//		Con_aplVO con_aplVO4 = dao.getaplbyhos("HOS003009");
+//		System.out.print(con_aplVO4.getApl_no()+ ",");
+//
+//		System.out.println("---------------------");
 		
 ////		//SEARCH
 //		List<Con_aplVO> list = dao.getAll();

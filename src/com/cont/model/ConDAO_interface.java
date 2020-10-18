@@ -15,6 +15,7 @@ public interface ConDAO_interface {
 	public ConVO findByHosno(String hos_no);
 	public List<ConVO> getAll();
 	public List<ConVO> getconlld(String lld_no);
+	public List<ConVO> getcontnt(String tnt_no);
     //萬用複合查詢(傳入參數型態Map)(回傳 List)
 //  public List<EmpVO> getAll(Map<String, String[]> map); 
 }

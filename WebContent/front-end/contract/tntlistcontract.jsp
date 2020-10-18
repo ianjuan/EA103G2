@@ -1,3 +1,4 @@
+<%@page import="com.lld.model.LldVO"%>
 <%@page import="com.tnt.model.TntService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,24 +6,24 @@
 <%@ page import="com.housemanage.model.*"%>
 <%@ page import="com.apl.model.*"%>
 <%@ page import="com.tnt.model.*"%>
+<%@ page import="com.cont.model.*"%>
 
 <%
 	String tnt_no = (String) session.getAttribute("tnt_no");
 	if (tnt_no == null) {
 		tnt_no = request.getParameter("tnt_no");
 	}
-
-	List<Con_aplVO> list = (List<Con_aplVO>)session.getAttribute("list");
+	
+	List<ConVO> list = (List<ConVO>)session.getAttribute("list");
 	pageContext.setAttribute("list",list);
-	 
+	
 	TntService tntService = new TntService();
 	TntVO tntVO = tntService.getOneTntProfile(tnt_no);
-
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
-<jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
+<jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 
 <!DOCTYPE html>
@@ -76,17 +77,19 @@
 					<div class="line line--2"></div>
 					<div class="line line--3"></div>
 				</div>
-				<div class="nav-links">
+				<div class="nav-links">		
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="tntgetAll">
-						<button type="submit" class="link" style="color: #D37707;">租屋申請</button><br>
-						<span id="count">共<%=list.size()%>個申請</span>
+						<button type="submit" class="link">租屋申請</button><br>
 					</FORM>
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="gettntcontract">
-						<button type="submit" class="link">歷史合約</button><br>
+						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
+						<span id="count">共<%=list.size()%>個合約</span>
 					</FORM>
 					
 				</div>
@@ -94,7 +97,7 @@
 		</div>
 		<div id="center">
 			<%@ include file="tntpage1"%>
-			<c:forEach var="con_aplVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="conVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<img
@@ -103,42 +106,37 @@
 					</div>
 					<div class="cinfo">
 						<ul>
-<%-- 							<li><span class="infotitle">租屋申請編號 : </span><span>${con_aplVO.apl_no}</span></li> --%>
-							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(con_aplVO.hos_no).hos_name}</span></li>
-							<li><span class="infotitle">房東姓名 : </span><span>${lldSvc.getOneLldProfile(hosSvc.getHouseInfo(con_aplVO.hos_no).lld_no).lld_name}</span></li>
-							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li>
-							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li>
-							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li>
-							<li><span class="infotitle">申請狀態 : </span><span>${aplSvc.getCon_statusText(con_aplVO.getApl_status())}</span></li>
+							<li><span class="infotitle">合約編號 : </span><span>${conVO.con_no}</span></li>
+							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(conVO.hos_no).hos_name}</span></li>
+							<li><span class="infotitle">房東姓名 : </span><span>${lldSvc.getOneLldProfile(hosSvc.getHouseInfo(conVO.hos_no).lld_no).lld_name}</span></li>
+<%-- 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li> --%>
+<%-- 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li> --%>
+<%-- 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li> --%>
+							<li><span class="infotitle">合約狀態 : </span><span>${conSvc.getConstatusText(conVO.con_sta)}</span></li>
 						</ul>
 					</div>					
 						<div class="rinfo">
 							<ul>
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-								<li><button id="btn1">修改申請</button></li>
-								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+								<li><button id="btn1">合約管理</button></li>
+								<input type="hidden" name="con_no"  value="${conVO.con_no}">
+								<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-			     				<input type="hidden" name="action"	value="getOne_For_Update">
+			     				<input type="hidden" name="action"	value="tntupdatecontract">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-								<li><button id="btn2">取消申請</button></li>
-								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
-			     				<input type="hidden" name="apl_status" value=4>
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+								<li><button id="btn2">定期費用</button></li>
+			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-			     				<input type="hidden" name="action"	value="tntcancelapl">
+			     				<input type="hidden" name="action"	value="gettntrec">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>">
-								<li><button id="btn2">瀏覽房屋</button></li>
-								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
-			     				<input type="hidden" name="apl_status" value=4>
-			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-			     				<input type="hidden" name="action"	value="tntcancelapl">
-			     				</FORM>
+			     				<li><button id="btn3">提前解約</button></li>
 			     				
 								<li><button id="btn3">聊天</button></li>
 								
+														
 														
 							</ul>
 						</div>					
@@ -155,3 +153,4 @@
 		</div>
 </body>
 </html>
+

@@ -50,6 +50,8 @@ public class ConJDBCDAO implements ConDAO_interface {
 	private static final String DELETE = "DELETE FROM CONTRACT WHERE CON_NO = ?";
 	
 	private static final String GET_CON_LLD = "SELECT CON_NO, C.HOS_NO, C.TNT_NO, C.APL_NO, CON_STA FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
+	
+	private static final String GET_CON_TNT = "SELECT CON_NO, TNT_NO, APL_NO, CON_STA, HOS_NO FROM CONTRACT WHERE TNT_NO = ?";
 
 	private static final String GET_CON_BY_HOS_NO = "SELECT CON_NO, APL_NO FROM CONTRACT WHERE HOS_NO = ?";
 	
@@ -529,6 +531,68 @@ public class ConJDBCDAO implements ConDAO_interface {
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(GET_CON_LLD);
 			pstmt.setString(1, lld_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				conVO = new ConVO();
+
+				conVO.setCon_no(rs.getString("CON_NO"));
+				conVO.setApl_no(rs.getString("APL_NO"));
+				conVO.setTnt_no(rs.getString("TNT_NO"));
+				conVO.setHos_no(rs.getString("HOS_NO"));
+				conVO.setCon_sta(rs.getInt("CON_STA"));
+				list.add(conVO);
+				
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<ConVO> getcontnt(String tnt_no) {
+
+		List<ConVO> list = new ArrayList<ConVO>();
+		ConVO conVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(GET_CON_TNT);
+			pstmt.setString(1, tnt_no);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

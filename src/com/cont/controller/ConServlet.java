@@ -74,6 +74,32 @@ public class ConServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("gettntcontract".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String tnt_no = new String(req.getParameter("tnt_no"));
+				System.out.println(tnt_no);
+
+				ConService conService = new ConService();
+				List<ConVO> list = conService.tntgetcon(tnt_no);
+
+				HttpSession session = req.getSession();
+				session.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("list", list);
+				String url = "/front-end/contract/tntlistcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 		if ("getOne_For_Display".equals(action)) {
 

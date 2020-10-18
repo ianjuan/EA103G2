@@ -57,15 +57,13 @@ public class Con_aplService {
 
 	}
 
-	public Con_aplVO tntupdateCon_apl(String apl_no, java.sql.Date apl_str, java.sql.Date apl_end,
-			java.sql.Date apl_time) {
+	public Con_aplVO tntupdateCon_apl(String apl_no, java.sql.Date apl_str, java.sql.Date apl_end) {
 
 		Con_aplVO con_aplVO = new Con_aplVO();
 
 		con_aplVO.setApl_no(apl_no);
 		con_aplVO.setApl_str(apl_str);
 		con_aplVO.setApl_end(apl_end);
-		con_aplVO.setApl_time(apl_time);
 		dao.tntUpdate(con_aplVO);
 
 		return con_aplVO;
