@@ -631,19 +631,30 @@
          *    [ Angle-down-up ]
          */
         
-        $('#angle-down-up').click(function() {
-        	$('form#registerform').toggle();
-        	$("[data-icon='chevron-up']").toggle();
-        	$("[data-icon='chevron-down']").toggle();
-        	var pbtmp;
-        	if($('.info-form-wrap').css('padding-bottom')==='40px'){
-        		pbtmp = '10px';
-        	}else{
-        		pbtmp = '40px';
-        	}
+        // $('#angle-down-up').click(function() {
+        // 	$('form#registerform').toggle();
+        // 	$("[data-icon='chevron-up']").toggle();
+        // 	$("[data-icon='chevron-down']").toggle();
+        // 	var pbtmp;
+        // 	if($('.info-form-wrap').css('padding-bottom')==='40px'){
+        // 		pbtmp = '10px';
+        // 	}else{
+        // 		pbtmp = '40px';
+        // 	}
 
-        	$('.info-form-wrap').css('padding-bottom',pbtmp);
-        	});
-        
-        
+        // 	$('.info-form-wrap').css('padding-bottom',pbtmp);
+        // 	});
+
+        $('.angleUpDown').each(function(index,element){
+            console.log('aaaa');
+            $(this).click(function(){
+                console.log('bbbb'+index);
+                 $(this).closest('div').children('form').toggle();
+                 var angleDown = '.angleDown:eq(' + index + ')';
+                 var angleUp = '.angleUp:eq(' + index + ')';
+                 $(angleDown).toggle();
+                 $(angleUp).toggle();
+            });
+        });
+ 
         
