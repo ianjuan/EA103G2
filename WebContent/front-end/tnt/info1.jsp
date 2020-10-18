@@ -217,7 +217,6 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100 label-register100-birth"></span>
                                     </div>
-                                    <!--                                ------------------------------------ -->
                                     <select class="wrap-register100 validate-input" data-validate="City is required" name="tnt_city" id="tnt_city">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
@@ -233,33 +232,12 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">地址</span>
                                     </div>
-                                    <div class="container-login100-form-btn">
-                                        <button class="login100-form-btn m-t-10 infoBtn" id="btnProfile">儲存資訊</button>
-                                    </div>
-                            </div>
-                            <div id="divPic">
-                                <div class="wrapperBackground">
-                                    <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
-                                        <label id="fileInput" for="inputF">
-                                            <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic"> Upload Files
-                                        </label>
-                                        <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
-                                    </div>
-                                </div>
-                                <div id="picWrapper">
-                                    <!-- <div class="grid" id="grid"> -->
-                                    <!-- </div> -->
-                                </div>
-                            </div>
-                            <!--divPic-->
-                            </form>
-                            <div id="divbtnRegister">
+                                </form>
                                 <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-16" id="btnRegister">Sign up</button>
+                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button>
+                                    <!--id="btnProfile"-->
                                 </div>
                             </div>
-                            <!--divbtnRegister-->
-                            <!-- </div> -->
                             <!--End my form -->
 
 
@@ -330,30 +308,30 @@
                                     <div class="container-login100-form-btn">
                                         <button class="login100-form-btn m-t-10 infoBtn" id="btnProfile">儲存資訊</button>
                                     </div>
-                            </div>
-                            <div id="divPic">
-                                <div class="wrapperBackground">
-                                    <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
-                                        <label id="fileInput" for="inputF">
-                                            <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic"> Upload Files
-                                        </label>
-                                        <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                    <!--</div>-->
+                                    <div id="divPic">
+                                        <div class="wrapperBackground">
+                                            <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                                <label id="fileInput" for="inputF">
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic"> Upload Files
+                                                </label>
+                                                <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div id="picWrapper">
+                                            <!-- <div class="grid" id="grid"> -->
+                                            <!-- </div> -->
+                                        </div>
+                                    </div>
+                                    <!--divPic-->
+                                </form>
+                                <div id="divbtnRegister">
+                                    <div class="container-login100-form-btn">
+                                        <button class="login100-form-btn m-t-16" id="btnRegister">Sign up</button>
                                     </div>
                                 </div>
-                                <div id="picWrapper">
-                                    <!-- <div class="grid" id="grid"> -->
-                                    <!-- </div> -->
-                                </div>
+                                <!--divbtnRegister-->
                             </div>
-                            <!--divPic-->
-                            </form>
-                            <div id="divbtnRegister">
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-16" id="btnRegister">Sign up</button>
-                                </div>
-                            </div>
-                            <!--divbtnRegister-->
-                            <!-- </div> -->
                             <!--End form info icon-->
 
 
@@ -361,11 +339,12 @@
 
 
 
-
+                            <!--forms outer -->
                         </div>
-                        <!--outer -->
                     </div>
+                    <!--outer -->
                 </div>
+            </div>
         </section>
 
     </section>
