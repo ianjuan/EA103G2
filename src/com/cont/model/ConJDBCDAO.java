@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.apl.model.Con_aplVO;
+import com.housemanage.model.HouseService;
+import com.housemanage.model.HouseVO;
 import com.lld.model.LldDAO;
 import com.lld.model.LldVO;
 
@@ -157,6 +159,8 @@ public class ConJDBCDAO implements ConDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
+			HouseService hosService = new HouseService();
+			HouseVO hosVo = hosService.getHouseInfo(conVO.getHos_no());
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, user, password);
@@ -170,6 +174,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 			pstmt.setInt(6, conVO.getCon_dep_sta());
 			pstmt.setDate(7, conVO.getCon_che_date());
 			pstmt.setString(8, conVO.getCon_no());
+			pstmt.setInt(9, hosVo.getHos_rentfee());
 
 			pstmt.executeUpdate();
 

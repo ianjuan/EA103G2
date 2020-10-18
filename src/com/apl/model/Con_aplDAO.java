@@ -37,6 +37,7 @@ public class Con_aplDAO implements Con_aplDAO_interface {
 	private static final String DELETE = "DELETE FROM CON_APL WHERE APL_NO=?";
 	private static final String LLD_GET_ALL_STMT = "SELECT APL_NO, APL.HOS_NO, APL.TNT_NO, APL_STR, APL_END, APL_TIME, APL_STATUS FROM CONTRACT_APPLICATION APL "
 			+ "JOIN HOUSE H ON APL.HOS_NO = H.HOS_NO JOIN TENANT TNT ON TNT.TNT_NO = APL.TNT_NO WHERE LLD_NO = ?";
+	private static final String TNT_GET_ALL_STMT = "SELECT APL_NO, TNT_NO, HOS_NO, APL_STR, APL_END, APL_TIME, APL_STATUS FROM CONTRACT_APPLICATION WHERE TNT_NO = ?";
 
 	@Override
 	public void insert(Con_aplVO con_aplVO) {
@@ -393,6 +394,64 @@ public class Con_aplDAO implements Con_aplDAO_interface {
 				con_aplVO.setApl_status(rs.getInt("APL_STATUS"));
 				list.add(con_aplVO);
 			}
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Con_aplVO> tntgetAll(String tnt_no) {
+		
+		List<Con_aplVO> list = new ArrayList<Con_aplVO>();
+		Con_aplVO con_aplVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(TNT_GET_ALL_STMT);
+			pstmt.setString(1, tnt_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				con_aplVO = new Con_aplVO();
+				con_aplVO.setApl_no(rs.getString("APL_NO"));
+				con_aplVO.setTnt_no(rs.getString("TNT_NO"));
+				con_aplVO.setHos_no(rs.getString("HOS_NO"));
+				con_aplVO.setApl_str(rs.getDate("APL_STR"));
+				con_aplVO.setApl_end(rs.getDate("APL_END"));
+				con_aplVO.setApl_time(rs.getDate("APL_TIME"));
+				con_aplVO.setApl_status(rs.getInt("APL_STATUS"));
+				list.add(con_aplVO);
+			}
+
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

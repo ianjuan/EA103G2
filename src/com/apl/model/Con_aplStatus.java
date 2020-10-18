@@ -1,7 +1,7 @@
 package com.apl.model;
 
 public enum Con_aplStatus {
-	Pending(0, "已申請"), Accecpt(1, "已接受"), Reject(2, "已拒絕");
+	Pending(0, "已申請"), Accecpt(1, "已接受"), Reject(2, "已拒絕"), Cancel(3, "已取消");
 
 	private Integer num;
 	private String text;

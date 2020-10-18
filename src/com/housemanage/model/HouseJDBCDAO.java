@@ -26,7 +26,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
 	private static final String GET_LLDINFO = "SELECT lld_name,lld_balance FROM LANDLORD where lld_no=?";
-	private static final String GET_HOUSEINFO = "SELECT hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
+	private static final String GET_HOUSEINFO = "SELECT lld_no,hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
 			+ "hos_table,hos_chair,hos_bed,hos_closet,hos_sofa,hos_tv,hos_drink,hos_aircon,hos_refrig,hos_wash,hos_hoter,hos_forth,hos_net,hos_gas,"
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
 			+ "hos_rentfee,hos_gasfee,hos_manafee,hos_netfee,hos_puwaterfee,hos_puelefee,hos_parkfee FROM HOUSE where hos_no=?";
@@ -326,6 +326,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 
 			while (rs.next()) {
 				houseVO = new HouseVO();
+				houseVO.setLld_no(rs.getString("lld_no"));
 				houseVO.setHos_no(rs.getString("hos_no"));
 				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_liffun(rs.getString("hos_liffun"));
@@ -993,21 +994,22 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		dao.updateHouseInfo(houseVO2);
 
 //		// 查詢房屋資訊
-//		HouseVO houseVO3 = dao.getHouseInfo("HOS000001");
-//		System.out.print(houseVO3.getHos_no() + ",");
-//		System.out.print(houseVO3.getHos_name() + ",");
-//		System.out.print(houseVO3.getHos_liffun() + ",");
-//		System.out.print(houseVO3.getHos_trans() + ",");
-//		System.out.print(houseVO3.getHos_add() + ",");
-//		System.out.print(houseVO3.getHos_type() + ",");
-//		System.out.print(houseVO3.getHos_room() + ",");
-//		System.out.print(houseVO3.getHos_pat() + ",");
-//		System.out.print(houseVO3.getHos_floor() + ",");
-//		System.out.print(houseVO3.getHos_pnum() + ",");
-//		System.out.print(houseVO3.getHos_lng() + ",");
-//		System.out.print(houseVO3.getHos_lat() + ",");
-//		System.out.print(houseVO3.getHos_status() + ",");
-//		System.out.println("---------------------");
+		HouseVO houseVO3 = dao.getHouseInfo("HOS000001");
+		System.out.print(houseVO3.getLld_no() + ",");
+		System.out.print(houseVO3.getHos_no() + ",");
+		System.out.print(houseVO3.getHos_name() + ",");
+		System.out.print(houseVO3.getHos_liffun() + ",");
+		System.out.print(houseVO3.getHos_trans() + ",");
+		System.out.print(houseVO3.getHos_add() + ",");
+		System.out.print(houseVO3.getHos_type() + ",");
+		System.out.print(houseVO3.getHos_room() + ",");
+		System.out.print(houseVO3.getHos_pat() + ",");
+		System.out.print(houseVO3.getHos_floor() + ",");
+		System.out.print(houseVO3.getHos_pnum() + ",");
+		System.out.print(houseVO3.getHos_lng() + ",");
+		System.out.print(houseVO3.getHos_lat() + ",");
+		System.out.print(houseVO3.getHos_status() + ",");
+		System.out.println("---------------------");
 //
 //		// 查詢房屋家具
 //		System.out.print(houseVO3.getHos_table() + ",");
