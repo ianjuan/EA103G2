@@ -111,6 +111,7 @@ body {
 	float: left;
 	display: block;
 	margin-right: 3px;
+	cursor: pointer;
 }
 .uploadpic:active {
 	transform: translateY(2px);
@@ -123,6 +124,7 @@ body {
 	margin-top: 3px;
 	line-height: 25px;
 	box-shadow: 2px 2px 6px gray;
+	cursor: pointer;
 }
 .uploadfont:hover {
 	background-color: #FDFFC1;
