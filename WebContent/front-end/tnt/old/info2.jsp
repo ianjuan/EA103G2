@@ -101,8 +101,8 @@
     </header>
     <section>
         <section class="content">
-            <div class="container">
-                <!--             style="border:1px solid orange" -->
+            <div class="container" style="">
+                <!--             border:1px solid orange -->
                 <div class="row no-gutters justify-content-between">
                     <!--start info list -->
                     <div class="basicInfo__list col-lg-3">
@@ -124,7 +124,7 @@
                             <h4 class="text-center">吳宜靜 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
-                                    <a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
+                                    <a href="/basicInfo/info" class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
                                         <img src="infoprofile.png" width="30" class="mr-2">基本資訊
                                         <!--                                         https://www.dd-room.com/_nuxt/img/52b77d6.png -->
                                     </a>
@@ -135,7 +135,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="pocket.jsp" class="basicInfo__menu__link">
+                                    <a href="pocket.html" class="basicInfo__menu__link">
                                         <img src="https://www.dd-room.com/_nuxt/img/2dc32e9.png" width="30" class="mr-2">我的錢包
                                     </a>
                                 </li>
@@ -169,14 +169,14 @@
                                     </svg>
                                 </div>
                             </div>
-                            <!--Start form Profile-->
+                            <!--Start my form -->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">基本資訊
-                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown" id="angle-down-up">
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
+                                    <a data-v-9403d44c="" class="pr-md-3 float-right angle-down-up" id="angle-down-up">
+                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14" style="display: none;">
                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
                                         </svg>
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp">
+                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14">
                                             <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path>
                                         </svg>
                                     </a>
@@ -217,6 +217,7 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100 label-register100-birth"></span>
                                     </div>
+                                    <!--                                ------------------------------------ -->
                                     <select class="wrap-register100 validate-input" data-validate="City is required" name="tnt_city" id="tnt_city">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
@@ -232,22 +233,44 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">地址</span>
                                     </div>
-                                </form>
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button>
-                                    <!--id="btnProfile"-->
+                                    <div class="container-login100-form-btn">
+                                        <button class="login100-form-btn m-t-10 infoBtn" id="btnProfile">儲存資訊</button>
+                                    </div>
+                            </div>
+                            <div id="divPic">
+                                <div class="wrapperBackground">
+                                    <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                        <label id="fileInput" for="inputF">
+                                            <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic"> Upload Files
+                                        </label>
+                                        <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                    </div>
+                                </div>
+                                <div id="picWrapper">
+                                    <!-- <div class="grid" id="grid"> -->
+                                    <!-- </div> -->
                                 </div>
                             </div>
-                            <!--End form Profile -->
+                            <!--divPic-->
+                            </form>
+                            <div id="divbtnRegister">
+                                <div class="container-login100-form-btn">
+                                    <button class="login100-form-btn m-t-16" id="btnRegister">Sign up</button>
+                                </div>
+                            </div>
+                            <!--divbtnRegister-->
+                            <!-- </div> -->
+                            <!--End my form -->
 
-                            <!--Start form info Pic-->
+
+                            <!--Start form info icon-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
-                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">上傳頭貼
-                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown" id="angle-down-up">
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
+                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">編輯大頭貼
+                                    <a data-v-9403d44c="" class="pr-md-3 float-right angle-down-up" id="angle-down-up">
+                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14" style="display: none;">
                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
                                         </svg>
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp">
+                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14">
                                             <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path>
                                         </svg>
                                     </a>
@@ -255,72 +278,94 @@
                                 <hr class="login100-form-title p-b-10">
                                 <!-- <div class="login100-form validate-form"> -->
                                 <form id="registerform" enctype="multipart/form-data">
-                                    <div id="divPic">
-                                        <div class="wrapperBackground">
-                                            <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
-                                                <label id="fileInput" for="inputF">
-                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic"> Upload Files
-                                                </label>
-                                                <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
-                                            </div>
-                                        </div>
-                                        <div id="picWrapper">
-                                            <!-- <div class="grid" id="grid"> -->
-                                            <!-- </div> -->
-                                        </div>
+                                    <div class="wrap-register100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                        <input class="register100" type="text" name="tnt_email" id="tnt_email">
+                                        <div class="focus-register100"></div>
+                                        <div class="label-register100">信箱</div>
                                     </div>
-                                </form>
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-16 infoBtn" id="btninfoPic">儲存資訊</button>
+                                    <div class="wrap-register100 validate-input" data-validate="Must be between 2-19 characters">
+                                        <input class="register100" type="text" name="tnt_name" id="tnt_name">
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">姓名</span>
+                                    </div>
+                                    <select class="wrap-register100 validate-input" data-validate="Gender is required" name="tnt_sex" id="tnt_sex">
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">
+                                            <option value="">選擇性別
+                                            <option value="1">男
+                                            <option value="0">女
+                                        </span>
+                                    </select>
+                                    <div class="wrap-register100 validate-input" data-validate="Valid ID is required">
+                                        <input class="register100" type="text" name="tnt_id" id="tnt_id">
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">身分證號碼</span>
+                                    </div>
+                                    <div class="wrap-register100 validate-input" data-validate="Mobile is required">
+                                        <input class="register100" type="text" name="tnt_mobile" id="tnt_mobile">
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">手機</span>
+                                    </div>
+                                    <div class="wrap-register100 validate-input" data-validate="Birthday is required">
+                                        <input class="register100" type="text" name="tnt_birth" id="f_date1">
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100 label-register100-birth"></span>
+                                    </div>
+                                    <!--                                ------------------------------------ -->
+                                    <select class="wrap-register100 validate-input" data-validate="City is required" name="tnt_city" id="tnt_city">
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">
+                                            <option id="city_default" value="">選擇縣市
+
+                                        </span>
+                                    </select>
+                                    <select class="wrap-register100 validate-input" data-validate="District is required" name="tnt_dist" id="tnt_dist">
+                                        <option id="dist_default" value="">選擇區域
+                                    </select>
+                                    <div class="wrap-register100 validate-input" data-validate="Address is required">
+                                        <input class="register100" type="text" name="tnt_add" id="tnt_add">
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">地址</span>
+                                    </div>
+                                    <div class="container-login100-form-btn">
+                                        <button class="login100-form-btn m-t-10 infoBtn" id="btnProfile">儲存資訊</button>
+                                    </div>
+                            </div>
+                            <div id="divPic">
+                                <div class="wrapperBackground">
+                                    <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                        <label id="fileInput" for="inputF">
+                                            <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic"> Upload Files
+                                        </label>
+                                        <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                    </div>
+                                </div>
+                                <div id="picWrapper">
+                                    <!-- <div class="grid" id="grid"> -->
+                                    <!-- </div> -->
                                 </div>
                             </div>
-                            <!--End form info Pic-->
-
-                            <!--Start form chgPwd-->
-                            <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
-                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">變更密碼
-                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown" id="angle-down-up">
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
-                                            <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
-                                        </svg>
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp">
-                                            <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path>
-                                        </svg>
-                                    </a>
-                                </h4>
-                                <hr class="login100-form-title p-b-10">
-                                <!-- <div class="login100-form validate-form"> -->
-                                <form id="registerform" enctype="multipart/form-data">
-                                    <div class="wrap-register100 validate-input" data-validate="Less than 8 [a-zA-Z0-9]">
-                                        <input class="register100" type="password" name="tnt_pwd" id="tnt_pwd">
-                                        <span class="focus-register100"></span>
-                                        <span class="label-register100">原密碼</span>
-                                    </div>
-                                    <div class="wrap-register100 validate-input" data-validate="Less than 8 [a-zA-Z0-9]">
-                                        <input class="register100" type="password" name="tnt_pwd" id="tnt_pwd">
-                                        <span class="focus-register100"></span>
-                                        <span class="label-register100">新密碼</span>
-                                    </div>
-                                    <div class="wrap-register100 validate-input" data-validate="Password is not the same">
-                                        <input class="register100" type="password" name="tnt_pwd2" id="tnt_pwd2">
-                                        <span class="focus-register100"></span> <span class="label-register100">確認新密碼</span>
-                                    </div>
-                                </form>
+                            <!--divPic-->
+                            </form>
+                            <div id="divbtnRegister">
                                 <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfochgPwd">儲存資訊</button>
+                                    <button class="login100-form-btn m-t-16" id="btnRegister">Sign up</button>
                                 </div>
                             </div>
-                            <!--End form forgetPwd -->
+                            <!--divbtnRegister-->
+                            <!-- </div> -->
+                            <!--End form info icon-->
 
 
 
 
-                            <!--forms outer -->
+
+
+
                         </div>
+                        <!--outer -->
                     </div>
-                    <!--outer -->
                 </div>
-            </div>
         </section>
 
     </section>

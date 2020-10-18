@@ -152,35 +152,6 @@
             $(thisAlert).removeClass('alert-validate');
         }
 
-        function validateAllProfile() {
-            //selects
-            var selects = $('select.wrap-register100');
-            selects.each(function() {
-                if ($(this).val().trim() == '') {
-                    $(this).addClass('alert-validate-selects');
-                }
-            });
-
-            //inputs
-            var inputs = $('.validate-input .register100');
-            var check = true;
-
-            for (var i = 0; i < inputs.length; i++) {
-                if ($(inputs).val().trim() == '') {
-                    showValidate(inputs[i]);
-                    check = false;
-                }
-            }
-
-            inputs.each(function() {
-                $(this).focus(function() {
-                    hideValidate(this);
-                });
-            });
-
-            return check;
-        }
-
         /*
          * ================================================================== 
             [datetimepicker Birthday Limt 18 ]
@@ -482,102 +453,113 @@
         }
         /*------------------------------------------------------------------
         [ End-Origin-Register ]*/  
-
-
+        
         /*
          * ================================================================== 
-         *    [ 按鈕Ajax ]
+         *    [ validateAll(the form) ]
          */
-        //info form1
-        // $('#btnProfile.login100-form-btn').click(function(e) {
-        //     e.preventDefault();
-        //     console.log('btn - info update profile');
-        //     validateAllProfile();
-        //     if ($('.alert-validate').length === 0) {
+        
+        function validateAll(theform) {
+        	console.log(theform);
+        	//selects
+        	var selects = theform.find('select.wrap-register100');
+            selects.each(function() {
+                if ($(this).val().trim() == '') {
+                    $(this).addClass('alert-validate-selects');
+                }
+            });
 
-            	
-        //     }
-        // });
-        // //submit
-        // $('#btnRegister.login100-form-btn').click(function(e) {
-        //     e.preventDefault();
-        //     console.log('btn - submit');
-        //     // ajax_register();
-        //     //   var formData = new FormData();
-        //     var formData = new FormData($('#registerform')[0]);
-        //     formData.append('action', 'insert');
-        //     ajax_register(formData);
-        // });
+            //inputs
+            var inputs = theform.find('.validate-input .register100');
+            var check = true;
 
-        // function ajax_register(formData) {
-        //     $.ajax({ // 存入資料庫階段
-        //         url: "/EA103G2/tnt/TntServlet2",
-        //         type: "POST",
-        //         data: formData,
-        //         // 告訴jQuery不要去處理髮送的資料
-        //         processData: false,
-        //         // 告訴jQuery不要去設定Content-Type請求頭
-        //         contentType: false,
-   
-        //         success: function() { // 以上成功才執行
-        //             console.log("res棒");
-        //             redirect();
-        //         },
-        //         error: function() {
-        //             console.log("真的不棒")
-        //         }
-        //     })
-        // }
+            for (var i = 0; i < inputs.length; i++) {
+                if ($(inputs).val().trim() == '') {
+                    showValidate(inputs[i]);
+                    check = false;
+                }
+            }
 
-        // function redirect() {
-        //     window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
-        // }
+            inputs.each(function() {
+                $(this).focus(function() {
+                    hideValidate(this);
+                });
+            });
+
+            return check;
+        }
 
         /*
          * ================================================================== 
          *    [ Angle-down-up ]
          */
-        
-        // $('#angle-down-up').click(function() {
-        // 	$('form#registerform').toggle();
-        // 	$("[data-icon='chevron-up']").toggle();
-        // 	$("[data-icon='chevron-down']").toggle();
-        // 	var pbtmp;
-        // 	if($('.info-form-wrap').css('padding-bottom')==='40px'){
-        // 		pbtmp = '10px';
-        // 	}else{
-        // 		pbtmp = '40px';
-        // 	}
-
-        // 	$('.info-form-wrap').css('padding-bottom',pbtmp);
-        // 	});
 
         $('.angleUpDown').each(function(index,element){
             $(this).click(function(){
-                 $(this).closest('div').children('form').toggle();
-                 var angleDown = '.angleDown:eq(' + index + ')';
-                 var angleUp = '.angleUp:eq(' + index + ')';
-                 $(angleDown).toggle();
-                 $(angleUp).toggle();
-                 
-                 
+            	var infoformwrap = $(this).closest('div');
+//            	infoformwrap.children('form').toggle();  //form toggle
+////                 $(this).closest('div').children('form').toggle();  
+//                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
+//                 var angleUp = '.angleUp:eq(' + index + ')';
+//                 $(angleDown).toggle();
+//                 $(angleUp).toggle();
+//                 
+//                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
+//                 	pbtmp = '10px';
+//                 }else{
+//                    pbtmp = '48px';
+//                 }
+//                 infoformwrap.css('padding-bottom',pbtmp);
+//                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
+            	togglethefrom(infoformwrap,index);
             });
+        });
+        
+        function togglethefrom(infoformwrap,index){
+        	infoformwrap.children('form').toggle();  //form toggle 
+          var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
+          var angleUp = '.angleUp:eq(' + index + ')';
+          $(angleDown).toggle();
+          $(angleUp).toggle();
+          
+          if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
+          	pbtmp = '10px';
+          }else{
+             pbtmp = '48px';
+          }
+          infoformwrap.css('padding-bottom',pbtmp);
+          infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
+        }
+        
+        
+        /*
+         * ================================================================== 
+         *    [ Info List Icon click ]
+         */
+        $('a.upload').click(function () {
+            if ($('.info-form-wrap:eq(0)').css('padding-bottom') === '48px') {
+                togglethefrom($('.info-form-wrap:eq(0)'), 0);
+            }
+            if ($('.info-form-wrap:eq(1)').css('padding-bottom') !== '48px') {
+                togglethefrom($('.info-form-wrap:eq(1)'), 1);
+            }
+            if ($('.info-form-wrap:eq(2)').css('padding-bottom') === '48px') {
+                togglethefrom($('.info-form-wrap:eq(2)'), 2);
+            }
+
         });
  
         
         /*
          * ================================================================== 
-         *    [ 按鈕Ajax Test!!! ]
+         *    [ 按鈕Ajax infoProfile ]
          */
-
 
         $('#btninfoProfile').click(function(e) {
             e.preventDefault();
             console.log('btn - info update profile');
-//            console.log( $(this).parent().prev('form') );
             var theform = $(this).parent().prev('form');
             validateAll(theform);
-            // validateAllProfile();
              if ($('.alert-validate').length === 0) {
             	 var formData = new FormData(theform.get(0));
                  formData.append('action', 'infoUpdateProfile');
@@ -597,53 +579,12 @@
    
                  success: function() { // 以上成功才執行
                      console.log("res棒");
-//                     redirect();
                  },
                  error: function() {
                      console.log("真的不棒")
                  }
              })
          }
-        //submit
-//        $('#btnRegister.login100-form-btn').click(function(e) {
-//            e.preventDefault();
-//            console.log('btn - submit');
-            // ajax_register();
-            //   var formData = new FormData();
-//            var formData = new FormData($('#registerform')[0].get(0));
-//            formData.append('action', 'insert');
-//            ajax_register(formData);
-//        });
 
-        function validateAll(theform) {
-        	console.log(theform);
-        	//selects
-        	var selects = theform.find('select.wrap-register100');
-//            console.log(selects);
-            selects.each(function() {
-                if ($(this).val().trim() == '') {
-                    $(this).addClass('alert-validate-selects');
-                }
-            });
 
-            //inputs
-//            var inputs = $('theform .validate-input .register100');
-            var inputs = theform.find('.validate-input .register100');
-//            console.log(inputs);
-            var check = true;
-
-            for (var i = 0; i < inputs.length; i++) {
-                if ($(inputs).val().trim() == '') {
-                    showValidate(inputs[i]);
-                    check = false;
-                }
-            }
-
-            inputs.each(function() {
-                $(this).focus(function() {
-                    hideValidate(this);
-                });
-            });
-
-            return check;
-        }
+        

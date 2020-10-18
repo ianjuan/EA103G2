@@ -124,7 +124,7 @@
                             <h4 class="text-center">吳宜靜 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
-                                    <a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
+                                    <a href="/basicInfo/info" class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
                                         <img src="infoprofile.png" width="30" class="mr-2">基本資訊
                                         <!--                                         https://www.dd-room.com/_nuxt/img/52b77d6.png -->
                                     </a>
@@ -135,7 +135,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="pocket.jsp" class="basicInfo__menu__link">
+                                    <a href="pocket.html" class="basicInfo__menu__link">
                                         <img src="https://www.dd-room.com/_nuxt/img/2dc32e9.png" width="30" class="mr-2">我的錢包
                                     </a>
                                 </li>
@@ -271,7 +271,7 @@
                                     </div>
                                 </form>
                                 <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-16 infoBtn" id="btninfoPic">儲存資訊</button>
+                                    <button class="login100-form-btn m-t-16" id="btninfoPic">儲存資訊</button>
                                 </div>
                             </div>
                             <!--End form info Pic-->

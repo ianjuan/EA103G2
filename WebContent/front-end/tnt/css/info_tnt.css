@@ -97,6 +97,7 @@
           .basicInfo__menu__link:hover {
               color: #3a8c68 !important;
               /* #ed7961*/
+              font-weight: bold;
           }
 
           .basicInfo__menu__link:after {
@@ -1185,15 +1186,16 @@
           .info-form-wrap {
               border-radius: .625rem;
               box-shadow: 0 6px 6px 0 rgba(0, 0, 0, .1);
-              padding-bottom: 40px;
+              padding-bottom: 48px;
           }
 
           #registerform {
-              padding: 10px 50px 10px 50px;
+              padding: 10px 50px 0px 50px;
           }
 
           .infoBtn {
               font-size: 17px;
+              margin: 0 50px;
           }
 
           .infoBtn:hover {
