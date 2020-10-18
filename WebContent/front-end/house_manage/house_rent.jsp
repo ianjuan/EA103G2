@@ -126,11 +126,11 @@
 					<div class="cinfo">
 						<ul>
 							<li><span class="infotitle">房屋編號 : </span><span>${houseVO.hos_no}</span></li>
+							<li><span class="infotitle">房屋名稱 : </span><span>${houseVO.hos_name}</span></li>
 							<li><span class="infotitle">地址 : </span><span>${houseVO.hos_add}</span></li>
-							<li><span class="infotitle">房客 : </span><span>${houseVO.tnt_name}</span></li>
-							<li><span class="infotitle">出租開始時間 : </span><span>${houseVO.apl_str}</span></li>
-							<li><span class="infotitle">出租結束時間 : </span><span>${houseVO.apl_end}</span></li>
+							<li><span class="infotitle">房間類型 : </span><span>${houseVO.hos_room}</span></li>
 							<li><span class="infotitle">每月租金 : </span><span>${houseVO.hos_rentfee}</span></li>
+							<li><span class="infotitle">房屋狀態 : </span><span>${houseVO.hos_status}</span></li>
 						</ul>
 					</div>					
 						<div class="rinfo">

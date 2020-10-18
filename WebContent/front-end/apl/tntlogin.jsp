@@ -1,20 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.housemanage.model.*"%>
-
-<%
-	HouseVO houseVO = (HouseVO) request.getAttribute("houseVO");
-	String lld_no = (String) request.getAttribute("lld_no");
-	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
-%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>AddMoney</title>
+	<title>Document</title>
 	
 	<style>
 		html,
@@ -181,23 +174,20 @@ button:active {
 			font-weight: bold;
 		}
 	</style>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 </head>
 <body>	
 	<div class="container">		
-		<form autocomplete="off" name="addmoney" METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-			<span id="notice">請輸入要加值的金額 :</span>
+		<form autocomplete="off" METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+			<span id="notice">請輸入房客編號 :</span>
 			<div class="finder">
 				<div class="finder__outer">
 					<div class="finder__inner">
 						<div class="finder__icon" ref="icon"></div>						
-						<input class="finder__input" id="lld_balance" min="0" step="100" type="number" name="hos_rentfee" value="<%=(houseVO==null) ? "" : houseVO.getHos_rentfee()%>"/>
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" id="bank" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
-						<input type="hidden" name="action" value="addmoney">
+						<input class="finder__input" type="text" name="tnt_no" value="TNT000001"/>
+						<input type="hidden" name="action" value="tntgetallapl">
 						<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
 						<div>
-							<button class="black noselect" type="button" onclick="checkmoney()">儲值</button>
+							<button class="black noselect" type="submit">我的租屋</button>
 						</div>
 					</div>
 				</div>
@@ -219,24 +209,6 @@ button:active {
 				}
 			});
 			
-			function checkmoney(){
-				var money = document.getElementById("lld_balance").value;
-				var bank = document.getElementById("bank").value;
-				var status1 = money < 1000 ? "也儲太少了, 可憐哪" : "挺有錢的呢";
-				var status2 = parseInt(money)+parseInt(bank) < 1000 ? "真窮, 可憐哪" : "爸爸歡迎回家";
-		    	
-				swal({title:"是否確定儲值" + money + "元?", text:status1 , icon:"info", buttons: {
-				      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
-				    }}).then(function(isConfirm){
-					if(isConfirm){	
-						swal("儲值成功!! 電子錢包增加" + money + "元", "電子錢包目前共" + (parseInt(money)+parseInt(bank)) + "元! " + status2, "success", {button: "確認"}).then(function(){
-							document.addmoney.submit();
-						});
-					} else {
-						return false;
-					}
-				});
-			}
 	</script>
 </body>
 </html>

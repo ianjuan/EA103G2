@@ -94,6 +94,10 @@ public class Con_aplService {
 	public List<Con_aplVO> lldgetAll(String lld_no){
 		return dao.lldgetAll(lld_no);
 	}
+	
+	public List<Con_aplVO> tntgetAll(String tnt_no){
+		return dao.tntgetAll(tnt_no);
+	}
 
 	public Con_aplStatus[] getCon_aplStatusAll() {
 		return Con_aplStatus.values();

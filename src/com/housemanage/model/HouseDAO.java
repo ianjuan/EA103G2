@@ -39,7 +39,7 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
 	private static final String UPDATE_LLDBALANCE = "UPDATE LANDLORD set lld_balance=? where lld_no=?";
 	private static final String GET_LLDINFO = "SELECT lld_name,lld_balance FROM LANDLORD where lld_no=?";
-	private static final String GET_HOUSEINFO = "SELECT hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
+	private static final String GET_HOUSEINFO = "SELECT lld_no,hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
 			+ "hos_table,hos_chair,hos_bed,hos_closet,hos_sofa,hos_tv,hos_drink,hos_aircon,hos_refrig,hos_wash,hos_hoter,hos_forth,hos_net,hos_gas,"
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
 			+ "hos_rentfee,hos_gasfee,hos_manafee,hos_netfee,hos_puwaterfee,hos_puelefee,hos_parkfee FROM HOUSE where hos_no=?";
@@ -47,8 +47,7 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String GET_ELECTFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000002'";
 	private static final String GET_LLDHOUSEPIC = "SELECT pic_no FROM HOUSE_PICTURE where hos_no=?";
 	private static final String GET_LLDUNRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '待出租' order by hos_no DESC";
-	private static final String GET_LLDRENTHOUSE = "SELECT h.hos_no,hos_add,hos_status,hos_rentfee,apl_str,apl_end,tnt_name "
-			+ "FROM HOUSE h JOIN CONTRACT_APPLICATION ca on h.hos_no = ca.hos_no JOIN TENANT t on ca.tnt_no = t.tnt_no where lld_no=? AND hos_status LIKE '出租中' order by hos_no DESC";
+	private static final String GET_LLDRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '出租中' order by hos_no DESC";
 	private static final String GET_LLDOFFHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '已下架' order by hos_no DESC";
 	private static final String DELETE_HOUSEPIC = "DELETE FROM HOUSE_PICTURE where pic_no=?";
 	private static final String DELETE_HOUSEINFO = "DELETE FROM HOUSE where hos_no=?";
@@ -340,6 +339,7 @@ public class HouseDAO implements HouseDAO_interface {
 
 			while (rs.next()) {
 				houseVO = new HouseVO();
+				houseVO.setLld_no(rs.getString("lld_no"));
 				houseVO.setHos_no(rs.getString("hos_no"));
 				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_liffun(rs.getString("hos_liffun"));
@@ -587,12 +587,11 @@ public class HouseDAO implements HouseDAO_interface {
 			while (rs.next()) {
 				houseVO = new HouseVO();
 				houseVO.setHos_no(rs.getString("hos_no"));
+				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_add(rs.getString("hos_add"));
 				houseVO.setHos_status(rs.getString("hos_status"));
+				houseVO.setHos_room(rs.getString("hos_room"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
-				houseVO.setApl_str(rs.getDate("apl_str"));
-				houseVO.setApl_end(rs.getDate("apl_end"));
-				houseVO.setTnt_name(rs.getString("tnt_name"));
 				list.add(houseVO); // Store the row in the list
 			}
 

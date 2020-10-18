@@ -31,6 +31,7 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 			+ "CONTRACT_APPLICATION.APL_STR, CONTRACT_APPLICATION.APL_END, CONTRACT_APPLICATION.APL_TIME, CONTRACT_APPLICATION.APL_STATUS "
 			+ "FROM CONTRACT_APPLICATION JOIN HOUSE ON CONTRACT_APPLICATION.HOS_NO = HOUSE.HOS_NO "
 			+ "JOIN LANDLORD ON LANDLORD.LLD_NO = HOUSE.LLD_NO WHERE LANDLORD.LLD_NO = ?";
+	private static final String TNT_GET_ALL_STMT = "SELECT APL_NO, TNT_NO, HOS_NO, APL_STR, APL_END, APL_TIME, APL_STATUS FROM CONTRACT_APPLICATION WHERE TNT_NO = ?";
 
 	@Override
 	public void insert(Con_aplVO con_aplVO) {
@@ -441,6 +442,68 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 		return list;
 	}
 	
+	@Override
+	public List<Con_aplVO> tntgetAll(String tnt_no) {
+		
+		List<Con_aplVO> list = new ArrayList<Con_aplVO>();
+		Con_aplVO con_aplVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(TNT_GET_ALL_STMT);
+			pstmt.setString(1, tnt_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				con_aplVO = new Con_aplVO();
+				con_aplVO.setApl_no(rs.getString("APL_NO"));
+				con_aplVO.setTnt_no(rs.getString("TNT_NO"));
+				con_aplVO.setHos_no(rs.getString("HOS_NO"));
+				con_aplVO.setApl_str(rs.getDate("APL_STR"));
+				con_aplVO.setApl_end(rs.getDate("APL_END"));
+				con_aplVO.setApl_time(rs.getDate("APL_TIME"));
+				con_aplVO.setApl_status(rs.getInt("APL_STATUS"));
+				list.add(con_aplVO);
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	
 	public static void main(String[] args) {
 		
@@ -489,30 +552,30 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 //		System.out.println("---------------------");
 		
 ////		//SEARCH
-		List<Con_aplVO> list = dao.getAll();
-		for (Con_aplVO aApl : list) {
-			System.out.print(aApl.getApl_no()+ ",");
-			System.out.print(aApl.getTnt_no()+ ",");
-			System.out.print(aApl.getHos_no()+ ",");
-			System.out.print(aApl.getApl_str()+ ",");
-			System.out.print(aApl.getApl_end()+ ",");
-			System.out.print(aApl.getApl_time()+ ",");
-			System.out.println(aApl.getApl_status());
-			System.out.println("---------------------");
-		}
+//		List<Con_aplVO> list = dao.getAll();
+//		for (Con_aplVO aApl : list) {
+//			System.out.print(aApl.getApl_no()+ ",");
+//			System.out.print(aApl.getTnt_no()+ ",");
+//			System.out.print(aApl.getHos_no()+ ",");
+//			System.out.print(aApl.getApl_str()+ ",");
+//			System.out.print(aApl.getApl_end()+ ",");
+//			System.out.print(aApl.getApl_time()+ ",");
+//			System.out.println(aApl.getApl_status());
+//			System.out.println("---------------------");
+//		}
 		
 		//SEARCH
-//	List<Con_aplVO> list = dao.lldgetAll("LLD000994");
-//	for (Con_aplVO aApl : list) {
-//		System.out.print(aApl.getApl_no()+ ",");
-//		System.out.print(aApl.getTnt_no()+ ",");
-//		System.out.print(aApl.getHos_no()+ ",");
-//		System.out.print(aApl.getApl_str()+ ",");
-//		System.out.print(aApl.getApl_end()+ ",");
-//		System.out.print(aApl.getApl_time()+ ",");
-//		System.out.println(aApl.getApl_status());
-//		System.out.println("---------------------");
-//	}
+	List<Con_aplVO> list = dao.tntgetAll("TNT000077");
+	for (Con_aplVO aApl : list) {
+		System.out.print(aApl.getApl_no()+ ",");
+		System.out.print(aApl.getTnt_no()+ ",");
+		System.out.print(aApl.getHos_no()+ ",");
+		System.out.print(aApl.getApl_str()+ ",");
+		System.out.print(aApl.getApl_end()+ ",");
+		System.out.print(aApl.getApl_time()+ ",");
+		System.out.println(aApl.getApl_status());
+		System.out.println("---------------------");
+	}
 	
 	}
 }

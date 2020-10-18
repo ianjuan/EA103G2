@@ -37,7 +37,7 @@ function notice1(){
 	if(window.confirm("確定要送出資訊了嗎?") == false){
 		return false;
 	} else {		
-		alert("電子錢包扣款1000元, 上架成功!!");
+		alert("合約成功!!");
 		return true;
 	}	 	
 }

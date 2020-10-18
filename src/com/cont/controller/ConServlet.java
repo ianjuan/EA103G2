@@ -1,8 +1,10 @@
 package com.cont.controller;
 
 import java.io.IOException;
-
-
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.apl.model.Con_aplService;
+import com.apl.model.Con_aplVO;
 import com.cont.model.ConDAO;
 import com.cont.model.ConService;
 import com.cont.model.ConVO;
@@ -59,7 +64,6 @@ public class ConServlet extends HttpServlet {
 					errorMsgs.add("房東編號格式不正確");
 				}
 
-				System.out.println(lld_no + 1);
 				ConService conService = new ConService();
 				List<ConVO> list = conService.lldgetcon(lld_no);
 
@@ -147,22 +151,19 @@ public class ConServlet extends HttpServlet {
 				String lld_no = new String(req.getParameter("lld_no"));
 				String hos_no = new String(req.getParameter("hos_no"));
 
-
 				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();
 				ConVO conVO = conSvc.getOneCon(con_no);
-				
+
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
-				
+
 				HouseService houseSvc = new HouseService();
 				HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
 				HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
 				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
 				List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
 				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
-
-
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
@@ -185,5 +186,79 @@ public class ConServlet extends HttpServlet {
 			}
 		}
 
+		if ("createcontract".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String lld_no = new String(req.getParameter("lld_no"));
+				String hos_no = new String(req.getParameter("hos_no"));
+				System.out.println(lld_no);
+				System.out.println(hos_no);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				ConService conSvc = new ConService();
+				ConVO conVO = conSvc.getConbyhos(hos_no);
+
+				if (conVO == null) {
+					String pattern = "%06d";
+
+					Calendar cal = new GregorianCalendar(2015, Calendar.JANUARY, 1, 0, 0, 0);
+					long init = cal.getTimeInMillis();
+
+					SimpleDateFormat formatWithDays = new SimpleDateFormat("yyyy-MM-dd");
+
+					long start = init + (long) (Math.random() * 157766400000L); // for 5 years
+					long stop = start + (long) (Math.random() * 63158400000L); // for 2 years
+					long apply = start - (long) (Math.random() * 2678400000L + 2678400000L); // minus at least 1 mouth
+
+					String tnt_no = "TNT" + String.format(pattern, (int) (Math.random() * 1000));
+					Date apl_str = java.sql.Date.valueOf(formatWithDays.format(start));
+					Date apl_end = java.sql.Date.valueOf(formatWithDays.format(stop));
+					Date apl_time = java.sql.Date.valueOf(formatWithDays.format(apply));
+					Con_aplService aplService = new Con_aplService();
+					System.out.println(tnt_no);
+					System.out.println(hos_no);
+					System.out.println(apl_str);
+					Con_aplVO aplVO = aplService.addCon_apl(tnt_no, hos_no, apl_str, apl_end, apl_time, 1);
+
+					ConVO conVO1 = conSvc.getConbyhos(hos_no);
+					conSvc.addbeforerent(conVO1.getApl_no(), tnt_no, hos_no);
+				}
+
+				LldService lldSvc = new LldService();
+				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
+
+				HouseService houseSvc = new HouseService();
+				HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
+				HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
+				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
+				List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
+				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				req.setAttribute("conVO", conVO);
+				req.setAttribute("lldVO", lldVO);
+				req.setAttribute("lld_no", lld_no);
+				req.setAttribute("houseVO", houseVO);
+				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
+				req.setAttribute("houseVOelectfee", houseVOelectfee);
+				req.setAttribute("houseVOpicno", houseVOpicno);// lld_sign
+				req.setAttribute("lldInfo", lldInfo);
+				String url = "/front-end/contract/lldcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		
 	}
 }
