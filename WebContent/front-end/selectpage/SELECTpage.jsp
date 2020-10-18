@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 
 
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resource/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 	
 <%@ page import="com.houserch.model.*"%>

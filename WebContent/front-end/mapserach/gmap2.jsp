@@ -12,7 +12,7 @@
 
 <head>
 <title></title>
-  	 <div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
+	  	 <div><jsp:include page="/front-end/navbar.jsp"/> </div>
   
             <div class="col-12 body">
                 <!-- 縣市 -->
@@ -177,7 +177,12 @@
                     </div>
                     </div>                </div>
                     <!-- 以上與搜索頁一致 -->
-                    <div class="container map-con">
+                    <div class="container map-con ">
+                    <div class="row  range">
+                    	<h3 id="far">目前顯示範圍 : 距離畫面中心點 3000 公尺內的房屋</h3><div ></div> <br>
+                    	<input type="range" min="1000" max="10000" step="1000" value="3000" id="ranges">
+                           	
+                    </div>
 <div class="row map-row">
 	<div class="col-8">
 		<div id="map"></div>
@@ -194,7 +199,7 @@
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar.css">
 	
 <script src="https://kit.fontawesome.com/c8d34ce05b.js" crossorigin="anonymous"></script>
 </head>
@@ -563,27 +568,30 @@ margin-bottom:7px;
         //優化API使用次數V5,V6
         //優化程式碼 V7
         //全JUQERY化V8
-        var map, geocoder, lat, lng, locationForNow,firsttime,obj,lastobj;
+        var map, geocoder, lat, lng, listener,locationForNow,obj,lastobj,action;
     	var moneybtn="getall";
     	var housebtn="getall";
         var address = '';
         var POIControl = true;
         var firstTime=true;
+        var infowin=false;
         var distance = 0;
-        var range = 10000; //初始化搜索範圍
-        var lastround= 10000;
+        var range = 3000; //初始化搜索範圍
         var prev_infowindow=false;
          obj= JSON.parse('${list}');//JSON轉JS格式
+         
        function clear(){
           $("#sidebar").remove();
         　　	var div = document.createElement("div");
             div.setAttribute("id","sidebar");
             $(".side").append(div);
-            $.each(lastobj, function(key, value) {
-            	console.log(value.marker+"三小");
-            	if(value.marker!=undefined){
-                value.marker.setMap(null);}
-            });
+            
+     
+            	$.each(lastobj, function(key, value) {
+                	if(value.marker!=undefined){
+                    value.marker.setMap(null);}
+                });
+            
         }
        function ajax(){
       		$.ajax({//存入資料庫階段
@@ -597,7 +605,7 @@ margin-bottom:7px;
       		 		  },
       		 	  success:function(data){//以上成功才執行
       		 		  console.log("data="+data);
-
+      		 		action="ajax";
       		 			lastobj=obj;
    		 			 obj=JSON.parse(data);
    		             loading();
@@ -627,26 +635,23 @@ margin-bottom:7px;
         	if(Object.keys(obj).length==0){
         		alert("找不到相符的房屋商品,您搜索的地址區域為"+$("#citych").val()+$("#townch").val()+$("#searchbox").val());
         	}
-//         	if(firsttime!=undefined){
-	$.each(obj, function(key, value) {
-			 				console.log("value"+value.hos_add);
-			 			});
-	 		  clear();
-// 	 		}
-//         	firsttime=1;
+				if(action=="ajax"){
+	 		  clear();};
+
 	 		lastround=range;
-        	console.log("開始創建DIVbyLoading");
 
          $.each(obj, function(key, value) {
 		　　 if($("[id='"+key+"']").length==1){
-			 $("[id='"+key+"']").remove();
-            }
-
-		console.log("開始創建"+value.hos_no);
-        distance = space(lat, lng,value.hos_lat,value.hos_lng);
+				 $("[id='"+key+"']").remove();
+            	};
+			if(value.marker!=undefined){
+                value.marker.setMap(null);};
+                
+                
+        distance = space(map.getCenter().lat(), map.getCenter().lng(),value.hos_lat,value.hos_lng);
         console.log(distance+"VS"+range);
 
-        if(distance<range||firstTime){
+        if(distance<range){
         	console.log("有近來");
        	
 		$("#sidebar").append("<div class='row house-row' id='"+value.hos_no+"'><div class='col-5'>"+
@@ -678,16 +683,25 @@ margin-bottom:7px;
     attachSecretMessage(value.marker, content);}
         
    
-    });       
+    });    
+        
+//         	  console.log(map.getCenter().lng());
+ 			google.maps.event.removeListener(listener);
+		listener=map.addListener("idle", () => {action="";
+		if(infowin==false){
+  	 	 loading()};
+  	  });
+         
+//  		google.maps.event.removeListener(listener1);
+//         map.removeListener("idle",idleListener);
         }
-
+        
         function geo_coder() { //點擊查詢輸入框地點
-            
             	console.log('跑到轉換');
                 address = $("#serch").val();
                 geocoder.geocode({ 'address': $("#citych").val()+$("#townch").val()+$("#searchbox").val() }, function(results, status) { //地址轉換經緯度 results取得該地區所有資訊 status回傳成功與否 以'OK'表示
                     if (status == 'OK') {
-                        locationForNow = results[0].geometry.location;
+//                         locationForNow = results[0].geometry.location;
                         map.setCenter(results[0].geometry.location);
                         lat = results[0].geometry.location.lat();
                         lng = results[0].geometry.location.lng();
@@ -700,25 +714,23 @@ margin-bottom:7px;
 
         }
 
-        function flag() {
-        	if(lastround<range){
-        		geo_coder();
-			}
-        	else{
-        		console.log('跑到拔座標');
-        	  map.setCenter(locationForNow);
-               $.each(obj, function(key, value){
-                	console.log("輸出"+key+value.hos_name);
-                distance = space(lat, lng,value.marker.position.lat(),value.marker.position.lng());
-            	var tryita="[id='"+value.hos_no+"']";    
-            if (distance > range) {
-            	console.log(value.hos_name+"拔走了");
-                	$(tryita).remove();
-                    value.marker.setMap(null);
-                }
-            lastround=range;
-            });};
-        };
+//         function flag() {
+//         	if(lastround<range){
+//         		geo_coder();
+// 			}
+//         	else{
+//         		console.log('跑到拔座標');
+//                $.each(obj, function(key, value){
+//                 distance = space(lat, lng,value.marker.position.lat(),value.marker.position.lng());
+//             	var tryita="[id='"+value.hos_no+"']";    
+//             if (distance > range) {
+//             	console.log(value.hos_name+"拔走了");
+//                 	$(tryita).remove();
+//                     value.marker.setMap(null);
+//                 }
+//             lastround=range;
+//             });loading()};
+//         };
 
 	
         
@@ -736,9 +748,9 @@ margin-bottom:7px;
         });
         $("#ranges").change(function() {
             range = parseInt($("#ranges").val());
-           $("#radiv").innerText = "搜索範圍:方圓" +$("#ranges").val() + "公尺";
+           $("#far").text("目前顯示範圍 : 距離畫面中心點 " +$("#ranges").val() + " 公尺內的房屋");
            console.log("range="+range+",last="+lastround);
-            flag();
+            loading();
         });
 
 
@@ -777,11 +789,15 @@ margin-bottom:7px;
             google.maps.event.addListener(marker, 'click', function() {
             	 if( prev_infowindow ) {
                      prev_infowindow.close();
-                  }
+                     }
                   prev_infowindow = infowindow;
-            	
+                  infowin=true;
                 infowindow.open(marker.get('map'), marker);
             });
+            
+            google.maps.event.addListener(infowindow,'closeclick',function(){//配合監聽畫面移動使用
+            infowin=false;
+            })
         };
     	/*--------------------以下按鈕方法------------------*/
 		$(".form-control").change(function(){
