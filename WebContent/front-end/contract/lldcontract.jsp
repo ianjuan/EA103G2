@@ -204,42 +204,82 @@
 									<ul class="item_outer">
 										<li>
 											<label class="item_name">桌子&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_table" value="1" class="onoffswitch-checkbox" id="desk" tabindex="0">
-													<label class="onoffswitch-label" for="desk"></label>
-												</div>
+												<select name="hos_table">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">椅子&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_chair" value="1" class="onoffswitch-checkbox" id="chair" tabindex="0">
-													<label class="onoffswitch-label" for="chair"></label>
-												</div>
+												<select name="hos_chair">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">床&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_bed" value="1" class="onoffswitch-checkbox" id="bed" tabindex="0">
-													<label class="onoffswitch-label" for="bed"></label>											    	
-												</div>
+												<select name="hos_bed">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">衣櫃&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_closet" value="1" class="onoffswitch-checkbox" id="cabinet" tabindex="0">
-													<label class="onoffswitch-label" for="cabinet"></label>
-												</div>
+												<select name="hos_closet">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">沙發&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_sofa" value="1" class="onoffswitch-checkbox" id="sofa" tabindex="0">
-													<label class="onoffswitch-label" for="sofa"></label>
-												</div>
+												<select name="hos_sofa">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 									</ul>									
@@ -251,50 +291,98 @@
 									<ul class="item_outer">
 										<li>
 											<label class="item_name">冰箱&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_refrig" value="1" class="onoffswitch-checkbox" id="refri" tabindex="0">
-													<label class="onoffswitch-label" for="refri"></label>
-												</div>
+												<select name="hos_refrig">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">電視&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_tv" value="1" class="onoffswitch-checkbox" id="TV" tabindex="0">
-													<label class="onoffswitch-label" for="TV"></label>
-												</div>
+												<select name="hos_tv">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">飲水機&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_drink" value="1" class="onoffswitch-checkbox" id="drink" tabindex="0">
-													<label class="onoffswitch-label" for="drink"></label>
-												</div>
+												<select name="hos_drink">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">冷氣&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_aircon" value="1" class="onoffswitch-checkbox" id="air" tabindex="0">
-													<label class="onoffswitch-label" for="air"></label>
-												</div>
+												<select name="hos_aircon">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">洗衣機&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_wash" value="1" class="onoffswitch-checkbox" id="wash" tabindex="0">
-													<label class="onoffswitch-label" for="wash"></label>
-												</div>
+												<select name="hos_wash">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 										<li>
 											<label class="item_name">熱水器&nbsp;&nbsp;
-												<div class="onoffswitch">
-													<input type="checkbox" name="hos_hoter" value="1" class="onoffswitch-checkbox" id="hotwater" tabindex="0">
-													<label class="onoffswitch-label" for="hotwater"></label>
-												</div>
+												<select name="hos_hoter">
+												  <option value="1">1</option>
+												  <option value="2">2</option>
+												  <option value="3">3</option>
+												  <option value="4">4</option>
+												  <option value="5">5</option>
+												  <option value="6">6</option>
+												  <option value="7">7</option>
+												  <option value="8">8</option>
+												  <option value="9">9</option>
+												  <option value="10">10</option>
+												</select>
 											</label>
 										</li>
 									</ul>									

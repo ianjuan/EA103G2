@@ -12,7 +12,7 @@
 
 <head>
 <title></title>
-	  	 <div><jsp:include page="/front-end/navbar.jsp"/> </div>
+	  	 <div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
   
             <div class="col-12 body">
                 <!-- 縣市 -->
