@@ -176,6 +176,8 @@ body {
     margin-bottom: 5px;
     border-radius: 10px;
     line-height: 25px;
+    white-space: nowrap;
+    overflow: auto;
 }
 .cinfo ul li:hover {
     background-color: #FEFFE8;

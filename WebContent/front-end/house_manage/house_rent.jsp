@@ -126,11 +126,11 @@
 					<div class="cinfo">
 						<ul>
 							<li><span class="infotitle">房屋編號 : </span><span>${houseVO.hos_no}</span></li>
+							<li><span class="infotitle">房屋名稱 : </span><span>${houseVO.hos_name}</span></li>
 							<li><span class="infotitle">地址 : </span><span>${houseVO.hos_add}</span></li>
-							<li><span class="infotitle">房客 : </span><span>${houseVO.tnt_name}</span></li>
-							<li><span class="infotitle">出租開始時間 : </span><span>${houseVO.apl_str}</span></li>
-							<li><span class="infotitle">出租結束時間 : </span><span>${houseVO.apl_end}</span></li>
+							<li><span class="infotitle">房間類型 : </span><span>${houseVO.hos_room}</span></li>
 							<li><span class="infotitle">每月租金 : </span><span>${houseVO.hos_rentfee}</span></li>
+							<li><span class="infotitle">房屋狀態 : </span><span>${houseVO.hos_status}</span></li>
 						</ul>
 					</div>					
 						<div class="rinfo">
@@ -142,12 +142,7 @@
 									<input type="hidden" name="action" value="getHouseInfo">
 									<li><button id="btn2" type="submit">資訊修改</button></li>
 								</FORM>	
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
-									<input type="hidden" name="hos_no" value="${houseVO.hos_no}">
-									<input type="hidden" name="lld_no" value="<%=lld_no%>">
-									<input type="hidden" name="action" value="createcontract">
-									<li><button id="btn2" type="submit">合約資訊</button></li>
-								</FORM>	
+								<li><button id="btn3">合約資訊</button></li>
 								<li><button id="btn4">帳單設定</button></li>
 								<li><button id="btn5">聊天</button></li>								
 							</ul>
