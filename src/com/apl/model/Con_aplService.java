@@ -86,6 +86,10 @@ public class Con_aplService {
 	public Con_aplVO getOneCon_apl(String apl_no) {
 		return dao.findByPrimaryKey(apl_no);
 	}
+	
+	public Con_aplVO getaplbyhos(String hos_no) {
+		return dao.getaplbyhos(hos_no);
+	}
 
 	public List<Con_aplVO> getAll() {
 		return dao.getAll();

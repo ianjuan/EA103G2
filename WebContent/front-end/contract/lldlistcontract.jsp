@@ -9,9 +9,9 @@
 <%@ page import="com.cont.model.*"%>
 
 <%
-	String lld_no = (String) request.getAttribute("lldno");
+	String lld_no = (String) request.getAttribute("lld_no");
 	if (lld_no == null) {
-		lld_no = request.getParameter("lldno");
+		lld_no = request.getParameter("lld_no");
 	}
 	
 	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
@@ -20,20 +20,8 @@
 		lldInfo = houseSvc.getLldInfo(lld_no);
 	}
 	
-	List<HouseVO> list = (List<HouseVO>) request.getAttribute("houseVO");
-	if (list == null) {
-		HouseService houseSvc = new HouseService();
-		list = houseSvc.getLldRentHouse(lld_no);
-	}
-	
-	List<ConVO> listcon = (List<ConVO>)request.getAttribute("list");
-	pageContext.setAttribute("listcon",listcon);
-	
-	LldVO lldVO = (LldVO) request.getAttribute("lldVO");
-	HouseVO houseVOlld = (HouseVO) request.getAttribute("houseVOlld");
-	pageContext.setAttribute("lldVO", lldVO);
-	pageContext.setAttribute("houseVOlld", houseVOlld);
-
+	List<ConVO> list = (List<ConVO>)session.getAttribute("list");
+	pageContext.setAttribute("list",list);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -134,7 +122,7 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
-						<span id="count">共<%=listcon.size()%>個合約</span>
+						<span id="count">共<%=list.size()%>個合約</span>
 					</FORM>
 					
 				</div>
@@ -142,7 +130,7 @@
 		</div>
 		<div id="center">
 			<%@ include file="page1.file"%>
-			<c:forEach var="conVO" items="${listcon}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="conVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<img
@@ -180,6 +168,7 @@
 								<li><button id="btn3">聊天</button></li>
 								
 														
+														
 							</ul>
 						</div>					
 					</div>
@@ -195,3 +184,4 @@
 		</div>
 </body>
 </html>
+

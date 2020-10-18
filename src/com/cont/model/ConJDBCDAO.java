@@ -51,7 +51,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 	
 	private static final String GET_CON_LLD = "SELECT CON_NO, C.HOS_NO, C.TNT_NO, C.APL_NO, CON_STA FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
 
-	private static final String GET_CON_BY_HOS_NO = "SELECT CON_NO FROM CONTRACT WHERE HOS_NO = ?";
+	private static final String GET_CON_BY_HOS_NO = "SELECT CON_NO, APL_NO FROM CONTRACT WHERE HOS_NO = ?";
 	
 	@Override
 	public void beforerentinsert(ConVO conVO) {
@@ -478,6 +478,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 				conVO = new ConVO();
 
 				conVO.setCon_no(rs.getString("CON_NO"));
+				conVO.setApl_no(rs.getString("APL_NO"));
 
 			}
 		} catch (ClassNotFoundException e) {
@@ -756,8 +757,9 @@ public class ConJDBCDAO implements ConDAO_interface {
 //			System.out.println(aaaVo.getCon_sta());
 //		}
 		
-		ConVO conVO3 = dao.findByHosno("HOS011358");
+		ConVO conVO3 = dao.findByHosno("HOS008062");
 		System.out.println(conVO3.getCon_no());
+		System.out.println(conVO3.getApl_no());
 		
 	}
 }

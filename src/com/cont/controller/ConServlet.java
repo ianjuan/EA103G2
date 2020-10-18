@@ -57,18 +57,12 @@ public class ConServlet extends HttpServlet {
 			try {
 				String lld_no = new String(req.getParameter("lld_no"));
 
-				String lldno = null;
-				try {
-					lldno = new String(lld_no);
-				} catch (Exception e) {
-					errorMsgs.add("房東編號格式不正確");
-				}
-
 				ConService conService = new ConService();
 				List<ConVO> list = conService.lldgetcon(lld_no);
 
+				HttpSession session = req.getSession();
 				req.setAttribute("lldno", lld_no);
-				req.setAttribute("list", list);
+				session.setAttribute("list", list);
 				String url = "/front-end/contract/lldlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -195,8 +189,6 @@ public class ConServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 ****************************************/
 				String lld_no = new String(req.getParameter("lld_no"));
 				String hos_no = new String(req.getParameter("hos_no"));
-				System.out.println(lld_no);
-				System.out.println(hos_no);
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();
@@ -214,18 +206,25 @@ public class ConServlet extends HttpServlet {
 					long stop = start + (long) (Math.random() * 63158400000L); // for 2 years
 					long apply = start - (long) (Math.random() * 2678400000L + 2678400000L); // minus at least 1 mouth
 
-					String tnt_no = "TNT" + String.format(pattern, (int) (Math.random() * 1000));
+					String tnt_no = "TNT" + String.format(pattern, (int) (Math.random() * 99 + 1));
 					Date apl_str = java.sql.Date.valueOf(formatWithDays.format(start));
 					Date apl_end = java.sql.Date.valueOf(formatWithDays.format(stop));
 					Date apl_time = java.sql.Date.valueOf(formatWithDays.format(apply));
+					
 					Con_aplService aplService = new Con_aplService();
 					System.out.println(tnt_no);
 					System.out.println(hos_no);
 					System.out.println(apl_str);
-					Con_aplVO aplVO = aplService.addCon_apl(tnt_no, hos_no, apl_str, apl_end, apl_time, 1);
-
-					ConVO conVO1 = conSvc.getConbyhos(hos_no);
-					conSvc.addbeforerent(conVO1.getApl_no(), tnt_no, hos_no);
+					System.out.println(apl_end);
+					System.out.println(apl_time);
+					aplService.addCon_apl(tnt_no, hos_no, apl_str, apl_end, apl_time, 1);
+					
+					String apl_no = aplService.getaplbyhos(hos_no).getApl_no();
+					
+					conVO = conSvc.addbeforerent(apl_no, tnt_no, hos_no);
+					System.out.println(apl_no);
+					
+					
 				}
 
 				LldService lldSvc = new LldService();

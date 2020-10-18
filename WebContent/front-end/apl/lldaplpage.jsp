@@ -7,9 +7,9 @@
 <%@ page import="com.tnt.model.*"%>
 
 <%
-	String lld_no = (String) request.getAttribute("lldno");
+	String lld_no = (String) request.getAttribute("lld_no");
 	if (lld_no == null) {
-		lld_no = request.getParameter("lldno");
+		lld_no = request.getParameter("lld_no");
 	}
 	
 	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
@@ -17,16 +17,9 @@
 		HouseService houseSvc = new HouseService();
 		lldInfo = houseSvc.getLldInfo(lld_no);
 	}
-	
-	List<HouseVO> list = (List<HouseVO>) request.getAttribute("houseVO");
-	if (list == null) {
-		HouseService houseSvc = new HouseService();
-		list = houseSvc.getLldRentHouse(lld_no);
-	}
-// 	pageContext.setAttribute("list", list);	
 
-   List<Con_aplVO> listapl = (List<Con_aplVO>)session.getAttribute("list");
-   pageContext.setAttribute("listapl",listapl);
+   List<Con_aplVO> list = (List<Con_aplVO>)session.getAttribute("list");
+   pageContext.setAttribute("list",list);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -115,7 +108,7 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
 						<button type="submit" class="link" style="color: #D37707;">租屋申請</button><br>
-						<span id="count">共<%=listapl.size()%>個申請</span>
+						<span id="count">共<%=list.size()%>個申請</span>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -128,7 +121,7 @@
 		</div>
 		<div id="center">
 			<%@ include file="page1.file"%>
-			<c:forEach var="con_aplVO" items="${listapl}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="con_aplVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<img

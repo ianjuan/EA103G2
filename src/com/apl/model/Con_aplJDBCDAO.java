@@ -32,7 +32,7 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 			+ "FROM CONTRACT_APPLICATION JOIN HOUSE ON CONTRACT_APPLICATION.HOS_NO = HOUSE.HOS_NO "
 			+ "JOIN LANDLORD ON LANDLORD.LLD_NO = HOUSE.LLD_NO WHERE LANDLORD.LLD_NO = ?";
 	private static final String TNT_GET_ALL_STMT = "SELECT APL_NO, TNT_NO, HOS_NO, APL_STR, APL_END, APL_TIME, APL_STATUS FROM CONTRACT_APPLICATION WHERE TNT_NO = ?";
-
+	private static final String GET_APL_BY_HOS = "SELECT APL_NO FROM CONTRACT_APPLICATION WHERE HOS_NO = ?";
 	@Override
 	public void insert(Con_aplVO con_aplVO) {
 
@@ -319,6 +319,64 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 		}
 		return con_aplVO;
 	}
+	
+	@Override
+	public Con_aplVO getaplbyhos(String hos_no) {
+
+		Con_aplVO con_aplVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_APL_BY_HOS);
+
+			pstmt.setString(1, hos_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				con_aplVO = new Con_aplVO();
+				con_aplVO.setApl_no(rs.getString("APL_NO"));
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return con_aplVO;
+	}
 
 	@Override
 	public List<Con_aplVO> getAll() {
@@ -541,15 +599,10 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 //		System.out.println("被限制擋住啦");
 		
 		//SEARCH
-//		Con_aplVO con_aplVO4 = dao.findByPrimaryKey("APL000001");
-//		System.out.print(con_aplVO4.getApl_no()+ ",");
-//		System.out.print(con_aplVO4.getTnt_no()+ ",");
-//		System.out.print(con_aplVO4.getHos_no()+ ",");
-//		System.out.print(con_aplVO4.getApl_str()+ ",");
-//		System.out.print(con_aplVO4.getApl_end()+ ",");
-//		System.out.print(con_aplVO4.getApl_time()+ ",");
-//		System.out.print(con_aplVO4.getApl_status());
-//		System.out.println("---------------------");
+		Con_aplVO con_aplVO4 = dao.getaplbyhos("HOS003009");
+		System.out.print(con_aplVO4.getApl_no()+ ",");
+
+		System.out.println("---------------------");
 		
 ////		//SEARCH
 //		List<Con_aplVO> list = dao.getAll();
@@ -565,17 +618,17 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 //		}
 		
 		//SEARCH
-	List<Con_aplVO> list = dao.tntgetAll("TNT000077");
-	for (Con_aplVO aApl : list) {
-		System.out.print(aApl.getApl_no()+ ",");
-		System.out.print(aApl.getTnt_no()+ ",");
-		System.out.print(aApl.getHos_no()+ ",");
-		System.out.print(aApl.getApl_str()+ ",");
-		System.out.print(aApl.getApl_end()+ ",");
-		System.out.print(aApl.getApl_time()+ ",");
-		System.out.println(aApl.getApl_status());
-		System.out.println("---------------------");
-	}
+//	List<Con_aplVO> list = dao.tntgetAll("TNT000077");
+//	for (Con_aplVO aApl : list) {
+//		System.out.print(aApl.getApl_no()+ ",");
+//		System.out.print(aApl.getTnt_no()+ ",");
+//		System.out.print(aApl.getHos_no()+ ",");
+//		System.out.print(aApl.getApl_str()+ ",");
+//		System.out.print(aApl.getApl_end()+ ",");
+//		System.out.print(aApl.getApl_time()+ ",");
+//		System.out.println(aApl.getApl_status());
+//		System.out.println("---------------------");
+//	}
 	
 	}
 }
