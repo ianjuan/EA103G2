@@ -51,13 +51,19 @@
             })
             // 密碼
             $('#tnt_pwd.register100').on('blur', function() {
-                if (/^[A-Za-z0-9]{8}$/.test($(this).val()) === false) {
+                if (/^[\w]{8,16}$/.test($(this).val()) === false) {
                     showValidate($(this));
                 }
             })
-            // 確認密碼
-            $('#tnt_pwd2.register100').on('blur', function() {
-                if ($(this).val() !== $('#tnt_pwd.register100').val()) {
+            // 新密碼
+            $('#tnt_pwd_new.register100').on('blur', function() {
+                if (/^[\w]{8,16}$/.test($(this).val()) === false) {
+                    showValidate($(this));
+                }
+            })
+            // 確認新密碼
+            $('#tnt_pwd_new2.register100').on('blur', function() {
+                if ($(this).val() !== $('#tnt_pwd_new.register100').val()) {
                     showValidate($(this));
                 }
             })

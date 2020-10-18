@@ -448,9 +448,12 @@
               display: block;
               background-color: #f7f7f7;
               padding: 55px 100px 55px 100px;
+              /* border: 1px solid red; */
               border-radius: .625rem;
               box-shadow: 0 6px 6px 0 rgba(0, 0, 0, .1);
               margin: 100px 0px 100px;
+              /*靜改: 寬高, 圓角, 陰影, padding*/
+              /* margin-top推下header */
           }
 
           .login100-form-title {
@@ -598,9 +601,10 @@
               /*14px;*/
               font-size: 13px;
               color: #3a8c68;
-              background-color: #fff
-                  /*             font-weight:bold; */
-                  padding: 0px 5px;
+              background-color: #f7f7f7;
+              /*transparent*/
+              /*             font-weight:bold; */
+              padding: 0px 5px;
               margin-left: 20px;
               text-align: center;
 
@@ -1025,7 +1029,7 @@
               /*background: url("images/icons/angle-down.png") no-repeat right center transparent;*/
               font-size: 18px;
               color: #777777;
-              line-height: 3;
+              line-height: 3.2;
               padding: 0 26px;
               font-family: Montserrat-Regular;
 
@@ -1209,63 +1213,6 @@
           #angle-down-up {
               font-size: 20px;
           }
-          
-          /*------------------------------------------------------------------
-[ Backend validate ]*/
-
-        .alert-validate-login::before {
-            content: attr(data-validate);
-            position: absolute;
-            z-index: 100;
-            max-width: 70%;
-            background-color: #fff;
-            border: 1px solid #c80000;
-            border-radius: 2px;
-            padding: 4px 10px 4px 25px;
-            top: 50%;
-            pointer-events: none;
-
-            font-family: Poppins-Regular;
-            color: #c80000;
-            font-size: 13px;
-            line-height: 1.4;
-
-            visibility: visible;
-            opacity: 1;
-
-            -webkit-transition: opacity 0.4s;
-            -o-transition: opacity 0.4s;
-            -moz-transition: opacity 0.4s;
-            transition: opacity 0.4s;
-        }
-
-        .alert-validate-login::after {
-            content: "\f12a";
-            font-family: FontAwesome;
-            display: inline-block;
-            position: absolute;
-            z-index: 110;
-            color: #c80000;
-            font-size: 16px;
-            top: 50%;
-            left: 10px;
-            padding-top: 2px;
-        }
-        .wrap-validate-login {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-end;
-            /*             width: 100%; */
-            height: 10px;
-            position: relative;
-            margin-bottom: 30px;
-            left: 10px;
-
-        }
 
           /*------------------------------------------------------------------
 [ shrink 箭頭  ]*/

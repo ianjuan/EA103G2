@@ -55,7 +55,7 @@
             });
             // 確認密碼
             $('#tnt_pwd2.register100').on('blur', function() {
-                if (($('#tnt_add').val().trim() === '') || ($(this).val() !== $('#tnt_pwd.register100').val())) {
+                if (($('#tnt_pwd2').val().trim() === '') || ($(this).val() !== $('#tnt_pwd.register100').val())) {
                     showValidate($(this));
                 }
             });

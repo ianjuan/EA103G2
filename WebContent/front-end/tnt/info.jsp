@@ -135,7 +135,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="pocket.jsp" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/tnt/pocket.jsp" class="basicInfo__menu__link">
                                         <img src="https://www.dd-room.com/_nuxt/img/2dc32e9.png" width="30" class="mr-2">我的錢包
                                     </a>
                                 </li>
@@ -172,7 +172,7 @@
                             <!--Start form Profile-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">基本資訊
-                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown" id="angle-down-up">
+                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
                                         </svg>
@@ -243,7 +243,7 @@
                             <!--Start form info Pic-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">上傳頭貼
-                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown" id="angle-down-up">
+                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
                                         </svg>
@@ -279,7 +279,7 @@
                             <!--Start form chgPwd-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">變更密碼
-                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown" id="angle-down-up">
+                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
                                         </svg>
@@ -297,15 +297,18 @@
                                         <span class="label-register100">原密碼</span>
                                     </div>
                                     <div class="wrap-register100 validate-input" data-validate="Less than 8 [a-zA-Z0-9]">
-                                        <input class="register100" type="password" name="tnt_pwd" id="tnt_pwd">
+                                        <input class="register100" type="password" name="tnt_pwd_new" id="tnt_pwd_new">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">新密碼</span>
                                     </div>
                                     <div class="wrap-register100 validate-input" data-validate="Password is not the same">
-                                        <input class="register100" type="password" name="tnt_pwd2" id="tnt_pwd2">
+                                        <input class="register100" type="password" name="tnt_pwd_new2" id="tnt_pwd_new2">
                                         <span class="focus-register100"></span> <span class="label-register100">確認新密碼</span>
                                     </div>
                                 </form>
+                                <div class="wrap-validate-login" data-validate="帳號密碼錯誤">
+                                
+               					 </div>
                                 <div class="container-login100-form-btn">
                                     <button class="login100-form-btn m-t-10 infoBtn" id="btninfochgPwd">儲存資訊</button>
                                 </div>

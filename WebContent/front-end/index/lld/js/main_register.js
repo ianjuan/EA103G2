@@ -55,7 +55,7 @@
             });
             // 確認密碼
             $('#lld_pwd2.register100').on('blur', function() {
-                if (($('#lld_add').val().trim() === '') || ($(this).val() !== $('#lld_pwd.register100').val())) {
+                if (($('#lld_pwd2').val().trim() === '') || ($(this).val() !== $('#lld_pwd.register100').val())) {
                     showValidate($(this));
                 }
             });
