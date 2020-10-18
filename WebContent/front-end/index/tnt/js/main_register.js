@@ -621,7 +621,7 @@
             // ajax_register();
             //   var formData = new FormData();
             var formData = new FormData($('#registerform')[0]);
-            formData.append('action', 'insert');
+            formData.append('action', 'register');
             ajax_register(formData);
         });
 
@@ -635,7 +635,8 @@
                 // 告訴jQuery不要去設定Content-Type請求頭
                 contentType: false,
 
-                success: function() { // 以上成功才執行
+                success: function(data) { // 以上成功才執行
+                	console.log("註冊: ");
                     console.log("res棒");
                     redirect();
                 },
@@ -646,5 +647,5 @@
         }
 
         function redirect() {
-            window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
+            window.location.href = "/EA103G2/front-end/index/index.html";
         }
