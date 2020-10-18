@@ -573,50 +573,22 @@
 
             e.dataTransfer.setData("text", e.target.parentElement.getAttribute("name"));
         }
+        /*------------------------------------------------------------------
+        [ End-Origin-Register ]*/  
 
-        /*
-         * ================================================================== 
-         *    [ Quick Input ]
-         */
-        var quickInputData = ['yjwuws@gmail.com', '吳永志', 'N221219585', '0917597127', '12345678', '12345678', '', '中大路300號'];
-        var quickInputDataSelects = ['1', '桃園市', '中壢區'];
-
-
-
-        $('#quickpick').click(function() {
-            var inputs = $('.validate-input .register100');
-            var selects = $('select.wrap-register100');
-            // var inputs_js = document.querySelectorAll('.register100');
-            for (var i = 0; i < inputs.length; i++) {
-                if (i !== 8) {
-                    $(inputs[i]).focus();
-                    $(inputs[i]).val(quickInputData[i]);
-                }
-                // $(selects[0]).focus();
-                // $(selects[0]).val(quickInputDataSelects[0]);
-                // $(selects[0]).blur();
-            }
-            $('#tnt_sex').focus();
-            $('#tnt_sex').val('1');
-            $('#tnt_sex').blur();
-
-            $('#f_date1').val('2000-11-12');
-            $('#f_date1').blur();
-        });
 
         /*
          * ================================================================== 
          *    [ 按鈕Ajax ]
          */
-        //next page
+        //info form1
         $('#btnProfile.login100-form-btn').click(function(e) {
             e.preventDefault();
-            console.log('btn - next page');
+            console.log('btn - info form1');
             validateAllProfile();
             if ($('.alert-validate').length === 0) {
-                $('#divProfile').toggle();
-                $('#divPic').toggle();
-                $('#divbtnRegister').toggle();
+
+            	
             }
         });
         //submit
@@ -653,15 +625,24 @@
         function redirect() {
             window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
         }
-        /*------------------------------------------------------------------
-        [ End-Origin-Register ]*/  
-        
+
+        /*
+         * ================================================================== 
+         *    [ Angle-down-up ]
+         */
         
         $('#angle-down-up').click(function() {
         	$('form#registerform').toggle();
         	$("[data-icon='chevron-up']").toggle();
-
         	$("[data-icon='chevron-down']").toggle();
+        	var pbtmp;
+        	if($('.info-form-wrap').css('padding-bottom')==='40px'){
+        		pbtmp = '10px';
+        	}else{
+        		pbtmp = '40px';
+        	}
+
+        	$('.info-form-wrap').css('padding-bottom',pbtmp);
         	});
         
         

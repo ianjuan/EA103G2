@@ -100,11 +100,12 @@
     <section>
 
         <section class="content">
-            <div class="container" style="border:1px solid orange">
+            <div class="container" style="">
+<!--             border:1px solid orange -->
                 <div class="row no-gutters justify-content-between">
                     <!--start info list -->
                     <div class="basicInfo__list col-lg-3">
-                        <div class="basicInfo__list__content bg-white rounded px-4 pt-lg-7 pt-md-3 pt-2 pb-3 sticky-top">
+                        <div class="basicInfo__list__content bg-white px-4 pt-lg-7 pt-md-3 pt-2 sticky-top">
                             <a class="basicInfo__list-backIcon text-primary basicInfo__list__content-backIcon d-xl-none">
                                 <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="arrow-alt-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-arrow-alt-circle-left fa-w-16">
                                     <path fill="currentColor" d="M8 256c0 137 111 248 248 248s248-111 248-248S393 8 256 8 8 119 8 256zm448 0c0 110.5-89.5 200-200 200S56 366.5 56 256 145.5 56 256 56s200 89.5 200 200zm-72-20v40c0 6.6-5.4 12-12 12H256v67c0 10.7-12.9 16-20.5 8.5l-99-99c-4.7-4.7-4.7-12.3 0-17l99-99c7.6-7.6 20.5-2.2 20.5 8.5v67h116c6.6 0 12 5.4 12 12z" class=""></path>
@@ -118,17 +119,34 @@
                                     </svg>
                                 </a>
                             </div>
-                            <p class="text-gray text-center mb-1">房客</p>
+                            <p class="text-gray text-center mb-3">房客</p>
                             <h4 class="text-center">吳宜靜 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
                                     <a href="/basicInfo/info" class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" class="mr-2">基本資訊</a>
+                                        <img src="infoprofile.png" width="30" class="mr-2">基本資訊
+<!--                                         https://www.dd-room.com/_nuxt/img/52b77d6.png -->
+                                    </a>
                                 </li>
                                 <li class="mb-3">
                                     <a href="/basicInfo/account" class="basicInfo__menu__link">
-                                        <img src="https://www.dd-room.com/_nuxt/img/3d03113.png" width="30" class="mr-2">帳號設定
+                                        <img src="https://www.dd-room.com/_nuxt/img/1d5e617.png" width="30" class="mr-2">身分驗證
                                     </a>
+                                </li>
+                                <li class="mb-3">
+                                    <a href="pocket.html" class="basicInfo__menu__link">
+                                        <img src="https://www.dd-room.com/_nuxt/img/2dc32e9.png" width="30" class="mr-2">我的錢包
+                                    </a>
+                                </li>
+                                <li class="mb-3">
+                                    <a href="/basicInfo/account" class="basicInfo__menu__link">
+                                        <img src="https://www.dd-room.com/_nuxt/img/3d03113.png" width="30" class="mr-2">我的預約
+                                    </a>
+                                </li>
+                                <li class="mb-3">
+                                    <a href="/basicInfo/account" class="basicInfo__menu__link">
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" class="mr-2">我的合約</a>
+                                </li>
                                 </li>
                             </ul>
                         </div>

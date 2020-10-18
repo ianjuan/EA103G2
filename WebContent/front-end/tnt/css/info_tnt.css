@@ -181,8 +181,8 @@
         /*---------------------------------------------*/
         a {
             font-family: Poppins-Regular;
-            font-size: 14px;
-            line-height: 1.7;
+/*             font-size: 14px; */
+/*             line-height: 1.7; */
             color: #666666;
             margin: 0px;
             transition: all 0.4s;
@@ -552,7 +552,7 @@
             top: -9px;
             font-size: 13px;
             /* border: 1px solid red; */
-            background-color: #f7f7f7;
+            background-color: #fff;
             color: #3a8c68;
             /*width: 60px;*/
             padding: 0px 5px;
@@ -1135,17 +1135,29 @@
           .info-form-wrap {
               border-radius: .625rem;
               box-shadow: 0 6px 6px 0 rgba(0, 0, 0, .1);
-              padding-bottom: 50px;
-
+              padding-bottom: 40px;
           }
+          
           #registerform{
-    padding: 10px 50px 10px 50px;
-		}
+    		  padding: 10px 50px 10px 50px;
+		  }
+		  
 		.infoBtn{
-		font-size:17px;
+			  font-size:17px;
 		}
+		
 		.infoBtn:hover{
-		font-size:20px;
+			font-size:20px;
+		}
+		
+		a.basicInfo__menu__link {
+		font-size: 18px;
+		}
+		a.upload{
+		padding-top: 41px;
+		}
+		#angle-down-up{
+		font-size: 20px;
 		}
 
 
