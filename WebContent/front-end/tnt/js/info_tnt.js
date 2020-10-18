@@ -51,13 +51,19 @@
             })
             // 密碼
             $('#tnt_pwd.register100').on('blur', function() {
-                if (/^[A-Za-z0-9]{8}$/.test($(this).val()) === false) {
+                if (/^[\w]{8,16}$/.test($(this).val()) === false) {
                     showValidate($(this));
                 }
             })
-            // 確認密碼
-            $('#tnt_pwd2.register100').on('blur', function() {
-                if ($(this).val() !== $('#tnt_pwd.register100').val()) {
+            // 新密碼
+            $('#tnt_pwd_new.register100').on('blur', function() {
+                if (/^[\w]{8,16}$/.test($(this).val()) === false) {
+                    showValidate($(this));
+                }
+            })
+            // 確認新密碼
+            $('#tnt_pwd_new2.register100').on('blur', function() {
+                if ($(this).val() !== $('#tnt_pwd_new.register100').val()) {
                     showValidate($(this));
                 }
             })
@@ -150,35 +156,6 @@
             var thisAlert = $(input).parent();
 
             $(thisAlert).removeClass('alert-validate');
-        }
-
-        function validateAllProfile() {
-            //selects
-            var selects = $('select.wrap-register100');
-            selects.each(function() {
-                if ($(this).val().trim() == '') {
-                    $(this).addClass('alert-validate-selects');
-                }
-            });
-
-            //inputs
-            var inputs = $('.validate-input .register100');
-            var check = true;
-
-            for (var i = 0; i < inputs.length; i++) {
-                if ($(inputs).val().trim() == '') {
-                    showValidate(inputs[i]);
-                    check = false;
-                }
-            }
-
-            inputs.each(function() {
-                $(this).focus(function() {
-                    hideValidate(this);
-                });
-            });
-
-            return check;
         }
 
         /*
@@ -361,46 +338,12 @@
                         }
                     });
                 });
-
-            /*借放 隱藏二頁*/
-            $('#divPic').hide();
-            $('#divbtnRegister').hide();
         });
 
         /*
          * ================================================================== 
          *    [ 圖片上傳(程昕) ]
          */
-        // window.onload = () => {
-        //     var elem = document.querySelector('.grid');
-        //     var msnry = new Masonry(elem, {
-        //         // options
-        //         itemSelector: '.grid-item',
-        //         // columnWidth: 100,
-        //         gutter: 10,
-        //         fitWidth: true,
-
-        //     });
-        //     msnry.on('layoutComplete', () => {
-        //         console.log('LayoutComplete');
-        //     })
-        // }
-
-        // function a() {
-        //     var elem = document.querySelector('.grid');
-        //     var msnry = new Masonry(elem, {
-        //         // options
-        //         itemSelector: '.grid-item',
-        //         // columnWidth: 100,
-        //         gutter: 10,
-        //         fitWidth: true,
-
-        //     });
-        //     msnry.on('layoutComplete', () => {
-        //         console.log('LayoutComplete');
-        //     });
-        // }
-
         var img = document.createElement("img");
         var inputF = document.getElementById("inputF");
         var fileInput = document.getElementById("fileInput");
@@ -436,7 +379,6 @@
                         img.addEventListener("click", (e) => { // click pic to checked checkbox
                             e.currentTarget.previousSibling.click();
                         });
-                        // console.log(this.result);
 
                         div.addEventListener("dragstart", dragStartHandler); //adding dragEvent to newly created pic
                         div.setAttribute("draggable", true);
@@ -444,42 +386,12 @@
                         div.setAttribute("class", "picPreview");
                         input.setAttribute("class", "picCheckbox");
                         img.setAttribute("id", "tnt_pic");
-
-                        // a();
-
-                        //                                 var picWrapper = document.getElementById("picWrapper");
-                        //                         pre = document.getElementsByClassName("picPreview");
-                        //                         if (typeof(pre[0]) !== "undefined") {
-                        //                             $(".picPreview").empty();
-                        //                         }
-                        //                         var div = document.createElement('div');
-                        //                         var div2 = document.createElement('div');
-                        //                         div.setAttribute("class", "picPreview");
-                        //                         div2.setAttribute("class", "picCheckbox");
-                        // //                        innerElement = '<div class="checkbox"><input id="label' + i + '""' +
-                        // //                            ' type="checkbox" name="img' + i + '""' +
-                        // //                            ' class="check"></div><label for="label' + i + '""' +
-                        // //                            '> <img id="img' + i + '""' + ' src="' + e.target.result +
-                        // //                            '"></label>';
-                        //                         innerElement = '<label for="label' + i + '""' +
-                        //                         '> <img id="img' + i + '""' + ' src="' + e.target.result +
-                        //                         '"></label>';
-                        //                         div.innerHTML = innerElement;
-                        //                         picWrapper.append(div);
-
-                        //                         innerElementCheckbox = '<input id="label' + i + '""' +
-                        //                       ' type="checkbox" name="img' + i + '""' +
-                        //                       ' class="check">';
-                        //                         div2.innerHTML = innerElementCheckbox;
-                        //                         picWrapper.prepend(div2);
-                        //                        $('.picCheckbox').css('text-align: center;');
                     });
 
                 } else {
                     alert("請上傳圖片");
                 }
             }
-            // inputF.value = null; // clear last file data
         }
         //----------------------------------------------
         var del = document.getElementById("del");
@@ -505,18 +417,6 @@
                 alert("請勾選刪除項目");
             }
         }
-        //--------------------刪除本機------------------------
-        // var str = "delname="+filename;
-        function DeleteFileNameFile(filename) { //delete localdisk file
-            console.log("filenameIN===" + filename);
-            //         var url = "DeleteFile.do"
-            // var xhr = new XMLHttpRequest();
-            // var str = "";
-            // xhr.open("Post", url, true);
-            // xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-            // xhr.send("delname=" + filename);
-            //a();
-        }
 
         //=================================================
         function fileUpload(e) {
@@ -537,22 +437,6 @@
         }
 
         function uploadFileDrop(file) {
-            //         var url = "uploadAndDelete.do";
-            // var xhr = new XMLHttpRequest();
-            // var formData = new FormData();
-            // xhr.open("post", url, true);
-            // xhr.addEventListener("readyStatechange", function(e) {
-            //     if (xhr.readState == 4 && xhr.status == 200) {
-            //         alert("success!");
-            //     } else {
-            //         alert("error!");
-            //     }
-            // });
-
-            // formData.append("file", file);
-            // // xhr.setRequestHeader("Content-Type", "multipart/form-data");//don't write this!!
-            // // xhr.setRequestHeader("content-type", false);//don't write this!!
-            // xhr.send(formData);
         }
 
 
@@ -575,75 +459,138 @@
         }
         /*------------------------------------------------------------------
         [ End-Origin-Register ]*/  
-
-
+        
         /*
          * ================================================================== 
-         *    [ 按鈕Ajax ]
+         *    [ validateAll(the form) ]
          */
-        //info form1
-        $('#btnProfile.login100-form-btn').click(function(e) {
-            e.preventDefault();
-            console.log('btn - info form1');
-            validateAllProfile();
-            if ($('.alert-validate').length === 0) {
-
-            	
-            }
-        });
-        //submit
-        $('#btnRegister.login100-form-btn').click(function(e) {
-            e.preventDefault();
-            console.log('btn - submit');
-            // ajax_register();
-            //   var formData = new FormData();
-            var formData = new FormData($('#registerform')[0]);
-            formData.append('action', 'insert');
-            ajax_register(formData);
-        });
-
-        function ajax_register(formData) {
-            $.ajax({ // 存入資料庫階段
-                url: "/EA103G2/tnt/TntServlet2",
-                type: "POST",
-                data: formData,
-                // 告訴jQuery不要去處理髮送的資料
-                processData: false,
-                // 告訴jQuery不要去設定Content-Type請求頭
-                contentType: false,
-   
-                success: function() { // 以上成功才執行
-                    console.log("res棒");
-                    redirect();
-                },
-                error: function() {
-                    console.log("真的不棒")
+        
+        function validateAll(theform) {
+        	console.log(theform);
+        	//selects
+        	var selects = theform.find('select.wrap-register100');
+            selects.each(function() {
+                if ($(this).val().trim() == '') {
+                    $(this).addClass('alert-validate-selects');
                 }
-            })
-        }
+            });
 
-        function redirect() {
-            window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
+            //inputs
+            var inputs = theform.find('.validate-input .register100');
+            var check = true;
+
+            for (var i = 0; i < inputs.length; i++) {
+                if ($(inputs).val().trim() == '') {
+                    showValidate(inputs[i]);
+                    check = false;
+                }
+            }
+
+            inputs.each(function() {
+                $(this).focus(function() {
+                    hideValidate(this);
+                });
+            });
+
+            return check;
         }
 
         /*
          * ================================================================== 
          *    [ Angle-down-up ]
          */
-        
-        $('#angle-down-up').click(function() {
-        	$('form#registerform').toggle();
-        	$("[data-icon='chevron-up']").toggle();
-        	$("[data-icon='chevron-down']").toggle();
-        	var pbtmp;
-        	if($('.info-form-wrap').css('padding-bottom')==='40px'){
-        		pbtmp = '10px';
-        	}else{
-        		pbtmp = '40px';
-        	}
 
-        	$('.info-form-wrap').css('padding-bottom',pbtmp);
-        	});
+        $('.angleUpDown').each(function(index,element){
+            $(this).click(function(){
+            	var infoformwrap = $(this).closest('div');
+//            	infoformwrap.children('form').toggle();  //form toggle
+////                 $(this).closest('div').children('form').toggle();  
+//                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
+//                 var angleUp = '.angleUp:eq(' + index + ')';
+//                 $(angleDown).toggle();
+//                 $(angleUp).toggle();
+//                 
+//                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
+//                 	pbtmp = '10px';
+//                 }else{
+//                    pbtmp = '48px';
+//                 }
+//                 infoformwrap.css('padding-bottom',pbtmp);
+//                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
+            	togglethefrom(infoformwrap,index);
+            });
+        });
+        
+        function togglethefrom(infoformwrap,index){
+        	infoformwrap.children('form').toggle();  //form toggle 
+          var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
+          var angleUp = '.angleUp:eq(' + index + ')';
+          $(angleDown).toggle();
+          $(angleUp).toggle();
+          
+          if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
+          	pbtmp = '10px';
+          }else{
+             pbtmp = '48px';
+          }
+          infoformwrap.css('padding-bottom',pbtmp);
+          infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
+        }
         
         
+        /*
+         * ================================================================== 
+         *    [ Info List Icon click ]
+         */
+        $('a.upload').click(function () {
+            if ($('.info-form-wrap:eq(0)').css('padding-bottom') === '48px') {
+                togglethefrom($('.info-form-wrap:eq(0)'), 0);
+            }
+            if ($('.info-form-wrap:eq(1)').css('padding-bottom') !== '48px') {
+                togglethefrom($('.info-form-wrap:eq(1)'), 1);
+            }
+            if ($('.info-form-wrap:eq(2)').css('padding-bottom') === '48px') {
+                togglethefrom($('.info-form-wrap:eq(2)'), 2);
+            }
+
+        });
+ 
+        
+        /*
+         * ================================================================== 
+         *    [ 按鈕Ajax infoProfile ]
+         */
+
+        $('#btninfoProfile').click(function(e) {
+            e.preventDefault();
+            console.log('btn - info update profile');
+            var theform = $(this).parent().prev('form');
+            validateAll(theform);
+             if ($('.alert-validate').length === 0) {
+            	 var formData = new FormData(theform.get(0));
+                 formData.append('action', 'infoUpdateProfile');
+                 ajax_infoUpdateProfile(formData);
+             }
+        });
+        
+      function ajax_infoUpdateProfile(formData) {
+             $.ajax({ // 存入資料庫階段
+                 url: "/EA103G2/tnt/TntServlet2",
+                 type: "POST",
+                 data: formData,
+                 // 告訴jQuery不要去處理髮送的資料
+                 processData: false,
+                 // 告訴jQuery不要去設定Content-Type請求頭
+                 contentType: false,
+   
+                 success: function() { // 以上成功才執行
+                     console.log("res棒");
+                 },
+                 error: function() {
+                     console.log("真的不棒")
+                 }
+             })
+         }
+
+
         

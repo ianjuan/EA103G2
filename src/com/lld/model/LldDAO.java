@@ -203,7 +203,7 @@ public class LldDAO implements LandlordDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// lldVO 銋迂� Domain objects
+				// lldVO 也稱為 Domain objects
 				lldVO = new LldVO();
 				lldVO.setLld_no(rs.getString("lld_no"));
 				lldVO.setLld_email(rs.getString("lld_email"));
@@ -269,7 +269,7 @@ public class LldDAO implements LandlordDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// lldVO 銋迂� Domain objects
+				// lldVO 也稱為 Domain objects
 				lldVO = new LldVO();
 				lldVO.setLld_no(rs.getString("lld_no"));
 				lldVO.setLld_email(rs.getString("lld_email"));
@@ -728,24 +728,20 @@ public class LldDAO implements LandlordDAO_interface {
 	}
 
 	// =================================6.rpt&auth==================================
-	private static final String UPDATE_RPT_AUTH_STMT = "UPDATE LANDLORD set lld_reported_count=?, lld_auth_chat=?, lld_auth_res=?, lld_auth_cmt=?, lld_auth_rpt=? where lld_no=?";
-	private static final String GET_ONE_RPT_AUTH_STMT = "SELECT lld_reported_count, lld_auth_chat, lld_auth_res, lld_auth_cmt, lld_auth_rpt from LANDLORD where lld_no=?";
+	private static final String UPDATE_RPT_STMT = "UPDATE LANDLORD set lld_reported_count=? where lld_no=?";
+	private static final String GET_ONE_RPT_STMT = "SELECT lld_reported_count from LANDLORD where lld_no=?";
 
 	@Override
-	public void update_rpt_auth(LldVO lldVO) {
+	public void update_rpt(LldVO lldVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_RPT_AUTH_STMT);
+			pstmt = con.prepareStatement(UPDATE_RPT_STMT);
 
 			pstmt.setInt(1, lldVO.getLld_reported_count());
-			pstmt.setInt(2, lldVO.getLld_auth_chat());
-			pstmt.setInt(3, lldVO.getLld_auth_res());
-			pstmt.setInt(4, lldVO.getLld_auth_cmt());
-			pstmt.setInt(5, lldVO.getLld_auth_rpt());
-			pstmt.setString(6, lldVO.getLld_no());
+			pstmt.setString(2, lldVO.getLld_no());
 
 			pstmt.executeUpdate();
 
@@ -770,7 +766,7 @@ public class LldDAO implements LandlordDAO_interface {
 	}
 
 	@Override
-	public LldVO findByPK_rpt_auth(String lld_no) {
+	public LldVO findByPK_rpt(String lld_no) {
 		LldVO lldVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -778,17 +774,13 @@ public class LldDAO implements LandlordDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_RPT_AUTH_STMT);
+			pstmt = con.prepareStatement(GET_ONE_RPT_STMT);
 
 			pstmt.setString(1, lld_no);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				lldVO.setLld_reported_count(rs.getInt("lld_reported_count"));
-				lldVO.setLld_auth_chat(rs.getInt("lld_auth_chat"));
-				lldVO.setLld_auth_res(rs.getInt("lld_auth_res"));
-				lldVO.setLld_auth_cmt(rs.getInt("lld_auth_cmt"));
-				lldVO.setLld_auth_rpt(rs.getInt("lld_auth_rpt"));
 			}
 
 		} catch (SQLException se) {
@@ -818,5 +810,97 @@ public class LldDAO implements LandlordDAO_interface {
 		}
 		return lldVO;
 	}
+	
+	// =================================7.auth==================================
+		private static final String UPDATE_AUTH_STMT = "UPDATE LANDLORD set lld_auth_chat=?, lld_auth_res=?, lld_auth_cmt=?, lld_auth_rpt=?, lld_auth_hod=? where lld_no=?";
+		private static final String GET_ONE_AUTH_STMT = "SELECT lld_auth_chat, lld_auth_res, lld_auth_cmt, lld_auth_rpt, lld_auth_hos from LANDLORD where lld_no=?";
+
+		@Override
+		public void update_auth(LldVO lldVO) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(UPDATE_AUTH_STMT);
+
+				pstmt.setInt(1, lldVO.getLld_auth_chat());
+				pstmt.setInt(2, lldVO.getLld_auth_res());
+				pstmt.setInt(3, lldVO.getLld_auth_cmt());
+				pstmt.setInt(4, lldVO.getLld_auth_rpt());
+				pstmt.setInt(5, lldVO.getLld_auth_hos());
+				pstmt.setString(6, lldVO.getLld_no());
+
+				pstmt.executeUpdate();
+
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error ocurred." + se.getMessage());
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
+		@Override
+		public LldVO findByPK_auth(String lld_no) {
+			LldVO lldVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ONE_AUTH_STMT);
+
+				pstmt.setString(1, lld_no);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					lldVO.setLld_auth_chat(rs.getInt("lld_auth_chat"));
+					lldVO.setLld_auth_res(rs.getInt("lld_auth_res"));
+					lldVO.setLld_auth_cmt(rs.getInt("lld_auth_cmt"));
+					lldVO.setLld_auth_rpt(rs.getInt("lld_auth_rpt"));
+					lldVO.setLld_auth_rpt(rs.getInt("lld_auth_hos"));
+				}
+
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured" + se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace();
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return lldVO;
+		}
 
 }
