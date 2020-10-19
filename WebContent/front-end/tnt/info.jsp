@@ -125,8 +125,8 @@
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
                                     <a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
-                                        <img src="<%=request.getContextPath()%>/ImgReader?id=TNT000001<%???????????? %>" width="30" class="mr-2">基本資訊
-                                        <!--                                         https://www.dd-room.com/_nuxt/img/52b77d6.png -->
+                                        <img src="" width="30" class="mr-2">基本資訊
+<%--                                         <!--       <%=request.getContextPath()%>/ImgReader?id=TNT000001<%???????????? %>                                  https://www.dd-room.com/_nuxt/img/52b77d6.png --> --%>
                                     </a>
                                 </li>
                                 <li class="mb-3">

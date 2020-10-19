@@ -242,7 +242,7 @@
 
                             <!--Start form4 BankCard-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
-                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">收/付款設定
+                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">收付款設定
                                     <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
@@ -255,10 +255,7 @@
                                 <hr class="login100-form-title p-b-10">
                                 <!-- <div class="login100-form validate-form"> -->
                                 <form id="registerform" enctype="multipart/form-data">
-                                    <div style="margin: 0 -30px;">收款帳號設定
-                                        <hr>
-                                    </div>
-
+                                    <div class="titlebankcard">收款帳號設定</div>
                                     <select class="wrap-register100 validate-input" data-validate="Bank is required" name="tnt_bank" id="tnt_bank">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
@@ -411,11 +408,8 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">銀行帳號</span>
                                     </div>
-
-                                    <div style="margin: 0 -30px;">付款資訊設定
-                                        <hr>
-                                    </div>
-
+									<hr style="margin: 25px -40px;">
+                                    <div class="titlebankcard">付款資訊設定</div>
                                     <div class="wrap-register100 validate-input" data-validate="Credit card is required">
                                         <input class="register100" type="text" name="tnt_card" id="tnt_card">
                                         <span class="focus-register100"></span>
