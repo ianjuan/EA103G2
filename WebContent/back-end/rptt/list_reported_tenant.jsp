@@ -81,7 +81,7 @@
 	    <%if(rpttvo.getRptt_status()==0){%>
 			<td>未處理</td>
 			<%}else{%><td>處理中</td> <%} %>
-			
+			 
 		<%if(rpttvo.getRptt_result()==1){%>
 			<td>通過</td>
 			<%}else{%><td>null</td> <%} %>

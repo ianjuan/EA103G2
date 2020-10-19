@@ -18,7 +18,7 @@ textarea, select {
 	transition: all .2s ease;
 }
 
-button.pass ,button.fail{
+button.pass, button.fail {
 	margin-top: 15px;
 	font-size: 16px;
 	font-weight: 600;
@@ -30,6 +30,16 @@ button.pass ,button.fail{
 	border: 1px solid #0f868c;
 	text-align: center;
 	width: 100%;
+}
+
+button#checkall {
+	font-size: 16px;
+	font-weight: 600;
+	color: #0f868c;
+	background-color: #fff;
+	border-radius: 8px;
+	border: 1px solid #0f868c;
+	text-align: center;
 }
 
 button.check {
@@ -53,8 +63,8 @@ button.take {
 	margin-right: 10px;
 }
 
-table{
-	 table-layout: auto 
+table {
+	table-layout: auto
 }
 
 textarea.reason1 {
@@ -71,8 +81,6 @@ textarea.reason1 {
 	margin-bottom: 10px;
 	transition: all .2s ease;
 }
-
-
 
 button.save {
 	margin-top: 15px;
@@ -108,8 +116,6 @@ button.send {
 select[size] {
 	height: auto
 }
-
-
 
 td tr {
 	max-width: 100%;
