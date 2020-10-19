@@ -502,7 +502,7 @@
 								<th>*出租狀態:</th>
 								<td>
 									<label><input type="radio" name="hos_status" value="待出租" <%=(houseVO.getHos_status().equals("待出租")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>待出租</label>
-									<label><input type="radio" name="hos_status" value="已下架" <%=(houseVO.getHos_status().equals("已下架")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>已下架</label>
+									<label><input type="radio" name="hos_status" value="已下架" <%=(houseVO.getHos_status().equals("已下架")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>下架</label>
 									<label><input type="hidden" name="hos_status" value="出租中" <%=(houseVO.getHos_status().equals("出租中")) ? "checked" : ""%> required></label>
 								</td>
 							</tr>

@@ -473,7 +473,7 @@
 								<th>*出租狀態:</th>
 								<td>
 									<label><input type="radio" name="hos_status" value="待出租" required>待出租</label>
-									<label><input type="radio" name="hos_status" value="下架" required>下架</label>
+									<label><input type="radio" name="hos_status" value="已下架" required>下架</label>
 								</td>
 							</tr>
 						</table>
