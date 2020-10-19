@@ -100,10 +100,10 @@ public class RpttServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/second_page.jsp";
+				String url = "/back-end/rptt/second_search_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("成功轉過去囉");
+				System.out.println("成功轉過去囉second_search_page");
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 
