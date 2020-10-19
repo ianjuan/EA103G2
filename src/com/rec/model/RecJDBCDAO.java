@@ -14,14 +14,16 @@ public class RecJDBCDAO implements RecDAO_interface {
 	String userid = "G2DB";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO RECURRING_ORDER (REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, REC_STA) VALUES"
-			+ " ('REC' || lpad(SEQ_REC_NO.NEXTVAL, 6, '0'), ?, ?, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA FROM RECURRING_ORDER ORDER BY REC_NO";
-	private static final String GET_ONE_STMT = "SELECT REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA FROM RECURRING_ORDER WHERE REC_NO = ?";
+	private static final String INSERT_STMT = "INSERT INTO RECURRING_ORDER (REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, REC_STA, REC_TOTAL) VALUES"
+			+ " ('REC' || lpad(SEQ_REC_NO.NEXTVAL, 6, '0'), ?, ?, ?, ?, ?, ?, ?)";
+	private static final String AUTO_INSERT = "INSERT INTO RECURRING_ORDER (REC_NO, CON_NO, HOS_NO, REC_MON, REC_STA) VALUES"
+			+ " ('REC' || lpad(SEQ_REC_NO.NEXTVAL, 6, '0'), ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA, REC_TOTAL FROM RECURRING_ORDER ORDER BY REC_NO";
+	private static final String GET_ONE_STMT = "SELECT REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA, REC_TOTAL FROM RECURRING_ORDER WHERE REC_NO = ?";
 	private static final String DELETE = "DELETE FROM RECURRING_ORDER WHERE REC_NO = ?";
-	private static final String UPDATE = "UPDATE RECURRING_ORDER SET CON_NO = ?, HOS_NO = ?, REC_MON = ?, REC_WATER = ?, REC_ELEC = ?, REC_STA = ? WHERE REC_NO = ?";
-	private static final String LLDUPDATE = "UPDATE RECURRING_ORDER SET REC_WATER = ?, REC_ELEC = ?, REC_STA = ? WHERE REC_NO = ?";
-	private static final String GET_ONE_REC_FRON_CON = "SELECT REC_NO, C.CON_NO, C.HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA "
+	private static final String UPDATE = "UPDATE RECURRING_ORDER SET CON_NO = ?, HOS_NO = ?, REC_MON = ?, REC_WATER = ?, REC_ELEC = ?, REC_STA = ?, REC_TOTAL WHERE REC_NO = ?";
+	private static final String LLDUPDATE = "UPDATE RECURRING_ORDER SET REC_WATER = ?, REC_ELEC = ?, REC_STA = ?, REC_TOTAL = ? WHERE REC_NO = ?";
+	private static final String GET_ONE_REC_FRON_CON = "SELECT REC_NO, C.CON_NO, C.HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA, REC_TOTAL "
 			+ "FROM recurring_order R JOIN CONTRACT C ON R.CON_NO = C.CON_NO WHERE C.CON_NO = ?";
 
 	@Override
@@ -42,6 +44,51 @@ public class RecJDBCDAO implements RecDAO_interface {
 			pstmt.setInt(4, recVO.getRec_water());
 			pstmt.setInt(5, recVO.getRec_elec());
 			pstmt.setInt(6, recVO.getRec_sta());
+			pstmt.setInt(7, recVO.getRec_total());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void autorec(RecVO recVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(AUTO_INSERT);
+
+			pstmt.setString(1, recVO.getCon_no());
+			pstmt.setString(2, recVO.getHos_no());
+			pstmt.setInt(3, recVO.getRec_mon());
+			pstmt.setInt(4, recVO.getRec_sta());
 
 			pstmt.executeUpdate();
 
@@ -88,7 +135,8 @@ public class RecJDBCDAO implements RecDAO_interface {
 			pstmt.setInt(4, recVO.getRec_water());
 			pstmt.setInt(5, recVO.getRec_elec());
 			pstmt.setInt(6, recVO.getRec_sta());
-			pstmt.setString(7, recVO.getRec_no());
+			pstmt.setInt(7, recVO.getRec_total());
+			pstmt.setString(8, recVO.getRec_no());
 			
 
 			pstmt.executeUpdate();
@@ -133,7 +181,8 @@ public class RecJDBCDAO implements RecDAO_interface {
 			pstmt.setInt(1, recVO.getRec_water());
 			pstmt.setInt(2, recVO.getRec_elec());
 			pstmt.setInt(3, recVO.getRec_sta());
-			pstmt.setString(4, recVO.getRec_no());
+			pstmt.setInt(4, recVO.getRec_total());
+			pstmt.setString(5, recVO.getRec_no());
 			
 
 			pstmt.executeUpdate();
@@ -232,6 +281,7 @@ public class RecJDBCDAO implements RecDAO_interface {
 				recVO.setRec_elec(rs.getInt("REC_ELEC"));
 				recVO.setRec_time(rs.getTimestamp("REC_TIME"));
 				recVO.setRec_sta(rs.getInt("REC_STA"));
+				recVO.setRec_total(rs.getInt("REC_TOTAL"));
 			}
 
 			// Handle any driver errors
@@ -293,6 +343,7 @@ public class RecJDBCDAO implements RecDAO_interface {
 				recVO.setRec_elec(rs.getInt("REC_ELEC"));
 				recVO.setRec_time(rs.getTimestamp("REC_TIME"));
 				recVO.setRec_sta(rs.getInt("REC_STA"));
+				recVO.setRec_total(rs.getInt("REC_TOTAL"));
 				list.add(recVO);
 			}
 
@@ -356,6 +407,7 @@ public class RecJDBCDAO implements RecDAO_interface {
 				recVO.setRec_elec(rs.getInt("REC_ELEC"));
 				recVO.setRec_time(rs.getTimestamp("REC_TIME"));
 				recVO.setRec_sta(rs.getInt("REC_STA"));
+				recVO.setRec_total(rs.getInt("REC_TOTAL"));
 				list.add(recVO);
 			}
 
@@ -397,15 +449,15 @@ public class RecJDBCDAO implements RecDAO_interface {
 		RecJDBCDAO dao = new RecJDBCDAO();
 
 //		// INSERT
-//		RecVO recVO1 = new RecVO();
-//		recVO1.setCon_no("CON000001");
-//		recVO1.setHos_no("HOS000001");
-//		recVO1.setRec_mon(10);
+		RecVO recVO1 = new RecVO();
+		recVO1.setCon_no("CON000001");
+		recVO1.setHos_no("HOS000001");
+		recVO1.setRec_mon(10);
 //		recVO1.setRec_water(10);
 //		recVO1.setRec_elec(10);
-//		recVO1.setRec_sta(1);
-//		dao.insert(recVO1);
-//		System.out.println("新增成功");
+		recVO1.setRec_sta(1);
+		dao.autorec(recVO1);
+		System.out.println("新增成功");
 
 		// UPDATE
 //		RecVO recVO2 = new RecVO();
@@ -424,15 +476,15 @@ public class RecJDBCDAO implements RecDAO_interface {
 ////		System.out.println("刪除成功");
 //		
 ////		//SEARCH
-		RecVO recVO3 = dao.findByPrimaryKey("REC000023");
-		System.out.print(recVO3.getRec_no()+ ",");
-		System.out.print(recVO3.getCon_no()+ ",");
-		System.out.print(recVO3.getHos_no()+ ",");
-		System.out.print(recVO3.getRec_mon()+ ",");
-		System.out.print(recVO3.getRec_water()+ ",");
-		System.out.print(recVO3.getRec_elec()+ ",");
-		System.out.print(recVO3.getRec_time());
-		System.out.println("---------------------");
+//		RecVO recVO3 = dao.findByPrimaryKey("REC000023");
+//		System.out.print(recVO3.getRec_no()+ ",");
+//		System.out.print(recVO3.getCon_no()+ ",");
+//		System.out.print(recVO3.getHos_no()+ ",");
+//		System.out.print(recVO3.getRec_mon()+ ",");
+//		System.out.print(recVO3.getRec_water()+ ",");
+//		System.out.print(recVO3.getRec_elec()+ ",");
+//		System.out.print(recVO3.getRec_time());
+//		System.out.println("---------------------");
 //		
 //		//SEARCH
 //		List<RecVO> list = dao.getLddAllByCon("CON000001");

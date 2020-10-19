@@ -11,7 +11,7 @@ public class RecService {
 	}
 	
 	public RecVO addRecFromLld(String con_no, String hos_no, Integer rec_mon, 
-			Integer rec_water, Integer rec_elec, Integer rec_sta) {
+			Integer rec_water, Integer rec_elec, Integer rec_sta, Integer rec_total) {
 		
 		RecVO recVO = new RecVO();
 		
@@ -21,13 +21,28 @@ public class RecService {
 		recVO.setRec_water(rec_water);
 		recVO.setRec_elec(rec_elec);
 		recVO.setRec_sta(rec_sta);
+		recVO.setRec_total(rec_total);
 		dao.insert(recVO);
 		
 		return recVO;
 	}
 	
+	public RecVO autorec(String con_no, String hos_no, Integer rec_mon, 
+			Integer rec_sta) {
+		
+		RecVO recVO = new RecVO();
+		
+		recVO.setCon_no(con_no);
+		recVO.setHos_no(hos_no);
+		recVO.setRec_mon(rec_mon);
+		recVO.setRec_sta(rec_sta);
+		dao.autorec(recVO);
+		
+		return recVO;
+	}
+	
 	public RecVO updateRec(String con_no, String hos_no, Integer rec_mon, 
-			Integer rec_water, Integer rec_elec, String rec_no, Integer rec_sta) {
+			Integer rec_water, Integer rec_elec, String rec_no, Integer rec_sta, Integer rec_total) {
 		
 		RecVO recVO = new RecVO();
 		
@@ -38,12 +53,13 @@ public class RecService {
 		recVO.setRec_elec(rec_elec);
 		recVO.setRec_no(rec_no);
 		recVO.setRec_sta(rec_sta);
+		recVO.setRec_total(rec_total);
 		dao.update(recVO);
 		
 		return recVO;
 	}
 	
-	public RecVO updateRecFromLld(Integer rec_water, Integer rec_elec, String rec_no, Integer rec_sta) {
+	public RecVO updateRecFromLld(Integer rec_water, Integer rec_elec, String rec_no, Integer rec_sta, Integer rec_total) {
 		
 		RecVO recVO = new RecVO();
 		
@@ -51,6 +67,7 @@ public class RecService {
 		recVO.setRec_elec(rec_elec);
 		recVO.setRec_no(rec_no);
 		recVO.setRec_sta(rec_sta);
+		recVO.setRec_total(rec_total);
 		dao.lldupdate(recVO);
 		
 		return recVO;
