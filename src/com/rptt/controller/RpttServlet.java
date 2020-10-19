@@ -77,6 +77,7 @@ public class RpttServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
 				String Number = req.getParameter("Number");
+				System.out.println(Number);
 				if (Number == null || (Number.trim()).length() == 0) {
 					errorMsgs.add("請正確輸入欲搜尋編號");
 				}
@@ -90,6 +91,7 @@ public class RpttServlet extends HttpServlet {
 
 				/*************************** 2.開始查詢資料 *****************************************/
 				RpttService rpttSvc = new RpttService();
+				System.out.println("有來到Service的方法");
 				List<RpttVO> rpttVO = rpttSvc.getRptt(Number);
 				if (rpttVO.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
@@ -434,6 +436,48 @@ public class RpttServlet extends HttpServlet {
 			}
 		}
 
+		if ("pass".equals(action)) { // 來自addEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rptt_no = req.getParameter("rptt_no");
+				System.out.println(rptt_no);
+				Integer rptt_result = 1;
+				System.out.println(rptt_result);
+				String rptt_note = req.getParameter("rptt_note");
+				System.out.println(rptt_note);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RpttVO rpttVO1 = new RpttVO();
+				rpttVO1.setRptt_no(rptt_no);
+				rpttVO1.setRptt_result(rptt_result);
+				rpttVO1.setRptt_note(rptt_note);
+				System.out.println("裝入完畢");
+
+				RpttService rpttSvc = new RpttService();
+				rpttVO1 = rpttSvc.fail(rptt_no, rptt_result, rptt_note);
+				System.out.println("result有更新了");
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
+				req.setAttribute("rpttVO", rpttVO);
+				String url = "/back-end/rptt/first_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("轉到權限修改那裏");
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/listAllRptt.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();

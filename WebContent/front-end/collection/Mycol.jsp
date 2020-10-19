@@ -20,7 +20,9 @@
 			<%@ page import="com.collection.model.*"%>
 
 <%collectionService ser = new collectionService();
-			String list = ser.getCollectionVOfromTNTNO("TNT000001");
+String	tntno=(String)session.getAttribute("tnt_no");
+
+			String list = ser.getCollectionVOfromTNTNO(tntno);
 			pageContext.setAttribute("list", list);//KEY，VALUE%>
 
 <div class="container">

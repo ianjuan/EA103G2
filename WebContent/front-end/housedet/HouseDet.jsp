@@ -26,9 +26,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.google.gson.*" %>
 <%HouseDetService hds =new HouseDetService();
-session.setAttribute("TNT","TNT000001");
 Gson gson = new Gson();
-String tntno=(String)session.getAttribute("TNT");
+String	tntno=(String)session.getAttribute("tnt_no");
 String hosno=request.getParameter("hos");
 session.setAttribute("HOS",hosno);
 
