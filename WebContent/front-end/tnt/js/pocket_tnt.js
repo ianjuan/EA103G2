@@ -48,6 +48,25 @@
                     showValidate($(this));
                 }
             })
+            
+            // 信用卡卡號
+            $('#tnt_card.register100').on('blur', function() {
+                if (/^[(\u4e00-\u9fa5)(a-zA-Z)]{2,}$/.test($(this).val().trim()) === false) {
+                    showValidate($(this));
+                }
+            })
+            // 信用卡安全碼
+            $('#tnt_cardsvc.register100').on('blur', function() {
+                if (/^[\d]{3}$/.test($(this).val().trim()) === false) {
+                    showValidate($(this));
+                }
+            })
+            // 信用卡到期日
+            $('#tnt_carddue.register100').on('blur', function() {
+                if (/^[\d]{8,}$/.test($(this).val().trim()) === false) {
+                    showValidate($(this));
+                }
+            })
 
         })(jQuery);
 
