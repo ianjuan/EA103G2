@@ -405,7 +405,7 @@ button.checkall {
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
 											搜尋: <input type="text" size="24" name="Number"
-												placeholder="輸入房客/ 房東/ 員工編號"> <input type="hidden"
+												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input type="hidden"
 												name="action" value="get_want_display"> <input
 												type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
