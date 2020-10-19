@@ -3,6 +3,7 @@ package com.emp.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -35,13 +36,15 @@ public class EmployeeDAO implements EmployeeDAO_interface{
 			"UPDATE EMPLOYEE SET EMP_PWD=?,EMP_TITLE=?,EMP_NAME=?,EMP_IS_DELETE=?,EMP_PIC=? where emp_no = ?";
 	
 	@Override
-	public void insert(EmployeeVO employeeVO) {
+	public String insert(EmployeeVO employeeVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		String emp_no=null;
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			String[] cols = {"EMP_NO"};
+			pstmt = con.prepareStatement(INSERT_STMT,cols);
 
 			pstmt.setString(1, employeeVO.getEmp_acc());
 			pstmt.setString(2, employeeVO.getEmp_pwd());
@@ -50,7 +53,20 @@ public class EmployeeDAO implements EmployeeDAO_interface{
 
 
 			pstmt.executeUpdate();
-
+			
+			ResultSet rs = pstmt.getGeneratedKeys();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			if (rs.next()) {
+				do {
+					for (int i = 1; i <= columnCount; i++) {
+						emp_no = rs.getString(i);
+					}
+				} while (rs.next());
+			} else {
+				System.out.println("NO KEYS WERE GENERATED.");
+			}
+			rs.close();
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -72,7 +88,7 @@ public class EmployeeDAO implements EmployeeDAO_interface{
 				}
 			}
 		}
-
+		return emp_no;
 	}
 
 	@Override

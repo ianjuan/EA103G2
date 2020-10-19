@@ -6,15 +6,9 @@
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/images/castle.ico" type="image/x-icon" />
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
-<link href="<%=request.getContextPath()%>/back-end/css/wu-teacher.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-<style>
-body {
-	margin: 10;
-}
-</style>
 </head>
 <body>
 	        <div class="container-fluid">
@@ -28,7 +22,6 @@ body {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>查詢單位員工資料</h3>
 				<h4>
 					<a href="<%=request.getContextPath()%>/back-end/emp/index.jsp"><i
 						class="fas fa-home"></i>回首頁</a>

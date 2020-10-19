@@ -19,7 +19,7 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <head>
-<title>員工資料修改 - update_emp_input.jsp</title>
+<title>員工資料修改</title>
 <!-- 外部js匯入 -->
 </head>
 <body>
@@ -35,7 +35,7 @@
 
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	<tr><td>
-		 <h3>員工資料修改 - update_emp_input.jsp</h3>
+		 <h3>員工資料修改</h3>
 		 
 		 <h4><a href="<%=request.getContextPath()%>/back-end/emp/index.jsp">回首頁</a></h4>
 	</td></tr>
@@ -53,7 +53,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="emp.do" name="form1" enctype="multipart/form-data">
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do" name="form1" enctype="multipart/form-data">
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	<tr>
 		<td>員工編號:</td>
@@ -100,8 +100,14 @@
 	<td>權限：</td>
 	<td>
 	<c:forEach var="fun_list" items="${funSvc.all}">
-		<input type="checkbox" id="${fun_list.fun_no}" name="fun_no" value="${fun_list.fun_no}" data-toggle="toggle">
-		<label for="${fun_list.fun_no}">${fun_list.fun_name}</label>
+	<input type="checkbox" id="${fun_list.fun_no}" name="fun_no" value="${fun_list.fun_no}" data-toggle="toggle">  
+	<label for="${fun_list.fun_no}">${fun_list.fun_name}</label>
+	<c:forEach var="rigVO" items="${rigVO}">
+	<c:if test="${fun_list.fun_no == rigVO.fun_no }">
+<!-- 	預設勾選原有的權限 -->
+	<script>${fun_list.fun_no}.checked=true</script>
+	</c:if>
+	</c:forEach>
 	</c:forEach>
 	</td>
 	</tr>

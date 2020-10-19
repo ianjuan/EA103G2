@@ -29,7 +29,8 @@ public class RightDAO implements RightDAO_interface{
 			"INSERT INTO  RIGHT (EMP_NO,FUN_NO) VALUES(?,?)";
 	private static final String GET_EMP_ALL_RIGHT =
 			"SELECT EMP_NO,FUN_NO FROM RIGHT WHERE EMP_NO = ?";
-
+	private static final String DELETE =
+			"DELETE FROM RIGHT where emp_no = ?";
 	@Override
 	public void insert(RightVO rightVO) {
 		Connection con = null;
@@ -120,5 +121,41 @@ public class RightDAO implements RightDAO_interface{
 		}
 		return list;
 	}
+	public void delete(String emp_no) {
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
+
+			pstmt.setString(1, emp_no);
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 }

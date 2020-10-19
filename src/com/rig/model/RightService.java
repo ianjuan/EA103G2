@@ -13,13 +13,14 @@ public class RightService {
 		return dao.getAll(emp_no);
 	}
 	public RightVO addRig(String emp_no, String fun_no) {
-
 		RightVO rigVO = new RightVO();
-
 		rigVO.setEmp_no(emp_no);
 		rigVO.setFun_no(fun_no);
 		dao.insert(rigVO);
 		return rigVO;
+	}
+	public void delRig(String emp_no) {
+		dao.delete(emp_no);
 	}
 
 }

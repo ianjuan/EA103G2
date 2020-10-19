@@ -4,7 +4,7 @@ import java.util.List;
 
 //DAO CRUD
 public interface EmployeeDAO_interface {
-	public void insert(EmployeeVO employeeVO);
+	public String insert(EmployeeVO employeeVO);
 	public EmployeeVO findByPrimaryKey(String emp_no);
 	public List<EmployeeVO>getAll();
 	public void update(EmployeeVO employeeVO);

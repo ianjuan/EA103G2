@@ -247,5 +247,17 @@
 		<servlet-name>EmployeeServlet</servlet-name>
 		<url-pattern>/back-end/emp/emp.do</url-pattern>
 	</servlet-mapping>
-
+<filter>
+    <filter-name>LoginFilterBackEnd</filter-name>
+    <filter-class>filters.LoginFilterBackEnd</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilterBackEnd</filter-name>
+    <url-pattern>/back-end/emp/index.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
 </web-app>

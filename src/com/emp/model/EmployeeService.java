@@ -24,7 +24,8 @@ public class EmployeeService {
 		empVO.setEmp_pwd(emp_pwd);
 		empVO.setEmp_title(emp_title);
 		empVO.setEmp_name(emp_name);
-		dao.insert(empVO);
+		String emp_no=dao.insert(empVO);
+		empVO.setEmp_no(emp_no);
 		return empVO;
 	}
 

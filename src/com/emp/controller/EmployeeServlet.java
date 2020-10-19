@@ -8,13 +8,21 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import com.emp.model.*;
-import com.rig.model.RightService;
-import com.rig.model.RightVO;
+import com.rig.model.*;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class EmployeeServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	  protected EmployeeVO allowUser(String account, String password) {
+		  EmployeeService empSvc = new EmployeeService();
+		  List<EmployeeVO> list_empVO = empSvc.getAll();
+		  for(EmployeeVO empVO : list_empVO) {
+			  if(empVO.getEmp_acc().equals(account) && empVO.getEmp_pwd().equals(password))
+		  return empVO;
+		  }
+		  return null;
+	  }
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -24,7 +32,37 @@ public class EmployeeServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		if("login".equals(action)) {
+			    res.setContentType("text/html; charset=UTF-8");
+			    PrintWriter out = res.getWriter();
 
+			    // 【取得使用者 帳號(account) 密碼(password)】
+			    String emp_acc = req.getParameter("emp_acc");
+			    String emp_pwd = req.getParameter("emp_pwd");
+
+			    // 【檢查該帳號 , 密碼是否有效】
+			    if (allowUser(emp_acc, emp_pwd)==null) {          //【帳號 , 密碼無效時】
+			      out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+			      out.println("<BODY>你的帳號 , 密碼無效!<BR>");
+			      out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/back-end/emp/login.jsp>重新登入</A>");
+			      out.println("</BODY></HTML>");
+			    }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
+			      HttpSession session = req.getSession();
+			      EmployeeVO empVO= allowUser(emp_acc, emp_pwd);
+			      session.setAttribute("empVO", empVO);   //*工作1: 才在session內做已經登入過的標識
+			      
+			       try {                                                        
+			         String location = (String) session.getAttribute("location");
+			         if (location != null) {
+			           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+			           res.sendRedirect(location);            
+			           return;
+			         }
+			       }catch (Exception ignored) { }
+			      res.sendRedirect(req.getContextPath()+"/back-end/emp/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+			    }
+			  }
+		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -121,7 +159,7 @@ public class EmployeeServlet extends HttpServlet {
 				String emp_no = req.getParameter("emp_no");
 				String emp_acc = req.getParameter("emp_acc");
 				String emp_name = req.getParameter("emp_name");
-				String emp_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				String emp_nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";//\u4e00-\u9fa5為中文範圍
 				if (emp_name == null || emp_name.trim().length() == 0) {
 					errorMsgs.add("員工姓名: 請勿空白");
 				} else if (!emp_name.trim().matches(emp_nameReg)) { // 以下練習正則(規)表示式(regular-expression)
@@ -135,11 +173,11 @@ public class EmployeeServlet extends HttpServlet {
 				try {
 					emp_title = new Integer(req.getParameter("emp_title").trim());
 				} catch (NumberFormatException e) {
-					emp_title = 0;
-					errorMsgs.add("職位請填數字.");
+					errorMsgs.add("職位出問題啦.");
 				}
-				Integer emp_is_delete = new Integer(req.getParameter("emp_is_delete").trim());	
-				
+				Integer emp_is_delete = (req.getParameter("emp_is_delete")!=null) ? 1:0;
+
+
 				//───────────────照片修改───────────────────────
 
 				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
@@ -147,14 +185,16 @@ public class EmployeeServlet extends HttpServlet {
 				Part part = req.getPart("upload"); //來自於update_emp_input的type="file" name="upload"
 				InputStream in = part.getInputStream();
 				byte[] emp_pic = new byte[in.available()];
-				
-				if(in.available()!=0) {
+				String part_contentype = part.getContentType();
+				String[] tokens = part_contentype.split("/");
+				if(tokens[0].equals("image"))
+				{
 				in.read(emp_pic);//
 				}
 				else {
 					final Base64.Decoder decoder = Base64.getDecoder();
 					if(req.getParameter("emp_pic").equals("null")) {
-					String path = getServletContext().getRealPath("")+"\\back-end\\img\\images.png";
+					String path = getServletContext().getRealPath("\\back-end\\images\\images.png");
 					String img64 = encryptToBase64(path);
 					emp_pic=decoder.decode(img64);
 					}
@@ -182,10 +222,19 @@ public class EmployeeServlet extends HttpServlet {
 				/*************************** 2.開始修改資料 *****************************************/
 				EmployeeService empSvc = new EmployeeService();
 				empVO = empSvc.updateEmp(emp_no,emp_acc,emp_pwd,emp_title,emp_name,emp_is_delete,emp_pic);
+				//權限
+				String[] fun_no = req.getParameterValues("fun_no");
 				RightService rigSvc = new RightService();
-				List<RightVO> list = rigSvc.getAll(emp_no);
+				rigSvc.delRig(emp_no);
+				if(fun_no!=null) {
+					for(int i =0;i<fun_no.length;i++) {
+						rigSvc.addRig(emp_no, fun_no[i]);
+					}
+				}
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("employeeVO", empVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				//權限
+				List<RightVO> list = rigSvc.getAll(emp_no);
 				req.setAttribute("rigVO", list); // 資料庫update成功後,正確的的empVO物件,存入req
 				String url = "/back-end/emp/listOneEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
@@ -231,6 +280,7 @@ public class EmployeeServlet extends HttpServlet {
 				empVO.setEmp_pwd(emp_pwd);
 				empVO.setEmp_title(emp_title);
 				empVO.setEmp_name(emp_name);
+				
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("employeeVO", empVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -241,9 +291,22 @@ public class EmployeeServlet extends HttpServlet {
 				}
 				/***************************2.開始新增資料***************************************/
 				EmployeeService empSvc = new EmployeeService();
-				empVO = empSvc.addEmp(emp_acc, emp_pwd, emp_title, emp_name);
+				EmployeeVO empVO_new = empSvc.addEmp(emp_acc, emp_pwd, emp_title, emp_name);
+				empVO_new.setEmp_is_delete(0);
+				String emp_no = empVO_new.getEmp_no();
+				RightService rigSvc = new RightService();
+				String[] fun_no = req.getParameterValues("fun_no");
+				if(fun_no!=null) {
+					for(int i =0;i<fun_no.length;i++) {
+						rigSvc.addRig(emp_no, fun_no[i]);
+					}
+				}
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/back-end/emp/listAllEmp.jsp";
+				req.setAttribute("employeeVO", empVO_new);
+				//權限
+				List<RightVO> list = rigSvc.getAll(emp_no);
+				req.setAttribute("rigVO", list);
+				String url = "/back-end/emp/listOneEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				/***************************其他可能的錯誤處理**********************************/
@@ -269,4 +332,6 @@ public class EmployeeServlet extends HttpServlet {
 
 		return null;
 	}
+	
+	
 }
