@@ -74,11 +74,11 @@ background-color: #C8D9C1;
 	/*搜索按鈕*/
 }
 .my-0:hover {
-	background-color: #4974a5;
+	background-color: #D8BBC8;
 	/*搜索按鈕*/
 }
 .turn{
-background-color:#D8BBC8;}
+background-color:#ACCBD3;}
 .mr-auto {
 	margin-top: 33px;
 }
