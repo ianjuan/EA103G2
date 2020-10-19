@@ -22,6 +22,9 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=?,hos_forth=?,hos_net=?,hos_gas=?, "
 			+ "hos_mdate=?,hos_mindate=?,hos_park=?,hos_sex=?,hos_iden=?,hos_cook=?,hos_pet=?,hos_smoke=?, "
 			+ "hos_rentfee=?,hos_gasfee=?,hos_manafee=?,hos_netfee=?,hos_puwaterfee=?,hos_puelefee=?,hos_parkfee=? where hos_no=?";
+	private static final String UPDATE_HOUSEFurniture = "UPDATE HOUSE set "
+			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=?,hos_forth=?,hos_net=?,hos_gas=? "
+			+ "where hos_no=?";
 	private static final String UPDATE_WATERFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000001'";
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
@@ -228,6 +231,60 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 				pstmt.executeUpdate();
 				pstmt.clearParameters();
 			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateHouseFurniture(HouseVO houseVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_HOUSEFurniture);
+
+			pstmt.setInt(1, houseVO.getHos_table());
+			pstmt.setInt(2, houseVO.getHos_chair());
+			pstmt.setInt(3, houseVO.getHos_bed());
+			pstmt.setInt(4, houseVO.getHos_closet());
+			pstmt.setInt(5, houseVO.getHos_sofa());
+			pstmt.setInt(6, houseVO.getHos_tv());
+			pstmt.setInt(7, houseVO.getHos_drink());
+			pstmt.setInt(8, houseVO.getHos_aircon());
+			pstmt.setInt(9, houseVO.getHos_refrig());
+			pstmt.setInt(10, houseVO.getHos_wash());
+			pstmt.setInt(11, houseVO.getHos_hoter());
+			pstmt.setInt(12, houseVO.getHos_forth());
+			pstmt.setInt(13, houseVO.getHos_net());
+			pstmt.setInt(14, houseVO.getHos_gas());
+			pstmt.setString(15, houseVO.getHos_no());
+
+			pstmt.executeUpdate();
 
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
@@ -934,7 +991,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		dao.insertHouseInfo(houseVO1);
 
 //		// 更新房屋資訊
-//		HouseVO houseVO2 = new HouseVO();
+		HouseVO houseVO2 = new HouseVO();
 //		houseVO2.setHos_name("桃園最大賭場");
 //		houseVO2.setHos_liffun("超級棒的啦");
 //		houseVO2.setHos_trans("很方便啦");
@@ -947,24 +1004,24 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		houseVO2.setHos_lng(150.0);
 //		houseVO2.setHos_lat(150.0);
 //		houseVO2.setHos_status("已下架");
-//		houseVO2.setHos_no("HOS014030");
+		houseVO2.setHos_no("HOS000001");
 //		
 //		// 更新房屋家具
-//		houseVO2.setHos_table(1);
-//		houseVO2.setHos_chair(1);
-//		houseVO2.setHos_bed(1);
-//		houseVO2.setHos_closet(1);
-//		houseVO2.setHos_sofa(1);
-//		houseVO2.setHos_tv(0);
-//		houseVO2.setHos_drink(0);
-//		houseVO2.setHos_aircon(1);
-//		houseVO2.setHos_refrig(0);
-//		houseVO2.setHos_wash(1);
-//		houseVO2.setHos_drink(0);
-//		houseVO2.setHos_hoter(1);
-//		houseVO2.setHos_forth(0);
-//		houseVO2.setHos_net(1);
-//		houseVO2.setHos_gas(1);
+		houseVO2.setHos_table(1);
+		houseVO2.setHos_chair(1);
+		houseVO2.setHos_bed(1);
+		houseVO2.setHos_closet(1);
+		houseVO2.setHos_sofa(1);
+		houseVO2.setHos_tv(0);
+		houseVO2.setHos_drink(0);
+		houseVO2.setHos_aircon(1);
+		houseVO2.setHos_refrig(0);
+		houseVO2.setHos_wash(1);
+		houseVO2.setHos_drink(0);
+		houseVO2.setHos_hoter(1);
+		houseVO2.setHos_forth(9);
+		houseVO2.setHos_net(9);
+		houseVO2.setHos_gas(9);
 //
 //		// 更新房屋限制
 //		houseVO2.setHos_mdate("隨時都歡迎");
@@ -991,25 +1048,25 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		houseVO2.setHos_electfeetype(2);
 //		houseVO2.setHos_electfee(100.0);
 //
-//		dao.updateHouseInfo(houseVO2);
+		dao.updateHouseFurniture(houseVO2);
 
 //		// 查詢房屋資訊
-		HouseVO houseVO3 = dao.getHouseInfo("HOS000001");
-		System.out.print(houseVO3.getLld_no() + ",");
-		System.out.print(houseVO3.getHos_no() + ",");
-		System.out.print(houseVO3.getHos_name() + ",");
-		System.out.print(houseVO3.getHos_liffun() + ",");
-		System.out.print(houseVO3.getHos_trans() + ",");
-		System.out.print(houseVO3.getHos_add() + ",");
-		System.out.print(houseVO3.getHos_type() + ",");
-		System.out.print(houseVO3.getHos_room() + ",");
-		System.out.print(houseVO3.getHos_pat() + ",");
-		System.out.print(houseVO3.getHos_floor() + ",");
-		System.out.print(houseVO3.getHos_pnum() + ",");
-		System.out.print(houseVO3.getHos_lng() + ",");
-		System.out.print(houseVO3.getHos_lat() + ",");
-		System.out.print(houseVO3.getHos_status() + ",");
-		System.out.println("---------------------");
+//		HouseVO houseVO3 = dao.getHouseInfo("HOS014030");
+//		System.out.print(houseVO3.getLld_no() + ",");
+//		System.out.print(houseVO3.getHos_no() + ",");
+//		System.out.print(houseVO3.getHos_name() + ",");
+//		System.out.print(houseVO3.getHos_liffun() + ",");
+//		System.out.print(houseVO3.getHos_trans() + ",");
+//		System.out.print(houseVO3.getHos_add() + ",");
+//		System.out.print(houseVO3.getHos_type() + ",");
+//		System.out.print(houseVO3.getHos_room() + ",");
+//		System.out.print(houseVO3.getHos_pat() + ",");
+//		System.out.print(houseVO3.getHos_floor() + ",");
+//		System.out.print(houseVO3.getHos_pnum() + ",");
+//		System.out.print(houseVO3.getHos_lng() + ",");
+//		System.out.print(houseVO3.getHos_lat() + ",");
+//		System.out.print(houseVO3.getHos_status() + ",");
+//		System.out.println("---------------------");
 //
 //		// 查詢房屋家具
 //		System.out.print(houseVO3.getHos_table() + ",");

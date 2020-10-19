@@ -137,6 +137,32 @@ public class HouseService {
 		return houseVO;
 	}
 	
+	public HouseVO updateHouseFurniture(Integer hos_table, Integer hos_chair, Integer hos_bed,
+			Integer hos_closet, Integer hos_sofa, Integer hos_tv, Integer hos_drink, Integer hos_aircon,
+			Integer hos_refrig, Integer hos_wash, Integer hos_hoter, Integer hos_forth, Integer hos_net,
+			Integer hos_gas, String hos_no) {
+		
+		HouseVO houseVO = new HouseVO();
+
+		houseVO.setHos_table(hos_table);
+		houseVO.setHos_chair(hos_chair);
+		houseVO.setHos_bed(hos_bed);
+		houseVO.setHos_closet(hos_closet);
+		houseVO.setHos_sofa(hos_sofa);
+		houseVO.setHos_tv(hos_tv);
+		houseVO.setHos_drink(hos_drink);
+		houseVO.setHos_aircon(hos_aircon);
+		houseVO.setHos_refrig(hos_refrig);
+		houseVO.setHos_wash(hos_wash);
+		houseVO.setHos_hoter(hos_hoter);
+		houseVO.setHos_forth(hos_forth);
+		houseVO.setHos_net(hos_net);
+		houseVO.setHos_gas(hos_gas);
+		dao.updateHouseFurniture(houseVO);
+
+		return houseVO;
+	}
+	
 	public HouseVO getLldInfo(String lld_no) {
 		return dao.getLldInfo(lld_no);
 	}

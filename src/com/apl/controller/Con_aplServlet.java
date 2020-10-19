@@ -201,6 +201,7 @@ public class Con_aplServlet extends HttpServlet {
 				String url = "/front-end/apl/listOneCon_apl.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneCon_apl.jsp
 				successView.forward(req, res);
+				return;
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
@@ -230,6 +231,7 @@ public class Con_aplServlet extends HttpServlet {
 				String url = "/front-end/apl/tntupdateapl.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -313,6 +315,7 @@ public class Con_aplServlet extends HttpServlet {
 				String url = "/front-end/apl/listAllCon_apl.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -400,6 +403,7 @@ public class Con_aplServlet extends HttpServlet {
 				String url = "/front-end/apl/listOneCon_apl.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
+				return;
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
@@ -453,6 +457,7 @@ public class Con_aplServlet extends HttpServlet {
 				/*************************** 2.開始修改資料 *****************************************/
 				Con_aplService con_aplSvc = new Con_aplService();
 				con_aplSvc.addfromhouse(tnt_no, hos_no, apl_str, apl_end);
+				return;
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {

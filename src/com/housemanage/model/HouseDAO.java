@@ -34,6 +34,9 @@ public class HouseDAO implements HouseDAO_interface {
 			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=?,hos_forth=?,hos_net=?,hos_gas=?, "
 			+ "hos_mdate=?,hos_mindate=?,hos_park=?,hos_sex=?,hos_iden=?,hos_cook=?,hos_pet=?,hos_smoke=?, "
 			+ "hos_rentfee=?,hos_gasfee=?,hos_manafee=?,hos_netfee=?,hos_puwaterfee=?,hos_puelefee=?,hos_parkfee=? where hos_no=?";
+	private static final String UPDATE_HOUSEFurniture = "UPDATE HOUSE set "
+			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=?,hos_forth=?,hos_net=?,hos_gas=? "
+			+ "where hos_no=?";
 	private static final String UPDATE_WATERFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000001'";
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
@@ -252,6 +255,56 @@ public class HouseDAO implements HouseDAO_interface {
 			}
 
 			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateHouseFurniture(HouseVO houseVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_HOUSEFurniture);
+
+			pstmt.setInt(1, houseVO.getHos_table());
+			pstmt.setInt(2, houseVO.getHos_chair());
+			pstmt.setInt(3, houseVO.getHos_bed());
+			pstmt.setInt(4, houseVO.getHos_closet());
+			pstmt.setInt(5, houseVO.getHos_sofa());
+			pstmt.setInt(6, houseVO.getHos_tv());
+			pstmt.setInt(7, houseVO.getHos_drink());
+			pstmt.setInt(8, houseVO.getHos_aircon());
+			pstmt.setInt(9, houseVO.getHos_refrig());
+			pstmt.setInt(10, houseVO.getHos_wash());
+			pstmt.setInt(11, houseVO.getHos_hoter());
+			pstmt.setInt(12, houseVO.getHos_forth());
+			pstmt.setInt(13, houseVO.getHos_net());
+			pstmt.setInt(14, houseVO.getHos_gas());
+			pstmt.setString(15, houseVO.getHos_no());
+
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources

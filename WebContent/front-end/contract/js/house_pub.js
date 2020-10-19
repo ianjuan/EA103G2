@@ -18,142 +18,47 @@ window.onload = function(){
 	})			
 }
 
-function map(){
-	var geocoder = new google.maps.Geocoder();
-	address = document.getElementById("hos_add").value;
-	geocoder.geocode({ 'address': address }, function(results, status) { //地址轉換經緯度 results取得該地區所有資訊 status回傳成功與否 以'OK'表示
-		if (status == 'OK') {
-			var lat = results[0].geometry.location.lat();
-			var lng = results[0].geometry.location.lng();
-			document.getElementById("lat").setAttribute("value", lat);
-			document.getElementById("lng").setAttribute("value", lng);
-		} else {
-			console.log(status);
-		}
-	});
-}
-
 function notice1(){		
-	if(window.confirm("確定要送出資訊了嗎?") == false){
-		return false;
-	} else {		
-		alert("合約成功!!");
-		return true;
-	}	 	
+	swal({title:"確定要送出合約了嗎?", text:"" , icon:"info", buttons: {
+	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+	    }});
 }
 
 function notice2(){
-	var reset = document.getElementById("reset");
-	window.confirm("確定要重新填寫嗎?");
+	swal({title:"確定要重新填寫嗎?", text:"" , icon:"info", buttons: {
+	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+	    }}).then(function(isConfirm){
+		if(isConfirm){
+			swal("已重置欄位!", "" , "success", {button: "確認"}).then(function(){
+				document.houseForm.reset();
+			});
+		} else {
+			return false;
+		}
+	});
 }
 
 function notice3(){		
 	var pic = document.getElementsByClassName("pic").length;
 	var pic1 = document.getElementsByClassName("pic1").length;
 	 if(pic + pic1 < 5){
-		 alert("目前才" + (pic + pic1) + "圖片欸, 至少再上傳個"+ (5-pic1) + "張吧...");
-		 return false;
+		 swal("目前才" + (pic + pic1) + "圖片欸...", "請再上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "確認"});
 	 } else {
-		 if(window.confirm("確定要送出資訊了嗎?") == false){
-			return false;
-		} else {		
-			alert("更新成功!!");
-			return true;
-		}
+		 swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
+		      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+		    }}).then(function(isConfirm){
+			if(isConfirm){
+				swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
+					document.houseForm.submit();
+				});
+			} else {
+				return false;
+			}	    				
+		});
 	 }	
 }
 
-function checkmoney(){
-	var money = document.getElementById("lld_balance");
-	if(money.value < 1000){
-		alert("您的電子錢包餘額為 : " + money.value + "元");
-		if(window.confirm("上架費一次為 1000 元, 請問是否要儲值?") == false){
-			return false;
-		} else {		
-			return true;
-		}
-	}else {
-		if(window.confirm("目前電子錢包金額為" + money.value + "元, 上架費一次 1000 元, 是否上架房屋?") == false){
-			return false;
-		} else {		
-			return true;
-		}
-	}
-}
 
-function floatfee1(){
-	var watertype0 = document.getElementById("watertype0");
-	var watertype1 = document.getElementById("watertype1");
-	var watertype2 = document.getElementById("watertype2");
-	var water1 = document.getElementById("water1");
-	var water2 = document.getElementById("water2");
-
-	if(watertype1.checked == true){
-		water1.disabled = false;
-		water2.disabled = true;
-	} else if(watertype2.checked == true){
-		water1.disabled = true;
-		water2.disabled = false;
-	} else if(watertype0.checked == true){
-		water1.disabled = true;
-		water2.disabled = true;
-	}
-}
-
-function floatfee2(){
-	var electtype0 = document.getElementById("electtype0");
-	var electtype1 = document.getElementById("electtype1");
-	var electtype2 = document.getElementById("electtype2");
-	var elect1 = document.getElementById("elect1");
-	var elect2 = document.getElementById("elect2");
-	
-	if(electtype1.checked == true){
-		elect1.disabled = false;
-		elect2.disabled = true;
-	} else if(electtype2.checked == true){
-		elect1.disabled = true;
-		elect2.disabled = false;
-	} else if(electtype0.checked == true){
-		elect1.disabled = true;
-		elect2.disabled = true;
-	}
-}
-
-function gasfee(){
-	var gas = document.getElementById("gas");
-	var gasfee = document.getElementById("gasfee1");
-	
-	if(gas.checked == true){
-		gasfee.disabled = false;
-	} else {
-		gasfee.disabled = true;
-		gasfee.value = "";
-	}
-}
-
-function netfee(){
-	var net = document.getElementById("IE");
-	var netfee = document.getElementById("netfee1");
-	
-	if(net.checked == true){
-		netfee.disabled = false;
-	} else {
-		netfee.disabled = true;
-		netfee.value = "";
-	}
-}
-
-function parkfee(){
-	var park1 = document.getElementById("park1");
-	var parkfee = document.getElementById("parkfee1");
-	
-	if(park1.checked == true){
-		parkfee.disabled = true;
-		parkfee.value = "";
-	} else {
-		parkfee.disabled = false;
-	}
-}
 
 function show(){
 	document.getElementById("cbody"+i).style.display = "block";
@@ -293,25 +198,25 @@ function show5(){
 function load(){
 	var files = document.getElementById("loadPic").files;
 	
-	if(files.length > 10){
-		alert("大家都只能傳10張圖片，就你" + files.length + "張，請再少一點！");
+	if(files.length > 1){
+		swal("您上傳了" + files.length + "張圖片，已超過上限！", "請上傳5~10張圖片", "error", {button: "重新上傳"});
 		document.getElementById("loadPic").value = "";
-	} else if(files.length < 5){
-		alert("拜託至少來個5張圖片吧，只有" + files.length + "張還是別租了，請再多一點！");
+	} else if(files.length < 1){
+		swal("您上傳了" + files.length + "張圖片，太少了吧！", "請上傳5~10張圖片", "error", {button: "重新上傳"});
 		document.getElementById("loadPic").value = "";
 	} else {						
 		var optobj = document.querySelectorAll(".pic");
 		for (var i = 0; i < optobj.length; i++) {
 			optobj[i].remove();		
 		}
-		alert("上傳了" + files.length + "張圖片，棒棒！");
+		swal("您上傳了" + files.length + "張圖片", "", "success", {button: "棒棒"});
 		for(var i = 0; i < files.length; i++){							
 			if(files[i].type.indexOf('image') > -1){				
 				var reader = new FileReader();
 				reader.addEventListener('load', openfile);
 				reader.readAsDataURL(files[i]);
 			} else {
-				alert('請上傳圖片');
+				swal("您上傳的不是圖片檔哦", "請上傳5~10張圖片", "warning", {button: "重新上傳"});
 				document.getElementById("loadPic").value = "";
 			}			
 		}		
@@ -320,27 +225,27 @@ function load(){
 
 function load1(){
 	var files = document.getElementById("loadPic").files;
-	var pic1 = document.querySelectorAll(".pic1");
+	var pic1 = document.querySelectorAll(".pic1").length;
 	
-	if(files.length + pic1.length > 10){
-		alert("最多10張圖片，您上傳了" + files.length + "張要爆炸啦，只能再上傳" + (10-pic1.length) + "張而已，請重傳一次！");
+	if(files.length + pic1 > 1){
+		swal("您上傳了" + files.length + "張圖片，已超過上限！", "只能上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "重新上傳"});
 		document.getElementById("loadPic").value = "";
-	} else if(files.length + pic1.length < 5){
-		alert("最少要5張圖片，才上傳" + files.length + "張哪夠，至少要來個" + (5-pic1.length) + "張，請重傳一次！");
+	} else if(files.length + pic1 < 1){
+		swal("您上傳了" + files.length + "張圖片哪夠啊！", "至少要上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "重新上傳"});
 		document.getElementById("loadPic").value = "";
 	} else {						
 		var optobj = document.querySelectorAll(".pic");
 		for (var i = 0; i < optobj.length; i++) {
 			optobj[i].remove();		
 		}
-		alert("上傳了" + files.length + "張圖片，目前共" + (files.length+pic1.length) + "張，棒棒！");
+		swal("上傳了" + files.length + "張圖片", "目前共" + (files.length+pic1) + "張", "success", {button: "棒棒"});
 		for(var i = 0; i < files.length; i++){							
 			if(files[i].type.indexOf('image') > -1){				
 				var reader = new FileReader();
 				reader.addEventListener('load', openfile);
 				reader.readAsDataURL(files[i]);
 			} else {
-				alert('請上傳圖片');
+				swal("您上傳的不是圖片檔哦", "請上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "warning", {button: "重新上傳"});
 				document.getElementById("loadPic").value = "";
 			}			
 		}		
@@ -356,10 +261,10 @@ function openfile(e) {
 	preview.append(img);
 	
 	$(function(){  
-        $(".pic").click(function(){  
-                var _this = $(this);  
-                imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);  
-            });  
+        $(".pic").click(function(){
+            var _this = $(this);  
+            imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);  
+        });  
     });
 }        
 
@@ -372,34 +277,31 @@ function del() {
 }
 
 function delpic(){
-	if(window.confirm("確定要移除選取的圖片嗎?") == false){
-		return false;
-	} else {		
-		var preview1 = document.getElementById("preview1");		
-		var optpic = document.querySelectorAll(".checkpic:checked");
-		console.log(optpic.length);
-		
-		for (var i = 0; i < optpic.length; i++) {
-			var input = document.createElement("input");
-			input.setAttribute("type", "hidden");
-			input.setAttribute("name", "pic_no");
-			input.setAttribute("value", optpic[i].nextElementSibling.getAttribute("value"));
-			preview1.append(input);								
-		}
-		for (var i = 0; i < optpic.length; i++) {
-			optpic[i].parentElement.parentElement.remove();
-		}
-	}
+	var optpic = document.querySelectorAll(".checkpic:checked");
+	var preview1 = document.getElementById("preview1");
+	
+	swal({title:"確定要移除選取的圖片嗎?", text:"您選取了"+optpic.length+"張圖片" , icon:"warning", buttons: {
+	      Btn: false, cancel: {text:"取消", visible: true}, danger: {text:"確認", visible: true}
+	    }}).then(function(isConfirm){
+		if(isConfirm){						
+			for (var i = 0; i < optpic.length; i++) {
+				var input = document.createElement("input");
+				input.setAttribute("type", "hidden");
+				input.setAttribute("name", "pic_no");
+				input.setAttribute("value", optpic[i].nextElementSibling.getAttribute("value"));
+				preview1.append(input);								
+			}
+			for (var i = 0; i < optpic.length; i++) {
+				optpic[i].parentElement.parentElement.remove();
+			}
+			swal("移除成功", "", "success", {button: "確定"});
+		} else {
+			return false;
+		}	    				
+	});	
 }
 
-function checkpic(){
-//	$(function(){  
-//        $(".pic1").click(function(){  
-//        	var _this = $(this);  
-//            imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);
-//        });
-//    });
-	
+function checkpic(){	
 	$(function(){  
         $(".pic1").click(function(){  
         	var _this = $(this);

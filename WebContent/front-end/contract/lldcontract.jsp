@@ -14,7 +14,10 @@
 	ConVO conVO = (ConVO)request.getAttribute("conVO");
  	LldVO lldVO = (LldVO)request.getAttribute("lldVO");
  	
-	String lld_no = (String) request.getAttribute("lld_no");
+ 	String lld_no = (String) session.getAttribute("lld_no");
+	if (lld_no == null) {
+		lld_no = request.getParameter("lld_no");
+	}
 	
 	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
 	if (lldInfo == null) {
@@ -25,7 +28,6 @@
 	pageContext.setAttribute("houseVO", houseVO);
 	pageContext.setAttribute("conVO", conVO);
 	pageContext.setAttribute("lldVO", lldVO);
-	pageContext.setAttribute("lld_no", lld_no);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -124,13 +126,13 @@
                 </div>
             </nav>
 		</div>
-		<form class="table" name="conForm" METHOD="post" ACTION="<%=request.getContextPath()%>/contConServlet">
+		<form class="table" name="conForm" METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet" enctype="multipart/form-data">
 			<div id="center">
 				<div id="chead">
 					<ul>
 						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="show1()">基本資訊</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="show2()">房東簽名</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="show2()">房屋圖片</button></li>
 						<li class="title2">></li>
 						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="show3()">家具設備</button></li>
 						<li class="title2">></li>
@@ -138,7 +140,7 @@
 						<li class="title2">></li>
 						<li class="title1"><button type="button" class="titlebtn" id="btn5" onclick="show5()">其他條件</button></li>
 					</ul>
-				</div>			
+				</div>		
 				<div id="cbody">				
 					<div id="cbody1">
 						<table cellpadding="11">
@@ -185,21 +187,25 @@
 							<tr>
 								<th rowspan="3">房東簽名:</th>
 								<td>
-									<input type="file" id="loadPic" multiple onchange="load()">									
-									<input type="button" class="funbtn" value="刪除" onclick="del()" checked>
+									<label>
+										<input type="file" id="loadPic" onchange="load()" name="lld_sign" required>
+										<img src="https://www.flaticon.com/svg/static/icons/svg/3378/3378213.svg" class="uploadpic"/>
+										<span class="uploadfont" for="loadPic">&nbsp;&nbsp;上傳圖片&nbsp;&nbsp;</span>									
+									</label>
 								</td>
 							</tr>
 							<tr>	
 								<td>
-									<div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)">拖曳圖片到此處上傳</div>
-								</td>
-							</tr>
-							<tr>	
-								<td>
-									<div id="preview" name="lld_sign"></div>
+									<div id="preview"></div>
 								</td>
 							</tr>
 						</table>
+						<div id="outerdiv"
+							style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;">
+							<div id="innerdiv" style="position: absolute;">
+								<img id="bigimg" style="border: 5px solid #fff;" src="" />
+							</div>
+						</div>
 					</div>
 					<div id="cbody3">
 						<table>
@@ -548,16 +554,12 @@
 					</div>			        				
 				</div>
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-				<input type="hidden" name="hos_bro" value="0">
-				<input type="hidden" name="hos_lng" value="121.194406" id="lng">
-				<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
 				<div id="cfoot">
-				<button class="btn" type="button" onclick="return notice1();">申請修改</button>
-					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>
+					<button class="btn" type="button" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne1" type="button" onclick="next()">下頁</button>	
-					<input type="hidden" name="action" value="insertHouseInfo">
-					<button class="btn" id="submit" type="submit" onclick="return notice1();">送出合約</button>					
+					<input type="hidden" name="action" value="updateonelldcontract">
+					<button class="btn" type="button" onclick="notice1()">送出合約</button>					
 				</div>				
 			</div>
 			<div id="right">
@@ -571,11 +573,11 @@
 					</ul>
 				</div>
 				<div id="rfoot">
-					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>
+					<button class="btn" type="button" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr2" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne2" type="button" onclick="next()">下頁</button>
-					<input type="hidden" name="action" value="insertHouseInfo">
-					<button class="btn" id="submit" type="submit" onclick="return notice1();">送出合約</button>
+					<input type="hidden" name="action" value="updateonelldcontract">
+					<button class="btn" type="button" onclick="notice1()">送出合約</button>
 				</div>
 			</div>
 		</form>

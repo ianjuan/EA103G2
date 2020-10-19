@@ -9,7 +9,7 @@
 <%@ page import="com.cont.model.*"%>
 
 <%
-	String lld_no = (String) request.getAttribute("lld_no");
+	String lld_no = (String) session.getAttribute("lld_no");
 	if (lld_no == null) {
 		lld_no = request.getParameter("lld_no");
 	}
@@ -155,7 +155,7 @@
 								<input type="hidden" name="con_no"  value="${conVO.con_no}">
 								<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-			     				<input type="hidden" name="action"	value="lldupdatecontract">
+			     				<input type="hidden" name="action"	value="getonelldcontract">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">

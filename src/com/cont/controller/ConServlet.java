@@ -1,6 +1,8 @@
 package com.cont.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,10 +12,12 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
@@ -21,9 +25,10 @@ import com.cont.model.ConDAO;
 import com.cont.model.ConService;
 import com.cont.model.ConVO;
 import com.housemanage.model.*;
-import com.houserch.model.HousearchService;
 import com.lld.model.LldService;
 import com.lld.model.LldVO;
+
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class ConServlet extends HttpServlet {
 
@@ -56,16 +61,18 @@ public class ConServlet extends HttpServlet {
 
 			try {
 				String lld_no = new String(req.getParameter("lld_no"));
+				System.out.println(lld_no);
 
 				ConService conService = new ConService();
 				List<ConVO> list = conService.lldgetcon(lld_no);
 
 				HttpSession session = req.getSession();
-				req.setAttribute("lldno", lld_no);
+				session.setAttribute("lld_no", lld_no);
 				session.setAttribute("list", list);
 				String url = "/front-end/contract/lldlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -74,7 +81,7 @@ public class ConServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+
 		if ("gettntcontract".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -92,6 +99,7 @@ public class ConServlet extends HttpServlet {
 				String url = "/front-end/contract/tntlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -160,7 +168,7 @@ public class ConServlet extends HttpServlet {
 			}
 		}
 
-		if ("lldupdatecontract".equals(action)) {
+		if ("getonelldcontract".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -170,6 +178,9 @@ public class ConServlet extends HttpServlet {
 				String con_no = new String(req.getParameter("con_no"));
 				String lld_no = new String(req.getParameter("lld_no"));
 				String hos_no = new String(req.getParameter("hos_no"));
+				System.out.println(con_no);
+				System.out.println(lld_no);
+				System.out.println(hos_no);
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();
@@ -197,6 +208,89 @@ public class ConServlet extends HttpServlet {
 				String url = "/front-end/contract/lldcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+
+		if ("updateonelldcontract".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String con_no = new String(req.getParameter("con_no"));
+				String lld_no = new String(req.getParameter("lld_no"));
+				String hos_no = new String(req.getParameter("hos_no"));
+				Date con_che_date = Date.valueOf(req.getParameter("apl_str"));
+				System.out.println(lld_no);
+				System.out.println("要進來沒幹");
+
+				/*************************** 修正房東資訊 ****************************************/
+				String lld_mobile = new String(req.getParameter("lld_mobile"));
+
+				/*************************** 房東簽名 ****************************************/
+				Part part = req.getPart("lld_sign");
+				InputStream in = part.getInputStream();
+				byte[] con_lld_sign = getPictureByteArray(in);
+
+				byte[] con_tnt_sign = null;
+
+				/*************************** 更新房屋家具 **********************/
+				Integer hos_table = new Integer(req.getParameter("hos_table"));
+				Integer hos_chair = new Integer(req.getParameter("hos_chair"));
+				Integer hos_bed = new Integer(req.getParameter("hos_bed"));
+				Integer hos_closet = new Integer(req.getParameter("hos_closet"));
+				Integer hos_sofa = new Integer(req.getParameter("hos_sofa"));
+				Integer hos_tv = new Integer(req.getParameter("hos_tv"));
+				Integer hos_drink = new Integer(req.getParameter("hos_drink"));
+				Integer hos_aircon = new Integer(req.getParameter("hos_aircon"));
+				Integer hos_refrig = new Integer(req.getParameter("hos_refrig"));
+				Integer hos_wash = new Integer(req.getParameter("hos_wash"));
+				Integer hos_hoter = new Integer(req.getParameter("hos_hoter"));
+				Integer hos_forth = new Integer(req.getParameter("hos_forth"));
+				Integer hos_net = new Integer(req.getParameter("hos_net"));
+				Integer hos_gas = new Integer(req.getParameter("hos_gas"));
+
+				/*************************** 更新合約 **********************/
+				ConService conSvc1 = new ConService();
+				String apl_no = conSvc1.getOneCon(con_no).getApl_no();
+				String tnt_no = conSvc1.getOneCon(con_no).getTnt_no();
+				Integer con_dep_sta = new Integer(2);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				ConService conSvc = new ConService();
+				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, con_che_date,
+						con_no);
+				ConVO conVO = conSvc.getOneCon(con_no);
+
+				LldService lldSvc = new LldService();
+				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
+
+				HouseService houseSvc = new HouseService();
+				HouseVO houseVO = houseSvc.updateHouseFurniture(hos_table, hos_chair, hos_bed, hos_closet, hos_sofa,
+						hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth, hos_net, hos_gas,
+						hos_no);
+
+				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				ConService conService = new ConService();
+				List<ConVO> list = conService.lldgetcon(lld_no);
+
+				HttpSession session = req.getSession();
+				session.setAttribute("lld_no", lld_no);
+				session.setAttribute("list", list);
+				String url = "/front-end/contract/lldlistcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -236,7 +330,7 @@ public class ConServlet extends HttpServlet {
 					Date apl_str = java.sql.Date.valueOf(formatWithDays.format(start));
 					Date apl_end = java.sql.Date.valueOf(formatWithDays.format(stop));
 					Date apl_time = java.sql.Date.valueOf(formatWithDays.format(apply));
-					
+
 					Con_aplService aplService = new Con_aplService();
 					System.out.println(tnt_no);
 					System.out.println(hos_no);
@@ -244,13 +338,12 @@ public class ConServlet extends HttpServlet {
 					System.out.println(apl_end);
 					System.out.println(apl_time);
 					aplService.addCon_apl(tnt_no, hos_no, apl_str, apl_end, apl_time, 1);
-					
+
 					String apl_no = aplService.getaplbyhos(hos_no).getApl_no();
-					
+
 					conVO = conSvc.addbeforerent(apl_no, tnt_no, hos_no);
 					System.out.println(apl_no);
-					
-					
+
 				}
 
 				LldService lldSvc = new LldService();
@@ -275,6 +368,7 @@ public class ConServlet extends HttpServlet {
 				String url = "/front-end/contract/lldcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
+				return;
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -283,7 +377,22 @@ public class ConServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
-		
+	}
+
+	// 使用byte[]方式(copy by YiJing)
+	byte[] getPictureByteArray(InputStream in) throws IOException {
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // 此資料流會把write的位元資料存到一個內建的byte[]
+		byte[] buffer = new byte[8192];
+		int i;
+		while ((i = in.read(buffer)) != -1) {
+			baos.write(buffer, 0, i);
+			baos.flush();
+		}
+		baos.close();
+		in.close();
+
+		return baos.toByteArray(); // toByteArray()可以讓我們取得這個資料流內建的byte[]
+
 	}
 }

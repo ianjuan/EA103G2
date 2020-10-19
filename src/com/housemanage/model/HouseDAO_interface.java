@@ -5,6 +5,7 @@ import java.util.*;
 public interface HouseDAO_interface {
 	public void insertHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr);
 	public void updateHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr, String[] pic_no);
+	public void updateHouseFurniture(HouseVO houseVO);
 	public HouseVO getLldInfo(String lld_no);
 	public HouseVO getHouseInfo(String hos_no);
 	public HouseVO getHouseWaterfee(String hos_no);

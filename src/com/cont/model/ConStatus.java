@@ -1,7 +1,7 @@
 package com.cont.model;
 
 public enum ConStatus {
-	BeforeRent(0, "尚未入住"), Renting(1, "入住中"), Checkout(2, "已退房"), Fincon(3, "租約已完成"), Discon(4, "租約已解除");
+	Lldunsign(0, "房東尚未填寫"), Tntunsign(1, "房客尚未填寫"), BeforeRent(2, "尚未入住"), Renting(3, "入住中"), Checkout(4, "已退房"), Fincon(5, "租約已完成"), Discon(6, "租約已解除");
 
 	private Integer num;
 	private String text;
