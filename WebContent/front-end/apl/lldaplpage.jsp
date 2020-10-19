@@ -132,8 +132,7 @@
 						<ul>
 <%-- 							<li><span class="infotitle">租屋申請編號 : </span><span>${con_aplVO.apl_no}</span></li> --%>
 							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(con_aplVO.hos_no).hos_name}</span></li>
-							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(con_aplVO.tnt_no).tnt_name}</span></li>
-							<li><span class="infotitle">房客評價 : </span><span>5.0</span></li>
+							<li><span class="infotitle">房客姓名 / 評價 : </span><span>${tntSvc.getOneTntProfile(con_aplVO.tnt_no).tnt_name} / 5.0</span></li>
 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li>
 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li>
 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li>
