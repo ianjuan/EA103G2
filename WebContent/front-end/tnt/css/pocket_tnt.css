@@ -1214,6 +1214,10 @@
               font-size: 20px;
           }
 
+          .register100:focus+.focus-register100+.label-register100-carddue::after {
+              content: 'Due date';
+          }
+
           /*------------------------------------------------------------------
 [ shrink Ωb¿Y  ]*/
           .svg-inline--fa,

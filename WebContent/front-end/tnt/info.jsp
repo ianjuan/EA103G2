@@ -305,10 +305,11 @@
                                         <input class="register100" type="password" name="tnt_pwd_new2" id="tnt_pwd_new2">
                                         <span class="focus-register100"></span> <span class="label-register100">確認新密碼</span>
                                     </div>
+                                    <div class="wrap-validate-chgPwd" data-validate="帳號密碼錯誤">
+
+                                    </div>
                                 </form>
-                                <div class="wrap-validate-chgPwd" data-validate="帳號密碼錯誤">
-                                
-               					 </div>
+
                                 <div class="container-login100-form-btn">
                                     <button class="login100-form-btn m-t-10 infoBtn" id="btninfochgPwd">儲存資訊</button>
                                 </div>
@@ -362,26 +363,28 @@
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/info_tnt.js"></script>
     <!--===============================================================================================-->
-	<script>
-    var errorMsgsJs;
-    <c:if test="${not empty errorMsgs}">
-        <c:forEach var="message" items="${errorMsgs}">
+    <script>
+        var errorMsgsJs; <
+        c: if test = "${not empty errorMsgs}" >
+            <
+            c: forEach
+        var = "message"
+        items = "${errorMsgs}" >
             $('.wrap-validate-chgPwd').attr('data-validate', '${message}');
-        	$('.wrap-validate-chgPwd').addClass('validate-input alert-validate-login');
-            errorMsgsJs = '${message}';
-        </c:forEach>
-	</c:if>
+        $('.wrap-validate-chgPwd').addClass('validate-input alert-validate-login');
+        errorMsgsJs = '${message}'; <
+        /c:forEach> < /
+        c: if >
 
-	if (typeof(errorMsgsJs)!=='undefined'){
-		var inputs = $('.register100');
-		console.log(inputs);
-		for (var i = 0; i < inputs.length; i++) {
-            $(inputs[i]).focus();
-            $(inputs[i]).blur();
-    }
-	}
-    
-	</script>
+        if (typeof (errorMsgsJs) !== 'undefined') {
+            var inputs = $('.register100');
+            console.log(inputs);
+            for (var i = 0; i < inputs.length; i++) {
+                $(inputs[i]).focus();
+                $(inputs[i]).blur();
+            }
+        }
+    </script>
 
 
 </body>

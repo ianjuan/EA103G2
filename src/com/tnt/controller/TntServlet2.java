@@ -414,7 +414,7 @@ public class TntServlet2 extends HttpServlet {
 	}
 
 	// ===================private methods===========================
-
+	//登入驗證
 	private String loginValidate(List<TntVO> list, String tnt_email, String tnt_pwd) {
 		String tnt_no = "EmailnotRegisterYet";
 
@@ -429,7 +429,7 @@ public class TntServlet2 extends HttpServlet {
 		}
 		return tnt_no;
 	}
-
+	//身分證驗證
 	private Boolean idvalidate(String tnt_id) {
 		String checkHead = "ABCDEFGHJKLMNPQRSTUVWXYZIO"; // 字母代號對照表
 
@@ -467,6 +467,24 @@ public class TntServlet2 extends HttpServlet {
 		in.close();
 
 		return baos.toByteArray(); // toByteArray()可以讓我們取得這個資料流內建的byte[]
+	}
+	
+	//信用卡驗證
+	private boolean CC_Check(String ccNumber) {
+		int sum = 0;
+		boolean alternate = false;
+		for (int i = ccNumber.length() - 1; i >= 0; i--) {
+			int n = Integer.parseInt(ccNumber.substring(i, i + 1));
+			if (alternate) {
+				n *= 2;
+				if (n > 9) {
+					n = (n % 10) + 1;
+				}
+			}
+			sum += n;
+			alternate = !alternate;
+		}
+		return (sum % 10 == 0);
 	}
 
 }
