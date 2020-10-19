@@ -124,13 +124,14 @@ public class Con_aplServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 				String tnt_no = req.getParameter("tnt_no");
+				System.out.println(tnt_no);
 
 				/*************************** 2.開始查詢資料 *****************************************/
 				Con_aplService con_aplService = new Con_aplService();
 				List<Con_aplVO> list = con_aplService.tntgetAll(tnt_no);
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				HttpSession session = req.getSession();
-				req.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("tnt_no", tnt_no);
 				session.setAttribute("list", list);
 				// Send the Success view
 				String url = "/front-end/apl/tntaplpage.jsp";
@@ -209,11 +210,9 @@ public class Con_aplServlet extends HttpServlet {
 			}
 		}
 
-		if ("getOne_For_Update".equals(action)) { // 來自listAllEmp.jsp的請求
+		if ("getOne_For_tntUpdate".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
@@ -229,7 +228,7 @@ public class Con_aplServlet extends HttpServlet {
 				req.setAttribute("con_aplVO", con_aplVO);
 				req.setAttribute("tnt_no", tnt_no);
 				String url = "/front-end/apl/tntupdateapl.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 updateCon_apl_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
@@ -560,7 +559,7 @@ public class Con_aplServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/lldaplpage.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}

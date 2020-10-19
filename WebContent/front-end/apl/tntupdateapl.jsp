@@ -8,8 +8,12 @@
 <%@ page import="com.rec.model.*"%>
 
 <%
-	String tnt_no = (String) request.getAttribute("tnt_no");
-	String apl_no = (String) request.getAttribute("apl_no");
+	String tnt_no = (String) session.getAttribute("tnt_no");
+	if (tnt_no == null) {
+		tnt_no = request.getParameter("tnt_no");
+	}
+	
+	String apl_no = (String) session.getAttribute("apl_no");
 	
 	Con_aplVO con_aplVO = (Con_aplVO)request.getAttribute("con_aplVO");
 	
@@ -70,16 +74,16 @@
                     <div class="line line--3"></div>
                 </div>                
                 <div class="nav-links">
-					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-						<input type="hidden" name="lld_no" value="<%=tnt_no%>">
-						<input type="hidden" name="action" value="tntgetAll">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+						<input type="hidden" name="action" value="tntgetallapl">
 						<button type="submit" class="link">租屋申請</button><br>
 					</FORM>
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
-						<input type="hidden" name="lld_no" value="<%=tnt_no%>">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="gettntcontract">
-						<button type="submit" class="link">歷史合約</button><br>
+						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
 					</FORM>
                 </div>
             </nav>

@@ -35,8 +35,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_unrent.css">
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
+<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_rent.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_rent.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
@@ -79,7 +79,7 @@
 				<div class="nav-links">
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-						<input type="hidden" name="action" value="tntgetAll">
+						<input type="hidden" name="action" value="tntgetallapl">
 						<button type="submit" class="link" style="color: #D37707;">租屋申請</button><br>
 						<span id="count">共<%=list.size()%>個申請</span>
 					</FORM>
@@ -118,7 +118,7 @@
 								<li><button id="btn1">修改申請</button></li>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-			     				<input type="hidden" name="action"	value="getOne_For_Update">
+			     				<input type="hidden" name="action"	value="getOne_For_tntUpdate">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
