@@ -40,12 +40,10 @@ public class bookingServlet extends HttpServlet {
 		String lld_no=request.getParameter("lld_no");
 		if ("insert".equals(action)) {
 			BookingDAO dao = new BookingDAO();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			// 進行轉換
 			try {
 			    BookingService bks= new BookingService();
-				System.out.println(bks.chang(data)+"jasdipsd");
-				ArrayList<String> thow =dao.insert(bks.chang(data),lld_no);
+				ArrayList<String> thow =dao.insert(bks.change(data),lld_no);
 				PrintWriter out = response.getWriter();
 				out.println(thow);
 
@@ -55,26 +53,28 @@ public class bookingServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		} else if ("getByHoid".equals(action)) {
-			BookingDAO dao = new BookingDAO();
-			dao.getBookingInfoListBylldno(request.getParameter("hoId"));
-			
-		} else if ("delete".equals(action)) {
+		} 
+//		else if ("getByHoid".equals(action)) {
+//			BookingDAO dao = new BookingDAO();
+//			dao.getBookingInfoListBylldno(request.getParameter("hoId"));
+//	} 
+		else if ("delete".equals(action)) {
 			BookingDAO dao =new BookingDAO();
-			try {
+			
 				dao.delet(data);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}}
+		}
 		else if ("update".equals(action)) {
-				BookingDAO dao =new BookingDAO();
+				  BookingService bks= new BookingService();
 				try {
-					dao.update(data);
+					bks.insertorder(request.getParameter("resdno"),
+					request.getParameter("house"),
+					request.getParameter("date"),
+					request.getParameter("tntno"),
+					request.getParameter("type"),
+					request.getParameter("resstatus"));
+
 					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+				} catch (Exception e) {
 					e.printStackTrace();
 				}}
 

@@ -1,6 +1,7 @@
 package com.booking.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class BookingDAO implements BookingDAO_interface {
 
@@ -29,7 +31,7 @@ public class BookingDAO implements BookingDAO_interface {
 	}
 
 
-	public List<BookingVO> getBookingInfoListBylldno(String hoId) {
+	public List<BookingVO> getBookingInfoListByhosno(String hoId){
 		List<BookingVO> list = new ArrayList<BookingVO>();
 		Connection con = null;
 		ResultSet rs = null;
@@ -84,7 +86,7 @@ public class BookingDAO implements BookingDAO_interface {
 		return list;
 	}
 
-	public ArrayList<String> insert(ArrayList<String> strings, String lld_no) throws SQLException {
+	public ArrayList<String> insert(ArrayList<String> strings, String lld_no){
 		ArrayList<String> list = new ArrayList<String>();
 		Connection con = null;
 		ResultSet rs = null;
@@ -145,7 +147,7 @@ public class BookingDAO implements BookingDAO_interface {
 		return list;
 	}
 
-	public void delet(String bid) throws SQLException {
+	public void delet(String bid){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -175,7 +177,7 @@ public class BookingDAO implements BookingDAO_interface {
 		}
 	}
 
-	public void update(String sta) throws SQLException {
+	public void update(String sta){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -206,7 +208,100 @@ public class BookingDAO implements BookingDAO_interface {
 		}
 	}
 
-//			    insert into reservartion_order (RES_NO,TNT_NO,HOS_NO,ORDER_DATE,RES_TYPE,RES_STATUS,RES_ODD)
-//			    value('RES' || lpad(SEQ_RESD_NO.NEXTVAL, 6, '0'),?,?,?,?,?,?);
+	public void insertorder(BookingVO vo){
+    	Connection con = null;
+	    PreparedStatement pstmt=null;
+		try {
+			Date date = new Date();
+		    Timestamp nousedate = new Timestamp(date.getTime());
+		      con = ds.getConnection();
+		      
+		      pstmt = con.prepareStatement(""
+		      		+ "insert into reservartion_order (RES_NO, TNT_NO ,HOS_NO ,ORDER_DATE ,RES_TYPE ,RES_STATUS ,RES_ODD)"
+		      		+ " VALUES ('RES' || lpad(SEQ_RES_NO.NEXTVAL, 6, '0'),?,?,TO_DATE(?,'YYYY-MM-DD HH24:mi:ss'),?,?,?) ");
+			System.out.println("tnt="+vo.getTnt_no()+",hos="+vo.getHos_no()+",Order_date="+vo.getOrder_date()+",Order_type="+vo.getOrder_type()+",getRes_status="+vo.getRes_status()+",nousedate="+nousedate);
+		      pstmt.setString(1,vo.getTnt_no());
+			pstmt.setString(2,vo.getHos_no());
+			pstmt.setString(3,vo.getOrder_date());
+			pstmt.setString(4,vo.getOrder_type());
+			pstmt.setString(5,vo.getRes_status());
+			pstmt.setTimestamp(6, nousedate);
+			pstmt.executeUpdate();
+			
+		} catch(SQLException e){
+	    	e.printStackTrace();
+	    	System.out.println("SQL壞了 ");
+	    }
+	    	finally {
+	        	
+	    		if (pstmt != null) {
+	    			try {
+	    				pstmt.close();
+	    			} catch (SQLException se) {
+	    				se.printStackTrace(System.err);
+	    			}
+	    		}
+	    		if (con != null) {
+	    			try {
+	    				con.close();
+	    			} catch (Exception e) {
+	    				e.printStackTrace(System.err);
+	    			}
+	    		}
+	        	}
+    }
+	public List<BookingVO> getBookingInfoListBylldno(String lldno){
+		List<BookingVO> list = new ArrayList<BookingVO>();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			// 可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令 可增加指令彈性
+			pstmt = con.prepareStatement("SELECT RESD_NO,LLD_NO,RESD_DATE,RESD_STATUS FROM RESERVATION_DATE  "
+					 + "WHERE lld_no = ? ");
+			pstmt.setString(1, lldno);
 
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BookingVO vo = new BookingVO();
+				vo.setResd_no(rs.getString("RESD_NO"));
+				vo.setLld_no(rs.getString("LLD_NO"));
+				vo.setResd_status(rs.getString("RESD_STATUS"));
+				System.out.println(rs.getString("RESD_STATUS") + "拿到STATUS");
+				vo.setResd_date(rs.getDate("RESD_DATE").toString() + "T" + rs.getTime("RESD_DATE").toString());
+				list.add(vo);
+				System.out.println(list);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL壞了 ");
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return list;
+	}
 }

@@ -131,8 +131,8 @@ background-color:transparent;
 	String hosno=(String)session.getAttribute("HOS");
 			String list = bks.getinfobyid(hosno);
 			pageContext.setAttribute("list", list);//KEY，VALUE
-			String tntno=(String)session.getAttribute("TNT");
-		
+			String tntno=(String)session.getAttribute("tnt_no");
+			String lldno=(String)session.getAttribute("lld_no");
 	%>
 </body>
 
@@ -212,7 +212,7 @@ $('#save').click(function(){//確認新增預約
 	  var booking=true;
 	  console.log(list[0]==undefined);
  	  if(list[0]!==undefined){
-	 	 if(list[0].lld_no=="<%=tntno %>"){open=true};
+	 	 if(list[0].lld_no=="<%=lldno %>"){open=true};
 	  	 if("<%=tntno %>".substr(0,3)!=="TNT"&&open==false){
 		  booking=false;
 	  	}
@@ -263,6 +263,7 @@ $('#save').click(function(){//確認新增預約
        eventClick: function(arg) {//點選日曆上已成立的
     	
     	   console.log(arg);
+    	   console.log(arg.event.extendedProps.timemoment);
    		console.log(arg.event.extendedProps.status);
  	   if(arg.event.extendedProps.status=='1'){
  		   return;
@@ -303,10 +304,12 @@ $('#save').click(function(){//確認新增預約
 				 	  type:"POST",
 				 	  data:{
 				 		  action:"update",
-				 		  data: arg.event.extendedProps.resdno
-<%-- 				 			  "<%=tntno %>" --%>
-				 		   //JSON.stringify({})
-				 			 //JSON.stringify({})
+				 		 resdno: arg.event.extendedProps.resdno,
+				 		  date:arg.event.extendedProps.timemoment,
+				 		  house:"<%= hosno%>",
+				 		  tntno:"<%= tntno %>",
+				 		  type:"look",
+				 		  resstatus:0
 				 	  },
 				 	  success:function(data){//以上成功才執行
 				 		 arg.el.style.backgroundColor="pink";
@@ -353,12 +356,14 @@ $('#save').click(function(){//確認新增預約
  			resdno:catc.resd_no,
              status:catc.resd_status,
              backgroundColor:"yellow",
+             timemoment:catc.resd_date
           }))
      }
      else{calendar.addEvent({
     			title:"可預約",
                 start:catc.resd_date,
                 resdno:catc.resd_no,
+                timemoment:catc.resd_date
              }); }
      })
     calendar.render();
