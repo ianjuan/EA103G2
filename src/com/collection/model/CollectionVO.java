@@ -2,7 +2,7 @@ package com.collection.model;
 
 import java.sql.Timestamp;
 
-public class CollectionVO  {
+public class CollectionVO implements java.io.Serializable {
 
 	private String tnt_no;
     private String hos_no;

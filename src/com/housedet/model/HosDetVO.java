@@ -2,7 +2,7 @@ package com.housedet.model;
 
 import java.util.List;
 
-public class HosDetVO {
+public class HosDetVO implements java.io.Serializable {
 
 	private String hos_no;
 	private String lld_no;

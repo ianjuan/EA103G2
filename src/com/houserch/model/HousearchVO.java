@@ -1,9 +1,8 @@
 
 package com.houserch.model;
 
-import java.sql.Date;
 
-public class HousearchVO {
+public class HousearchVO implements java.io.Serializable {
 	private String hos_no;
 	private String lld_no;
 	private String hos_name;
