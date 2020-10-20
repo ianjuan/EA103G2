@@ -57,6 +57,29 @@ public class TntService {
 
 		return tntVO;
 	}
+	
+	public TntVO updateTntProfile(String tnt_no, String tnt_email, String tnt_acc, String tnt_pwd, String tnt_id,
+			String tnt_name, Date tnt_birth, Boolean tnt_sex, String tnt_mobile, String tnt_city, String tnt_dist,
+			String tnt_add, int tnt_status) {
+
+		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
+		tntVO.setTnt_email(tnt_email);
+		tntVO.setTnt_acc(tnt_acc);
+		tntVO.setTnt_pwd(tnt_pwd);
+		tntVO.setTnt_id(tnt_id);
+		tntVO.setTnt_name(tnt_name);
+		tntVO.setTnt_birth(tnt_birth);
+		tntVO.setTnt_sex(tnt_sex);
+		tntVO.setTnt_mobile(tnt_mobile);
+		tntVO.setTnt_city(tnt_city);
+		tntVO.setTnt_dist(tnt_dist);
+		tntVO.setTnt_add(tnt_add);
+		tntVO.setTnt_status(tnt_status);
+		dao.update_profile(tntVO, false);
+
+		return tntVO;
+	}
 
 	public TntVO getOneTntProfile(String tnt_no) {
 		return dao.findByPK_profile(tnt_no);
@@ -67,7 +90,7 @@ public class TntService {
 	}
 	
 	public TntVO getOneTntAccount(String tnt_no) {
-		return dao.findByPK_accountN(tnt_no);
+		return dao.findByPK_account(tnt_no);
 	}
 	
 	public List<TntVO> getAllAccount() {
@@ -83,8 +106,17 @@ public class TntService {
 
 		return tntVO;
 	}
-
 	
+	public TntVO updateTntPic(String tnt_no, byte[] tnt_pic) {
+
+		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
+		tntVO.setTnt_pic(tnt_pic);
+		dao.update_pic(tntVO);
+
+		return tntVO;
+	}
+
 	
 	public TntVO updateTntPocket(String tnt_no, int tnt_blance) {
 

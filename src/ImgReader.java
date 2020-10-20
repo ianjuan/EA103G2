@@ -68,17 +68,17 @@ public class ImgReader extends HttpServlet {
 //				System.out.println("ImgReader:rs5");
 			} else {
 //				System.out.println("ImgReader:rs");
-//				InputStream in = getServletContext().getResourceAsStream("/images/NoData/null2.jpg");
-//				byte[] b = new byte[in.available()];
-//				in.read(b);
-//				out.write(b);
-//				in.close();
+				InputStream in = getServletContext().getResourceAsStream("/images/NoData/null2.jpg");
+				byte[] b = new byte[in.available()];
+				in.read(b);
+				out.write(b);
+				in.close();
 			}
 			rs.close();
 			pstmt.close();
 		} catch (Exception e) {
-			System.out.println("Exception from ImgReader.java: " + e.getMessage());
-			e.printStackTrace();
+//			System.out.println("Exception from ImgReader.java: " + e.getMessage());
+//			e.printStackTrace();
 //			InputStream in = getServletContext().getResourceAsStream("/images/NoData/none.jpg");
 //			byte[] b = new byte[in.available()];
 //			in.read(b);

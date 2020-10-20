@@ -24,13 +24,14 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String INSERT_PROFILE_STMT = "INSERT INTO TENANT (TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC)"
 			+ "VALUES ('TNT' || lpad(SEQ_TNT_NO.NEXTVAL, 5, '0'),?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_PROFILE_STMT = "UPDATE TENANT set TNT_EMAIL=?, TNT_ACC=?, TNT_PWD=?, TNT_ID=?, TNT_NAME=?, TNT_BIRTH=?, TNT_SEX=?, TNT_MOBILE=?, TNT_CITY=?, TNT_DIST=?, TNT_ADD=?, TNT_PIC=?, TNT_STATUS=? where TNT_NO = ?";
+	private static final String UPDATE_PROFILE_NOPIC_STMT = "UPDATE TENANT set TNT_EMAIL=?, TNT_ACC=?, TNT_PWD=?, TNT_ID=?, TNT_NAME=?, TNT_BIRTH=?, TNT_SEX=?, TNT_MOBILE=?, TNT_CITY=?, TNT_DIST=?, TNT_ADD=?, TNT_STATUS=? where TNT_NO = ?";
 	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT where TNT_NO = ?";
 	private static final String GET_ALL_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT order by TNT_NO";
 	
 	private static final String GET_ALL_ACCOUNT_STMT = "SELECT tnt_no, tnt_email, tnt_pwd from TENANT";
-	private static final String GET_ONE_ACCOUNT_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_NAME FROM TENANT where TNT_NO =?";
+	private static final String GET_ONE_ACCOUNT_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_PWD FROM TENANT where TNT_NO =?";
 	private static final String UPDATE_PWD_STMT = "UPDATE TENANT set TNT_PWD=? where TNT_NO=?"; 
-	
+	private static final String UPDATE_PIC_STMT = "UPDATE TENANT set TNT_PIC=? where TNT_NO = ?";
 	@Override
 	public void insert_profile(TntVO tntVO) {
 
@@ -103,6 +104,76 @@ public class TntDAO implements TenantDAO_interface {
 
 			pstmt.executeUpdate();
 
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_profile(TntVO tntVO, Boolean updatePic) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			con = ds.getConnection();
+			
+			if(updatePic) {
+				pstmt = con.prepareStatement(UPDATE_PROFILE_STMT);
+
+				pstmt.setString(1, tntVO.getTnt_email());
+				pstmt.setString(2, tntVO.getTnt_acc());
+				pstmt.setString(3, tntVO.getTnt_pwd());
+				pstmt.setString(4, tntVO.getTnt_id());
+				pstmt.setString(5, tntVO.getTnt_name());
+				pstmt.setDate(6, tntVO.getTnt_birth());
+				pstmt.setBoolean(7, tntVO.getTnt_sex());
+				pstmt.setString(8, tntVO.getTnt_mobile());
+				pstmt.setString(9, tntVO.getTnt_city());
+				pstmt.setString(10, tntVO.getTnt_dist());
+				pstmt.setString(11, tntVO.getTnt_add());
+				pstmt.setBytes(12, tntVO.getTnt_pic());
+				pstmt.setInt(13, tntVO.getTnt_status());
+				pstmt.setString(14, tntVO.getTnt_no());
+
+				pstmt.executeUpdate();
+
+			}else {
+				pstmt = con.prepareStatement(UPDATE_PROFILE_NOPIC_STMT);
+
+				pstmt.setString(1, tntVO.getTnt_email());
+				pstmt.setString(2, tntVO.getTnt_acc());
+				pstmt.setString(3, tntVO.getTnt_pwd());
+				pstmt.setString(4, tntVO.getTnt_id());
+				pstmt.setString(5, tntVO.getTnt_name());
+				pstmt.setDate(6, tntVO.getTnt_birth());
+				pstmt.setBoolean(7, tntVO.getTnt_sex());
+				pstmt.setString(8, tntVO.getTnt_mobile());
+				pstmt.setString(9, tntVO.getTnt_city());
+				pstmt.setString(10, tntVO.getTnt_dist());
+				pstmt.setString(11, tntVO.getTnt_add());
+				pstmt.setInt(12, tntVO.getTnt_status());
+				pstmt.setString(13, tntVO.getTnt_no());
+
+				pstmt.executeUpdate();
+				
+			}
+			
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		} finally {
@@ -309,7 +380,7 @@ public class TntDAO implements TenantDAO_interface {
 	}
 	
 	@Override
-	public TntVO findByPK_accountN(String tnt_no) {
+	public TntVO findByPK_account(String tnt_no) {
 		TntVO tntVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -329,7 +400,6 @@ public class TntDAO implements TenantDAO_interface {
 				tntVO.setTnt_no(rs.getString("tnt_no"));
 				tntVO.setTnt_email(rs.getString("tnt_email"));
 				tntVO.setTnt_pwd(rs.getString("tnt_pwd"));
-				tntVO.setTnt_name(rs.getString("tnt_name"));
 			}
 
 		} catch (SQLException se) {
@@ -397,6 +467,40 @@ public class TntDAO implements TenantDAO_interface {
 		}
 	}
 
+	@Override
+	public void update_pic(TntVO tntVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_PIC_STMT);
+
+	
+			pstmt.setBytes(1, tntVO.getTnt_pic());
+			pstmt.setString(12, tntVO.getTnt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 
 	// =================================2.pocket==================================
 	private static final String UPDATE_POCKET_STMT = "UPDATE TENANT set tnt_blance=? where tnt_no=?";

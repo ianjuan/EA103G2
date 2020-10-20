@@ -561,6 +561,7 @@
          *    [ 按鈕Ajax infoProfile ]
          */
 
+        //info按鈕1 - btninfoProfile
         $('#btninfoProfile').click(function(e) {
             e.preventDefault();
             console.log('btn - info update profile');
@@ -592,9 +593,7 @@
             })
         }
         
-        
-        
-        
+        //info按鈕3 - btninfoChgPwd
         $('#btninfoChgPwd').click(function(e) {
             e.preventDefault();
             console.log('btn - info ChgPwd');

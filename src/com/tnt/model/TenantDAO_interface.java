@@ -5,11 +5,13 @@ import java.util.List;
 public interface TenantDAO_interface {
 	
 	public List<TntVO> getAll_account();
-	public TntVO findByPK_accountN(String tnt_no);
+	public TntVO findByPK_account(String tnt_no); //暫時沒用到
 	public void update_pwd(TntVO tntVO);
+	public void update_pic(TntVO tntVO);
 
 	public void insert_profile(TntVO tntVO);
     public void update_profile(TntVO tntVO);
+    public void update_profile(TntVO tntVO, Boolean updatePic);
     public TntVO findByPK_profile(String tnt_no);
     public List<TntVO> getAll_profile();
     

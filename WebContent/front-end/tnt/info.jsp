@@ -115,7 +115,7 @@
 <!--                                     </svg> -->
 <!--                                 </a> -->
                                 <a class="awrapBigHeadPic">
-                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
+<%--                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic"> --%>
                                  </a>
                             </div>
                             <p class="text-gray text-center mb-3">房客</p>
