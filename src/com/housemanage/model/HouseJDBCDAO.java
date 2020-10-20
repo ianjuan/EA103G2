@@ -29,7 +29,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
 	private static final String GET_LLDINFO = "SELECT lld_name,lld_balance FROM LANDLORD where lld_no=?";
-	private static final String GET_HOUSEINFO = "SELECT lld_no,hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
+	private static final String GET_HOUSEINFO = "SELECT hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
 			+ "hos_table,hos_chair,hos_bed,hos_closet,hos_sofa,hos_tv,hos_drink,hos_aircon,hos_refrig,hos_wash,hos_hoter,hos_forth,hos_net,hos_gas,"
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
 			+ "hos_rentfee,hos_gasfee,hos_manafee,hos_netfee,hos_puwaterfee,hos_puelefee,hos_parkfee FROM HOUSE where hos_no=?";
@@ -383,7 +383,6 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 
 			while (rs.next()) {
 				houseVO = new HouseVO();
-				houseVO.setLld_no(rs.getString("lld_no"));
 				houseVO.setHos_no(rs.getString("hos_no"));
 				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_liffun(rs.getString("hos_liffun"));
@@ -991,7 +990,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		dao.insertHouseInfo(houseVO1);
 
 //		// 更新房屋資訊
-		HouseVO houseVO2 = new HouseVO();
+//		HouseVO houseVO2 = new HouseVO();
 //		houseVO2.setHos_name("桃園最大賭場");
 //		houseVO2.setHos_liffun("超級棒的啦");
 //		houseVO2.setHos_trans("很方便啦");
@@ -1004,24 +1003,24 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		houseVO2.setHos_lng(150.0);
 //		houseVO2.setHos_lat(150.0);
 //		houseVO2.setHos_status("已下架");
-		houseVO2.setHos_no("HOS000001");
+//		houseVO2.setHos_no("HOS014030");
 //		
 //		// 更新房屋家具
-		houseVO2.setHos_table(1);
-		houseVO2.setHos_chair(1);
-		houseVO2.setHos_bed(1);
-		houseVO2.setHos_closet(1);
-		houseVO2.setHos_sofa(1);
-		houseVO2.setHos_tv(0);
-		houseVO2.setHos_drink(0);
-		houseVO2.setHos_aircon(1);
-		houseVO2.setHos_refrig(0);
-		houseVO2.setHos_wash(1);
-		houseVO2.setHos_drink(0);
-		houseVO2.setHos_hoter(1);
-		houseVO2.setHos_forth(9);
-		houseVO2.setHos_net(9);
-		houseVO2.setHos_gas(9);
+//		houseVO2.setHos_table(1);
+//		houseVO2.setHos_chair(1);
+//		houseVO2.setHos_bed(1);
+//		houseVO2.setHos_closet(1);
+//		houseVO2.setHos_sofa(1);
+//		houseVO2.setHos_tv(0);
+//		houseVO2.setHos_drink(0);
+//		houseVO2.setHos_aircon(1);
+//		houseVO2.setHos_refrig(0);
+//		houseVO2.setHos_wash(1);
+//		houseVO2.setHos_drink(0);
+//		houseVO2.setHos_hoter(1);
+//		houseVO2.setHos_forth(0);
+//		houseVO2.setHos_net(1);
+//		houseVO2.setHos_gas(1);
 //
 //		// 更新房屋限制
 //		houseVO2.setHos_mdate("隨時都歡迎");
@@ -1048,11 +1047,10 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		houseVO2.setHos_electfeetype(2);
 //		houseVO2.setHos_electfee(100.0);
 //
-		dao.updateHouseFurniture(houseVO2);
+//		dao.updateHouseInfo(houseVO2);
 
 //		// 查詢房屋資訊
-//		HouseVO houseVO3 = dao.getHouseInfo("HOS014030");
-//		System.out.print(houseVO3.getLld_no() + ",");
+//		HouseVO houseVO3 = dao.getHouseInfo("HOS000001");
 //		System.out.print(houseVO3.getHos_no() + ",");
 //		System.out.print(houseVO3.getHos_name() + ",");
 //		System.out.print(houseVO3.getHos_liffun() + ",");

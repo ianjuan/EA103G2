@@ -126,7 +126,7 @@ public class HouseServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-
+		
 		if ("insertHouseInfo".equals(action)) {
 
 			/*************************** 新增房屋資訊 **********************/
