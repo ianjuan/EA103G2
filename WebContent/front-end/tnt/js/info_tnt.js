@@ -1,6 +1,6 @@
-/*------------------------------------------------------------------
-[ Origin-Register ]*/       
-(function($) {
+        /*------------------------------------------------------------------
+        [ Origin-Register ]*/
+        (function($) {
             "use strict";
 
             /*
@@ -164,42 +164,42 @@
          * 
          */
 
-        var somedate2 = new Date();
-        somedate2.setFullYear(somedate2.getFullYear() - 18);
-        // console.log(somedate2);
-        var somedate3 = new Date();
-        somedate3.setFullYear(somedate3.getFullYear() - 18);
-        somedate3.setDate(somedate3.getDate() + 1);
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-            theme: '', // theme: 'dark',
-            timepicker: false, // timepicker:true,
-            step: 1, // step: 60 (這是timepicker的預設間隔60分鐘)
-            format: 'Y-m-d', // format:'Y-m-d H:i:s',
-            value: somedate3, // '<%=tnt_birth%>', // value: new Date(),
-            // disabledDates: ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-            // startDate: '2017/07/10', // 起始日
-            // minDate: '-1970-01-01', // 去除今日(不含)之前
-            // maxDate: '+1970-01-01' // 去除今日(不含)之後
-        });
-
-        // 2.以下為某一天之後的日期無法選擇--未滿18不能選
-
-        $('#f_date1')
-            .datetimepicker({
-                beforeShowDay: function(date) {
-                    if (date.getYear() > somedate2.getYear() ||
-                        (date.getYear() == somedate2.getYear() && date
-                            .getMonth() > somedate2.getMonth()) ||
-                        (date.getYear() == somedate2.getYear() &&
-                            date.getMonth() == somedate2
-                            .getMonth() && date.getDate() > somedate2
-                            .getDate())) {
-                        return [false, ""]
-                    }
-                    return [true, ""];
-                }
-            });
+//        var somedate2 = new Date();
+//        somedate2.setFullYear(somedate2.getFullYear() - 18);
+//        // console.log(somedate2);
+//        var somedate3 = new Date();
+//        somedate3.setFullYear(somedate3.getFullYear() - 18);
+//        somedate3.setDate(somedate3.getDate() + 1);
+//        $.datetimepicker.setLocale('zh');
+//        $('#f_date1').datetimepicker({
+//            theme: '', // theme: 'dark',
+//            timepicker: false, // timepicker:true,
+//            step: 1, // step: 60 (這是timepicker的預設間隔60分鐘)
+//            format: 'Y-m-d', // format:'Y-m-d H:i:s',
+//            value: somedate3, // '<%=tnt_birth%>', // value: new Date(),
+//            // disabledDates: ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+//            // startDate: '2017/07/10', // 起始日
+//            // minDate: '-1970-01-01', // 去除今日(不含)之前
+//            // maxDate: '+1970-01-01' // 去除今日(不含)之後
+//        });
+//
+//        // 2.以下為某一天之後的日期無法選擇--未滿18不能選
+//
+//        $('#f_date1')
+//            .datetimepicker({
+//                beforeShowDay: function(date) {
+//                    if (date.getYear() > somedate2.getYear() ||
+//                        (date.getYear() == somedate2.getYear() && date
+//                            .getMonth() > somedate2.getMonth()) ||
+//                        (date.getYear() == somedate2.getYear() &&
+//                            date.getMonth() == somedate2
+//                            .getMonth() && date.getDate() > somedate2
+//                            .getDate())) {
+//                        return [false, ""]
+//                    }
+//                    return [true, ""];
+//                }
+//            });
         /*
          * ================================================================== 
          *    [ 縣市區域 ]
@@ -281,17 +281,14 @@
 
             // 若無原始tntVO資料, 新增"選擇縣市"跟所有縣市, 區域僅新增"選擇區域"
             if ($('#tnt_city').val() === null) {
-                console.log('aaaaaa');
+                // console.log('aa');
                 $("#tnt_city").append(
                     '<option value="" id="city_default">選擇縣市');
                 city_key.forEach(function(item, index, array) {
-                    console.log(item);
-                    $("#tnt_city").append(
-                        '<option value="' + item + '">' + item);
+                    // console.log('tnt_city item' + item);
+                    $("#tnt_city").append('<option value="' + item + '">' + item);
                 });
-                $('#tnt_dist').append(
-                    '<option value="" id="dist_default">選擇區域');
-                console.log('bbbbbb');
+                $('#tnt_dist').append('<option value="" id="dist_default">選擇區域');
                 // 若有原始tntVO資料, 新增所有縣市, 判斷有無selected縣市
             } else {
                 var index_city;
@@ -300,23 +297,17 @@
                         var tmp = ' selected';
                         index_city = index;
                     }
-                    $("#tnt_city").append(
-                        '<option value="' + item + '"' + tmp + '>' +
-                        item);
+                    $("#tnt_city").append('<option value="' + item + '"' + tmp + '>' +item);
                 });
                 $('#city_default').val("");
                 // 若有selected縣市,新增所有區域, 如無selected縣市, 不動
                 if (typeof(index_city) !== "undefined") {
-                    var dist_values_selectedcity = Object
-                        .values(area_data)[index_city];
-                    dist_values_selectedcity
-                        .forEach(function(item, index, array) {
-                            var tmp = (item === $('#tnt_dist')
-                                .val()) ? ' selected' : '';
-                            $("#tnt_dist").append(
-                                '<option value="' + item + '"' +
-                                tmp + '>' + item);
-                        });
+                    var dist_values_selectedcity = Object.values(area_data)[index_city];
+                    dist_values_selectedcity.forEach(function(item, index, array) {
+//                        console.log(item);
+                        var tmp = (item === $('#tnt_dist').val()) ? ' selected' : '';
+                        $("#tnt_dist").append('<option value="' + item + '"' + tmp + '>' + item);
+                    });
                 }
                 $('#dist_default').val("");
             }
@@ -331,13 +322,23 @@
                                 .values(area_data)[index];
                             dist_values.forEach(function(item,
                                 index, array) {
-                                $("#tnt_dist").append(
-                                    '<option value="' + item +
-                                    '">' + item);
+                                $("#tnt_dist").append('<option value="' + item +'">' + item);
                             });
                         }
                     });
                 });
+            
+            //借放這裡 幫身分資料focus and blur
+            var inputs = $('form:eq(0) .validate-input .register100');
+            var selects = $('form:eq(0) select.wrap-register100');
+            for (var i = 0; i < inputs.length; i++) {
+                    $(inputs[i]).focus();
+                    $(inputs[i]).blur();
+            }
+            for (var i = 0; i < selects.length; i++) {
+                $(selects[i]).focus();
+                $(selects[i]).blur();
+        }
         });
 
         /*
@@ -436,8 +437,7 @@
             ([...files]).forEach(uploadFileDrop); //convert arraylist to array
         }
 
-        function uploadFileDrop(file) {
-        }
+        function uploadFileDrop(file) {}
 
 
         ['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
@@ -458,17 +458,17 @@
             e.dataTransfer.setData("text", e.target.parentElement.getAttribute("name"));
         }
         /*------------------------------------------------------------------
-        [ End-Origin-Register ]*/  
-        
+        [ End-Origin-Register ]*/
+
         /*
          * ================================================================== 
          *    [ validateAll(the form) ]
          */
-        
+
         function validateAll(theform) {
-        	console.log(theform);
-        	//selects
-        	var selects = theform.find('select.wrap-register100');
+            console.log(theform);
+            //selects
+            var selects = theform.find('select.wrap-register100');
             selects.each(function() {
                 if ($(this).val().trim() == '') {
                     $(this).addClass('alert-validate-selects');
@@ -500,49 +500,49 @@
          *    [ Angle-down-up ]
          */
 
-        $('.angleUpDown').each(function(index,element){
-            $(this).click(function(){
-            	var infoformwrap = $(this).closest('div');
-//            	infoformwrap.children('form').toggle();  //form toggle
-////                 $(this).closest('div').children('form').toggle();  
-//                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
-//                 var angleUp = '.angleUp:eq(' + index + ')';
-//                 $(angleDown).toggle();
-//                 $(angleUp).toggle();
-//                 
-//                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
-//                 	pbtmp = '10px';
-//                 }else{
-//                    pbtmp = '48px';
-//                 }
-//                 infoformwrap.css('padding-bottom',pbtmp);
-//                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
-            	togglethefrom(infoformwrap,index);
+        $('.angleUpDown').each(function(index, element) {
+            $(this).click(function() {
+                var infoformwrap = $(this).closest('div');
+                //              infoformwrap.children('form').toggle();  //form toggle
+                ////                 $(this).closest('div').children('form').toggle();  
+                //                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
+                //                 var angleUp = '.angleUp:eq(' + index + ')';
+                //                 $(angleDown).toggle();
+                //                 $(angleUp).toggle();
+                //                 
+                //                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
+                //                  pbtmp = '10px';
+                //                 }else{
+                //                    pbtmp = '48px';
+                //                 }
+                //                 infoformwrap.css('padding-bottom',pbtmp);
+                //                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
+                togglethefrom(infoformwrap, index);
             });
         });
-        
-        function togglethefrom(infoformwrap,index){
-        	infoformwrap.children('form').toggle();  //form toggle 
-          var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
-          var angleUp = '.angleUp:eq(' + index + ')';
-          $(angleDown).toggle();
-          $(angleUp).toggle();
-          
-          if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
-          	pbtmp = '10px';
-          }else{
-             pbtmp = '48px';
-          }
-          infoformwrap.css('padding-bottom',pbtmp);
-          infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
+
+        function togglethefrom(infoformwrap, index) {
+            infoformwrap.children('form').toggle(); //form toggle 
+            var angleDown = '.angleDown:eq(' + index + ')'; //angleDownUP toggle
+            var angleUp = '.angleUp:eq(' + index + ')';
+            $(angleDown).toggle();
+            $(angleUp).toggle();
+
+            if (infoformwrap.css('padding-bottom') === '48px') { //padding-bottom toggle
+                pbtmp = '10px';
+            } else {
+                pbtmp = '48px';
+            }
+            infoformwrap.css('padding-bottom', pbtmp);
+            infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
         }
-        
-        
+
+
         /*
          * ================================================================== 
          *    [ Info List Icon click ]
          */
-        $('a.upload').click(function () {
+        $('a.awrapBigHeadPic').click(function() {
             if ($('.info-form-wrap:eq(0)').css('padding-bottom') === '48px') {
                 togglethefrom($('.info-form-wrap:eq(0)'), 0);
             }
@@ -554,8 +554,8 @@
             }
 
         });
- 
-        
+
+
         /*
          * ================================================================== 
          *    [ 按鈕Ajax infoProfile ]
@@ -566,31 +566,64 @@
             console.log('btn - info update profile');
             var theform = $(this).parent().prev('form');
             validateAll(theform);
-             if ($('.alert-validate').length === 0) {
-            	 var formData = new FormData(theform.get(0));
-                 formData.append('action', 'infoUpdateProfile');
-                 ajax_infoUpdateProfile(formData);
-             }
+            if ($('.alert-validate').length === 0) {
+                var formData = new FormData(theform.get(0));
+                formData.append('action', 'infoUpdateProfile');
+                ajax_infoUpdateProfile(formData);
+            }
         });
-        
-      function ajax_infoUpdateProfile(formData) {
-             $.ajax({ // 存入資料庫階段
-                 url: "/EA103G2/tnt/TntServlet2",
-                 type: "POST",
-                 data: formData,
-                 // 告訴jQuery不要去處理髮送的資料
-                 processData: false,
-                 // 告訴jQuery不要去設定Content-Type請求頭
-                 contentType: false,
-   
-                 success: function() { // 以上成功才執行
-                     console.log("res棒");
-                 },
-                 error: function() {
-                     console.log("真的不棒")
-                 }
-             })
-         }
 
+        function ajax_infoUpdateProfile(formData) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/tnt/TntServlet2",
+                type: "POST",
+                data: formData,
+                // 告訴jQuery不要去處理髮送的資料
+                processData: false,
+                // 告訴jQuery不要去設定Content-Type請求頭
+                contentType: false,
 
+                success: function() { // 以上成功才執行
+                    console.log("res棒");
+                },
+                error: function() {
+                    console.log("真的不棒")
+                }
+            })
+        }
         
+        
+        
+        
+        $('#btninfoChgPwd').click(function(e) {
+            e.preventDefault();
+            console.log('btn - info ChgPwd');
+            var theform = $(this).parent().prev('form');
+            validateAll(theform);
+            var anyalert = theform.find('.alert-validate');
+            if (anyalert.length === 0) {
+                var formData = new FormData(theform.get(0));
+                formData.append('action', 'infoChgPwd');
+                ajax_infoUpdateProfile(formData);
+            }
+        });
+
+        function ajax_infoUpdateProfile(formData) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/tnt/TntServlet2",
+                type: "POST",
+                data: formData,
+                // 告訴jQuery不要去處理髮送的資料
+                processData: false,
+                // 告訴jQuery不要去設定Content-Type請求頭
+                contentType: false,
+
+                success: function(data) { // 以上成功才執行
+                	console.log("data:" + data);
+                    console.log("res棒");
+                },
+                error: function() {
+                    console.log("真的不棒")
+                }
+            })
+        }

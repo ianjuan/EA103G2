@@ -124,8 +124,8 @@
                             <h4 class="text-center">吳宜靜 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/info.jsp" class="basicInfo__menu__link">
-                                        <img src="infoprofile.png" width="30" class="mr-2">基本資訊
+                                    <a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
+                                        <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" class="mr-2">基本資訊
                                     </a>
                                 </li>
                                 <li class="mb-3">
@@ -170,19 +170,21 @@
                             </div>
                             <!--Start form1 Pocket-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
-                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">金額總覽
+                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">愛租錢包
                                     <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
+                                        <!-- <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
                                         </svg>
                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp">
                                             <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path>
-                                        </svg>
+                                        </svg> -->
                                     </a>
                                 </h4>
                                 <hr class="login100-form-title p-b-10">
                                 <!-- <div class="login100-form validate-form"> -->
                                 <form id="registerform" enctype="multipart/form-data">
+                                    <div class="pocketTitleSmall">錢包餘額</div>
+                                    <div>$10,000</div>
                                     form1
                                 </form>
                                 <div class="container-login100-form-btn">
@@ -255,7 +257,7 @@
                                 <hr class="login100-form-title p-b-10">
                                 <!-- <div class="login100-form validate-form"> -->
                                 <form id="registerform" enctype="multipart/form-data">
-                                    <div class="titlebankcard">收款帳號設定</div>
+                                    <div class="pocketTitleSmall">收款帳號設定</div>
                                     <select class="wrap-register100 validate-input" data-validate="Bank is required" name="tnt_bank" id="tnt_bank">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
@@ -409,18 +411,18 @@
                                         <span class="label-register100">銀行帳號</span>
                                     </div>
 									<hr style="margin: 25px -40px;">
-                                    <div class="titlebankcard">付款資訊設定</div>
-                                    <div class="wrap-register100 validate-input" data-validate="Credit card is required">
+                                    <div class="pocketTitleSmall">付款資訊設定</div>
+                                    <div class="wrap-register100 validate-input" data-validate="Valid credit card is required">
                                         <input class="register100" type="text" name="tnt_card" id="tnt_card">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">信用卡卡號</span>
                                     </div>
                                     <div class="wrap-register100 validate-input" data-validate="Card security code is required">
-                                        <input class="register100" type="text" name="tnt_cardsvc" id="tnt_cardsvc">
+                                        <input class="register100" type="text" name="tnt_cardsvc" id="tnt_cardsvc" maxlength="3" size="3">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">信用卡安全碼</span>
                                     </div>
-                                    <div class="wrap-register100 validate-input" data-validate="Due date is required">
+                                    <div class="wrap-register100 validate-input" data-validate="Valid due date is required">
                                         <input class="register100" type="month" name="tnt_carddue" id="tnt_carddue">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100 label-register100-carddue"></span>

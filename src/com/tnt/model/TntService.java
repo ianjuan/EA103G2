@@ -66,13 +66,30 @@ public class TntService {
 		return dao.getAll_profile();
 	}
 	
+	public TntVO getOneTntAccount(String tnt_no) {
+		return dao.findByPK_accountN(tnt_no);
+	}
+	
 	public List<TntVO> getAllAccount() {
 		return dao.getAll_account();
 	}
-
-	public TntVO updateTntPocket(int tnt_blance) {
+	
+	public TntVO updateTntPwd(String tnt_no, String tnt_pwd) {
 
 		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
+		tntVO.setTnt_pwd(tnt_pwd);
+		dao.update_pwd(tntVO);
+
+		return tntVO;
+	}
+
+	
+	
+	public TntVO updateTntPocket(String tnt_no, int tnt_blance) {
+
+		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_blance(tnt_blance);
 		dao.update_pocket(tntVO);
 		return tntVO;
@@ -82,10 +99,11 @@ public class TntService {
 		return dao.findByPK_pocket(tnt_no);
 	}
 	 
-	public TntVO updateTntBankCard(int tnt_bank, String tnt_bankbrach, String tnt_bankacc, long tnt_card,
+	public TntVO updateTntBankCard(String tnt_no, int tnt_bank, String tnt_bankbrach, String tnt_bankacc, long tnt_card,
 			int tnt_cardsvc, Date tnt_carddue) {
 
 		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_bank(tnt_bank);
 		tntVO.setTnt_bankbrach(tnt_bankbrach);
 		tntVO.setTnt_bankacc(tnt_bankacc);
@@ -101,9 +119,10 @@ public class TntService {
 		return dao.findByPK_bank_card(tnt_no);
 	}
 
-	public TntVO updateTntCmt(int tnt_cmt_starsum, int tnt_cmt_count) {
+	public TntVO updateTntCmt(String tnt_no, int tnt_cmt_starsum, int tnt_cmt_count) {
 
 		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_cmt_starsum(tnt_cmt_starsum);
 		tntVO.setTnt_cmt_count(tnt_cmt_count);
 		dao.update_cmt(tntVO);
@@ -114,11 +133,11 @@ public class TntService {
 		return dao.findByPK_cmt(tnt_no);
 	}
 
-	public TntVO updateTntVrf(byte[] tnt_id_picf, byte[] tnt_id_picb, byte[] tnt_id_pic2,
+	public TntVO updateTntVrf(String tnt_no, byte[] tnt_id_picf, byte[] tnt_id_picb, byte[] tnt_id_pic2,
 			Timestamp tnt_id_uploadtime, int tnt_id_isupload, int tnt_id_result, String tnt_id_disapprove, Timestamp tnt_id_vrftime) {
 
 		TntVO tntVO = new TntVO();
-
+		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_id_picf(tnt_id_picf);
 		tntVO.setTnt_id_picb(tnt_id_picb);
 		tntVO.setTnt_id_pic2(tnt_id_pic2);
@@ -140,11 +159,10 @@ public class TntService {
 		return dao.getAll_vrf();
 	}
 
-	public TntVO updateTntRpt(
-			int tnt_reported_count) {
+	public TntVO updateTntRpt(String tnt_no, int tnt_reported_count) {
 
 		TntVO tntVO = new TntVO();
-
+		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_reported_count(tnt_reported_count);
 		dao.update_rpt(tntVO);
 
@@ -156,10 +174,10 @@ public class TntService {
 	}
 	
 	
-	public TntVO updateTntAuth(int tnt_auth_chat, int tnt_auth_res, int tnt_auth_cmt, int tnt_auth_rpt) {
+	public TntVO updateTntAuth(String tnt_no, int tnt_auth_chat, int tnt_auth_res, int tnt_auth_cmt, int tnt_auth_rpt) {
 
 		TntVO tntVO = new TntVO();
-
+		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_auth_chat(tnt_auth_chat);
 		tntVO.setTnt_auth_res(tnt_auth_res);
 		tntVO.setTnt_auth_cmt(tnt_auth_cmt);

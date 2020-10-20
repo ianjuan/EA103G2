@@ -23,12 +23,13 @@ public class TntDAO implements TenantDAO_interface {
 	// =================================1.profile==================================
 	private static final String INSERT_PROFILE_STMT = "INSERT INTO TENANT (TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC)"
 			+ "VALUES ('TNT' || lpad(SEQ_TNT_NO.NEXTVAL, 5, '0'),?,?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String INSERT_PROFILE_STMT2 = "INSERT INTO TENANT (TNT_NO, TNT_EMAIL)"
-			+ "VALUES ('TNT' || lpad(SEQ_TNT_NO.NEXTVAL, 5, '0'),?)";
 	private static final String UPDATE_PROFILE_STMT = "UPDATE TENANT set TNT_EMAIL=?, TNT_ACC=?, TNT_PWD=?, TNT_ID=?, TNT_NAME=?, TNT_BIRTH=?, TNT_SEX=?, TNT_MOBILE=?, TNT_CITY=?, TNT_DIST=?, TNT_ADD=?, TNT_PIC=?, TNT_STATUS=? where TNT_NO = ?";
 	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT where TNT_NO = ?";
 	private static final String GET_ALL_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT order by TNT_NO";
+	
 	private static final String GET_ALL_ACCOUNT_STMT = "SELECT tnt_no, tnt_email, tnt_pwd from TENANT";
+	private static final String GET_ONE_ACCOUNT_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_NAME FROM TENANT where TNT_NO =?";
+	private static final String UPDATE_PWD_STMT = "UPDATE TENANT set TNT_PWD=? where TNT_NO=?"; 
 	
 	@Override
 	public void insert_profile(TntVO tntVO) {
@@ -252,7 +253,7 @@ public class TntDAO implements TenantDAO_interface {
 		}
 		return list;
 	}
-
+	
 	@Override
 	public List<TntVO> getAll_account() {
 		List<TntVO> list = new ArrayList<TntVO>();
@@ -306,6 +307,96 @@ public class TntDAO implements TenantDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public TntVO findByPK_accountN(String tnt_no) {
+		TntVO tntVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_ACCOUNT_STMT);
+
+			pstmt.setString(1, tnt_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				tntVO = new TntVO();
+				tntVO.setTnt_no(rs.getString("tnt_no"));
+				tntVO.setTnt_email(rs.getString("tnt_email"));
+				tntVO.setTnt_pwd(rs.getString("tnt_pwd"));
+				tntVO.setTnt_name(rs.getString("tnt_name"));
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return tntVO;
+	}
+	
+	@Override
+	public void update_pwd(TntVO tntVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			System.out.println(tntVO.getTnt_pwd());
+			System.out.println(tntVO.getTnt_no());
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_PWD_STMT);
+
+			pstmt.setString(1, tntVO.getTnt_pwd());
+			pstmt.setString(2, tntVO.getTnt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("12323A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
 
 	// =================================2.pocket==================================
 	private static final String UPDATE_POCKET_STMT = "UPDATE TENANT set tnt_blance=? where tnt_no=?";

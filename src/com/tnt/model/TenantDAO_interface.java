@@ -5,6 +5,8 @@ import java.util.List;
 public interface TenantDAO_interface {
 	
 	public List<TntVO> getAll_account();
+	public TntVO findByPK_accountN(String tnt_no);
+	public void update_pwd(TntVO tntVO);
 
 	public void insert_profile(TntVO tntVO);
     public void update_profile(TntVO tntVO);

@@ -187,7 +187,7 @@
 
         var somedate2 = new Date();
         somedate2.setFullYear(somedate2.getFullYear() - 18);
-        console.log(somedate2);
+        // console.log(somedate2);
         var somedate3 = new Date();
         somedate3.setFullYear(somedate3.getFullYear() - 18);
         somedate3.setDate(somedate3.getDate() + 1);
@@ -636,7 +636,7 @@
                 contentType: false,
 
                 success: function(data) { // 以上成功才執行
-                	console.log("註冊: ");
+                    console.log("註冊: ");
                     console.log("res棒");
                     redirect();
                 },

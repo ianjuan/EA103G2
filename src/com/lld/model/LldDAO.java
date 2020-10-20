@@ -505,6 +505,7 @@ public class LldDAO implements LandlordDAO_interface {
 
 			pstmt.setInt(1, lldVO.getLld_cmt_starsum());
 			pstmt.setInt(2, lldVO.getLld_cmt_count());
+			pstmt.setString(3, lldVO.getLld_no());
 
 			pstmt.executeUpdate();
 
