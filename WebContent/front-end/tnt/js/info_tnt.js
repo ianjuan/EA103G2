@@ -1,6 +1,6 @@
-/*------------------------------------------------------------------
-[ Origin-Register ]*/       
-(function($) {
+        /*------------------------------------------------------------------
+        [ Origin-Register ]*/
+        (function($) {
             "use strict";
 
             /*
@@ -281,17 +281,17 @@
 
             // 若無原始tntVO資料, 新增"選擇縣市"跟所有縣市, 區域僅新增"選擇區域"
             if ($('#tnt_city').val() === null) {
-                console.log('aaaaaa');
+                // console.log('aa');
                 $("#tnt_city").append(
                     '<option value="" id="city_default">選擇縣市');
                 city_key.forEach(function(item, index, array) {
-                    console.log(item);
+                    // console.log('tnt_city item' + item);
                     $("#tnt_city").append(
                         '<option value="' + item + '">' + item);
                 });
                 $('#tnt_dist').append(
                     '<option value="" id="dist_default">選擇區域');
-                console.log('bbbbbb');
+                // console.log('bbbbbb');
                 // 若有原始tntVO資料, 新增所有縣市, 判斷有無selected縣市
             } else {
                 var index_city;
@@ -306,17 +306,15 @@
                 });
                 $('#city_default').val("");
                 // 若有selected縣市,新增所有區域, 如無selected縣市, 不動
+                console.log(index_city);
+                console.log(typeof(index_city) !== "undefined");
                 if (typeof(index_city) !== "undefined") {
-                    var dist_values_selectedcity = Object
-                        .values(area_data)[index_city];
-                    dist_values_selectedcity
-                        .forEach(function(item, index, array) {
-                            var tmp = (item === $('#tnt_dist')
-                                .val()) ? ' selected' : '';
-                            $("#tnt_dist").append(
-                                '<option value="' + item + '"' +
-                                tmp + '>' + item);
-                        });
+                    var dist_values_selectedcity = Object.values(area_data)[index_city];
+                    dist_values_selectedcity.forEach(function(item, index, array) {
+                        console.log(item);
+                        var tmp = (item === $('#tnt_dist').val()) ? ' selected' : '';
+                        $("#tnt_dist").append('<option value="' + item + '"' + tmp + '>' + item);
+                    });
                 }
                 $('#dist_default').val("");
             }
@@ -436,8 +434,7 @@
             ([...files]).forEach(uploadFileDrop); //convert arraylist to array
         }
 
-        function uploadFileDrop(file) {
-        }
+        function uploadFileDrop(file) {}
 
 
         ['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
@@ -458,17 +455,17 @@
             e.dataTransfer.setData("text", e.target.parentElement.getAttribute("name"));
         }
         /*------------------------------------------------------------------
-        [ End-Origin-Register ]*/  
-        
+        [ End-Origin-Register ]*/
+
         /*
          * ================================================================== 
          *    [ validateAll(the form) ]
          */
-        
+
         function validateAll(theform) {
-        	console.log(theform);
-        	//selects
-        	var selects = theform.find('select.wrap-register100');
+            console.log(theform);
+            //selects
+            var selects = theform.find('select.wrap-register100');
             selects.each(function() {
                 if ($(this).val().trim() == '') {
                     $(this).addClass('alert-validate-selects');
@@ -500,49 +497,49 @@
          *    [ Angle-down-up ]
          */
 
-        $('.angleUpDown').each(function(index,element){
-            $(this).click(function(){
-            	var infoformwrap = $(this).closest('div');
-//            	infoformwrap.children('form').toggle();  //form toggle
-////                 $(this).closest('div').children('form').toggle();  
-//                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
-//                 var angleUp = '.angleUp:eq(' + index + ')';
-//                 $(angleDown).toggle();
-//                 $(angleUp).toggle();
-//                 
-//                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
-//                 	pbtmp = '10px';
-//                 }else{
-//                    pbtmp = '48px';
-//                 }
-//                 infoformwrap.css('padding-bottom',pbtmp);
-//                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
-            	togglethefrom(infoformwrap,index);
+        $('.angleUpDown').each(function(index, element) {
+            $(this).click(function() {
+                var infoformwrap = $(this).closest('div');
+                //              infoformwrap.children('form').toggle();  //form toggle
+                ////                 $(this).closest('div').children('form').toggle();  
+                //                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
+                //                 var angleUp = '.angleUp:eq(' + index + ')';
+                //                 $(angleDown).toggle();
+                //                 $(angleUp).toggle();
+                //                 
+                //                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
+                //                  pbtmp = '10px';
+                //                 }else{
+                //                    pbtmp = '48px';
+                //                 }
+                //                 infoformwrap.css('padding-bottom',pbtmp);
+                //                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
+                togglethefrom(infoformwrap, index);
             });
         });
-        
-        function togglethefrom(infoformwrap,index){
-        	infoformwrap.children('form').toggle();  //form toggle 
-          var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
-          var angleUp = '.angleUp:eq(' + index + ')';
-          $(angleDown).toggle();
-          $(angleUp).toggle();
-          
-          if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
-          	pbtmp = '10px';
-          }else{
-             pbtmp = '48px';
-          }
-          infoformwrap.css('padding-bottom',pbtmp);
-          infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
+
+        function togglethefrom(infoformwrap, index) {
+            infoformwrap.children('form').toggle(); //form toggle 
+            var angleDown = '.angleDown:eq(' + index + ')'; //angleDownUP toggle
+            var angleUp = '.angleUp:eq(' + index + ')';
+            $(angleDown).toggle();
+            $(angleUp).toggle();
+
+            if (infoformwrap.css('padding-bottom') === '48px') { //padding-bottom toggle
+                pbtmp = '10px';
+            } else {
+                pbtmp = '48px';
+            }
+            infoformwrap.css('padding-bottom', pbtmp);
+            infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
         }
-        
-        
+
+
         /*
          * ================================================================== 
          *    [ Info List Icon click ]
          */
-        $('a.upload').click(function () {
+        $('a.upload').click(function() {
             if ($('.info-form-wrap:eq(0)').css('padding-bottom') === '48px') {
                 togglethefrom($('.info-form-wrap:eq(0)'), 0);
             }
@@ -554,8 +551,8 @@
             }
 
         });
- 
-        
+
+
         /*
          * ================================================================== 
          *    [ 按鈕Ajax infoProfile ]
@@ -566,31 +563,28 @@
             console.log('btn - info update profile');
             var theform = $(this).parent().prev('form');
             validateAll(theform);
-             if ($('.alert-validate').length === 0) {
-            	 var formData = new FormData(theform.get(0));
-                 formData.append('action', 'infoUpdateProfile');
-                 ajax_infoUpdateProfile(formData);
-             }
+            if ($('.alert-validate').length === 0) {
+                var formData = new FormData(theform.get(0));
+                formData.append('action', 'infoUpdateProfile');
+                ajax_infoUpdateProfile(formData);
+            }
         });
-        
-      function ajax_infoUpdateProfile(formData) {
-             $.ajax({ // 存入資料庫階段
-                 url: "/EA103G2/tnt/TntServlet2",
-                 type: "POST",
-                 data: formData,
-                 // 告訴jQuery不要去處理髮送的資料
-                 processData: false,
-                 // 告訴jQuery不要去設定Content-Type請求頭
-                 contentType: false,
-   
-                 success: function() { // 以上成功才執行
-                     console.log("res棒");
-                 },
-                 error: function() {
-                     console.log("真的不棒")
-                 }
-             })
-         }
 
+        function ajax_infoUpdateProfile(formData) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/tnt/TntServlet2",
+                type: "POST",
+                data: formData,
+                // 告訴jQuery不要去處理髮送的資料
+                processData: false,
+                // 告訴jQuery不要去設定Content-Type請求頭
+                contentType: false,
 
-        
+                success: function() { // 以上成功才執行
+                    console.log("res棒");
+                },
+                error: function() {
+                    console.log("真的不棒")
+                }
+            })
+        }

@@ -601,7 +601,7 @@
             /*14px;*/
             font-size: 13px;
             color: #3a8c68;
-            background-color: #f7f7f7;
+            background-color: #fff;
             /*transparent*/
             /*             font-weight:bold; */
             padding: 0px 5px;
@@ -1218,7 +1218,7 @@
             content: 'Due date';
         }
 
-        .titlebankcard {
+        .pocketTitleSmall {
             margin: 0 -30px 23px;
             font-weight: bold;
             font-size: 20;

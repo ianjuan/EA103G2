@@ -1,18 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.tnt.model.*"%>
-
-
-<%-- <% String tnt_no = (String) session.getAttribute("tnt_no");%> --%>
-<%
-	String tnt_no = "TNT000001";
-%>
-<jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
-
-<%
-	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
-	request.setAttribute("tntVO", tntVO);
-%>
+<html lang="en">
 
 <head>
     <title>Info</title>
@@ -46,10 +33,13 @@
     <!--===============================================================================================-->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/util.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/main_register.css"> -->
+
     <!--===============================================================================================-->
     <!-- <link rel="stylesheet" type="text/css" href="../css/headerfooter.css"> -->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/info_tnt.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/EA103/front-end/tnt/css/tnt_info.css"> -->
     <!--===============================================================================================-->
 
 
@@ -95,7 +85,6 @@
 </head>
 
 <body class="landing">
-
     <!-- Header -->
     <header id="header">
         <h1>
@@ -110,8 +99,6 @@
             </ul>
         </nav>
     </header>
-
-
     <section>
         <section class="content">
             <div class="container">
@@ -125,23 +112,21 @@
                                     <path fill="currentColor" d="M8 256c0 137 111 248 248 248s248-111 248-248S393 8 256 8 8 119 8 256zm448 0c0 110.5-89.5 200-200 200S56 366.5 56 256 145.5 56 256 56s200 89.5 200 200zm-72-20v40c0 6.6-5.4 12-12 12H256v67c0 10.7-12.9 16-20.5 8.5l-99-99c-4.7-4.7-4.7-12.3 0-17l99-99c7.6-7.6 20.5-2.2 20.5 8.5v67h116c6.6 0 12 5.4 12 12z" class=""></path>
                                 </svg>
                             </a>
-                            <div class="basicInfo__userImg mx-auto mb-3 divBigHeadPic">
+                            <div class="basicInfo__userImg mx-auto mb-3">
                                 <!-- <input type="file" accept="image/jpg, image/jpeg, image/png" name="name" class="d-none"> -->
-<%--                                 <a class="upload" --%>
-<!--                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-camera fa-w-16"> -->
-<!--                                         <path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path> -->
-<!--                                     </svg> -->
-<!--                                 </a> -->
-                                <a href="<%=request.getContextPath()%>/front-end/tnt/pocket.jsp" class="basicInfo__menu__link">
-                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
-                                 </a>
+                                <a class="upload">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-camera fa-w-16">
+                                        <path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path>
+                                    </svg>
+                                </a>
                             </div>
                             <p class="text-gray text-center mb-3">房客</p>
-                            <h4 class="text-center">${tntVO.tnt_name} 個人資訊</h4>
+                            <h4 class="text-center">吳宜靜 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
                                     <a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
-                                        <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" class="mr-2">基本資訊
+                                        <img src="<%=request.getContextPath()%>/ImgReader0?id=${tntVO.tnt_no}" width="30" class="mr-2">基本資訊
+<%--                                         <!--       <%=request.getContextPath()%>/ImgReader?id=TNT000001<%???????????? %>                                  https://www.dd-room.com/_nuxt/img/52b77d6.png --> --%>
                                     </a>
                                 </li>
                                 <li class="mb-3">
@@ -200,16 +185,16 @@
                                 <!-- <div class="login100-form validate-form"> -->
                                 <form id="registerform" enctype="multipart/form-data">
                                     <div class="wrap-register100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                                        <input class="register100" type="text" name="tnt_email" id="tnt_email" value="${tntVO.tnt_email}" readonly>
+                                        <input class="register100" type="text" name="tnt_email" id="tnt_email">
                                         <div class="focus-register100"></div>
                                         <div class="label-register100">信箱</div>
                                     </div>
                                     <div class="wrap-register100 validate-input" data-validate="Must be between 2-19 characters">
-                                        <input class="register100" type="text" name="tnt_name" id="tnt_name" value="${tntVO.tnt_name}">
+                                        <input class="register100" type="text" name="tnt_name" id="tnt_name">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">姓名</span>
                                     </div>
-                                    <select class="wrap-register100 validate-input" data-validate="Gender is required" name="tnt_sex" id="tnt_sex" >
+                                    <select class="wrap-register100 validate-input" data-validate="Gender is required" name="tnt_sex" id="tnt_sex">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
                                             <option value="">選擇性別
@@ -218,12 +203,12 @@
                                         </span>
                                     </select>
                                     <div class="wrap-register100 validate-input" data-validate="Valid ID is required">
-                                        <input class="register100" type="text" name="tnt_id" id="tnt_id" value="${tntVO.tnt_id}">
+                                        <input class="register100" type="text" name="tnt_id" id="tnt_id">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">身分證號碼</span>
                                     </div>
                                     <div class="wrap-register100 validate-input" data-validate="Mobile is required">
-                                        <input class="register100" type="text" name="tnt_mobile" id="tnt_mobile" value="${tntVO.tnt_mobile}">
+                                        <input class="register100" type="text" name="tnt_mobile" id="tnt_mobile">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">手機</span>
                                     </div>
@@ -235,19 +220,15 @@
                                     <select class="wrap-register100 validate-input" data-validate="City is required" name="tnt_city" id="tnt_city">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
-<!--                                             <option id="city_default" value="">選擇縣市 -->
-<%-- 										<c:if test="${tntVO.tnt_city!=null}"> --%>
-                           					 <option value="${tntVO.tnt_city}" id="city_default">選擇縣市
-<%--                        					 </c:if> --%>
+                                            <option id="city_default" value="">選擇縣市
+
                                         </span>
                                     </select>
                                     <select class="wrap-register100 validate-input" data-validate="District is required" name="tnt_dist" id="tnt_dist">
-                                        <c:if test="${tntVO.tnt_dist!=null}">
-                            				<option value="${tntVO.tnt_dist}" id="dist_default">選擇區域
-                       					</c:if>
+                                        <option id="dist_default" value="">選擇區域
                                     </select>
                                     <div class="wrap-register100 validate-input" data-validate="Address is required">
-                                        <input class="register100" type="text" name="tnt_add" id="tnt_add" value="${tntVO.tnt_add}">
+                                        <input class="register100" type="text" name="tnt_add" id="tnt_add">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">地址</span>
                                     </div>
@@ -336,17 +317,19 @@
                             <!--End form forgetPwd -->
 
 
+
+
                             <!--forms outer -->
                         </div>
                     </div>
-                    
-                    
                     <!--outer -->
                 </div>
             </div>
         </section>
 
     </section>
+
+
 
 
     <!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -381,52 +364,26 @@
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/info_tnt.js"></script>
     <!--===============================================================================================-->
     <script>
+        var errorMsgsJs; <
+        c: if test = "${not empty errorMsgs}" >
+            <
+            c: forEach
+        var = "message"
+        items = "${errorMsgs}" >
+            $('.wrap-validate-chgPwd').attr('data-validate', '${message}');
+        $('.wrap-validate-chgPwd').addClass('validate-input alert-validate-login');
+        errorMsgsJs = '${message}'; <
+        /c:forEach> < /
+        c: if >
 
-//     $(document).ready(function() {
-//         var city_key = Object.keys(area_data);
-//         //若無原始資料, 把所有縣市選項放上去, 區域放選區域
-//         if ($('#tnt_city').val() === null) {
-//             $("#tnt_city").append('<option value="0" id="city_default">選擇縣市');
-//             city_key.forEach(function(item, index, array) {
-//                 $("#tnt_city").append('<option value="' + item + '">' + item);
-//             });
-//             $("#tnt_dist").append('<option value="0" id="dist_default">選擇區域');
-
-//             // 若有原始縣市資料, 放上所有縣市選項, 且該縣市為selected
-//             // 再放上該縣市所有區域選項, 該區域為selected
-//         } else {
-//             var index_city;
-//             city_key.forEach(function(item, index, array) {
-//                 if (item === $('#tnt_city').val()) {
-//                     var tmp = ' selected';
-//                     index_city = index;
-//                 }
-//                 $("#tnt_city").append('<option value="' + item + '"' + tmp + '>' + item);
-
-//             });
-//             $('#city_default').val("0");
-//             var dist_values_selectedcity = Object.values(area_data)[index_city];
-//             dist_values_selectedcity.forEach(function(item, index, array) {
-//                 var tmp = (item === $('#tnt_dist').val()) ? ' selected' : '';
-//                 $("#tnt_dist").append('<option value="' + item + '"' + tmp + '>' + item);
-//             });
-//             $('#dist_default').val("0");
-//         }
-
-//         //選擇縣市, 區域連動
-//         $("#tnt_city").change(function() {
-//             city_key.forEach(function(item, index, array) {
-//                 if (item === $("#tnt_city").val()) {
-//                     $("#dist_default ~ option").remove();
-//                     var dist_values = Object.values(area_data)[index];
-//                     dist_values.forEach(function(item, index, array) {
-//                         $("#tnt_dist").append(
-//                             '<option value="' + item + '">' + item);
-//                     });
-//                 }
-//             });
-//         });
-//     });
+        if (typeof (errorMsgsJs) !== 'undefined') {
+            var inputs = $('.register100');
+            console.log(inputs);
+            for (var i = 0; i < inputs.length; i++) {
+                $(inputs[i]).focus();
+                $(inputs[i]).blur();
+            }
+        }
     </script>
 
 
