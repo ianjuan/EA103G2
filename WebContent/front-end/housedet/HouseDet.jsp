@@ -30,7 +30,6 @@ Gson gson = new Gson();
 String	tntno=(String)session.getAttribute("tnt_no");
 String hosno=request.getParameter("hos");
 session.setAttribute("HOS",hosno);
-
  	List<HosDetVO> list = hds.getHosDetfromHOSNO(hosno);
  	HosDetVO vo=(HosDetVO)list.get(0);
 	pageContext.setAttribute("picnum",gson.toJson(vo.getHos_pic().size()));
