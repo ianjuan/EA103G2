@@ -5,7 +5,10 @@
 <%@ page import="java.util.*"%>
 
 <%
-	List<RpttVO> rpttVO = (List<RpttVO>) request.getAttribute("rpttVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+	TntService tntSvc = new TntService();
+	List<TntVO> tntVO1 = tntSvc.getUnvrf("0");
+	pageContext.setAttribute("TntVO", tntVO1);
+	List<TntVO> tntVO = (List<TntVO>) request.getAttribute("TntVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
@@ -19,7 +22,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>檢舉</title>
+<title>驗證</title>
 
 
 <!-- Custom fonts for this template -->
@@ -394,7 +397,7 @@ button.checkall {
 						<div class="card-header py-3">
 							<div class="row">
 								<div class="col-md-8">
-									<h4 class="m-0 font-weight-bold text-primary">檢舉房客</h4>
+									<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 								</div>
 								<div class="col-md-1">
 									<a href="second_page.jsp">
@@ -405,102 +408,66 @@ button.checkall {
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
 											搜尋: <input type="text" size="24" name="Number"
-												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input
-												type="hidden" name="action" value="get_want_display">
-											<input type="submit"
-												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
-												tabindex="-1" />
+												placeholder="輸入 房客/ 房東編號">
+											<!-- 												<input type="hidden" -->
+											<!-- 												name="action" value="get_want_display"> <input -->
+											<!-- 												type="submit" -->
+											<!-- 												style="position: absolute; left: -9999px; width: 1px; height: 1px;" -->
+											<!-- 												tabindex="-1" /> -->
 										</h4>
 									</form>
 								</div>
 							</div>
 						</div>
-						<div>
-							<c:if test="${not empty errorMsgs}">
-								<p></p>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red">${message}</li>
-									</c:forEach>
-								</ul>
-							</c:if>
-						</div>
-
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable">
 									<thead>
 										<tr>
-											<th>檢舉編號</th>
-											<th>房客編號</th>
-											<th>房東編號</th>
-											<th width="10%">檢舉時間</th>
-											<th>檢舉內容</th>
-											<th>員工編號</th>
-
-											<th>處理結果</th>
-
-
+											<th>會員編號</th>
+											<th>會員姓名</th>
+											<th>會員生日</th>
+											<th>會員手機</th>
+											<th>會員信箱</th>
+											<th>上傳時間</th>
+											<th>快速瀏覽</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>檢舉編號</th>
-											<th>房客編號</th>
-											<th>房東編號</th>
-											<th width="10%">檢舉時間</th>
-											<th>檢舉內容</th>
-											<th>員工編號</th>
-
-											<th>處理結果</th>
-
-
-
+											<th>會員編號</th>
+											<th>會員姓名</th>
+											<th>會員生日</th>
+											<th>會員手機</th>
+											<th>會員信箱</th>
+											<th>上傳時間</th>
+											<th>快速瀏覽</th>
 										</tr>
 									</tfoot>
 									<tbody>
 										<%
-											for (RpttVO rpttvo : rpttVO) {
+											for (TntVO tntvo : tntVO) {
 										%>
 										<tr>
-											<td><%=rpttvo.getRptt_no()%></td>
-											<td><%=rpttvo.getTnt_no()%></td>
-											<td><%=rpttvo.getLld_no()%></td>
-											<td width="10%"><%=rpttvo.getRptt_time()%></td>
-											<td><%=rpttvo.getRptt_content()%></td>
-
+											<td><%=tntvo.getTnt_no()%></td>
+											<td><%=tntvo.getTnt_name()%></td>
+											<td><%=tntvo.getTnt_birth()%></td>
+											<td><%=tntvo.getTnt_mobile()%></td>
+											<td><%=tntvo.getTnt_email()%></td>
+											<td><%=tntvo.getTnt_id_uploadtime()%></td>
 											<%
-												if (rpttvo.getEmp_no() != null) {
-											%>
-											<td><%=rpttvo.getEmp_no()%></td>
-											<%
-												} else {
-											%><td><form action="RpttServlet" method="post">
-													<input type="hidden" name="action" value="update_employee">
-													<input type="hidden" name="emp_no"
-														value="<%=pageContext.getAttribute("emp_no")%>"> <input
-														type="hidden" name="rptt_no"
-														value="<%=rpttvo.getRptt_no()%>"> <input
-														type="hidden" name="rptt_status" value="1">
-													<button type="submit" class="take">接受</button>
-												</form></td>
-											<%
-												}
-											%>
-
-											<%
-												if (rpttvo.getRptt_result() == 0) {
+												if (tntvo.getTnt_id_isupload() == 0) {
 											%>
 											<td>
 												<button class="check" data-toggle="modal"
-													data-target="#<%=rpttvo.getRptt_no()%>">查看詳情</button>
+													data-target="#<%=tntvo.getTnt_no()%>">查看詳情</button>
 											</td>
 											<%
 												}
 											%>
 										</tr>
-										<!-- Modal HTML -->
-										<div class="modal fade" id="<%=rpttvo.getRptt_no()%>"
+										Modal HTML
+										<div class="modal fade" id="<%=tntvo.getTnt_no()%>"
 											tabindex="-1" role="dialog">
 											<div class="modal-dialog">
 												<div class="modal-content">
@@ -508,30 +475,17 @@ button.checkall {
 														<div class="modal-body1">
 															<form action="RpttServlet" method="post" name="detail"
 																id="detail">
-																<input type="hidden" name="rptt_no"
-																	value="<%=rpttvo.getRptt_no()%>"><label
+																<input type="hidden" name="tnt_no"
+																	value="<%=tntvo.getTnt_no()%>"><label
 																	for="reason1">檢舉原因:</label>
-																<textarea class="reason1" name="rptt_content" readonly><%=rpttvo.getRptt_content()%></textarea>
 																<div class="form-group">
 																	<label for="note">結果註記:</label>
-																	<textarea id="note" name="rptt_note"><%=rpttvo.getRptt_note()%></textarea>
+																	<textarea id="note" name="tnt_note">hihi</textarea>
 																</div>
 																<button type="submit" class="pass" name="action"
 																	value="pass">通過</button>
 																<button type="submit" class="fail" name="action"
 																	value="fail">不通過</button>
-																<button type="submit" class="send" name="action"
-																	value="assign_employee">指派</button>
-																<button type="submit" class="save" name="action"
-																	value="save_note">儲存</button>
-																<select class="emp_no" name="emp_no" size="1">
-																	<option value="" disabled selected>---請選擇將指派的同仁---</option>
-																	<option value="EMP000021">EMP000021</option>
-																	<option value="EMP000022">EMP000022</option>
-																	<option value="EMP000023">EMP000023</option>
-																	<option value="EMP000024">EMP000024</option>
-																	<option value="EMP000025">EMP000025</option>
-																</select>
 															</form>
 														</div>
 													</div>
@@ -624,9 +578,6 @@ button.checkall {
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-
-
-
 </body>
 
 </html>

@@ -58,62 +58,6 @@ public class TntService {
 		return tntVO;
 	}
 
-	public TntVO getOneTntProfile(String tnt_no) {
-		return dao.findByPK_profile(tnt_no);
-	}
-
-	public List<TntVO> getAllProfile() {
-		return dao.getAll_profile();
-	}
-	
-	public List<TntVO> getAllAccount() {
-		return dao.getAll_account();
-	}
-
-	public TntVO updateTntPocket(int tnt_blance) {
-
-		TntVO tntVO = new TntVO();
-		tntVO.setTnt_blance(tnt_blance);
-		dao.update_pocket(tntVO);
-		return tntVO;
-	}
-
-	public TntVO getOneTntPocket(String tnt_no) {
-		return dao.findByPK_pocket(tnt_no);
-	}
-	 
-	public TntVO updateTntBankCard(int tnt_bank, String tnt_bankbrach, String tnt_bankacc, long tnt_card,
-			int tnt_cardsvc, Date tnt_carddue) {
-
-		TntVO tntVO = new TntVO();
-		tntVO.setTnt_bank(tnt_bank);
-		tntVO.setTnt_bankbrach(tnt_bankbrach);
-		tntVO.setTnt_bankacc(tnt_bankacc);
-		tntVO.setTnt_card(tnt_card);
-		tntVO.setTnt_cardsvc(tnt_cardsvc);
-		tntVO.setTnt_carddue(tnt_carddue);
-		dao.update_bank_card(tntVO);
-
-		return tntVO;
-	}
-
-	public TntVO getOneTntBankCard(String tnt_no) {
-		return dao.findByPK_bank_card(tnt_no);
-	}
-
-	public TntVO updateTntCmt(int tnt_cmt_starsum, int tnt_cmt_count) {
-
-		TntVO tntVO = new TntVO();
-		tntVO.setTnt_cmt_starsum(tnt_cmt_starsum);
-		tntVO.setTnt_cmt_count(tnt_cmt_count);
-		dao.update_cmt(tntVO);
-		return tntVO;
-	}
-
-	public TntVO getOneTntCmt(String tnt_no) {
-		return dao.findByPK_cmt(tnt_no);
-	}
-
 	public TntVO updateTntVrf(byte[] tnt_id_picf, byte[] tnt_id_picb, byte[] tnt_id_pic2,
 			Timestamp tnt_id_uploadtime, int tnt_id_isupload, int tnt_id_result, String tnt_id_disapprove, Timestamp tnt_id_vrftime) {
 
@@ -139,38 +83,9 @@ public class TntService {
 	public List<TntVO> getAllVrf() {
 		return dao.getAll_vrf();
 	}
-
-	public TntVO updateTntRpt(
-			int tnt_reported_count) {
-
-		TntVO tntVO = new TntVO();
-
-		tntVO.setTnt_reported_count(tnt_reported_count);
-		dao.update_rpt(tntVO);
-
-		return tntVO;
-	}
-
-	public TntVO getOneRpt(String tnt_no) {
-		return dao.findByPK_rpt(tnt_no);
-	}
 	
-	
-	public TntVO updateTntAuth(int tnt_auth_chat, int tnt_auth_res, int tnt_auth_cmt, int tnt_auth_rpt) {
-
-		TntVO tntVO = new TntVO();
-
-		tntVO.setTnt_auth_chat(tnt_auth_chat);
-		tntVO.setTnt_auth_res(tnt_auth_res);
-		tntVO.setTnt_auth_cmt(tnt_auth_cmt);
-		tntVO.setTnt_auth_rpt(tnt_auth_rpt);
-		dao.update_auth(tntVO);
-
-		return tntVO;
-	}
-
-	public TntVO getOneAuth(String tnt_no) {
-		return dao.findByPK_auth(tnt_no);
+	public List<TntVO> getUnvrf(String Number) {
+		return dao.get_unvrf(Number);
 	}
 
 

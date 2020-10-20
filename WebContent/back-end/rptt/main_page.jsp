@@ -5,7 +5,10 @@
 <%@ page import="java.util.*"%>
 
 <%
-	List<RpttVO> rpttVO = (List<RpttVO>) request.getAttribute("rpttVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+	RpttService rpttSvc = new RpttService();
+	List<RpttVO> rpttVO1 = rpttSvc.getRptt("0");
+	pageContext.setAttribute("rpttVO", rpttVO1);
+	List<RpttVO> rpttVO = (List<RpttVO>) pageContext.getAttribute("rpttVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
@@ -405,9 +408,9 @@ button.checkall {
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
 											搜尋: <input type="text" size="24" name="Number"
-												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input type="hidden"
-												name="action" value="get_want_display"> <input
-												type="submit"
+												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input
+												type="hidden" name="action" value="get_want_display">
+											<input type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 												tabindex="-1" />
 										</h4>
@@ -415,6 +418,17 @@ button.checkall {
 								</div>
 							</div>
 						</div>
+						<div>
+							<c:if test="${not empty errorMsgs}">
+								<p></p>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+						</div>
+
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable">
@@ -613,6 +627,9 @@ button.checkall {
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+
+
+
 </body>
 
 </html>

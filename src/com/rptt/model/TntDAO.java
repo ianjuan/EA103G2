@@ -29,7 +29,7 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT where TNT_NO = ?";
 	private static final String GET_ALL_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT order by TNT_NO";
 	private static final String GET_ALL_ACCOUNT_STMT = "SELECT tnt_no, tnt_email, tnt_pwd from TENANT";
-	
+
 	@Override
 	public void insert_profile(TntVO tntVO) {
 
@@ -253,332 +253,11 @@ public class TntDAO implements TenantDAO_interface {
 		return list;
 	}
 
-	@Override
-	public List<TntVO> getAll_account() {
-		List<TntVO> list = new ArrayList<TntVO>();
-		TntVO tntVO = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ALL_ACCOUNT_STMT);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// tntVO 也稱為 Domain objects
-				tntVO = new TntVO();
-				tntVO.setTnt_no(rs.getString("tnt_no"));
-				tntVO.setTnt_email(rs.getString("tnt_email"));
-				tntVO.setTnt_pwd(rs.getString("tnt_pwd"));
-				list.add(tntVO);
-			}
-
-			// Handle any driver errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
-
-	// =================================2.pocket==================================
-	private static final String UPDATE_POCKET_STMT = "UPDATE TENANT set tnt_blance=? where tnt_no=?";
-	private static final String GET_ONE_POCKET_STMT = "SELECT tnt_blance from TENANT where tnt_no=?";
-
-	@Override
-	public void update_pocket(TntVO tntVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_POCKET_STMT);
-
-			pstmt.setInt(1, tntVO.getTnt_blance());
-			pstmt.setString(2, tntVO.getTnt_no());
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
-	}
-
-	@Override
-	public TntVO findByPK_pocket(String tnt_no) {
-		TntVO tntVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_POCKET_STMT);
-
-			pstmt.setString(1, tnt_no);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				tntVO.setTnt_blance(rs.getInt("tnt_blance"));
-			}
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-		}
-		return tntVO;
-	}
-
-	// =================================3.bank/card==================================
-	private static final String UPDATE_BANK_CARD_STMT = "UPDATE TENANT set tnt_card=?, tnt_cardsvc=?, tnt_carddue=?, tnt_bank=?, tnt_bankbrach=?, tnt_bankacc=? where tnt_no=?";
-	private static final String GET_ONE_BANK_CARD_STMT = "SELECT tnt_card, tnt_cardsvc, tnt_carddue, tnt_bank, tnt_bankbrach, tnt_bankacc from TENANT where tnt_no=?";
-
-	@Override
-	public void update_bank_card(TntVO tntVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_BANK_CARD_STMT);
-			pstmt.setLong(1, tntVO.getTnt_card());
-			pstmt.setInt(2, tntVO.getTnt_cardsvc());
-			pstmt.setDate(3, tntVO.getTnt_carddue());
-			pstmt.setInt(4, tntVO.getTnt_bank());
-			pstmt.setString(5, tntVO.getTnt_bankbrach());
-			pstmt.setString(6, tntVO.getTnt_bankacc());
-			pstmt.setString(7, tntVO.getTnt_no());
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-
-		}
-	}
-
-	@Override
-	public TntVO findByPK_bank_card(String tnt_no) {
-		TntVO tntVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_BANK_CARD_STMT);
-			pstmt.setString(1, tnt_no);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				tntVO = new TntVO();
-				tntVO.setTnt_card(rs.getLong("tnt_card"));
-				tntVO.setTnt_cardsvc(rs.getInt("tnt_cardsvc"));
-				tntVO.setTnt_carddue(rs.getDate("tnt_carddue"));
-				tntVO.setTnt_bank(rs.getInt("tnt_bank"));
-				tntVO.setTnt_bankbrach(rs.getString("tnt_bank"));
-				tntVO.setTnt_bankacc(rs.getString("tnt_bank"));
-			}
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return tntVO;
-	}
-
-	// =================================4.cmt==================================
-	private static final String UPDATE_CMT_STMT = "UPDATE TENANT set tnt_cmt_starsum=?, tnt_cmt_count=? where tnt_no=?";
-	private static final String GET_ONE_CMT_STMT = "SELECT tnt_cmt_starsum, tnt_cmt_count from TENANT where tnt_no=?";
-
-	@Override
-	public void update_cmt(TntVO tntVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_CMT_STMT);
-
-			pstmt.setInt(1, tntVO.getTnt_cmt_starsum());
-			pstmt.setInt(2, tntVO.getTnt_cmt_count());
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured." + se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	@Override
-	public TntVO findByPK_cmt(String tnt_no) {
-		TntVO tntVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_CMT_STMT);
-
-			pstmt.setString(1, tnt_no);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				tntVO.setTnt_cmt_starsum(rs.getInt("tnt_cmt_starsum"));
-				tntVO.setTnt_cmt_count(rs.getInt("tnt_cmt_count"));
-			}
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured" + se.getMessage());
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return tntVO;
-	}
-
 	// =================================5.vrf==================================
 	private static final String UPDATE_VRF_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_uploadtime=?, tnt_id_isupload=?, tnt_id_result=?, tnt_id_disapprove=?, tnt_id_vrftime=? where tnt_no=?";
 	private static final String GET_ONE_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT where tnt_no=?";
 	private static final String GET_ALL_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT ORDER BY tnt_no";
+	private static final String GET_UNVRF_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove from TENANT where tnt_id_isupload=?";
 
 	@Override
 	public void update_vrf(TntVO tntVO) {
@@ -727,46 +406,9 @@ public class TntDAO implements TenantDAO_interface {
 		return list;
 	}
 
-	// =================================6.rpt&auth==================================
-	private static final String UPDATE_RPT_STMT = "UPDATE TENANT set tnt_reported_count=? where tnt_no=?";
-	private static final String GET_ONE_RPT_STMT = "SELECT tnt_reported_count from TENANT where tnt_no=?";
-
 	@Override
-	public void update_rpt(TntVO tntVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_RPT_STMT);
-
-			pstmt.setInt(1, tntVO.getTnt_reported_count());
-			pstmt.setString(2, tntVO.getTnt_no());
-
-			pstmt.executeUpdate();
-
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error ocurred." + se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	@Override
-	public TntVO findByPK_rpt(String tnt_no) {
+	public List<TntVO> get_unvrf(String Number) {
+		List<TntVO> list = new ArrayList<TntVO>();
 		TntVO tntVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -774,131 +416,54 @@ public class TntDAO implements TenantDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_RPT_STMT);
-
-			pstmt.setString(1, tnt_no);
+			pstmt = con.prepareStatement(GET_UNVRF_STMT);
+			pstmt.setString(1, Number);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				tntVO.setTnt_reported_count(rs.getInt("tnt_reported_count"));
+				tntVO = new TntVO();
+				tntVO.setTnt_no(rs.getString("tnt_no"));
+				tntVO.setTnt_name(rs.getString("tnt_name"));
+				tntVO.setTnt_birth(rs.getDate("tnt_birth"));
+				tntVO.setTnt_id(rs.getString("tnt_id"));
+				tntVO.setTnt_mobile(rs.getString("tnt_mobile"));
+				tntVO.setTnt_email(rs.getString("tnt_email"));
+				tntVO.setTnt_id_picf(rs.getBytes("tnt_id_picf"));
+				tntVO.setTnt_id_picb(rs.getBytes("tnt_id_picb"));
+				tntVO.setTnt_id_pic2(rs.getBytes("tnt_id_pic2"));
+				tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
+				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
+				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+				list.add(tntVO);
 			}
 
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured" + se.getMessage());
+			throw new RuntimeException("A database error ocurred." + se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
 				} catch (SQLException se) {
-					se.printStackTrace();
+					se.printStackTrace(System.err);
 				}
 			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
 				} catch (SQLException se) {
-					se.printStackTrace();
+					se.printStackTrace(System.err);
 				}
 			}
 			if (con != null) {
 				try {
 					con.close();
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.printStackTrace(System.err);
 				}
 			}
 		}
-		return tntVO;
+		return list;
 	}
+
 	
-	// =================================7.auth==================================
-		private static final String UPDATE_AUTH_STMT = "UPDATE TENANT set tnt_auth_chat=?, tnt_auth_res=?, tnt_auth_cmt=?, tnt_auth_rpt=? where tnt_no=?";
-		private static final String GET_ONE_AUTH_STMT = "SELECT tnt_auth_chat, tnt_auth_res, tnt_auth_cmt, tnt_auth_rpt from TENANT where tnt_no=?";
-
-		@Override
-		public void update_auth(TntVO tntVO) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-
-			try {
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(UPDATE_AUTH_STMT);
-
-				pstmt.setInt(1, tntVO.getTnt_auth_chat());
-				pstmt.setInt(2, tntVO.getTnt_auth_res());
-				pstmt.setInt(3, tntVO.getTnt_auth_cmt());
-				pstmt.setInt(4, tntVO.getTnt_auth_rpt());
-				pstmt.setString(5, tntVO.getTnt_no());
-
-				pstmt.executeUpdate();
-
-			} catch (SQLException se) {
-				throw new RuntimeException("A database error ocurred." + se.getMessage());
-			} finally {
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace();
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-
-		@Override
-		public TntVO findByPK_auth(String tnt_no) {
-			TntVO tntVO = null;
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-
-			try {
-				con = ds.getConnection();
-				pstmt = con.prepareStatement(GET_ONE_AUTH_STMT);
-
-				pstmt.setString(1, tnt_no);
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					tntVO.setTnt_auth_chat(rs.getInt("tnt_auth_chat"));
-					tntVO.setTnt_auth_res(rs.getInt("tnt_auth_res"));
-					tntVO.setTnt_auth_cmt(rs.getInt("tnt_auth_cmt"));
-					tntVO.setTnt_auth_rpt(rs.getInt("tnt_auth_rpt"));
-				}
-
-			} catch (SQLException se) {
-				throw new RuntimeException("A database error occured" + se.getMessage());
-			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException se) {
-						se.printStackTrace();
-					}
-				}
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace();
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			return tntVO;
-		}
-
 }
