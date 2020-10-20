@@ -63,7 +63,7 @@ public class RpttService {
 		RpttVO rpttVO = new RpttVO();
 		rpttVO.setRptt_no(rptt_no);
 		rpttVO.setRptt_note(rptt_note);
-		dao.assignEmp(rpttVO);
+		dao.saveNote(rpttVO);
 		return rpttVO;
 	}
 	
