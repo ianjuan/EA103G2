@@ -118,6 +118,43 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("登入Exception: " + e.getMessage());
 			}
 		}
+		
+		if ("chgPwd".equals(action)) { // 來自login.jsp的請求-form post
+			System.out.println("action: " + action);
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				HttpSession session = req.getSession();
+				String tnt_no = (String) session.getAttribute("tnt_no");
+				String tnt_pwd = req.getParameter("tnt_pwd");
+				String tnt_pwd_new = req.getParameter("tnt_pwd_new");
+
+				TntVO tntVO_new = new TntVO();
+				tntVO_new.setTnt_pwd(tnt_pwd);
+
+				/*************************** 2.開始比對登入資料 ***************************************/
+				// 【檢查該帳號 , 密碼是否有效】
+				TntService tntSvc = new TntService();
+				TntVO tntVO_origin = tntSvc.getOneTntAccount(tnt_no);
+				String tnt_pwd_origin = tntVO_origin.getTnt_pwd();
+				out = res.getWriter();
+				if (tnt_pwd_origin.equals(tnt_pwd)) {
+					tntSvc.updateTntPwd(tnt_no, tnt_pwd_new);
+					out.print("密碼更改成功");
+				} else {
+//					errorMsgs.add("密碼錯誤");
+//					req.setAttribute("tntVO", tntVO); // 含有輸入格式錯誤的tntVO物件,也存入req
+//					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tnt/info.jsp");
+//					failureView.forward(req, res);
+//					return; // 程式中斷
+					out.print("密碼錯誤");
+				}
+			} catch (Exception e) {
+				System.out.println("登入Exception: " + e.getMessage());
+			}
+		}
 
 		if ("register".equals(action)) { // 來自Register.jsp的請求 - ajax_register(formData)
 			System.out.println("action: " + action);

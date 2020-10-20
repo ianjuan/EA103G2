@@ -70,9 +70,10 @@ public class LldService {
 		return dao.getAll_account();
 	}
 
-	public LldVO updateLldPocket(int lld_blance) {
+	public LldVO updateLldPocket(String lld_no, int lld_blance) {
 
 		LldVO lldVO = new LldVO();
+		lldVO.setLld_no(lld_no);
 		lldVO.setLld_blance(lld_blance);
 		dao.update_pocket(lldVO);
 		return lldVO;
@@ -82,10 +83,11 @@ public class LldService {
 		return dao.findByPK_pocket(lld_no);
 	}
 	 
-	public LldVO updateLldBankCard(int lld_bank, String lld_bankbrach, String lld_bankacc, long lld_card,
+	public LldVO updateLldBankCard(String lld_no, int lld_bank, String lld_bankbrach, String lld_bankacc, long lld_card,
 			int lld_cardsvc, Date lld_carddue) {
 
 		LldVO lldVO = new LldVO();
+		lldVO.setLld_no(lld_no);
 		lldVO.setLld_bank(lld_bank);
 		lldVO.setLld_bankbrach(lld_bankbrach);
 		lldVO.setLld_bankacc(lld_bankacc);
@@ -101,9 +103,10 @@ public class LldService {
 		return dao.findByPK_bank_card(lld_no);
 	}
 
-	public LldVO updateLldCmt(int lld_cmt_starsum, int lld_cmt_count) {
+	public LldVO updateLldCmt(String lld_no, int lld_cmt_starsum, int lld_cmt_count) {
 
 		LldVO lldVO = new LldVO();
+		lldVO.setLld_no(lld_no);
 		lldVO.setLld_cmt_starsum(lld_cmt_starsum);
 		lldVO.setLld_cmt_count(lld_cmt_count);
 		dao.update_cmt(lldVO);
@@ -114,11 +117,11 @@ public class LldService {
 		return dao.findByPK_cmt(lld_no);
 	}
 
-	public LldVO updateLldVrf(byte[] lld_id_picf, byte[] lld_id_picb, byte[] lld_id_pic2,
+	public LldVO updateLldVrf(String lld_no, byte[] lld_id_picf, byte[] lld_id_picb, byte[] lld_id_pic2,
 			Timestamp lld_id_uploadtime, int lld_id_isupload, int lld_id_result, String lld_id_disapprove, Timestamp lld_id_vrftime) {
 
 		LldVO lldVO = new LldVO();
-
+		lldVO.setLld_no(lld_no);
 		lldVO.setLld_id_picf(lld_id_picf);
 		lldVO.setLld_id_picb(lld_id_picb);
 		lldVO.setLld_id_pic2(lld_id_pic2);
@@ -140,11 +143,10 @@ public class LldService {
 		return dao.getAll_vrf();
 	}
 
-	public LldVO updateLldRpt(
-			int lld_reported_count) {
+	public LldVO updateLldRpt(String lld_no, int lld_reported_count) {
 
 		LldVO lldVO = new LldVO();
-
+		lldVO.setLld_no(lld_no);
 		lldVO.setLld_reported_count(lld_reported_count);
 		dao.update_rpt(lldVO);
 
@@ -156,10 +158,10 @@ public class LldService {
 	}
 	
 	
-	public LldVO updateLldAuth(int lld_auth_chat, int lld_auth_res, int lld_auth_cmt, int lld_auth_rpt, int lld_auth_hos) {
+	public LldVO updateLldAuth(String lld_no, int lld_auth_chat, int lld_auth_res, int lld_auth_cmt, int lld_auth_rpt, int lld_auth_hos) {
 
 		LldVO lldVO = new LldVO();
-
+		lldVO.setLld_no(lld_no);
 		lldVO.setLld_auth_chat(lld_auth_chat);
 		lldVO.setLld_auth_res(lld_auth_res);
 		lldVO.setLld_auth_cmt(lld_auth_cmt);
