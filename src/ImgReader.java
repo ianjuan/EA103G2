@@ -109,10 +109,10 @@ public class ImgReader extends HttpServlet {
 		}
 	}
 
-	// 使用byte[]?���?
+	// 使用byte[]方式
 	public static byte[] getPictureByteArray(InputStream in) throws IOException {
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // 此�?��?��?��?��?�write??��?��?��?��?��?�到�??�內建�?�byte[]
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // 此資料流回把write的位元資料存到一個內建的byte[]
 		byte[] buffer = new byte[8192];
 		int i;
 		while ((i = in.read(buffer)) != -1) {
@@ -122,7 +122,7 @@ public class ImgReader extends HttpServlet {
 		baos.close();
 //			in.close();
 
-		return baos.toByteArray(); // toByteArray()?��以�?��?��?��?��?��?��?��?��?��?�內建�?�byte[]
+		return baos.toByteArray(); // toByteArray()可以讓我們取得這個資料流內建的byte[]
 	}
 
 }
