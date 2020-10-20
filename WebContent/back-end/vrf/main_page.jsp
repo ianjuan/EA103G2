@@ -6,9 +6,8 @@
 
 <%
 	TntService tntSvc = new TntService();
-	List<TntVO> tntVO1 = tntSvc.getUnvrf("0");
-	pageContext.setAttribute("TntVO", tntVO1);
-	List<TntVO> tntVO = (List<TntVO>) request.getAttribute("TntVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+	List<TntVO> list = tntSvc.getUnvrf("0");
+	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
@@ -445,59 +444,52 @@ button.checkall {
 										</tr>
 									</tfoot>
 									<tbody>
-										<%
-											for (TntVO tntvo : tntVO) {
-										%>
-										<tr>
-											<td><%=tntvo.getTnt_no()%></td>
-											<td><%=tntvo.getTnt_name()%></td>
-											<td><%=tntvo.getTnt_birth()%></td>
-											<td><%=tntvo.getTnt_mobile()%></td>
-											<td><%=tntvo.getTnt_email()%></td>
-											<td><%=tntvo.getTnt_id_uploadtime()%></td>
-											<%
-												if (tntvo.getTnt_id_isupload() == 0) {
-											%>
-											<td>
-												<button class="check" data-toggle="modal"
-													data-target="#<%=tntvo.getTnt_no()%>">查看詳情</button>
-											</td>
-											<%
-												}
-											%>
-										</tr>
-										Modal HTML
-										<div class="modal fade" id="<%=tntvo.getTnt_no()%>"
-											tabindex="-1" role="dialog">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<div class="modal-body1">
-															<form action="RpttServlet" method="post" name="detail"
-																id="detail">
-																<input type="hidden" name="tnt_no"
-																	value="<%=tntvo.getTnt_no()%>"><label
-																	for="reason1">檢舉原因:</label>
-																<div class="form-group">
-																	<label for="note">結果註記:</label>
-																	<textarea id="note" name="tnt_note">hihi</textarea>
-																</div>
-																<button type="submit" class="pass" name="action"
-																	value="pass">通過</button>
-																<button type="submit" class="fail" name="action"
-																	value="fail">不通過</button>
-															</form>
+										<%@ include file="page1.file"%>
+										<c:forEach var="tntVO" items="${list}" begin="<%=pageIndex%>"
+											end="<%=pageIndex+rowsPerPage-1%>">
+											<tr>
+												<td>${tntVO.tnt_no}</td>
+												<td>${tntVO.tnt_name}</td>
+												<td>${tntVO.tnt_birth}</td>
+												<td>${tntVO.tnt_mobile}</td>
+												<td>${tntVO.tnt_email}</td>
+												<td>${tntVO.tnt_id_uploadtime}</td>
+
+												<td>
+													<button class="check" data-toggle="modal"
+														data-target="#${tntVO.tnt_no}">查看詳情</button>
+												</td>
+
+											</tr>
+											<!-- Modal HTML -->
+											<div class="modal fade" id="${tntVO.tnt_no}" tabindex="-1"
+												role="dialog">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<div class="modal-body1">
+																<form action="RpttServlet" method="post" name="detail"
+																	id="detail">
+																	<input type="hidden" name="tnt_no"><label
+																		for="reason1">檢舉原因:</label>
+																	<div class="form-group">
+																		<label for="note">結果註記:</label>
+																		<textarea id="note" name="tnt_note">hihi</textarea>
+																	</div>
+																	<button type="submit" class="pass" name="action"
+																		value="pass">通過</button>
+																	<button type="submit" class="fail" name="action"
+																		value="fail">不通過</button>
+																</form>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<%
-											}
-										%>
-
+										</c:forEach>
 									</tbody>
 								</table>
+								<%@ include file="page2.file"%>
 							</div>
 						</div>
 					</div>

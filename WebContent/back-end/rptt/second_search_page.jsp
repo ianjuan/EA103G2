@@ -444,7 +444,8 @@
 									</tfoot>
 									<tbody>
 										<%@ include file="page1.file"%>
-										<c:forEach var="rpttVO" items="${list}">
+										<c:forEach var="rpttVO" items="${list}" begin="<%=pageIndex%>"
+											end="<%=pageIndex+rowsPerPage-1%>">
 											<tr>
 												<td>${rpttVO.rptt_no}</td>
 												<td>${rpttVO.tnt_no}</td>
