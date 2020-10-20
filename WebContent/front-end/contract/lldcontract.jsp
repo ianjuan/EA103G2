@@ -126,7 +126,7 @@
                 </div>
             </nav>
 		</div>
-		<form class="table" name="conForm" METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet" enctype="multipart/form-data">
+		<form class="table" name="houseForm" METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet" enctype="multipart/form-data">
 			<div id="center">
 				<div id="chead">
 					<ul>
