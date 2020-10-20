@@ -291,7 +291,6 @@
                 });
                 $('#tnt_dist').append(
                     '<option value="" id="dist_default">選擇區域');
-                // console.log('bbbbbb');
                 // 若有原始tntVO資料, 新增所有縣市, 判斷有無selected縣市
             } else {
                 var index_city;
@@ -306,8 +305,6 @@
                 });
                 $('#city_default').val("");
                 // 若有selected縣市,新增所有區域, 如無selected縣市, 不動
-                console.log(index_city);
-                console.log(typeof(index_city) !== "undefined");
                 if (typeof(index_city) !== "undefined") {
                     var dist_values_selectedcity = Object.values(area_data)[index_city];
                     dist_values_selectedcity.forEach(function(item, index, array) {
@@ -336,6 +333,26 @@
                         }
                     });
                 });
+            
+            //借放這裡 幫身分資料focus and blur
+            var inputs = $('form:eq(0) .validate-input .register100');
+            var selects = $('form:eq(0) select.wrap-register100');
+            for (var i = 0; i < inputs.length; i++) {
+                    $(inputs[i]).focus();
+//                    $(inputs[i]).val(quickInputData[i]);
+                    $(inputs[i]).blur();
+            }
+            for (var i = 0; i < selects.length; i++) {
+                $(selects[i]).focus();
+//                $(selects[i]).val(quickInputData[i]);
+                $(selects[i]).blur();
+        }
+//            $('#tnt_sex').focus();
+//            $('#tnt_sex').val('1');
+//            $('#tnt_sex').blur();
+
+//            $('#f_date1').val('2000-11-12');
+//            $('#f_date1').blur();
         });
 
         /*

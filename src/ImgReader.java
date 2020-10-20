@@ -46,7 +46,7 @@ public class ImgReader extends HttpServlet {
 			rs.close();
 			pstmt.close();
 		} catch (Exception e) {
-			System.out.println(3);
+//			System.out.println(3);
 			InputStream in = getServletContext().getResourceAsStream("/images/NoData/none.jpg");
 			byte[] b = new byte[in.available()];
 			in.read(b);

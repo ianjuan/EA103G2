@@ -34,7 +34,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animate/animate.css">
     <!--===============================================================================================-->
-    <!-- <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/haburgers.min.css"> -->
+<!--     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/haburgers.min.css"> -->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
@@ -47,11 +47,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/util.css">
     <!--===============================================================================================-->
-    <!-- <link rel="stylesheet" type="text/css" href="../css/headerfooter.css"> -->
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/info_tnt.css">
     <!--===============================================================================================-->
-
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 
 
     <style>
@@ -95,26 +93,11 @@
 </head>
 
 <body class="landing">
-
-    <!-- Header -->
-    <header id="header">
-        <h1>
-            <a href="index.html" style="color: #555">愛租I-ZU</a>
-        </h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="index.html">尋找房源</a></li>
-                <li><a href="generic.html">地圖找房</a></li>
-                <li><a href="elements.html">會員登入</a></li>
-                <li><a href="#" class="special">註冊會員</a></li>
-            </ul>
-        </nav>
-    </header>
-
+	<jsp:include page="/front-end/navbar/navbar.jsp"/>
 
     <section>
         <section class="content">
-            <div class="container">
+            <div class="container" id="infocontainer">
                 <!--             style="border:1px solid orange" -->
                 <div class="row no-gutters justify-content-between">
                     <!--start info list -->
@@ -132,7 +115,7 @@
 <!--                                         <path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path> -->
 <!--                                     </svg> -->
 <!--                                 </a> -->
-                                <a href="<%=request.getContextPath()%>/front-end/tnt/pocket.jsp" class="basicInfo__menu__link">
+                                <a href="" class="basicInfo__menu__link">
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>

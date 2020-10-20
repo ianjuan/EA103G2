@@ -39,7 +39,7 @@ public class LoginFilter implements Filter {
 
 
 		if (ispathprotected && (tnt_no == null) && (lld_no == null)) {// protected path
-
+//				System.out.println("filter-- sourcelocation:" + req.getRequestURI());
 				session.setAttribute("location", req.getRequestURI());
 				res.sendRedirect(req.getContextPath() + "/front-end/index/Identify.jsp");
 //				System.out.println("3.重導去Identify.jsp");
