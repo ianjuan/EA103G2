@@ -24,7 +24,7 @@ function notice1(){
 	    }}).then(function(isConfirm){
 			if(isConfirm){
 				swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
-					document.houseForm.submit();
+					document.contForm.submit();
 				});
 			} else {
 				return false;
@@ -38,7 +38,7 @@ function notice2(){
 	    }}).then(function(isConfirm){
 		if(isConfirm){
 			swal("已重置欄位!", "" , "success", {button: "確認"}).then(function(){
-				document.houseForm.reset();
+				document.contForm.reset();
 			});
 		} else {
 			return false;
@@ -57,7 +57,7 @@ function notice3(){
 		    }}).then(function(isConfirm){
 			if(isConfirm){
 				swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
-					document.houseForm.submit();
+					document.contForm.submit();
 				});
 			} else {
 				return false;
@@ -66,28 +66,11 @@ function notice3(){
 	 }	
 }
 
-
-
 function show(){
 	document.getElementById("cbody"+i).style.display = "block";
 	document.getElementById("btn"+i).style.backgroundColor = '#FFA64F';
 	document.getElementById("btn"+(i+5)).style.backgroundColor = '#FFA64F';
-	if(i === 1){
-		document.getElementById("pr1").disabled = true;
-		document.getElementById("ne1").disabled = false;
-		document.getElementById("pr2").disabled = true;
-		document.getElementById("ne2").disabled = false;
-	} else if(i === 5){
-		document.getElementById("pr1").disabled = false;
-		document.getElementById("ne1").disabled = true;
-		document.getElementById("pr2").disabled = false;
-		document.getElementById("ne2").disabled = true;
-	} else {
-		document.getElementById("pr1").disabled = false;
-		document.getElementById("ne1").disabled = false;
-		document.getElementById("pr2").disabled = false;
-		document.getElementById("ne2").disabled = false;
-	}
+	controlbtn();
 }
 
 function hide(){
@@ -108,98 +91,38 @@ function next(){
 	show();
 }
 
-function show1(){
+function titleshow(e){
 	for(var j=1; j<=5; j++){
-		if(j === 1){
+		if(j == e.target.value){
 			document.getElementById("cbody"+j).style.display = "block";
 			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
 			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			document.getElementById("pr1").disabled = true;
-			document.getElementById("pr2").disabled = true;
-			i = j;
+			i = parseInt(e.target.value);
 		} else {
 			document.getElementById("cbody"+j).style.display = "none";
 			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
 			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';
-			document.getElementById("ne1").disabled = false;
-			document.getElementById("ne2").disabled = false;
-		}
+		}		
 	}
+	controlbtn();
 }
 
-function show2(){
-	for(var j=1; j<=5; j++){
-		if(j === 2){
-			document.getElementById("cbody"+j).style.display = "block";
-			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			i = j;
-		} else {
-			document.getElementById("cbody"+j).style.display = "none";
-			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';
-		}
-	}
-	document.getElementById("pr1").disabled = false;
-	document.getElementById("ne1").disabled = false;
-	document.getElementById("pr2").disabled = false;
-	document.getElementById("ne2").disabled = false;
-}
-
-function show3(){
-	for(var j=1; j<=5; j++){
-		if(j === 3){
-			document.getElementById("cbody"+j).style.display = "block";
-			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			i = j;
-		} else {
-			document.getElementById("cbody"+j).style.display = "none";
-			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';			
-		}				
-	}
-	document.getElementById("pr1").disabled = false;
-	document.getElementById("ne1").disabled = false;
-	document.getElementById("pr2").disabled = false;
-	document.getElementById("ne2").disabled = false;
-}
-
-function show4(){
-	for(var j=1; j<=5; j++){
-		if(j === 4){
-			document.getElementById("cbody"+j).style.display = "block";
-			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			i = j;
-		} else {
-			document.getElementById("cbody"+j).style.display = "none";
-			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';
-		}
-	}
-	document.getElementById("pr1").disabled = false;
-	document.getElementById("ne1").disabled = false;
-	document.getElementById("pr2").disabled = false;
-	document.getElementById("ne2").disabled = false;
-}
-
-function show5(){
-	for(var j=1; j<=5; j++){
-		if(j === 5){					
-			document.getElementById("cbody"+j).style.display = "block";
-			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			document.getElementById("ne1").disabled = true;
-			document.getElementById("ne2").disabled = true;
-			i = j;
-		} else {
-			document.getElementById("cbody"+j).style.display = "none";
-			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';
-			document.getElementById("pr1").disabled = false;
-			document.getElementById("pr2").disabled = false;
-		}
+function controlbtn(){
+	if(i === 1){
+		document.getElementById("pr1").disabled = true;
+		document.getElementById("ne1").disabled = false;
+		document.getElementById("pr2").disabled = true;
+		document.getElementById("ne2").disabled = false;
+	} else if(i === 5){
+		document.getElementById("pr1").disabled = false;
+		document.getElementById("ne1").disabled = true;
+		document.getElementById("pr2").disabled = false;
+		document.getElementById("ne2").disabled = true;
+	} else {
+		document.getElementById("pr1").disabled = false;
+		document.getElementById("ne1").disabled = false;
+		document.getElementById("pr2").disabled = false;
+		document.getElementById("ne2").disabled = false;
 	}
 }
 
@@ -207,17 +130,17 @@ function load(){
 	var files = document.getElementById("loadPic").files;
 	
 	if(files.length > 1){
-		swal("您上傳了" + files.length + "張圖片，已超過上限！", "請上傳5~10張圖片", "error", {button: "重新上傳"});
+		swal("您上傳了" + files.length + "張簽名，已超過上限！", "請上傳一張簽名就好", "error", {button: "重新上傳"});
 		document.getElementById("loadPic").value = "";
 	} else if(files.length < 1){
-		swal("您上傳了" + files.length + "張圖片，太少了吧！", "請上傳5~10張圖片", "error", {button: "重新上傳"});
+		swal("您沒送出簽名！", "請簽名!", "error", {button: "重新上傳"});
 		document.getElementById("loadPic").value = "";
 	} else {						
 		var optobj = document.querySelectorAll(".pic");
 		for (var i = 0; i < optobj.length; i++) {
 			optobj[i].remove();		
 		}
-		swal("您上傳了" + files.length + "張圖片", "", "success", {button: "棒棒"});
+		swal("您成功送出簽名", "", "success", {button: "棒棒"});
 		for(var i = 0; i < files.length; i++){							
 			if(files[i].type.indexOf('image') > -1){				
 				var reader = new FileReader();
@@ -236,17 +159,17 @@ function load1(){
 	var pic1 = document.querySelectorAll(".pic1").length;
 	
 	if(files.length + pic1 > 1){
-		swal("您上傳了" + files.length + "張圖片，已超過上限！", "只能上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "重新上傳"});
+		swal("您多簽了" + files.length + "次，已超過上限！", "只能簽一次", "error", {button: "重新上傳"});
 		document.getElementById("loadPic").value = "";
 	} else if(files.length + pic1 < 1){
-		swal("您上傳了" + files.length + "張圖片哪夠啊！", "至少要上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "重新上傳"});
+		swal("您沒有簽名！", "請簽名後再送出", "error", {button: "重新上傳"});
 		document.getElementById("loadPic").value = "";
 	} else {						
 		var optobj = document.querySelectorAll(".pic");
 		for (var i = 0; i < optobj.length; i++) {
 			optobj[i].remove();		
 		}
-		swal("上傳了" + files.length + "張圖片", "目前共" + (files.length+pic1) + "張", "success", {button: "棒棒"});
+		swal("成功送出簽名", "success", {button: "棒棒"});
 		for(var i = 0; i < files.length; i++){							
 			if(files[i].type.indexOf('image') > -1){				
 				var reader = new FileReader();
@@ -288,14 +211,14 @@ function delpic(){
 	var optpic = document.querySelectorAll(".checkpic:checked");
 	var preview1 = document.getElementById("preview1");
 	
-	swal({title:"確定要移除選取的圖片嗎?", text:"您選取了"+optpic.length+"張圖片" , icon:"warning", buttons: {
+	swal({title:"確定要移除選取的簽名嗎?", text:"您選取了"+optpic.length+"張簽名" , icon:"warning", buttons: {
 	      Btn: false, cancel: {text:"取消", visible: true}, danger: {text:"確認", visible: true}
 	    }}).then(function(isConfirm){
 		if(isConfirm){						
 			for (var i = 0; i < optpic.length; i++) {
 				var input = document.createElement("input");
 				input.setAttribute("type", "hidden");
-				input.setAttribute("name", "pic_no");
+				input.setAttribute("name", "con_lld_sign");
 				input.setAttribute("value", optpic[i].nextElementSibling.getAttribute("value"));
 				preview1.append(input);								
 			}
@@ -340,7 +263,49 @@ function checkfurAll() {
 			check[i].checked = false;
 		}
 	}
+	gasfee();
+	netfee();
+}
+
+function floatfee1(){
+	var watertype0 = document.getElementById("watertype0");
+	var watertype1 = document.getElementById("watertype1");
+	var watertype2 = document.getElementById("watertype2");
+	var water1 = document.getElementById("water1");
+	var water2 = document.getElementById("water2");
+
+	if(watertype1.checked == true){
+		water1.disabled = false;
+		water2.disabled = true;
+	} else if(watertype2.checked == true){
+		water1.disabled = true;
+		water2.disabled = false;
+	} else if(watertype0.checked == true){
+		water1.disabled = true;
+		water2.disabled = true;
+	}
+}
+
+function floatfee2(){
+	var electtype0 = document.getElementById("electtype0");
+	var electtype1 = document.getElementById("electtype1");
+	var electtype2 = document.getElementById("electtype2");
+	var elect1 = document.getElementById("elect1");
+	var elect2 = document.getElementById("elect2");
 	
+	if(electtype1.checked == true){
+		elect1.disabled = false;
+		elect2.disabled = true;
+	} else if(electtype2.checked == true){
+		elect1.disabled = true;
+		elect2.disabled = false;
+	} else if(electtype0.checked == true){
+		elect1.disabled = true;
+		elect2.disabled = true;
+	}
+}
+
+function gasfee(){
 	var gas = document.getElementById("gas");
 	var gasfee = document.getElementById("gasfee1");
 	
@@ -350,7 +315,9 @@ function checkfurAll() {
 		gasfee.disabled = true;
 		gasfee.value = "";
 	}
-	
+}
+
+function netfee(){
 	var net = document.getElementById("IE");
 	var netfee = document.getElementById("netfee1");
 	
@@ -362,20 +329,45 @@ function checkfurAll() {
 	}
 }
 
-function checkLen1(obj) {
-	var maxChars = 200;//最多字符数
-	if (obj.value.length > maxChars)
-		obj.value = obj.value.substring(0,maxChars);
-	var curr = maxChars - obj.value.length;
-	document.getElementById("count1").innerHTML = curr.toString();
+function parkfee(){
+	var park1 = document.getElementById("park1");
+	var parkfee = document.getElementById("parkfee1");
+	
+	if(park1.checked == true){
+		parkfee.disabled = true;
+		parkfee.value = "";
+	} else {
+		parkfee.disabled = false;
+	}
 }
 
-function checkLen2(obj) {
+function checkLen1(e) {
 	var maxChars = 200;//最多字符数
-	if (obj.value.length > maxChars)
-		obj.value = obj.value.substring(0,maxChars);
-	var curr = maxChars - obj.value.length;
-	document.getElementById("count2").innerHTML = curr.toString();
+	if (e.value.length > maxChars)
+		e.value = e.value.substring(0,maxChars);
+	document.getElementById("count1").innerHTML = maxChars - e.value.length;
+}
+
+function checkLen2(e) {
+	var maxChars = 200;//最多字符数
+	if (e.value.length > maxChars)
+		e.value = e.value.substring(0,maxChars);
+	document.getElementById("count2").innerHTML = maxChars - e.value.length;
+}
+
+function map(){
+	var geocoder = new google.maps.Geocoder();
+	address = document.getElementById("hos_add").value;
+	geocoder.geocode({ 'address': address }, function(results, status) { //地址轉換經緯度 results取得該地區所有資訊 status回傳成功與否 以'OK'表示
+		if (status == 'OK') {
+			var lat = results[0].geometry.location.lat();
+			var lng = results[0].geometry.location.lng();
+			document.getElementById("lat").setAttribute("value", lat);
+			document.getElementById("lng").setAttribute("value", lng);
+		} else {
+			console.log(status);
+		}
+	});
 }
 
 function imgShow(outerdiv, innerdiv, bigimg, _this){  

@@ -228,57 +228,78 @@ public class ConServlet extends HttpServlet {
 				String con_no = new String(req.getParameter("con_no"));
 				String lld_no = new String(req.getParameter("lld_no"));
 				String hos_no = new String(req.getParameter("hos_no"));
-				Date con_che_date = Date.valueOf(req.getParameter("apl_str"));
+//				Date con_che_date = Date.valueOf(req.getParameter("apl_str"));
 				System.out.println(lld_no);
-				System.out.println("要進來沒幹");
+				System.out.println(con_no);
+				System.out.println(hos_no);
 
 				/*************************** 修正房東資訊 ****************************************/
 				String lld_mobile = new String(req.getParameter("lld_mobile"));
+				System.out.println(lld_mobile);
+				
+				LldService lldSvc = new LldService();
+				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
+				String lld_email = lldVO.getLld_email();
+				String lld_acc = lldVO.getLld_acc();
+				String lld_pwd = lldVO.getLld_pwd();
+				String lld_id = lldVO.getLld_id();
+				String lld_name = lldVO.getLld_name();
+				Date lld_birth = lldVO.getLld_birth();
+				Boolean lld_sex = lldVO.getLld_sex();
+				String lld_city = lldVO.getLld_city();
+				String lld_dist = lldVO.getLld_dist();
+				String lld_add = lldVO.getLld_add();
+				byte[] lld_pic = lldVO.getLld_pic();
+				Integer lld_status = lldVO.getLld_status();
+							
+				lldSvc.updateLldProfile(lld_no, lld_email, lld_acc, lld_pwd, lld_id, lld_name, lld_birth, lld_sex, lld_mobile, lld_city, lld_dist, lld_add, lld_pic, lld_status);
 
 				/*************************** 房東簽名 ****************************************/
-				Part part = req.getPart("lld_sign");
+				Part part = req.getPart("con_lld_sign");
 				InputStream in = part.getInputStream();
 				byte[] con_lld_sign = getPictureByteArray(in);
 
 				byte[] con_tnt_sign = null;
-
-				/*************************** 更新房屋家具 **********************/
-				Integer hos_table = new Integer(req.getParameter("hos_table"));
-				Integer hos_chair = new Integer(req.getParameter("hos_chair"));
-				Integer hos_bed = new Integer(req.getParameter("hos_bed"));
-				Integer hos_closet = new Integer(req.getParameter("hos_closet"));
-				Integer hos_sofa = new Integer(req.getParameter("hos_sofa"));
-				Integer hos_tv = new Integer(req.getParameter("hos_tv"));
-				Integer hos_drink = new Integer(req.getParameter("hos_drink"));
-				Integer hos_aircon = new Integer(req.getParameter("hos_aircon"));
-				Integer hos_refrig = new Integer(req.getParameter("hos_refrig"));
-				Integer hos_wash = new Integer(req.getParameter("hos_wash"));
-				Integer hos_hoter = new Integer(req.getParameter("hos_hoter"));
-				Integer hos_forth = new Integer(req.getParameter("hos_forth"));
-				Integer hos_net = new Integer(req.getParameter("hos_net"));
-				Integer hos_gas = new Integer(req.getParameter("hos_gas"));
+//
+//				/*************************** 更新房屋家具 **********************/
+//				Integer hos_table = new Integer(req.getParameter("hos_table"));
+//				Integer hos_chair = new Integer(req.getParameter("hos_chair"));
+//				Integer hos_bed = new Integer(req.getParameter("hos_bed"));
+//				Integer hos_closet = new Integer(req.getParameter("hos_closet"));
+//				Integer hos_sofa = new Integer(req.getParameter("hos_sofa"));
+//				Integer hos_tv = new Integer(req.getParameter("hos_tv"));
+//				Integer hos_drink = new Integer(req.getParameter("hos_drink"));
+//				Integer hos_aircon = new Integer(req.getParameter("hos_aircon"));
+//				Integer hos_refrig = new Integer(req.getParameter("hos_refrig"));
+//				Integer hos_wash = new Integer(req.getParameter("hos_wash"));
+//				Integer hos_hoter = new Integer(req.getParameter("hos_hoter"));
+//				Integer hos_forth = new Integer(req.getParameter("hos_forth"));
+//				Integer hos_net = new Integer(req.getParameter("hos_net"));
+//				Integer hos_gas = new Integer(req.getParameter("hos_gas"));
 
 				/*************************** 更新合約 **********************/
-				ConService conSvc1 = new ConService();
-				String apl_no = conSvc1.getOneCon(con_no).getApl_no();
-				String tnt_no = conSvc1.getOneCon(con_no).getTnt_no();
-				Integer con_dep_sta = new Integer(2);
-
-				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();
+				ConVO conVOGET = conSvc.getOneCon(con_no);
+				String apl_no = conVOGET.getApl_no();
+				String tnt_no = conVOGET.getTnt_no();
+				Integer con_dep_sta = conVOGET.getCon_dep_sta();				
+				
+				Con_aplService aplSvcAplService = new Con_aplService();
+				Con_aplVO con_aplVO = aplSvcAplService.getOneCon_apl(apl_no);
+				Date con_che_date = con_aplVO.getApl_str();
+				
 				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, con_che_date,
 						con_no);
-				ConVO conVO = conSvc.getOneCon(con_no);
-
-				LldService lldSvc = new LldService();
-				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
-
-				HouseService houseSvc = new HouseService();
-				HouseVO houseVO = houseSvc.updateHouseFurniture(hos_table, hos_chair, hos_bed, hos_closet, hos_sofa,
-						hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth, hos_net, hos_gas,
-						hos_no);
-
-				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+//				ConVO conVO = conSvc.getOneCon(con_no);
+//
+				
+//
+//				HouseService houseSvc = new HouseService();
+//				HouseVO houseVO = houseSvc.updateHouseFurniture(hos_table, hos_chair, hos_bed, hos_closet, hos_sofa,
+//						hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth, hos_net, hos_gas,
+//						hos_no);
+//
+//				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				ConService conService = new ConService();

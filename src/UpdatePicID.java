@@ -30,7 +30,7 @@ public class UpdatePicID {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_HOUSE_ID);
 
-			for (int i = 0; i < 141463; i++) {
+			for (int i = 1; i < 141464; i++) {
 
 				pstmt.setString(1, "PIC" + String.format(pattern, i));
 				rs = pstmt.executeQuery();

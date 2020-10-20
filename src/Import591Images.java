@@ -24,7 +24,7 @@ public class Import591Images {
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USER = "G2DB";
 	private static final String PASSWORD = "123456";
-	private static final String SQL = "INSERT INTO HOUSE_PICTURE(PIC_NO, HOS_NO, HOS_PIC)" + "VALUES(?, ?, ?)";
+	private static final String SQL = "INSERT INTO HOUSE_PICTURE(PIC_NO, HOS_NO, HOS_PIC)" + "VALUES('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6,'0'), ?, ?)";
 
 	public static void main(String[] args) {
 		Connection con = null;
@@ -52,16 +52,14 @@ public class Import591Images {
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(SQL);
 
-			String pattern = "%06d";
 
 			for (int i = 0; i < list.size(); i++) {
 				// 避免拿到舊的parameters
 				pstmt.clearParameters();
 				hospic obj = list.get(i);
-				pstmt.setString(1, "PIC" + String.format(pattern, i));
-				pstmt.setString(2, obj.hos_no);
+				pstmt.setString(1, obj.hos_no);
 				InputStream is = getPictureStream(obj.filePath);
-				pstmt.setBinaryStream(3, is, is.available());
+				pstmt.setBinaryStream(2, is, is.available());
 				pstmt.executeUpdate();
 				System.out.println(i);
 			}
