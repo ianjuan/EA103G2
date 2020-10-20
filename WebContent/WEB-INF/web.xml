@@ -138,6 +138,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>HouseServlet_BE</servlet-name>
+		<servlet-class>com.housemanage.controller.HouseServlet_BE</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HouseServlet_BE</servlet-name>
+		<url-pattern>/house_manage/HouseServlet_BE</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>HouseSingleImgReader</servlet-name>
 		<servlet-class>com.housemanage.controller.HouseSingleImgReader</servlet-class>
 	</servlet>	

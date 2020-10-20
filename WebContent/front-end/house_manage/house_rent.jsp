@@ -5,8 +5,8 @@
 
 <%
 	String lld_no = (String) request.getAttribute("lld_no");
-		if (lld_no == null) {
-			lld_no = request.getParameter("lld_no");
+	if (lld_no == null) {
+		lld_no = request.getParameter("lld_no");
 	}
 	
 	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");

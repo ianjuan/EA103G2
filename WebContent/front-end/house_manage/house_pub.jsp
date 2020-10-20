@@ -105,15 +105,15 @@
 			<div id="center">
 				<div id="chead">
 					<ul>
-						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="show1()">基本資訊</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="titleshow(event)" value="1">基本資訊</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="show2()">房屋圖片</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="titleshow(event)" value="2">房屋圖片</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="show3()">家具設備</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="titleshow(event)" value="3">家具設備</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn4" onclick="show4()">各項費用</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn4" onclick="titleshow(event)" value="4">各項費用</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn5" onclick="show5()">其他條件</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn5" onclick="titleshow(event)" value="5">其他條件</button></li>
 					</ul>
 				</div>			
 				<div id="cbody">				
@@ -143,6 +143,8 @@
 								<th>*地址:</th>
 								<td>
 									<input type="text" class="text1" name="hos_add" value="<%=(houseVO==null) ? "" : houseVO.getHos_add()%>" id="hos_add" required>									
+									<input type="hidden" name="hos_lng" value="121.194406" id="lng">
+									<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
 								</td>
 							</tr>
 							<tr>
@@ -481,8 +483,6 @@
 				</div>
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 				<input type="hidden" name="hos_bro" value="0">
-				<input type="hidden" name="hos_lng" value="121.194406" id="lng">
-				<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
 				<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 				<div id="cfoot">
 					<button class="btn" type="button" onclick="notice2()">全部重填</button>
@@ -495,11 +495,11 @@
 			<div id="right">
 				<div id="rhead">
 					<ul>
-						<li class="title1"><button type="button" class="titlebtn" id="btn6" onclick="show1()">基本資訊</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="show2()">房屋圖片</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn8" onclick="show3()">家具設備</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn9" onclick="show4()">各項費用</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn10" onclick="show5()">其他條件</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn6" onclick="titleshow(event)" value="1">基本資訊</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="titleshow(event)" value="2">房屋圖片</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn8" onclick="titleshow(event)" value="3">家具設備</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn9" onclick="titleshow(event)" value="4">各項費用</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn10" onclick="titleshow(event)" value="5">其他條件</button></li>
 					</ul>
 				</div>
 				<div id="rfoot">

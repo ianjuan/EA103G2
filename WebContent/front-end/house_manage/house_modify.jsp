@@ -44,7 +44,7 @@
                     <li class="nav-item dropdown">
                         <span data-toggle="dropdown" class="member">
                             <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
-                            <span class="membername"><%=lldInfo.getLld_name()%>></span>
+                            <span class="membername"><%=lldInfo.getLld_name()%></span>
                         </span>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">最新通知</a>
@@ -111,15 +111,15 @@
 			<div id="center">
 				<div id="chead">
 					<ul>
-						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="show1()">基本資訊</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="titleshow(event)" value="1">基本資訊</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="show2()">房屋圖片</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="titleshow(event)" value="2">房屋圖片</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="show3()">家具設備</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="titleshow(event)" value="3">家具設備</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn4" onclick="show4()">各項費用</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn4" onclick="titleshow(event)" value="4">各項費用</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn5" onclick="show5()">其他條件</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn5" onclick="titleshow(event)" value="5">其他條件</button></li>
 					</ul>
 				</div>			
 				<div id="cbody">				
@@ -149,6 +149,8 @@
 								<th>*地址:</th>
 								<td>
 									<input type="text" class="text1" name="hos_add" value="<%=houseVO.getHos_add()%>" id="hos_add" onchange="map()" required>
+									<input type="hidden" name="hos_lng" value="121.194406" id="lng">
+									<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
 								</td>
 							</tr>
 							<tr>
@@ -404,7 +406,7 @@
 							</tr>
 							<tr>
 								<td>
-									<label>瓦斯費:&nbsp;<input type="number" id="gasfee1" class="num1" min="0" placeholder="0" name="hos_gasfee" value="<%=houseVO.getHos_gasfee()%>" <%=houseVO.getHos_gasfee()==0?"disabled":""%>>元</label>
+									<label>瓦斯費:&nbsp;<input type="number" id="gasfee1" class="num1" min="0" placeholder="0" name="hos_gasfee" value="<%=houseVO.getHos_gas()==0?"":houseVO.getHos_gasfee()%>" <%=houseVO.getHos_gas()==0?"disabled":""%>>元</label>
 								</td>
 							</tr>
 							<tr>
@@ -414,7 +416,7 @@
 							</tr>
 							<tr>
 								<td>
-									<label>網路費:&nbsp;<input type="number" id="netfee1" class="num1" min="0" placeholder="0" name="hos_netfee" value="<%=houseVO.getHos_netfee()%>" <%=houseVO.getHos_netfee()==0?"disabled":""%>>元</label>
+									<label>網路費:&nbsp;<input type="number" id="netfee1" class="num1" min="0" placeholder="0" name="hos_netfee" value="<%=houseVO.getHos_net()==0?"":houseVO.getHos_netfee()%>" <%=houseVO.getHos_net()==0?"disabled":""%>>元</label>
 								</td>
 							</tr>
 							<tr>
@@ -429,7 +431,7 @@
 							</tr>
 							<tr>
 								<td>
-									<label>停車位費:&nbsp;<input type="number" id="parkfee1" class="num1" min="0" placeholder="0" step="1" name="hos_parkfee" value="<%=houseVO.getHos_parkfee()%>">元</label>
+									<label>停車位費:&nbsp;<input type="number" id="parkfee1" class="num1" min="0" placeholder="0" step="1" name="hos_parkfee" value="<%=(houseVO.getHos_park().equals("無")) ? "" : houseVO.getHos_parkfee()%>" <%=(houseVO.getHos_park().equals("無")) ? "disabled" : ""%>>元</label>
 								</td>
 							</tr>
 						</table>
@@ -511,8 +513,6 @@
 				</div>
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-				<input type="hidden" name="hos_lng" value="121.194406" id="lng">
-				<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
 				<div id="cfoot">
 					<button class="btn" type="button" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
@@ -524,11 +524,11 @@
 			<div id="right">
 				<div id="rhead">
 					<ul>
-						<li class="title1"><button type="button" class="titlebtn" id="btn6" onclick="show1()">基本資訊</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="show2()">房屋圖片</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn8" onclick="show3()">家具設備</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn9" onclick="show4()">各項費用</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn10" onclick="show5()">其他條件</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn6" onclick="titleshow(event)" value="1">基本資訊</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="titleshow(event)" value="2">房屋圖片</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn8" onclick="titleshow(event)" value="3">家具設備</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn9" onclick="titleshow(event)" value="4">各項費用</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn10" onclick="titleshow(event)" value="5">其他條件</button></li>
 					</ul>
 				</div>
 				<div id="rfoot">					

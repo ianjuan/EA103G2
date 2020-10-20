@@ -18,21 +18,6 @@ window.onload = function(){
 	})			
 }
 
-function map(){
-	var geocoder = new google.maps.Geocoder();
-	address = document.getElementById("hos_add").value;
-	geocoder.geocode({ 'address': address }, function(results, status) { //地址轉換經緯度 results取得該地區所有資訊 status回傳成功與否 以'OK'表示
-		if (status == 'OK') {
-			var lat = results[0].geometry.location.lat();
-			var lng = results[0].geometry.location.lng();
-			document.getElementById("lat").setAttribute("value", lat);
-			document.getElementById("lng").setAttribute("value", lng);
-		} else {
-			console.log(status);
-		}
-	});
-}
-
 function notice1(){		
 	swal({title:"確定要送出房屋資訊了嗎?", text:"" , icon:"info", buttons: {
 	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
@@ -128,100 +113,11 @@ function checkmoney(){
 	}
 }
 
-function floatfee1(){
-	var watertype0 = document.getElementById("watertype0");
-	var watertype1 = document.getElementById("watertype1");
-	var watertype2 = document.getElementById("watertype2");
-	var water1 = document.getElementById("water1");
-	var water2 = document.getElementById("water2");
-
-	if(watertype1.checked == true){
-		water1.disabled = false;
-		water2.disabled = true;
-	} else if(watertype2.checked == true){
-		water1.disabled = true;
-		water2.disabled = false;
-	} else if(watertype0.checked == true){
-		water1.disabled = true;
-		water2.disabled = true;
-	}
-}
-
-function floatfee2(){
-	var electtype0 = document.getElementById("electtype0");
-	var electtype1 = document.getElementById("electtype1");
-	var electtype2 = document.getElementById("electtype2");
-	var elect1 = document.getElementById("elect1");
-	var elect2 = document.getElementById("elect2");
-	
-	if(electtype1.checked == true){
-		elect1.disabled = false;
-		elect2.disabled = true;
-	} else if(electtype2.checked == true){
-		elect1.disabled = true;
-		elect2.disabled = false;
-	} else if(electtype0.checked == true){
-		elect1.disabled = true;
-		elect2.disabled = true;
-	}
-}
-
-function gasfee(){
-	var gas = document.getElementById("gas");
-	var gasfee = document.getElementById("gasfee1");
-	
-	if(gas.checked == true){
-		gasfee.disabled = false;
-	} else {
-		gasfee.disabled = true;
-		gasfee.value = "";
-	}
-}
-
-function netfee(){
-	var net = document.getElementById("IE");
-	var netfee = document.getElementById("netfee1");
-	
-	if(net.checked == true){
-		netfee.disabled = false;
-	} else {
-		netfee.disabled = true;
-		netfee.value = "";
-	}
-}
-
-function parkfee(){
-	var park1 = document.getElementById("park1");
-	var parkfee = document.getElementById("parkfee1");
-	
-	if(park1.checked == true){
-		parkfee.disabled = true;
-		parkfee.value = "";
-	} else {
-		parkfee.disabled = false;
-	}
-}
-
 function show(){
 	document.getElementById("cbody"+i).style.display = "block";
 	document.getElementById("btn"+i).style.backgroundColor = '#FFA64F';
 	document.getElementById("btn"+(i+5)).style.backgroundColor = '#FFA64F';
-	if(i === 1){
-		document.getElementById("pr1").disabled = true;
-		document.getElementById("ne1").disabled = false;
-		document.getElementById("pr2").disabled = true;
-		document.getElementById("ne2").disabled = false;
-	} else if(i === 5){
-		document.getElementById("pr1").disabled = false;
-		document.getElementById("ne1").disabled = true;
-		document.getElementById("pr2").disabled = false;
-		document.getElementById("ne2").disabled = true;
-	} else {
-		document.getElementById("pr1").disabled = false;
-		document.getElementById("ne1").disabled = false;
-		document.getElementById("pr2").disabled = false;
-		document.getElementById("ne2").disabled = false;
-	}
+	controlbtn();
 }
 
 function hide(){
@@ -242,98 +138,38 @@ function next(){
 	show();
 }
 
-function show1(){
+function titleshow(e){
 	for(var j=1; j<=5; j++){
-		if(j === 1){
+		if(j == e.target.value){
 			document.getElementById("cbody"+j).style.display = "block";
 			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
 			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			document.getElementById("pr1").disabled = true;
-			document.getElementById("pr2").disabled = true;
-			i = j;
+			i = parseInt(e.target.value);
 		} else {
 			document.getElementById("cbody"+j).style.display = "none";
 			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
 			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';
-			document.getElementById("ne1").disabled = false;
-			document.getElementById("ne2").disabled = false;
-		}
+		}		
 	}
+	controlbtn();
 }
 
-function show2(){
-	for(var j=1; j<=5; j++){
-		if(j === 2){
-			document.getElementById("cbody"+j).style.display = "block";
-			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			i = j;
-		} else {
-			document.getElementById("cbody"+j).style.display = "none";
-			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';
-		}
-	}
-	document.getElementById("pr1").disabled = false;
-	document.getElementById("ne1").disabled = false;
-	document.getElementById("pr2").disabled = false;
-	document.getElementById("ne2").disabled = false;
-}
-
-function show3(){
-	for(var j=1; j<=5; j++){
-		if(j === 3){
-			document.getElementById("cbody"+j).style.display = "block";
-			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			i = j;
-		} else {
-			document.getElementById("cbody"+j).style.display = "none";
-			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';			
-		}				
-	}
-	document.getElementById("pr1").disabled = false;
-	document.getElementById("ne1").disabled = false;
-	document.getElementById("pr2").disabled = false;
-	document.getElementById("ne2").disabled = false;
-}
-
-function show4(){
-	for(var j=1; j<=5; j++){
-		if(j === 4){
-			document.getElementById("cbody"+j).style.display = "block";
-			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			i = j;
-		} else {
-			document.getElementById("cbody"+j).style.display = "none";
-			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';
-		}
-	}
-	document.getElementById("pr1").disabled = false;
-	document.getElementById("ne1").disabled = false;
-	document.getElementById("pr2").disabled = false;
-	document.getElementById("ne2").disabled = false;
-}
-
-function show5(){
-	for(var j=1; j<=5; j++){
-		if(j === 5){					
-			document.getElementById("cbody"+j).style.display = "block";
-			document.getElementById("btn"+j).style.backgroundColor = '#FFA64F';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#FFA64F';
-			document.getElementById("ne1").disabled = true;
-			document.getElementById("ne2").disabled = true;
-			i = j;
-		} else {
-			document.getElementById("cbody"+j).style.display = "none";
-			document.getElementById("btn"+j).style.backgroundColor = '#83DFFD';
-			document.getElementById("btn"+(j+5)).style.backgroundColor = '#83DFFD';
-			document.getElementById("pr1").disabled = false;
-			document.getElementById("pr2").disabled = false;
-		}
+function controlbtn(){
+	if(i === 1){
+		document.getElementById("pr1").disabled = true;
+		document.getElementById("ne1").disabled = false;
+		document.getElementById("pr2").disabled = true;
+		document.getElementById("ne2").disabled = false;
+	} else if(i === 5){
+		document.getElementById("pr1").disabled = false;
+		document.getElementById("ne1").disabled = true;
+		document.getElementById("pr2").disabled = false;
+		document.getElementById("ne2").disabled = true;
+	} else {
+		document.getElementById("pr1").disabled = false;
+		document.getElementById("ne1").disabled = false;
+		document.getElementById("pr2").disabled = false;
+		document.getElementById("ne2").disabled = false;
 	}
 }
 
@@ -474,7 +310,49 @@ function checkfurAll() {
 			check[i].checked = false;
 		}
 	}
+	gasfee();
+	netfee();
+}
+
+function floatfee1(){
+	var watertype0 = document.getElementById("watertype0");
+	var watertype1 = document.getElementById("watertype1");
+	var watertype2 = document.getElementById("watertype2");
+	var water1 = document.getElementById("water1");
+	var water2 = document.getElementById("water2");
+
+	if(watertype1.checked == true){
+		water1.disabled = false;
+		water2.disabled = true;
+	} else if(watertype2.checked == true){
+		water1.disabled = true;
+		water2.disabled = false;
+	} else if(watertype0.checked == true){
+		water1.disabled = true;
+		water2.disabled = true;
+	}
+}
+
+function floatfee2(){
+	var electtype0 = document.getElementById("electtype0");
+	var electtype1 = document.getElementById("electtype1");
+	var electtype2 = document.getElementById("electtype2");
+	var elect1 = document.getElementById("elect1");
+	var elect2 = document.getElementById("elect2");
 	
+	if(electtype1.checked == true){
+		elect1.disabled = false;
+		elect2.disabled = true;
+	} else if(electtype2.checked == true){
+		elect1.disabled = true;
+		elect2.disabled = false;
+	} else if(electtype0.checked == true){
+		elect1.disabled = true;
+		elect2.disabled = true;
+	}
+}
+
+function gasfee(){
 	var gas = document.getElementById("gas");
 	var gasfee = document.getElementById("gasfee1");
 	
@@ -484,7 +362,9 @@ function checkfurAll() {
 		gasfee.disabled = true;
 		gasfee.value = "";
 	}
-	
+}
+
+function netfee(){
 	var net = document.getElementById("IE");
 	var netfee = document.getElementById("netfee1");
 	
@@ -496,20 +376,45 @@ function checkfurAll() {
 	}
 }
 
-function checkLen1(obj) {
-	var maxChars = 200;//最多字符数
-	if (obj.value.length > maxChars)
-		obj.value = obj.value.substring(0,maxChars);
-	var curr = maxChars - obj.value.length;
-	document.getElementById("count1").innerHTML = curr.toString();
+function parkfee(){
+	var park1 = document.getElementById("park1");
+	var parkfee = document.getElementById("parkfee1");
+	
+	if(park1.checked == true){
+		parkfee.disabled = true;
+		parkfee.value = "";
+	} else {
+		parkfee.disabled = false;
+	}
 }
 
-function checkLen2(obj) {
+function checkLen1(e) {
 	var maxChars = 200;//最多字符数
-	if (obj.value.length > maxChars)
-		obj.value = obj.value.substring(0,maxChars);
-	var curr = maxChars - obj.value.length;
-	document.getElementById("count2").innerHTML = curr.toString();
+	if (e.value.length > maxChars)
+		e.value = e.value.substring(0,maxChars);
+	document.getElementById("count1").innerHTML = maxChars - e.value.length;
+}
+
+function checkLen2(e) {
+	var maxChars = 200;//最多字符数
+	if (e.value.length > maxChars)
+		e.value = e.value.substring(0,maxChars);
+	document.getElementById("count2").innerHTML = maxChars - e.value.length;
+}
+
+function map(){
+	var geocoder = new google.maps.Geocoder();
+	address = document.getElementById("hos_add").value;
+	geocoder.geocode({ 'address': address }, function(results, status) { //地址轉換經緯度 results取得該地區所有資訊 status回傳成功與否 以'OK'表示
+		if (status == 'OK') {
+			var lat = results[0].geometry.location.lat();
+			var lng = results[0].geometry.location.lng();
+			document.getElementById("lat").setAttribute("value", lat);
+			document.getElementById("lng").setAttribute("value", lng);
+		} else {
+			console.log(status);
+		}
+	});
 }
 
 function imgShow(outerdiv, innerdiv, bigimg, _this){  
