@@ -198,7 +198,10 @@
 							</tr>
 							<tr>	
 								<td>
-									<div id="preview"></div>
+									<div id="preview">
+									<img
+							src="<%=request.getContextPath()%>/ContractSingleImgReader?id=${conVO.con_no}" class="pic" />
+									</div>
 								</td>
 							</tr>
 						</table>

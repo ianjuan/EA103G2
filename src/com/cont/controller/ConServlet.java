@@ -229,9 +229,6 @@ public class ConServlet extends HttpServlet {
 				String lld_no = new String(req.getParameter("lld_no"));
 				String hos_no = new String(req.getParameter("hos_no"));
 //				Date con_che_date = Date.valueOf(req.getParameter("apl_str"));
-				System.out.println(lld_no);
-				System.out.println(con_no);
-				System.out.println(hos_no);
 
 				/*************************** 修正房東資訊 ****************************************/
 				String lld_mobile = new String(req.getParameter("lld_mobile"));
@@ -254,12 +251,7 @@ public class ConServlet extends HttpServlet {
 							
 				lldSvc.updateLldProfile(lld_no, lld_email, lld_acc, lld_pwd, lld_id, lld_name, lld_birth, lld_sex, lld_mobile, lld_city, lld_dist, lld_add, lld_pic, lld_status);
 
-				/*************************** 房東簽名 ****************************************/
-				Part part = req.getPart("con_lld_sign");
-				InputStream in = part.getInputStream();
-				byte[] con_lld_sign = getPictureByteArray(in);
-
-				byte[] con_tnt_sign = null;
+				
 //
 //				/*************************** 更新房屋家具 **********************/
 //				Integer hos_table = new Integer(req.getParameter("hos_table"));
@@ -277,6 +269,12 @@ public class ConServlet extends HttpServlet {
 //				Integer hos_net = new Integer(req.getParameter("hos_net"));
 //				Integer hos_gas = new Integer(req.getParameter("hos_gas"));
 
+				/*************************** 房東簽名 ****************************************/
+				Part part = req.getPart("con_lld_sign");
+				InputStream in = part.getInputStream();
+				byte[] con_lld_sign = getPictureByteArray(in);
+
+				byte[] con_tnt_sign = null;
 				/*************************** 更新合約 **********************/
 				ConService conSvc = new ConService();
 				ConVO conVOGET = conSvc.getOneCon(con_no);

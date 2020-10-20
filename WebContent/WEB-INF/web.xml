@@ -51,6 +51,15 @@
 		<url-pattern>/rec/RecServlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ContractSingleImgReader</servlet-name>
+		<servlet-class>com.cont.controller.ContractSingleImgReader</servlet-class>
+	</servlet>	
+	<servlet-mapping>
+		<servlet-name>ContractSingleImgReader</servlet-name>
+		<url-pattern>/ContractSingleImgReader</url-pattern>
+	</servlet-mapping>
+	
 <!-- 	YiJing -->
 		<servlet>
 		<servlet-name>TntServlet</servlet-name>
