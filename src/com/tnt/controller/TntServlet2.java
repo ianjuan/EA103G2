@@ -122,43 +122,6 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("登入Exception: " + e.getMessage());
 			}
 		}
-		
-		if ("chgPwd".equals(action)) { // 來自login.jsp的請求-form post
-			System.out.println("action: " + action);
-
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			try {
-				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-				HttpSession session = req.getSession();
-				String tnt_no = (String) session.getAttribute("tnt_no");
-				String tnt_pwd = req.getParameter("tnt_pwd");
-				String tnt_pwd_new = req.getParameter("tnt_pwd_new");
-
-				TntVO tntVO_new = new TntVO();
-				tntVO_new.setTnt_pwd(tnt_pwd);
-
-				/*************************** 2.開始比對登入資料 ***************************************/
-				// 【檢查該帳號 , 密碼是否有效】
-				TntService tntSvc = new TntService();
-				TntVO tntVO_origin = tntSvc.getOneTntAccount(tnt_no);
-				String tnt_pwd_origin = tntVO_origin.getTnt_pwd();
-				out = res.getWriter();
-				if (tnt_pwd_origin.equals(tnt_pwd)) {
-					tntSvc.updateTntPwd(tnt_no, tnt_pwd_new);
-					out.print("密碼更改成功");
-				} else {
-//					errorMsgs.add("密碼錯誤");
-//					req.setAttribute("tntVO", tntVO); // 含有輸入格式錯誤的tntVO物件,也存入req
-//					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tnt/info.jsp");
-//					failureView.forward(req, res);
-//					return; // 程式中斷
-					out.print("密碼錯誤");
-				}
-			} catch (Exception e) {
-				System.out.println("登入Exception: " + e.getMessage());
-			}
-		}
 
 		if ("register".equals(action)) { // 來自Register.jsp的請求 - ajax_register(formData)
 			System.out.println("action: " + action);
@@ -327,13 +290,6 @@ public class TntServlet2 extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
-				String emailReg = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\\]?)$";
-				if (tnt_email == null || tnt_email.trim().length() == 0) {
-					errorMsgs.add("電子信箱: 請勿空白");
-				} else if (!tnt_email.trim().matches(emailReg)) {
-					errorMsgs.add("電子信箱錯誤");
-				}
-
 				String tnt_acc = "aa123456";
 
 				String tnt_pwd = req.getParameter("tnt_pwd");
@@ -448,7 +404,49 @@ public class TntServlet2 extends HttpServlet {
 			}
 		}
 		
-		
+		if ("infoChgPwd".equals(action)) { // 來自info.jsp infoChgPwd的請求-form post
+			System.out.println("action: " + action);
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				HttpSession session = req.getSession();
+				String tnt_no = (String) session.getAttribute("tnt_no");
+				String tnt_pwd = req.getParameter("tnt_pwd");
+				String tnt_pwd_new = req.getParameter("tnt_pwd_new");
+
+//				TntVO tntVO_new = new TntVO();
+//				tntVO_new.setTnt_pwd(tnt_pwd_new);
+				
+				System.out.println(tnt_pwd_new);
+
+				/*************************** 2.開始比對登入資料 ***************************************/
+				// 【檢查該帳號 , 密碼是否有效】
+				TntService tntSvc = new TntService();
+				System.out.println("1");
+				TntVO tntVO_origin = tntSvc.getOneTntAccount(tnt_no);
+				System.out.println("2");
+				String tnt_pwd_origin = tntVO_origin.getTnt_pwd();
+				System.out.println("3");
+				out = res.getWriter();
+				if (tnt_pwd_origin.equals(tnt_pwd)) {
+					System.out.println("密碼比對");
+					tntSvc.updateTntPwd(tnt_no, tnt_pwd_new);
+					out.print("密碼更改成功");
+				} else {
+					System.out.println("5");
+//					errorMsgs.add("密碼錯誤");
+//					req.setAttribute("tntVO", tntVO); // 含有輸入格式錯誤的tntVO物件,也存入req
+//					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tnt/info.jsp");
+//					failureView.forward(req, res);
+//					return; // 程式中斷
+					out.print("密碼錯誤");
+				}
+			} catch (Exception e) {
+				System.out.println("infoChgPwd Exception: " + e.getMessage());
+			}
+		}
 		
 		
 		

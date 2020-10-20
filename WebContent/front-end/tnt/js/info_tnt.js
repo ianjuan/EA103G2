@@ -164,42 +164,42 @@
          * 
          */
 
-        var somedate2 = new Date();
-        somedate2.setFullYear(somedate2.getFullYear() - 18);
-        // console.log(somedate2);
-        var somedate3 = new Date();
-        somedate3.setFullYear(somedate3.getFullYear() - 18);
-        somedate3.setDate(somedate3.getDate() + 1);
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-            theme: '', // theme: 'dark',
-            timepicker: false, // timepicker:true,
-            step: 1, // step: 60 (這是timepicker的預設間隔60分鐘)
-            format: 'Y-m-d', // format:'Y-m-d H:i:s',
-            value: somedate3, // '<%=tnt_birth%>', // value: new Date(),
-            // disabledDates: ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-            // startDate: '2017/07/10', // 起始日
-            // minDate: '-1970-01-01', // 去除今日(不含)之前
-            // maxDate: '+1970-01-01' // 去除今日(不含)之後
-        });
-
-        // 2.以下為某一天之後的日期無法選擇--未滿18不能選
-
-        $('#f_date1')
-            .datetimepicker({
-                beforeShowDay: function(date) {
-                    if (date.getYear() > somedate2.getYear() ||
-                        (date.getYear() == somedate2.getYear() && date
-                            .getMonth() > somedate2.getMonth()) ||
-                        (date.getYear() == somedate2.getYear() &&
-                            date.getMonth() == somedate2
-                            .getMonth() && date.getDate() > somedate2
-                            .getDate())) {
-                        return [false, ""]
-                    }
-                    return [true, ""];
-                }
-            });
+//        var somedate2 = new Date();
+//        somedate2.setFullYear(somedate2.getFullYear() - 18);
+//        // console.log(somedate2);
+//        var somedate3 = new Date();
+//        somedate3.setFullYear(somedate3.getFullYear() - 18);
+//        somedate3.setDate(somedate3.getDate() + 1);
+//        $.datetimepicker.setLocale('zh');
+//        $('#f_date1').datetimepicker({
+//            theme: '', // theme: 'dark',
+//            timepicker: false, // timepicker:true,
+//            step: 1, // step: 60 (這是timepicker的預設間隔60分鐘)
+//            format: 'Y-m-d', // format:'Y-m-d H:i:s',
+//            value: somedate3, // '<%=tnt_birth%>', // value: new Date(),
+//            // disabledDates: ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+//            // startDate: '2017/07/10', // 起始日
+//            // minDate: '-1970-01-01', // 去除今日(不含)之前
+//            // maxDate: '+1970-01-01' // 去除今日(不含)之後
+//        });
+//
+//        // 2.以下為某一天之後的日期無法選擇--未滿18不能選
+//
+//        $('#f_date1')
+//            .datetimepicker({
+//                beforeShowDay: function(date) {
+//                    if (date.getYear() > somedate2.getYear() ||
+//                        (date.getYear() == somedate2.getYear() && date
+//                            .getMonth() > somedate2.getMonth()) ||
+//                        (date.getYear() == somedate2.getYear() &&
+//                            date.getMonth() == somedate2
+//                            .getMonth() && date.getDate() > somedate2
+//                            .getDate())) {
+//                        return [false, ""]
+//                    }
+//                    return [true, ""];
+//                }
+//            });
         /*
          * ================================================================== 
          *    [ 縣市區域 ]
@@ -286,11 +286,9 @@
                     '<option value="" id="city_default">選擇縣市');
                 city_key.forEach(function(item, index, array) {
                     // console.log('tnt_city item' + item);
-                    $("#tnt_city").append(
-                        '<option value="' + item + '">' + item);
+                    $("#tnt_city").append('<option value="' + item + '">' + item);
                 });
-                $('#tnt_dist').append(
-                    '<option value="" id="dist_default">選擇區域');
+                $('#tnt_dist').append('<option value="" id="dist_default">選擇區域');
                 // 若有原始tntVO資料, 新增所有縣市, 判斷有無selected縣市
             } else {
                 var index_city;
@@ -299,16 +297,14 @@
                         var tmp = ' selected';
                         index_city = index;
                     }
-                    $("#tnt_city").append(
-                        '<option value="' + item + '"' + tmp + '>' +
-                        item);
+                    $("#tnt_city").append('<option value="' + item + '"' + tmp + '>' +item);
                 });
                 $('#city_default').val("");
                 // 若有selected縣市,新增所有區域, 如無selected縣市, 不動
                 if (typeof(index_city) !== "undefined") {
                     var dist_values_selectedcity = Object.values(area_data)[index_city];
                     dist_values_selectedcity.forEach(function(item, index, array) {
-                        console.log(item);
+//                        console.log(item);
                         var tmp = (item === $('#tnt_dist').val()) ? ' selected' : '';
                         $("#tnt_dist").append('<option value="' + item + '"' + tmp + '>' + item);
                     });
@@ -326,9 +322,7 @@
                                 .values(area_data)[index];
                             dist_values.forEach(function(item,
                                 index, array) {
-                                $("#tnt_dist").append(
-                                    '<option value="' + item +
-                                    '">' + item);
+                                $("#tnt_dist").append('<option value="' + item +'">' + item);
                             });
                         }
                     });
@@ -339,20 +333,12 @@
             var selects = $('form:eq(0) select.wrap-register100');
             for (var i = 0; i < inputs.length; i++) {
                     $(inputs[i]).focus();
-//                    $(inputs[i]).val(quickInputData[i]);
                     $(inputs[i]).blur();
             }
             for (var i = 0; i < selects.length; i++) {
                 $(selects[i]).focus();
-//                $(selects[i]).val(quickInputData[i]);
                 $(selects[i]).blur();
         }
-//            $('#tnt_sex').focus();
-//            $('#tnt_sex').val('1');
-//            $('#tnt_sex').blur();
-
-//            $('#f_date1').val('2000-11-12');
-//            $('#f_date1').blur();
         });
 
         /*
@@ -556,7 +542,7 @@
          * ================================================================== 
          *    [ Info List Icon click ]
          */
-        $('a.upload').click(function() {
+        $('a.awrapBigHeadPic').click(function() {
             if ($('.info-form-wrap:eq(0)').css('padding-bottom') === '48px') {
                 togglethefrom($('.info-form-wrap:eq(0)'), 0);
             }
@@ -598,6 +584,42 @@
                 contentType: false,
 
                 success: function() { // 以上成功才執行
+                    console.log("res棒");
+                },
+                error: function() {
+                    console.log("真的不棒")
+                }
+            })
+        }
+        
+        
+        
+        
+        $('#btninfoChgPwd').click(function(e) {
+            e.preventDefault();
+            console.log('btn - info ChgPwd');
+            var theform = $(this).parent().prev('form');
+            validateAll(theform);
+            var anyalert = theform.find('.alert-validate');
+            if (anyalert.length === 0) {
+                var formData = new FormData(theform.get(0));
+                formData.append('action', 'infoChgPwd');
+                ajax_infoUpdateProfile(formData);
+            }
+        });
+
+        function ajax_infoUpdateProfile(formData) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/tnt/TntServlet2",
+                type: "POST",
+                data: formData,
+                // 告訴jQuery不要去處理髮送的資料
+                processData: false,
+                // 告訴jQuery不要去設定Content-Type請求頭
+                contentType: false,
+
+                success: function(data) { // 以上成功才執行
+                	console.log("data:" + data);
                     console.log("res棒");
                 },
                 error: function() {

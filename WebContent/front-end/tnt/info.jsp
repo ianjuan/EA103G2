@@ -5,7 +5,7 @@
 
 <%-- <% String tnt_no = (String) session.getAttribute("tnt_no");%> --%>
 <%
-	String tnt_no = "TNT000001";
+	String tnt_no = "TNT000002";
 %>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 
@@ -43,7 +43,6 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/jquery.datetimepicker.css">
-    <!--===============================================================================================-->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/util.css">
     <!--===============================================================================================-->
@@ -110,12 +109,12 @@
                             </a>
                             <div class="basicInfo__userImg mx-auto mb-3 divBigHeadPic">
                                 <!-- <input type="file" accept="image/jpg, image/jpeg, image/png" name="name" class="d-none"> -->
-<%--                                 <a class="upload" --%>
+<%--                                 <a class="awrapBigHeadPic" --%>
 <!--                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-camera fa-w-16"> -->
 <!--                                         <path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path> -->
 <!--                                     </svg> -->
 <!--                                 </a> -->
-                                <a href="" class="basicInfo__menu__link">
+                                <a class="awrapBigHeadPic">
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
@@ -196,8 +195,8 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
                                             <option value="">選擇性別
-                                            <option value="1">男
-                                            <option value="0">女
+                          					  <option value="${tntVO.tnt_sex}" ${(tntVO.tnt_sex)?'selected':''}>男
+											  <option value="${tntVO.tnt_sex}" ${(tntVO.tnt_sex)?'':'selected'}>女
                                         </span>
                                     </select>
                                     <div class="wrap-register100 validate-input" data-validate="Valid ID is required">
@@ -225,9 +224,9 @@
                                         </span>
                                     </select>
                                     <select class="wrap-register100 validate-input" data-validate="District is required" name="tnt_dist" id="tnt_dist">
-                                        <c:if test="${tntVO.tnt_dist!=null}">
+<%--                                         <c:if test="${tntVO.tnt_dist!=null}"> --%>
                             				<option value="${tntVO.tnt_dist}" id="dist_default">選擇區域
-                       					</c:if>
+<%--                        					</c:if> --%>
                                     </select>
                                     <div class="wrap-register100 validate-input" data-validate="Address is required">
                                         <input class="register100" type="text" name="tnt_add" id="tnt_add" value="${tntVO.tnt_add}">
@@ -311,9 +310,8 @@
 
                                     </div>
                                 </form>
-
                                 <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfochgPwd">儲存資訊</button>
+                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfoChgPwd">儲存資訊</button>
                                 </div>
                             </div>
                             <!--End form forgetPwd -->
@@ -364,52 +362,39 @@
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/info_tnt.js"></script>
     <!--===============================================================================================-->
     <script>
+    //------------------大吳datetimepicker--------------------
+    var somedate3 = new Date();
+    somedate3.setFullYear(somedate3.getFullYear() - 18);
+    
+//     var birthdaydefault = (${(tntVO.tnt_birth)!=null})? ${tntVO.tnt_birth}:somedate3; //壞的
+//     console.log(birthdaydefault);
+    
+    $.datetimepicker.setLocale('zh');
+    $('#f_date1').datetimepicker({
+        theme: '', // theme: 'dark',
+        timepicker: false, // timepicker:true,
+        step: 1, // step: 60 (這是timepicker的預設間隔60分鐘)
+        format: 'Y-m-d', // format:'Y-m-d H:i:s',
+        value:'${tntVO.tnt_birth}',  //somedate3
+        // value: new Date(),
+        // disabledDates: ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+        // startDate: '2017/07/10', // 起始日
+        // minDate: '-1970-01-01', // 去除今日(不含)之前
+        // maxDate: '+1970-01-01' // 去除今日(不含)之後
+    });
 
-//     $(document).ready(function() {
-//         var city_key = Object.keys(area_data);
-//         //若無原始資料, 把所有縣市選項放上去, 區域放選區域
-//         if ($('#tnt_city').val() === null) {
-//             $("#tnt_city").append('<option value="0" id="city_default">選擇縣市');
-//             city_key.forEach(function(item, index, array) {
-//                 $("#tnt_city").append('<option value="' + item + '">' + item);
-//             });
-//             $("#tnt_dist").append('<option value="0" id="dist_default">選擇區域');
+    // 2.以下為某一天之後的日期無法選擇--未滿18不能選
 
-//             // 若有原始縣市資料, 放上所有縣市選項, 且該縣市為selected
-//             // 再放上該縣市所有區域選項, 該區域為selected
-//         } else {
-//             var index_city;
-//             city_key.forEach(function(item, index, array) {
-//                 if (item === $('#tnt_city').val()) {
-//                     var tmp = ' selected';
-//                     index_city = index;
-//                 }
-//                 $("#tnt_city").append('<option value="' + item + '"' + tmp + '>' + item);
-
-//             });
-//             $('#city_default').val("0");
-//             var dist_values_selectedcity = Object.values(area_data)[index_city];
-//             dist_values_selectedcity.forEach(function(item, index, array) {
-//                 var tmp = (item === $('#tnt_dist').val()) ? ' selected' : '';
-//                 $("#tnt_dist").append('<option value="' + item + '"' + tmp + '>' + item);
-//             });
-//             $('#dist_default').val("0");
-//         }
-
-//         //選擇縣市, 區域連動
-//         $("#tnt_city").change(function() {
-//             city_key.forEach(function(item, index, array) {
-//                 if (item === $("#tnt_city").val()) {
-//                     $("#dist_default ~ option").remove();
-//                     var dist_values = Object.values(area_data)[index];
-//                     dist_values.forEach(function(item, index, array) {
-//                         $("#tnt_dist").append(
-//                             '<option value="' + item + '">' + item);
-//                     });
-//                 }
-//             });
-//         });
-//     });
+    $('#f_date1').datetimepicker({
+            beforeShowDay: function(date) {
+                if (date.getYear() > somedate3.getYear() || (date.getYear() == somedate3.getYear() && date.getMonth() > somedate3.getMonth()) ||
+                    (date.getYear() == somedate3.getYear() && date.getMonth() == somedate3.getMonth() && date.getDate() > somedate3.getDate())) {
+                    return [false, ""]
+                }
+                return [true, ""];
+            }
+        });
+    
     </script>
 
 

@@ -10,7 +10,6 @@ public interface TenantDAO_interface {
 
 	public void insert_profile(TntVO tntVO);
     public void update_profile(TntVO tntVO);
-    public void update_profile_withPic(TntVO tntVO);
     public TntVO findByPK_profile(String tnt_no);
     public List<TntVO> getAll_profile();
     
