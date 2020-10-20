@@ -37,10 +37,8 @@ public class CollectionDAO implements CollectionDAO_Interface{
 			 new String[] {"<10","BETWEEN 10 AND 30","BETWEEN 30 AND 50",">50"});
 	 private  static List<String> houseList =Arrays.asList(
 			 new String[] {"整層住家","獨立套房","分租套房","雅房"});
-//	 private  static List<String> comList =Arrays.asList(
-//			 new String[] {"<2","","分租套房","雅房"});
+
 	 
-//	 public List<CollectionVO> getAllCollectionVOfromTNTNO(String TNT_NO ,String HOS_PRICE,String HOS_TYPE,String HOS_PNUM,String HOS_REPORT){
 		 public List<CollectionVO> getAllCollectionVOfromTNTNO(CollectionVO vo){
 
 		      String i="select HOUSE_PICTURE.HOS_PIC ,HOUSE.HOS_NO,house.hos_name,house.HOS_RENTFEE,house.HOS_PNUM,house.HOS_TYPE,house.HOS_FLOOR,house.HOS_ROOM,house.HOS_MINDATE,my_collection.COL_DATE from HOUSE_PICTURE" + 

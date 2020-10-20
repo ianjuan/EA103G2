@@ -42,7 +42,6 @@ public class HouseDetDAO implements HouseDetDAO_interface {
             "INNER JOIN LANDLORd l on l.LLD_no = h.lld_no"+
 	 		"  WHERE h.HOS_NO = ? " );	 
 	 pstmt.setString(1,hos_no);
-//	 SELECT * FROM HOUSE WHERE HOS_NO = HOS00001
 	 rs = pstmt.executeQuery();
 	 System.out.println();
 	 while(rs.next()) {

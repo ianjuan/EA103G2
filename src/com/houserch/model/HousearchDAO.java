@@ -16,7 +16,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class HousearchDAO {
+public class HousearchDAO implements HousearchDAO_interface{
 	
 	private static DataSource ds =null;
 	static {
