@@ -5,7 +5,10 @@
 <%@ page import="java.util.*"%>
 
 <%
-	List<RpttVO> rpttVO = (List<RpttVO>) request.getAttribute("rpttVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+	RpttService rpttSvc = new RpttService();
+	List<RpttVO> rpttVO1 = rpttSvc.getRptt("0");
+	pageContext.setAttribute("rpttVO", rpttVO1);
+	List<RpttVO> rpttVO = (List<RpttVO>) pageContext.getAttribute("rpttVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
