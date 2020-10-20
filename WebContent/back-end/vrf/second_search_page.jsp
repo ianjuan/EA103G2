@@ -5,7 +5,8 @@
 <%@ page import="java.util.*"%>
 
 <%
-	List<RpttVO> rpttVO = (List<RpttVO>) request.getAttribute("rpttVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+	List<RpttVO> list = (List<RpttVO>) request.getAttribute("rpttVO");
+	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
@@ -42,16 +43,18 @@
 	href="${pageContext.request.contextPath}/back-end/vendor/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<link
+	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+	rel="stylesheet">
+
 <link rel="stylesheet" href="main_back.css" type="text/css">
 <style>
-button.checkall {
-	font-size: 15px;
-	font-weight: 600;
-	color: #8a97a0;
-	background-color: #fff;
-	border-radius: 2px;
-	border: 1px solid #8a97a0;
-	text-align: center;
+.toggle.ios, .toggle-on.ios, .toggle-off.ios {
+	border-radius: 20px;
+}
+
+.toggle.ios .toggle-handle {
+	border-radius: 20px;
 }
 </style>
 
@@ -393,20 +396,15 @@ button.checkall {
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<div class="row">
-								<div class="col-md-8">
+								<div class="col-md-9">
 									<h4 class="m-0 font-weight-bold text-primary">檢舉房客</h4>
-								</div>
-								<div class="col-md-1">
-									<a href="second_page.jsp">
-										<button class="checkall">查看全部</button>
-									</a>
 								</div>
 								<div class="col-md-3">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
 											搜尋: <input type="text" size="24" name="Number"
 												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input
-												type="hidden" name="action" value="get_want_display">
+												type="hidden" name="action" value="get_want_all_display">
 											<input type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 												tabindex="-1" />
@@ -415,17 +413,6 @@ button.checkall {
 								</div>
 							</div>
 						</div>
-						<div>
-							<c:if test="${not empty errorMsgs}">
-								<p></p>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red">${message}</li>
-									</c:forEach>
-								</ul>
-							</c:if>
-						</div>
-
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable">
@@ -435,12 +422,11 @@ button.checkall {
 											<th>房客編號</th>
 											<th>房東編號</th>
 											<th width="10%">檢舉時間</th>
-											<th>檢舉內容</th>
 											<th>員工編號</th>
-
+											<th>處理狀態</th>
 											<th>處理結果</th>
-
-
+											<th width="10%">檢舉完成時間</th>
+											<th>內容註記</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -449,108 +435,73 @@ button.checkall {
 											<th>房客編號</th>
 											<th>房東編號</th>
 											<th width="10%">檢舉時間</th>
-											<th>檢舉內容</th>
 											<th>員工編號</th>
-
+											<th>處理狀態</th>
 											<th>處理結果</th>
-
-
-
+											<th width="10%">檢舉完成時間</th>
+											<th>內容註記</th>
 										</tr>
 									</tfoot>
 									<tbody>
-										<%
-											for (RpttVO rpttvo : rpttVO) {
-										%>
-										<tr>
-											<td><%=rpttvo.getRptt_no()%></td>
-											<td><%=rpttvo.getTnt_no()%></td>
-											<td><%=rpttvo.getLld_no()%></td>
-											<td width="10%"><%=rpttvo.getRptt_time()%></td>
-											<td><%=rpttvo.getRptt_content()%></td>
-
-											<%
-												if (rpttvo.getEmp_no() != null) {
-											%>
-											<td><%=rpttvo.getEmp_no()%></td>
-											<%
-												} else {
-											%><td><form action="RpttServlet" method="post">
-													<input type="hidden" name="action" value="update_employee">
-													<input type="hidden" name="emp_no"
-														value="<%=pageContext.getAttribute("emp_no")%>"> <input
-														type="hidden" name="rptt_no"
-														value="<%=rpttvo.getRptt_no()%>"> <input
-														type="hidden" name="rptt_status" value="1">
-													<button type="submit" class="take">接受</button>
-												</form></td>
-											<%
-												}
-											%>
-
-											<%
-												if (rpttvo.getRptt_result() == 0) {
-											%>
-											<td>
-												<button class="check" data-toggle="modal"
-													data-target="#<%=rpttvo.getRptt_no()%>">查看詳情</button>
-											</td>
-											<%
-												}
-											%>
-										</tr>
-										<!-- Modal HTML -->
-										<div class="modal fade" id="<%=rpttvo.getRptt_no()%>"
-											tabindex="-1" role="dialog">
-											<div class="modal-dialog">
-												<div class="modal-content">
-													<div class="modal-header">
-														<div class="modal-body1">
-															<form action="RpttServlet" method="post" name="detail"
-																id="detail">
-																<input type="hidden" name="rptt_no"
-																	value="<%=rpttvo.getRptt_no()%>"><label
-																	for="reason1">檢舉原因:</label>
-																<textarea class="reason1" name="rptt_content" readonly><%=rpttvo.getRptt_content()%></textarea>
-																<div class="form-group">
-																	<label for="note">結果註記:</label>
-																	<textarea id="note" name="rptt_note"><%=rpttvo.getRptt_note()%></textarea>
-																</div>
-																<button type="submit" class="pass" name="action"
-																	value="pass">通過</button>
-																<button type="submit" class="fail" name="action"
-																	value="fail">不通過</button>
-																<button type="submit" class="send" name="action"
-																	value="assign_employee">指派</button>
-																<button type="submit" class="save" name="action"
-																	value="save_note">儲存</button>
-																<select class="emp_no" name="emp_no" size="1">
-																	<option value="" disabled selected>---請選擇將指派的同仁---</option>
-																	<option value="EMP000021">EMP000021</option>
-																	<option value="EMP000022">EMP000022</option>
-																	<option value="EMP000023">EMP000023</option>
-																	<option value="EMP000024">EMP000024</option>
-																	<option value="EMP000025">EMP000025</option>
-																</select>
-															</form>
+										<%@ include file="page1.file"%>
+										<c:forEach var="rpttVO" items="${list}">
+											<tr>
+												<td>${rpttVO.rptt_no}</td>
+												<td>${rpttVO.tnt_no}</td>
+												<td>${rpttVO.lld_no}</td>
+												<td width="10%">${rpttVO.rptt_time}</td>
+												<td>${rpttVO.emp_no}</td>
+												<c:choose>
+													<c:when test="${rpttVO.rptt_status==0}">
+														<td>未處理</td>
+													</c:when>
+													<c:otherwise>
+														<td>已處理</td>
+													</c:otherwise>
+												</c:choose>
+												<c:choose>
+													<c:when test="${rpttVO.rptt_result==1}">
+														<td>通過</td>
+													</c:when>
+													<c:when test="${rpttVO.rptt_result==2}">
+														<td>未通過</td>
+													</c:when>
+													<c:otherwise>
+														<td></td>
+													</c:otherwise>
+												</c:choose>
+												<td width="10%">${rpttVO.rptt_done_time}</td>
+												<td>
+													<button class="check" data-toggle="modal"
+														data-target="#${rpttVO.rptt_no}">查看詳情</button>
+												</td>
+											</tr>
+											<div class="modal fade" id="${rpttVO.rptt_no}" tabindex="-1"
+												role="dialog">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<div class="modal-body">
+																<form action="RpttServlet" method="post">
+																	<label for="reason">檢舉原因:</label>
+																	<textarea class="reason" name="rptt_content" readonly>${rpttVO.rptt_content}</textarea>
+																	<div class="form-group">
+																		<label for="note">結果註記:</label>
+																		<textarea id="note" name="rptt_note" readonly>${rpttVO.rptt_note}</textarea>
+																	</div>
+																</form>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										<%
-											}
-										%>
-
+										</c:forEach>
 									</tbody>
 								</table>
+								<%@ include file="page2.file"%>
 							</div>
 						</div>
 					</div>
-
-
-
-
 
 
 					<footer class="sticky-footer bg-white">
@@ -624,9 +575,15 @@ button.checkall {
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-
-
-
+	<script
+		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<script>
+		$(function() {
+			$('#showornot').change(function() {
+				document.getElementById("#show").submit();
+			})
+		})
+	</script>
 </body>
 
 </html>

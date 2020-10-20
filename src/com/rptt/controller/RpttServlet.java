@@ -67,7 +67,7 @@ public class RpttServlet extends HttpServlet {
 			}
 
 		}
-		
+
 		if ("get_want_all_display".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -232,7 +232,6 @@ public class RpttServlet extends HttpServlet {
 			}
 		}
 
-		
 		if ("getOne_For_Update".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -321,7 +320,15 @@ public class RpttServlet extends HttpServlet {
 				String emp_no = req.getParameter("emp_no");
 				System.out.println(emp_no);
 				if (emp_no == null) {
-					System.out.println("找不到員工編號");
+					System.out.println("空直跑到例外");
+					errorMsgs.add("未填寫要指派的員工編號! 麻煩重新操作一次");
+					RpttService rpttSvc = new RpttService();
+					List<RpttVO> rpttVO = rpttSvc.getRptt("0");
+					req.setAttribute("rpttVO", rpttVO);
+					String url = "/back-end/rptt/first_page.jsp";
+					RequestDispatcher FailView = req.getRequestDispatcher(url);
+					FailView.forward(req, res);
+					return;
 				}
 				String rptt_note = req.getParameter("rptt_note");
 				System.out.println(rptt_note);
@@ -347,6 +354,7 @@ public class RpttServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
+				System.out.println("跑到例外");
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/listAllRptt.jsp");
 				failureView.forward(req, res);
@@ -585,5 +593,8 @@ public class RpttServlet extends HttpServlet {
 			}
 		}
 	}
-
+        //------------------------------以下是驗證的control-------------------------------------------------------
+	
+	
+	
 }
