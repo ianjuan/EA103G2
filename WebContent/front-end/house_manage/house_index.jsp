@@ -67,10 +67,11 @@
 						<input type="hidden" name="action" value="getLldAllHouse">
 						<button type="submit" class="link" style="color: #D37707;">首頁</button>
 					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldUnRentHouse">
-						<button type="submit" class="link">待租房屋</button>
+						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
+						<input type="hidden" name="action" value="getLldPub">
+						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -79,41 +80,43 @@
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldUnRentHouse">
+						<button type="submit" class="link">待租房屋</button>
+					</FORM>					
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldOffHouse">
 						<button type="submit" class="link">下架房屋</button>
-					</FORM>
-					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
-						<input type="hidden" name="action" value="getLldPub">
-						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
-					</FORM>
+					</FORM>					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
-						<button type="submit" class="link">租屋申請</button><br>
+						<button type="submit" class="link">租屋申請</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
-						<button type="submit" class="link">歷史合約</button><br>
+						<button type="submit" class="link">合約管理</button>
 					</FORM>
+					<button type="button" class="link">修繕管理</button>
+					<button type="button" class="link">評價管理</button>
 				</div>
 			</nav>
 		</div>
 		<div id="center">
 			<div class="houseinfo">
 				<div class="linfo">
-					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/unrent.jpg" class="pic"/>
+					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/on.jpg" class="pic"/>
 				</div>
 				<div class="cinfo">
-					<span class="fontstyle">共</span><span class="numberstyle">&nbsp;<%=listunrent.size()%>&nbsp;</span><span class="fontstyle">間</span>
+					<span class="fontstyle">來刊登自己的房子吧~</span>
 				</div>
 				<div class="rinfo">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+					<FORM METHOD="post" name="pub1" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldUnRentHouse">
-						<button type="submit" class="link">查看清單</button>
+						<input type="hidden" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
+						<input type="hidden" name="action" value="getLldPub">
+						<button type="button" class="link" onclick="checkmoney1()">點我進入</button>
 					</FORM>
 				</div>
 			</div>
@@ -134,6 +137,21 @@
 			</div>
 			<div class="houseinfo">
 				<div class="linfo">
+					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/unrent.jpg" class="pic"/>
+				</div>
+				<div class="cinfo">
+					<span class="fontstyle">共</span><span class="numberstyle">&nbsp;<%=listunrent.size()%>&nbsp;</span><span class="fontstyle">間</span>
+				</div>
+				<div class="rinfo">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldUnRentHouse">
+						<button type="submit" class="link">查看清單</button>
+					</FORM>
+				</div>
+			</div>			
+			<div class="houseinfo">
+				<div class="linfo">
 					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/off.jpg" class="pic"/>
 				</div>
 				<div class="cinfo">
@@ -147,22 +165,7 @@
 					</FORM>
 				</div>
 			</div>
-			<div class="houseinfo">
-				<div class="linfo">
-					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/on.jpg" class="pic"/>
-				</div>
-				<div class="cinfo">
-					<span class="fontstyle">來刊登自己的房子吧~</span>
-				</div>
-				<div class="rinfo">
-					<FORM METHOD="post" name="pub1" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
-						<input type="hidden" name="action" value="getLldPub">
-						<button type="button" class="link" onclick="checkmoney1()">點我進入</button>
-					</FORM>
-				</div>
-			</div>
+			
 			<div class="houseinfo">
 				<div class="linfo">
 					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/apply.jpg" class="pic"/>
@@ -183,7 +186,7 @@
 					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/contract.jpg" class="pic"/>
 				</div>
 				<div class="cinfo">
-					<span class="fontstyle">來看看過去的爸爸們吧~</span>
+					<span class="fontstyle">來看看有哪些爸爸們吧~</span>
 				</div>
 				<div class="rinfo">
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
@@ -191,6 +194,28 @@
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link">點我進入</button><br>
 					</FORM>
+				</div>
+			</div>
+			<div class="houseinfo">
+				<div class="linfo">
+					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/fix.jpg" class="pic"/>
+				</div>
+				<div class="cinfo">
+					<span class="fontstyle">看看又有那些東西壞掉啦~</span>
+				</div>
+				<div class="rinfo">
+					<button type="submit" class="link">點我進入</button><br>
+				</div>
+			</div>
+			<div class="houseinfo">
+				<div class="linfo">
+					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/evaluation.jpg" class="pic"/>
+				</div>
+				<div class="cinfo">
+					<span class="fontstyle">來看看自己的評價吧~</span>
+				</div>
+				<div class="rinfo">
+					<button type="submit" class="link">點我進入</button><br>
 				</div>
 			</div>
 		</div>

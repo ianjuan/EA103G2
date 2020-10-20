@@ -24,7 +24,7 @@ public class Import591Images {
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USER = "G2DB";
 	private static final String PASSWORD = "123456";
-	private static final String SQL = "INSERT INTO HOUSE_PICTURE(PIC_NO, HOS_ID, HOS_PIC)" + "VALUES(?, ?, ?)";
+	private static final String SQL = "INSERT INTO HOUSE_PICTURE(PIC_NO, HOS_NO, HOS_PIC)" + "VALUES(?, ?, ?)";
 
 	public static void main(String[] args) {
 		Connection con = null;
@@ -33,7 +33,7 @@ public class Import591Images {
 		ArrayList<hospic> list = new ArrayList<hospic>();
 		try {
 			// 走訪所有資料夾下的所有檔案
-			Files.walk(Paths.get("/Users/ianjuan/EA103workspace/591"))
+			Files.walk(Paths.get("C:/Users/Big data/Desktop/591"))
 					// 只抓.jpg檔
 					.filter(p -> p.getFileName().toString().endsWith(".jpg")).forEach(f -> {
 						// 取得檔案路徑
