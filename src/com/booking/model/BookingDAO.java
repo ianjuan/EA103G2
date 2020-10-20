@@ -101,7 +101,6 @@ public class BookingDAO implements BookingDAO_interface {
 				System.out.println(str);
 
 				pstmt.setString(1, str);
-				String ran = "LLD000007";
 
 
 				pstmt.setString(2, lld_no);
