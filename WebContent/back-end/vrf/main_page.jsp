@@ -6,7 +6,7 @@
 
 <%
 	TntService tntSvc = new TntService();
-	List<TntVO> list = tntSvc.getUnvrf("0");
+	List<TntVO> list = tntSvc.getUnvrf("1");
 	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
@@ -44,16 +44,15 @@
 	href="${pageContext.request.contextPath}/back-end/vendor/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="main_back.css" type="text/css">
+<link rel="stylesheet" href="main_vrf_back.css" type="text/css">
 <style>
-button.checkall {
-	font-size: 15px;
-	font-weight: 600;
-	color: #8a97a0;
-	background-color: #fff;
-	border-radius: 2px;
-	border: 1px solid #8a97a0;
-	text-align: center;
+.modal-full {
+	min-width: 70%;
+	margin-left: 80;
+}
+
+.modal-full .modal-content {
+	min-height: auto;
 }
 </style>
 
@@ -464,28 +463,46 @@ button.checkall {
 											<!-- Modal HTML -->
 											<div class="modal fade" id="${tntVO.tnt_no}" tabindex="-1"
 												role="dialog">
-												<div class="modal-dialog">
+												<div class="modal-dialog  modal-full" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
-															<div class="modal-body1">
-																<form action="RpttServlet" method="post" name="detail"
-																	id="detail">
-																	<input type="hidden" name="tnt_no"><label
-																		for="reason1">檢舉原因:</label>
-																	<div class="form-group">
-																		<label for="note">結果註記:</label>
-																		<textarea id="note" name="tnt_note">hihi</textarea>
+															<div class="modal-body" style="height: 400px">
+																<div class="row">
+																	<div class="col-md-10">
+																		hi
+																		<div></div>
+																		<div></div>
+																		<div></div>
 																	</div>
-																	<button type="submit" class="pass" name="action"
-																		value="pass">通過</button>
-																	<button type="submit" class="fail" name="action"
-																		value="fail">不通過</button>
-																</form>
+																	<div class="col-md-2">
+																		<label for="name">會員編號:</label> ${tntVO.tnt_no} <br>
+																		<label for="name">會員姓名:</label> ${tntVO.tnt_name} <br>
+																		<label for="name">會員生日:</label> ${tntVO.tnt_birth} <br>
+
+																		<label for="name">會員身分證字號:</label> ${tntVO.tnt_id}<br>
+																		<form action="RpttServlet" method="post" name="detail"
+																			id="detail">
+
+																			<div>
+																				<button type="submit" class="fail" name="action"
+																					value="fail">不通過</button>
+																				<button type="submit" class="pass" name="action"
+																					value="pass">通過</button>
+																			</div>
+
+																			<label for="note">退件原因:</label><br>
+																			<textarea id="note" name="dis_reason"></textarea>
+
+																		</form>
+																	</div>
+																</div>
+
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
+
 										</c:forEach>
 									</tbody>
 								</table>

@@ -1,3 +1,4 @@
+package tools;
 
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -12,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 public class MailService {
 	
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
-	public void sendMail(String to, String subject, String messageText) {
+	public boolean sendMail(String to, String subject, String messageText) {
 			
 	   try {
 		   // 設定使用SSL連線至 Gmail smtp Server
@@ -26,7 +27,10 @@ public class MailService {
        // ●設定 gmail 的帳號 & 密碼 (將藉由你的Gmail來傳送Email)
        // ●須將myGmail的【安全性較低的應用程式存取權】打開
 	     final String myGmail = "ixlogic.wu@gmail.com";
-	     final String myGmail_password = "CCC45678CCC";
+		 final String myGmail_password = "CCC45678CCC";
+//	     final String myGmail = "ea103g2@gmail.com";
+//	     final String myGmail_password = "G2ea103!!!";
+	     
 		   Session session = Session.getInstance(props, new Authenticator() {
 			   protected PasswordAuthentication getPasswordAuthentication() {
 				   return new PasswordAuthentication(myGmail, myGmail_password);
@@ -44,9 +48,11 @@ public class MailService {
 
 		   Transport.send(message);
 		   System.out.println("傳送成功!");
+		   return true;
      }catch (MessagingException e){
 	     System.out.println("傳送失敗!");
 	     e.printStackTrace();
+	     return false;
      }
    }
 	
@@ -58,7 +64,8 @@ public class MailService {
       
       String ch_name = "peter1";
       String passRandom = "111";
-      String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
+//      String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
+      String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n";
        
       MailService mailService = new MailService();
       mailService.sendMail(to, subject, messageText);

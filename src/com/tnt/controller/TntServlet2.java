@@ -21,6 +21,8 @@ import javax.servlet.http.Part;
 
 import com.tnt.model.*;
 
+import tools.MailService;
+
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class TntServlet2 extends HttpServlet {
@@ -31,6 +33,7 @@ public class TntServlet2 extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setContentType("text/html; charset=UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = null;
 
@@ -250,29 +253,48 @@ public class TntServlet2 extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
-				String emailReg = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\\]?)$";
-				if (tnt_email == null || tnt_email.trim().length() == 0) {
-					errorMsgs.add("電子信箱: 請勿空白");
-				} else if (!tnt_email.trim().matches(emailReg)) {
-					errorMsgs.add("電子信箱錯誤");
-				}
 				System.out.println(tnt_email);
 
 				/*************************** 2.開始比對資料 ***************************************/
 				TntService tntSvc = new TntService();
 				List<TntVO> list = tntSvc.getAllAccount();//
-				String resString = "false";
+				String resString = "";
+				Boolean validateEmail = false;
+				String tnt_no = "";
 				for (TntVO tntVO : list) {
 					if (tnt_email.equals(tntVO.getTnt_email())) {
-						resString = "true";
+//						resString = "true";
+						validateEmail = true;
+						tnt_no = tntVO.getTnt_no();
 					}
 				}
-				out = res.getWriter();
-				out.print(resString);
+				if (!validateEmail) {
+					resString = "false";
+				}
+				if (validateEmail) {
+					TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
+					String tnt_name = tntVO.getTnt_name();
+					String tnt_pwd = getAuthCode();
+					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + tnt_pwd + "\n" + "請登入後至會員專區修改密碼";
+					MailService mailService = new MailService();
+					
+					//記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					tnt_email = "ea103g2@gmail.com";
+					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					
+					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
+					if (successSendMail) {
+						resString = "true";
+						tntSvc.updateTntPwd(tnt_no, tnt_pwd);
+						out = res.getWriter();
+						out.print(resString);
+					}
+				}
+				
 
 			} catch (Exception e) {
 //				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				System.out.println("忘記密碼失敗:" + e.getMessage());
+				System.out.println("忘記密碼Exception:" + e.getMessage());
 			}
 		}
 		
@@ -295,40 +317,40 @@ public class TntServlet2 extends HttpServlet {
 				String tnt_city = req.getParameter("tnt_city");
 				String tnt_dist = req.getParameter("tnt_dist");
 				String tnt_add = req.getParameter("tnt_add");
-				
-				System.out.println(tnt_email);
-				System.out.println(tnt_acc);
-				System.out.println(tnt_id);
-				
-				System.out.println(tnt_name);
-				System.out.println(tnt_birth);
-				System.out.println(tnt_sex);
-				
-				System.out.println(tnt_mobile);
-				System.out.println(tnt_city);
-				System.out.println(tnt_dist);
-				System.out.println(tnt_add);
+//				
+//				System.out.println(tnt_email);
+//				System.out.println(tnt_acc);
+//				System.out.println(tnt_id);
+//				
+//				System.out.println(tnt_name);
+//				System.out.println(tnt_birth);
+//				System.out.println(tnt_sex);
+//				
+//				System.out.println(tnt_mobile);
+//				System.out.println(tnt_city);
+//				System.out.println(tnt_dist);
+//				System.out.println(tnt_add);
 				
 				/*************************** 2.開始修改資料 ***************************************/
 				HttpSession session = req.getSession();
 				String tnt_no = (String) session.getAttribute("tnt_no");
 				
-				System.out.println(tnt_no);
+//				System.out.println(tnt_no);
 				
 				TntService tntSvc = new TntService();
 				TntVO tntVO_origin = tntSvc.getOneTntProfile(tnt_no);
 				
-				System.out.println(0);
+//				System.out.println(0);
 				
 				String tnt_pwd = tntVO_origin.getTnt_pwd();
 				Integer tnt_status = tntVO_origin.getTnt_status();
-				System.out.println(tnt_pwd);
-				System.out.println(tnt_status);
+//				System.out.println(tnt_pwd);
+//				System.out.println(tnt_status);
 				
 				tntSvc.updateTntProfile(tnt_no, tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex, tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
 				
 				out = res.getWriter();
-				out.print("修改成功");
+				out.print("true");
 				
 			} catch (Exception e) {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
@@ -343,30 +365,31 @@ public class TntServlet2 extends HttpServlet {
 //			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				Part part = req.getPart("tnt_pic");
-				System.out.println(part.getSize());
+				System.out.println("part.getSize():" + part.getSize());
 				if (part.getSize() != 0){
 					InputStream in = part.getInputStream();
 					byte[] tnt_pic = getPictureByteArray(in);
 					
-					System.out.println("1");
+//					System.out.println("1");
 					
 					TntVO tntVO = new TntVO();
 					tntVO.setTnt_pic(tnt_pic);
 					
-					System.out.println("2");
+//					System.out.println("2");
 					
 					HttpSession session = req.getSession();
 					String tnt_no = (String) session.getAttribute("tnt_no");
 					
-					System.out.println(tnt_no);
+//					System.out.println(tnt_no);
 					
 					TntService tntSvc = new TntService();
 					tntSvc.updateTntPic(tnt_no, tnt_pic);
 					
-					System.out.println("3");
+//					System.out.println("3");
 					
 					out = res.getWriter();
-					out.print("修改成功");
+					out.print("true");
+//					out.close();
 				}
 				
 			} catch (Exception e) {
@@ -386,34 +409,31 @@ public class TntServlet2 extends HttpServlet {
 				String tnt_no = (String) session.getAttribute("tnt_no");
 				String tnt_pwd = req.getParameter("tnt_pwd");
 				String tnt_pwd_new = req.getParameter("tnt_pwd_new");
-
-//				TntVO tntVO_new = new TntVO();
-//				tntVO_new.setTnt_pwd(tnt_pwd_new);
 				
-				System.out.println(tnt_pwd_new);
+//				System.out.println(tnt_pwd_new);
 
 				/*************************** 2.開始比對登入資料 ***************************************/
 				// 【檢查該帳號 , 密碼是否有效】
 				TntService tntSvc = new TntService();
-				System.out.println("1");
+//				System.out.println("1");
 //				TntVO tntVO_origin = tntSvc.getOneTntAccount(tnt_no);
 				TntVO tntVO_origin = tntSvc.getOneTntProfile(tnt_no);
-				System.out.println("2");
+//				System.out.println("2");
 				String tnt_pwd_origin = tntVO_origin.getTnt_pwd();
-				System.out.println("3");
+//				System.out.println("3");
 				out = res.getWriter();
 				if (tnt_pwd_origin.equals(tnt_pwd)) {
-					System.out.println("密碼比對");
+					System.out.println("忘記密碼比對成功");
 					tntSvc.updateTntPwd(tnt_no, tnt_pwd_new);
-					out.print("密碼更改成功");
+					out.print("true");
 				} else {
-					System.out.println("5");
+//					System.out.println("5");
 //					errorMsgs.add("密碼錯誤");
 //					req.setAttribute("tntVO", tntVO); // 含有輸入格式錯誤的tntVO物件,也存入req
 //					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tnt/info.jsp");
 //					failureView.forward(req, res);
 //					return; // 程式中斷
-					out.print("密碼錯誤");
+					out.print("false");
 				}
 			} catch (Exception e) {
 				System.out.println("infoChgPwd Exception: " + e.getMessage());
@@ -495,6 +515,24 @@ public class TntServlet2 extends HttpServlet {
 			alternate = !alternate;
 		}
 		return (sum % 10 == 0);
+	}
+	
+	//產生亂數8碼
+	private String getAuthCode() {
+		int[] unicodeArr = new int[26 + 26 + 10];
+		int element = (int) '0';
+		for (int i = 0; i < unicodeArr.length; i++) {
+			unicodeArr[i] = element;
+			element++;
+			element = element == 58 ? 65 : element;
+			element = element == 91 ? 97 : element;
+		}
+
+		StringBuffer code = new StringBuffer();
+		for (int i = 1; i <= 8; i++) {
+			code.append((char) unicodeArr[new java.util.Random().nextInt(unicodeArr.length)]);
+		}
+		return code.toString();
 	}
 
 }

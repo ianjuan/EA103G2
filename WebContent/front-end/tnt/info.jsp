@@ -4,9 +4,6 @@
 
 
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
-<%-- <% --%>
-// <!-- // 	String tnt_no = "TNT000003"; -->
-<%-- %> --%>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 
 <%
@@ -93,11 +90,9 @@
 
 <body class="landing">
 	<jsp:include page="/front-end/navbar/navbar.jsp"/>
-
     <section>
         <section class="content">
             <div class="container" id="infocontainer">
-                <!--             style="border:1px solid orange" -->
                 <div class="row no-gutters justify-content-between">
                     <!--start info list -->
                     <div class="basicInfo__list col-lg-3">
@@ -195,8 +190,8 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
                                             <option value="">選擇性別
-                          					  <option value="${tntVO.tnt_sex}" ${(tntVO.tnt_sex)?'selected':''}>男
-											  <option value="${tntVO.tnt_sex}" ${(tntVO.tnt_sex)?'':'selected'}>女
+                          					  <option value="true" ${(tntVO.tnt_sex)?'selected':''}>男
+											  <option value="false" ${(tntVO.tnt_sex)?'':'selected'}>女
                                         </span>
                                     </select>
                                     <div class="wrap-register100 validate-input" data-validate="Valid ID is required">
@@ -306,7 +301,7 @@
                                         <input class="register100" type="password" name="tnt_pwd_new2" id="tnt_pwd_new2">
                                         <span class="focus-register100"></span> <span class="label-register100">確認新密碼</span>
                                     </div>
-                                    <div class="wrap-validate-chgPwd" data-validate="帳號密碼錯誤">
+                                    <div class="wrap-validate-login" data-validate="帳號密碼錯誤">
 
                                     </div>
                                 </form>

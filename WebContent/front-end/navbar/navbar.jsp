@@ -69,7 +69,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	
 	}
 	if("<%= tntno%>"!=="null"){
-
+<%-- 		<img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" > --%>
 		$("#div-nav").append(
 				"<nav class='navbar navbar-expand-lg navbar-light bg-light' style='background-color:#AACFBF !important;'>"+
 	            "<div class='container'>"+

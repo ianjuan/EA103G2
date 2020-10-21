@@ -21,6 +21,8 @@
 		lld_no = request.getParameter("lld_no");
 	}
 	
+	String con_no = (String) request.getAttribute("con_no");
+	
 	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
 	if (lldInfo == null) {
 		HouseService houseSvc = new HouseService();
@@ -45,8 +47,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_pub.css">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_pub.js" charset="UTF-8"></script>
+	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/rec/css/detailrec.css">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/rec/js/detailrec.js" charset="UTF-8"></script>
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -127,18 +129,11 @@
                 </div>
             </nav>
 		</div>
+		<form class="table" name="recForm" METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 			<div id="center">
 				<div id="chead">
 					<ul>
-						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="show1()">基本資訊</button></li>
-						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="show2()">房屋圖片</button></li>
-						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="show3()">家具設備</button></li>
-						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn4" onclick="show4()">各項費用</button></li>
-						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn5" onclick="show5()">其他條件</button></li>
+						
 					</ul>
 				</div>		
 				<div id="cbody">				
@@ -256,32 +251,25 @@
 					</div>		        				
 				</div>
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
+				<input type="hidden" name="con_no" value="<%=con_no%>">
 				<div id="cfoot">
-					<button class="btn" type="button" onclick="notice2()">全部重填</button>
-					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
-					<button class="btn" id="ne1" type="button" onclick="next()">下頁</button>	
-					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="btn" type="button" onclick="notice1()">送出合約</button>					
+					<button class="btn" type="button" onclick="notice2()">修改申請</button>
+					<input type="hidden" name="action" value="getlldrec">
+					<button class="btn" type="button" onclick="notice1()">確定</button>					
 				</div>				
 			</div>
 			<div id="right">
 				<div id="rhead">
 					<ul>
-						<li class="title1"><button type="button" class="titlebtn" id="btn6" onclick="show1()">基本資訊</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="show2()">房東簽名</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn8" onclick="show3()">家具設備</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn9" onclick="show4()">各項費用</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn10" onclick="show5()">其他條件</button></li>
 					</ul>
 				</div>
 				<div id="rfoot">
-					<button class="btn" type="button" onclick="notice2()">全部重填</button>
-					<button class="btn" id="pr2" type="button" onclick="previous()">上頁</button>
-					<button class="btn" id="ne2" type="button" onclick="next()">下頁</button>
-					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="btn" type="button" onclick="notice1()">送出合約</button>
+					<button class="btn" type="button" onclick="notice2()">修改申請</button>
+					<input type="hidden" name="action" value="getlldrec">
+					<button class="btn" type="button" onclick="notice1()">確定</button>
 				</div>
 			</div>
+		</FORM>			
 	</div>
 	<div id="foot"></div>		
 </body>
