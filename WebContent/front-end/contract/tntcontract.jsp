@@ -535,7 +535,7 @@
 					<button class="btn" type="button" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne1" type="button" onclick="next()">下頁</button>	
-					<input type="hidden" name="action" value="updateonelldcontract">
+					<input type="hidden" name="action" value="updateonetntcontract">
 					<button class="btn" type="button" onclick="notice1()">送出合約</button>					
 				</div>				
 			</div>
@@ -553,7 +553,7 @@
 					<button class="btn" type="button" onclick="notice2()">全部重填</button>
 					<button class="btn" id="pr2" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne2" type="button" onclick="next()">下頁</button>
-					<input type="hidden" name="action" value="updateonelldcontract">
+					<input type="hidden" name="action" value="updateonetntcontract">
 					<button class="btn" type="button" onclick="notice1()">送出合約</button>
 				</div>
 			</div>
