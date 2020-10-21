@@ -258,6 +258,14 @@
 	</servlet-mapping>
 	
 <!-- 	Melon -->
+<servlet>
+		<servlet-name>MailServiceBackEnd</servlet-name>
+		<servlet-class>tools.MailServiceBackEnd</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MailServiceBackEnd</servlet-name>
+		<url-pattern>/back-end/emp/forgot</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>EmployeeServlet</servlet-name>
 		<servlet-class>com.emp.controller.EmployeeServlet</servlet-class>

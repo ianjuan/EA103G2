@@ -14,8 +14,15 @@ public class EmployeeVO implements java.io.Serializable {
 	private Integer emp_title; 
 	private String emp_name;
 	private Integer emp_is_delete;
+	private String emp_mail;
 	final Base64.Encoder encoder = Base64.getEncoder();
 	private byte[] emp_pic;
+	public String getEmp_mail() {
+		return emp_mail;
+	}
+	public void setEmp_mail(String emp_mail) {
+		this.emp_mail = emp_mail;
+	}
 	public String getEmp_no() {
 		return emp_no;
 	}
