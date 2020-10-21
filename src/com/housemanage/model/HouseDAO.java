@@ -297,10 +297,7 @@ public class HouseDAO implements HouseDAO_interface {
 			pstmt.setInt(9, houseVO.getHos_refrig());
 			pstmt.setInt(10, houseVO.getHos_wash());
 			pstmt.setInt(11, houseVO.getHos_hoter());
-			pstmt.setInt(12, houseVO.getHos_forth());
-			pstmt.setInt(13, houseVO.getHos_net());
-			pstmt.setInt(14, houseVO.getHos_gas());
-			pstmt.setString(15, houseVO.getHos_no());
+			pstmt.setString(12, houseVO.getHos_no());
 
 			pstmt.executeUpdate();
 

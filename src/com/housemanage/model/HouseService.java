@@ -154,6 +154,7 @@ public class HouseService {
 		houseVO.setHos_refrig(hos_refrig);
 		houseVO.setHos_wash(hos_wash);
 		houseVO.setHos_hoter(hos_hoter);
+		houseVO.setHos_no(hos_no);
 		dao.updateHouseFurniture(houseVO);
 
 		return houseVO;

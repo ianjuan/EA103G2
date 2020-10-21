@@ -232,7 +232,6 @@ public class ConServlet extends HttpServlet {
 
 				/*************************** 修正房東資訊 ****************************************/
 				String lld_mobile = new String(req.getParameter("lld_mobile"));
-				System.out.println(lld_mobile);
 
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
@@ -253,26 +252,28 @@ public class ConServlet extends HttpServlet {
 						lld_mobile, lld_city, lld_dist, lld_add, lld_pic, lld_status);
 
 				/*************************** 更新房屋家具 **********************/
-//				Integer hos_table = new Integer(req.getParameter("hos_table"));
-//				Integer hos_chair = new Integer(req.getParameter("hos_chair"));
-//				Integer hos_bed = new Integer(req.getParameter("hos_bed"));
-//				Integer hos_closet = new Integer(req.getParameter("hos_closet"));
-//				Integer hos_sofa = new Integer(req.getParameter("hos_sofa"));
-//				Integer hos_tv = new Integer(req.getParameter("hos_tv"));
-//				Integer hos_drink = new Integer(req.getParameter("hos_drink"));
-//				Integer hos_aircon = new Integer(req.getParameter("hos_aircon"));
-//				Integer hos_refrig = new Integer(req.getParameter("hos_refrig"));
-//				Integer hos_wash = new Integer(req.getParameter("hos_wash"));
-//				Integer hos_hoter = new Integer(req.getParameter("hos_hoter"));
-//				System.out.println(hos_bed);
+				Integer hos_table = new Integer(req.getParameter("hos_table"));
+				Integer hos_chair = new Integer(req.getParameter("hos_chair"));
+				Integer hos_bed = new Integer(req.getParameter("hos_bed"));
+				Integer hos_closet = new Integer(req.getParameter("hos_closet"));
+				Integer hos_sofa = new Integer(req.getParameter("hos_sofa"));
+				Integer hos_tv = new Integer(req.getParameter("hos_tv"));
+				Integer hos_drink = new Integer(req.getParameter("hos_drink"));
+				Integer hos_aircon = new Integer(req.getParameter("hos_aircon"));
+				Integer hos_refrig = new Integer(req.getParameter("hos_refrig"));
+				Integer hos_wash = new Integer(req.getParameter("hos_wash"));
+				Integer hos_hoter = new Integer(req.getParameter("hos_hoter"));
+				System.out.println(hos_table);
+				System.out.println(hos_bed);
+				System.out.println(hos_chair);
 //
 ////				Integer hos_forth = getReqNum(req, "hos_forth");
 ////				Integer hos_net = getReqNum(req, "hos_net");
 ////				Integer hos_gas = getReqNum(req, "hos_gas");
 //
-//				HouseService houseSvc = new HouseService();
-//				houseSvc.updateHouseFurniture(hos_table, hos_chair, hos_bed, hos_closet, hos_sofa, hos_tv, hos_drink,
-//						hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_no);
+				HouseService houseSvc = new HouseService();
+				houseSvc.updateHouseFurniture(hos_table, hos_chair, hos_bed, hos_closet, hos_sofa, hos_tv, hos_drink,
+						hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_no);
 
 				/*************************** 房東簽名 ****************************************/
 				Part part = req.getPart("con_lld_sign");
@@ -292,7 +293,7 @@ public class ConServlet extends HttpServlet {
 				Date con_che_date = con_aplVO.getApl_str();
 //				HouseService hosSvc = new HouseService();
 //				Integer hos_dep = hosSvc.getHouseInfo(hos_no).getHos_rentfee();
-				Integer hos_dep = null;
+				Integer hos_dep = 0;
 				Integer con_sta = 1;
 
 				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, hos_dep,
@@ -301,10 +302,13 @@ public class ConServlet extends HttpServlet {
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				ConService conService = new ConService();
 				List<ConVO> list = conService.lldgetcon(lld_no);
+				
+				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 
 				HttpSession session = req.getSession();
 				session.setAttribute("lld_no", lld_no);
 				session.setAttribute("list", list);
+				req.setAttribute("lldInfo", lldInfo);
 				String url = "/front-end/contract/lldlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

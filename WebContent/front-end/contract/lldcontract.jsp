@@ -238,7 +238,7 @@
 										<li>
 											<label class="item_name">椅子&nbsp;&nbsp;
 												<select name="hos_chair">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -254,7 +254,7 @@
 										<li>
 											<label class="item_name">床&nbsp;&nbsp;
 												<select name="hos_bed">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -270,7 +270,7 @@
 										<li>
 											<label class="item_name">衣櫃&nbsp;&nbsp;
 												<select name="hos_closet">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -286,7 +286,7 @@
 										<li>
 											<label class="item_name">沙發&nbsp;&nbsp;
 												<select name="hos_sofa">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -309,7 +309,7 @@
 										<li>
 											<label class="item_name">冰箱&nbsp;&nbsp;
 												<select name="hos_refrig">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -325,7 +325,7 @@
 										<li>
 											<label class="item_name">電視&nbsp;&nbsp;
 												<select name="hos_tv">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -341,7 +341,7 @@
 										<li>
 											<label class="item_name">飲水機&nbsp;&nbsp;
 												<select name="hos_drink">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -357,7 +357,7 @@
 										<li>
 											<label class="item_name">冷氣&nbsp;&nbsp;
 												<select name="hos_aircon">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -373,7 +373,7 @@
 										<li>
 											<label class="item_name">洗衣機&nbsp;&nbsp;
 												<select name="hos_wash">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
@@ -389,7 +389,7 @@
 										<li>
 											<label class="item_name">熱水器&nbsp;&nbsp;
 												<select name="hos_hoter">
-												  <option value="1">1</option>
+												  <option value="1" selected>1</option>
 												  <option value="2">2</option>
 												  <option value="3">3</option>
 												  <option value="4">4</option>
