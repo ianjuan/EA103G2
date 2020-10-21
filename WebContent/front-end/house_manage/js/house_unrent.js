@@ -19,9 +19,9 @@ window.onload = function(){
                 imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);  
             });  
     });
+    
+    rowcount();
 }
-
-
 
 function imgShow(outerdiv, innerdiv, bigimg, _this){  
             var src = _this.attr("src");//獲取當前點選的pimg元素中的src屬性  
@@ -148,22 +148,4 @@ function checkmoney(){
 	function rowcount(){
 		var list = document.getElementById("list").getElementsByTagName("tr").length;
 		document.getElementById("count1").innerHTML = list-1;
-	}
-
-	window.onload = function(){
-		rowcount();
-		
-		var menuBtn = document.querySelector('.menu-btn');
-		var nav = document.querySelector('#housenav');
-		var lineOne = document.querySelector('#housenav .menu-btn .line--1');
-		var lineTwo = document.querySelector('#housenav .menu-btn .line--2');
-		var lineThree = document.querySelector('#housenav .menu-btn .line--3');
-		var link = document.querySelector('#housenav .nav-links');
-		menuBtn.addEventListener('click', function() {
-			nav.classList.toggle('nav-open');
-			lineOne.classList.toggle('line-cross');
-			lineTwo.classList.toggle('line-fade-out');
-			lineThree.classList.toggle('line-cross');
-			link.classList.toggle('fade-in');
-		})
 	}
