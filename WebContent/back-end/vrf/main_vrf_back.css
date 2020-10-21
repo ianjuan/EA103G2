@@ -1,0 +1,85 @@
+textarea:invalid {
+	border: 1px solid red;
+}
+
+textarea, select {
+	background-color: #ffffff;
+	border: 1px solid #e5e5e4;
+	font-size: 16px;
+	height: auto;
+	margin: 0;
+	outline: 0;
+	padding: 8px 18px;
+	height: 150px;
+	width: 100%;
+	color: #8a97a0;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+	margin-bottom: 0px;
+	transition: all .2s ease;
+}
+
+button.checkall {
+	font-size: 15px;
+	font-weight: 600;
+	color: #8a97a0;
+	background-color: #fff;
+	border-radius: 2px;
+	border: 1px solid #8a97a0;
+	text-align: center;
+}
+
+button.check {
+	font-size: 16px;
+	font-weight: 600;
+	color: #0f868c;
+	background-color: #fff;
+	border-radius: 8px;
+	border: 1px solid #0f868c;
+	text-align: center;
+}
+
+table {
+	table-layout: auto
+}
+
+.col-md {
+	text-align: center;
+}
+
+button.pass {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	font-weight: 600;
+	text-transform: uppercase;
+	width: 48%;
+	color: #FFF;
+	background-color: #0f868c;
+	border-radius: 6px;
+	border: 1px solid #0f868c;
+	text-align: center;
+	color: #FFF;
+}
+
+button.fail {
+	margin-top: 5px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	font-weight: 600;
+	text-transform: uppercase;
+	width: 47%;
+	color: #FFF;
+	background-color: #FB6565;
+	border-radius: 6px;
+	border: 1px solid #FB6565;
+	text-align: center;
+}
+
+select[size] {
+	height: auto
+}
+
+td tr {
+	max-width: 100%;
+	white-space: nowrap;
+}
