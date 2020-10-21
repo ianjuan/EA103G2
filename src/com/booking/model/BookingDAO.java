@@ -31,7 +31,7 @@ public class BookingDAO implements BookingDAO_interface {
 	}
 
 
-	public List<BookingVO> getBookingInfoListByhosno(String hoId){
+	public List<BookingVO> getBookingInfoListByhosno(String hoId){//在房屋頁面根據房屋編號取對應房東的行程表
 		List<BookingVO> list = new ArrayList<BookingVO>();
 		Connection con = null;
 		ResultSet rs = null;
@@ -86,7 +86,7 @@ public class BookingDAO implements BookingDAO_interface {
 		return list;
 	}
 
-	public ArrayList<String> insert(ArrayList<String> strings, String lld_no){
+	public ArrayList<String> insert(ArrayList<String> strings, String lld_no){//房東新增可預約日期 丟欲新增日期LIST跟房東編號近來
 		ArrayList<String> list = new ArrayList<String>();
 		Connection con = null;
 		ResultSet rs = null;
@@ -147,7 +147,7 @@ public class BookingDAO implements BookingDAO_interface {
 		return list;
 	}
 
-	public void delet(String bid){
+	public void delet(String bid){//房東刪除預約 根據預約編號
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -177,7 +177,7 @@ public class BookingDAO implements BookingDAO_interface {
 		}
 	}
 
-	public void update(String sta){
+	public void update(String sta){//被預約後更新預約狀態 根據預約編號
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -208,7 +208,7 @@ public class BookingDAO implements BookingDAO_interface {
 		}
 	}
 
-	public void insertorder(BookingVO vo){
+	public void insertorder(BookingVO vo){//新增房客預約時段相關資訊 與上一個方法一起使用
     	Connection con = null;
 	    PreparedStatement pstmt=null;
 		try {
@@ -250,7 +250,7 @@ public class BookingDAO implements BookingDAO_interface {
 	    		}
 	        	}
     }
-	public List<BookingVO> getBookingInfoListBylldno(String lldno){
+	public List<BookingVO> getBookingInfoListBylldno(String lldno){//取得行程表 根據房東編號
 		List<BookingVO> list = new ArrayList<BookingVO>();
 		Connection con = null;
 		ResultSet rs = null;
@@ -301,7 +301,10 @@ public class BookingDAO implements BookingDAO_interface {
 				}
 			}
 		}
-
 		return list;
 	}
+	
+	
+	
+	
 }
