@@ -611,6 +611,10 @@
             if ($('.picPreview').find('img').length===1) {
                 var formData = new FormData(theform.get(0));
                 formData.append('action', 'infoPicUpload');
+//              console.log(formData);
+                for (let key of formData.keys()) {
+                     console.log(key + " : " + formData.get(key));
+                }
                 ajax_infoPicUpload(formData);
             }
         });

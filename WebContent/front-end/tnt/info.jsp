@@ -3,10 +3,10 @@
 <%@ page import="com.tnt.model.*"%>
 
 
-<%-- <% String tnt_no = (String) session.getAttribute("tnt_no");%> --%>
-<%
-	String tnt_no = "TNT000002";
-%>
+<% String tnt_no = (String) session.getAttribute("tnt_no");%>
+<%-- <% --%>
+// <!-- // 	String tnt_no = "TNT000003"; -->
+<%-- %> --%>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 
 <%

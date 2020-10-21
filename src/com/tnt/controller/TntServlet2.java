@@ -343,7 +343,7 @@ public class TntServlet2 extends HttpServlet {
 //			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				Part part = req.getPart("tnt_pic");
-				System.out.println(part);
+				System.out.println(part.getSize());
 				if (part.getSize() != 0){
 					InputStream in = part.getInputStream();
 					byte[] tnt_pic = getPictureByteArray(in);
