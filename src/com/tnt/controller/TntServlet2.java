@@ -274,7 +274,8 @@ public class TntServlet2 extends HttpServlet {
 				if (validateEmail) {
 					TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
 					String tnt_name = tntVO.getTnt_name();
-					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + getAuthCode() + "\n" + "請登入後至會員專區修改密碼";
+					String tnt_pwd = getAuthCode();
+					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + tnt_pwd + "\n" + "請登入後至會員專區修改密碼";
 					MailService mailService = new MailService();
 					
 					//記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -284,6 +285,7 @@ public class TntServlet2 extends HttpServlet {
 					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
 					if (successSendMail) {
 						resString = "true";
+						tntSvc.updateTntPwd(tnt_no, tnt_pwd);
 						out = res.getWriter();
 						out.print(resString);
 					}
