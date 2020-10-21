@@ -101,6 +101,7 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldOffHouse">
 						<button type="submit" class="link" style="color: #D37707;">下架房屋</button>
+						<br><span id="count">共<%=list.size()%>間</span>
 					</FORM>					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">

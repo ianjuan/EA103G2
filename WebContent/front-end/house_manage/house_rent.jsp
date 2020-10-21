@@ -90,6 +90,7 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldRentHouse">
 						<button type="submit" class="link" style="color: #D37707;">已租房屋</button>
+						<br><span id="count">共<%=list.size()%>間</span>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
