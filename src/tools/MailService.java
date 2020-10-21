@@ -1,3 +1,4 @@
+package tools;
 
 import java.util.Properties;
 import javax.mail.Authenticator;
@@ -12,7 +13,7 @@ import javax.mail.internet.MimeMessage;
 public class MailService {
 	
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
-	public void sendMail(String to, String subject, String messageText) {
+	public boolean sendMail(String to, String subject, String messageText) {
 			
 	   try {
 		   // 設定使用SSL連線至 Gmail smtp Server
@@ -47,9 +48,11 @@ public class MailService {
 
 		   Transport.send(message);
 		   System.out.println("傳送成功!");
+		   return true;
      }catch (MessagingException e){
 	     System.out.println("傳送失敗!");
 	     e.printStackTrace();
+	     return false;
      }
    }
 	
