@@ -48,7 +48,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<div class='navbar-nav ml-auto'>"+
 	                "<a class='nav-item nav-link active' href='<%=request.getContextPath()%>/front-end/selectpage/SELECTpage.jsp'>尋找房源<span class='sr-only'>(current)</span></a>"+
 	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/mapserach/gmap2.jsp'>地圖找房</a>"+
-	                "<a class='nav-item nav-link' href='https://www.gamer.com.tw/'>我的房屋</a>"+
+	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp'>我的房屋</a>"+
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+

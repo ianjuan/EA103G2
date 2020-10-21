@@ -49,9 +49,10 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String GET_WATERFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000001'";
 	private static final String GET_ELECTFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000002'";
 	private static final String GET_LLDHOUSEPIC = "SELECT pic_no FROM HOUSE_PICTURE where hos_no=?";
-	private static final String GET_LLDUNRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '待出租' order by hos_no DESC";
-	private static final String GET_LLDRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '出租中' order by hos_no DESC";
-	private static final String GET_LLDOFFHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '已下架' order by hos_no DESC";
+	private static final String GET_LLDALLHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=?";
+	private static final String GET_LLDUNRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '待出租' order by hos_no DESC";
+	private static final String GET_LLDRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '出租中' order by hos_no DESC";
+	private static final String GET_LLDOFFHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '已下架' order by hos_no DESC";
 	private static final String DELETE_HOUSEPIC = "DELETE FROM HOUSE_PICTURE where pic_no=?";
 	private static final String DELETE_HOUSEINFO = "DELETE FROM HOUSE where hos_no=?";
 	private static final String GET_ALLHOUSE = "SELECT hos_no,h.lld_no,lld_name,hos_add,hos_status,hos_type,hos_room FROM HOUSE h JOIN LANDLORD l on h.lld_no = l.lld_no";
@@ -615,7 +616,66 @@ public class HouseDAO implements HouseDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<HouseVO> getLldAllHouse(String lld_no) {
+		List<HouseVO> list = new ArrayList<HouseVO>();
+		HouseVO houseVO = null;
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_LLDALLHOUSE);
+
+			pstmt.setString(1, lld_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				houseVO = new HouseVO();
+				houseVO.setHos_no(rs.getString("hos_no"));
+				houseVO.setHos_name(rs.getString("hos_name"));
+				houseVO.setHos_add(rs.getString("hos_add"));
+				houseVO.setHos_status(rs.getString("hos_status"));
+				houseVO.setHos_type(rs.getString("hos_type"));
+				houseVO.setHos_room(rs.getString("hos_room"));
+				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
+				list.add(houseVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	@Override
 	public List<HouseVO> getLldRentHouse(String lld_no) {
 		List<HouseVO> list = new ArrayList<HouseVO>();
@@ -639,6 +699,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_add(rs.getString("hos_add"));
 				houseVO.setHos_status(rs.getString("hos_status"));
+				houseVO.setHos_type(rs.getString("hos_type"));
 				houseVO.setHos_room(rs.getString("hos_room"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
 				list.add(houseVO); // Store the row in the list
@@ -697,6 +758,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_add(rs.getString("hos_add"));
 				houseVO.setHos_status(rs.getString("hos_status"));
+				houseVO.setHos_type(rs.getString("hos_type"));
 				houseVO.setHos_room(rs.getString("hos_room"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
 				list.add(houseVO); // Store the row in the list
@@ -755,6 +817,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_add(rs.getString("hos_add"));
 				houseVO.setHos_status(rs.getString("hos_status"));
+				houseVO.setHos_type(rs.getString("hos_type"));
 				houseVO.setHos_room(rs.getString("hos_room"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
 				list.add(houseVO); // Store the row in the list

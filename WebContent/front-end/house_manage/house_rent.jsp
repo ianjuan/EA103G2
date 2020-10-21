@@ -156,7 +156,55 @@
 						</div>					
 					</div>
 			</c:forEach>
-			<div id="right"></div>
+			<div id="right">
+				
+				<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="rentHouse">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				      	<div id="search">
+				      		 <span class="count1">關鍵字搜尋：</span><input type="search" class="light-table-filter" data-table="order-table" placeholder="請輸入關鍵字" style="text-align:left;">
+					  		<span class="count1">共</span><span id="count1" class="count2"></span><span class="count1">筆</span>
+				      		<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right; margin-top: 8px;margin-right: 8px;">
+					          <span aria-hidden="true">&times;</span>
+					        </button>			      	
+				      	</div> 			      	
+					  	<table id="list" class="order-table">
+						<thead>
+							<tr>
+								<th class="hos">編號</th>
+								<th class="hos">房屋編號</th>
+								<th>名稱</th>
+								<th>地址</th>
+								<th>房屋</th>
+								<th>房間</th>
+								<th>租金</th>
+								<th class="fun">狀態</th>
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="houseVO" items="${list}" varStatus="house">					
+							<tr>
+								<td width="5%">${house.count}</td>
+								<td width="11%">${houseVO.hos_no}</td>
+								<td width="24%">${houseVO.hos_name}</td>
+								<td width="24%">${houseVO.hos_add}</td>
+								<td width="10%">${houseVO.hos_type}</td>						
+								<td width="10%">${houseVO.hos_room}</td>
+								<td width="8%">${houseVO.hos_rentfee}</td>
+								<td class="status" width="8%">${houseVO.hos_status}</td>							
+							</tr>					
+						</c:forEach>
+						</tbody>
+					</table>
+				    </div>
+				  </div>
+				</div>
+							
+				<label>
+					<button type="button" class="btn" data-toggle="modal" data-target="#rentHouse">查看房屋清單</button>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFTQNrcbfc-1RezQZWT6dYWJcLIiUPNnpL4Q&usqp=CAU" id="logo">
+				</label>
+			</div>
 		</div>
 		<div id="foot"></div>
 		<div id="outerdiv"

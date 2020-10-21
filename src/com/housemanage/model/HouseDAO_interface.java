@@ -11,6 +11,7 @@ public interface HouseDAO_interface {
 	public HouseVO getHouseWaterfee(String hos_no);
 	public HouseVO getHouseElectfee(String hos_no);
 	public List<HouseVO> getLldHousePic(String hos_no);
+	public List<HouseVO> getLldAllHouse(String lld_no);
 	public List<HouseVO> getLldRentHouse(String lld_no);
 	public List<HouseVO> getLldUnRentHouse(String lld_no);
 	public List<HouseVO> getLldOffHouse(String lld_no);
