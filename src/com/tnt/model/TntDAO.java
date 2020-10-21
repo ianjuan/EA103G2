@@ -559,8 +559,8 @@ public class TntDAO implements TenantDAO_interface {
 	}
 
 	// =================================2.pocket==================================
-	private static final String UPDATE_POCKET_STMT = "UPDATE TENANT set tnt_blance=? where tnt_no=?";
-	private static final String GET_ONE_POCKET_STMT = "SELECT tnt_blance from TENANT where tnt_no=?";
+	private static final String UPDATE_POCKET_STMT = "UPDATE TENANT set tnt_balance=? where tnt_no=?";
+	private static final String GET_ONE_POCKET_STMT = "SELECT tnt_balance from TENANT where tnt_no=?";
 
 	@Override
 	public void update_pocket(TntVO tntVO) {
@@ -615,7 +615,8 @@ public class TntDAO implements TenantDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				tntVO.setTnt_blance(rs.getInt("tnt_blance"));
+				tntVO = new TntVO();
+				tntVO.setTnt_blance(rs.getInt("tnt_balance"));
 			}
 
 		} catch (SQLException se) {

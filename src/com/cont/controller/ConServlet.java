@@ -430,8 +430,15 @@ public class ConServlet extends HttpServlet {
 						con_sta, con_che_date, con_no);
 				
 				/*************************** 扣房客押金**********************/
-				Integer tnt_blance = tntSvc.getOneTntPocket(tnt_no).getTnt_blance();
-				System.out.println(tnt_blance);
+				Integer tnt_blance = tntSvc.getOneTntPocket(tnt_no).getTnt_blance() - hos_dep;
+				tntSvc.updateTntPocket(tnt_no, tnt_blance);
+				
+				/*************************** 加房東錢錢**********************/
+				String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
+				System.out.println(lld_no);
+				LldService lldService = new LldService();
+				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_blance();
+				lldService.updateLldPocket(lld_no, lld_blance);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				ConService conService = new ConService();

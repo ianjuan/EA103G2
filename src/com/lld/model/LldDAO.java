@@ -308,8 +308,8 @@ public class LldDAO implements LandlordDAO_interface {
 	}
 
 	// =================================2.pocket==================================
-	private static final String UPDATE_POCKET_STMT = "UPDATE LANDLORD set lld_blance=? where lld_no=?";
-	private static final String GET_ONE_POCKET_STMT = "SELECT lld_blance from LANDLORD where lld_no=?";
+	private static final String UPDATE_POCKET_STMT = "UPDATE LANDLORD set lld_balance=? where lld_no=?";
+	private static final String GET_ONE_POCKET_STMT = "SELECT lld_balance from LANDLORD where lld_no=?";
 
 	@Override
 	public void update_pocket(LldVO lldVO) {
@@ -364,7 +364,8 @@ public class LldDAO implements LandlordDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				lldVO.setLld_blance(rs.getInt("lld_blance"));
+				lldVO = new LldVO();
+				lldVO.setLld_blance(rs.getInt("lld_balance"));
 			}
 
 		} catch (SQLException se) {
