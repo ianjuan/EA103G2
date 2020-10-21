@@ -22,7 +22,8 @@ public class HouseServlet extends HttpServlet {
 		
 		if ("getLldAllHouse".equals(action)) {
 			String lld_no = new String(req.getParameter("lld_no"));
-			req.setAttribute("lld_no", lld_no);
+			HttpSession session = req.getSession();
+			session.setAttribute("lld_no", lld_no);
 			String url = "/front-end/house_manage/house_index.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

@@ -4,7 +4,7 @@
 <%@ page import="com.housemanage.model.*"%>
 
 <%
-	String lld_no = (String) request.getAttribute("lld_no");
+	String lld_no = (String) session.getAttribute("lld_no");
 	HouseService houseSvc = new HouseService();
 	List<HouseVO> listrent = houseSvc.getLldRentHouse(lld_no);
 	List<HouseVO> listunrent = houseSvc.getLldUnRentHouse(lld_no);
