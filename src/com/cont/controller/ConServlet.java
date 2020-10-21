@@ -233,7 +233,7 @@ public class ConServlet extends HttpServlet {
 				/*************************** 修正房東資訊 ****************************************/
 				String lld_mobile = new String(req.getParameter("lld_mobile"));
 				System.out.println(lld_mobile);
-				
+
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
 				String lld_email = lldVO.getLld_email();
@@ -248,12 +248,11 @@ public class ConServlet extends HttpServlet {
 				String lld_add = lldVO.getLld_add();
 				byte[] lld_pic = lldVO.getLld_pic();
 				Integer lld_status = lldVO.getLld_status();
-							
-				lldSvc.updateLldProfile(lld_no, lld_email, lld_acc, lld_pwd, lld_id, lld_name, lld_birth, lld_sex, lld_mobile, lld_city, lld_dist, lld_add, lld_pic, lld_status);
 
-				
-//
-//				/*************************** 更新房屋家具 **********************/
+				lldSvc.updateLldProfile(lld_no, lld_email, lld_acc, lld_pwd, lld_id, lld_name, lld_birth, lld_sex,
+						lld_mobile, lld_city, lld_dist, lld_add, lld_pic, lld_status);
+
+				/*************************** 更新房屋家具 **********************/
 //				Integer hos_table = new Integer(req.getParameter("hos_table"));
 //				Integer hos_chair = new Integer(req.getParameter("hos_chair"));
 //				Integer hos_bed = new Integer(req.getParameter("hos_bed"));
@@ -265,9 +264,15 @@ public class ConServlet extends HttpServlet {
 //				Integer hos_refrig = new Integer(req.getParameter("hos_refrig"));
 //				Integer hos_wash = new Integer(req.getParameter("hos_wash"));
 //				Integer hos_hoter = new Integer(req.getParameter("hos_hoter"));
-//				Integer hos_forth = new Integer(req.getParameter("hos_forth"));
-//				Integer hos_net = new Integer(req.getParameter("hos_net"));
-//				Integer hos_gas = new Integer(req.getParameter("hos_gas"));
+//				System.out.println(hos_bed);
+//
+////				Integer hos_forth = getReqNum(req, "hos_forth");
+////				Integer hos_net = getReqNum(req, "hos_net");
+////				Integer hos_gas = getReqNum(req, "hos_gas");
+//
+//				HouseService houseSvc = new HouseService();
+//				houseSvc.updateHouseFurniture(hos_table, hos_chair, hos_bed, hos_closet, hos_sofa, hos_tv, hos_drink,
+//						hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_no);
 
 				/*************************** 房東簽名 ****************************************/
 				Part part = req.getPart("con_lld_sign");
@@ -280,24 +285,18 @@ public class ConServlet extends HttpServlet {
 				ConVO conVOGET = conSvc.getOneCon(con_no);
 				String apl_no = conVOGET.getApl_no();
 				String tnt_no = conVOGET.getTnt_no();
-				Integer con_dep_sta = conVOGET.getCon_dep_sta();				
-				
+				Integer con_dep_sta = conVOGET.getCon_dep_sta();
+
 				Con_aplService aplSvcAplService = new Con_aplService();
 				Con_aplVO con_aplVO = aplSvcAplService.getOneCon_apl(apl_no);
 				Date con_che_date = con_aplVO.getApl_str();
-				
-				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, con_che_date,
-						con_no);
-//				ConVO conVO = conSvc.getOneCon(con_no);
-//
-				
-//
-//				HouseService houseSvc = new HouseService();
-//				HouseVO houseVO = houseSvc.updateHouseFurniture(hos_table, hos_chair, hos_bed, hos_closet, hos_sofa,
-//						hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth, hos_net, hos_gas,
-//						hos_no);
-//
-//				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+//				HouseService hosSvc = new HouseService();
+//				Integer hos_dep = hosSvc.getHouseInfo(hos_no).getHos_rentfee();
+				Integer hos_dep = null;
+				Integer con_sta = 1;
+
+				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, hos_dep,
+						con_sta, con_che_date, con_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				ConService conService = new ConService();
@@ -412,6 +411,17 @@ public class ConServlet extends HttpServlet {
 		in.close();
 
 		return baos.toByteArray(); // toByteArray()可以讓我們取得這個資料流內建的byte[]
+	}
 
+	public Integer getReqNum(HttpServletRequest req, String reqKey) {
+		String reqValue = req.getParameter(reqKey);
+		Integer result;
+
+		if (reqValue == null || (reqValue.trim()).length() == 0) {
+			result = 0;
+		} else {
+			result = new Integer(reqValue);
+		}
+		return result;
 	}
 }

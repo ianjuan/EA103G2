@@ -27,7 +27,7 @@ public class ConService {
 	}
 
 	public ConVO updatebeforerent(String apl_no, String tnt_no, String hos_no, byte[] con_lld_sign, byte[] con_tnt_sign,
-			Integer con_dep_sta, Date con_che_date, String con_no) {
+			Integer con_dep_sta, Integer hos_dep, Integer con_sta, Date con_che_date, String con_no) {
 
 		ConVO conVO = new ConVO();
 
@@ -37,6 +37,8 @@ public class ConService {
 		conVO.setCon_lld_sign(con_lld_sign);
 		conVO.setCon_tnt_sign(con_tnt_sign);
 		conVO.setCon_dep_sta(con_dep_sta);
+		conVO.setHos_dep(hos_dep);
+		conVO.setCon_sta(con_sta);
 		conVO.setCon_che_date(con_che_date);
 		conVO.setCon_no(con_no);
 		dao.beforerentupdate(conVO);

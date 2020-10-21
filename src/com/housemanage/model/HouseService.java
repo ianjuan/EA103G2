@@ -139,8 +139,7 @@ public class HouseService {
 	
 	public HouseVO updateHouseFurniture(Integer hos_table, Integer hos_chair, Integer hos_bed,
 			Integer hos_closet, Integer hos_sofa, Integer hos_tv, Integer hos_drink, Integer hos_aircon,
-			Integer hos_refrig, Integer hos_wash, Integer hos_hoter, Integer hos_forth, Integer hos_net,
-			Integer hos_gas, String hos_no) {
+			Integer hos_refrig, Integer hos_wash, Integer hos_hoter, String hos_no) {
 		
 		HouseVO houseVO = new HouseVO();
 
@@ -155,9 +154,6 @@ public class HouseService {
 		houseVO.setHos_refrig(hos_refrig);
 		houseVO.setHos_wash(hos_wash);
 		houseVO.setHos_hoter(hos_hoter);
-		houseVO.setHos_forth(hos_forth);
-		houseVO.setHos_net(hos_net);
-		houseVO.setHos_gas(hos_gas);
 		dao.updateHouseFurniture(houseVO);
 
 		return houseVO;

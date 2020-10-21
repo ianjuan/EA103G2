@@ -26,7 +26,7 @@ public class ConDAO implements ConDAO_interface {
 
 	private static final String BEFORE_RENT_INSERT_STMT = "INSERT INTO CONTRACT(CON_NO, APL_NO, TNT_NO, HOS_NO) VALUES ('CON' || lpad(SEQ_CON_NO.NEXTVAL, 6, '0'), ?, ?, ?)";
 
-	private static final String BEFORE_RENT_UPDATE_STMT = "UPDATE CONTRACT SET APL_NO = ?, TNT_NO = ?, HOS_NO = ?, CON_LLD_SIGN = ?, CON_TNT_SIGN = ?, CON_DEP_STA = ?, CON_CHE_DATE = ? WHERE CON_NO = ?";
+	private static final String BEFORE_RENT_UPDATE_STMT = "UPDATE CONTRACT SET APL_NO = ?, TNT_NO = ?, HOS_NO = ?, CON_LLD_SIGN = ?, CON_TNT_SIGN = ?, CON_CHE_DATE = ?, CON_DEP_STA = ?, HOS_DEP = ?, CON_STA = ? WHERE CON_NO = ?";
 
 	private static final String RENT_UPDATE_STMT = "UPDATE CONTRACT SET HOS_DEP = ?, CON_DEP_STA = ?, CON_CHKDATE = ?, CON_COMCHKDATE = ? WHERE CON_NO = ?";
 
@@ -168,10 +168,12 @@ public class ConDAO implements ConDAO_interface {
 			pstmt.setString(2, conVO.getTnt_no());
 			pstmt.setString(3, conVO.getHos_no());
 			pstmt.setBytes(4, conVO.getCon_lld_sign());
-			pstmt.setBytes(5, conVO.getCon_tnt_sign());
-			pstmt.setInt(6, conVO.getCon_dep_sta());
-			pstmt.setDate(7, conVO.getCon_che_date());
-			pstmt.setString(8, conVO.getCon_no());
+			pstmt.setBytes(5, conVO.getCon_tnt_sign());		
+			pstmt.setDate(6, conVO.getCon_che_date());		
+			pstmt.setInt(7, conVO.getCon_dep_sta());
+			pstmt.setInt(8, conVO.	getHos_dep());
+			pstmt.setInt(9, conVO.getCon_sta());
+			pstmt.setString(10, conVO.getCon_no());
 
 			pstmt.executeUpdate();
 
