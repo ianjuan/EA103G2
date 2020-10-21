@@ -1092,7 +1092,7 @@
             padding-top: 2px;
         }
 
-        .wrap-validate-chgPwd {
+        .wrap-validate-login {
             display: -webkit-box;
             display: -webkit-flex;
             display: -moz-box;
@@ -1105,7 +1105,6 @@
             position: relative;
             margin-bottom: 30px;
             left: 10px;
-
         }
 
         /*------------------------------------------------------------------

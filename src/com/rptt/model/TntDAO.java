@@ -257,7 +257,7 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String UPDATE_VRF_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_uploadtime=?, tnt_id_isupload=?, tnt_id_result=?, tnt_id_disapprove=?, tnt_id_vrftime=? where tnt_no=?";
 	private static final String GET_ONE_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT where tnt_no=?";
 	private static final String GET_ALL_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT ORDER BY tnt_no";
-	private static final String GET_UNVRF_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove from TENANT where tnt_id_isupload=?";
+	private static final String GET_UNVRF_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove,TNT_ID_VRFTIME from TENANT where tnt_id_isupload=?";
 
 	@Override
 	public void update_vrf(TntVO tntVO) {
@@ -434,6 +434,8 @@ public class TntDAO implements TenantDAO_interface {
 				tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
 				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
 				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+				tntVO.setTnt_id_uploadtime(rs.getTimestamp("tnt_id_uploadtime"));
+				tntVO.setTnt_id_vrftime(rs.getTimestamp("tnt_id_vrftime"));
 				list.add(tntVO);
 			}
 
