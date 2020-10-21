@@ -38,7 +38,7 @@ public class HouseDetDAO implements HouseDetDAO_interface {
 	 try {		
 		 con = ds.getConnection();
 	 pstmt = con.prepareStatement("SELECT h.*, hp.PIC_NO,l.lld_name,l.lld_mobile ,l.lld_sex FROM HOUSE h " + 
-	 		" INNER JOIN house_picture hp on h.HOS_ID =hp.hos_no " + 
+	 		" INNER JOIN house_picture hp on h.HOS_NO =hp.hos_no " + 
             "INNER JOIN LANDLORd l on l.LLD_no = h.lld_no"+
 	 		"  WHERE h.HOS_NO = ? " );	 
 	 pstmt.setString(1,hos_no);

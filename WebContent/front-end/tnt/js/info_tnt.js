@@ -584,17 +584,18 @@
                 // 告訴jQuery不要去設定Content-Type請求頭
                 contentType: false,
 
-                success: function() { // 以上成功才執行
+                success: function(data) { // 以上成功才執行
                     console.log("res棒");
-                    console.log("data:" + data);
-                    Swal.fire({
-                        // position: 'top-end',
-                        icon: 'success',
-                        title: '修改成功!',
-//                        text: "You won't be able to revert this!",
-                        showConfirmButton: false,
-                        timer: 1500
-                  })
+                    if (data === 'true') {
+                    	Swal.fire({
+                    		// position: 'top-end',
+                    		icon: 'success',
+                    		title: '修改成功!',
+//                      	  text: "You won't be able to revert this!",
+                    		showConfirmButton: false,
+                    		timer: 1500
+                    	})
+                   }
                 },
                 error: function() {
                     console.log("真的不棒")
@@ -631,15 +632,18 @@
 
                 success: function(data) { // 以上成功才執行
                     console.log("res棒");
-                    console.log("data:" + data);
-                    Swal.fire({
-                        // position: 'top-end',
-                        icon: 'success',
-                        title: 'Your work has been saved',
-                        text: "You won't be able to revert this!",
-                        showConfirmButton: false,
-                        timer: 1500
-                  })
+                    if (data === 'true') {
+                    	Swal.fire({
+                    		// position: 'top-end',
+                    		icon: 'success',
+                    		title: '上傳成功!',
+//                      	  text: "You won't be able to revert this!",
+                    		showConfirmButton: false,
+                    		timer: 1500
+                    	})
+                    	$(".picPreview").empty();
+                    	location.reload(true);
+                   }
                 },
                 error: function() {
                     console.log("真的不棒")

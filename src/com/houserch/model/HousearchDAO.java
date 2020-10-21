@@ -96,7 +96,7 @@ public class HousearchDAO implements HousearchDAO_interface{
 	      con = ds.getConnection();
 	      //可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令  可增加指令彈性
 		      String i=  "select hp.PIC_NO,h.HOS_NO,  h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee"
-		       	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO)  "
+		       	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_NO =hp.hos_no  AND h.hos_status ='待出租' AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO)  "
 		    		  +"";
 				pstmt = con.prepareStatement(i);
 
@@ -164,7 +164,7 @@ public class HousearchDAO implements HousearchDAO_interface{
 	 	
 
 	      String i=  "select hp.PIC_NO,h.HOS_NO, rownum r, h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee"
-    	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? "
+    	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_NO =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? "
     	   +"AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) ";
     	
     	  if(houseList.contains(vo.getHos_type())) {
@@ -297,7 +297,7 @@ public class HousearchDAO implements HousearchDAO_interface{
     	 	
 
     	      String i=  "select hp.PIC_NO,h.HOS_NO, h.hos_add ,h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee,h.hos_lng,h.hos_lat"
-        	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) ";
+        	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_NO =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) ";
         	
         	  if(houseList.contains(vo.getHos_type())) {
         		  i=i+" AND h.hos_room LIKE '%"+vo.getHos_type()+"%'";
@@ -373,7 +373,7 @@ public class HousearchDAO implements HousearchDAO_interface{
     	      con = ds.getConnection();
     	      //可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令  可增加指令彈性
     		      String i=  "select hp.PIC_NO,h.HOS_NO,h.hos_add,  h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee,h.hos_lng,h.hos_lat"
-    		       	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_ID =hp.hos_no  AND h.hos_status ='待出租' AND h.hos_add LIKE '%台北市%' AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) " + 
+    		       	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_NO =hp.hos_no  AND h.hos_status ='待出租' AND h.hos_add LIKE '%台北市%' AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) " + 
     		       	   "";
     				pstmt = con.prepareStatement(i);
 

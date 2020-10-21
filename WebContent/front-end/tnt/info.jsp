@@ -195,8 +195,8 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
                                             <option value="">選擇性別
-                          					  <option value="${tntVO.tnt_sex}" ${(tntVO.tnt_sex)?'selected':''}>男
-											  <option value="${tntVO.tnt_sex}" ${(tntVO.tnt_sex)?'':'selected'}>女
+                          					  <option value="true" ${(tntVO.tnt_sex)?'selected':''}>男
+											  <option value="false" ${(tntVO.tnt_sex)?'':'selected'}>女
                                         </span>
                                     </select>
                                     <div class="wrap-register100 validate-input" data-validate="Valid ID is required">

@@ -104,11 +104,22 @@
                 success: function(data) { // 以上成功才執行
                     //                    console.log("" + data);
                     console.log("res棒");
+                    console.log(""+data);
                     if (data === 'false') { //信箱尚未註冊
                         $('.wrap-validate-login').addClass('validate-input alert-validate-login');
-                    } else {
-                        alert("我們已將認證信傳送到您的信箱，請盡快至您的信箱收信");
-                        window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
+                    } 
+                    if (data === 'true') {
+                    	Swal.fire({
+                    		// position: 'top-end',
+//                    		icon: 'success',
+                    		title: '已發送驗證信!',
+                    		text: "請盡快至您的信箱收信",
+                    		showConfirmButton: true,
+//                    		timer: 1500, 
+                    		animate: false
+                    	})
+//                        alert("我們已將認證信傳送到您的信箱，請盡快至您的信箱收信");
+//                        window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
                     }
                 },
                 error: function() {
