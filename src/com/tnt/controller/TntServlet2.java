@@ -253,47 +253,47 @@ public class TntServlet2 extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
-
 				System.out.println(tnt_email);
 
 				/*************************** 2.開始比對資料 ***************************************/
 				TntService tntSvc = new TntService();
 				List<TntVO> list = tntSvc.getAllAccount();//
-//				String resString = "false";
+				String resString = "";
+				Boolean validateEmail = false;
 				String tnt_no = "";
 				for (TntVO tntVO : list) {
 					if (tnt_email.equals(tntVO.getTnt_email())) {
 //						resString = "true";
-						System.out.println("true");
+						validateEmail = true;
 						tnt_no = tntVO.getTnt_no();
 					}
 				}
-				TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
-				String tnt_name = tntVO.getTnt_name();
-				String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + getAuthCode() + "\n" + "請登入後至會員專區修改密碼";
-				MailService mailService = new MailService();
-				
-				
-				
-				//記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				tnt_email = "yjwuws@gmail.com";
-				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				
-				Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
-				
-				if (successSendMail) {
-					
+				if (!validateEmail) {
+					resString = "false";
 				}
+				if (validateEmail) {
+					TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
+					String tnt_name = tntVO.getTnt_name();
+					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + getAuthCode() + "\n" + "請登入後至會員專區修改密碼";
+					MailService mailService = new MailService();
+					
+					//記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					tnt_email = "yjwuws@gmail.com";
+					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					
+					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
+					if (successSendMail) {
+						resString = "true";
+						out = res.getWriter();
+						out.print(resString);
+					}
+				}
+
 				
-				
-				 
-				out = res.getWriter();
-//				out.print(resString);
-				out.print("true");///////////////////////////!!!!!!!!!!!!!!!!!!!!!
 
 			} catch (Exception e) {
 //				errorMsgs.add("修改資料失敗:" + e.getMessage());
-				System.out.println("忘記密碼失敗:" + e.getMessage());
+				System.out.println("忘記密碼Exception:" + e.getMessage());
 			}
 		}
 		
