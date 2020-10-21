@@ -34,7 +34,7 @@ public class UpdatePicID {
 
 				pstmt.setString(1, "PIC" + String.format(pattern, i));
 				rs = pstmt.executeQuery();
-
+				System.out.println(i);
 				while (rs.next()) {
 					hashMap.put(("PIC" + String.format(pattern, i)), (rs.getString("hos_no")));
 				}
