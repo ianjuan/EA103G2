@@ -191,7 +191,7 @@
 	<%@ page import="com.google.gson.*"%>
 	<%
 		BookingService bks = new BookingService();
-			String list = bks.getinfobyid("HOS000918");
+			String list = bks.getBookingInfoListByhosno("HOS000918");
 			pageContext.setAttribute("list", list);//KEY，VALUE
 	%>
 </body>
