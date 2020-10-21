@@ -22,18 +22,7 @@ public class HouseServlet extends HttpServlet {
 		
 		if ("getLldAllHouse".equals(action)) {
 			String lld_no = new String(req.getParameter("lld_no"));
-
-			HouseService houseSvc = new HouseService();
-			List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
-			List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
-			List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
-			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
-
-			req.setAttribute("houseVOrent", houseVOrent);
-			req.setAttribute("houseVOunrent", houseVOunrent);
-			req.setAttribute("houseVOoff", houseVOoff);
 			req.setAttribute("lld_no", lld_no);
-			req.setAttribute("lldInfo", lldInfo);
 			String url = "/front-end/house_manage/house_index.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

@@ -5,10 +5,11 @@
 
 <%
 	String lld_no = (String) request.getAttribute("lld_no");
-	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
-	List<HouseVO> listunrent = (List<HouseVO>) request.getAttribute("houseVOunrent");
-	List<HouseVO> listrent = (List<HouseVO>) request.getAttribute("houseVOrent");
-	List<HouseVO> listoff = (List<HouseVO>) request.getAttribute("houseVOoff");
+	HouseService houseSvc = new HouseService();
+	List<HouseVO> listrent = houseSvc.getLldRentHouse(lld_no);
+	List<HouseVO> listunrent = houseSvc.getLldUnRentHouse(lld_no);
+	List<HouseVO> listoff = houseSvc.getLldOffHouse(lld_no);
+	HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 %>
 
 <!DOCTYPE html>
