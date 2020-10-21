@@ -5,7 +5,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import com.tnt.model.*;
 
-@WebServlet("/ImgReader2")
+//@WebServlet("/ImgReader2")
 public class ImgReader extends HttpServlet {
 
 	

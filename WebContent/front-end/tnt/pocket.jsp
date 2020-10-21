@@ -1,5 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.tnt.model.*"%>
+
+
+<% String tnt_no = (String) session.getAttribute("tnt_no");%>
+<jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
+
+<%
+	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
+	request.setAttribute("tntVO", tntVO);
+%>
 
 <head>
     <title>myPocket</title>
@@ -33,14 +43,10 @@
     <!--===============================================================================================-->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/util.css">
-    <!-- <link rel="stylesheet" type="text/css" href="css/main_register.css"> -->
-
-    <!--===============================================================================================-->
-    <!-- <link rel="stylesheet" type="text/css" href="../css/headerfooter.css"> -->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/pocket_tnt.css">
-    <!-- <link rel="stylesheet" type="text/css" href="/EA103/front-end/tnt/css/tnt_info.css"> -->
     <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 
 
 
@@ -85,26 +91,26 @@
 </head>
 
 <body class="landing">
-    <!-- Header -->
-    <header id="header">
-        <h1>
-            <a href="index.html" style="color: #555">愛租I-ZU</a>
-        </h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="index.html">尋找房源</a></li>
-                <li><a href="generic.html">地圖找房</a></li>
-                <li><a href="elements.html">會員登入</a></li>
-                <li><a href="#" class="special">註冊會員</a></li>
-            </ul>
-        </nav>
-    </header>
+<!--     Header -->
+<!--     <header id="header"> -->
+<!--         <h1> -->
+<!--             <a href="index.html" style="color: #555">愛租I-ZU</a> -->
+<!--         </h1> -->
+<!--         <nav id="nav"> -->
+<!--             <ul> -->
+<!--                 <li><a href="index.html">尋找房源</a></li> -->
+<!--                 <li><a href="generic.html">地圖找房</a></li> -->
+<!--                 <li><a href="elements.html">會員登入</a></li> -->
+<!--                 <li><a href="#" class="special">註冊會員</a></li> -->
+<!--             </ul> -->
+<!--         </nav> -->
+<!--     </header> -->
+	<jsp:include page="/front-end/navbar/navbar.jsp"/>
     <section>
         <section class="content">
-            <div class="container">
-                <!--             style="border:1px solid orange" -->
+            <div class="container" id="infocontainer">
                 <div class="row no-gutters justify-content-between">
-                    <!--start info list -->
+                     <!--start info list -->
                     <div class="basicInfo__list col-lg-3">
                         <div class="basicInfo__list__content bg-white px-4 pt-lg-7 pt-md-5 pt-2 sticky-top">
                             <a class="basicInfo__list-backIcon text-primary basicInfo__list__content-backIcon d-xl-none">
@@ -112,19 +118,22 @@
                                     <path fill="currentColor" d="M8 256c0 137 111 248 248 248s248-111 248-248S393 8 256 8 8 119 8 256zm448 0c0 110.5-89.5 200-200 200S56 366.5 56 256 145.5 56 256 56s200 89.5 200 200zm-72-20v40c0 6.6-5.4 12-12 12H256v67c0 10.7-12.9 16-20.5 8.5l-99-99c-4.7-4.7-4.7-12.3 0-17l99-99c7.6-7.6 20.5-2.2 20.5 8.5v67h116c6.6 0 12 5.4 12 12z" class=""></path>
                                 </svg>
                             </a>
-                            <div class="basicInfo__userImg mx-auto mb-3">
+                            <div class="basicInfo__userImg mx-auto mb-3 divBigHeadPic">
                                 <!-- <input type="file" accept="image/jpg, image/jpeg, image/png" name="name" class="d-none"> -->
-                                <a class="upload">
-                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-camera fa-w-16">
-                                        <path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path>
-                                    </svg>
-                                </a>
+<%--                                 <a class="awrapBigHeadPic" --%>
+<!--                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-camera fa-w-16"> -->
+<!--                                         <path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path> -->
+<!--                                     </svg> -->
+<!--                                 </a> -->
+                                <a class="awrapBigHeadPic">
+                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
+                                 </a>
                             </div>
                             <p class="text-gray text-center mb-3">房客</p>
-                            <h4 class="text-center">吳宜靜 個人資訊</h4>
+                            <h4 class="text-center">${tntVO.tnt_name} 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
-                                <li class="mb-3">
-                                    <a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
+                                <li class="mb-3">                                  
+                                    <a href="<%=request.getContextPath()%>/front-end/tnt/info.jsp" class="basicInfo__menu__link">
                                         <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" class="mr-2">基本資訊
                                     </a>
                                 </li>

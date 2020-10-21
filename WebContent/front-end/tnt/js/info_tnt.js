@@ -588,10 +588,8 @@
                     console.log("res棒");
                     if (data === 'true') {
                     	Swal.fire({
-                    		// position: 'top-end',
                     		icon: 'success',
                     		title: '修改成功!',
-//                      	  text: "You won't be able to revert this!",
                     		showConfirmButton: false,
                     		timer: 1500
                     	})
@@ -634,10 +632,8 @@
                     console.log("res棒");
                     if (data === 'true') {
                     	Swal.fire({
-                    		// position: 'top-end',
                     		icon: 'success',
                     		title: '上傳成功!',
-//                      	  text: "You won't be able to revert this!",
                     		showConfirmButton: false,
                     		timer: 1500
                     	})
@@ -678,6 +674,17 @@
                 success: function(data) { // 以上成功才執行
                 	console.log("data:" + data);
                     console.log("res棒");
+                    if (data === 'false') { //密碼錯誤
+                        $('.wrap-validate-login').addClass('validate-input alert-validate-login');
+                    } 
+                    if (data === 'true') {
+                    	Swal.fire({
+                    		icon: 'success',
+                    		title: '修改成功!',
+                    		showConfirmButton: false,
+                    		timer: 1500
+                    	})
+                   }
                     
                 },
                 error: function() {
