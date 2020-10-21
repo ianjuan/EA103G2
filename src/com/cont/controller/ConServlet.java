@@ -27,6 +27,8 @@ import com.cont.model.ConVO;
 import com.housemanage.model.*;
 import com.lld.model.LldService;
 import com.lld.model.LldVO;
+import com.tnt.model.TntService;
+import com.tnt.model.TntVO;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
@@ -217,6 +219,54 @@ public class ConServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("getonetntcontract".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String con_no = new String(req.getParameter("con_no"));
+				String tnt_no = new String(req.getParameter("tnt_no"));
+				String hos_no = new String(req.getParameter("hos_no"));
+				System.out.println(con_no);
+				System.out.println(tnt_no);
+				System.out.println(hos_no);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				ConService conSvc = new ConService();
+				ConVO conVO = conSvc.getOneCon(con_no);
+
+				TntService tntSvc = new TntService();
+				TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
+
+				HouseService houseSvc = new HouseService();
+				HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
+				HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
+				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
+				List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				req.setAttribute("conVO", conVO);
+				req.setAttribute("tntVO", tntVO);
+				req.setAttribute("tnt_no", tnt_no);
+				req.setAttribute("houseVO", houseVO);
+				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
+				req.setAttribute("houseVOelectfee", houseVOelectfee);
+				req.setAttribute("houseVOpicno", houseVOpicno);// lld_sign
+				String url = "/front-end/contract/tntcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 		if ("updateonelldcontract".equals(action)) {
 
@@ -321,7 +371,84 @@ public class ConServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("updateonetntcontract".equals(action)) {
 
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String con_no = new String(req.getParameter("con_no"));
+				String tnt_no = new String(req.getParameter("tnt_no"));
+				String hos_no = new String(req.getParameter("hos_no"));
+//				Date con_che_date = Date.valueOf(req.getParameter("apl_str"));
+
+				/*************************** 修正房東資訊 ****************************************/
+				String tnt_mobile = new String(req.getParameter("tnt_mobile"));
+
+				TntService tntSvc = new TntService();
+				TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
+				String tnt_email = tntVO.getTnt_email();
+				String tnt_acc = tntVO.getTnt_acc();
+				String tnt_pwd = tntVO.getTnt_pwd();
+				String tnt_id = tntVO.getTnt_id();
+				String tnt_name = tntVO.getTnt_name();
+				Date tnt_birth = tntVO.getTnt_birth();
+				Boolean tnt_sex = tntVO.getTnt_sex();
+				String tnt_city = tntVO.getTnt_city();
+				String tnt_dist = tntVO.getTnt_dist();
+				String tnt_add = tntVO.getTnt_add();
+				byte[] tnt_pic = tntVO.getTnt_pic();
+				Integer tnt_status = tntVO.getTnt_status();
+
+				tntSvc.updateTntProfile(tnt_no, tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex, tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
+
+				/*************************** 房東簽名 ****************************************/
+				ConService conSvc = new ConService();
+				byte[] con_lld_sign = conSvc.getOneCon(con_no).getCon_lld_sign();
+
+				Part part1 = req.getPart("con_tnt_sign");
+				InputStream in1 = part1.getInputStream();
+				byte[] con_tnt_sign = getPictureByteArray(in1);
+				/*************************** 更新合約 **********************/
+				ConVO conVOGET = conSvc.getOneCon(con_no);
+				String apl_no = conVOGET.getApl_no();
+				Integer con_dep_sta = conVOGET.getCon_dep_sta();
+
+				Con_aplService aplSvcAplService = new Con_aplService();
+				Con_aplVO con_aplVO = aplSvcAplService.getOneCon_apl(apl_no);
+				Date con_che_date = con_aplVO.getApl_str();
+				
+				/*************************** 更新押金 **********************/
+				HouseService hosSvc = new HouseService();
+				Integer hos_dep = (hosSvc.getHouseInfo(hos_no).getHos_rentfee()) * 2;
+				Integer con_sta = 2;
+
+				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, hos_dep,
+						con_sta, con_che_date, con_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				ConService conService = new ConService();
+				List<ConVO> list = conService.lldgetcon(tnt_no);
+
+				HttpSession session = req.getSession();
+				session.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("list", list);
+				String url = "/front-end/contract/tntlistcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+
+		
 		if ("createcontract".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();

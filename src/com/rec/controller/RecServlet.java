@@ -130,6 +130,7 @@ public class RecServlet extends HttpServlet {
 				req.setAttribute("lld_no", lld_no);
 				req.setAttribute("recVO", recVO);
 				req.setAttribute("tntVO", tntVO);
+				req.setAttribute("con_no", con_no);
 				req.setAttribute("houseVO", houseVO);
 				req.setAttribute("houseeleVO", houseeleVO);
 				req.setAttribute("housewatVO", housewatVO);
@@ -153,8 +154,6 @@ public class RecServlet extends HttpServlet {
 			try {
 				String lld_no = req.getParameter("lld_no");
 				String con_no = req.getParameter("con_no");
-				System.out.println(lld_no);
-				System.out.println(con_no);
 
 				RecService recService = new RecService();
 
@@ -309,6 +308,7 @@ public class RecServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				req.setAttribute("recVO", recVO);
 				req.setAttribute("lld_no", lld_no);
+				req.setAttribute("con_no", con_no);
 				session.setAttribute("list", list);
 				String url = "/front-end/rec/lldlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
