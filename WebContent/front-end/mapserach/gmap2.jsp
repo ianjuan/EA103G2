@@ -199,7 +199,7 @@
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 	
 <script src="https://kit.fontawesome.com/c8d34ce05b.js" crossorigin="anonymous"></script>
 </head>
