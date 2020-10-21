@@ -111,11 +111,7 @@ public class TntServlet2 extends HttpServlet {
 						return;
 					}
 					// *工作3: (-->如無來源網頁:則重導至login_success.jsp)
-					res.sendRedirect(req.getContextPath() + "/front-end/index/index.html"); 
-					
-					
-					
-					
+					res.sendRedirect(req.getContextPath() + "/front-end/index/index.html"); 				
 				}
 
 			} catch (Exception e) {
@@ -245,8 +241,9 @@ public class TntServlet2 extends HttpServlet {
 
 			}
 		}
-
-		if ("forgetPwd".equals(action)) { // 來自forgetPwd.jsp的請求 - ajax_forgetPwd
+		
+		// 來自forgetPwd.jsp的請求 - ajax_forgetPwd
+		if ("forgetPwd".equals(action)) { 
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -273,8 +270,6 @@ public class TntServlet2 extends HttpServlet {
 				out = res.getWriter();
 				out.print(resString);
 
-				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 //				errorMsgs.add("修改資料失敗:" + e.getMessage());
 				System.out.println("忘記密碼失敗:" + e.getMessage());
@@ -283,7 +278,8 @@ public class TntServlet2 extends HttpServlet {
 		
 		//==============================以下來自會員專區=============================================
 		
-		if ("infoUpdateProfile".equals(action)) { // 來自info.jsp的請求 - ajax_infoUpdateProfile(formData)
+		// 來自info.jsp的請求 - ajax_infoUpdateProfile(formData)
+		if ("infoUpdateProfile".equals(action)) { 
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 //			req.setAttribute("errorMsgs", errorMsgs);
@@ -333,6 +329,45 @@ public class TntServlet2 extends HttpServlet {
 				
 				out = res.getWriter();
 				out.print("修改成功");
+				
+			} catch (Exception e) {
+//				errorMsgs.add("註冊失敗:" + e.getMessage());
+				System.out.println("info profile 修改失敗:" + e.getMessage());
+			}
+		}
+
+		// 來自info.jsp的請求 - ajax_infoPicUpload(formData)
+		if ("infoPicUpload".equals(action)) { 
+			System.out.println("action: " + action);
+			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				Part part = req.getPart("tnt_pic");
+				System.out.println(part);
+				if (part.getSize() != 0){
+					InputStream in = part.getInputStream();
+					byte[] tnt_pic = getPictureByteArray(in);
+					
+					System.out.println("1");
+					
+					TntVO tntVO = new TntVO();
+					tntVO.setTnt_pic(tnt_pic);
+					
+					System.out.println("2");
+					
+					HttpSession session = req.getSession();
+					String tnt_no = (String) session.getAttribute("tnt_no");
+					
+					System.out.println(tnt_no);
+					
+					TntService tntSvc = new TntService();
+					tntSvc.updateTntPic(tnt_no, tnt_pic);
+					
+					System.out.println("3");
+					
+					out = res.getWriter();
+					out.print("修改成功");
+				}
 				
 			} catch (Exception e) {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
