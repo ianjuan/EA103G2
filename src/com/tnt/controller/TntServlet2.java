@@ -253,12 +253,7 @@ public class TntServlet2 extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
-				String emailReg = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\\]?)$";
-				if (tnt_email == null || tnt_email.trim().length() == 0) {
-					errorMsgs.add("電子信箱: 請勿空白");
-				} else if (!tnt_email.trim().matches(emailReg)) {
-					errorMsgs.add("電子信箱錯誤");
-				}
+
 				System.out.println(tnt_email);
 
 				/*************************** 2.開始比對資料 ***************************************/
@@ -277,10 +272,20 @@ public class TntServlet2 extends HttpServlet {
 				String tnt_name = tntVO.getTnt_name();
 				String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + getAuthCode() + "\n" + "請登入後至會員專區修改密碼";
 				MailService mailService = new MailService();
+				
+				
+				
 				//記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				tnt_email = "yjwuws@gmail.com";
 				//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				mailService.sendMail(tnt_email, "新密碼通知", messageText);
+				
+				Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
+				
+				if (successSendMail) {
+					
+				}
+				
+				
 				 
 				out = res.getWriter();
 //				out.print(resString);
