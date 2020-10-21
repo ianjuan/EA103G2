@@ -12,8 +12,13 @@
 		tnt_no = request.getParameter("tnt_no");
 	}
 
-	List<Con_aplVO> list = (List<Con_aplVO>)session.getAttribute("list");
+	List<Con_aplVO> list = (List<Con_aplVO>)request.getAttribute("list");
+	if(list == null){
+		Con_aplService con_aplService = new Con_aplService();
+		list = con_aplService.tntgetAll(tnt_no);
+	}
 	pageContext.setAttribute("list",list);
+	session.setAttribute("tnt_no", tnt_no);
 	 
 	TntService tntService = new TntService();
 	TntVO tntVO = tntService.getOneTntProfile(tnt_no);

@@ -82,7 +82,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<a class='nav-item nav-link active' href='<%=request.getContextPath()%>/front-end/selectpage/SELECTpage.jsp'>尋找房源<span class='sr-only'>(current)</span></a>"+
 	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/mapserach/gmap2.jsp'>地圖找房</a>"+
 	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/collection/Mycol.jsp'>我的收藏</a>"+
-	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/collection/Mycol.jsp'>我的房屋</a>"+   /*大蟒蛇請改這一行 改完說一下 love u <3*/
+	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/apl/tntaplpage.jsp'>我的租屋</a>"+   /*大蟒蛇請改這一行 改完說一下 love u <3*/
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
