@@ -31,7 +31,10 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String GET_ALL_ACCOUNT_STMT = "SELECT tnt_no, tnt_email, tnt_pwd from TENANT";
 	private static final String GET_ONE_ACCOUNT_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_PWD FROM TENANT where TNT_NO =?";
 	private static final String UPDATE_PWD_STMT = "UPDATE TENANT set TNT_PWD=? where TNT_NO=?"; 
+	
 	private static final String UPDATE_PIC_STMT = "UPDATE TENANT set TNT_PIC=? where TNT_NO = ?";
+	private static final String GET_ONE_PIC_STMT = "SELECT TNT_NO, TNT_PIC FROM TENANT where TNT_NO = ?";
+	
 	@Override
 	public void insert_profile(TntVO tntVO) {
 
@@ -478,7 +481,7 @@ public class TntDAO implements TenantDAO_interface {
 
 	
 			pstmt.setBytes(1, tntVO.getTnt_pic());
-			pstmt.setString(12, tntVO.getTnt_no());
+			pstmt.setString(2, tntVO.getTnt_no());
 
 			pstmt.executeUpdate();
 
@@ -500,6 +503,59 @@ public class TntDAO implements TenantDAO_interface {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public TntVO findByPK_pic(String tnt_no) {
+		TntVO tntVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_PIC_STMT);
+
+			pstmt.setString(1, tnt_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				tntVO = new TntVO();
+				tntVO.setTnt_no(rs.getString("tnt_no"));
+				tntVO.setTnt_pic(rs.getBytes("tnt_pic"));
+
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return tntVO;
 	}
 
 	// =================================2.pocket==================================

@@ -34,8 +34,8 @@ public class LoginFilter implements Filter {
 		}
 
 		HttpSession session = req.getSession(); // 【從 session 判斷此user是否登入過】
-		Object tnt_no = session.getAttribute("tnt_no");
-		Object lld_no = session.getAttribute("lld_no");
+		String tnt_no = (String) session.getAttribute("tnt_no");
+		String lld_no = (String) session.getAttribute("lld_no");
 
 
 		if (ispathprotected && (tnt_no == null) && (lld_no == null)) {// protected path

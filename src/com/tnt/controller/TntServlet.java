@@ -157,8 +157,8 @@ public class TntServlet extends HttpServlet {
 				String tnt_pwd = req.getParameter("tnt_pwd");
 				Boolean tnt_sex = Boolean.parseBoolean(req.getParameter("tnt_sex"));
 				String tnt_city = req.getParameter("tnt_city");
-//				String tnt_dist = req.getParameter("tnt_dist");
-				String tnt_dist = "吉安鄉";
+				String tnt_dist = req.getParameter("tnt_dist");
+//				String tnt_dist = "吉安鄉";
 
 				Part part = req.getPart("tnt_pic");
 				InputStream in = part.getInputStream();

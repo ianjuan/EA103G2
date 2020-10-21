@@ -586,6 +586,60 @@
 
                 success: function() { // 以上成功才執行
                     console.log("res棒");
+                    console.log("data:" + data);
+                    Swal.fire({
+                        // position: 'top-end',
+                        icon: 'success',
+                        title: '修改成功!',
+//                        text: "You won't be able to revert this!",
+                        showConfirmButton: false,
+                        timer: 1500
+                  })
+                },
+                error: function() {
+                    console.log("真的不棒")
+                }
+            })
+        }
+        
+      //info按鈕2 - btninfoPic //---------------------------------------
+        $('#btninfoPic').click(function(e) {
+            e.preventDefault();
+            console.log('btn - info pic');
+            var theform = $(this).parent().prev('form');
+//            validateAll(theform);
+            if ($('.picPreview').find('img').length===1) {
+                var formData = new FormData(theform.get(0));
+                formData.append('action', 'infoPicUpload');
+//              console.log(formData);
+                for (let key of formData.keys()) {
+                     console.log(key + " : " + formData.get(key));
+                }
+                ajax_infoPicUpload(formData);
+            }
+        });
+
+        function ajax_infoPicUpload(formData) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/tnt/TntServlet2",
+                type: "POST",
+                data: formData,
+                // 告訴jQuery不要去處理髮送的資料
+                processData: false,
+                // 告訴jQuery不要去設定Content-Type請求頭
+                contentType: false,
+
+                success: function(data) { // 以上成功才執行
+                    console.log("res棒");
+                    console.log("data:" + data);
+                    Swal.fire({
+                        // position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        text: "You won't be able to revert this!",
+                        showConfirmButton: false,
+                        timer: 1500
+                  })
                 },
                 error: function() {
                     console.log("真的不棒")
@@ -603,11 +657,11 @@
             if (anyalert.length === 0) {
                 var formData = new FormData(theform.get(0));
                 formData.append('action', 'infoChgPwd');
-                ajax_infoUpdateProfile(formData);
+                ajax_infoChgPwd(formData);
             }
         });
 
-        function ajax_infoUpdateProfile(formData) {
+        function ajax_infoChgPwd(formData) {
             $.ajax({ // 存入資料庫階段
                 url: "/EA103G2/tnt/TntServlet2",
                 type: "POST",
@@ -620,6 +674,7 @@
                 success: function(data) { // 以上成功才執行
                 	console.log("data:" + data);
                     console.log("res棒");
+                    
                 },
                 error: function() {
                     console.log("真的不棒")
