@@ -4,9 +4,6 @@
 
 
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
-<%-- <% --%>
-<!-- // 	String tnt_no = "TNT000003"; -->
-<%-- %> --%>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 
 <%
@@ -93,11 +90,9 @@
 
 <body class="landing">
 	<jsp:include page="/front-end/navbar/navbar.jsp"/>
-
     <section>
         <section class="content">
             <div class="container" id="infocontainer">
-                <!--             style="border:1px solid orange" -->
                 <div class="row no-gutters justify-content-between">
                     <!--start info list -->
                     <div class="basicInfo__list col-lg-3">
