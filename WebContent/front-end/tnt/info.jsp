@@ -5,7 +5,7 @@
 
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
 <%-- <% --%>
-// <!-- // 	String tnt_no = "TNT000003"; -->
+<!-- // 	String tnt_no = "TNT000003"; -->
 <%-- %> --%>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 
@@ -306,7 +306,7 @@
                                         <input class="register100" type="password" name="tnt_pwd_new2" id="tnt_pwd_new2">
                                         <span class="focus-register100"></span> <span class="label-register100">確認新密碼</span>
                                     </div>
-                                    <div class="wrap-validate-chgPwd" data-validate="帳號密碼錯誤">
+                                    <div class="wrap-validate-login" data-validate="帳號密碼錯誤">
 
                                     </div>
                                 </form>

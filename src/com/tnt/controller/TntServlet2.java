@@ -279,7 +279,7 @@ public class TntServlet2 extends HttpServlet {
 					MailService mailService = new MailService();
 					
 					//記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					tnt_email = "yjwuws@gmail.com";
+					tnt_email = "ea103g2@gmail.com";
 					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					
 					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
@@ -290,7 +290,6 @@ public class TntServlet2 extends HttpServlet {
 						out.print(resString);
 					}
 				}
-
 				
 
 			} catch (Exception e) {
@@ -411,30 +410,30 @@ public class TntServlet2 extends HttpServlet {
 				String tnt_pwd = req.getParameter("tnt_pwd");
 				String tnt_pwd_new = req.getParameter("tnt_pwd_new");
 				
-				System.out.println(tnt_pwd_new);
+//				System.out.println(tnt_pwd_new);
 
 				/*************************** 2.開始比對登入資料 ***************************************/
 				// 【檢查該帳號 , 密碼是否有效】
 				TntService tntSvc = new TntService();
-				System.out.println("1");
+//				System.out.println("1");
 //				TntVO tntVO_origin = tntSvc.getOneTntAccount(tnt_no);
 				TntVO tntVO_origin = tntSvc.getOneTntProfile(tnt_no);
-				System.out.println("2");
+//				System.out.println("2");
 				String tnt_pwd_origin = tntVO_origin.getTnt_pwd();
-				System.out.println("3");
+//				System.out.println("3");
 				out = res.getWriter();
 				if (tnt_pwd_origin.equals(tnt_pwd)) {
-					System.out.println("密碼比對");
+					System.out.println("忘記密碼比對成功");
 					tntSvc.updateTntPwd(tnt_no, tnt_pwd_new);
-					out.print("密碼更改成功");
+					out.print("true");
 				} else {
-					System.out.println("5");
+//					System.out.println("5");
 //					errorMsgs.add("密碼錯誤");
 //					req.setAttribute("tntVO", tntVO); // 含有輸入格式錯誤的tntVO物件,也存入req
 //					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tnt/info.jsp");
 //					failureView.forward(req, res);
 //					return; // 程式中斷
-					out.print("密碼錯誤");
+					out.print("false");
 				}
 			} catch (Exception e) {
 				System.out.println("infoChgPwd Exception: " + e.getMessage());
