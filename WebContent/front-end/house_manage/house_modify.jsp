@@ -69,7 +69,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getLldAllHouse">
-						<button type="submit" class="link" style="color: #D37707;">首頁</button>
+						<button type="submit" class="link">首頁</button>
 					</FORM>
 					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
