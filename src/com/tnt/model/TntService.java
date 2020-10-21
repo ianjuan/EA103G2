@@ -116,6 +116,10 @@ public class TntService {
 
 		return tntVO;
 	}
+	
+	public TntVO getOneTntPic(String tnt_no) {
+		return dao.findByPK_pic(tnt_no);
+	}
 
 	
 	public TntVO updateTntPocket(String tnt_no, int tnt_blance) {

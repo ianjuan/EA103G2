@@ -115,7 +115,7 @@
 <!--                                     </svg> -->
 <!--                                 </a> -->
                                 <a class="awrapBigHeadPic">
-<%--                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic"> --%>
+                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
                             <p class="text-gray text-center mb-3">房客</p>
@@ -180,7 +180,7 @@
                                 </h4>
                                 <hr class="login100-form-title p-b-10">
                                 <!-- <div class="login100-form validate-form"> -->
-                                <form id="registerform" enctype="multipart/form-data">
+                                <form class="registerform" enctype="multipart/form-data">
                                     <div class="wrap-register100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                                         <input class="register100" type="text" name="tnt_email" id="tnt_email" value="${tntVO.tnt_email}" readonly>
                                         <div class="focus-register100"></div>
@@ -255,7 +255,7 @@
                                 </h4>
                                 <hr class="login100-form-title p-b-10">
                                 <!-- <div class="login100-form validate-form"> -->
-                                <form id="registerform" enctype="multipart/form-data">
+                                <form class="registerform" enctype="multipart/form-data">
                                     <div id="divPic">
                                         <div class="wrapperBackground">
                                             <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
@@ -291,7 +291,7 @@
                                 </h4>
                                 <hr class="login100-form-title p-b-10">
                                 <!-- <div class="login100-form validate-form"> -->
-                                <form id="registerform" enctype="multipart/form-data">
+                                <form class="registerform" enctype="multipart/form-data">
                                     <div class="wrap-register100 validate-input" data-validate="Less than 8 [a-zA-Z0-9]">
                                         <input class="register100" type="password" name="tnt_pwd" id="tnt_pwd">
                                         <span class="focus-register100"></span>
@@ -355,6 +355,8 @@
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.datetimepicker.full.js"></script>

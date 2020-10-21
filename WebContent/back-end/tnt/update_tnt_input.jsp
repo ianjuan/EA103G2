@@ -1,17 +1,17 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.tnt.model.*"%>
 <%
-  TntVO tntVO = (TntVO) request.getAttribute("tntVO"); //EmpServlet.java (Concroller) ¦s¤JreqªºtntVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºtntVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºtntVOª«¥ó)
+  TntVO tntVO = (TntVO) request.getAttribute("tntVO"); //EmpServlet.java (Concroller) å­˜å…¥reqçš„tntVOç‰©ä»¶ (åŒ…æ‹¬å¹«å¿™å–å‡ºçš„tntVO, ä¹ŸåŒ…æ‹¬è¼¸å…¥è³‡æ–™éŒ¯èª¤æ™‚çš„tntVOç‰©ä»¶)
   %>
-<%String[] cities = {"¥x¥_¥«", "·s¥_¥«", "°ò¶©¥«", "®ç¶é¥«", "·s¦Ë¿¤", "·s¦Ë¥«", "­]®ß¿¤", "¥x¤¤¥«", "«n§ë¿¤", "¹ü¤Æ¿¤", "¶³ªL¿¤", "¹Å¸q¿¤", "¹Å¸q¥«", "¥x«n¥«", "°ª¶¯¥«", "«ÌªF¿¤", "©yÄõ¿¤", "ªá½¬¿¤", "¥xªF¿¤", "¼ê´ò¿¤", "ª÷ªù¿¤", "³s¦¿¿¤"};%>
-<%String[] accStatuses = {"¥¼±Ò¥Î", "¤w±Ò¥Î", "±b¸¹¥¢®Ä"};%>
+<%String[] cities = {"å°åŒ—å¸‚", "æ–°åŒ—å¸‚", "åŸºéš†å¸‚", "æ¡ƒåœ’å¸‚", "æ–°ç«¹ç¸£", "æ–°ç«¹å¸‚", "è‹—æ —ç¸£", "å°ä¸­å¸‚", "å—æŠ•ç¸£", "å½°åŒ–ç¸£", "é›²æž—ç¸£", "å˜‰ç¾©ç¸£", "å˜‰ç¾©å¸‚", "å°å—å¸‚", "é«˜é›„å¸‚", "å±æ±ç¸£", "å®œè˜­ç¸£", "èŠ±è“®ç¸£", "å°æ±ç¸£", "æ¾Žæ¹–ç¸£", "é‡‘é–€ç¸£", "é€£æ±Ÿç¸£"};%>
+<%String[] accStatuses = {"æœªå•Ÿç”¨", "å·²å•Ÿç”¨", "å¸³è™Ÿå¤±æ•ˆ"};%>
 <html>
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>©Ð«È¸ê®Æ­×§ï - update_tnt_input.jsp</title>
+    <title>æˆ¿å®¢è³‡æ–™ä¿®æ”¹ - update_tnt_input.jsp</title>
     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
     <style>
         table#table-1 {
@@ -50,15 +50,15 @@
     <table id="table-1">
         <tr>
             <td>
-                <h3>©Ð«È¸ê®Æ­×§ï - update_tnt_input.jsp</h3>
-                <h4><a href="<%=request.getContextPath()%>/back-end/tnt/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+                <h3>æˆ¿å®¢è³‡æ–™ä¿®æ”¹ - update_tnt_input.jsp</h3>
+                <h4><a href="<%=request.getContextPath()%>/back-end/tnt/select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›žé¦–é </a></h4>
             </td>
         </tr>
     </table>
-    <h3>¸ê®Æ­×§ï:</h3>
-    <%-- ¿ù»~ªí¦C --%>
+    <h3>è³‡æ–™ä¿®æ”¹:</h3>
+    <%-- éŒ¯èª¤è¡¨åˆ— --%>
     <c:if test="${not empty errorMsgs}">
-        <font style="color:red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+        <font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
         <ul>
             <c:forEach var="message" items="${errorMsgs}">
                 <li style="color:red">${message}</li>
@@ -68,75 +68,75 @@
     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/tnt/TntServlet" name="update_tnt_input" enctype="multipart/form-data">
         <table>
             <tr>
-                <td>©Ð«È½s¸¹:<font color=red><b>*</b></font>
+                <td>æˆ¿å®¢ç·¨è™Ÿ:<font color=red><b>*</b></font>
                 </td>
                 <td>
                     <%=tntVO.getTnt_no()%>
                 </td>
             </tr>
             <tr>
-                <td>«H½c:</td>
+                <td>ä¿¡ç®±:</td>
                 <td><input type="text" name="tnt_email" value="<%=tntVO.getTnt_email()%>" readonly /></td> <!-- readonly -->
             </tr>
             <tr>
-                <td>±b¸¹:</td>
+                <td>å¸³è™Ÿ:</td>
                 <td><input type="text" name="tnt_acc" value="<%=tntVO.getTnt_acc()%>" readonly /></td> <!-- readonly -->
             </tr>
             <tr>
-                <td>±K½X:</td>
+                <td>å¯†ç¢¼:</td>
                 <td><input type="password" name="tnt_pwd" value="<%=tntVO.getTnt_pwd()%>" readonly /></td> <!-- readonly -->
             </tr>
             <tr>
-                <td>¨­¤ÀÃÒ:</td>
+                <td>èº«åˆ†è­‰:</td>
                 <td><input type="text" name="tnt_id" size="10" value="<%=tntVO.getTnt_id()%>" /></td>
             </tr>
             <tr>
-                <td>©m¦W:</td>
+                <td>å§“å:</td>
                 <td><input type="text" name="tnt_name" value="<%=tntVO.getTnt_name()%>"></td>
             </tr>
             <tr>
-                <td>¥Í¤é:</td>
+                <td>ç”Ÿæ—¥:</td>
                 <td><input type="text" name="tnt_birth" id="f_date1" /></td>
             </tr>
-            <td>©Ê§O:</td>
+            <td>æ€§åˆ¥:</td>
             <td>
-                <input type="radio" name="tnt_sex" required value=true ${(tntVO.tnt_sex)?'checked':''}>¨k
-                <input type="radio" name="tnt_sex" required value=false ${!(tntVO.tnt_sex)?'checked':''}>¤k
+                <input type="radio" name="tnt_sex" required value=true ${(tntVO.tnt_sex)?'checked':''}>ç”·
+                <input type="radio" name="tnt_sex" required value=false ${!(tntVO.tnt_sex)?'checked':''}>å¥³
             </td>
             </tr>
             <tr>
-                <td>¤â¾÷:</td>
+                <td>æ‰‹æ©Ÿ:</td>
                 <td><input type="text" name="tnt_mobile" value="<%=tntVO.getTnt_mobile()%>" /></td>
             </tr>
             <tr>
-                <td>¿¤¥«:</td>
+                <td>ç¸£å¸‚:</td>
                 <td>
                     <select name="tnt_city" id="tnt_city">
-                        <!--¦pªG­ì©l¸ê®Æ¦³tntVO.tnt_city, ¼W¥[²Ä¤@­Ó¿ï¶µ"¿ï¾Ü¿¤¥«", ¥Îvalue¶Çµ¹js§PÂ_­ì©l¸ê®Æ¬O­þ­Ó­ì©l¸ê®Æ, -->
-                        <!--³]¬°selected, §PÂ_§¹¡B·s¼W§¹¿ï¶µ, ¦A§â"¿ï¾Ü¿¤¥«"ªºvalue­È§ï¦¨0 -->
-                        <!--¦pªG¨S¦³­ì©l¸ê®Æ, ¤£·s¼W"¿ï¾Ü¿¤¥«", ¦bjs"¿ï¾Ü¿¤¥«"¸ò©Ò¦³¿¤¥«¤@°_·s¼W-->
+                        <!--å¦‚æžœåŽŸå§‹è³‡æ–™æœ‰tntVO.tnt_city, å¢žåŠ ç¬¬ä¸€å€‹é¸é …"é¸æ“‡ç¸£å¸‚", ç”¨valueå‚³çµ¦jsåˆ¤æ–·åŽŸå§‹è³‡æ–™æ˜¯å“ªå€‹åŽŸå§‹è³‡æ–™, -->
+                        <!--è¨­ç‚ºselected, åˆ¤æ–·å®Œã€æ–°å¢žå®Œé¸é …, å†æŠŠ"é¸æ“‡ç¸£å¸‚"çš„valueå€¼æ”¹æˆ0 -->
+                        <!--å¦‚æžœæ²’æœ‰åŽŸå§‹è³‡æ–™, ä¸æ–°å¢ž"é¸æ“‡ç¸£å¸‚", åœ¨js"é¸æ“‡ç¸£å¸‚"è·Ÿæ‰€æœ‰ç¸£å¸‚ä¸€èµ·æ–°å¢ž-->
                         <c:if test="${tntVO.tnt_city!=null}">
-                            <option value="${tntVO.tnt_city}" id="city_default">¿ï¾Ü¿¤¥«
+                            <option value="${tntVO.tnt_city}" id="city_default">é¸æ“‡ç¸£å¸‚
                         </c:if>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>°Ï°ì:</td>
+                <td>å€åŸŸ:</td>
                 <td>
                     <select name="tnt_dist" id="tnt_dist">
                         <c:if test="${tntVO.tnt_dist!=null}">
-                            <option value="${tntVO.tnt_dist}" id="dist_default">¿ï¾Ü°Ï°ì
+                            <option value="${tntVO.tnt_dist}" id="dist_default">é¸æ“‡å€åŸŸ
                         </c:if>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>¦a§}:</td>
+                <td>åœ°å€:</td>
                 <td><input type="text" name="tnt_add" value="<%=tntVO.getTnt_add()%>" /></td>
             </tr>
             <tr>
-                <td>±b¸¹ª¬ºA:</td>
+                <td>å¸³è™Ÿç‹€æ…‹:</td>
                 <td>
                     <select name="tnt_status">
                         <c:forEach var="accStatus" items="<%=accStatuses%>" varStatus="varStatusName">
@@ -146,17 +146,17 @@
                 </td>
             </tr>
             <tr>
-                <td>¥[¤J®É¶¡:</td>
+                <td>åŠ å…¥æ™‚é–“:</td>
                 <td>
                     <fmt:formatDate value="${tntVO.tnt_jointime}" pattern="yyyy-mm-dd" />
                 </td>
             </tr>
             <tr>
-                <td><label for="myfiles">¤jÀY¶K:</label></td>
+                <td><label for="myfiles">å¤§é ­è²¼:</label></td>
                 <td>
                     <div id="container_pic">
                         <div id="upload"><input id="myfiles" type="file" name="tnt_pic" accept="image/*" multiple="multiple">
-                            <button id="remove">§R°£</button>
+                            <button id="remove">åˆªé™¤</button>
                         </div>
                     </div>
                 </td>
@@ -165,9 +165,9 @@
         <br>
         <input type="hidden" name="action" value="update">
         <input type="hidden" name="tnt_no" value="${tntVO.tnt_no}">
-        <input type="submit" value="°e¥X­×§ï">
+        <input type="submit" value="é€å‡ºä¿®æ”¹">
     </FORM>
-    <!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
+    <!-- =========================================ä»¥ä¸‹ç‚º datetimepicker ä¹‹ç›¸é—œè¨­å®š========================================== -->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
     <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
@@ -183,71 +183,71 @@
     </style>
     <script>
         var area_data = {
-            '¥x¥_¥«': [
-                '¤¤¥¿°Ï', '¤j¦P°Ï', '¤¤¤s°Ï', '¸UµØ°Ï', '«H¸q°Ï', 'ªQ¤s°Ï', '¤j¦w°Ï', '«n´ä°Ï', '¥_§ë°Ï', '¤º´ò°Ï', '¤hªL°Ï', '¤å¤s°Ï'
+            'å°åŒ—å¸‚': [
+                'ä¸­æ­£å€', 'å¤§åŒå€', 'ä¸­å±±å€', 'è¬è¯å€', 'ä¿¡ç¾©å€', 'æ¾å±±å€', 'å¤§å®‰å€', 'å—æ¸¯å€', 'åŒ—æŠ•å€', 'å…§æ¹–å€', 'å£«æž—å€', 'æ–‡å±±å€'
             ],
-            '·s¥_¥«': [
-                'ªO¾ô°Ï', '·s²ø°Ï', '®õ¤s°Ï', 'ªL¤f°Ï', '²H¤ô°Ï', 'ª÷¤s°Ï', '¤K¨½°Ï', '¸U¨½°Ï', '¥Ûªù°Ï', '¤TªÛ°Ï', '·çªÚ°Ï', '¦Á¤î°Ï', '¥­·Ë°Ï', '°^¼d°Ï', 'Âù·Ë°Ï', '²`§|°Ï', '¥ÛÞä°Ï', '·s©±°Ï', '©WªL°Ï', '¯Q¨Ó°Ï', '¤¤©M°Ï', '¥Ã©M°Ï', '¤g«°°Ï', '¤T®l°Ï', '¾ðªL°Ï', 'Åaºq°Ï', '¤T­«°Ï', 'Äª¬w°Ï', '¤­ªÑ°Ï'
+            'æ–°åŒ—å¸‚': [
+                'æ¿æ©‹å€', 'æ–°èŽŠå€', 'æ³°å±±å€', 'æž—å£å€', 'æ·¡æ°´å€', 'é‡‘å±±å€', 'å…«é‡Œå€', 'è¬é‡Œå€', 'çŸ³é–€å€', 'ä¸‰èŠå€', 'ç‘žèŠ³å€', 'æ±æ­¢å€', 'å¹³æºªå€', 'è²¢å¯®å€', 'é›™æºªå€', 'æ·±å‘å€', 'çŸ³ç¢‡å€', 'æ–°åº—å€', 'åªæž—å€', 'çƒä¾†å€', 'ä¸­å’Œå€', 'æ°¸å’Œå€', 'åœŸåŸŽå€', 'ä¸‰å³½å€', 'æ¨¹æž—å€', 'é¶¯æ­Œå€', 'ä¸‰é‡å€', 'è˜†æ´²å€', 'äº”è‚¡å€'
             ],
-            '°ò¶©¥«': [
-                '¤¯·R°Ï', '¤¤¥¿°Ï', '«H¸q°Ï', '¤¤¤s°Ï', '¦w¼Ö°Ï', '·x·x°Ï', '¤C°ô°Ï'
+            'åŸºéš†å¸‚': [
+                'ä»æ„›å€', 'ä¸­æ­£å€', 'ä¿¡ç¾©å€', 'ä¸­å±±å€', 'å®‰æ¨‚å€', 'æš–æš–å€', 'ä¸ƒå µå€'
             ],
-            '®ç¶é¥«': [
-                '®ç¶é°Ï', '¤¤Ãc°Ï', '¥­Âí°Ï', '¤K¼w°Ï', '·¨±ö°Ï', 'Äª¦Ë°Ï', 'Àt¤s°Ï', 'Às¼æ°Ï', '¤j·Ë°Ï', '¤j¶é°Ï', 'Æ[­µ°Ï', '·s«Î°Ï', '´_¿³°Ï'
+            'æ¡ƒåœ’å¸‚': [
+                'æ¡ƒåœ’å€', 'ä¸­å£¢å€', 'å¹³éŽ®å€', 'å…«å¾·å€', 'æ¥Šæ¢…å€', 'è˜†ç«¹å€', 'é¾œå±±å€', 'é¾æ½­å€', 'å¤§æºªå€', 'å¤§åœ’å€', 'è§€éŸ³å€', 'æ–°å±‹å€', 'å¾©èˆˆå€'
             ],
-            '·s¦Ë¿¤': [
-                '¦Ë¥_¥«', '¦ËªFÂí', '·s®HÂí', 'Ãö¦èÂí', '®o¬Ü¶m', 'Ä_¤s¶m', '¥_®H¶m', '¾î¤s¶m', 'Ë|ªL¶m', '´ò¤f¶m', '·sÂ×¶m', '¦y¥Û¶m', '¤­®p¶m'
+            'æ–°ç«¹ç¸£': [
+                'ç«¹åŒ—å¸‚', 'ç«¹æ±éŽ®', 'æ–°åŸ”éŽ®', 'é—œè¥¿éŽ®', 'å³¨çœ‰é„‰', 'å¯¶å±±é„‰', 'åŒ—åŸ”é„‰', 'æ©«å±±é„‰', 'èŠŽæž—é„‰', 'æ¹–å£é„‰', 'æ–°è±é„‰', 'å°–çŸ³é„‰', 'äº”å³°é„‰'
             ],
-            '·s¦Ë¥«': [
-                'ªF°Ï', '¥_°Ï', '­»¤s°Ï'
+            'æ–°ç«¹å¸‚': [
+                'æ±å€', 'åŒ—å€', 'é¦™å±±å€'
             ],
-            '­]®ß¿¤': [
-                '­]®ß¥«', '³q¾]Âí', '­b¸ÌÂí', '¦Ë«nÂí', 'ÀY¥÷Âí', '«áÀsÂí', '¨ôÄõÂí', '¦è´ò¶m', 'ÀY«Î¶m', '¤½À]¶m', '»ÉÆr¶m', '¤T¸q¶m', '³y¾ô¶m', '¤TÆW¶m', '«nÉÜ¶m', '¤j´ò¶m', '·à¼æ¶m', '®õ¦w¶m'
+            'è‹—æ —ç¸£': [
+                'è‹—æ —å¸‚', 'é€šéœ„éŽ®', 'è‹‘è£¡éŽ®', 'ç«¹å—éŽ®', 'é ­ä»½éŽ®', 'å¾Œé¾éŽ®', 'å“è˜­éŽ®', 'è¥¿æ¹–é„‰', 'é ­å±‹é„‰', 'å…¬é¤¨é„‰', 'éŠ…é‘¼é„‰', 'ä¸‰ç¾©é„‰', 'é€ æ©‹é„‰', 'ä¸‰ç£é„‰', 'å—åº„é„‰', 'å¤§æ¹–é„‰', 'ç…æ½­é„‰', 'æ³°å®‰é„‰'
             ],
-            '»O¤¤¥«': [
-                '¤¤°Ï', 'ªF°Ï', '«n°Ï', '¦è°Ï', '¥_°Ï', '¥_¤Ù°Ï', '¦è¤Ù°Ï', '«n¤Ù°Ï', '¤Ó¥­°Ï', '¤j¨½°Ï', 'Ãú®p°Ï', '¯Q¤é°Ï', 'Â×­ì°Ï', '¦Z¨½°Ï', 'ªF¶Õ°Ï', '¥Û©£°Ï', '·sªÀ°Ï', '©M¥­°Ï', '¯«©£°Ï', '¼æ¤l°Ï', '¤j¶®°Ï', '¤j¨{°Ï', 'Às¤«°Ï', '¨F³À°Ï', '±ï´Ï°Ï', '²M¤ô°Ï', '¤j¥Ò°Ï', '¥~®H°Ï', '¤j¦w°Ï'
+            'è‡ºä¸­å¸‚': [
+                'ä¸­å€', 'æ±å€', 'å—å€', 'è¥¿å€', 'åŒ—å€', 'åŒ—å±¯å€', 'è¥¿å±¯å€', 'å—å±¯å€', 'å¤ªå¹³å€', 'å¤§é‡Œå€', 'éœ§å³°å€', 'çƒæ—¥å€', 'è±åŽŸå€', 'åŽé‡Œå€', 'æ±å‹¢å€', 'çŸ³å²¡å€', 'æ–°ç¤¾å€', 'å’Œå¹³å€', 'ç¥žå²¡å€', 'æ½­å­å€', 'å¤§é›…å€', 'å¤§è‚šå€', 'é¾äº•å€', 'æ²™é¹¿å€', 'æ¢§æ£²å€', 'æ¸…æ°´å€', 'å¤§ç”²å€', 'å¤–åŸ”å€', 'å¤§å®‰å€'
             ],
-            '«n§ë¿¤': [
-                '«n§ë¥«', '®H¨½Âí', '¯ó¤ÙÂí', '¦Ë¤sÂí', '¶°¶°Âí', '¦W¶¡¶m', '³À¨¦¶m', '¤¤¼d¶m', '³½¦À¶m', '°ê©m¶m', '¤ô¨½¶m', '«H¸q¶m', '¤¯·R¶m'
+            'å—æŠ•ç¸£': [
+                'å—æŠ•å¸‚', 'åŸ”é‡ŒéŽ®', 'è‰å±¯éŽ®', 'ç«¹å±±éŽ®', 'é›†é›†éŽ®', 'åé–“é„‰', 'é¹¿è°·é„‰', 'ä¸­å¯®é„‰', 'é­šæ± é„‰', 'åœ‹å§“é„‰', 'æ°´é‡Œé„‰', 'ä¿¡ç¾©é„‰', 'ä»æ„›é„‰'
             ],
-            '¹ü¤Æ¿¤': [
-                '¹ü¤Æ¥«', '­ûªLÂí', '©M¬üÂí', '³À´äÂí', '·Ë´òÂí', '¤GªLÂí', '¥Ð¤¤Âí', '¥_¤æÂí', 'ªá¾Â¶m', 'ªâ¶é¶m', '¤j§ø¶m', '¥Ã¹t¶m', '¦ù´ä¶m', '½u¦è¶m', 'ºÖ¿³¶m', '¨q¤ô¶m', '®H¤ß¶m', '®HÆQ¶m', '¤j«°¶m', 'ªÚ­b¶m', '¦Ë¶í¶m', 'ªÀÀY¶m', '¤G¤ô¶m', '¥Ð§À¶m', '°ñÀY¶m', '·Ë¦{¶m'
+            'å½°åŒ–ç¸£': [
+                'å½°åŒ–å¸‚', 'å“¡æž—éŽ®', 'å’Œç¾ŽéŽ®', 'é¹¿æ¸¯éŽ®', 'æºªæ¹–éŽ®', 'äºŒæž—éŽ®', 'ç”°ä¸­éŽ®', 'åŒ—æ–—éŽ®', 'èŠ±å£‡é„‰', 'èŠ¬åœ’é„‰', 'å¤§æ‘é„‰', 'æ°¸é–é„‰', 'ä¼¸æ¸¯é„‰', 'ç·šè¥¿é„‰', 'ç¦èˆˆé„‰', 'ç§€æ°´é„‰', 'åŸ”å¿ƒé„‰', 'åŸ”é¹½é„‰', 'å¤§åŸŽé„‰', 'èŠ³è‹‘é„‰', 'ç«¹å¡˜é„‰', 'ç¤¾é ­é„‰', 'äºŒæ°´é„‰', 'ç”°å°¾é„‰', 'åŸ¤é ­é„‰', 'æºªå·žé„‰'
             ],
-            '¶³ªL¿¤': [
-                '¤æ¤»¥«', '¤æ«nÂí', 'ªê§ÀÂí', '¦èÁ³Âí', '¤g®wÂí', '¥_´äÂí', 'Ûl®ä¶m', 'ªL¤º¶m', '¥j§|¶m', '¤j°ñ¶m', '±[­I¶m', '¤G±[¶m', '³Á¼d¶m', '»O¦è¶m', 'ªF¶Õ¶m', '½Ç©¾¶m', '¥|´ò¶m', '¤f´ò¶m', '¤ôªL¶m', '¤¸ªø¶m'
+            'é›²æž—ç¸£': [
+                'æ–—å…­å¸‚', 'æ–—å—éŽ®', 'è™Žå°¾éŽ®', 'è¥¿èžºéŽ®', 'åœŸåº«éŽ®', 'åŒ—æ¸¯éŽ®', 'èŽ¿æ¡é„‰', 'æž—å…§é„‰', 'å¤å‘é„‰', 'å¤§åŸ¤é„‰', 'å´™èƒŒé„‰', 'äºŒå´™é„‰', 'éº¥å¯®é„‰', 'è‡ºè¥¿é„‰', 'æ±å‹¢é„‰', 'è¤’å¿ é„‰', 'å››æ¹–é„‰', 'å£æ¹–é„‰', 'æ°´æž—é„‰', 'å…ƒé•·é„‰'
             ],
-            '¹Å¸q¿¤': [
-                '¤Ó«O¥«', '¦µ¤l¥«', '¥¬³UÂí', '¤jªLÂí', '¥Á¶¯¶m', '·Ë¤f¶m', '·s´ä¶m', '¤»¸}¶m', 'ªF¥Û¶m', '¸q¦Ë¶m', '³À¯ó¶m', '¤ô¤W¶m', '¤¤®H¶m', '¦Ë±T¶m', '±ö¤s¶m', 'µf¸ô¶m', '¤j®H¶m', 'ªü¨½¤s¶m'
+            'å˜‰ç¾©ç¸£': [
+                'å¤ªä¿å¸‚', 'æœ´å­å¸‚', 'å¸ƒè¢‹éŽ®', 'å¤§æž—éŽ®', 'æ°‘é›„é„‰', 'æºªå£é„‰', 'æ–°æ¸¯é„‰', 'å…­è…³é„‰', 'æ±çŸ³é„‰', 'ç¾©ç«¹é„‰', 'é¹¿è‰é„‰', 'æ°´ä¸Šé„‰', 'ä¸­åŸ”é„‰', 'ç«¹å´Žé„‰', 'æ¢…å±±é„‰', 'ç•ªè·¯é„‰', 'å¤§åŸ”é„‰', 'é˜¿é‡Œå±±é„‰'
             ],
-            '¹Å¸q¥«': [
-                'ªF°Ï', '¦è°Ï'
+            'å˜‰ç¾©å¸‚': [
+                'æ±å€', 'è¥¿å€'
             ],
-            '»O«n¥«': [
-                '¤¤¦è°Ï', 'ªF°Ï', '«n°Ï', '¥_°Ï', '¦w¥­°Ï', '¦w«n°Ï', '¥Ã±d°Ï', 'Âk¤¯°Ï', '·s¤Æ°Ï', '¥ªÂí°Ï', '¥É¤«°Ï', '·£¦è°Ï', '«n¤Æ°Ï', '¤¯¼w°Ï', 'Ãö¼q°Ï', 'Às±T°Ï', '©x¥Ð°Ï', '³Â¨§°Ï', '¨Î¨½°Ï', '¦è´ä°Ï', '¤CªÑ°Ï', '±N­x°Ï', '¾Ç¥Ò°Ï', '¥_ªù°Ï', '·sÀç°Ï', '«á¾À°Ï', '¥Õªe°Ï', 'ªF¤s°Ï', '¤»¥Ò°Ï', '¤UÀç°Ï', '¬hÀç°Ï', 'ÆQ¤ô°Ï', 'µ½¤Æ°Ï', '¤j¤º°Ï', '¤s¤W°Ï', '·s¥«°Ï', '¦w©w°Ï'
+            'è‡ºå—å¸‚': [
+                'ä¸­è¥¿å€', 'æ±å€', 'å—å€', 'åŒ—å€', 'å®‰å¹³å€', 'å®‰å—å€', 'æ°¸åº·å€', 'æ­¸ä»å€', 'æ–°åŒ–å€', 'å·¦éŽ®å€', 'çŽ‰äº•å€', 'æ¥ è¥¿å€', 'å—åŒ–å€', 'ä»å¾·å€', 'é—œå»Ÿå€', 'é¾å´Žå€', 'å®˜ç”°å€', 'éº»è±†å€', 'ä½³é‡Œå€', 'è¥¿æ¸¯å€', 'ä¸ƒè‚¡å€', 'å°‡è»å€', 'å­¸ç”²å€', 'åŒ—é–€å€', 'æ–°ç‡Ÿå€', 'å¾Œå£å€', 'ç™½æ²³å€', 'æ±å±±å€', 'å…­ç”²å€', 'ä¸‹ç‡Ÿå€', 'æŸ³ç‡Ÿå€', 'é¹½æ°´å€', 'å–„åŒ–å€', 'å¤§å…§å€', 'å±±ä¸Šå€', 'æ–°å¸‚å€', 'å®‰å®šå€'
             ],
-            '°ª¶¯¥«': [
-                '·£±ê°Ï', '¥ªÀç°Ï', '¹ª¤s°Ï', '¤T¥Á°Ï', 'ÆQÑL°Ï', '«eª÷°Ï', '·s¿³°Ï', '­d¶®°Ï', '«eÂí°Ï', '¤p´ä°Ï', 'ºX¬z°Ï', '»ñ¤s°Ï', '¤j¼d°Ï', '³¾ªQ°Ï', 'ªL¶é°Ï', '¤¯ªZ°Ï', '¤j¾ð°Ï', '¤jªÀ°Ï', '©£¤s°Ï', '¸ô¦Ë°Ï', '¾ôÀY°Ï', '±ê©x°Ï', 'À±ªû°Ï', '¥Ã¦w°Ï', '¿P±_°Ï', '¥Ð¼d°Ï', 'ªü½¬°Ï', '­XÛ_°Ï', '´ò¤º°Ï', 'ºX¤s°Ï', '¬ü¿@°Ï', '¤ºªù°Ï', '§üªL°Ï', '¥Ò¥P°Ï', '¤»Àt°Ï', '­ZªL°Ï', '®ç·½°Ï', '¨ºº¿®L°Ï'
+            'é«˜é›„å¸‚': [
+                'æ¥ æ¢“å€', 'å·¦ç‡Ÿå€', 'é¼“å±±å€', 'ä¸‰æ°‘å€', 'é¹½åŸ•å€', 'å‰é‡‘å€', 'æ–°èˆˆå€', 'è‹“é›…å€', 'å‰éŽ®å€', 'å°æ¸¯å€', 'æ——æ´¥å€', 'é³³å±±å€', 'å¤§å¯®å€', 'é³¥æ¾å€', 'æž—åœ’å€', 'ä»æ­¦å€', 'å¤§æ¨¹å€', 'å¤§ç¤¾å€', 'å²¡å±±å€', 'è·¯ç«¹å€', 'æ©‹é ­å€', 'æ¢“å®˜å€', 'å½Œé™€å€', 'æ°¸å®‰å€', 'ç‡•å·¢å€', 'ç”°å¯®å€', 'é˜¿è“®å€', 'èŒ„è£å€', 'æ¹–å…§å€', 'æ——å±±å€', 'ç¾Žæ¿ƒå€', 'å…§é–€å€', 'æ‰æž—å€', 'ç”²ä»™å€', 'å…­é¾œå€', 'èŒ‚æž—å€', 'æ¡ƒæºå€', 'é‚£ç‘ªå¤å€'
             ],
-            '«ÌªF¿¤': [
-                '«ÌªF¥«', '¼é¦{Âí', 'ªF´äÂí', '«í¬KÂí', '¸U¤¦¶m', 'ªøªv¶m', 'Åï¬¥¶m', '¤E¦p¶m', '¨½´ä¶m', 'ÆQ®H¶m', '°ª¾ð¶m', '¸UÅr¶m', '¤º®H¶m', '¦Ë¥Ð¶m', '·s°ñ¶m', 'ªD¼d¶m', '·s¶é¶m', '®r³»¶m', 'ªLÃä¶m', '«n¦{¶m', '¨Î¥V¶m', '¯[²y¶m', '¨®«°¶m', 'º¡¦{¶m', 'ªD¤s¶m', 'Ãú¥x¶m', 'º¿®a¶m', '®õªZ¶m', '¨Ó¸q¶m', '¬K¤é¶m', '·à¤l¶m', '¨d¤¦¶m', '¤T¦aªù¶m'
+            'å±æ±ç¸£': [
+                'å±æ±å¸‚', 'æ½®å·žéŽ®', 'æ±æ¸¯éŽ®', 'æ†æ˜¥éŽ®', 'è¬ä¸¹é„‰', 'é•·æ²»é„‰', 'éºŸæ´›é„‰', 'ä¹å¦‚é„‰', 'é‡Œæ¸¯é„‰', 'é¹½åŸ”é„‰', 'é«˜æ¨¹é„‰', 'è¬å·’é„‰', 'å…§åŸ”é„‰', 'ç«¹ç”°é„‰', 'æ–°åŸ¤é„‰', 'æž‹å¯®é„‰', 'æ–°åœ’é„‰', 'å´é ‚é„‰', 'æž—é‚Šé„‰', 'å—å·žé„‰', 'ä½³å†¬é„‰', 'ç‰çƒé„‰', 'è»ŠåŸŽé„‰', 'æ»¿å·žé„‰', 'æž‹å±±é„‰', 'éœ§å°é„‰', 'ç‘ªå®¶é„‰', 'æ³°æ­¦é„‰', 'ä¾†ç¾©é„‰', 'æ˜¥æ—¥é„‰', 'ç…å­é„‰', 'ç‰¡ä¸¹é„‰', 'ä¸‰åœ°é–€é„‰'
             ],
-            '©yÄõ¿¤': [
-                '©yÄõ¥«', 'Ã¹ªFÂí', 'Ä¬¿DÂí', 'ÀY«°Âí', 'ÁG·Ë¶m', '§§³ò¶m', '­û¤s¶m', '¥V¤s¶m', '¤­µ²¶m', '¤T¬P¶m', '¤j¦P¶m', '«n¿D¶m'
+            'å®œè˜­ç¸£': [
+                'å®œè˜­å¸‚', 'ç¾…æ±éŽ®', 'è˜‡æ¾³éŽ®', 'é ­åŸŽéŽ®', 'ç¤æºªé„‰', 'å£¯åœé„‰', 'å“¡å±±é„‰', 'å†¬å±±é„‰', 'äº”çµé„‰', 'ä¸‰æ˜Ÿé„‰', 'å¤§åŒé„‰', 'å—æ¾³é„‰'
             ],
-            'ªá½¬¿¤': [
-                'ªá½¬¥«', '»ñªLÂí', '¥É¨½Âí', '·s«°¶m', '¦N¦w¶m', '¹ØÂ×¶m', '¨qªL¶m', '¥ú´_¶m', 'Â×ÀØ¶m', '·çÁJ¶m', '¸Uºa¶m', '´I¨½¶m', '¨ô·Ë¶m'
+            'èŠ±è“®ç¸£': [
+                'èŠ±è“®å¸‚', 'é³³æž—éŽ®', 'çŽ‰é‡ŒéŽ®', 'æ–°åŸŽé„‰', 'å‰å®‰é„‰', 'å£½è±é„‰', 'ç§€æž—é„‰', 'å…‰å¾©é„‰', 'è±æ¿±é„‰', 'ç‘žç©—é„‰', 'è¬æ¦®é„‰', 'å¯Œé‡Œé„‰', 'å“æºªé„‰'
             ],
-            '»OªF¿¤': [
-                '»OªF¥«', '¦¨¥\Âí', 'Ãö¤sÂí', 'ªøÀØ¶m', '®üºÝ¶m', '¦À¤W¶m', 'ªFªe¶m', '³À³¥¶m', '©µ¥­¶m', '¨õ«n¶m', 'ª÷®p¶m', '¤jªZ¶m', '¹F¤¯¶m', 'ºñ®q¶m', 'ÄõÀ¬¶m', '¤Ó³Â¨½¶m'
+            'è‡ºæ±ç¸£': [
+                'è‡ºæ±å¸‚', 'æˆåŠŸéŽ®', 'é—œå±±éŽ®', 'é•·æ¿±é„‰', 'æµ·ç«¯é„‰', 'æ± ä¸Šé„‰', 'æ±æ²³é„‰', 'é¹¿é‡Žé„‰', 'å»¶å¹³é„‰', 'å‘å—é„‰', 'é‡‘å³°é„‰', 'å¤§æ­¦é„‰', 'é”ä»é„‰', 'ç¶ å³¶é„‰', 'è˜­å¶¼é„‰', 'å¤ªéº»é‡Œé„‰'
             ],
-            '¼ê´ò¿¤': [
-                '°¨¤½¥«', '´ò¦è¶m', '¥Õ¨F¶m', '¦èÀ¬¶m', '±æ¦w¶m', '¤C¬ü¶m'
+            'æ¾Žæ¹–ç¸£': [
+                'é¦¬å…¬å¸‚', 'æ¹–è¥¿é„‰', 'ç™½æ²™é„‰', 'è¥¿å¶¼é„‰', 'æœ›å®‰é„‰', 'ä¸ƒç¾Žé„‰'
             ],
-            'ª÷ªù¿¤': [
-                'ª÷«°Âí', 'ª÷´òÂí', 'ª÷¨FÂí', 'ª÷¹ç¶m', '¯PÀ¬¶m', '¯QËú¶m'
+            'é‡‘é–€ç¸£': [
+                'é‡‘åŸŽéŽ®', 'é‡‘æ¹–éŽ®', 'é‡‘æ²™éŽ®', 'é‡‘å¯§é„‰', 'çƒˆå¶¼é„‰', 'çƒåµé„‰'
             ],
-            '³s¦¿¿¤': [
-                '«n¬ñ¶m', '¥_¬ñ¶m', '²÷¥ú¶m', 'ªF¤Þ¶m'
+            'é€£æ±Ÿç¸£': [
+                'å—ç«¿é„‰', 'åŒ—ç«¿é„‰', 'èŽ’å…‰é„‰', 'æ±å¼•é„‰'
             ]
         }
     </script>
@@ -256,7 +256,7 @@
         $('#f_date1').datetimepicker({
             theme: '', //theme: 'dark',
             timepicker: false, //timepicker:true,
-            step: 1, //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
+            step: 1, //step: 60 (é€™æ˜¯timepickerçš„é è¨­é–“éš”60åˆ†é˜)
             format: 'Y-m-d', //format:'Y-m-d H:i:s',
             value: '<%=tntVO.getTnt_birth()%>', // value:   new Date(),
         });
@@ -307,16 +307,16 @@
 
         $(document).ready(function() {
             var city_key = Object.keys(area_data);
-            //­YµL­ì©l¸ê®Æ, §â©Ò¦³¿¤¥«¿ï¶µ©ñ¤W¥h, °Ï°ì©ñ¿ï°Ï°ì
+            //è‹¥ç„¡åŽŸå§‹è³‡æ–™, æŠŠæ‰€æœ‰ç¸£å¸‚é¸é …æ”¾ä¸ŠåŽ», å€åŸŸæ”¾é¸å€åŸŸ
             if ($('#tnt_city').val() === null) {
-                $("#tnt_city").append('<option value="0" id="city_default">¿ï¾Ü¿¤¥«');
+                $("#tnt_city").append('<option value="0" id="city_default">é¸æ“‡ç¸£å¸‚');
                 city_key.forEach(function(item, index, array) {
                     $("#tnt_city").append('<option value="' + item + '">' + item);
                 });
-                $("#tnt_dist").append('<option value="0" id="dist_default">¿ï¾Ü°Ï°ì');
+                $("#tnt_dist").append('<option value="0" id="dist_default">é¸æ“‡å€åŸŸ');
 
-                // ­Y¦³­ì©l¿¤¥«¸ê®Æ, ©ñ¤W©Ò¦³¿¤¥«¿ï¶µ, ¥B¸Ó¿¤¥«¬°selected
-                // ¦A©ñ¤W¸Ó¿¤¥«©Ò¦³°Ï°ì¿ï¶µ, ¸Ó°Ï°ì¬°selected
+                // è‹¥æœ‰åŽŸå§‹ç¸£å¸‚è³‡æ–™, æ”¾ä¸Šæ‰€æœ‰ç¸£å¸‚é¸é …, ä¸”è©²ç¸£å¸‚ç‚ºselected
+                // å†æ”¾ä¸Šè©²ç¸£å¸‚æ‰€æœ‰å€åŸŸé¸é …, è©²å€åŸŸç‚ºselected
             } else {
                 var index_city;
                 city_key.forEach(function(item, index, array) {
@@ -336,7 +336,7 @@
                 $('#dist_default').val("0");
             }
 
-            //¿ï¾Ü¿¤¥«, °Ï°ì³s°Ê
+            //é¸æ“‡ç¸£å¸‚, å€åŸŸé€£å‹•
             $("#tnt_city").change(function() {
                 city_key.forEach(function(item, index, array) {
                     if (item === $("#tnt_city").val()) {
