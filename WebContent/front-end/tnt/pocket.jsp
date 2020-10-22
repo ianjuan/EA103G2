@@ -10,10 +10,10 @@
 	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
 	request.setAttribute("tntVO", tntVO);
 %>
-<%
-	TntVO tntVO_pocket = tntSvc.getOneTntPocket(tnt_no);
-	request.setAttribute("tntVO_pocket", tntVO_pocket);
-%>
+<%-- <% --%>
+// 	TntVO tntVO_pocket = tntSvc.getOneTntPocket(tnt_no);
+// 	request.setAttribute("tntVO_pocket", tntVO_pocket);
+<%-- %> --%>
 
 <head>
     <title>myPocket</title>
@@ -197,7 +197,8 @@
 <!--                                     justify-content-between -->
                                         <div class="pocketTitleSmall" style="font-size:30px; margin:0px">
                                         	<p class="pocketTitleSmall" style="display: contents;color: #212529;">錢包餘額:<span style="color:#fff;">_</span></p>
-                                       		 $ ${tntVO_pocket.tnt_pocket} 元
+                                       		 $  元
+<%--                                        		 ${tntVO_pocket.tnt_pocket} --%>
                                         </div>
                                     </div>
 <!--                                         pocketBlance -->
