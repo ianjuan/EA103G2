@@ -55,12 +55,12 @@
                                                     </div>
                                                 </div>
                                                 <input type="hidden" name="action" value="login">
-												<input type="submit" value="°e¥X">            
+												<input type="submit" value="°e¥X" class="btn btn-primary btn-user btn-block">            
                                                 <hr>
                                             </form>
                                             <hr>
                                             <div class="text-center">
-                                                <a class="small" href="forgot-password.html">§Ñ°O±K½X?</a>
+                                                <a class="small" href="<%=request.getContextPath()%>/back-end/emp/forgot.jsp">§Ñ°O±K½X?</a>
                                             </div>
                                         </div>
                                     </div>
@@ -70,7 +70,6 @@
                     </div>
                 </div>
             </div>
-
         </body>
 
         </html>

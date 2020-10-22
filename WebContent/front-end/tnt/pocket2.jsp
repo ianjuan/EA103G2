@@ -183,6 +183,7 @@
 									<div class="row no-gutters justify-content-around">
 <!--                                     justify-content-between -->
                                         <div class="pocketTitleSmall" style="font-size:30px; margin:0px"><p class="pocketTitleSmall" style="display: contents;color: #212529;">錢包餘額:<span style="color:#fff;">_</span></p>$ 10,000 元</div>
+<<<<<<< HEAD
 <!--                                         pocketBlance -->
                                     </div style=" display: inline-block;">
                                     <div class="identity-img-wrap m-r-10 m-l-10">
@@ -199,6 +200,19 @@
 				                        </div>
                                     <div >
                                     
+=======
+                                    </div>
+<!--                                         pocketBlance -->
+                                    <hr class="login100-form-title p-b-10">
+                                    <div class="identity-wrap" >
+                                    <div class="identity-img-wrap m-r-10 m-l-10" style=" display: inline-block;">
+				                            <div class="pocketTitleSmall">我的收款帳號</div>
+				                            <div class="container-login100-form-btn" style=" display: inline-block;">
+				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="login100-form-btn btnIdentify">我是房東</a>
+				                            </div>
+				                        </div>
+				                        
+>>>>>>> branch 'master' of https://github.com/ianjuan/EA103G2.git
                                     </div>
                                 <hr class="login100-form-title p-b-10">
                                 <!-- <div class="login100-form validate-form"> -->

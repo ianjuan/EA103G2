@@ -6,53 +6,75 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <title>iZU House_comments Home by Landlord</title>
-<script type="text/javascript">
-var hcm_respon = document.getElementsByClassName('hcm_respon');
-// var replyBtn = 	document.getElementsByClassName('replyBtn');
-
-console.log("js");
-document.getElementsByClassName('hcm_respon');
-console.log(document.getElementsByClassName('hcm_respon'));
-// document.getElementsByClassName("Btn").style.visibility="hidden";
-Btn=document.getElementsByName('Btn');
-if(hcm_respon==""){
-Btn.style.display="none";
-}
-
-
-</script>
 </head>
 <body>
+<ul class="nav nav-tabs">
+<li class="nav-item">
+	<a class="nav-link " href="<%=request.getContextPath()%>/front-end/tenant_comments/addTcm.jsp">新增評價</a>
+  </li>
+   <li class="nav-item">
+    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/tenant_comments/lldListAllTcm.jsp">房客評價</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="<%=request.getContextPath()%>/front-end/house_comments/lldListAllHcm.jsp">房屋評價</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/landlord_comments/lldListAllLcm.jsp">我的評價</a>
+  </li>
+</ul>
 
 
-<label>我是房東的房屋評價總攬</label>
 
-<!-- 針對某房東的所有房子查詢結果，以LLD000008為例，合併時會動態抓lld_no -->
-<%-- <% session.setAttribute("lld_no", "LLD000008");%>: 登入後會設定 --%>
+<% session.setAttribute("lld_no", "LLD000008");%>
+
 <!-- (String)session.getAttribute("lld_no") -->
 <%-- <% --%>
-<!--  HouseService hosSvc = new HouseService();  -->
-<!--        List<HouseVO> hosList = hosSvc.getAllbylld( (String)session.getAttribute("lld_no"));  -->
-<!--       pageContext.setAttribute("hosList", hosList); -->
-<%--  %>	  --%>
 
 
-<!-- 方法一:選擇房屋編號(下拉式選單) -->
+<!-- 0. new 一個house service -->
 
-<%--      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-page/house_comments.servlet" > --%>
-<!--        <b>選擇房屋編號:</b> -->
-<!--        <select size="1" name="hos_no"> -->
-<%--          <c:forEach var="houseVO" items="${hosList}" >  --%>
-<%--           <option name="hos_no" value="${houseVO.hos_no}">${houseVO.house_title} --%>
-<%--          </c:forEach>    --%>
-<!--        </select> -->
-<!--        <input type="hidden" name="action" value="getHosAll_For_Display"> -->
-<!--        <input type="submit" value="送出"> -->
-<!--     </FORM> -->
+<!--    HouseService hosSvc = new HouseService();   -->
+<!--          List<HouseVO> hosList = hosSvc.getAllbylld( (String)session.getAttribute("lld_no"));  -->
+<!--        pageContext.setAttribute("hosList", hosList); -->
+<%--   %>	  --%>
 
-<h3>資料查詢:</h3>
+<!-- --------1. 取得該lld_no有的hos_noSet，join house table--------- -->
+
+<%-- <c:forEach var="houseVO" items="${houseSvc.all}"> --%>
+<%--   	<c:if test="${lld_no==houseVO.lld_no}"> --%>
+<%--   		<%Set <String> hosSet = new HashSet(); --%>
+<%-- <%--    		hosSet.add(${houseVO.hos_no}); --%> 
+<!--    		request.setAttribute("hosSet", hosSet); -->
+<!-- 	  	%> -->
+<%--    </c:if> --%>
+<%-- </c:forEach> --%>
+
+<!------------- 2. 將hos_noSet變成下拉式選單 (顯示房屋名稱要join house table)--------------------->
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_comments/house_comments.servlet" >
+	<select size="1" name="hos_no">
+			<c:forEach var="hos_no1" items="${hosSet}">
+				<option value="${hos_no1}">
+				${hos_no1}
+<%-- 				<c:forEach var="houseVO" items="${houseSvc.all}"> --%>
+<%--                     <c:if test="${hos_no1==houseVO.hos_no}"> --%>
+<%-- 	                    	房屋【${houseVO.hos_name}】  --%>
+<%--                     </c:if> --%>
+<%--                 </c:forEach> --%>
+			</c:forEach>
+		</select>
+        <input type="hidden" name="action" value="getHosAll_For_Display">
+        <input type="submit" value="送出">
+</FORM>
+
+
+
+
 	
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -65,27 +87,42 @@ Btn.style.display="none";
 </c:if>
 
 
-<!-- 方法二:選擇房屋編號(輸入房屋號碼) -->
-    <FORM METHOD="get" ACTION="<%=request.getContextPath()%>/house_comments/house_comments.servlet" >
-        <b>輸入房屋編號 (如):</b>
-        <input type="text" name="hos_no" >
-        <input type="hidden" name="action" value="getHosAll_For_Display">
-        <input type="submit" value="送出" >
-    </FORM>
 
-<table>
- 
+<div id="accordion">
 	<c:forEach var="house_commentsVO" items="${list}" >
-		<tr>
-			<td>${house_commentsVO.hcm_no}</td>
-			<td>${house_commentsVO.tnt_no}</td>
-			<td>${house_commentsVO.hos_no}</td>
-			<td>${house_commentsVO.hcm_eqpmt}</td>
-			<td>${house_commentsVO.hcm_convmt}</td>
-			<td>${house_commentsVO.hcm_neibor}</td>
-			<td>${house_commentsVO.hcm_commnt}</td> 
-			<td>${house_commentsVO.hcm_time}</td>
-			<td>
+		 <div class="card">
+			 <div class="card-header" id="headingOne">
+			  <h5 class="mb-0">
+			  <button class="btn btn-link" data-toggle="collapse" data-target="# ${house_commentsVO.hcm_no}" aria-expanded="true" aria-controls="collapseOne">
+					<c:forEach var="houseVO" items="${houseSvc.all}">
+					 <c:if test="${house_commentsVO.hos_no==HosDetVO.hos_no}">
+	                 	房屋名稱: ${HosDetVO.hos_name}  評價時間: ${house_commentsVO.hcm_time}
+                    </c:if>
+                	</c:forEach>
+         			${house_commentsVO.hcm_no}
+       			</button>
+     		 </h5>
+   			</div>
+   			
+<div id=" ${house_commentsVO.hcm_no}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+      <ul>
+			<li>評價編號: ${house_commentsVO.hcm_no}</li>
+			<li>房客編號: ${house_commentsVO.tnt_no}</li>
+			<li>房屋編號: ${house_commentsVO.hos_no}</li>
+			<li>房屋名稱: 
+			<c:forEach var="houseVO" items="${houseSvc.all}">
+                    <c:if test="${house_commentsVO.hos_no==houseVO.hos_no}">
+	                    	${houseVO.hos_name}
+                    </c:if>
+                </c:forEach>
+            </li>
+			<li>房客對於房屋的設施(設備)的滿意度: ${house_commentsVO.hcm_eqpmt}</li>
+			<li>房客對於房屋附近的機能滿意度: ${house_commentsVO.hcm_convmt}</li>
+			<li>房客對於房屋的左鄰右舍的滿意程度: ${house_commentsVO.hcm_neibor}</li>
+			<li>房客對於此房屋的其他評價: ${house_commentsVO.hcm_commnt}</li> 
+			<li>房客評價時間: ${house_commentsVO.hcm_time}</li>
+			<li>
         	<b>回覆評價:</b>
         	<c:choose>
         	<c:when test="${not empty house_commentsVO.hcm_respon}">
@@ -101,18 +138,13 @@ Btn.style.display="none";
         	</FORM>
         	</c:otherwise>
         	</c:choose>
-			</td>
-			
-<%-- 			<td><c:forEach var="house_commentsVO" items="${tenantSvc.all}"> --%>
-<%--                     <c:if test="${house_commentsVO.tnt_no==tenantVO.tnt_no}"> --%>
-<%-- 	                    ${tenantVO.tnt_no}【${tenantVO.tnt_name} - ${tenantVO.gender}】 --%>
-<%--                     </c:if> --%>
-<%--                 </c:forEach> --%>
-<!-- 			</td> -->
-			
-		</tr>
+			</li>
+		</ul>
+		</div>
+    	</div>
+  		</div>	
 	</c:forEach>
-</table>
+</div>
 
 </body>
 </html>

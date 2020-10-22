@@ -685,15 +685,13 @@ margin-bottom:7px;
    
     });    
         
-//         	  console.log(map.getCenter().lng());
  			google.maps.event.removeListener(listener);
 		listener=map.addListener("idle", () => {action="";
 		if(infowin==false){
   	 	 loading()};
   	  });
          
-//  		google.maps.event.removeListener(listener1);
-//         map.removeListener("idle",idleListener);
+
         }
         
         function geo_coder() { //點擊查詢輸入框地點
@@ -714,25 +712,7 @@ margin-bottom:7px;
 
         }
 
-//         function flag() {
-//         	if(lastround<range){
-//         		geo_coder();
-// 			}
-//         	else{
-//         		console.log('跑到拔座標');
-//                $.each(obj, function(key, value){
-//                 distance = space(lat, lng,value.marker.position.lat(),value.marker.position.lng());
-//             	var tryita="[id='"+value.hos_no+"']";    
-//             if (distance > range) {
-//             	console.log(value.hos_name+"拔走了");
-//                 	$(tryita).remove();
-//                     value.marker.setMap(null);
-//                 }
-//             lastround=range;
-//             });loading()};
-//         };
 
-	
         
         $(function() {
             $("#POI").click(function() {
@@ -792,6 +772,12 @@ margin-bottom:7px;
                      }
                   prev_infowindow = infowindow;
                   infowin=true;
+//                   var id="#"+marker.markerid
+//                   console.log($(id));
+//                   $('html,body').animate({
+//                 	  scrollTop:$(id).offset().top
+//                 	  }, 500);
+//                   console.log(marker.markerid);
                 infowindow.open(marker.get('map'), marker);
             });
             

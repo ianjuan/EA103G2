@@ -227,22 +227,49 @@
 <!--    </servlet-mapping> -->
 
 <!-- chi -->
+ 	<servlet>
+  		<servlet-name>RepairServlet</servlet-name>
+  		<servlet-class>com.repair.controller.RepairServlet</servlet-class>
+ 	</servlet>
+ 	<servlet-mapping>
+		<servlet-name>RepairServlet</servlet-name>
+		<url-pattern>/repair/repair.servlet</url-pattern>
+	</servlet-mapping>
+	
     <servlet>
-  	<servlet-name>Repair_pictureServlet</servlet-name>
-  	<servlet-class>com.repair.controller.Repair_pictureServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
+  		<servlet-name>Repair_pictureServlet</servlet-name>
+  		<servlet-class>com.repair.controller.Repair_pictureServlet</servlet-class>
+ 	 </servlet>
+  	<servlet-mapping>
 		<servlet-name>Repair_pictureServlet</servlet-name>
 		<url-pattern>/repair/repair_picture.servlet</url-pattern>
 	</servlet-mapping>
 	
-   <servlet>
-  	<servlet-name>HcmServlet</servlet-name>
-  	<servlet-class>com.house_comments.controller.House_commentsServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
+   	<servlet>
+  		<servlet-name>HcmServlet</servlet-name>
+  		<servlet-class>com.house_comments.controller.House_commentsServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
 		<servlet-name>HcmServlet</servlet-name>
 		<url-pattern>/house_comments/house_comments.servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+  		<servlet-name>LcmServlet</servlet-name>
+  		<servlet-class>com.landlord_comments.controller.Landlord_commentsServlet</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+		<servlet-name>LcmServlet</servlet-name>
+		<url-pattern>/landlord_comments/landlord_comments.servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+  		<servlet-name>TcmServlet</servlet-name>
+  		<servlet-class>com.tenant_comments.controller.Tenant_commentsServlet</servlet-class>
+  	</servlet>
+ 	<servlet-mapping>
+		<servlet-name>TcmServlet</servlet-name>
+		<url-pattern>/tenant_comments/tenant_comments.servlet</url-pattern>
 	</servlet-mapping>
 	
 <!-- 	Wayne -->
@@ -258,6 +285,14 @@
 	</servlet-mapping>
 	
 <!-- 	Melon -->
+<servlet>
+		<servlet-name>MailServiceBackEnd</servlet-name>
+		<servlet-class>tools.MailServiceBackEnd</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MailServiceBackEnd</servlet-name>
+		<url-pattern>/back-end/emp/forgot</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>EmployeeServlet</servlet-name>
 		<servlet-class>com.emp.controller.EmployeeServlet</servlet-class>

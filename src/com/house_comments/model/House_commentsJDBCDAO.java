@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class House_commentsJDBCDAO implements House_commentsDAO_interface {
 
@@ -21,9 +23,15 @@ public class House_commentsJDBCDAO implements House_commentsDAO_interface {
 
 		private static final String GET_ONE_STMT="SELECT HCM_NO, TNT_NO, HOS_NO, HCM_EQPMT, HCM_CONVMT, HCM_NEIBOR, HCM_COMMNT, to_char(HCM_TIME,'yyyy-mm-dd') HCM_TIME, HCM_RESPON FROM HOUSE_COMMENTS WHERE HCM_NO=?";
 		
-		private static final String TNT_GET_ALL_HCM_STMT = "SELECT HCM_NO, HOS_NO, HCM_EQPMT, HCM_CONVMT, HCM_NEIBOR, HCM_COMMNT, to_char(HCM_TIME,'yyyy-mm-dd') HCM_TIME, HCM_RESPON FROM HOUSE_COMMENTS WHERE TNT_NO=? ORDER BY HCM_NO DESC";
+		private static final String TNT_GET_ALL_HCM_STMT = "SELECT HCM_NO, HOS_NO, TNT_NO, HCM_EQPMT, HCM_CONVMT, HCM_NEIBOR, HCM_COMMNT, to_char(HCM_TIME,'yyyy-mm-dd') HCM_TIME, HCM_RESPON FROM HOUSE_COMMENTS WHERE TNT_NO=? ORDER BY HCM_NO DESC";
 		
 		private static final String GET_ALL_HCM_STMT="SELECT HCM_NO, TNT_NO, HOS_NO, HCM_EQPMT, HCM_CONVMT, HCM_NEIBOR, HCM_COMMNT, to_char(HCM_TIME,'yyyy-mm-dd') HCM_TIME, HCM_RESPON FROM HOUSE_COMMENTS WHERE HOS_NO=? ORDER BY HCM_NO DESC";
+		
+		private static final String GET_ALL_HOS_NO="SELECT HOS_NO FROM HOUSE_COMMENTS WHERE TNT_NO=? ";
+		
+		private static final String GET_ALL_BY_HOS_TNT="SELECT HCM_NO, TNT_NO, HOS_NO, HCM_EQPMT, HCM_CONVMT, HCM_NEIBOR, HCM_COMMNT, to_char(HCM_TIME,'yyyy-mm-dd') HCM_TIME, HCM_RESPON FROM HOUSE_COMMENTS WHERE HOS_NO=? AND TNT_NO=? ORDER BY HCM_NO DESC";
+	
+		private static final String TNT_UPD_STMT="UPDATE HOUSE_COMMENTS SET HCM_COMMNT=?  WHERE HCM_NO=?";
 		
 		
 	@Override
@@ -177,7 +185,7 @@ public class House_commentsJDBCDAO implements House_commentsDAO_interface {
 
 	
 	@Override
-	public List<House_commentsVO> tnt_getAll(String tnt_no) {
+	public List<House_commentsVO> tnt_getAll(String  tnt_no) {
 		List<House_commentsVO> list = new ArrayList<House_commentsVO>();
 		House_commentsVO House_commentsVO = null;
 		
@@ -197,6 +205,7 @@ public class House_commentsJDBCDAO implements House_commentsDAO_interface {
 				House_commentsVO = new House_commentsVO();
 				House_commentsVO.setHcm_no(rs.getString("HCM_NO"));
 				House_commentsVO.setHos_no(rs.getString("HOS_NO"));
+				House_commentsVO.setTnt_no(rs.getString("TNT_NO"));
 				House_commentsVO.setHcm_eqpmt(rs.getInt("HCM_EQPMT"));
 				House_commentsVO.setHcm_convmt(rs.getInt("HCM_CONVMT"));
 				House_commentsVO.setHcm_neibor(rs.getInt("HCM_NEIBOR"));
@@ -302,8 +311,165 @@ public class House_commentsJDBCDAO implements House_commentsDAO_interface {
 			return list;
 		}
 	
-	public static void main(String[] args) {
+	@Override	
+	public Set<String> getAll_hos_no(String tnt_no) {
+		Set<String> set = new HashSet<String>();
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con=DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_HOS_NO);
+			
+			pstmt.setString(1, tnt_no);
+			
+			rs = pstmt.executeQuery();
 		
+			while(rs.next()) {
+				set.add(rs.getString("HOS_NO"));
+			}	
+		} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load House_comments database driver. "
+						+ e.getMessage());
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database House_comments error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return set;
+		}
+	
+	
+
+	@Override
+	public List<House_commentsVO> tnt_getAllByHos(String hos_no, String tnt_no) {
+			List<House_commentsVO> list = new ArrayList<House_commentsVO>();
+			House_commentsVO House_commentsVO = null;
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			ResultSet rs = null;
+			try {
+				Class.forName(driver);
+				con=DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(GET_ALL_BY_HOS_TNT);
+				
+				pstmt.setString(1, hos_no);
+				pstmt.setString(2, tnt_no);
+				
+				rs = pstmt.executeQuery();
+			
+				while(rs.next()) {
+					House_commentsVO = new House_commentsVO();
+					House_commentsVO.setHcm_no(rs.getString("HCM_NO"));
+					House_commentsVO.setTnt_no(rs.getString("TNT_NO"));
+					House_commentsVO.setHos_no(rs.getString("HOS_NO"));
+					House_commentsVO.setHcm_eqpmt(rs.getInt("HCM_EQPMT"));
+					House_commentsVO.setHcm_convmt(rs.getInt("HCM_CONVMT"));
+					House_commentsVO.setHcm_neibor(rs.getInt("HCM_NEIBOR"));
+					House_commentsVO.setHcm_commnt(rs.getString("HCM_COMMNT"));
+					House_commentsVO.setHcm_time(rs.getDate("HCM_TIME"));
+					House_commentsVO.setHcm_respon(rs.getString("HCM_RESPON"));
+					list.add(House_commentsVO);
+				}	
+			} catch (ClassNotFoundException e) {
+					throw new RuntimeException("Couldn't load House_comments database driver. "
+							+ e.getMessage());
+					// Handle any SQL errors
+				} catch (SQLException se) {
+					throw new RuntimeException("A database House_comments error occured. "
+							+ se.getMessage());
+					// Clean up JDBC resources
+				} finally {
+					if (rs != null) {
+						try {
+							rs.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (pstmt != null) {
+						try {
+							pstmt.close();
+						} catch (SQLException se) {
+							se.printStackTrace(System.err);
+						}
+					}
+					if (con != null) {
+						try {
+							con.close();
+						} catch (Exception e) {
+							e.printStackTrace(System.err);
+						}
+					}
+				}
+				return list;
+			}
+	
+	@Override
+	public void tnt_update(House_commentsVO house_commentsVO) {
+		Connection con = null;
+		PreparedStatement pstmt=null;
+
+		try {
+			Class.forName(driver);
+			con=DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(TNT_UPD_STMT);
+			
+			pstmt.setString(1, house_commentsVO.getHcm_commnt());
+			pstmt.setString(2, house_commentsVO.getHcm_no());
+			pstmt.executeUpdate();
+			
+		}	catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load  House_comments database driver."+e.getMessage());
+		} catch(SQLException e) {
+			throw new RuntimeException("Couldn't load  House_comments database error occured."+e.getMessage());
+		} finally {
+			if(pstmt!=null) {
+				if(pstmt!=null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						
+						e.printStackTrace(System.err);
+					}
+			
+				}
+				if(con !=null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						
+						e.printStackTrace(System.err);
+					}
+				}
+			}
 	}
+	
+}
+		
 
 }

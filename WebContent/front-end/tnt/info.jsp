@@ -122,7 +122,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="/basicInfo/account" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/tnt/verify.jsp" class="basicInfo__menu__link">
                                         <img src="https://www.dd-room.com/_nuxt/img/1d5e617.png" width="30" class="mr-2">身分驗證
                                     </a>
                                 </li>

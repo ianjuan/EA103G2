@@ -23,7 +23,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			+ "hos_mdate=?,hos_mindate=?,hos_park=?,hos_sex=?,hos_iden=?,hos_cook=?,hos_pet=?,hos_smoke=?, "
 			+ "hos_rentfee=?,hos_gasfee=?,hos_manafee=?,hos_netfee=?,hos_puwaterfee=?,hos_puelefee=?,hos_parkfee=? where hos_no=?";
 	private static final String UPDATE_HOUSEFurniture = "UPDATE HOUSE set "
-			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=? "
+			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=?,hos_forth=?,hos_net=?,hos_gas=? "
 			+ "where hos_no=?";
 	private static final String UPDATE_WATERFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000001'";
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
@@ -627,6 +627,12 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<HouseVO> getLldAllHouse(String lld_no) {
+		
+		return null;
+	}
 
 	@Override
 	public List<HouseVO> getLldRentHouse(String lld_no) {
@@ -921,7 +927,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	
 	@Override
 	public HouseVO addMoney(HouseVO houseVO) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

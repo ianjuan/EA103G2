@@ -28,7 +28,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House_Rent</title>
+<title>已租房屋</title>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -39,33 +39,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">愛租I-ZU</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active" href="#">尋找房源<span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">地圖找房</a>
-                    <a class="nav-item nav-link" href="<%=request.getContextPath()%>/front-end/house_manage/housemanage_index.jsp">我的房屋</a>
-                    <li class="nav-item dropdown">
-                        <span data-toggle="dropdown" class="member">
-                            <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
-                            <span class="membername"><%=lldInfo.getLld_name()%></span>
-                        </span>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">最新通知</a>
-                            <a class="dropdown-item" href="#">個人資訊</a>
-                            <a class="dropdown-item" href="#">我的錢包</a>
-                            <a class="dropdown-item" href="#">登出</a>
-                        </div>
-                    </li>
-                </div>
-            </div>
-        </div>
-    </nav>
+	<div><jsp:include page="/front-end/navbar/navbar.jsp"/></div>
 	<div id="body">
 		<div id="left">
 			<nav id="housenav">
@@ -137,7 +111,7 @@
 					</div>					
 						<div class="rinfo">
 							<ul>
-								<li><button id="btn1">房屋資訊</button></li>
+								<li><button id="btn1" type="submit" value="${houseVO.hos_no}">房屋資訊</button></li>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 									<input type="hidden" name="hos_no" value="${houseVO.hos_no}">
 									<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -156,7 +130,55 @@
 						</div>					
 					</div>
 			</c:forEach>
-			<div id="right"></div>
+			<div id="right">
+				
+				<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="rentHouse">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				      	<div id="search">
+				      		<span class="count1">關鍵字搜尋：</span><input type="search" class="light-table-filter" data-table="order-table" placeholder="請輸入關鍵字">
+					  		<span class="count1">共</span><span id="count1" class="count2"></span><span class="count1">筆</span>
+				      		<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right; margin-top: 8px;margin-right: 8px;">
+					        	<span aria-hidden="true">&times;</span>
+					        </button>			      	
+				      	</div> 			      	
+					  	<table id="list" class="order-table">
+						<thead>
+							<tr>
+								<th class="hos">編號</th>
+								<th class="hos">房屋編號</th>
+								<th>名稱</th>
+								<th>地址</th>
+								<th>房屋</th>
+								<th>房間</th>
+								<th>租金</th>
+								<th class="fun">狀態</th>
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="houseVO" items="${list}" varStatus="house">					
+							<tr>
+								<td width="5%">${house.count}</td>
+								<td width="11%">${houseVO.hos_no}</td>
+								<td width="24%">${houseVO.hos_name}</td>
+								<td width="24%">${houseVO.hos_add}</td>
+								<td width="10%">${houseVO.hos_type}</td>						
+								<td width="10%">${houseVO.hos_room}</td>
+								<td width="8%">${houseVO.hos_rentfee}</td>
+								<td class="status" width="8%">${houseVO.hos_status}</td>							
+							</tr>					
+						</c:forEach>
+						</tbody>
+					</table>
+				    </div>
+				  </div>
+				</div>
+							
+				<label>
+					<button type="button" class="btn" data-toggle="modal" data-target="#rentHouse">查看房屋清單</button>
+					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFTQNrcbfc-1RezQZWT6dYWJcLIiUPNnpL4Q&usqp=CAU" id="logo">
+				</label>
+			</div>
 		</div>
 		<div id="foot"></div>
 		<div id="outerdiv"
@@ -165,5 +187,11 @@
 				<img id="bigimg" style="border: 5px solid #fff;" src="" />
 			</div>
 		</div>
+		
+	<script>
+		$(document).on("click", "#btn1", function() {
+			window.location.href='<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos='+$(this).val();
+		});
+	</script>
 </body>
 </html>

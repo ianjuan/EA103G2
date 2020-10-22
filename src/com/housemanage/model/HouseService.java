@@ -180,6 +180,10 @@ public class HouseService {
 		return dao.getLldHousePic(hos_no);
 	}
 	
+	public List<HouseVO> getLldAllHouse(String lld_no) {
+		return dao.getLldAllHouse(lld_no);
+	}
+	
 	public List<HouseVO> getLldRentHouse(String lld_no) {
 		return dao.getLldRentHouse(lld_no);
 	}

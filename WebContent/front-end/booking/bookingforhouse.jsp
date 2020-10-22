@@ -129,7 +129,7 @@ background-color:transparent;
 	<%
 		BookingService bks = new BookingService();
 	String hosno=(String)session.getAttribute("HOS");
-			String list = bks.getinfobyid(hosno);
+			String list = bks.getBookingInfoListByhosno(hosno);
 			pageContext.setAttribute("list", list);//KEY，VALUE
 			String tntno=(String)session.getAttribute("tnt_no");
 			String lldno=(String)session.getAttribute("lld_no");

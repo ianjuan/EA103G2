@@ -8,38 +8,71 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import com.emp.model.*;
-import com.rig.model.*;
+import com.rig.model.RightService;
+import com.rig.model.RightVO;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class EmployeeServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	  protected EmployeeVO allowUser(String account, String password) {
+	  protected EmployeeVO allowUser(String emp_acc, String emp_pwd) {
 		  EmployeeService empSvc = new EmployeeService();
 		  List<EmployeeVO> list_empVO = empSvc.getAll();
 		  for(EmployeeVO empVO : list_empVO) {
-			  if(empVO.getEmp_acc().equals(account) && empVO.getEmp_pwd().equals(password))
+			  if(empVO.getEmp_acc().equals(emp_acc) && empVO.getEmp_pwd().equals(emp_pwd))
 		  return empVO;
 		  }
 		  return null;
 	  }
-
+	  protected EmployeeVO allowMail(String emp_mail) {
+		  EmployeeService empSvc = new EmployeeService();
+		  List<EmployeeVO> list_empVO = empSvc.getAll();
+		  for(EmployeeVO empVO : list_empVO) {
+			 if(emp_mail.equals(empVO.getEmp_mail())) {
+			  return empVO;
+			  }
+		  }
+		  	  return null;
+		  
+	  }
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
 		req.setCharacterEncoding("UTF-8");
+	    res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
+		HttpSession session=null;
+
+		if("forgot".equals(action)) {
+			String emp_mail= req.getParameter("emp_mail");
+			 if (allowMail(emp_mail)==null) { 
+			  out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
+		      out.println("<BODY>你的信箱無效!<BR>");
+		      out.println("請按此 <A HREF="+req.getContextPath()+"/back-end/emp/forgot.jsp>重新輸入</A>");
+		      out.println("</BODY></HTML>");
+			 }
+			 else {       //【帳號 , 密碼有效時, 才做以下工作】 
+				 	EmployeeVO empVO= allowMail(emp_mail);
+				 	session = req.getSession();
+				    System.out.println(empVO.getEmp_no());
+				 	session.setAttribute("empVO", empVO);
+					RequestDispatcher forgot = req.getRequestDispatcher("/back-end/emp/forgot");//MailService
+					forgot.forward(req, res);
+			    }
+			  }
+		if("logout".equals(action)) {
+		req.getSession().invalidate();
+		res.sendRedirect(req.getContextPath()+"/back-end/emp/login.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+		}
 		if("login".equals(action)) {
-			    res.setContentType("text/html; charset=UTF-8");
-			    PrintWriter out = res.getWriter();
+			    out = res.getWriter();
 
 			    // 【取得使用者 帳號(account) 密碼(password)】
 			    String emp_acc = req.getParameter("emp_acc");
 			    String emp_pwd = req.getParameter("emp_pwd");
-
 			    // 【檢查該帳號 , 密碼是否有效】
 			    if (allowUser(emp_acc, emp_pwd)==null) {          //【帳號 , 密碼無效時】
 			      out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
@@ -47,14 +80,15 @@ public class EmployeeServlet extends HttpServlet {
 			      out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/back-end/emp/login.jsp>重新登入</A>");
 			      out.println("</BODY></HTML>");
 			    }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
-			      HttpSession session = req.getSession();
+			      session = req.getSession();
 			      EmployeeVO empVO= allowUser(emp_acc, emp_pwd);
 			      session.setAttribute("empVO", empVO);   //*工作1: 才在session內做已經登入過的標識
-			      
 			       try {                                                        
 			         String location = (String) session.getAttribute("location");
+			         
 			         if (location != null) {
 			           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+			           System.out.println(location);
 			           res.sendRedirect(location);            
 			           return;
 			         }
@@ -62,7 +96,7 @@ public class EmployeeServlet extends HttpServlet {
 			      res.sendRedirect(req.getContextPath()+"/back-end/emp/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 			    }
 			  }
-		
+
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -179,9 +213,6 @@ public class EmployeeServlet extends HttpServlet {
 
 
 				//───────────────照片修改───────────────────────
-
-				req.setCharacterEncoding("UTF-8"); // 處理中文檔名
-				res.setContentType("text/html; charset=UTF-8");
 				Part part = req.getPart("upload"); //來自於update_emp_input的type="file" name="upload"
 				InputStream in = part.getInputStream();
 				byte[] emp_pic = new byte[in.available()];

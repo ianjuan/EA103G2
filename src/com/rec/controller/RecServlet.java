@@ -19,6 +19,8 @@ import com.cont.model.ConService;
 import com.cont.model.ConVO;
 import com.housemanage.model.HouseService;
 import com.housemanage.model.HouseVO;
+import com.lld.model.LldService;
+import com.lld.model.LldVO;
 import com.rec.model.RecService;
 import com.rec.model.RecVO;
 import com.tnt.model.TntService;
@@ -146,6 +148,67 @@ public class RecServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("gettntrecdetail".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String tnt_no = req.getParameter("tnt_no");
+				String con_no = req.getParameter("con_no");
+				String hos_no = req.getParameter("hos_no");
+				String rec_no = req.getParameter("rec_no");
+				System.out.println(con_no);
+				System.out.println(tnt_no);
+				System.out.println(hos_no);
+				System.out.println(rec_no);
+
+				TntService tntService = new TntService();
+				TntVO tntVO = tntService.getOneTntProfile(tnt_no);
+				
+				RecService recService = new RecService();
+				RecVO recVO = recService.getOneRec(rec_no);
+				
+				HouseService houseService = new HouseService();
+				HouseVO houseVO = houseService.getHouseInfo(hos_no);
+				HouseVO houseeleVO = houseService.getHouseElectfee(hos_no);
+				HouseVO housewatVO = houseService.getHouseWaterfee(hos_no);
+				
+				LldService lldService = new LldService();
+				LldVO lldVO = lldService.getOneLldProfile(houseService.getHouseInfo(hos_no).getLld_no());
+				
+				
+				Integer rec_water = recVO.getRec_water();
+				Integer rec_elec = recVO.getRec_elec();
+				Integer rec_sta = recVO.getRec_sta();
+				Integer rec_total = (int) (houseVO.getHos_rentfee() + (houseeleVO.getHos_electfee() * (int) recVO.getRec_elec()) + 
+						housewatVO.getHos_waterfee() *(int) (recVO.getRec_water()) + houseVO.getHos_gasfee() + 
+						houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee() +
+						houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
+
+				recService.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
+				recVO = recService.getOneRec(rec_no);
+				
+				req.setAttribute("tnt_no", tnt_no);
+				req.setAttribute("lldVO", lldVO);
+				req.setAttribute("recVO", recVO);
+				req.setAttribute("tntVO", tntVO);
+				req.setAttribute("con_no", con_no);
+				req.setAttribute("houseVO", houseVO);
+				req.setAttribute("houseeleVO", houseeleVO);
+				req.setAttribute("housewatVO", housewatVO);
+				String url = "/front-end/rec/tntnowrecdetail.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 		if ("getlldrec".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
@@ -214,7 +277,7 @@ public class RecServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				req.setAttribute("tnt_no", tnt_no);
 				session.setAttribute("list", list);
-				String url = "/front-end/rec/lldlistrec.jsp";
+				String url = "/front-end/rec/tntlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;

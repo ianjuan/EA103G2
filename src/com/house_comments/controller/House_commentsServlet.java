@@ -40,22 +40,48 @@ public class House_commentsServlet extends HttpServlet {
 				String hos_no = req.getParameter("hos_no");
 				System.out.println("tnt_no = " + tnt_no);
 				System.out.println("hos_no = " + hos_no);
-				
-				Integer hcm_eqpmt = new Integer(req.getParameter("hcm_eqpmt"));
-				if(hcm_eqpmt==null) {
-					errorMsgs.add("請勿空白:房屋設備是否齊全");
+				//取得參數hcm_eqpmt
+				String str1=req.getParameter("hcm_eqpmt");
+				Integer hcm_eqpmt = null;
+				if (str1 == null || (str1.trim()).length() == 0) {
+					errorMsgs.add("請勿空白:您是否滿意房屋提供的所有設備 ");
+				}	
+				if (errorMsgs.isEmpty()) {
+					try {
+						hcm_eqpmt=Integer.valueOf(str1.trim());
+					}catch(Exception e) {
+						errorMsgs.add("格式錯誤:您是否滿意房屋提供的所有設備");
+					}
+				}
+				//取得參數hcm_convmt
+				String str2 = req.getParameter("hcm_convmt");
+				Integer hcm_convmt =null;
+				if (str2 == null || (str2.trim()).length() == 0) {
+					errorMsgs.add("請勿空白:您是否滿意房屋周遭的機能與方便程度 ");
 				}
 				
-				
-				Integer hcm_convmt = new Integer(req.getParameter("hcm_convmt"));
-				if(hcm_convmt==null) {
-					errorMsgs.add("請勿空白:房屋周遭機能是否方便");
+				if (errorMsgs.isEmpty()) {
+					try {
+						hcm_convmt=Integer.valueOf(str2.trim());
+					}catch(Exception e) {
+						errorMsgs.add("格式錯誤:房屋周遭機能是否方便");
+					}
 				}
 				
-				Integer hcm_neibor = new Integer(req.getParameter("hcm_neibor"));
-				if(hcm_neibor==null) {
-					errorMsgs.add("請勿空白:房屋鄰居是否友善");
+				//取得參數hcm_neibor
+				String str3 = req.getParameter("hcm_neibor");
+				Integer hcm_neibor = null;
+				if (str3 == null || (str3.trim()).length() == 0) {
+					errorMsgs.add("請勿空白:房屋鄰居是否友善 ");
 				}
+				if (errorMsgs.isEmpty()) {
+					try{
+						hcm_neibor=Integer.valueOf(str3.trim());
+					}catch(Exception e) {
+						errorMsgs.add("格式錯誤:房屋鄰居是否友善");
+					}
+				}
+				
 		
 				String hcm_commnt = req.getParameter("hcm_commnt");
 				Date hcm_time =new java.sql.Date(System.currentTimeMillis());
@@ -78,7 +104,10 @@ public class House_commentsServlet extends HttpServlet {
 				//轉交資料庫
 				House_commentsService hcmSvc = new House_commentsService();
 				house_commentsVO = hcmSvc.addHcm(tnt_no, hos_no, hcm_eqpmt, hcm_convmt, hcm_neibor, hcm_commnt, hcm_time);
+				
 				//成功新增一筆房屋評價
+				List<House_commentsVO> list = hcmSvc.getAllbyTnt_hos(hos_no, tnt_no);
+				req.setAttribute("list", list); 
 				String url = "/front-end/house_comments/listAllHcm.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);	
@@ -92,6 +121,65 @@ public class House_commentsServlet extends HttpServlet {
 			}
 		}
 		
+		//房客用，新增文字留言
+		if("getOne_For_Update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/***************************1.接收請求參數****************************************/
+				String hcm_no = req.getParameter("hcm_no");
+				String str = req.getParameter("hcm_commet");
+				//返回搜尋使用者hos_no的搜尋結果
+				String hos_no = req.getParameter("hos_no");
+				
+				/***************************2.開始錯誤處理****************************************/
+				String hcm_commnt;
+				//1.回覆是否回空字串
+				if(str.trim() == null || str.trim() == ""|| str.trim().length()==0) {
+					errorMsgs.add("未填寫文字評價");
+				}
+				
+				String tnt_no = req.getParameter("tnt_no");
+				
+				//返回搜尋使用者hos_no的搜尋結果
+				House_commentsService house_commentsSvc = new House_commentsService();
+				List<House_commentsVO> list = house_commentsSvc.getAllbyTnt_hos(hos_no, tnt_no);
+				
+				if (!errorMsgs.isEmpty()) {
+					//返回搜尋使用者hos_no的搜尋結果list
+					req.setAttribute("list", list); 
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/house_comments/listAllHcm.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
+				
+				/***************************2.開始修改資料*****************************************/
+				//str 不為空
+				hcm_commnt=str;
+				House_commentsVO house_commentsVO = house_commentsSvc.updateHcm(hcm_no, hcm_commnt);
+				System.out.println("有更新update");
+				//新增有更新回覆的資料的List，返回搜尋使用者hos_no的搜尋結果
+				List<House_commentsVO> list2 = house_commentsSvc.getAllbyTnt_hos(hos_no, tnt_no); 
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+//				req.setAttribute("house_commentsVO", house_commentsVO); 
+				//返回搜尋使用者hos_no的搜尋結果
+				req.setAttribute("list", list2); 
+				String url = "/front-end/house_comments/listAllHcm.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);
+				
+				/***************************��L�i�઺���~�B�z*************************************/			
+				
+			} catch (Exception e) {
+				errorMsgs.add("無法讀取/修改此筆評價回覆:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/house_comments/listAllHcm.jsp");
+				failureView.forward(req, res);
+				
+			}	
+		}
 		
 		
 		//(房東用)回覆一則房屋評價
@@ -163,7 +251,7 @@ public class House_commentsServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/***************************1.�����ШD�Ѽ� - ��J�榡�����~�B�z**********************/
+				/***************************1.**********************/
 				String str = req.getParameter("hos_no");
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請填寫房屋編號 如:HOS007985");
@@ -173,7 +261,7 @@ public class House_commentsServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/house_comments/lldListAllHcm.jsp");
 					failureView.forward(req, res);
-					return;//�{�����_
+					return;
 				}
 				
 				String hos_no = null;
@@ -219,19 +307,18 @@ public class House_commentsServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-			
-		//(房客用)輸入tnt_no 後取得所有該房客的hcm_commemts 
-		if("getTntAll_For_Display".equals(action)) {
+		//tnt 顯示全部hcm
+		if("getAll_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			System.out.println("1");
 			try {
-				/***************************1.�����ШD�Ѽ� - ��J�榡�����~�B�z**********************/
+				/***************************1.**********************/
 				String str = req.getParameter("tnt_no");
 				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請填寫房客編號");
+					errorMsgs.add("請輸入房客編號");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -240,7 +327,7 @@ public class House_commentsServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-				
+				System.out.println("2");
 				String tnt_no = null;
 				try {
 					tnt_no = str.trim();
@@ -255,11 +342,78 @@ public class House_commentsServlet extends HttpServlet {
 					return;//程式終止
 				}
 				
-				/***************************2.�}�l�d�߸��*****************************************/
+				/***************************2.*****************************************/
 				House_commentsService hcmSvc = new House_commentsService();
 				List<House_commentsVO> list = hcmSvc.getAllbyTnt(tnt_no);
 				if ((list==null) || (list.isEmpty())) {
-					errorMsgs.add("該房客尚無評價");
+					errorMsgs.add("該房屋尚無評價");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/house_comments/listAllHcm.jsp");
+					failureView.forward(req, res);
+					return;//程式終止
+				}
+				
+				/***************************3.(Send the Success view)*************/
+				System.out.println("3");
+				req.setAttribute("list", list); 
+				String url = "/front-end/house_comments/listAllHcm.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);
+				
+				/***************************��L�i�઺���~�B�z*************************************/
+			} catch (Exception e) {
+				errorMsgs.add("資料有誤:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/house_comments/listAllHcm.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+			
+		//(房客用)輸入tnt_no與hos_no 後取得所有該房客的hcm_commemts 
+		if("getTntAll_For_Display".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/***************************1.�����ШD�Ѽ� - ��J�榡�����~�B�z**********************/
+				String str = req.getParameter("hos_no");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請選擇房屋");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/house_comments/listAllHcm.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				String hos_no = null;
+				try {
+					hos_no = str.trim();
+				} catch (Exception e) {
+					errorMsgs.add("資料查詢失敗");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/house_comments/listAllHcm.jsp");
+					failureView.forward(req, res);
+					return;//程式終止
+				}
+				
+				String tnt_no = req.getParameter("tnt_no");
+				/***************************2.�}�l�d�߸��*****************************************/
+				House_commentsService hcmSvc = new House_commentsService();
+				List<House_commentsVO> list = hcmSvc.getAllbyTnt_hos(hos_no, tnt_no);
+				if ((list==null) || (list.isEmpty())) {
+					errorMsgs.add("該房屋尚無評價");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {

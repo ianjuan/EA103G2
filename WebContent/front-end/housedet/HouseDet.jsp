@@ -165,7 +165,7 @@ session.setAttribute("HOS",hosno);
                     </div></div>
                     <!--地圖-->
                     <div class="info">
-                        <h2>預約看房</h2>
+                        <h2>預約看屋</h2>
                         <div class="booking">
 <%-- 						<jsp:include page="/front-end/booking/bookingforhouse.jsp" /> --%>
                   <iframe src="<%= request.getContextPath() %>/front-end/booking/bookingforhouse.jsp" frameborder ="0">
@@ -243,7 +243,7 @@ session.setAttribute("HOS",hosno);
                         <div class="phone"><a ><img src="<%=request.getContextPath()%>/resource/Mycol/images/phone.svg" alt="" />
                                 <p><%= vo.getLld_mobile() %></p>
                             </a></div>
-                        <div class="functions"><a class="no-service" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a><a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a><a class="red" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />檢舉</a>
+                        <div class="functions"><a class="blue blue-booking" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a><a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a><a class="red" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />檢舉</a>
                     	   <a class="full select-live" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.svg" alt=""/>我要入住</a>
                         </div>
                     </div>
@@ -260,8 +260,8 @@ session.setAttribute("HOS",hosno);
     
 </body>
 <div id="datepicker-container">
-    <form class="form">
-      <div class="content">
+    <div class="form">
+      <div class="content ">
         <p>請選擇您要入住以及退租的期間！</p>
         <p class="ps">注意：請務必選取入住以及退租的時間</p>
       </div>
@@ -275,9 +275,9 @@ session.setAttribute("HOS",hosno);
         <input class="start date" id="end" type="text" readonly="readonly"/>
       </div>
       <div class="input-field">
-        <button class="btn" type="submit">送出</button>
+        <button class="btn" type="button">送出</button>
       </div>
-    </form>
+    </div>
   </div>
  <style>
     .booking {
@@ -358,6 +358,12 @@ $(".gallery-thumbs .swiper-wrapper").append(
 		"</div>"
 	)	
 	<%}%>
+
+	$(document).ready(function(){
+	    $(function(){ $('.blue-booking').click(function(){ 
+	        $('html,body').animate({scrollTop:$('.booking').offset().top}, 500);});  
+	    }); 
+	}); 
 
     $(document).on("click", ".description .fav", function() {
     	if($(".fav").hasClass("saved")){
