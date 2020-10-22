@@ -33,6 +33,27 @@ public class TntService {
 
 		return tntVO;
 	}
+	
+	public TntVO addTnt(String tnt_email, String tnt_acc, String tnt_pwd, String tnt_id, String tnt_name,
+			Date tnt_birth, Boolean tnt_sex, String tnt_mobile, String tnt_city, String tnt_dist, String tnt_add) {
+		//
+		TntVO tntVO = new TntVO();
+//		tntVO.setTnt_no(tnt_no);
+		tntVO.setTnt_email(tnt_email);
+		tntVO.setTnt_acc(tnt_acc);
+		tntVO.setTnt_pwd(tnt_pwd);
+		tntVO.setTnt_id(tnt_id);
+		tntVO.setTnt_name(tnt_name);
+		tntVO.setTnt_birth(tnt_birth);
+		tntVO.setTnt_sex(tnt_sex);
+		tntVO.setTnt_mobile(tnt_mobile);
+		tntVO.setTnt_city(tnt_city);
+		tntVO.setTnt_dist(tnt_dist);
+		tntVO.setTnt_add(tnt_add);
+		dao.insert_profile(tntVO, false);
+
+		return tntVO;
+	}
 
 	public TntVO updateTntProfile(String tnt_no, String tnt_email, String tnt_acc, String tnt_pwd, String tnt_id,
 			String tnt_name, Date tnt_birth, Boolean tnt_sex, String tnt_mobile, String tnt_city, String tnt_dist,

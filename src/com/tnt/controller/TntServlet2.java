@@ -216,9 +216,18 @@ public class TntServlet2 extends HttpServlet {
 
 				System.out.println("註冊後端驗證: " + errorMsgs);
 
+				
+				
 				Part part = req.getPart("tnt_pic");
-				InputStream in = part.getInputStream();
-				byte[] tnt_pic = getPictureByteArray(in);
+				byte[] tnt_pic = null;
+				System.out.println("part.getSize():" + part.getSize());
+				Boolean isupdatePic = false;
+				if (part.getSize() != 0){
+					InputStream in = part.getInputStream();
+					tnt_pic = getPictureByteArray(in);
+					isupdatePic = true;
+				}
+				
 
 				TntVO tntVO = new TntVO();
 				tntVO.setTnt_email(tnt_email);
@@ -232,23 +241,31 @@ public class TntServlet2 extends HttpServlet {
 				tntVO.setTnt_city(tnt_city);
 				tntVO.setTnt_dist(tnt_dist);
 				tntVO.setTnt_add(tnt_add);
+				if (isupdatePic) {
 				tntVO.setTnt_pic(tnt_pic);
-				
+				}
 				// Send the use back to the form, if there were errors
 //				if (!errorMsgs.isEmpty()) {
 //				}
 				/*************************** 2.開始新增資料 ***************************************/
 				TntService tntSvc = new TntService();
-				tntVO = tntSvc.addTnt(tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex, tnt_mobile,
-						tnt_city, tnt_dist, tnt_add, tnt_pic);
+				if (isupdatePic) {
+					tntVO = tntSvc.addTnt(tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex, tnt_mobile,
+							tnt_city, tnt_dist, tnt_add, tnt_pic);
+				}
+				if (!isupdatePic) {
+					tntVO = tntSvc.addTnt(tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex, tnt_mobile,
+							tnt_city, tnt_dist, tnt_add);
+				}
+
 				out = res.getWriter();
-				out.print("Success Sign up");
+				out.print("true");
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
 				System.out.println("註冊失敗:" + e.getMessage());
-				out.print("Fail Sign up");
+				out.print("false");
 
 			}
 		}
