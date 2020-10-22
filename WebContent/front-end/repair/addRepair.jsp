@@ -78,13 +78,13 @@
 </div>			
 	
 <div class="form-group">	
-		 <label for="exampleFormControlInput1">損壞狀況:</label>
+		<label for="exampleFormControlInput1">損壞狀況:</label>
 		<input type="TEXT" name="rep_dam_obj_des" size="45" class="form-control" id="exampleFormControlSelect1" 
 			 value="<%= (repairVO==null)? "" : repairVO.getRep_dam_obj_des()%>" />
 </div>	
 
  <div class="form-group">
-		  <label for="exampleFormControlSelect1">損壞日期:</label>
+		<label for="exampleFormControlSelect1">損壞日期:</label>
 		<input name="rep_case_str" id="f_date1" type="text" >
 </div>
 
