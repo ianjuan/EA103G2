@@ -146,6 +146,8 @@
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/js/jquery.datetimepicker.full.js"></script>
     <!--===============================================================================================-->
