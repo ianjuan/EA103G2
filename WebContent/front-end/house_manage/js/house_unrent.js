@@ -18,7 +18,9 @@ window.onload = function(){
                 var _this = $(this);//將當前的pimg元素作為_this傳入函式  
                 imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);  
             });  
-    });   
+    });
+    
+    rowcount();
 }
 
 
@@ -148,22 +150,4 @@ function checkmoney(){
 	function rowcount(){
 		var list = document.getElementById("list").getElementsByTagName("tr").length;
 		document.getElementById("count1").innerHTML = list-1;
-	}
-
-	window.onload = function(){
-		rowcount();
-		
-		var menuBtn = document.querySelector('.menu-btn');
-		var nav = document.querySelector('#housenav');
-		var lineOne = document.querySelector('#housenav .menu-btn .line--1');
-		var lineTwo = document.querySelector('#housenav .menu-btn .line--2');
-		var lineThree = document.querySelector('#housenav .menu-btn .line--3');
-		var link = document.querySelector('#housenav .nav-links');
-		menuBtn.addEventListener('click', function() {
-			nav.classList.toggle('nav-open');
-			lineOne.classList.toggle('line-cross');
-			lineTwo.classList.toggle('line-fade-out');
-			lineThree.classList.toggle('line-cross');
-			link.classList.toggle('fade-in');
-		})
 	}
