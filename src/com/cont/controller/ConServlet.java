@@ -284,22 +284,34 @@ public class ConServlet extends HttpServlet {
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();
+				Con_aplService con_aplService = new Con_aplService();
+				String apl_no = conSvc.getOneCon(con_no).getApl_no();
+				System.out.println(apl_no);
+				
+				Con_aplVO con_aplVO = con_aplService.getOneCon_apl(apl_no);
+				
 				ConVO conVO = conSvc.getOneCon(con_no);
 
 				TntService tntSvc = new TntService();
 				TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
-
+			
 				HouseService houseSvc = new HouseService();
 				HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
 				HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
 				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
 				List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
+				
+				String lld_no = houseSvc.getHouseInfo(hos_no).getLld_no();
+				LldService lldService = new LldService();
+				LldVO lldVO = lldService.getOneLldProfile(lld_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
 				req.setAttribute("tntVO", tntVO);
+				req.setAttribute("lldVO", lldVO);
 				req.setAttribute("tnt_no", tnt_no);
 				req.setAttribute("houseVO", houseVO);
+				req.setAttribute("con_aplVO", con_aplVO);
 				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 				req.setAttribute("houseVOelectfee", houseVOelectfee);
 				req.setAttribute("houseVOpicno", houseVOpicno);// lld_sign
