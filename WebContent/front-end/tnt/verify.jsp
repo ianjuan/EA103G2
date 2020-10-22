@@ -12,7 +12,7 @@
 %>
 
 <head>
-    <title>Info</title>
+    <title>Verify</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans:ital,wght@1,600&family=Pacifico&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="css/style.css"> -->
@@ -178,8 +178,8 @@
                                 <!-- <div class="login100-form validate-form"> -->
                                 
                                 <form class="registerform" enctype="multipart/form-data">
-                                <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照三張<br>包含身分證正反面及第二證件正面</div>
-                                    <div id="divPic">
+<!--                                 <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照三張<br>包含身分證正反面及第二證件正面</div> -->
+										<div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 身分證正面</div> 
                                         <div class="wrapperBackground">
                                             <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
                                                 <label id="fileInput" for="inputF">
@@ -192,7 +192,36 @@
                                             <!-- <div class="grid" id="grid"> -->
                                             <!-- </div> -->
                                         </div>
-                                    </div>
+                                </form>
+                                <form class="registerform" enctype="multipart/form-data">
+                                <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 身分證背面</div> 
+                                        <div class="wrapperBackground">
+                                            <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                                <label id="fileInput" for="inputF">
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic" multiple> Upload Files
+                                                </label>
+                                                <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div id="picWrapper">
+                                            <!-- <div class="grid" id="grid"> -->
+                                            <!-- </div> -->
+                                        </div>
+                                </form>
+                                <form class="registerform" enctype="multipart/form-data">
+                                <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 第二證件正面</div> 
+                                        <div class="wrapperBackground">
+                                            <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                                <label id="fileInput" for="inputF">
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic" multiple> Upload Files
+                                                </label>
+                                                <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div id="picWrapper">
+                                            <!-- <div class="grid" id="grid"> -->
+                                            <!-- </div> -->
+                                        </div>
                                 </form>
 
                                 <div class="container-login100-form-btn">
