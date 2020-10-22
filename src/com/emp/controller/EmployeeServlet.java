@@ -28,10 +28,9 @@ public class EmployeeServlet extends HttpServlet {
 		  EmployeeService empSvc = new EmployeeService();
 		  List<EmployeeVO> list_empVO = empSvc.getAll();
 		  for(EmployeeVO empVO : list_empVO) {
-			  if(empVO.getEmp_mail().equals(emp_mail)) {
+			 if(emp_mail.equals(empVO.getEmp_mail())) {
 			  return empVO;
 			  }
-			  return null;
 		  }
 		  	  return null;
 		  
