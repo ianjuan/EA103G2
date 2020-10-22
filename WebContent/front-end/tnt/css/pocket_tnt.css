@@ -1067,6 +1067,18 @@
             font-size: 20;
             color: #3a8c68;
         }
+        
+        .btnPocketSmall {
+            width: 40%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
 
         /*------------------------------------------------------------------
 [ shrink Ωb¿Y  ]*/
