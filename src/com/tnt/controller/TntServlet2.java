@@ -37,6 +37,13 @@ public class TntServlet2 extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = null;
+		
+		if ("logout".equals(action)) { 
+			System.out.println("action: " + action);
+			HttpSession session = req.getSession();
+			session.removeAttribute("tnt_no");
+			res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp"); 	
+		}
 
 		if ("login".equals(action)) { // 來自login.jsp的請求-form post
 			System.out.println("action: " + action);
@@ -115,7 +122,7 @@ public class TntServlet2 extends HttpServlet {
 						return;
 					}
 					// *工作3: (-->如無來源網頁:則重導至login_success.jsp)
-					res.sendRedirect(req.getContextPath() + "/front-end/index/index.html"); 				
+					res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp"); 				
 				}
 
 			} catch (Exception e) {
@@ -276,14 +283,16 @@ public class TntServlet2 extends HttpServlet {
 					TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
 					String tnt_name = tntVO.getTnt_name();
 					String tnt_pwd = getAuthCode();
-					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + tnt_pwd + "\n" + "請登入後至會員專區修改密碼";
+//					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + tnt_pwd + "\n" + "請登入後至會員專區修改密碼";
+//					MailService0 mailService = new MailService0();
 					MailService mailService = new MailService();
 					
 					//記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					tnt_email = "ea103g2@gmail.com";
 					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					
-					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
+					System.out.println(req.getContextPath());
+//					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
+					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", tnt_name, tnt_pwd, "tnt");
 					if (successSendMail) {
 						resString = "true";
 						tntSvc.updateTntPwd(tnt_no, tnt_pwd);

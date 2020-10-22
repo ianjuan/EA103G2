@@ -10,7 +10,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class MailService {
+public class MailService0 {
 	
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
 	public boolean sendMail(String to, String subject, String messageText) {
@@ -67,7 +67,7 @@ public class MailService {
 //      String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
       String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n";
        
-      MailService mailService = new MailService();
+      MailService0 mailService = new MailService0();
       mailService.sendMail(to, subject, messageText);
 
    }

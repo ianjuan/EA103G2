@@ -87,7 +87,13 @@
                 var formData = new FormData($('#forgetPwdform')[0]);
                 formData.append('action', 'forgetPwd');
                 //                console.log(formData);
-                ajax_forgetPwd(formData);
+                ajax_forgetPwd(formData);       
+                swal({
+            	    title: 'Now loading',
+            	    allowEscapeKey: false,
+            	    allowOutsideClick: false,
+            	    timer: 2000,
+            	  })
             }
         });
 
@@ -116,7 +122,7 @@
                     		text: "請盡快至您的信箱收信",
                     		showConfirmButton: true,
 //                    		timer: 1500, 
-                    		animate: false
+//                    		animate: false
                     	})
 //                        alert("我們已將認證信傳送到您的信箱，請盡快至您的信箱收信");
 //                        window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
@@ -127,3 +133,30 @@
                 }
             })
         }
+        
+        
+        
+        const showLoading = function() {
+        	  swal({
+        	    title: 'Now loading',
+        	    allowEscapeKey: false,
+        	    allowOutsideClick: false,
+        	    timer: 2000,
+        	    onOpen: () => {
+        	      swal.showLoading();
+        	    }
+        	  }).then(
+        	    () => {},
+        	    (dismiss) => {
+        	      if (dismiss === 'timer') {
+        	        console.log('closed by timer!!!!');
+        	        swal({ 
+        	          title: 'Finished!',
+        	          type: 'success',
+        	          timer: 2000,
+        	          showConfirmButton: false
+        	        })
+        	      }
+        	    }
+        	  )
+        	};
