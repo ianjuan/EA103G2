@@ -142,7 +142,9 @@
 						<div class="rinfo">
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+								<c:if test="${con_aplVO.apl_status == 0}">
 								<li><button id="btn1">接受申請</button></li>
+								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=1>
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -150,7 +152,9 @@
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+			     				<c:if test="${con_aplVO.apl_status == 0}">
 								<li><button id="btn2">拒絕申請</button></li>
+								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=2>
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
