@@ -51,7 +51,7 @@ public class RecServlet extends HttpServlet {
 				Integer rec_elec = new Integer(req.getParameter("rec_elec").trim());
 				Integer rec_mon = new Integer(req.getParameter("rec_mon").trim());
 				Integer rec_sta = new Integer(req.getParameter("rec_sta").trim());
-				//add total
+				// add total
 				Integer rec_total = 0;
 
 				System.out.println(con_no);
@@ -92,7 +92,7 @@ public class RecServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+
 		if ("getlldrecdetail".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -108,27 +108,27 @@ public class RecServlet extends HttpServlet {
 				ConService conService = new ConService();
 				TntService tntService = new TntService();
 				TntVO tntVO = tntService.getOneTntProfile(conService.getOneCon(con_no).getTnt_no());
-				
+
 				RecService recService = new RecService();
 				RecVO recVO = recService.getOneRec(rec_no);
-				
+
 				HouseService houseService = new HouseService();
 				HouseVO houseVO = houseService.getHouseInfo(hos_no);
 				HouseVO houseeleVO = houseService.getHouseElectfee(hos_no);
 				HouseVO housewatVO = houseService.getHouseWaterfee(hos_no);
-				
-				
+
 				Integer rec_water = recVO.getRec_water();
 				Integer rec_elec = recVO.getRec_elec();
 				Integer rec_sta = recVO.getRec_sta();
-				Integer rec_total = (int) (houseVO.getHos_rentfee() + (houseeleVO.getHos_electfee() * (int) recVO.getRec_elec()) + 
-						housewatVO.getHos_waterfee() *(int) (recVO.getRec_water()) + houseVO.getHos_gasfee() + 
-						houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee() +
-						houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
+				Integer rec_total = (int) (houseVO.getHos_rentfee()
+						+ (houseeleVO.getHos_electfee() * (int) recVO.getRec_elec())
+						+ housewatVO.getHos_waterfee() * (int) (recVO.getRec_water()) + houseVO.getHos_gasfee()
+						+ houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee()
+						+ houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
 
 				recService.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
 				recVO = recService.getOneRec(rec_no);
-				
+
 				req.setAttribute("lld_no", lld_no);
 				req.setAttribute("recVO", recVO);
 				req.setAttribute("tntVO", tntVO);
@@ -148,7 +148,7 @@ public class RecServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+
 		if ("gettntrecdetail".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -165,30 +165,30 @@ public class RecServlet extends HttpServlet {
 
 				TntService tntService = new TntService();
 				TntVO tntVO = tntService.getOneTntProfile(tnt_no);
-				
+
 				RecService recService = new RecService();
 				RecVO recVO = recService.getOneRec(rec_no);
-				
+
 				HouseService houseService = new HouseService();
 				HouseVO houseVO = houseService.getHouseInfo(hos_no);
 				HouseVO houseeleVO = houseService.getHouseElectfee(hos_no);
 				HouseVO housewatVO = houseService.getHouseWaterfee(hos_no);
-				
+
 				LldService lldService = new LldService();
 				LldVO lldVO = lldService.getOneLldProfile(houseService.getHouseInfo(hos_no).getLld_no());
-				
-				
+
 				Integer rec_water = recVO.getRec_water();
 				Integer rec_elec = recVO.getRec_elec();
 				Integer rec_sta = recVO.getRec_sta();
-				Integer rec_total = (int) (houseVO.getHos_rentfee() + (houseeleVO.getHos_electfee() * (int) recVO.getRec_elec()) + 
-						housewatVO.getHos_waterfee() *(int) (recVO.getRec_water()) + houseVO.getHos_gasfee() + 
-						houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee() +
-						houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
+				Integer rec_total = (int) (houseVO.getHos_rentfee()
+						+ (houseeleVO.getHos_electfee() * (int) recVO.getRec_elec())
+						+ housewatVO.getHos_waterfee() * (int) (recVO.getRec_water()) + houseVO.getHos_gasfee()
+						+ houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee()
+						+ houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
 
 				recService.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
 				recVO = recService.getOneRec(rec_no);
-				
+
 				req.setAttribute("tnt_no", tnt_no);
 				req.setAttribute("lldVO", lldVO);
 				req.setAttribute("recVO", recVO);
@@ -220,22 +220,24 @@ public class RecServlet extends HttpServlet {
 
 				RecService recService = new RecService();
 
-				ConService conService = new ConService();
-				String hos_no = conService.getOneCon(con_no).getHos_no();
-				System.out.println(hos_no);
-
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(new Date());
-				Integer rec_mon = cal.get(Calendar.MONTH) + 1;
-				System.out.println(rec_mon);
-				Integer rec_sta = 0;
-
-				recService.autorec(con_no, hos_no, rec_mon, rec_sta);
 				List<RecVO> list = recService.getLddAllByCon(con_no);
+				
+				if (list == null && list.size() == 0) {
+					ConService conService = new ConService();
+					String hos_no = conService.getOneCon(con_no).getHos_no();
+					System.out.println(hos_no);
 
-				HttpSession session = req.getSession();
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(new Date());
+					Integer rec_mon = cal.get(Calendar.MONTH) + 1;
+					System.out.println(rec_mon);
+					Integer rec_sta = 0;
+
+					recService.autorec(con_no, hos_no, rec_mon, rec_sta);
+				}
+
 				req.setAttribute("lld_no", lld_no);
-				session.setAttribute("list", list);
+				req.setAttribute("list", list);
 				String url = "/front-end/rec/lldlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -248,7 +250,7 @@ public class RecServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+
 		if ("gettntrec".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -261,21 +263,24 @@ public class RecServlet extends HttpServlet {
 
 				RecService recService = new RecService();
 
-				ConService conService = new ConService();
-				String hos_no = conService.getOneCon(con_no).getHos_no();
-				System.out.println(hos_no);
-
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(new Date());
-				Integer rec_mon = cal.get(Calendar.MONTH) + 1;
-				System.out.println(rec_mon);
-				Integer rec_sta = 0;
-
-				recService.autorec(con_no, hos_no, rec_mon, rec_sta);
 				List<RecVO> list = recService.getLddAllByCon(con_no);
+				
+				if (list == null && list.size() == 0) {
+					ConService conService = new ConService();
+					String hos_no = conService.getOneCon(con_no).getHos_no();
+					System.out.println(hos_no);
+
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(new Date());
+					Integer rec_mon = cal.get(Calendar.MONTH) + 1;
+					System.out.println(rec_mon);
+					Integer rec_sta = 0;
+
+					recService.autorec(con_no, hos_no, rec_mon, rec_sta);
+				}
 
 				HttpSession session = req.getSession();
-				req.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("tnt_no", tnt_no);
 				session.setAttribute("list", list);
 				String url = "/front-end/rec/tntlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -343,23 +348,24 @@ public class RecServlet extends HttpServlet {
 				Integer rec_water = new Integer(req.getParameter("rec_water"));
 				Integer rec_elec = new Integer(req.getParameter("rec_elec"));
 				Integer rec_sta = 1;
-				
+
 				ConService conService = new ConService();
 				String hos_no = conService.getOneCon(con_no).getHos_no();
 				String tnt_no = conService.getOneCon(con_no).getTnt_no();
-				
+
 				HouseService houseService = new HouseService();
 				HouseVO houseVO = houseService.getHouseInfo(hos_no);
 				HouseVO houseVOelectfee = houseService.getHouseElectfee(hos_no);
 				HouseVO houseVOwaterfee = houseService.getHouseWaterfee(hos_no);
-				Integer rec_total = (int) (houseVO.getHos_rentfee() + (houseVOelectfee.getHos_electfee() * (int) rec_elec) + 
-						houseVOwaterfee.getHos_waterfee() *(int) (rec_water) + houseVO.getHos_gasfee() + 
-						houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee() +
-						houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
+				Integer rec_total = (int) (houseVO.getHos_rentfee()
+						+ (houseVOelectfee.getHos_electfee() * (int) rec_elec)
+						+ houseVOwaterfee.getHos_waterfee() * (int) (rec_water) + houseVO.getHos_gasfee()
+						+ houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee()
+						+ houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
 				/*************************** 2.開始查詢資料 ****************************************/
 				RecService recSvc = new RecService();
 				RecVO recVO = recSvc.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
-				
+
 //				TntService tntService = new TntService();
 //				tntService.updateTntPocket((int)tntService.getOneTntPocket(tnt_no).getTnt_blance() - rec_total);
 //				System.out.println(1);

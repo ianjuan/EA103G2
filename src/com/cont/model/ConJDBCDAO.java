@@ -23,10 +23,12 @@ public class ConJDBCDAO implements ConDAO_interface {
 	private static final String BEFORE_RENT_INSERT_STMT = "INSERT INTO CONTRACT(CON_NO, APL_NO, TNT_NO, HOS_NO) VALUES ('CON' || lpad(SEQ_CON_NO.NEXTVAL, 6, '0'), ?, ?, ?)";
 
 	private static final String BEFORE_RENT_UPDATE_STMT = "UPDATE CONTRACT SET APL_NO = ?, TNT_NO = ?, HOS_NO = ?, CON_LLD_SIGN = ?, CON_TNT_SIGN = ?, CON_CHE_DATE = ?, CON_DEP_STA = ?, HOS_DEP = ?, CON_STA = ? WHERE CON_NO = ?";
-	
+
+	private static final String UPDATE_STA = "UPDATE CONTRACT SET CON_STA = ? WHERE CON_NO = ?";
+
 	private static final String RENT_UPDATE_STMT = "UPDATE CONTRACT SET HOS_DEP = ?, CON_DEP_STA = ?, CON_CHKDATE = ?, CON_COMCHKDATE = ? WHERE CON_NO = ?";
 
-	private static final String BEFORE_CHECKOUT_UPDATE_STMT = "UPDATE CONTRACT SET HOS_DEP = ?, CON_DEP_STA = ?, CON_CHK_STA = ?, CON_CHR_FEE = ?, CON_CHR_ITM = ?, CON_IS_CHR = ? WHERE CON_NO = ?";
+	private static final String BEFORE_CHECKOUT_UPDATE_STMT = "UPDATE CONTRACT SET HOS_DEP = ?, CON_DEP_STA = ?, CON_COMCHKDATE = ?, CON_CHKDATE = ?, CON_CHK_STA = ?, CON_CHR_FEE = ?, CON_CHR_ITM = ?, CON_IS_CHR = ? WHERE CON_NO = ?";
 
 	private static final String CHECKOUT_UPDATE_STMT = "UPDATE CONTRACT SET CON_RENT_AGN = ?, CON_BILL_PAID = ?, CON_LASTB_PDATE = ?, CON_DEP_BKDATE = ?, CON_OUT_NORMAL = ? WHERE CON_NO = ?";
 
@@ -48,13 +50,13 @@ public class ConJDBCDAO implements ConDAO_interface {
 			+ "CON_STA = ? WHERE CON_NO = ?";
 
 	private static final String DELETE = "DELETE FROM CONTRACT WHERE CON_NO = ?";
-	
+
 	private static final String GET_CON_LLD = "SELECT CON_NO, C.HOS_NO, C.TNT_NO, C.APL_NO, CON_STA FROM CONTRACT C JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON L.LLD_NO = H.LLD_NO WHERE L.LLD_NO = ?";
-	
+
 	private static final String GET_CON_TNT = "SELECT CON_NO, TNT_NO, APL_NO, CON_STA, HOS_NO FROM CONTRACT WHERE TNT_NO = ?";
 
 	private static final String GET_CON_BY_HOS_NO = "SELECT CON_NO, APL_NO FROM CONTRACT WHERE HOS_NO = ?";
-	
+
 	@Override
 	public void beforerentinsert(ConVO conVO) {
 		Connection con = null;
@@ -172,10 +174,10 @@ public class ConJDBCDAO implements ConDAO_interface {
 			pstmt.setString(2, conVO.getTnt_no());
 			pstmt.setString(3, conVO.getHos_no());
 			pstmt.setBytes(4, conVO.getCon_lld_sign());
-			pstmt.setBytes(5, conVO.getCon_tnt_sign());		
-			pstmt.setDate(6, conVO.getCon_che_date());		
+			pstmt.setBytes(5, conVO.getCon_tnt_sign());
+			pstmt.setDate(6, conVO.getCon_che_date());
 			pstmt.setInt(7, conVO.getCon_dep_sta());
-			pstmt.setInt(8, conVO.	getHos_dep());
+			pstmt.setInt(8, conVO.getHos_dep());
 			pstmt.setInt(9, conVO.getCon_sta());
 			pstmt.setString(10, conVO.getCon_no());
 
@@ -249,6 +251,46 @@ public class ConJDBCDAO implements ConDAO_interface {
 	}
 
 	@Override
+	public void updatesta(ConVO conVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, user, password);
+			pstmt = con.prepareStatement(UPDATE_STA);
+
+			pstmt.setInt(1, conVO.getCon_sta());
+			pstmt.setString(2, conVO.getCon_no());
+
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	@Override
 	public void beforecheckoutupdate(ConVO conVO) {
 
 		Connection con = null;
@@ -261,11 +303,13 @@ public class ConJDBCDAO implements ConDAO_interface {
 
 			pstmt.setInt(1, conVO.getHos_dep());
 			pstmt.setInt(2, conVO.getCon_dep_sta());
-			pstmt.setInt(3, conVO.getCon_chk_sta());
-			pstmt.setInt(4, conVO.getCon_chr_fee());
-			pstmt.setString(5, conVO.getCon_chr_itm());
-			pstmt.setInt(6, conVO.getCon_is_chr());
-			pstmt.setString(7, conVO.getCon_no());
+			pstmt.setInt(3, conVO.getCon_comchkdate());
+			pstmt.setDate(4, conVO.getCon_chkdate());
+			pstmt.setInt(5, conVO.getCon_chk_sta());
+			pstmt.setInt(6, conVO.getCon_chr_fee());
+			pstmt.setString(7, conVO.getCon_chr_itm());
+			pstmt.setInt(8, conVO.getCon_is_chr());
+			pstmt.setString(9, conVO.getCon_no());
 
 			pstmt.executeUpdate();
 
@@ -456,7 +500,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 		}
 		return conVO;
 	}
-	
+
 	@Override
 	public ConVO findByHosno(String hos_no) {
 
@@ -515,7 +559,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 		}
 		return conVO;
 	}
-	
+
 	@Override
 	public List<ConVO> getconlld(String lld_no) {
 
@@ -544,7 +588,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 				conVO.setHos_no(rs.getString("HOS_NO"));
 				conVO.setCon_sta(rs.getInt("CON_STA"));
 				list.add(conVO);
-				
+
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -577,7 +621,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<ConVO> getcontnt(String tnt_no) {
 
@@ -606,7 +650,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 				conVO.setHos_no(rs.getString("HOS_NO"));
 				conVO.setCon_sta(rs.getInt("CON_STA"));
 				list.add(conVO);
-				
+
 			}
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -812,7 +856,7 @@ public class ConJDBCDAO implements ConDAO_interface {
 //			System.out.println(aCon.getCon_lld_signtime());
 //			System.out.println("---------------------");
 //		}
-		
+
 //		List<ConVO> list = dao.getconlld("LLD000944");
 //		for (ConVO aaaVo : list) {
 //			System.out.println(aaaVo.getCon_no());
@@ -821,10 +865,10 @@ public class ConJDBCDAO implements ConDAO_interface {
 //			System.out.println(aaaVo.getTnt_no());
 //			System.out.println(aaaVo.getCon_sta());
 //		}
-		
+
 		ConVO conVO3 = dao.findByHosno("HOS008062");
 		System.out.println(conVO3.getCon_no());
 		System.out.println(conVO3.getApl_no());
-		
+
 	}
 }

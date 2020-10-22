@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ import com.cont.model.ConVO;
 import com.housemanage.model.*;
 import com.lld.model.LldService;
 import com.lld.model.LldVO;
+import com.rec.model.RecService;
 import com.tnt.model.TntService;
 import com.tnt.model.TntVO;
 
@@ -442,8 +444,6 @@ public class ConServlet extends HttpServlet {
 				String con_no = new String(req.getParameter("con_no"));
 				String tnt_no = new String(req.getParameter("tnt_no"));
 				String hos_no = new String(req.getParameter("hos_no"));
-//				Date con_che_date = Date.valueOf(req.getParameter("apl_str"));
-
 				/*************************** 修正房東資訊 ****************************************/
 				String tnt_mobile = new String(req.getParameter("tnt_mobile"));
 
@@ -463,7 +463,6 @@ public class ConServlet extends HttpServlet {
 				Integer tnt_status = tntVO.getTnt_status();
 
 				tntSvc.updateTntProfile(tnt_no, tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex, tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
-
 				/*************************** 房東簽名 ****************************************/
 				ConService conSvc = new ConService();
 				byte[] con_lld_sign = conSvc.getOneCon(con_no).getCon_lld_sign();
@@ -474,32 +473,53 @@ public class ConServlet extends HttpServlet {
 				/*************************** 更新合約 **********************/
 				ConVO conVOGET = conSvc.getOneCon(con_no);
 				String apl_no = conVOGET.getApl_no();
-				System.out.println(apl_no);
-				Integer con_dep_sta = conVOGET.getCon_dep_sta();
 
-				Con_aplService aplSvcAplService = new Con_aplService();
-				Con_aplVO con_aplVO = aplSvcAplService.getOneCon_apl(apl_no);
-				Date con_che_date = con_aplVO.getApl_str();
-				
+				Con_aplService aplSvc = new Con_aplService();
+				Con_aplVO con_aplVO = aplSvc.getOneCon_apl(apl_no);
+				Date con_che_date = con_aplVO.getApl_str();				
 				/*************************** 更新押金 **********************/
 				HouseService hosSvc = new HouseService();
 				Integer hos_dep = (hosSvc.getHouseInfo(hos_no).getHos_rentfee()) * 2;
 				Integer con_sta = 2;
+				Integer con_dep_sta = 1;
 
 				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, hos_dep,
-						con_sta, con_che_date, con_no);
-				
+						con_sta, con_che_date, con_no);				
 				/*************************** 扣房客押金**********************/
 				Integer tnt_blance = tntSvc.getOneTntPocket(tnt_no).getTnt_blance() - hos_dep;
-				tntSvc.updateTntPocket(tnt_no, tnt_blance);
-				
+				tntSvc.updateTntPocket(tnt_no, tnt_blance);				
 				/*************************** 加房東錢錢**********************/
 				String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
 				System.out.println(lld_no);
 				LldService lldService = new LldService();
 				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_blance();
-				lldService.updateLldPocket(lld_no, lld_blance);
-
+				lldService.updateLldPocket(lld_no, lld_blance);				
+				/*************************** 改租屋狀態**********************/
+				con_sta = 3;
+				
+				Timer timer = new Timer();
+				timer.schedule(new Schedule(con_no, con_sta), 3000);				
+				/*************************** 每月帳單**********************/
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(new java.util.Date());
+				Integer rec_mon = cal.get(Calendar.MONTH) + 1;
+				Integer rec_sta = 0;
+				
+				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta), 5000, 100000);
+				/*************************** 準備退房**********************/
+				Date apl_end = aplSvc.getOneCon_apl(apl_no).getApl_end();
+				long apl_end_long = apl_end.getTime();
+				long con_chkdatelong = apl_end_long - (long)(Math.random()*2678400000L); //一個月前驗房
+				SimpleDateFormat formatWithDays = new SimpleDateFormat("yyyy-MM-dd");
+				Date con_chkdate = java.sql.Date.valueOf(formatWithDays.format(con_chkdatelong));
+				
+				Integer con_comchkdate = 1; //房東確認驗房時間
+				Integer con_chk_sta = 0;
+				Integer con_chr_fee = 0;
+				String con_chr_itm = null;
+				Integer con_is_chr = 0;
+				Timer checkouttimer = new Timer();
+				checkouttimer.schedule(new CheckoutSchedule(hos_dep, con_dep_sta, con_chkdate, con_comchkdate, con_chk_sta, con_chr_fee, con_chr_itm, con_no, con_is_chr), 100000);
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				ConService conService = new ConService();
 				List<ConVO> list = conService.tntgetcon(tnt_no);
@@ -511,7 +531,6 @@ public class ConServlet extends HttpServlet {
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
-
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());

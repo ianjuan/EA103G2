@@ -60,14 +60,27 @@ public class ConService {
 
 		return conVO;
 	}
+	
+	public ConVO updatesta(Integer con_sta, String con_no) {
+		
+		ConVO conVO = new ConVO();
+		
+		conVO.setCon_sta(con_sta);
+		conVO.setCon_no(con_no);
+		dao.updatesta(conVO);
+		
+		return conVO;
+	}
 
-	public ConVO updatebeforecheckout(Integer hos_dep, Integer con_dep_sta, Integer con_chk_sta, Integer con_chr_fee,
+	public ConVO updatebeforecheckout(Integer hos_dep, Integer con_dep_sta, Date con_chkdate, Integer con_comchkdate, Integer con_chk_sta, Integer con_chr_fee,
 			String con_chr_itm, Integer con_is_chr, String con_no) {
 
 		ConVO conVO = new ConVO();
 
 		conVO.setHos_dep(hos_dep);
 		conVO.setCon_dep_sta(con_dep_sta);
+		conVO.setCon_comchkdate(con_comchkdate);
+		conVO.setCon_chkdate(con_chkdate);
 		conVO.setCon_chk_sta(con_chk_sta);
 		conVO.setCon_chr_fee(con_chr_fee);
 		conVO.setCon_chr_itm(con_chr_itm);

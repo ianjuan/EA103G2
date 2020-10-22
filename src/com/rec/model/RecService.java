@@ -90,5 +90,11 @@ public class RecService {
 		return RecStatus.findByPrimaryKey(num).getText();
 	}
 	
-
+	public Month[] getMonthall() {
+		return Month.values();
+	}
+	
+	public String getMonthText(Integer num) {
+		return Month.findByPrimaryKey(num).getText();
+	}
 }
