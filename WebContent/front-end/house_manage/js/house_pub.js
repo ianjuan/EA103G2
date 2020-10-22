@@ -19,31 +19,37 @@ window.onload = function(){
 }
 
 function notice1(){		
-	swal({title:"確定要送出房屋資訊了嗎?", text:"" , icon:"info", buttons: {
-	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
-	    }}).then(function(isConfirm){
-		if(isConfirm){	
-			var geocoder = new google.maps.Geocoder();
-			address = document.getElementById("hos_add").value;
-			geocoder.geocode({ 'address': address }, function(results, status) {
-				if (status == 'OK') {
-					var lat = results[0].geometry.location.lat();
-					var lng = results[0].geometry.location.lng();
-					document.getElementById("lat").setAttribute("value", lat);
-					document.getElementById("lng").setAttribute("value", lng);
-				} else {
-					console.log(status);
-				}
-			});
-			
-			var bank = document.getElementById("lld_balance").value;
-			swal("上架房屋成功!!", "電子錢包扣款1000元, 目前還剩"+(bank-1000)+"元" , "success", {button: "確認"}).then(function(){
-				document.houseForm.submit();
-			});
-		} else {
-			return false;
-		}
-	});
+	var pic = document.getElementsByClassName("pic").length;
+
+	 if(pic < 5){
+		 swal("目前才" + pic + "張圖片而已欸...", "請上傳 5~10 張圖片", "error", {button: "確認"});
+	 } else {
+		 swal({title:"確定要送出房屋資訊了嗎?", text:"" , icon:"info", buttons: {
+		      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+		    }}).then(function(isConfirm){
+			if(isConfirm){	
+				var geocoder = new google.maps.Geocoder();
+				address = document.getElementById("hos_add").value;
+				geocoder.geocode({ 'address': address }, function(results, status) {
+					if (status == 'OK') {
+						var lat = results[0].geometry.location.lat();
+						var lng = results[0].geometry.location.lng();
+						document.getElementById("lat").setAttribute("value", lat);
+						document.getElementById("lng").setAttribute("value", lng);
+					} else {
+						console.log(status);
+					}
+				});
+				
+				var bank = document.getElementById("lld_balance").value;
+				swal("上架房屋成功!!", "電子錢包扣款1000元, 目前還剩"+(bank-1000)+"元" , "success", {button: "確認"}).then(function(){
+					document.houseForm.submit();
+				});
+			} else {
+				return false;
+			}
+		});
+	 }	
 }
 
 function notice2(){
