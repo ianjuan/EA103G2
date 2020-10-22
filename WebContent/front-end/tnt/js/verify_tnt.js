@@ -58,10 +58,10 @@
                     let filename = files[i].name; //  Must be let!! !!!!
                      console.log('set Filename=' + filename);
                     fileReader.addEventListener("load", function(e) { // readyState2
-//                        var picPreview = document.getElementsByClassName("picPreview");
-//                        if (typeof(picPreview[0]) !== "undefined") {
-//                            $(".picPreview").empty();
-//                        }
+                        var picPreview = document.getElementsByClassName("picPreview");
+                        if (typeof(picPreview[0]) !== "undefined") {
+                            $(".picPreview").empty();
+                        }
                         var img = document.createElement("img");
                         var input = document.createElement("input");
                         var div = document.createElement("div");
@@ -81,7 +81,7 @@
                         div.setAttribute("name", filename); //LIne 122 important
                         div.setAttribute("class", "picPreview");
                         input.setAttribute("class", "picCheckbox");
-                        img.setAttribute("id", "tnt_pic");
+                        img.setAttribute("id", "tnt_id_picf");
                     });
 
                 } else {
@@ -152,6 +152,124 @@
 
             e.dataTransfer.setData("text", e.target.parentElement.getAttribute("name"));
         }
+        /*
+         * ================================================================== 
+         *    [ 圖片上傳(程昕) 2 ]
+         *     
+         */
+//        var img2 = document.createElement("img");
+        var inputF2 = document.getElementById("inputF");
+        var fileInput2 = document.getElementById("fileInput");
+
+
+
+        inputF2.addEventListener("change", fileUpload);
+
+        function fileUpload2(files) { //preview
+            for (var i = 0; i < files.length; i++) {
+                if (files[i].type.indexOf("image") !== -1) { // or picture.type.includes("image");
+
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL(files[i]); // readyState 1
+                    // console.log(fileReader);
+                    let filename = files[i].name; //  Must be let!! !!!!
+                     console.log('set Filename=' + filename);
+                     fileReader.addEventListener("load", function(e) { // readyState2
+//                        var picPreview = document.getElementsByClassName("picPreview");
+//                        if (typeof(picPreview[0]) !== "undefined") {
+//                            $(".picPreview").empty();
+//                        }
+                        var img = document.createElement("img");
+                        var input = document.createElement("input");
+                        var div = document.createElement("div");
+                        img.setAttribute("src", this.result); // 只能用e.target 不能用 fileReader(readystate:1, Asynchronous)
+                        //e.target 是在捕獲冒泡 
+                        input.setAttribute("type", "checkbox");
+                        div.appendChild(input);
+                        div.appendChild(img);
+                        document.getElementById("picWrapper2").append(div);
+
+                        img.addEventListener("click", (e) => { // click pic to checked checkbox
+                            e.currentTarget.previousSibling.click();
+                        });
+
+                        div.addEventListener("dragstart", dragStartHandler); //adding dragEvent to newly created pic
+                        div.setAttribute("draggable", true);
+                        div.setAttribute("name", filename); //LIne 122 important
+                        div.setAttribute("class", "picPreview");
+                        input.setAttribute("class", "picCheckbox");
+                        img.setAttribute("id", "tnt_id_picb");
+                    });
+
+                } else {
+                    alert("請上傳圖片");
+                }
+            }
+        }
+        //----------------------------------------------
+        var del2 = document.getElementById("del2");
+        del2.addEventListener("click", deletFilePreview);
+
+        function deletFilePreview() {
+            var checkbox = document.querySelectorAll('div input[type="checkbox"]');
+            var isChecked = false;
+            for (var i = 0; i < checkbox.length; i++) {
+                if (checkbox[i].checked) {
+                    isChecked = true;
+                    var filename = checkbox[i].parentElement.getAttribute("name"); //getFilename from checked div
+                    checkbox[i].parentElement.remove();
+
+                    console.log("out i=" + i);
+                    console.log("out filename=" + filename);
+
+                    DeleteFileNameFile(filename);
+
+                }
+            }
+            if (isChecked === false) {
+                alert("請勾選刪除項目");
+            }
+        }
+
+        //=================================================
+        function fileUpload(e) {
+            var picture = inputF.files;
+            fileUpload2(picture);
+            // handleFile(picture)
+        }
+
+        function dropUploadHandler(e) {
+            var dtFiles = e.dataTransfer.files; //return FileList
+
+            // handleFile(dtFiles);
+            fileUpload2(dtFiles);
+        }
+        //=============================================
+        function handleFile(files) {
+            ([...files]).forEach(uploadFileDrop); //convert arraylist to array
+        }
+
+        function uploadFileDrop(file) {}
+
+
+        ['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
+            window.addEventListener(ev, function(e) {
+                e.preventDefault();
+            })
+        });
+
+        function dropDelHandler(e) {
+
+            var domName = e.dataTransfer.getData("text");
+            document.getElementsByName(domName)[0].remove();
+            DeleteFileNameFile(domName);
+        }
+
+        function dragStartHandler(e) {
+
+            e.dataTransfer.setData("text", e.target.parentElement.getAttribute("name"));
+        }
+        
         /*------------------------------------------------------------------
         [ End-Origin-Register ]*/
 

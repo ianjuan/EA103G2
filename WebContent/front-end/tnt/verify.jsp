@@ -181,9 +181,9 @@
 <!--                                 <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照三張<br>包含身分證正反面及第二證件正面</div> -->
 										<div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 身分證正面</div> 
                                         <div class="wrapperBackground">
-                                            <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                            <div class="wrapperUploadHandler" id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
                                                 <label id="fileInput" for="inputF">
-                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic" multiple> Upload Files
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_id_picf" multiple> Upload Files
                                                 </label>
                                                 <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
                                             </div>
@@ -196,14 +196,14 @@
                                 <form class="registerform" enctype="multipart/form-data">
                                 <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 身分證背面</div> 
                                         <div class="wrapperBackground">
-                                            <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
-                                                <label id="fileInput" for="inputF">
-                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic" multiple> Upload Files
+                                            <div class="wrapperUploadHandler" id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                                <label id="fileInput2" for="inputF2">
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF2" name="tnt_id_picb" multiple> Upload Files
                                                 </label>
-                                                <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                                <button type="button" id="del2" ondrop="dropDelHandler(event)">Delete</button>
                                             </div>
                                         </div>
-                                        <div id="picWrapper">
+                                        <div id="picWrapper2">
                                             <!-- <div class="grid" id="grid"> -->
                                             <!-- </div> -->
                                         </div>
@@ -211,14 +211,14 @@
                                 <form class="registerform" enctype="multipart/form-data">
                                 <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 第二證件正面</div> 
                                         <div class="wrapperBackground">
-                                            <div id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
-                                                <label id="fileInput" for="inputF">
-                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_pic" multiple> Upload Files
+                                            <div class="wrapperUploadHandler" id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                                <label id="fileInput3" for="inputF3">
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF3" name="tnt_id_pic2" multiple> Upload Files
                                                 </label>
-                                                <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                                <button type="button" id="del3" ondrop="dropDelHandler(event)">Delete</button>
                                             </div>
                                         </div>
-                                        <div id="picWrapper">
+                                        <div id="picWrapper3">
                                             <!-- <div class="grid" id="grid"> -->
                                             <!-- </div> -->
                                         </div>
