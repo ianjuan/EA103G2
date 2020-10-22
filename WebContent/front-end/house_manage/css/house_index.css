@@ -120,12 +120,11 @@ body {
 }
 #center {
     width: 80%;
-    height: 690px;
+    height: auto;
     overflow: auto;
     float: left;
     text-align: center;
 }
-
 #right {
     width: 10%;
     height: 690px;
@@ -302,4 +301,94 @@ body {
     float: right;
     align-self:center;
     display: block;
+}
+
+table {
+	width: 98%;
+	border-collapse: separate;
+	text-align: center;
+	margin: 5px auto;
+	font-weight: bold;
+}
+
+th {
+	background-color: #DBFCE0;
+	border-radius: 5px;
+	overflow: auto;
+}
+
+th:hover {
+	background-color: #E5FDE8;
+}
+
+td {
+	background-color: #F0ECEC;
+	border-radius: 5px;
+	overflow: auto;
+}
+
+td:hover {
+	background-color: #E9E7E7;
+}
+
+.status {
+	color: #B35812;
+}
+
+.count1 {
+	display: inline-block;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.count2 {
+	display: inline-block;
+	font-weight: bold;
+	margin-top: 10px;
+	color: #B35812;
+}
+
+.hos {
+	background-color: #FCFBD6;
+}
+
+.hos:hover {
+	background-color: #FEF5C1;
+}
+
+.fun {
+	background-color: #D2FFF7;
+	border-radius: 5px;
+}
+
+.fun:hover {
+	background-color: #BDF8F6;
+}
+
+.btn {
+	display: none;
+}
+#search {
+	display: inline-block;
+	margin-bottom: 3px;
+	text-align: center;
+}
+#logo {
+	width: 80px;
+	height: auto;
+	position: fixed;
+	right: 10px;
+	bottom: 10px;
+	cursor: pointer;
+}
+.logo {
+	display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor: pointer;
+}
+.logo img {
+	width: 25px;
+	height: auto;	
+	margin-right: 5px;
 }

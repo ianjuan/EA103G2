@@ -30,7 +30,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index.jsp">
+				href="<%=request.getContextPath()%>/back-end/emp/index.jsp">
 				<div class="sidebar-brand-icon">
 					<i class="fas fa-igloo"></i>
 				</div>
@@ -39,7 +39,7 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="index.jsp"> <i
+			<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/emp/index.jsp"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>儀錶板</span>
 			</a></li>
 			<!-- Divider -->
@@ -141,68 +141,71 @@
 					<!-- Topbar Navbar -->
 					<!-- auto置右 -->
 					<ul class="navbar-nav ml-auto">
-<!-- 						<li class="nav-item dropdown no-arrow mx-1"><a -->
-<!-- 							class="nav-link dropdown-toggle" href="#" id="alertsDropdown" -->
-<!-- 							role="button" data-toggle="dropdown" aria-haspopup="true" -->
-<!-- 							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> 通知小鈴鐺可配合後台推播系統 -->
-<!-- 								<span class="badge badge-danger badge-counter">1</span> -->
-<!-- 						</a> Dropdown - Alerts -->
-<!-- 							<div -->
-<!-- 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" -->
-<!-- 								aria-labelledby="alertsDropdown"> -->
-<!-- 								<h6 class="dropdown-header">推播</h6> -->
+						<li class="nav-item dropdown no-arrow mx-1"><a
+							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> 
+<!-- 							通知小鈴鐺可配合後台推播系統 -->
+								<span class="badge badge-danger badge-counter">1</span>
+						</a> 
+<!-- 						Dropdown - Alerts -->
+							<div
+								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+								aria-labelledby="alertsDropdown">
+								<h6 class="dropdown-header">推播</h6>
 <!-- 								第一個展開推播 -->
-<!-- 								<a class="dropdown-item d-flex align-items-center" href="#"> -->
-<!-- 									<div class="mr-3"> -->
-<!-- 										<div class="icon-circle bg-primary"> -->
-<!-- 											<i class="fas fa-file-alt text-white"></i> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div> -->
-<!-- 										<div class="small text-gray-500">2020年10月01日</div> -->
-<!-- 										<span class="font-weight-bold">中秋節....！</span> -->
-<!-- 									</div> -->
-<!-- 								</a> -->
-								<!-- Nav Item - Messages -->
-<!-- 								<li class="nav-item dropdown no-arrow mx-1"><a -->
-<!-- 									class="nav-link dropdown-toggle" href="#" id="messagesDropdown" -->
-<!-- 									role="button" data-toggle="dropdown" aria-haspopup="true" -->
-<!-- 									aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i> -->
-<!-- 										Counter - Messages <span -->
-<!-- 										class="badge badge-danger badge-counter">2</span> -->
-<!-- 								</a> -->
-								 <!-- Dropdown - Messages -->
-<!-- 									<div -->
-<!-- 										class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" -->
-<!-- 										aria-labelledby="messagesDropdown"> -->
-<!-- 										<h6 class="dropdown-header">訊息</h6> -->
+								<a class="dropdown-item d-flex align-items-center" href="#">
+									<div class="mr-3">
+										<div class="icon-circle bg-primary">
+											<i class="fas fa-file-alt text-white"></i>
+										</div>
+									</div>
+									<div>
+										<div class="small text-gray-500">2020年10月01日</div>
+										<span class="font-weight-bold">中秋節....！</span>
+									</div>
+								</a>
+<!-- 								Nav Item - Messages -->
+								<li class="nav-item dropdown no-arrow mx-1"><a
+									class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
+									role="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i>
+<!-- 										Counter - Messages  -->
+										<span
+										class="badge badge-danger badge-counter">2</span>
+								</a>
+<!-- 								 Dropdown - Messages -->
+									<div
+										class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+										aria-labelledby="messagesDropdown">
+										<h6 class="dropdown-header">訊息</h6>
 <!-- 										第一個展開訊息 -->
-<!-- 										<a class="dropdown-item d-flex align-items-center" href="#"> -->
-<!-- 											<div class="dropdown-list-image mr-3"> -->
-<!-- 												<img class="rounded-circle" -->
-<!-- 													src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRVmpzAF6CZLuTuOp8aC6-Xru-scdCLz4MXZA&usqp=CAU" -->
-<!-- 													alt=""> -->
-<!-- 												<div class="status-indicator bg-success"></div> -->
-<!-- 											</div> -->
-<!-- 											<div class="font-weight-bold"> -->
-<!-- 												<div class="text-truncate">0.0</div> -->
-<!-- 												<div class="small text-gray-500">Lucian · 58m</div> -->
-<!-- 											</div> -->
-<!-- 										</a> -->
+										<a class="dropdown-item d-flex align-items-center" href="#">
+											<div class="dropdown-list-image mr-3">
+												<img class="rounded-circle"
+													src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRVmpzAF6CZLuTuOp8aC6-Xru-scdCLz4MXZA&usqp=CAU"
+													alt="">
+												<div class="status-indicator bg-success"></div>
+											</div>
+											<div class="font-weight-bold">
+												<div class="text-truncate">0.0</div>
+												<div class="small text-gray-500">Lucian · 58m</div>
+											</div>
+										</a>
 <!-- 										第二個展開訊息 -->
-<!-- 										<a class="dropdown-item d-flex align-items-center" href="#"> -->
-<!-- 											<div class="dropdown-list-image mr-3"> -->
-<!-- 												<img class="rounded-circle" -->
-<!-- 													src="https://hk.portal-pokemon.com/play/resources/pokedex/img/pm/5794f0251b1180998d72d1f8568239620ff5279c.png" -->
-<!-- 													alt=""> -->
-<!-- 												<div class="status-indicator bg-success"></div> -->
-<!-- 											</div> -->
-<!-- 											<div class="font-weight-bold"> -->
-<!-- 												<div class="text-truncate">0.0</div> -->
-<!-- 												<div class="small text-gray-500">jinigui · 102m</div> -->
-<!-- 											</div> -->
-<!-- 										</a> -->
-<!-- 									</div> -->
+										<a class="dropdown-item d-flex align-items-center" href="#">
+											<div class="dropdown-list-image mr-3">
+												<img class="rounded-circle"
+													src="https://hk.portal-pokemon.com/play/resources/pokedex/img/pm/5794f0251b1180998d72d1f8568239620ff5279c.png"
+													alt="">
+												<div class="status-indicator bg-success"></div>
+											</div>
+											<div class="font-weight-bold">
+												<div class="text-truncate">0.0</div>
+												<div class="small text-gray-500">jinigui · 102m</div>
+											</div>
+										</a>
+									</div>
 									</li>
 								<div class="topbar-divider d-none d-sm-block"></div>
 								<!-- Nav Item - User Information -->
@@ -210,27 +213,33 @@
 								<a class="nav-link dropdown-toggle" href="#" id="userDropdown"
 									role="button" data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="false"> <span
-										class="mr-2 d-none d-lg-inline text-gray-600 small"><c:out value="${empVO.emp_name}" default="請重新登入"></c:out></span>
+										class="mr-2v23PnY2C d-none d-lg-inline text-gray-600 small"><c:out value="${empVO.emp_name}" default="請重新登入"></c:out></span>
+										<c:if test="${empVO.emp_pic != null}">
 										<img class="img-profile rounded-circle"
-										src="data:image/png;base64,${empVO.emp_pic}">
-								</a> <!-- Dropdown - User Information -->
-<!-- 									<div -->
-<!-- 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in" -->
-<!-- 										aria-labelledby="userDropdown"> -->
-<!-- 										<a class="dropdown-item" href="#"> <i -->
-<!-- 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料 -->
-<!-- 										</a> <a class="dropdown-item" href="#"> <i -->
-<!-- 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定 -->
-<!-- 										</a> <a class="dropdown-item" href="#"> <i -->
-<!-- 											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄 -->
-<!-- 										</a> -->
-<!-- 										<div class="dropdown-divider"></div> -->
-<!-- 										<a class="dropdown-item" href="#" data-toggle="modal" -->
-<!-- 											data-target="#logoutModal"> <i -->
-<!-- 											class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> -->
-<!-- 											登出 -->
-<!-- 										</a> -->
-<!-- 									</div> Dropdown - User Information -->
+										src="data:image/png;base64,${empVO.emp_pic}"></c:if>
+										<c:if test="${empVO.emp_pic == null}">
+										<img class="img-profile rounded-circle"
+										src="https://lh3.googleusercontent.com/proxy/RRqy5KvGEkYV7FlQzrBE3rIf8Xs4Fz1rAMN7dVCZwj_yTIRo5GHQMrHnV9YAmS07EcGWARAV-d0cue4NikVqfGEMT5toV2ZKg7rF0Q"></c:if>
+										
+								</a>
+<!-- 								 Dropdown - User Information -->
+									<div
+										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+										aria-labelledby="userDropdown">
+										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no=${empVO.emp_no}"> <i
+											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
+										</a> <a class="dropdown-item" href="#"> <i
+											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
+										</a> <a class="dropdown-item" href="#"> <i
+											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=logout"> 
+											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+											登出
+										</a>
+									</div> 
+<!-- 									Dropdown - User Information -->
 				</nav>
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
@@ -263,7 +272,12 @@
 			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/ajax.js"></script>
-
+			<script>
+// 			$("#logout").click(function(){
+// 				${sessionScope.invalidate};
+// 				console.log("hi");
+// 			})
+			</script>
 			</div>
 
 	

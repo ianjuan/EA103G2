@@ -29,7 +29,7 @@ public class EmployeeDAO implements EmployeeDAO_interface{
 	private static final String INSERT_STMT =
 			"INSERT INTO employee(emp_no,emp_acc,emp_pwd,emp_title,emp_name) values('EMP' || lpad(SEQ_EMP_NO.NEXTVAL, 6,'0'),?,?,?,?)";
 	private static final String GET_ALL_STMT =
-			"SELECT EMP_NO,EMP_ACC,EMP_PWD,EMP_TITLE,EMP_NAME,EMP_IS_DELETE,EMP_PIC FROM EMPLOYEE";
+			"SELECT EMP_NO,EMP_ACC,EMP_PWD,EMP_TITLE,EMP_NAME,EMP_IS_DELETE,EMP_PIC,EMP_MAIL FROM EMPLOYEE";
 	private static final String GET_ONE_STMT = 
 			"SELECT EMP_NO,EMP_ACC,EMP_PWD,EMP_TITLE,EMP_NAME,EMP_IS_DELETE,EMP_PIC FROM EMPLOYEE WHERE EMP_NO = ?";
 	private static final String UPDATE = 
@@ -177,6 +177,7 @@ public class EmployeeDAO implements EmployeeDAO_interface{
 				empVO.setEmp_name(rs.getString("emp_name"));
 				empVO.setEmp_is_delete(rs.getInt("emp_is_delete"));
 				empVO.setEmp_pic(rs.getBytes("emp_pic"));
+				empVO.setEmp_mail(rs.getString("emp_mail"));
 				list.add(empVO); // Store the row in the list
 			}
 

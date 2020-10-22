@@ -390,11 +390,7 @@ public class HousearchDAO implements HousearchDAO_interface{
     				  revo.setHos_rentfee(rs.getInt("HOS_RENTFEE"));
     				  revo.setHos_lat(rs.getDouble("HOS_LAT"));
     				  revo.setHos_lng(rs.getDouble("HOS_LNG"));
-    				  map.put(revo.getHos_no(), revo);}
-    				 			  
-
-    		
-        	
+    				  map.put(revo.getHos_no(), revo);}	
         }catch(SQLException e){
         	e.printStackTrace();
         	System.out.println("SQL壞了 ");

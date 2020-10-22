@@ -31,7 +31,7 @@ public class BookingDAO implements BookingDAO_interface {
 	}
 
 
-	public List<BookingVO> getBookingInfoListByhosno(String hoId){
+	public List<BookingVO> getBookingInfoListByhosno(String hoId){//在房屋頁面根據房屋編號取對應房東的行程表
 		List<BookingVO> list = new ArrayList<BookingVO>();
 		Connection con = null;
 		ResultSet rs = null;
@@ -86,7 +86,7 @@ public class BookingDAO implements BookingDAO_interface {
 		return list;
 	}
 
-	public ArrayList<String> insert(ArrayList<String> strings, String lld_no){
+	public ArrayList<String> insert(ArrayList<String> strings, String lld_no){//房東新增可預約日期 丟欲新增日期LIST跟房東編號近來
 		ArrayList<String> list = new ArrayList<String>();
 		Connection con = null;
 		ResultSet rs = null;
@@ -147,7 +147,7 @@ public class BookingDAO implements BookingDAO_interface {
 		return list;
 	}
 
-	public void delet(String bid){
+	public void delet(String bid){//房東刪除預約 根據預約編號
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -177,7 +177,7 @@ public class BookingDAO implements BookingDAO_interface {
 		}
 	}
 
-	public void update(String sta){
+	public void update(String sta){//被預約後更新預約狀態 根據預約編號
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -208,7 +208,7 @@ public class BookingDAO implements BookingDAO_interface {
 		}
 	}
 
-	public void insertorder(BookingVO vo){
+	public void insertorder(BookingVO vo){//新增房客預約時段相關資訊 與上一個方法一起使用
     	Connection con = null;
 	    PreparedStatement pstmt=null;
 		try {
@@ -219,11 +219,11 @@ public class BookingDAO implements BookingDAO_interface {
 		      pstmt = con.prepareStatement(""
 		      		+ "insert into reservartion_order (RES_NO, TNT_NO ,HOS_NO ,ORDER_DATE ,RES_TYPE ,RES_STATUS ,RES_ODD)"
 		      		+ " VALUES ('RES' || lpad(SEQ_RES_NO.NEXTVAL, 6, '0'),?,?,TO_DATE(?,'YYYY-MM-DD HH24:mi:ss'),?,?,?) ");
-			System.out.println("tnt="+vo.getTnt_no()+",hos="+vo.getHos_no()+",Order_date="+vo.getOrder_date()+",Order_type="+vo.getOrder_type()+",getRes_status="+vo.getRes_status()+",nousedate="+nousedate);
+			System.out.println("tnt="+vo.getTnt_no()+",hos="+vo.getHos_no()+",Order_date="+vo.getOrder_date()+",Order_type="+vo.getRes_type()+",getRes_status="+vo.getRes_status()+",nousedate="+nousedate);
 		      pstmt.setString(1,vo.getTnt_no());
 			pstmt.setString(2,vo.getHos_no());
 			pstmt.setString(3,vo.getOrder_date());
-			pstmt.setString(4,vo.getOrder_type());
+			pstmt.setString(4,vo.getRes_type());
 			pstmt.setString(5,vo.getRes_status());
 			pstmt.setTimestamp(6, nousedate);
 			pstmt.executeUpdate();
@@ -250,7 +250,8 @@ public class BookingDAO implements BookingDAO_interface {
 	    		}
 	        	}
     }
-	public List<BookingVO> getBookingInfoListBylldno(String lldno){
+	
+	public List<BookingVO> getBookingInfoListBylldno(String lldno){//取得行程表 根據房東編號
 		List<BookingVO> list = new ArrayList<BookingVO>();
 		Connection con = null;
 		ResultSet rs = null;
@@ -301,7 +302,76 @@ public class BookingDAO implements BookingDAO_interface {
 				}
 			}
 		}
-
 		return list;
 	}
+	
+
+	public List<BookingVO> getResOrderbylldno(String lldno){//取得行程表 根據房東編號
+		List<BookingVO> list = new ArrayList<BookingVO>();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			// 可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令 可增加指令彈性
+			pstmt = con.prepareStatement("SELECT ro.res_no,RO.ORDER_DATE,RO.RES_TYPE,TNT.TNT_NAME,TNT.TNT_SEX,TNT.TNT_PIC,TNT.TNT_MOBILE,H.HOS_NAME,H.HOS_ADD " + 
+					"	FROM RESERVARTION_ORDER RO " + 
+					"	INNER JOIN TENANT TNT ON RO.TNT_NO=TNT.TNT_NO " + 
+					"	INNER JOIN HOUSE H ON RO.HOS_NO=H.HOS_NO " + 
+					"    INNER JOIN LANDLORD L ON H.LLD_NO =L.LLD_NO " + 
+					"	WHERE L.LLD_NO = ? ORDER BY RO.ORDER_DATE ");
+			pstmt.setString(1, lldno);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BookingVO vo = new BookingVO();
+				vo.setRes_no(rs.getString("RES_NO"));
+				vo.setRes_type(rs.getString("RES_TYPE"));
+				vo.setTnt_name(rs.getString("TNT_NAME").trim());
+				vo.setTnt_sex(rs.getString("TNT_SEX"));
+				vo.setHos_no(rs.getString("RES_TYPE"));
+				vo.setTnt_pic(rs.getBytes("TNT_PIC"));
+				vo.setTnt_mobile(rs.getString("TNT_MOBILE"));
+				vo.setHos_name(rs.getString("HOS_NAME"));
+				vo.setHos_add(rs.getString("HOS_ADD"));
+				vo.setOrder_date(rs.getString("ORDER_DATE"));
+
+				
+				System.out.println(rs.getString("TNT_NAME") + "拿到TNT_NAME");
+				System.out.println(rs.getDate("ORDER_DATE") + rs.getTime("ORDER_DATE").toString());
+				list.add(vo);
+				System.out.println(list);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL壞了 ");
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
 }

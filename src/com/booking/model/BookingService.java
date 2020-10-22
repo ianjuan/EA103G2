@@ -13,11 +13,30 @@ public class BookingService {
 	public BookingService() {
 			dao=new BookingDAO();
 		}
-	public String getinfobyid(String hos_no) {
+	public String getBookingInfoListByhosno(String hos_no) {
 		List<BookingVO> list=dao.getBookingInfoListByhosno(hos_no);
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(list);
 		
+		return jsonStr;
+	}
+	public String getBookingInfoListBylldno(String lldno) {
+		List<BookingVO> list=dao.getBookingInfoListBylldno(lldno);
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(list);
+		return jsonStr;
+	}
+	public String getResOrderbylldno(String lldno) {
+		List<BookingVO> list=dao.getResOrderbylldno(lldno);
+		for(int i=0;i<list.size();i++) {
+			String date=list.get(i).getOrder_date();
+			String[] month=date.split("-");
+			String[] day=month[2].split(" ");
+			String[] time=day[1].split(":");
+			list.get(i).setOrder_date(month[1]+"月"+day[0]+"日"+time[0]+"點"+time[1]+"分");
+		}
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(list);
 		return jsonStr;
 	}
 	public ArrayList<String> change(String strings) {
@@ -37,7 +56,7 @@ public class BookingService {
 		vo.setHos_no(house);
 		vo.setOrder_date(order_date);
 		vo.setTnt_no(tntno);
-		vo.setOrder_type(type);
+		vo.setRes_type(type);
 		vo.setRes_status(resstatus);
 		
 			dao.insertorder(vo);

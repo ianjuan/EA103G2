@@ -414,6 +414,7 @@ public class ConServlet extends HttpServlet {
 				/*************************** 更新合約 **********************/
 				ConVO conVOGET = conSvc.getOneCon(con_no);
 				String apl_no = conVOGET.getApl_no();
+				System.out.println(apl_no);
 				Integer con_dep_sta = conVOGET.getCon_dep_sta();
 
 				Con_aplService aplSvcAplService = new Con_aplService();
@@ -427,10 +428,21 @@ public class ConServlet extends HttpServlet {
 
 				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, hos_dep,
 						con_sta, con_che_date, con_no);
+				
+				/*************************** 扣房客押金**********************/
+				Integer tnt_blance = tntSvc.getOneTntPocket(tnt_no).getTnt_blance() - hos_dep;
+				tntSvc.updateTntPocket(tnt_no, tnt_blance);
+				
+				/*************************** 加房東錢錢**********************/
+				String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
+				System.out.println(lld_no);
+				LldService lldService = new LldService();
+				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_blance();
+				lldService.updateLldPocket(lld_no, lld_blance);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				ConService conService = new ConService();
-				List<ConVO> list = conService.lldgetcon(tnt_no);
+				List<ConVO> list = conService.tntgetcon(tnt_no);
 
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
