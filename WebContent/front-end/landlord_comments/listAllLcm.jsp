@@ -36,6 +36,8 @@
 <% session.setAttribute("tnt_no", "TNT000090");%>
 <!-- (String)session.getAttribute("tnt_no") -->
 
+
+
 <%
 	Landlord_commentsService lcmSvc = new Landlord_commentsService();  
       Set<String> lldSet = lcmSvc.getAllLld_no( (String)session.getAttribute("tnt_no"));  

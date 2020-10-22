@@ -7,7 +7,7 @@
   RepairVO repairVO = (RepairVO) request.getAttribute("repairVO");
 %>
 
-<%-- <% session.setAttribute("con_no", "CON000319");%> --%>
+<% session.setAttribute("con_no", "CON000319");%>
 
 
 

@@ -95,8 +95,8 @@ public class RepairService {
 		return dao.findByPrimaryKey(rep_no);
 	}
 
-	public List<RepairVO> tntGetAll(String tnt_no){
-		return dao.tnt_getAll(tnt_no);
+	public List<RepairVO> tntGetAll(String con_no){
+		return dao.tnt_getAll(con_no);
 	}
 
 	public List<RepairVO> lldGetAll(String lld_no){

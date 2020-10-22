@@ -1,4 +1,5 @@
 package com.repair.controller;
+import com.cont.model.ConService;
 import com.repair.model.*;
 import com.repair_picture.model.Repair_pictureVO;
 
@@ -50,6 +51,9 @@ public class RepairServlet extends HttpServlet{
 		
 		/***************************1.接收請求參數，錯誤處理**********************/
 		try {
+			
+			
+			
 			Collection<Part> parts = req.getParts();
 			for (Part part : parts) {
 				String filename = getFileNameFromPart(part);
@@ -104,6 +108,14 @@ public class RepairServlet extends HttpServlet{
 		System.out.println("1");
 		try {
 			/***************************1.接收請求參數，錯誤處理**********************/
+			ConService conSrv = new ConService();
+			Integer con_sta = conSrv.getOneCon(req.getParameter("con_no")).getCon_sta();
+			if(!(con_sta==1)) {
+				errorMsgs.add("非入住中，無法申請修繕");
+			}
+			
+			
+			
 			String con_no = req.getParameter("con_no");
 			if (con_no == null || con_no.trim().length() == 0) {
 				errorMsgs.add("合約編號: 請勿空白");
@@ -319,9 +331,9 @@ public class RepairServlet extends HttpServlet{
 		
 				req.setAttribute("repairVO", repairVO);
 				String url = "/front-end/repair/listAllRepair.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 嚙論改成嚙穀嚙踝蕭,嚙踝蕭嚙締istOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
-				
+//				 res.sendRedirect(url);
 				/***************************其他可能的錯誤處理*************************************/
 				} catch (Exception e) {
 					errorMsgs.add("房客回報修繕結果失敗，請重新操作:"+e.getMessage());

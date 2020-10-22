@@ -20,7 +20,7 @@ public interface RepairDAO_interface {
     //�ЪF���o�Ҧ���µ����(����:hos_no)
     public List<RepairVO> lld_getAll(String hos_no);
     //�ЫȨ��o�Ҧ���µ����(����:tnt_no)
-    public List<RepairVO> tnt_getAll(String tnt_no);
+    public List<RepairVO> tnt_getAll(String con_no);
     //增加圖片到修繕申請
 	public void insert_pic(Repair_pictureVO repair_pictureVO);
 	//取出圖片
