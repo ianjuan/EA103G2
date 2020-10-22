@@ -52,7 +52,7 @@ button.pass {
 	font-size: 16px;
 	font-weight: 600;
 	text-transform: uppercase;
-	width: 48%;
+	width: auto;
 	color: #FFF;
 	background-color: #0f868c;
 	border-radius: 6px;
@@ -67,7 +67,7 @@ button.fail {
 	font-size: 16px;
 	font-weight: 600;
 	text-transform: uppercase;
-	width: 47%;
+	width: auto;
 	color: #FFF;
 	background-color: #FB6565;
 	border-radius: 6px;

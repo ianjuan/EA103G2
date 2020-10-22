@@ -48,6 +48,8 @@ public class TntVO implements java.io.Serializable {
 	private Integer tnt_auth_res;
 	private Integer tnt_auth_cmt;
 	private Integer tnt_auth_rpt;
+	//============================
+	private String  emp_no;
 	
 	public TntVO() {
 	}
@@ -57,6 +59,12 @@ public class TntVO implements java.io.Serializable {
 	}
 	public void setTnt_no(String tnt_no) {
 		this.tnt_no = tnt_no;
+	}
+	public String getEmp_no() {
+		return emp_no;
+	}
+	public void setEmp_no(String emp_no) {
+		this.emp_no = emp_no;
 	}
 	public String getTnt_email() {
 		return tnt_email;

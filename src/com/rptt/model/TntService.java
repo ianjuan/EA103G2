@@ -76,9 +76,7 @@ public class TntService {
 		return tntVO;
 	}
 
-	public TntVO getOneTntVrf(String tnt_no) {
-		return dao.findByPK_vrf(tnt_no);
-	}
+	
 
 	public List<TntVO> getAllVrf() {
 		return dao.getAll_vrf();
@@ -88,6 +86,18 @@ public class TntService {
 		return dao.get_unvrf(Number);
 	}
 	
+	public List<TntVO> getUnvrf_Unresult(Integer Number,Integer Number2){
+		return dao.getUnvrf_Unresult(Number,Number2);
+	}
+	
+	public TntVO passVrf(String tnt_no, Integer tnt_id_result,String emp_no) {
+		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
+		tntVO.setEmp_no(emp_no);
+		tntVO.setTnt_id_result(tnt_id_result);
+		dao.pass_Vrf(tntVO);
+		return tntVO;
+	}
 	public TntVO getVrfTntPic(String tnt_no) {
 		return dao.findByPK_pic(tnt_no);
 	}

@@ -6,7 +6,7 @@
 
 <%
 	TntService tntSvc = new TntService();
-	List<TntVO> list = tntSvc.getUnvrf("1");
+	List<TntVO> list = tntSvc.getUnvrf_Unresult(1,0);
 	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
@@ -57,12 +57,11 @@
 	min-height: auto;
 }
 
-/* .pic { */
-/* 	width: 500px; */
-/* 	height: 300px; */
-/* 	margin:10px; */
-/* } */
-
+.pic {
+	width: 500px;
+	height: 300px;
+	margin: 10px;
+}
 </style>
 
 
@@ -476,9 +475,9 @@
 												<div class="modal-dialog  modal-full" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
-															<div class="modal-body" style="height: 400px">
+															<div class="modal-body" style="height: auto">
 																<div class="row">
-																	<div class="col-md-10">
+																	<div class="col-md-9">
 																		<img
 																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=front"
 																			class="pic" /> <img
@@ -489,7 +488,7 @@
 
 																	</div>
 
-																	<div class="col-md-2">
+																	<div class="col-md-3">
 																		<label for="name">會員編號:</label> ${tntVO.tnt_no} <br>
 																		<label for="name">會員姓名:</label> ${tntVO.tnt_name} <br>
 																		<label for="name">會員生日:</label> ${tntVO.tnt_birth} <br>
@@ -497,16 +496,19 @@
 																		<label for="name">會員身分證字號:</label> ${tntVO.tnt_id}<br>
 																		<form action="RpttServlet" method="post" name="detail"
 																			id="detail">
-
+																			<input type="hidden" name="tnt_no"
+																				value="${tntVO.tnt_no}"> <input
+																				type="hidden" name="emp_no"
+																				value="<%=pageContext.getAttribute("emp_no")%>">
 																			<div>
 																				<button type="submit" class="fail" name="action"
-																					value="fail">不通過</button>
+																					value="failVrf">不通過</button>
 																				<button type="submit" class="pass" name="action"
-																					value="pass">通過</button>
+																					value="passVrf">通過</button>
 																			</div>
 
-																			<label for="note">退件原因:</label><br>
-																			<textarea id="note" name="dis_reason"></textarea>
+																			<label for="disapprove_reason">退件原因:</label><br>
+																			<textarea id="disapprove_reason" name="disapprove_reason"></textarea>
 
 																		</form>
 																	</div>

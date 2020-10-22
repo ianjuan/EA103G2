@@ -592,8 +592,51 @@ public class RpttServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		//------------------------------以下是驗證的control-------------------------------------------------------
+		if ("passVrf".equals(action)) { // 來自addEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String tnt_no = req.getParameter("tnt_no");
+				System.out.println(tnt_no);
+				Integer tnt_id_result = 1;
+				System.out.println(tnt_id_result);
+				String emp_no = req.getParameter("emp_no");
+				System.out.println(emp_no);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				TntVO tntVO1 = new TntVO();
+				tntVO1.setTnt_no(tnt_no);
+				tntVO1.setTnt_id_result(tnt_id_result);
+				tntVO1.setEmp_no(emp_no);
+				System.out.println("裝入完畢");
+
+				TntService tntSvc = new TntService();
+				tntVO1 = tntSvc.passVrf(tnt_no,tnt_id_result,emp_no);
+				System.out.println("tntpass有更新了");
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+			
+				String url = "/back-end/vrf/main_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("成功Pass");
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/listAllRptt.jsp");
+				failureView.forward(req, res);
+			}
+		}
+	
+	
 	}
-        //------------------------------以下是驗證的control-------------------------------------------------------
 	
 	
 	

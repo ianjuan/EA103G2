@@ -257,7 +257,8 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String UPDATE_VRF_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_uploadtime=?, tnt_id_isupload=?, tnt_id_result=?, tnt_id_disapprove=?, tnt_id_vrftime=? where tnt_no=?";
 	private static final String GET_ONE_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT where tnt_no=?";
 	private static final String GET_ALL_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT ORDER BY tnt_no";
-	private static final String GET_UNVRF_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove,TNT_ID_VRFTIME from TENANT where tnt_id_isupload=?";
+	private static final String GET_UNVRF_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove,TNT_ID_VRFTIME from TENANT where tnt_id_isupload=?";
+	private static final String GET_UNVRF_UNRESULT_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove,TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? AND tnt_id_result=? ORDER BY TNT_NO";
 
 	@Override
 	public void update_vrf(TntVO tntVO) {
@@ -428,9 +429,64 @@ public class TntDAO implements TenantDAO_interface {
 				tntVO.setTnt_id(rs.getString("tnt_id"));
 				tntVO.setTnt_mobile(rs.getString("tnt_mobile"));
 				tntVO.setTnt_email(rs.getString("tnt_email"));
-				tntVO.setTnt_id_picf(rs.getBytes("tnt_id_picf"));
-				tntVO.setTnt_id_picb(rs.getBytes("tnt_id_picb"));
-				tntVO.setTnt_id_pic2(rs.getBytes("tnt_id_pic2"));
+				tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
+				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
+				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+				tntVO.setTnt_id_uploadtime(rs.getTimestamp("tnt_id_uploadtime"));
+				tntVO.setTnt_id_vrftime(rs.getTimestamp("tnt_id_vrftime"));
+				list.add(tntVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error ocurred." + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List<TntVO> getUnvrf_Unresult(Integer Number, Integer Number2) {
+		List<TntVO> list = new ArrayList<TntVO>();
+		TntVO tntVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_UNVRF_UNRESULT_STMT);
+			pstmt.setInt(1, Number);
+			pstmt.setInt(2, Number2);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				tntVO = new TntVO();
+				tntVO.setTnt_no(rs.getString("tnt_no"));
+				tntVO.setTnt_name(rs.getString("tnt_name"));
+				tntVO.setTnt_birth(rs.getDate("tnt_birth"));
+				tntVO.setTnt_id(rs.getString("tnt_id"));
+				tntVO.setTnt_mobile(rs.getString("tnt_mobile"));
+				tntVO.setTnt_email(rs.getString("tnt_email"));
 				tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
 				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
 				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
@@ -477,19 +533,15 @@ public class TntDAO implements TenantDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			System.out.println("DAO11111");
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_VRF_PICF_STMT);
 			pstmt.setString(1, tnt_no);
 			rs = pstmt.executeQuery();
-			System.out.println("DAO222222");
 			while (rs.next()) {
 				tntVO = new TntVO();
 				tntVO.setTnt_id_picf(rs.getBytes("tnt_id_picf"));
 				tntVO.setTnt_id_picb(rs.getBytes("tnt_id_picb"));
 				tntVO.setTnt_id_pic2(rs.getBytes("tnt_id_pic2"));
-
-				System.out.println("DAO3333");
 
 			}
 
@@ -521,6 +573,45 @@ public class TntDAO implements TenantDAO_interface {
 		}
 
 		return tntVO;
+	}
+	
+	
+	private static final String UPDATE_PASS_VRF = "UPDATE TENANT SET TNT_ID_RESULT=?, EMP_NO=? where TNT_NO=?";
+
+	public void pass_Vrf(TntVO tntVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_PASS_VRF);
+
+			
+			pstmt.setInt(1, tntVO.getTnt_id_result());
+			pstmt.setString(2, tntVO.getEmp_no());
+			pstmt.setString(3, tntVO.getTnt_no());
+
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 	
