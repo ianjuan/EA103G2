@@ -13,6 +13,7 @@ public interface TenantDAO_interface {
     public TntVO findByPK_vrf(String tnt_no);
     public List<TntVO> getAll_vrf();
     public List<TntVO> get_unvrf(String Number);
+	public TntVO findByPK_pic(String tnt_no);
     
 
 

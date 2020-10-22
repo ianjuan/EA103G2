@@ -45,6 +45,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="main_vrf_back.css" type="text/css">
+
+
 <style>
 .modal-full {
 	min-width: 70%;
@@ -54,7 +56,15 @@
 .modal-full .modal-content {
 	min-height: auto;
 }
+
+/* .pic { */
+/* 	width: 500px; */
+/* 	height: 300px; */
+/* 	margin:10px; */
+/* } */
+
 </style>
+
 
 
 </head>
@@ -469,11 +479,16 @@
 															<div class="modal-body" style="height: 400px">
 																<div class="row">
 																	<div class="col-md-10">
-																		hi
-																		<div></div>
-																		<div></div>
-																		<div></div>
+																		<img
+																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=front"
+																			class="pic" /> <img
+																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=back"
+																			class="pic" /> <img
+																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=second"
+																			class="pic" />
+
 																	</div>
+
 																	<div class="col-md-2">
 																		<label for="name">會員編號:</label> ${tntVO.tnt_no} <br>
 																		<label for="name">會員姓名:</label> ${tntVO.tnt_name} <br>
@@ -510,11 +525,6 @@
 							</div>
 						</div>
 					</div>
-
-
-
-
-
 
 					<footer class="sticky-footer bg-white">
 						<div class="container my-auto">
@@ -557,7 +567,15 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$(function() {
+			$('.pic').click(function() {
 
+				$(this).toggleClass('min');
+				$(this).toggleClass('max');
+			});
+		});
+	</script>
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/back-end/css/vendor/jquery/jquery.min.js"></script>
@@ -587,6 +605,8 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+
+
 </body>
 
 </html>

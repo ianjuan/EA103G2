@@ -87,6 +87,10 @@ public class TntService {
 	public List<TntVO> getUnvrf(String Number) {
 		return dao.get_unvrf(Number);
 	}
+	
+	public TntVO getVrfTntPic(String tnt_no) {
+		return dao.findByPK_pic(tnt_no);
+	}
 
 
 }

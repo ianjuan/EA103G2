@@ -94,14 +94,18 @@
 						<div class="rinfo">
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+								<c:if test="${con_aplVO.apl_status == 0}">
 								<li><button id="btn1">修改申請</button></li>
+								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="action"	value="getOne_For_tntUpdate">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+			     				<c:if test="${con_aplVO.apl_status == 0}">
 								<li><button id="btn2">取消申請</button></li>
+								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=4>
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">

@@ -108,6 +108,16 @@
 		<url-pattern>/ImgReader</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ImgReader_vrf</servlet-name>
+		<servlet-class>ImgReader_vrf</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ImgReader_vrf</servlet-name>
+		<url-pattern>/ImgReader_vrf</url-pattern>
+	</servlet-mapping>
+	
 	<filter>
 		<filter-name>setCharacterEncoding</filter-name>
 		<filter-class>filters.SetCharacterEncodingFilter</filter-class>

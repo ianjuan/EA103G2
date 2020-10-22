@@ -18,6 +18,8 @@ public class ImgReader extends HttpServlet {
 			ServletOutputStream out = res.getOutputStream();
 			
 			String mem_no = req.getParameter("id").trim();
+			
+
 			if (mem_no.substring(0, 3).equalsIgnoreCase("tnt")) {
 				String tnt_no = mem_no;
 				TntService TntSvc = new TntService();

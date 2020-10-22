@@ -466,6 +466,62 @@ public class TntDAO implements TenantDAO_interface {
 		}
 		return list;
 	}
+	
+	private static final String GET_VRF_PICF_STMT = "select TNT_ID_PICF,TNT_ID_PICB,TNT_ID_PIC2 from TENANT where TNT_NO=?";
+
+	@Override
+	public TntVO findByPK_pic(String tnt_no) {
+		TntVO tntVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			System.out.println("DAO11111");
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_VRF_PICF_STMT);
+			pstmt.setString(1, tnt_no);
+			rs = pstmt.executeQuery();
+			System.out.println("DAO222222");
+			while (rs.next()) {
+				tntVO = new TntVO();
+				tntVO.setTnt_id_picf(rs.getBytes("tnt_id_picf"));
+				tntVO.setTnt_id_picb(rs.getBytes("tnt_id_picb"));
+				tntVO.setTnt_id_pic2(rs.getBytes("tnt_id_pic2"));
+
+				System.out.println("DAO3333");
+
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return tntVO;
+	}
 
 	
 }
