@@ -151,7 +151,9 @@
 						<div class="rinfo">
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+								<c:if test="${conVO.con_sta == 0 || conVO.con_sta == 1}">
 								<li><button id="btn1">合約管理</button></li>
+								</c:if>
 								<input type="hidden" name="con_no"  value="${conVO.con_no}">
 								<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -159,7 +161,9 @@
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+			     				<c:if test="${conVO.con_sta != 0 && conVO.con_sta != 1}">
 								<li><button id="btn2">定期費用</button></li>
+								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 			     				<input type="hidden" name="action"	value="getlldrec">
