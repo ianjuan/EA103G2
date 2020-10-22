@@ -7,6 +7,7 @@ public interface ConDAO_interface {
 	public void update(ConVO conVO);
 	public void beforerentinsert(ConVO conVO);
 	public void beforerentupdate(ConVO conVO);
+	public void updatesta(ConVO conVO);
 	public void rentupdate(ConVO conVO);
 	public void beforecheckoutupdate(ConVO conVO);
 	public void checkoutupdate(ConVO conVO);

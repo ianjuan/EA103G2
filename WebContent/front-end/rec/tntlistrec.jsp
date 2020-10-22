@@ -78,11 +78,11 @@
 					</div>
 					<div class="cinfo">
 						<ul>
-							<li><span class="infotitle">訂單編號 : </span><span>${recVO.rec_no}</span></li>
-							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}</span></li>
-							<li><span class="infotitle">房屋編號 : </span><span>${recVO.hos_no}</span></li>
+							<li><span class="infotitle">訂單編號 : </span><span>${recVO.rec_no}</span></li>							
+							<li><span class="infotitle">訂單月份 : </span><span>${recSvc.getMonthText(recVO.rec_mon)}</span></li>
 							<li><span class="infotitle">本月使用水量 : </span><span>${recVO.rec_water}</span></li>
 							<li><span class="infotitle">本月使用電量 : </span><span>${recVO.rec_elec}</span></li>
+							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}</span></li>
 							<li><span class="infotitle">帳單狀態 : </span><span>${recSvc.getRecStatusText(recVO.rec_sta)}</span></li>
 						</ul>
 					</div>					

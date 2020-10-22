@@ -1,7 +1,7 @@
 package com.rec.model;
 
 public enum RecStatus {
-	Unfill(0, "未填寫"), Fillin(1, "已填寫"), Paid(2, "已繳交");
+	Unfill(0, "房東未填寫"), Fillin(1, "房東已填寫"), Paid(2, "房客已繳交");
 	
 	private Integer num;
 	private String text;
