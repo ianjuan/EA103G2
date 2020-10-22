@@ -338,7 +338,10 @@
             for (var i = 0; i < selects.length; i++) {
                 $(selects[i]).focus();
                 $(selects[i]).blur();
-        }
+            }
+            $('#f_date1').blur();
+//            console.log($('.xdsoft_datetimepicker').css('display'));
+//            $('.xdsoft_datetimepicker').css('display','none');
         });
 
         /*

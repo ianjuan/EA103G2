@@ -1114,10 +1114,12 @@
             font-weight: bold;
             color: #777;
         }
+        
         #blanceWithdraw {
         	background: #ECD4D4;
             color: #9e3e3e;
         }
+        
         #blanceDeposit {
             background-color: #d1dfe8;
     		color: #367196;
@@ -1127,11 +1129,15 @@
         	background: #9e3e3e;
             color: #ECD4D4;
         }
+        
         #blanceDeposit:hover {
         	background: #367196;
             color: #d1dfe8;
         }
         
+        .blanceInputform {
+        	padding: 10px 100px 0px 50px;
+        }
         
 
         /*------------------------------------------------------------------

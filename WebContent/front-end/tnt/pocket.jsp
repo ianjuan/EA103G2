@@ -190,6 +190,15 @@
                                     </div>
 <%--                                 ${tntVO_pocket.tnt_pocket} --%>
                                     <hr class="login100-form-title p-b-10">
+                                    
+                                    <form class="blanceInputform" enctype="multipart/form-data">
+		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than blance">
+		                                        <input class="register100" type="text" name="tnt_bankbranch" id="tnt_bankbranch">
+		                                        <span class="focus-register100"></span>
+		                                        <span class="label-register100">請輸入提款金額</span>
+		                                    </div>
+                                    </form>
+                                    
                                     <div class="row no-gutters justify-content-around" > 
 				                            <div class="bankTitleSmall">收款帳號<br><span style="color: #444;margin-left:30px">中國信託   **** 1234</span></div>
 				                            <div class="wrap-btnBlanceSmall" style=" display: inline-block;">
@@ -197,6 +206,13 @@
 				                            </div>
 				                    </div>
 				                    <hr style="margin: 25px 40px;">
+				                    <form class="blanceInputform" enctype="multipart/form-data">
+		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than blance">
+		                                        <input class="register100" type="text" name="tnt_bankbranch" id="tnt_bankbranch">
+		                                        <span class="focus-register100"></span>
+		                                        <span class="label-register100">請輸入儲值金額</span>
+		                                    </div>
+                                    </form>
 				                    <div class="row no-gutters justify-content-around" > 
 				                            <div class="bankTitleSmall">付款信用卡<br><span style="color: #444;margin-left:30px">中國信託  **** 1234</span></div>
 				                            <div class="wrap-btnBlanceSmall" style=" display: inline-block;">
@@ -204,8 +220,7 @@
 				                            </div>
 				                    </div>
 
-                                <form id="registerform" enctype="multipart/form-data">
-                                </form>
+                                
                             </div>
                             <!--End form1 Pocket -->
 
