@@ -110,6 +110,14 @@
 			     				<li><button id="btn3">提前解約</button></li>
 			     				
 								<li><button id="btn3">聊天</button></li>
+								
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+								<li><button id="btn2">合約書</button></li>
+			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
+			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+			     				<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
+			     				<input type="hidden" name="action"	value="gettntfinalcontract">
+			     				</FORM>
 																					
 							</ul>
 						</div>					
