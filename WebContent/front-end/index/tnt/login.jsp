@@ -30,23 +30,11 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/tnt/css/util.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/tnt/css/main_login.css">
     <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 </head>
 
 <body class="landing">
-    <!-- Header -->
-    <header id="header">
-        <h1>
-            <a href="index.html">愛租I-ZU</a>
-        </h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="index.html">尋找房源</a></li>
-                <li><a href="generic.html">地圖找房</a></li>
-                <li><a href="elements.html">會員登入</a></li>
-                <li><a href="#" class="special">註冊會員</a></li>
-            </ul>
-        </nav>
-    </header>
+  <jsp:include page="/front-end/navbar/navbar.jsp"/>
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-form validate-form">
@@ -94,72 +82,7 @@
             <!--login100-form-->
         </div>
     </div>
-    <canvas class="cyan" width="368" height="294" id="paper-view-7" style="-webkit-user-drag: none; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></canvas>
-    <footer id="footer">
-        <div class="container">
-            <section class="links">
-                <div class="row">
-                    <section class="3u 6u(medium) 12u$(small)">
-                        <h3>Lorem ipsum dolor</h3>
-                        <ul class="unstyled">
-                            <li><a href="#">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#">Nesciunt itaque, alias possimus</a></li>
-                            <li><a href="#">Optio rerum beatae autem</a></li>
-                            <li><a href="#">Nostrum nemo dolorum facilis</a></li>
-                            <li><a href="#">Quo fugit dolor totam</a></li>
-                        </ul>
-                    </section>
-                    <section class="3u 6u$(medium) 12u$(small)">
-                        <h3>Culpa quia, nesciunt</h3>
-                        <ul class="unstyled">
-                            <li><a href="#">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#">Reiciendis dicta laboriosam enim</a></li>
-                            <li><a href="#">Corporis, non aut rerum</a></li>
-                            <li><a href="#">Laboriosam nulla voluptas, harum</a></li>
-                            <li><a href="#">Facere eligendi, inventore dolor</a></li>
-                        </ul>
-                    </section>
-                    <section class="3u 6u(medium) 12u$(small)">
-                        <h3>Neque, dolore, facere</h3>
-                        <ul class="unstyled">
-                            <li><a href="#">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#">Distinctio, inventore quidem nesciunt</a></li>
-                            <li><a href="#">Explicabo inventore itaque autem</a></li>
-                            <li><a href="#">Aperiam harum, sint quibusdam</a></li>
-                            <li><a href="#">Labore excepturi assumenda</a></li>
-                        </ul>
-                    </section>
-                    <section class="3u$ 6u$(medium) 12u$(small)">
-                        <h3>Illum, tempori, saepe</h3>
-                        <ul class="unstyled">
-                            <li><a href="#">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#">Recusandae, culpa necessita nam</a></li>
-                            <li><a href="#">Cupiditate, debitis adipisci blandi</a></li>
-                            <li><a href="#">Tempore nam, enim quia</a></li>
-                            <li><a href="#">Explicabo molestiae dolor labore</a></li>
-                        </ul>
-                    </section>
-                </div>
-            </section>
-            <div class="row">
-                <div class="8u 12u$(medium)">
-                    <ul class="copyright">
-                        <li>&copy; Untitled. All rights reserved.</li>
-                        <li>Design: <a href="http://templated.co">TEMPLATED</a></li>
-                        <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
-                    </ul>
-                </div>
-                <div class="4u$ 12u$(medium)">
-                    <ul class="icons">
-                        <li><a class="icon rounded fa-facebook"><span class="label">Facebook</span></a></li>
-                        <li><a class="icon rounded fa-twitter"><span class="label">Twitter</span></a></li>
-                        <li><a class="icon rounded fa-google-plus"><span class="label">Google+</span></a></li>
-                        <li><a class="icon rounded fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+   
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->

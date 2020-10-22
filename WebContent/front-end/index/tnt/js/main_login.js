@@ -152,44 +152,4 @@
         //     })
         // }
 
-        /*
-         * ================================================================== 
-         *    [ 按鈕Ajax - forgetPwd ]
-         */
-        $('#btnforgetPwd.login100-form-btn').click(function(e) {
-            e.preventDefault();
-            console.log('btn - btnforgetPwd');
-            $('.wrap-validate-login').removeClass('validate-input alert-validate-login');
-            validateAllProfile();
-            if ($('.alert-validate').length === 0) {
-                var formData = new FormData($('#forgetPwdform')[0]);
-                formData.append('action', 'forgetPwd');
-                //                console.log(formData);
-                ajax_forgetPwd(formData);
-            }
-        });
-
-        function ajax_forgetPwd(formData) {
-            $.ajax({ // 存入資料庫階段
-                url: "/EA103G2/tnt/TntServlet2",
-                type: "POST",
-                data: formData,
-                // 告訴jQuery不要去處理發送的資料
-                processData: false,
-                // 告訴jQuery不要去設定Content-Type請求頭
-                contentType: false,
-
-                success: function(data) { // 以上成功才執行
-                    //                    console.log("" + data);
-                    console.log("res棒");
-                    if (data === 'false') { //信箱尚未註冊
-                        $('.wrap-validate-login').addClass('validate-input alert-validate-login');
-                    } else {
-                        alert("我們已將認證信傳送到您的信箱，請盡快至您的信箱收信");
-                    }
-                },
-                error: function() {
-                    console.log("真的不棒")
-                }
-            });
-        }
+       

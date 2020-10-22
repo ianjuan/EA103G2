@@ -636,9 +636,20 @@
                 contentType: false,
 
                 success: function(data) { // 以上成功才執行
-                    console.log("註冊: ");
-                    console.log("res棒");
-                    redirect();
+                	console.log("res棒");
+                    console.log(""+data);
+                    if (data === 'true') {
+                    	Swal.fire({
+                    		icon: 'success',
+                    		title: '註冊成功!',
+                    		text: "歡迎成為愛租房客會員",
+                    	    showDenyButton: true,
+                    		}).then((result) => {
+                    		  if (result.isConfirmed) {
+                    			  redirect();
+                    		  } 
+                    		})
+                    }
                 },
                 error: function() {
                     console.log("真的不棒")
@@ -647,5 +658,5 @@
         }
 
         function redirect() {
-            window.location.href = "/EA103G2/front-end/index/index.html";
+            window.location.href = "/EA103G2/front-end/index/index.jsp";
         }
