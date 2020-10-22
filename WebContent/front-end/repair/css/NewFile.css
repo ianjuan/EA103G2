@@ -1,0 +1,137 @@
+h1, h2, h3, h4, h5, h6, table{
+    font-family: Microsoft JhengHei;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p, a, input, label, textarea, span, ul, li{
+    font-family: Microsoft JhengHei;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+a:hover{
+    text-decoration:none;
+}
+/* 廣告 */
+.btn{
+    background-color: #F05F5C;
+    color: white;
+    padding: 9px 26px;
+    border-radius:20px;
+}
+#intro.jumbotron{
+    height:70vh;
+    margin: 0px;
+}
+#intro h1{
+    margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 100;
+    line-height: 1.2;
+    color: inherit;
+}
+#intro .container{
+    position:relative;
+    top:50%;
+
+}
+
+header nav img{
+    width: 175px;
+}
+
+header li{
+    margin: o 20px;
+}
+/* 內頁 */
+
+#second .subtitle{
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+#second{
+    padding: 0px 0px;
+}
+
+#second .row{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    
+}
+
+#second .col-md-8 .row{
+    background-color: rgb(221, 245, 247);
+    padding:20px;
+    margin:30px;
+   
+}
+/* 調整房屋資訊排版 */
+#second .text{
+  position:relative;
+}
+
+#second .rep_status{
+    background-color: rgb(225, 231, 189);
+    color:grey;
+    padding:2px;
+
+}
+#second .hos_name{
+    color:rgb(197, 184, 126);
+}
+
+#second .hos_name:hover{
+    color:rgb(112, 181, 228);
+}
+
+
+#second img{
+    width:200px;
+    height:190px;
+    margin-bottom: 15px;
+    border-radius: 20%;
+    border:7px solid white;
+    position:relative;
+   
+}
+
+/* 調整修繕資訊排版 */
+
+#second .repair_info{
+    margin:auto;
+    text-align: center;
+    position:relative;
+    color:grey;
+    
+}
+#second .allbtn{
+
+    position:relative;
+}
+
+#second .hos_name{
+    padding: 12px;
+   
+
+}
+/* 按鈕與連結 */
+#second button:hover{
+    text-decoration:none;
+    background-color:white;
+    color: grey;
+    font-size: large;
+    
+}
+.allbtn .btn{
+    width:100px;
+    height:40px;
+    padding:10px;
+    margin:10px;
+    background-color:rgb(221, 210, 160);
+}
+
+input[type="submit" i]{
+	overflow: invisible;
+	background:none;
+	border-width: 0px;
+    border-style: none;
+}

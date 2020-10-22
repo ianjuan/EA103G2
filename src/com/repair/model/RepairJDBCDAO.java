@@ -42,8 +42,10 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 	private static final String GET_ONE_STMT="SELECT REP_NO, CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR WHERE REP_NO=?";
 	//�ЪF���o�Ҧ���µ����:INNER JOIN con_no--CONTRACT--hos_no--HOUSE--lld_no--LANLORD--lld_no
 	private static final String LLD_GET_ALL_STMT="SELECT REP_NO, R.CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR R INNER JOIN CONTRACT C ON C.CON_NO=R.CON_NO INNER JOIN HOUSE H ON H.HOS_NO= C.HOS_NO INNER JOIN LANDLORD L ON H.LLD_NO= L.LLD_NO ORDER BY REP_NO DESC";
-	//�ЫȨ��o�Ҧ���µ����:INNER JOIN con_no--CONTRACT--tnt_no--TENANT--tnt_no
-	private static final String GET_ALL_STMT="SELECT REP_NO, R.CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR R INNER JOIN CONTRACT C ON C.CON_NO=R.CON_NO INNER JOIN TENANT T ON C.TNT_NO=T.TNT_NO ORDER BY REP_NO DESC";
+	
+//	private static final String GET_ALL_STMT="SELECT REP_NO, CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR R INNER JOIN CONTRACT C ON C.CON_NO=R.CON_NO INNER JOIN TENANT T ON C.TNT_NO=T.TNT_NO ORDER BY REP_NO DESC";
+	
+	private static final String TNT_GET_ALL_STMT="SELECT REP_NO, CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR WHERE CON_NO=?";
 	//新增一張Repair的圖片
 	private static final String INSERT_REPAIR_PIC="INSERT INTO REPAIR_PICTURE (REPPIC_NO, REP_NO, REPPIC_PIC) VALUES ('REPPIC' || lpad(SEQ_REPPIC_NO.NEXTVAL, 6,'0'), ?, ?)";
 	//取出圖片
@@ -430,6 +432,7 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(LLD_GET_ALL_STMT);
+			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -485,7 +488,7 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 
 	//�ЫȨ��o�Ҧ���µ����:INNER JOIN con_no--CONTRACT--tnt_no--TENANT--tnt_no
 	@Override
-	public List<RepairVO> tnt_getAll(String tnt_no) {
+	public List<RepairVO> tnt_getAll(String con_no) {
 		List<RepairVO> list = new ArrayList<RepairVO>();
 		RepairVO repairVO = null;
 
@@ -496,7 +499,8 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
+			pstmt = con.prepareStatement(TNT_GET_ALL_STMT);
+			pstmt.setString(1, con_no);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {

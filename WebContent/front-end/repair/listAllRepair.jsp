@@ -2,164 +2,262 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.repair.model.*"%>
+<%@ page import="com.cont.model.*"%>
+<%@ page import="com.cont.controller.*"%>
 <%@ page import="com.repair.controller.*"%>
 <%@ page import="com.repair_picture.model.*"%>
-
-
-<%
-    RepairService repairSvc = new RepairService();
-    List<RepairVO> list = repairSvc.tntGetAll("TNT000012");
-    pageContext.setAttribute("list",list);
-%>
+<%@ page import="com.housemanage.model.*"%>
 
 
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-​
-  <a class="navbar-brand" href="#">愛租I-ZU</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ml-auto">
- <a class="nav-item nav-link active" href="https://codepen.io/">尋找房源<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">地圖找房</a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">我的收藏</a>
-      <li class="nav-item dropdown">
-        <span data-toggle="dropdown">
-        <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" style="width:40px" />
-          我是房客
-</span>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">最新通知</a>
-          <a class="dropdown-item" href="#">個人資訊</a>
-          <a class="dropdown-item" href="#">我的錢包</a>
-          <a class="dropdown-item" href="#">登出</a>
-        </div>
-      </li>
-    </div>
-  </div></div>
-</nav>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/NewFile.css">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
 
 <title>房客修繕紀錄 - listAllRepair.jsp</title>
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
 
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
 </style>
 
 </head>
 <body bgcolor='white'>
 
-<div class="jumbotron jumbotron-fluid">
-<div class="container">
-		  <h1 class="display-4">房客所有修繕資料</h1>
-		 <p class="lead"> - listAllRepair.jsp</p>
-	</div>
-</div>
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<table>
-	<tr>
-		<th>修繕物品圖片</th>
-		<th>修繕編號</th>
-		<th>合約編號</th>
-		<th>待修物品</th>
-		<th>損描狀況</th>
-		<th>處理狀況</th>
-		<th>損壞日期</th>
-		<th>預計修畢日期</th>
-		<th>房客是否滿意此次修繕</th>
-		<th>案件結束日期</th>
-	</tr>
 
 
-	<%@ include file="page1.file" %> 
-	<c:forEach var="repairVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		                     
-		<tr>
-			<td>這裡要放修繕圖片s
 
- 	 	<jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService"/>
-			
-				<c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
+<jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
+<jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
+<jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
+<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
+<section id='second'>
+<div class='.container-md'>
+ <div class='row'>
+        <div class='col-md-2'></div>
+        <div class='col-md-8  text-center'>
+            <h3 class='subtitle'>修繕申請紀錄</h3> 
+            
+ <c:forEach var="conVO" items="${conSvc.all}"> 
+     <c:if test="${tnt_no==conVO.tnt_no}"> 
+
+		<c:forEach var="repairVO" items="${repSvc.tntGetAll(conVO.con_no)}">
+
+            <div class='row' >
+				<!--修繕圖片 -->
+                <div class='col-md-2'>
+                  <a href='#'><c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
 
 					<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120">
 		
-				</c:forEach>
+							</c:forEach>
+					</a>
+				
+                </div>
+                <div class='col-md-4  text-center'>
+                  <div class='text'>
+                    <h6 class='rep_status'>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h6>
+                    <a href='#'>
+                    	房屋編號<br>${conVO.hos_no}
+                    
+<!--                     <h5 class='hos_name'>【文化中心第一排】【黃金學區】db重灌後再試 -->
+							
+<%--                     			${hosSvc.getHouseInfo(conVO.hos_no).hos_name} --%>
+<%--      							${conVO.hos_no} --%>
 
-			</td>
-			<td>${repairVO.rep_no}</td>
-			<td>${repairVO.con_no}</td>
-			<td>${repairVO.rep_dam_obj}</td>
-			<td>${repairVO.rep_dam_obj_des}<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM></td>
-			<td>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</td> 		
-			<td>${repairVO.rep_case_str}</td>
-			<td>${repairVO.rep_est_enddate}</td> 
+        
+<!--                     </h5> -->
+					</a>
+                    <br>居住日期<br>
+                    <h6>${aplSvc.getOneCon_apl(conVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(conVO.apl_no).apl_end}</h6>   
+                  </div>       
+                </div>
+                
+                 <div class='col-md-4 '>
+                   
+                     <table class='repair_info'>
+                      <tr>
+                        <th scope="col">| 修繕物件</th>
+                        <th scope="col">| 申請日期</th>
+                        <th scope="col">| 修繕完成日期</th>
+                      </tr>
+                      <tr>
+                        <td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
+                        <td><code><h4>${repairVO.rep_case_str}</h4></code></td>
+                        <td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
+                      </tr>
+                      </table>
+            
+                </div>
+                
+                
+
+                <div class='col-md-2'>
+                  <div class='allbtn'>
+					<!--編輯(狀態為處理中可編輯) -->
+                      <button class='btn'  data-toggle="modal" data-target="#detail"  ${(repairVO.rep_pro eq 0)?'':"disabled"}>編輯</button><br>
+                      		<!-- Modal -->
+							<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalLongTitle">損壞細節</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								      	
+								        ${repairVO.rep_dam_obj_des}
+								        
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			
-			<td>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")}<br>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
-			     <input type="submit" value="回報修繕結果">
-			     <input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
-			     <input type="hidden" name="action"	value="getOne_For_Report"></FORM>		
-			</td>
-			<td>${repairVO.rep_end_time}</td>
+								        	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
+			     							<button type="submit" class="btn btn-primary" >前往編輯</button>
+			     							<input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
+			     							<input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     						
+								      </div>
+								    </div>
+								  </div>
+								</div>
+                    
+                    
+                    
+                    
+                    <button class='btn'  data-toggle="modal" data-target="#report" ${(repairVO.rep_pro eq 1)?'':"disabled"} >回報結果</button><br>
+                      		<!-- Modal -->
+							<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalLongTitle">回報修繕結果</h5>
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          <span aria-hidden="true">&times;</span>
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								      	
+								        ${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")}
+								        
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								       	
+<%-- 								       	<c:if test="${repairVO.rep_tnt_rpt eq 0}"> --%>
+								        	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
+			     							<button type="submit" class="btn btn-primary" onClick="window.alert('成功送出');">滿意</button>
+			     							<input type="hidden" name="rep_tnt_rpt"  value="1">
+			     							<input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
+			     							<input type="hidden" name="action"	value="updateRpt"></FORM>
+			     							
+			     							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
+			     							<button type="submit" class="btn btn-primary" onClick="window.alert('成功送出');">不滿意</button>
+			     							<input type="hidden" name="rep_tnt_rpt"  value="2">
+			     							<input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
+			     							<input type="hidden" name="action"	value="updateRpt"></FORM>
+<%-- 			     						</c:if> --%>
+			     						
+			     						</div>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+                    
+          
+                      <a class='btn' href='#' style="display:none">催一下房東</a><br>
+                    </div>
+                </div>  
+                
+             
+            </c:forEach>
+       </c:if>
+</c:forEach>
+      </div>
+    </div>
+
+<div>
+
+
+</div>
+
+</div>
+
+
+</section>
+
+
+
+<!-- <table class="table table-hover"> -->
+<!-- <thead> -->
+<!-- 	<tr> -->
+<!-- 		<th>修繕物品圖片</th> -->
+<!-- 		<th>修繕編號</th> -->
+<!-- 		<th>合約編號</th> -->
+<!-- 		<th>待修物品</th> -->
+<!-- 		<th>損描狀況</th> -->
+<!-- 		<th>處理狀況</th> -->
+<!-- 		<th>損壞日期</th> -->
+<!-- 		<th>預計修畢日期</th> -->
+<!-- 		<th>房客是否滿意此次修繕</th> -->
+<!-- 		<th>案件結束日期</th> -->
+<!-- 	</tr> -->
+<!-- </thead> -->
+<%-- <c:forEach var="conVO" items="${conSvc.all}">  --%>
+<%--        <c:if test="${tnt_no==conVO.tnt_no}">  --%>
+      
+<%-- 			<c:forEach var="repairVO" items="${repSvc.tntGetAll(conVO.con_no)}"> --%>
+					
+<!-- 			<tr> -->
 <!-- 			<td> -->
-<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-page/repair.servlet" style="margin-bottom: 0px;"> --%>
-<!-- 			     <input type="submit" value="刪除"> -->
-<%-- 			     <input type="hidden" name="empno"  value="${repairVO.rep_no}"> --%>
-<!-- 			     <input type="hidden" name="action" value="delete"></FORM> -->
+<%-- 				<c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}"> --%>
+
+<%-- 					<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120"> --%>
+		
+<%-- 				</c:forEach> --%>
+<!-- 			</td>		 -->
+<%-- 			<td>${repairVO.rep_no}</td>  --%>
+<%-- 			<td>${repairVO.con_no}</td> --%>
+<%-- 			<td>${repairVO.rep_dam_obj}</td>  --%>
+			
+<%-- 			<td>${repairVO.rep_dam_obj_des}<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="修改"> -->
+<%-- 			     <input type="hidden" name="rep_no"  value="${repairVO.rep_no}"> --%>
+<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM></td> -->
+<%-- 			<td>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</td> 		 --%>
+<%-- 			<td>${repairVO.rep_case_str}</td> --%>
+<%-- 			<td>${repairVO.rep_est_enddate}</td>  --%>
+			
+<%-- 			<td>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")}<br> --%>
+<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="回報修繕結果"> -->
+<%-- 			     <input type="hidden" name="rep_no"  value="${repairVO.rep_no}"> --%>
+<!-- 			     <input type="hidden" name="action"	value="getOne_For_Report"></FORM>		 -->
 <!-- 			</td> -->
-		</tr>
-	</c:forEach>
-</table>
-<%@ include file="page2.file" %>
+<%-- 			<td>${repairVO.rep_end_time}</td> --%>
+<!-- <!-- 			<td> --> -->
+<%-- <%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-page/repair.servlet" style="margin-bottom: 0px;"> --%> 
+<!-- <!-- 			     <input type="submit" value="刪除"> --> 
+<%-- <%-- 			     <input type="hidden" name="empno"  value="${repairVO.rep_no}"> --%> 
+<!-- <!-- 			     <input type="hidden" name="action" value="delete"></FORM> --> 
+<!-- <!-- 			</td> --> 
+<!-- 			</tr> -->
+		
+<%-- 			</c:forEach> --%>
+<%--        </c:if> --%>
+<%-- </c:forEach> --%>
+<!-- </table> -->
+
+
+
+<%-- <%@ include file="page2.file" %> --%>
 
 </body>
 </html>
