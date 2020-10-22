@@ -11,7 +11,7 @@ public class Landlord_commentsVO {
 	 private Integer lcm_clean;
 	 private Integer lcm_commut;
 	 private Integer lcm_satisfy;
-	 private String lcm_commnt;
+	 private String lcm_commet;
 	 private Date lcm_time;
 	 private String lcm_respon;
 	 
@@ -52,11 +52,11 @@ public class Landlord_commentsVO {
 	public void setLcm_satisfy(Integer lcm_satisfy) {
 		this.lcm_satisfy = lcm_satisfy;
 	}
-	public String getLcm_commnt() {
-		return lcm_commnt;
+	public String getLcm_commet() {
+		return lcm_commet;
 	}
-	public void setLcm_commnt(String lcm_commnt) {
-		this.lcm_commnt = lcm_commnt;
+	public void setLcm_commet(String lcm_commet) {
+		this.lcm_commet = lcm_commet;
 	}
 	public Date getLcm_time() {
 		return lcm_time;

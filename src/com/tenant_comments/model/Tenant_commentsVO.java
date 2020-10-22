@@ -1,7 +1,7 @@
 package com.tenant_comments.model;
 
 import java.sql.Date;
-import java.sql.Time;
+
 
 public class Tenant_commentsVO {
 	
@@ -11,7 +11,7 @@ public class Tenant_commentsVO {
 	 private Integer tcm_clean;
 	 private Integer tcm_commut;
 	 private Integer tcm_satisfy;
-	 private String tcm_commnt;
+	 private String tcm_commet;
 	 private Date tcm_time;
 	 private String tcm_respon;
 
@@ -52,11 +52,11 @@ public class Tenant_commentsVO {
 	public void setTcm_satisfy(Integer tcm_satisfy) {
 		this.tcm_satisfy = tcm_satisfy;
 	}
-	public String getTcm_commnt() {
-		return tcm_commnt;
+	public String getTcm_commet() {
+		return tcm_commet;
 	}
-	public void setTcm_commnt(String tcm_commnt) {
-		this.tcm_commnt = tcm_commnt;
+	public void setTcm_commet(String tcm_commet) {
+		this.tcm_commet = tcm_commet;
 	}
 	public Date getTcm_time() {
 		return tcm_time;
