@@ -10,10 +10,10 @@
 	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
 	request.setAttribute("tntVO", tntVO);
 %>
-<%-- <% --%>
-// 	TntVO tntVO_pocket = tntSvc.getOneTntPocket(tnt_no);
-// 	request.setAttribute("tntVO_pocket", tntVO_pocket);
-<%-- %> --%>
+<%
+	TntVO tntVO_pocket = tntSvc.getOneTntPocket(tnt_no);
+	request.setAttribute("tntVO_pocket", tntVO_pocket);
+%> 
 
 <head>
     <title>myPocket</title>
@@ -183,44 +183,29 @@
                             </div>
                             <!--Start form1 Pocket-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
-<!--                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">愛租錢包 -->
-<!--                                     <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown"> -->
-                                        <!-- <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
-                                            <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
-                                        </svg>
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp">
-                                            <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path>
-                                        </svg> -->
-<!--                                     </a> -->
-<!--                                 </h4> -->
                                 <div class="row no-gutters justify-content-around">
 <!--                                     justify-content-between -->
                                         <div class="pocketTitleSmall" style="font-size:30px; margin:0px">
-                                        	<p class="pocketTitleSmall" style="display: contents;color: #212529;">錢包餘額:<span style="color:#fff;">_</span></p>
-                                       		 $  元
-<%--                                        		 ${tntVO_pocket.tnt_pocket} --%>
-                                        </div>
+                                        	<p class="pocketTitleSmall" style="display: contents;color: #212529; width:40%">錢包餘額:<span style="color:#fff;">_</span></p>$ 10,000 元</div>
                                     </div>
-<!--                                         pocketBlance -->
+<%--                                 ${tntVO_pocket.tnt_pocket} --%>
                                     <hr class="login100-form-title p-b-10">
-                                    <div class="identity-img-wrap m-r-10 m-l-10" >
-				                            <div class="pocketTitleSmall" style=" display: inline-block;">我的收款帳號</div>
-				                            <div class="container-login100-form-btn m-t-10 btnPocketSmall" style=" display: inline-block;">
-				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="login100-form-btn btnIdentify">我是房東</a>
+                                    <div class="row no-gutters justify-content-around" > 
+				                            <div class="bankTitleSmall">收款帳號<br><span style="color: #444;margin-left:30px">中國信託   **** 1234</span></div>
+				                            <div class="wrap-btnBlanceSmall" style=" display: inline-block;">
+				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBlanceSmall" id="blanceWithdraw">提領</a>
 				                            </div>
-				                        </div>
-				                    
-                                
-                                <!-- <div class="login100-form validate-form"> -->
+				                    </div>
+				                    <hr style="margin: 25px 40px;">
+				                    <div class="row no-gutters justify-content-around" > 
+				                            <div class="bankTitleSmall">付款信用卡<br><span style="color: #444;margin-left:30px">中國信託  **** 1234</span></div>
+				                            <div class="wrap-btnBlanceSmall" style=" display: inline-block;">
+				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBlanceSmall" id="blanceDeposit">儲值</a>
+				                            </div>
+				                    </div>
+
                                 <form id="registerform" enctype="multipart/form-data">
-<!--                                     <div class="pocketTitleSmall">錢包餘額</div> -->
-<!--                                     <div>$10,000</div> -->
-<!--                                     form1 -->
                                 </form>
-<!--                                 <div class="container-login100-form-btn"> -->
-<!--                                     <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button> -->
-                                    <!--id="btnProfile"-->
-<!--                                 </div> -->
                             </div>
                             <!--End form1 Pocket -->
 
