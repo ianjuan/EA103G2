@@ -7,6 +7,10 @@
   RepairVO repairVO = (RepairVO) request.getAttribute("repairVO");
 %>
 
+<%-- <% session.setAttribute("con_no", "CON000319");%> --%>
+
+
+
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -68,8 +72,8 @@
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1" >
  <div class="form-group">
 		<label for="exampleFormControlInput1">合約編號:</label>
-		<input type="TEXT" name="con_no" class="form-control" id="exampleFormControlInput1"
-			 value="<%= (repairVO==null)? "":repairVO.getCon_no() %>" />
+		<input type="TEXT" readonly name="con_no" class="form-control" id="exampleFormControlInput1"
+			 value="<%= (repairVO==null)? session.getAttribute("con_no") :repairVO.getCon_no()%>" />
 	 </div>
 <div class="form-group">
 		<label for="exampleFormControlSelect1">待修物品:</label>
@@ -132,8 +136,8 @@
 		   value: '<%=rep_case_str%>', // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+//            minDate:               '-1970-01-01', // 去除今日(不含)之前
+           maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
         
         
