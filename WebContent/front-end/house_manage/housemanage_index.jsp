@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>HouseManage_Index</title>
+	<title>房屋管理登入</title>
 	
 	<style>
 		html,

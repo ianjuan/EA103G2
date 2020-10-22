@@ -24,7 +24,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House_Index</title>
+<title>房屋管理首頁</title>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -139,9 +139,7 @@
 						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQU73d5nlhuberXnZMzkC5N2BtLkCVvcwrJCQ&usqp=CAU">
 						<span class="fontstyle">共</span><span class="numberstyle">&nbsp;<%=listrent.size()%>&nbsp;</span>
 						<span class="fontstyle">間</span>
-					</label>
-					
-					
+					</label>										
 				</div>
 				<div class="rinfo">
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
@@ -191,7 +189,6 @@
 					</FORM>
 				</div>
 			</div>
-
 			<div class="houseinfo">
 				<div class="linfo">
 					<img src="<%=request.getContextPath()%>/front-end/house_manage/images/house_index/apply.jpg" class="pic" />
@@ -251,10 +248,10 @@
 			  <div class="modal-dialog modal-lg">
 			    <div class="modal-content">
 			      	<div id="search">
-			      		 <span class="count1">關鍵字搜尋：</span><input type="search" class="light-table-filter" data-table="order-table" placeholder="請輸入關鍵字" style="text-align:left;">
+			      		<span class="count1">關鍵字搜尋：</span><input type="search" class="light-table-filter" data-table="order-table" placeholder="請輸入關鍵字">
 				  		<span class="count1">共</span><span id="count1" class="count2"></span><span class="count1">筆</span>
 			      		<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right; margin-top: 8px;margin-right: 8px;">
-				          <span aria-hidden="true">&times;</span>
+				        	<span aria-hidden="true">&times;</span>
 				        </button>			      	
 			      	</div> 			      	
 				  	<table id="list" class="order-table">
