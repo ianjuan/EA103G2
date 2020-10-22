@@ -108,7 +108,7 @@ public class TntServlet2 extends HttpServlet {
 					session.setAttribute("tnt_no", tnt_no); // *工作1: 在session內做已經登入過的標識
 					String location = (String) session.getAttribute("location");
 					if (location != null) { // *工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-//						System.out.println("Servlet-redirect:" + location);
+						System.out.println("Servlet-redirect:" + location);
 						session.removeAttribute("location");
 						res.sendRedirect(location);
 						return;
