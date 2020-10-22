@@ -30,23 +30,11 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/lld/css/util.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/lld/css/main_login.css">
     <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 </head>
 
 <body class="landing">
-    <!-- Header -->
-    <header id="header">
-        <h1>
-            <a href="index.html">愛租I-ZU</a>
-        </h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="index.html">尋找房源</a></li>
-                <li><a href="generic.html">地圖找房</a></li>
-                <li><a href="elements.html">會員登入</a></li>
-                <li><a href="#" class="special">註冊會員</a></li>
-            </ul>
-        </nav>
-    </header>
+<jsp:include page="/front-end/navbar/navbar.jsp"/>
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-form validate-form">
