@@ -154,7 +154,7 @@ $(document).on('click', '#no', function(event){
     <input type="file" id="pics" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
    
        
-<%--   	<input type="hidden" name="rep_no" value="${repairVO.rep_no}"> --%>
+  	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 
 <!--   	<input type="button" id="delete" value="刪除圖片"> -->
 <!--     <h5>圖片預覽</h5> -->

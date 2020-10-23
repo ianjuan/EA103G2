@@ -49,17 +49,63 @@
 		<c:forEach var="repairVO" items="${repSvc.tntGetAll(conVO.con_no)}">
 
             <div class='row' >
+            	
 				<!--修繕圖片 -->
                 <div class='col-md-2'>
+				
+                
+                
+                
+                	
                   <a href='#'><c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
 
 					<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120">
 		
-							</c:forEach>
-					</a>
+					</c:forEach></a>
+				${repairVO.rep_no}	
 				
+                	
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="# ${repairVO.rep_no} ">上傳圖片</button>
+  				
+                <div class="modal fade" id=" ${repairVO.rep_no} " tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLongTitle">上傳設備(待修物品)損壞照片</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      
+				      <div class="modal-body">
+						<!-- 預覽 -->
+				       	${repairVO.rep_no}
+				    
+				      
+				      </div>
+				      
+				      <div class="modal-footer">
+				        
+				        <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1" enctype="multipart/form-data">
+				       		<input type="file" id="pics" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
+				      		<input type="hidden" name="action" value="pic_insert">
+				      		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							<button type="submit" class="btn btn-primary" onClick="window.alert('成功送出');">送出圖片</button>
+						</FORM>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+      
+      
+      
+      
+      
+      
+      	
                 </div>
-                <div class='col-md-4  text-center'>
+              	<div class='col-md-4  text-center'>
                   <div class='text'>
                     <h6 class='rep_status'>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h6>
                     <a href='#'>
@@ -172,7 +218,7 @@
 								</div>
                     
           
-                      <a class='btn' href='#' style="display:none">催一下房東</a><br>
+                      <a class='btn' href='updPic.jsp' ${(repairVO.rep_pro eq 0)?'':'style="display:none"'} >編輯圖片</a><br>
                     </div>
                 </div>  
                 
