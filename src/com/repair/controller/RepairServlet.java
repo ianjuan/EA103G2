@@ -72,7 +72,8 @@ public class RepairServlet extends HttpServlet{
 
 			/***************************2.開始新增資料***************************************/
 			System.out.println("準備新增資料");
-			String rep_no =((RepairVO)session.getAttribute("repairVO")).getRep_no();
+//			String rep_no =((RepairVO)session.getAttribute("repairVO")).getRep_no();
+			String rep_no = req.getParameter("rep_no");
 			System.out.println("rep_no = "+rep_no);
 			RepairService repairSvc = new RepairService();
 			Repair_pictureVO repair_pictureVO = repairSvc.addRepair_pic(rep_no, reppic_pic);
@@ -110,9 +111,10 @@ public class RepairServlet extends HttpServlet{
 			/***************************1.接收請求參數，錯誤處理**********************/
 			ConService conSrv = new ConService();
 			Integer con_sta = conSrv.getOneCon(req.getParameter("con_no")).getCon_sta();
-			if(!(con_sta==1)) {
-				errorMsgs.add("非入住中，無法申請修繕");
-			}
+//			上線時要打開
+//			if(!(con_sta==1)) {
+//				errorMsgs.add("非入住中，無法申請修繕");
+//			}
 			
 			
 			
