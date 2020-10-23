@@ -91,13 +91,14 @@ public class ConServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				String tnt_no = new String(req.getParameter("tnt_no"));
+				HttpSession session = req.getSession();
+				String tnt_no = (String) session.getAttribute("tnt_no");
 				System.out.println(tnt_no);
 
 				ConService conService = new ConService();
 				List<ConVO> list = conService.tntgetcon(tnt_no);
 
-				HttpSession session = req.getSession();
+				
 				session.setAttribute("tnt_no", tnt_no);
 				session.setAttribute("list", list);
 				String url = "/front-end/contract/tntlistcontract.jsp";
