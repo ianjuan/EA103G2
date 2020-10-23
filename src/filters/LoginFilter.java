@@ -27,11 +27,16 @@ public class LoginFilter implements Filter {
 		String servletPath = (String) req.getServletPath();
 		String[] paths = servletPath.split("/");
 		Boolean ispathprotected = true;
-		if (Arrays.binarySearch(paths, "back-end") > 0) {  //back-end不需前台登入
-			ispathprotected = false;
-		} else if (Arrays.binarySearch(paths, "index") > 0) {  //front-end index folder is free
+		if (Arrays.binarySearch(paths, "index") > 0) {  //front-end index folder is free
 			ispathprotected = false;
 		}
+		if (Arrays.binarySearch(paths, "navbar") > 0) {  //front-end navbar folder is free
+			ispathprotected = false;
+		}
+		
+//		if (Arrays.binarySearch(paths, "back-end") > 0) {  //back-end不需前台登入
+//			ispathprotected = false;
+//		} 
 
 		HttpSession session = req.getSession(); // 【從 session 判斷此user是否登入過】
 		String tnt_no = (String) session.getAttribute("tnt_no");
