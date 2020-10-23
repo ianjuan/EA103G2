@@ -117,7 +117,7 @@ function checkLen(e) {
 	var maxChars = 50;//最多字符数
 	if (e.value.length > maxChars)
 		e.value = e.value.substring(0,maxChars);
-	document.getElementById("count").innerHTML = maxChars - e.value.length;
+	document.getElementById("evacount").innerHTML = maxChars - e.value.length;
 }
 
 function notice(){

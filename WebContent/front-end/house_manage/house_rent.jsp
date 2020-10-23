@@ -175,7 +175,7 @@
 				</div>
 							
 				<label>
-					<button type="button" class="btn" data-toggle="modal" data-target="#rentHouse">查看房屋清單</button>
+					<button type="button" class="picbtn" data-toggle="modal" data-target="#rentHouse">查看房屋清單</button>
 					<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFTQNrcbfc-1RezQZWT6dYWJcLIiUPNnpL4Q&usqp=CAU" id="logo">
 				</label>
 			</div>

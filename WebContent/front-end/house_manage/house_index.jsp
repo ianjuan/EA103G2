@@ -109,7 +109,7 @@
 				</div>
 				<div class="cinfo">
 					<label class="logo">
-						<button type="button" class="btn" data-toggle="modal" data-target="#rentHouse">查看房屋清單</button>
+						<button type="button" class="picbtn" data-toggle="modal" data-target="#rentHouse">查看房屋清單</button>
 						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQU73d5nlhuberXnZMzkC5N2BtLkCVvcwrJCQ&usqp=CAU">
 						<span class="fontstyle">共</span><span class="numberstyle">&nbsp;<%=listrent.size()%>&nbsp;</span>
 						<span class="fontstyle">間</span>
@@ -129,7 +129,7 @@
 				</div>
 				<div class="cinfo">
 					<label class="logo">
-						<button type="button" class="btn" data-toggle="modal" data-target="#unrentHouse">查看房屋清單</button>
+						<button type="button" class="picbtn" data-toggle="modal" data-target="#unrentHouse">查看房屋清單</button>
 						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQU73d5nlhuberXnZMzkC5N2BtLkCVvcwrJCQ&usqp=CAU">
 						<span class="fontstyle">共</span><span class="numberstyle">&nbsp;<%=listunrent.size()%>&nbsp;</span>
 						<span class="fontstyle">間</span>
@@ -149,7 +149,7 @@
 				</div>
 				<div class="cinfo">
 					<label class="logo">
-						<button type="button" class="btn" data-toggle="modal" data-target="#offHouse">查看房屋清單</button>
+						<button type="button" class="picbtn" data-toggle="modal" data-target="#offHouse">查看房屋清單</button>
 						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQU73d5nlhuberXnZMzkC5N2BtLkCVvcwrJCQ&usqp=CAU">
 						<span class="fontstyle">共</span><span class="numberstyle">&nbsp;<%=listoff.size()%>&nbsp;</span>
 						<span class="fontstyle">間</span>
@@ -366,7 +366,7 @@
 			</div>
 			
 			<label>
-				<button type="button" class="btn" data-toggle="modal" data-target="#allHouse">查看房屋清單</button>
+				<button type="button" class="picbtn" data-toggle="modal" data-target="#allHouse">查看房屋清單</button>
 				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFTQNrcbfc-1RezQZWT6dYWJcLIiUPNnpL4Q&usqp=CAU" id="logo">
 			</label>		
 		</div>
