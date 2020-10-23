@@ -87,16 +87,13 @@
                 var formData = new FormData($('#forgetPwdform')[0]);
                 formData.append('action', 'forgetPwd');
                 //                console.log(formData);
-                Swal.fire({
+                ajax_forgetPwd(formData);       
+                swal({
             	    title: 'Now loading',
             	    allowEscapeKey: false,
             	    allowOutsideClick: false,
-            	    timer: 5000,
-            	    onOpen: () => {
-            	      swal.showLoading();
-            	    }
+            	    timer: 2000,
             	  })
-                ajax_forgetPwd(formData);
             }
         });
 
