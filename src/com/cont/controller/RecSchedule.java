@@ -22,12 +22,13 @@ public class RecSchedule extends TimerTask {
 	@Override
 	public void run() {
 		
+		if (rec_mon >12) {
+			rec_mon = 1;
+		}
 		RecService recService = new RecService();
 		recService.autorec(con_no, hos_no, rec_mon, rec_sta);
 		rec_mon++;
-		if (rec_mon >13) {
-			rec_mon = 1;
-		}
+		
 		
 	}
 }

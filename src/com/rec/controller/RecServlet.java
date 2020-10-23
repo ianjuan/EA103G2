@@ -217,6 +217,12 @@ public class RecServlet extends HttpServlet {
 			try {
 				String lld_no = req.getParameter("lld_no");
 				String con_no = req.getParameter("con_no");
+				System.out.println(lld_no);
+				System.out.println(con_no);
+				
+				ConService conSvc = new ConService();
+				System.out.println(conSvc.getOneCon(con_no).getCon_comchkdate());
+				
 
 				RecService recService = new RecService();
 
@@ -236,8 +242,9 @@ public class RecServlet extends HttpServlet {
 					recService.autorec(con_no, hos_no, rec_mon, rec_sta);
 				}
 
+				HttpSession session = req.getSession();
 				req.setAttribute("lld_no", lld_no);
-				req.setAttribute("list", list);
+				session.setAttribute("list", list);
 				String url = "/front-end/rec/lldlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

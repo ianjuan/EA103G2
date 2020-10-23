@@ -29,6 +29,7 @@ public class CheckoutSchedule extends TimerTask{
 		this.con_chr_fee = con_chr_fee;
 		this.con_chr_itm = con_chr_itm;
 		this.con_is_chr = con_is_chr;
+		this.con_comchkdate = con_comchkdate;
 		this.con_no = con_no;
 		
 	}

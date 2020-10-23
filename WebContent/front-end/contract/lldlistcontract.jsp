@@ -169,7 +169,17 @@
 			     				<input type="hidden" name="action"	value="getlldrec">
 			     				</FORM>
 			     				
-								<li><button id="btn3">聊天</button></li>
+			     				
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+			     				<c:if test="${conSvc.getOneCon(conVO.con_no).con_comchkdate == 1}">
+								<li><button id="btn3">驗房結果</button></li>
+								</c:if>
+			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
+			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
+			     				<input type="hidden" name="action"	value="lldcheckroom">
+			     				</FORM>
+			     				
+								<li><button id="btn4">聊天</button></li>
 								
 														
 														

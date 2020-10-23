@@ -10,7 +10,7 @@
 <%@ page import="com.rec.model.*"%>
 
 <%
-	String lld_no = (String) request.getAttribute("lld_no");
+	String lld_no = (String) session.getAttribute("lld_no");
 	if (lld_no == null) {
 		lld_no = request.getParameter("lld_no");
 	}
@@ -22,7 +22,7 @@
 	}
 	
 	List<RecVO> list = (List<RecVO>)session.getAttribute("list");
-	pageContext.setAttribute("list",list);
+	session.setAttribute("list", list);
 	
 	LldVO lldVO = (LldVO) request.getAttribute("lldVO");
 	HouseVO houseVOlld = (HouseVO) request.getAttribute("houseVOlld");
@@ -140,11 +140,11 @@
 					</div>
 					<div class="cinfo">
 						<ul>
-							<li><span class="infotitle">訂單編號 : </span><span>${recVO.rec_no}</span></li>
-							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}</span></li>
-							<li><span class="infotitle">房屋編號 : </span><span>${recVO.hos_no}</span></li>
+							<li><span class="infotitle">訂單編號 : </span><span>${recVO.rec_no}</span></li>							
+							<li><span class="infotitle">訂單月份 : </span><span>${recSvc.getMonthText(recVO.rec_mon)}</span></li>
 							<li><span class="infotitle">本月使用水量 : </span><span>${recVO.rec_water}</span></li>
 							<li><span class="infotitle">本月使用電量 : </span><span>${recVO.rec_elec}</span></li>
+							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}</span></li>
 							<li><span class="infotitle">帳單狀態 : </span><span>${recSvc.getRecStatusText(recVO.rec_sta)}</span></li>
 						</ul>
 					</div>					
@@ -169,12 +169,13 @@
 			     				<input type="hidden" name="action"	value="getlldrecdetail">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-								<li><button id="btn2">歷史帳單</button></li>
-								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
-			     				<input type="hidden" name="apl_status" value=2>
-			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-			     				<input type="hidden" name="action"	value="lldupdate">
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+								<li><button type="button" id="btn1" data-toggle="modal" data-target="#exampleModalCenter">評價房東</button></li>
+								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
+								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
+								<input type="hidden" name="con_no"  value="${recVO.con_no}">
+			     				<input type="hidden" name="tnt_no" value="<%=lld_no%>">
+<!-- 			     				<input type="hidden" name="action"	value="getOne_For_Update"> -->
 			     				</FORM>
 			     				
 								<li><button id="btn3">聊天</button></li>
