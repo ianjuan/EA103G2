@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.housemanage.model.HouseVO;
 
@@ -535,6 +536,68 @@ public class Con_aplJDBCDAO implements Con_aplDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<HouseVO> getAll(Map<String, String> map) {
+		List<HouseVO> list = new ArrayList<HouseVO>();
+		HouseVO houseVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			String finalSQL = "select * from house "
+		          + CompositeQuery.get_WhereCondition(map)
+		          + "order by hos_no";
+			pstmt = con.prepareStatement(finalSQL);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				houseVO = new HouseVO();
+				houseVO.setHos_no(rs.getString("hos_no"));
+				houseVO.setHos_name(rs.getString("hos_name"));
+				houseVO.setHos_add(rs.getString("hos_add"));
+//				houseVO.setHos_pic(rs.getBytes("hos_pic"));
+				
+				list.add(houseVO); 
+			}
+	
+			// Handle any driver errors
+					} catch (ClassNotFoundException e) {
+						throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
 		} finally {
 			if (rs != null) {
 				try {

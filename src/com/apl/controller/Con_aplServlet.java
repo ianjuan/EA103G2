@@ -2,8 +2,11 @@ package com.apl.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +19,10 @@ import com.apl.model.Con_aplDAO;
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
 import com.cont.model.ConService;
+import com.housemanage.model.HouseService;
+import com.housemanage.model.HouseVO;
+
+import oracle.net.aso.s;
 
 public class Con_aplServlet extends HttpServlet {
 
@@ -594,6 +601,53 @@ public class Con_aplServlet extends HttpServlet {
 				session.setAttribute("list", list);
 				// Send the Success view
 				String url = "/front-end/apl/tntaplpage.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("tntrecommend".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+//		 Store this set in the request scope, in case we need to
+//		 send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				String apl_no = req.getParameter("apl_no");
+				String tnt_no = req.getParameter("tnt_no");
+
+				/*************************** 尋找類似房源*****************************************/
+				Con_aplService con_aplService = new Con_aplService();
+				String hos_no = con_aplService.getOneCon_apl(apl_no).getHos_no();
+				
+				HouseService houseService = new HouseService();
+				HouseVO houseVO = houseService.getHouseInfo(hos_no);
+				String hos_rentfee = String.valueOf(houseVO.getHos_rentfee());
+				String hos_add = (String)houseVO.getHos_add().subSequence(0, 5);
+				String hos_room = houseVO.getHos_room();
+				
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("hos_rentfee", hos_rentfee);
+				map.put("hos_add", hos_add);
+				map.put("hos_room", hos_room);
+
+				List<HouseVO> list = con_aplService.getAll(map);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("tnt_no", tnt_no);
+				req.setAttribute("list", list);
+				// Send the Success view
+				String url = "/front-end/apl/recommendhos.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
