@@ -5,14 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script> 
+<%-- const SERVER_PATH = '<%=request.getContextPath()%>'; --%>
+</script>
+
+
 </head>
 <body>
 	<!DOCTYPE html>
+	
 <html>
 
 <head>
 <title></title>
-	  	 <div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
+<div><jsp:include page="/front-end/navbar/navbar.jsp" /> </div>
   
             <div class="col-12 body">
                 <!-- 縣市 -->
@@ -21,92 +27,117 @@
                     <div class="row ">
                     <div class="col-xl-3 col-lg-4">
                         <div id="city">
-                            <input type="text" id="citych" value="選擇城市" autocomplete="off"><br>
+                            <input type="text" id="citych" value="選擇城市"
+						autocomplete="off"><br>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="台北市"> 台北市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="台北市"> 台北市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="新北市"> 新北市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="新北市"> 新北市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="基隆市"> 基隆市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="基隆市"> 基隆市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="桃園市"> 桃園市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="桃園市"> 桃園市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="新竹縣"> 新竹縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="新竹縣"> 新竹縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="新竹市"> 新竹市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="新竹市"> 新竹市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="苗栗縣"> 苗栗縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="苗栗縣"> 苗栗縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="臺中市"> 臺中市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="臺中市"> 臺中市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="南投縣"> 南投縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="南投縣"> 南投縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="彰化縣"> 彰化縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="彰化縣"> 彰化縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="雲林縣"> 雲林縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="雲林縣"> 雲林縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="嘉義縣"> 嘉義縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="嘉義縣"> 嘉義縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="嘉義市"> 嘉義市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="嘉義市"> 嘉義市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="臺南市"> 臺南市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="臺南市"> 臺南市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel" > <input type="radio" name="city" class="cityinput" value="高雄市"> 高雄市
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="高雄市"> 高雄市
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="屏東縣"> 屏東縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="屏東縣"> 屏東縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="宜蘭縣"> 宜蘭縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="宜蘭縣"> 宜蘭縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="花蓮縣"> 花蓮縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="花蓮縣"> 花蓮縣
                                 </label>
                             </div>
                             <div class="allcity">
-                                <label id="citylabel"> <input type="radio" name="city" class="cityinput" value="臺東縣"> 臺東縣
+                                <label id="citylabel"> <input
+							type="radio" name="city" class="cityinput" value="臺東縣"> 臺東縣
                                 </label>
                             </div>
                         </div>
-                        <div  id="town">
-                            <input type="text" id="townch" value="選擇鄉鎮" autocomplete="off"><br>
+                        <div id="town">
+                            <input type="text" id="townch" value="選擇鄉鎮"
+						autocomplete="off"><br>
                         </div>
                         </div>
                         <div class="col-xl-9 col-lg-8" id="searchbar">
                             <form class="form-inline mr-auto">
-                                <input class="form-control mr-sm-2" id="searchbox"type="text" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-unique btn-rounded btn-sm my-0" id="btn-search"type="button">Search</button>
+                                <input class="form-control mr-sm-2"
+						id="searchbox" type="text" placeholder="Search"
+						aria-label="Search">
+                                <button
+						class="btn btn-unique btn-rounded btn-sm my-0" id="btn-search"
+						type="button">Search</button>
                             </form>
                         </div>
                         <!-- 縣市 -->
@@ -118,22 +149,35 @@
                     <div class="col-12 col-lg-4 col-xl-6 moneyside">
                         <div id="money">
                             <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-secondary moneybtn" id="btn-left1" value="">不限</button>
-                            <button type="button" class="btn btn-secondary moneybtn" id="btn-left2" value="<5000">5000以下</button>
-                                <button type="button" class="btn btn-secondary moneybtn" id="btn-left3" value="BETWEEN 5000 AND 10000">5000-10000</button>
-                                <button type="button" class="btn btn-secondary moneybtn" id="btn-left4" value="BETWEEN 10000 AND 15000">10000-15000</button>
-                                <button type="button" class="btn btn-secondary moneybtn" id="btn-left5" value=">15000">15000以上</button>
+                            <button type="button"
+							class="btn btn-secondary moneybtn" id="btn-left1" value="">不限</button>
+                            <button type="button"
+							class="btn btn-secondary moneybtn" id="btn-left2" value="<5000">5000以下</button>
+                                <button type="button"
+							class="btn btn-secondary moneybtn" id="btn-left3"
+							value="BETWEEN 5000 AND 10000">5000-10000</button>
+                                <button type="button"
+							class="btn btn-secondary moneybtn" id="btn-left4"
+							value="BETWEEN 10000 AND 15000">10000-15000</button>
+                                <button type="button"
+							class="btn btn-secondary moneybtn" id="btn-left5" value=">15000">15000以上</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-4 offset-lg-2 offset-xl-0 col-xl-6 houseside">
+                    <div
+				class="col-12 col-lg-4 offset-lg-2 offset-xl-0 col-xl-6 houseside">
                         <div id="housestyle">
                             <div class="btn-group" role="group">
-                                <button type="button" class="btn btn-secondary housebtn" value="">不限</button>
-                                <button type="button" class="btn btn-secondary housebtn" value="整層住家">整層住家</button>
-                                <button type="button" class="btn btn-secondary housebtn" value="獨立套房">獨立套房</button>
-                                <button type="button" class="btn btn-secondary housebtn" value="分租套房">分租套房</button>
-                                <button type="button" class="btn btn-secondary housebtn" value="雅房">雅房</button>
+                                <button type="button"
+							class="btn btn-secondary housebtn" value="">不限</button>
+                                <button type="button"
+							class="btn btn-secondary housebtn" value="整層住家">整層住家</button>
+                                <button type="button"
+							class="btn btn-secondary housebtn" value="獨立套房">獨立套房</button>
+                                <button type="button"
+							class="btn btn-secondary housebtn" value="分租套房">分租套房</button>
+                                <button type="button"
+							class="btn btn-secondary housebtn" value="雅房">雅房</button>
                             </div>
                         </div>
                         
@@ -142,30 +186,44 @@
             </div>
             <div class="container" id="sort">
                 <div class="row turn">
-                    <div class="col-12 col-md-6"><div class="someoption"><label class="item_name">可開伙&nbsp;&nbsp;
+                    <div class="col-12 col-md-6">
+				<div class="someoption">
+					<label class="item_name">可開伙&nbsp;&nbsp;
                             <div class="onoffswitch">
-                                <input type="checkbox" name="furniture" class="onoffswitch-checkbox" id="coke" tabindex="0"> <label class="onoffswitch-label" for="coke"></label>
+                                <input type="checkbox" name="furniture"
+								class="onoffswitch-checkbox" id="coke" tabindex="0"> <label
+								class="onoffswitch-label" for="coke"></label>
                             </div>
-                        </label> <label class="item_name"><i class="fas fa-paw"></i>
+                        </label> <label class="item_name"><i
+						class="fas fa-paw"></i>
 
 可養寵&nbsp;&nbsp;
                             <div class="onoffswitch">
-                                <input type="checkbox" name="furniture" class="onoffswitch-checkbox" id="pet" tabindex="0"> <label class="onoffswitch-label" for="pet"></label>
+                                <input type="checkbox" name="furniture"
+								class="onoffswitch-checkbox" id="pet" tabindex="0"> <label
+								class="onoffswitch-label" for="pet"></label>
                             </div>
                         </label> <label class="item_name">可開車&nbsp;&nbsp;
                             <div class="onoffswitch">
-                                <input type="checkbox" name="furniture" class="onoffswitch-checkbox" id="deriver" tabindex="0">
-                                <label class="onoffswitch-label" for="deriver"></label>
+                                <input type="checkbox" name="furniture"
+								class="onoffswitch-checkbox" id="deriver" tabindex="0">
+                                <label class="onoffswitch-label"
+								for="deriver"></label>
                             </div>
                         </label> <label class="item_name">可新增&nbsp;&nbsp;
                             <div class="onoffswitch">
-                                <input type="checkbox" name="furniture" class="onoffswitch-checkbox" id="try14" tabindex="0"> <label class="onoffswitch-label" for="try14"></label>
+                                <input type="checkbox" name="furniture"
+								class="onoffswitch-checkbox" id="try14" tabindex="0"> <label
+								class="onoffswitch-label" for="try14"></label>
                             </div>
-                        </label></div></div>
+                        </label>
+				</div>
+			</div>
                     <div class="col-12 col-md-4 offset-md-2 offset-lg-2">
                         <div id="selectforwhat">
                            <select class="form-control" id="selectbox">
-                                    <option value="HOS_DATE DESC" selected disabled hidden>選擇排序</option>
+                                    <option value="HOS_DATE DESC"
+							selected disabled hidden>選擇排序</option>
                                     <option value="HOS_DATE DESC">已上架時間 短->長</option>
                                     <option value="HOS_DATE">已上架時間 長->短</option>                                    
                                     <option value="HOS_RENTFEE">出租價格 低->高</option>
@@ -179,8 +237,10 @@
                     <!-- 以上與搜索頁一致 -->
                     <div class="container map-con ">
                     <div class="row  range">
-                    	<h3 id="far">目前顯示範圍 : 距離畫面中心點 3000 公尺內的房屋</h3><div ></div> <br>
-                    	<input type="range" min="1000" max="10000" step="1000" value="3000" id="ranges">
+                    	<h3 id="far">目前顯示範圍 : 距離畫面中心點 3000 公尺內的房屋</h3>
+			<div></div> <br>
+                    	<input type="range" min="1000" max="10000"
+				step="1000" value="3000" id="ranges">
                            	
                     </div>
 <div class="row map-row">
@@ -198,10 +258,12 @@
 </div>
 
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet"
+		href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 	
-<script src="https://kit.fontawesome.com/c8d34ce05b.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/c8d34ce05b.js"
+		crossorigin="anonymous"></script>
 </head>
 <style type="text/css" media="screen">
 html, body {
@@ -223,10 +285,13 @@ html, body {
 .map-row {
 	width: 100%;
 	height: 600px;
-	margin-top:37px;
+	margin-top: 37px;
 }
-.price{
-margin:0px;}
+
+.price {
+	margin: 0px;
+}
+
 #map {
 	height: 100%;
 	width: 100%;
@@ -238,11 +303,13 @@ margin:0px;}
 	height: 50%;
 	float: left;
 }
-.side{
-overflow: scroll;
+
+.side {
+	overflow: scroll;
 	height: 600px;
-padding-left: 15px;
+	padding-left: 15px;
 }
+
 #sidebar::after {
 	clear: left
 }
@@ -255,294 +322,314 @@ padding-left: 15px;
 #spans div {
 	display: inline-block;
 }
-.gm-style-iw-c{
-max-width:300px !important;
+
+.gm-style-iw-c {
+	max-width: 300px !important;
 }
 
- .card-text{
-        margin-bottom:0px !important
-        }
+.card-text {
+	margin-bottom: 0px !important
+}
 /*
 以下搜索列表
 */
-.someoption{
-    width: 100%%;
-    padding-top: 2.5%;
-    padding-bottom:1%;
+.someoption {
+	width: 100%%;
+	padding-top: 2.5%;
+	padding-bottom: 1%;
 }
-.map-con{
-max-width:1480px;}
-footer{
-    bottom: 0;
-    background-color: green;
-    height: 100px; 
-    width: 100%
+
+.map-con {
+	max-width: 1480px;
 }
-.btn-group button{
-    height: 38px;
-    border-radius:20px;
+
+footer {
+	bottom: 0;
+	background-color: green;
+	height: 100px;
+	width: 100%
 }
-.btn-group{
+
+.btn-group button {
+	height: 38px;
+	border-radius: 20px;
+}
+
+.btn-group {
 	display: flex;
 }
-@media (max-width:550px){
 
-.moneybtn{
-padding:0px 0px;
-margin-right:14px;
-}
-}
-.moneyside,.houseside{
-    width: 50%;
-    
-}
-@media (min-width:551px) and (max-width:767px){
-#selectforwhat{
-margin-bottom:8px;}
-
+@media ( max-width :550px) {
+	.moneybtn {
+		padding: 0px 0px;
+		margin-right: 14px;
+	}
 }
 
-@media (min-width:999px){
-.houseside{
-border-left-color:white;
-border-left-width:7px;
-border-left-style:outset;
-
+.moneyside, .houseside {
+	width: 50%;
 }
+
+@media ( min-width :551px) and (max-width:767px) {
+	#selectforwhat {
+		margin-bottom: 8px;
+	}
+}
+
+@media ( min-width :999px) {
+	.houseside {
+		border-left-color: white;
+		border-left-width: 7px;
+		border-left-style: outset;
+	}
 }
 /* .moneyside{ */
 /* border-right-color:white; */
 /* border-right-width:7px; */
 /* border-right-style:inset;} */
-
- @media (min-width:1200px){ 
- #money{margin-left: 55px;} 
-} 
-#selectforwhat{
-margin-top:6px;
-text-align: center;}
-
-@media (min-width:768px) and (max-width:996px){
-#selectforwhat{
-margin-top:20px;
+@media ( min-width :1200px) {
+	#money {
+		margin-left: 55px;
+	}
 }
+
+#selectforwhat {
+	margin-top: 6px;
+	text-align: center;
 }
-#sort{
-margin-top:10px;}
-#btn-choice{
-margin-top:25px;
-margin-bottom:7px;
 
+@media ( min-width :768px) and (max-width:996px) {
+	#selectforwhat {
+		margin-top: 20px;
+	}
 }
-      .head {
-            /*background-color: green;*/
-            height: 10%;
-        }
 
-        .body {
-            /*background-color: navy;*/
+#sort {
+	margin-top: 10px;
+}
 
-        }
+#btn-choice {
+	margin-top: 25px;
+	margin-bottom: 7px;
+}
 
-        .foot {
-            /*background-color: orange;*/
-            height: 10%;
-        }
+.head {
+	/*background-color: green;*/
+	height: 10%;
+}
 
-        .sharchbox {
-            /*background-color: orange;*/
+.body {
+	/*background-color: navy;*/
+	
+}
 
-        }
+.foot {
+	/*background-color: orange;*/
+	height: 10%;
+}
 
-        .btn-cho {
-            background-color: #6c757d;
-			border-radius:60px;
-        }
+.sharchbox {
+	/*background-color: orange;*/
+	
+}
 
-        .turn {
-            background-color: lightblue;
-            border-radius:2.25rem;
+.btn-cho {
+	background-color: #6c757d;
+	border-radius: 60px;
+}
 
-        }
+.turn {
+	background-color: lightblue;
+	border-radius: 2.25rem;
+}
 
-        .card {
-            /*background-color: cyan;*/
+.card {
+	/*background-color: cyan;*/
+	
+}
 
-        }
+/*城市*/
+@media screen and(max-width:1200px) {
+}
 
-        /*城市*/
-       @media screen and(max-width:1200px) {
-       }#searchbar {
-       	margin-top:6px;
-        }
+#searchbar {
+	margin-top: 6px;
+}
 
-        .my-0 {
-            background-color: pink;
-            /*搜索按鈕*/
-        }
+.my-0 {
+	background-color: pink;
+	/*搜索按鈕*/
+}
 
-        .mr-auto {
-            margin-top: 33px;
-        }
+.mr-auto {
+	margin-top: 33px;
+}
 
-	.form-control{
-	border-radius:2.25rem;}
-	#btn-search{
-	width:80px;
-	border-radius:25px;}
-        #town {
-            /*外層DIV*/
-            height: 20px;
-            display: inline;
-            float: left;
-            float: left;
- margin-top:38px;
-                        margin-left:20px;
-                        width:110px;        }
+.form-control {
+	border-radius: 2.25rem;
+}
 
-        .form-inline .form-control {
-            width: 70%;
-        }
+#btn-search {
+	width: 80px;
+	border-radius: 25px;
+}
 
-        #townch {
-            /*搜索框*/
-            text-align: center;
-            width: 110px;
-            height: 40px;
-            border-radius: 20px;
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: Microsoft JhengHei;
-            outline:none;
-            
-        }
+#town {
+	/*外層DIV*/
+	height: 20px;
+	display: inline;
+	float: left;
+	float: left;
+	margin-top: 38px;
+	margin-left: 20px;
+	width: 110px;
+}
 
-        #city {
-            /*外層DIV*/
-            height: 20px;
-            display: inline;
-            float: left;
-            border-radius: 50px;
-            margin-top:38px;
-            width:110px;
-        }
+.form-inline .form-control {
+	width: 70%;
+}
 
-        #citych {
-            /*搜索框*/
-            text-align: center;
-            width: 110px;
-            height: 40px;
-            border-radius: 50px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: "黑體-繁", "微軟正黑體", sans-serif;
-            font-size: 20px;
-            outline:none;
-        }
+#townch {
+	/*搜索框*/
+	text-align: center;
+	width: 110px;
+	height: 40px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: Microsoft JhengHei;
+	outline: none;
+}
 
-        .allcity {
-            /*城市列表選單*/
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: "黑體-繁", "微軟正黑體", sans-serif;
-            text-align: center;
-            font-size: 20px;
-            border: 2px #A67F78 ridge;
-            width: 150px;
-            height: 40px;
-            border-radius: 5px;
-            z-index: 5;
-            position: relative;
-            display: none;
-            background-color: #E1DCD9;
-        }
+#city {
+	/*外層DIV*/
+	height: 20px;
+	display: inline;
+	float: left;
+	border-radius: 50px;
+	margin-top: 38px;
+	width: 110px;
+}
 
-        .allcity:hover {
-            background-color: green;
-        }
+#citych {
+	/*搜索框*/
+	text-align: center;
+	width: 110px;
+	height: 40px;
+	border-radius: 50px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: "黑體-繁", "微軟正黑體", sans-serif;
+	font-size: 20px;
+	outline: none;
+}
 
-        .towns {
-            /*鄉鎮列表選單*/
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-family: Microsoft JhengHei;
-            text-align: center;
-            border: 2px #FFAC55 ridge;
-            font-size: 20px;
-            width: 150px;
-            height: 40px;
-            border-radius: 50px;
-            z-index: 5;
-            position: relative;
-            display: none;
-            background-color: #FBE1FA;
-        }
+.allcity {
+	/*城市列表選單*/
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: "黑體-繁", "微軟正黑體", sans-serif;
+	text-align: center;
+	font-size: 20px;
+	border: 2px #A67F78 ridge;
+	width: 150px;
+	height: 40px;
+	border-radius: 5px;
+	z-index: 5;
+	position: relative;
+	display: none;
+	background-color: #E1DCD9;
+}
 
-        .towns:hover {
-            background-color: green;
-        }
+.allcity:hover {
+	background-color: green;
+}
 
-        /*城市--------------------------------*/
-        /*開關*/
-        .onoffswitch {
-            position: relative;
-            width: 50px;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            float: right;
-        }
+.towns {
+	/*鄉鎮列表選單*/
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: Microsoft JhengHei;
+	text-align: center;
+	border: 2px #FFAC55 ridge;
+	font-size: 20px;
+	width: 150px;
+	height: 40px;
+	border-radius: 50px;
+	z-index: 5;
+	position: relative;
+	display: none;
+	background-color: #FBE1FA;
+}
 
-        .onoffswitch-checkbox {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
+.towns:hover {
+	background-color: green;
+}
 
-        .onoffswitch-label {
-            display: block;
-            overflow: hidden;
-            cursor: pointer;
-            height: 21px;
-            width: 50px;
-            padding: 0;
-            line-height: 21px;
-            border: 2px solid #E3E3E3;
-            border-radius: 21px;
-            background-color: #FFFFFF;
-            transition: background-color 0.3s ease-in;
-            margin-bottom:0px;
-        }
+/*城市--------------------------------*/
+/*開關*/
+.onoffswitch {
+	position: relative;
+	width: 50px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	float: right;
+}
 
-        .onoffswitch-label:before {
-            content: "";
-            display: block;
-            width: 21px;
-            margin: 0px;
-            background: #FFFFFF;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 27px;
-            border: 2px solid #E3E3E3;
-            border-radius: 21px;
-            transition: all 0.3s ease-in 0s;
-        }
+.onoffswitch-checkbox {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
 
-        .onoffswitch-checkbox:checked+.onoffswitch-label {
-            background-color: #49E845;
-        }
+.onoffswitch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	height: 21px;
+	width: 50px;
+	padding: 0;
+	line-height: 21px;
+	border: 2px solid #E3E3E3;
+	border-radius: 21px;
+	background-color: #FFFFFF;
+	transition: background-color 0.3s ease-in;
+	margin-bottom: 0px;
+}
 
-        .onoffswitch-checkbox:checked+.onoffswitch-label, .onoffswitch-checkbox:checked+.onoffswitch-label:before {
-            border-color: #49E845;
-        }
+.onoffswitch-label:before {
+	content: "";
+	display: block;
+	width: 21px;
+	margin: 0px;
+	background: #FFFFFF;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 27px;
+	border: 2px solid #E3E3E3;
+	border-radius: 21px;
+	transition: all 0.3s ease-in 0s;
+}
 
-        .onoffswitch-checkbox:checked+.onoffswitch-label:before {
-            right: 0px;
-        }
-   .hos-name{
-   margin-top:5px;}
+.onoffswitch-checkbox:checked+.onoffswitch-label {
+	background-color: #49E845;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label, .onoffswitch-checkbox:checked+.onoffswitch-label:before
+	{
+	border-color: #49E845;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label:before {
+	right: 0px;
+}
+
+.hos-name {
+	margin-top: 5px;
+}
 </style>
 
 <body>
@@ -620,7 +707,7 @@ margin-bottom:7px;
       		
       	}
         
-        function initMap() {
+       function initMap() {
             geocoder = new google.maps.Geocoder();
             map = new google.maps.Map(document.getElementById('map'), { //產生地圖
                 center: { lat: 25.04, lng: 121.512 }, //經緯度初始化
@@ -631,59 +718,57 @@ margin-bottom:7px;
             };
 
        
-        function loading(){
+     function loading(){
         	if(Object.keys(obj).length==0){
         		alert("找不到相符的房屋商品,您搜索的地址區域為"+$("#citych").val()+$("#townch").val()+$("#searchbox").val());
         	}
 				if(action=="ajax"){
-	 		  clear();};
+	 		 	 clear();
+	 		  	};
 
 	 		lastround=range;
 
-         $.each(obj, function(key, value) {
+     	 $.each(obj, function(key, value) {
 		　　 if($("[id='"+key+"']").length==1){
 				 $("[id='"+key+"']").remove();
             	};
-			if(value.marker!=undefined){
-                value.marker.setMap(null);};
+				if(value.marker!=undefined){
+           	     value.marker.setMap(null);
+                };
                 
                 
-        distance = space(map.getCenter().lat(), map.getCenter().lng(),value.hos_lat,value.hos_lng);
-        console.log(distance+"VS"+range);
+        	distance = space(map.getCenter().lat(), map.getCenter().lng(),value.hos_lat,value.hos_lng);
+        	console.log(distance+"VS"+range);
 
-        if(distance<range){
-        	console.log("有近來");
-       	
-		$("#sidebar").append("<div class='row house-row' id='"+value.hos_no+"'><div class='col-5'>"+
-				"<img class='house-img' src='<%=request.getContextPath()%>/hos/hosPic?pic="+value.hos_pic+"'>"+
-				"</div><div class='col-7'><div class='hos-name'><h5>"+value.hos_name+"</h5>"+		
-				"</div><div><p class='price'>租金:$"+value.hos_rentfee+"元/月</p>"+
-				"<p class='card-text'>地址:"+value.hos_add+"</p></div>"+
-                "<button type='button' class='btn btn-light-blue btn-md' value='"+value.hos_no+"' style='background: #AACFBF;margin:10px'>查看詳情</button>"+
-"</div></div>"
-		)
-		value.marker = new google.maps.Marker({ //插上座標
-            map: map,
-            position: {
-                lat:value.hos_lat,
-                lng:value.hos_lng
-            },
-            markerid:key
-            
-       	   });
-		console.log("value.marker.position.lat()="+value.marker.position.lat());
+       		 if(distance<range){
+				$("#sidebar").append("<div class='row house-row' id='"+value.hos_no+"'><div class='col-5'>"+
+					"<img class='house-img' src='<%=request.getContextPath()%>/hos/hosPic?pic="+value.hos_pic+"'>"+
+					"</div><div class='col-7'><div class='hos-name'><h5>"+value.hos_name+"</h5>"+		
+					"</div><div><p class='price'>租金:$"+value.hos_rentfee+"元/月</p>"+
+					"<p class='card-text'>地址:"+value.hos_add+"</p></div>"+
+                	  "<button type='button' class='btn btn-light-blue btn-md' value='"+value.hos_no+"' style='background: #AACFBF;margin:10px'>查看詳情</button>"+
+					"</div></div>"
+				);
+			  value.marker = new google.maps.Marker({ //插上座標
+           		    map: map,
+            		position: {
+                	lat:value.hos_lat,
+                	lng:value.hos_lng
+           			 },
+           			 markerid:key
+       	   		});
+			console.log("value.marker.position.lat()="+value.marker.position.lat());
 
         
-        var content =  "<img src='<%=request.getContextPath()%>/hos/hosPic?pic="+value.hos_pic+"' alt='Denim Jeans' style='width: 100%'>" +
-        "<h3>"+value.hos_name+"</h3>"+
-        "<p class='price'>$"+value.hos_rentfee+" 元/月</p>" +
-        "<p>"+value.hos_add+"</p>" +
-        "<button type='button' class='btn btn-light-blue btn-md btn-det' value='"+value.hos_no+"' style='background: #AACFBF;'>查看詳情</button>" +
-        "</div>";
-    attachSecretMessage(value.marker, content);}
-        
-   
-    });    
+       		 var content =  "<img src='<%=request.getContextPath()%>/hos/hosPic?pic="+value.hos_pic+"' alt='Denim Jeans' style='width: 100%'>" +
+        		"<h3>"+value.hos_name+"</h3>"+
+        		"<p class='price'>$"+value.hos_rentfee+" 元/月</p>" +
+       	 		"<p>"+value.hos_add+"</p>" +
+       	 		"<button type='button' class='btn btn-light-blue btn-md btn-det' value='"+value.hos_no+"' style='background: #AACFBF;'>查看詳情</button>" +
+        	 	"</div>";
+    		attachSecretMessage(value.marker, content);
+    	}
+		});    
         
  			google.maps.event.removeListener(listener);
 		listener=map.addListener("idle", () => {action="";
@@ -692,7 +777,7 @@ margin-bottom:7px;
   	  });
          
 
-        }
+}
         
         function geo_coder() { //點擊查詢輸入框地點
             	console.log('跑到轉換');
@@ -708,8 +793,6 @@ margin-bottom:7px;
                         console.log(status);
                     }
                 });            	
-            
-
         }
 
 
@@ -766,18 +849,16 @@ margin-bottom:7px;
                 content: content,
                 size: new google.maps.Size(222, 222)
             });
+        
             google.maps.event.addListener(marker, 'click', function() {
             	 if( prev_infowindow ) {
                      prev_infowindow.close();
                      }
                   prev_infowindow = infowindow;
                   infowin=true;
-//                   var id="#"+marker.markerid
-//                   console.log($(id));
-//                   $('html,body').animate({
-//                 	  scrollTop:$(id).offset().top
-//                 	  }, 500);
-//                   console.log(marker.markerid);
+                  var id="#"+marker.markerid
+                  animate(id);
+                  console.log(marker.markerid);
                 infowindow.open(marker.get('map'), marker);
             });
             
@@ -785,6 +866,14 @@ margin-bottom:7px;
             infowin=false;
             })
         };
+        
+        function animate(id){
+        	$('.side').animate({
+            	  scrollTop:$(id)[0].offsetTop
+            }, 500);
+        };
+        
+        
     	/*--------------------以下按鈕方法------------------*/
 		$(".form-control").change(function(){
 			geo_coder();
@@ -923,5 +1012,8 @@ margin-bottom:7px;
 </body>
 
 </html>
-</body>
+
+
+	</body>
+
 </html>
