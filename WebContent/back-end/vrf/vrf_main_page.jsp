@@ -6,7 +6,7 @@
 
 <%
 	TntService tntSvc = new TntService();
-	List<TntVO> list = tntSvc.getUnvrf_Unresult(1,0);
+	List<TntVO> list = tntSvc.getUnvrf_Unresult(1, 1);
 	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
@@ -44,6 +44,8 @@
 	href="${pageContext.request.contextPath}/back-end/vendor/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="main_vrf_back.css" type="text/css">
 
 
@@ -57,11 +59,11 @@
 	min-height: auto;
 }
 
-.pic {
-	width: 500px;
-	height: 300px;
-	margin: 10px;
-}
+/* .pic { */
+/* 	width: 500px; */
+/* 	height: 300px; */
+/* 	margin: 10px; */
+/* } */
 </style>
 
 
@@ -415,12 +417,10 @@
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
 											搜尋: <input type="text" size="24" name="Number"
-												placeholder="輸入 房客/ 房東編號">
-											<!-- 												<input type="hidden" -->
-											<!-- 												name="action" value="get_want_display"> <input -->
-											<!-- 												type="submit" -->
-											<!-- 												style="position: absolute; left: -9999px; width: 1px; height: 1px;" -->
-											<!-- 												tabindex="-1" /> -->
+												placeholder="輸入 房客/ 房東編號"> <input type="hidden" name="action"
+												value="get_want_vrf_display"> <input type="submit"
+												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+												tabindex="-1" />
 										</h4>
 									</form>
 								</div>
@@ -494,32 +494,39 @@
 																		<label for="name">會員生日:</label> ${tntVO.tnt_birth} <br>
 
 																		<label for="name">會員身分證字號:</label> ${tntVO.tnt_id}<br>
-																		<form action="RpttServlet" method="post" name="detail"
-																			id="detail">
-																			<input type="hidden" name="tnt_no"
-																				value="${tntVO.tnt_no}"> <input
-																				type="hidden" name="emp_no"
-																				value="<%=pageContext.getAttribute("emp_no")%>">
+																		<form action="RpttServlet" method="post">
 																			<div>
-																				<button type="submit" class="fail" name="action"
-																					value="failVrf">不通過</button>
+																				<input type="hidden" name="tnt_no"
+																					value="${tntVO.tnt_no}"> <input
+																					type="hidden" name="emp_no"
+																					value="<%=pageContext.getAttribute("emp_no")%>">
 																				<button type="submit" class="pass" name="action"
 																					value="passVrf">通過</button>
 																			</div>
-
-																			<label for="disapprove_reason">退件原因:</label><br>
-																			<textarea id="disapprove_reason" name="disapprove_reason"></textarea>
-
 																		</form>
+																		<form action="RpttServlet" method="post">
+																			<div>
+																				<input type="hidden" name="tnt_no"
+																					value="${tntVO.tnt_no}"> <input
+																					type="hidden" name="emp_no"
+																					value="<%=pageContext.getAttribute("emp_no")%>">
+																				<button type="submit" class="fail" name="action"
+																					value="failVrf">不通過</button>
+																				<label for="reason">退件原因:</label><br>
+																				<textarea id="reason" name="tnt_id_disapprove"
+																					required="required"></textarea>
+																			</div>
+																		</form>
+
+
 																	</div>
 																</div>
-
 															</div>
 														</div>
+
 													</div>
 												</div>
 											</div>
-
 										</c:forEach>
 									</tbody>
 								</table>
@@ -527,7 +534,6 @@
 							</div>
 						</div>
 					</div>
-
 					<footer class="sticky-footer bg-white">
 						<div class="container my-auto">
 							<div class="copyright text-center my-auto">
@@ -569,15 +575,7 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		$(function() {
-			$('.pic').click(function() {
 
-				$(this).toggleClass('min');
-				$(this).toggleClass('max');
-			});
-		});
-	</script>
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/back-end/css/vendor/jquery/jquery.min.js"></script>

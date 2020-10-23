@@ -18,6 +18,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <style>
 .trigger-btn {
 	display: inline-block;
@@ -47,17 +49,19 @@
 						</div>
 					</div>
 					<div class="modal-body">
-						<form action="RpttServlet" method="post" id="myForm">
+						<form action="RpttServlet" method="post" id="myForm"
+							class="myForm">
 							<label for="name">您的帳號:</label> <input type="text" name="lld_no"
-								value="LLD000045" readonly> <label for="name">檢舉的房客帳號:</label>
-							<input type="text" name="tnt_no" value="TNT000022" readonly>
+								value="LLD000045" id="iacc" readonly> <label for="name">檢舉的房客帳號:</label>
+							<input type="text" name="tnt_no" value="TNT000022" id="yacc"
+								readonly>
 							<div class="form-group">
 								<label for="reason">檢舉原因:</label>
 								<textarea id="reason" name="rptt_content"></textarea>
 							</div>
 
 							<input type="hidden" name="action" value="insert">
-							<button type="submit">提交</button>
+							<button id="demo1">提交</button>
 						</form>
 					</div>
 				</div>

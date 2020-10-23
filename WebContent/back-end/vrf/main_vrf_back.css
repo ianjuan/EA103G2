@@ -48,11 +48,11 @@ table {
 
 button.pass {
 	margin-top: 15px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	font-size: 16px;
 	font-weight: 600;
 	text-transform: uppercase;
-	width: auto;
+	width:  100%;
 	color: #FFF;
 	background-color: #0f868c;
 	border-radius: 6px;
@@ -63,11 +63,11 @@ button.pass {
 
 button.fail {
 	margin-top: 5px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	font-size: 16px;
 	font-weight: 600;
 	text-transform: uppercase;
-	width: auto;
+	width: 100%;
 	color: #FFF;
 	background-color: #FB6565;
 	border-radius: 6px;
