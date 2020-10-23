@@ -40,6 +40,8 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_rent.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_evaluation.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_evaluation.js" charset="UTF-8"></script>
 </head>
 <body>
 	<div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
@@ -72,9 +74,16 @@
 			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
+						<c:if test="${recVO.rec_sta == 0 || recVO.rec_sta == 1}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/apl/images/aplimage.jpg"
+							src="<%=request.getContextPath()%>/front-end/rec/images/fillin.png"
 							class="pic" />
+						</c:if>
+						<c:if test="${recVO.rec_sta == 2}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/rec/images/paid.jpg"
+							class="pic" />
+						</c:if>
 					</div>
 					<div class="cinfo">
 						<ul>
@@ -107,6 +116,15 @@
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+								<li><button type="button" id="btn1" data-toggle="modal" data-target="#exampleModalCenter">評價房東</button></li>
+								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
+								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
+								<input type="hidden" name="con_no"  value="${recVO.con_no}">
+			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+<!-- 			     				<input type="hidden" name="action"	value="getOne_For_Update"> -->
+			     				</FORM>
+			     				
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 								<li><button id="btn1">檢舉帳單</button></li>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
@@ -131,5 +149,79 @@
 				<img id="bigimg" style="border: 5px solid #fff;" src="" />
 			</div>
 		</div>
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<form id="evaluation" name="evaluation">
+					<div class="modal-header">
+					    <marquee scrollamount="10" class="evatitle">來對房屋作評價吧~~</marquee>
+					</div>
+					<div class="modal-body">
+						<ul>
+							<li>
+						    	<div class="item">			       				
+						       		<ul class="rating">								   										
+										<li><button type="button" value="5" onclick="eqpmtPoint(event)"><div class="star" value="5" onclick="eqpmtPoint(event)"></div></button></li>
+										<li><button type="button" value="4" onclick="eqpmtPoint(event)"><div class="star" value="4" onclick="eqpmtPoint(event)"></div></button></li>
+										<li><button type="button" value="3" onclick="eqpmtPoint(event)"><div class="star" value="3" onclick="eqpmtPoint(event)"></div></button></li>
+										<li><button type="button" value="2" onclick="eqpmtPoint(event)"><div class="star" value="2" onclick="eqpmtPoint(event)"></div></button></li>
+										<li><button type="button" value="1" onclick="eqpmtPoint(event)"><div class="star" value="1" onclick="eqpmtPoint(event)"></div></button></li>
+										<span class="logo">
+											<img src="https://www.flaticon.com/svg/static/icons/svg/169/169302.svg">
+											<span class="itemtitle">設備齊全 :</span>
+										</span>
+									</ul>
+						       	</div>
+						    </li>
+						    <li>
+						       	<div class="item">			       				
+						       		<ul class="rating">								   
+										<li><button type="button" value="5" onclick="convmtPoint(event)"><div class="star" value="5" onclick="convmtPoint(event)"></div></button></li>
+										<li><button type="button" value="4" onclick="convmtPoint(event)"><div class="star" value="4" onclick="convmtPoint(event)"></div></button></li>
+										<li><button type="button" value="3" onclick="convmtPoint(event)"><div class="star" value="3" onclick="convmtPoint(event)"></div></button></li>
+										<li><button type="button" value="2" onclick="convmtPoint(event)"><div class="star" value="2" onclick="convmtPoint(event)"></div></button></li>
+										<li><button type="button" value="1" onclick="convmtPoint(event)"><div class="star" value="1" onclick="convmtPoint(event)"></div></button></li>
+										<span class="logo">
+											<img src="https://www.flaticon.com/svg/static/icons/svg/168/168466.svg">
+											<span class="itemtitle">周遭機能 :</span>
+										</span>
+									</ul>
+						       	</div>
+						    </li>
+						   	<li>
+						       	<div class="item">
+						       		<ul class="rating">								   
+										<li><button type="button" value="5" onclick="neiborPoint(event)"><div class="star" value="5" onclick="neiborPoint(event)"></div></button></li>
+										<li><button type="button" value="4" onclick="neiborPoint(event)"><div class="star" value="4" onclick="neiborPoint(event)"></div></button></li>
+										<li><button type="button" value="3" onclick="neiborPoint(event)"><div class="star" value="3" onclick="neiborPoint(event)"></div></button></li>
+										<li><button type="button" value="2" onclick="neiborPoint(event)"><div class="star" value="2" onclick="neiborPoint(event)"></div></button></li>
+										<li><button type="button" value="1" onclick="neiborPoint(event)"><div class="star" value="1" onclick="neiborPoint(event)"></div></button></li>									    
+										<span class="logo">
+											<img src="https://www.flaticon.com/svg/static/icons/svg/263/263058.svg">
+											<span class="itemtitle">友善鄰居 :</span>
+										</span>
+									</ul>
+						       	</div>
+						     </li>					
+						     <li>
+						       	<div class="item">
+							       	<span class="logo" style="float:left;margin-top:5px;">
+										<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
+										<span class="itemtitle">評論 :</span>
+									</span>
+							       	<textarea rows="2" wrap="hard" onkeyup="checkLen(this)" name="hcm_commnt"></textarea>
+									<div class="fontstyle">您還可以輸入 <span id="count">50</span> 個文字</div>			       		
+						       	</div>
+						     </li>
+						</ul>
+					</div>
+					<div class="modal-footer">			        					
+						<button type="button" class="btn btn-primary" onclick="notice()">送出</button>					
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
