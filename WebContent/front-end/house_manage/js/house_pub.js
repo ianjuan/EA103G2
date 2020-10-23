@@ -25,7 +25,7 @@ function notice1(){
 		 swal("目前才" + pic + "張圖片而已欸...", "請上傳 5~10 張圖片", "error", {button: "確認"});
 	 } else {
 		 swal({title:"確定要送出房屋資訊了嗎?", text:"" , icon:"info", buttons: {
-		      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+		      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 		    }}).then(function(isConfirm){
 			if(isConfirm){	
 				var geocoder = new google.maps.Geocoder();
@@ -54,7 +54,7 @@ function notice1(){
 
 function notice2(){
 	swal({title:"確定要重新填寫嗎?", text:"" , icon:"info", buttons: {
-	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+	      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 	    }}).then(function(isConfirm){
 		if(isConfirm){
 			swal("已重置欄位!", "" , "success", {button: "確認"}).then(function(){
@@ -73,7 +73,7 @@ function notice3(){
 		 swal("目前才" + (pic + pic1) + "圖片欸...", "請再上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "確認"});
 	 } else {
 		 swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
-		      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+		      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 		    }}).then(function(isConfirm){
 			if(isConfirm){
 				swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
@@ -91,7 +91,7 @@ function checkmoney(){
 	if(money.value < 1000){
 		swal("您的電子錢包餘額為 : " + money.value + "元").then(function(){
 			swal({title:"請問是否要儲值?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
-			      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+			      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 			    }}).then(function(isConfirm){
 				if(isConfirm){
 					swal("爸爸辛苦了, 等您回來!", {button: "確認"}).then(function(){
@@ -105,7 +105,7 @@ function checkmoney(){
 	} else {
 		swal("目前電子錢包金額為" + money.value + "元").then(function(){
 			swal({title:"是否上架房屋?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
-			      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+			      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 			    }}).then(function(isConfirm){
 				if(isConfirm){
 					swal("開始上架房屋!!", {button: "確認"}).then(function(){
@@ -265,7 +265,7 @@ function delpic(){
 	var preview1 = document.getElementById("preview1");
 	
 	swal({title:"確定要移除選取的圖片嗎?", text:"您選取了"+optpic.length+"張圖片" , icon:"warning", buttons: {
-	      Btn: false, cancel: {text:"取消", visible: true}, danger: {text:"確認", visible: true}
+	      Btn: false, danger: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 	    }}).then(function(isConfirm){
 		if(isConfirm){						
 			for (var i = 0; i < optpic.length; i++) {

@@ -69,7 +69,7 @@ function checkmoney(){
 	if(money.value < 1000){
 		swal("您的電子錢包餘額為 : " + money.value + "元").then(function(){
 			swal({title:"請問是否要儲值?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
-			      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+			      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 			    }}).then(function(isConfirm){
 				if(isConfirm){
 					swal("爸爸辛苦了, 等您回來!", {button: "確認"}).then(function(){
@@ -83,7 +83,7 @@ function checkmoney(){
 	} else {
 		swal("目前電子錢包金額為" + money.value + "元").then(function(){
 			swal({title:"是否上架房屋?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
-			      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+			      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 			    }}).then(function(isConfirm){
 				if(isConfirm){
 					swal("開始上架房屋!!", {button: "確認"}).then(function(){
