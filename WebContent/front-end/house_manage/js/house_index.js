@@ -25,15 +25,15 @@ function checkmoney() {
 				text : "上架費一次為 1000 元",
 				icon : "info",
 				buttons : {
+					confirm : {
+						text : "確認",
+						visible : true
+					},
 					Btn : false,
 					cancel : {
 						text : "取消",
 						visible : true
-					},
-					confirm : {
-						text : "確認",
-						visible : true
-					}
+					}					
 				}
 			}).then(function(isConfirm) {
 				if (isConfirm) {
@@ -54,15 +54,15 @@ function checkmoney() {
 				text : "上架費一次為 1000 元",
 				icon : "info",
 				buttons : {
+					confirm : {
+						text : "確認",
+						visible : true
+					},
 					Btn : false,
 					cancel : {
 						text : "取消",
 						visible : true
-					},
-					confirm : {
-						text : "確認",
-						visible : true
-					}
+					}					
 				}
 			}).then(function(isConfirm) {
 				if (isConfirm) {
@@ -90,15 +90,15 @@ function checkmoney1() {
 				text : "上架費一次為 1000 元",
 				icon : "info",
 				buttons : {
+					confirm : {
+						text : "確認",
+						visible : true
+					},
 					Btn : false,
 					cancel : {
 						text : "取消",
 						visible : true
-					},
-					confirm : {
-						text : "確認",
-						visible : true
-					}
+					}					
 				}
 			}).then(function(isConfirm) {
 				if (isConfirm) {
@@ -122,14 +122,14 @@ function checkmoney1() {
 				icon : "info",
 				buttons : {
 					Btn : false,
-					cancel : {
-						text : "取消",
-						visible : true
-					},
 					confirm : {
 						text : "確認",
 						visible : true
-					}
+					},
+					cancel : {
+						text : "取消",
+						visible : true
+					}					
 				}
 			}).then(function(isConfirm) {
 				if (isConfirm) {
