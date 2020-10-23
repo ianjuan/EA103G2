@@ -34,6 +34,7 @@ public class Con_aplService {
 		con_aplVO.setHos_no(hos_no);
 		con_aplVO.setApl_str(apl_str);
 		con_aplVO.setApl_end(apl_end);
+		con_aplVO.setApl_status(0);
 		dao.insert(con_aplVO);
 
 		return con_aplVO;

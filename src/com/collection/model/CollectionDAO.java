@@ -42,7 +42,7 @@ public class CollectionDAO implements CollectionDAO_Interface{
 		 public List<CollectionVO> getAllCollectionVOfromTNTNO(CollectionVO vo){
 
 		      String i="select HOUSE_PICTURE.HOS_PIC ,HOUSE.HOS_NO,house.hos_name,house.HOS_RENTFEE,house.HOS_PNUM,house.HOS_TYPE,house.HOS_FLOOR,house.HOS_ROOM,house.HOS_MINDATE,my_collection.COL_DATE from HOUSE_PICTURE" + 
-						" INNER JOIN HOUSE on HOUSE.HOS_ID =house_picture.hos_no" + 
+						" INNER JOIN HOUSE on HOUSE.HOS_NO =house_picture.hos_no" + 
 						" INNER JOIN my_collection on my_collection.hos_no =HOUSE.hos_NO"  + 
 						" where my_collection.tnt_no = ? ";
 	    	  
@@ -138,13 +138,14 @@ public class CollectionDAO implements CollectionDAO_Interface{
 	    PreparedStatement pstmt=null;
 		ArrayList<String> checklist = new ArrayList<String>();
 		final Base64.Encoder encoder = Base64.getEncoder();
+		System.out.println("DAO");
 
 	    try {
 		      con = ds.getConnection();
 		     
 	      //可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令  可增加指令彈性
 			pstmt = con.prepareStatement("select HOUSE_PICTURE.HOS_PIC ,HOUSE.HOS_NO,house.hos_name,house.HOS_RENTFEE,house.HOS_PNUM,house.HOS_TYPE,house.HOS_FLOOR,house.HOS_ROOM,house.HOS_MINDATE,my_collection.COL_DATE from HOUSE_PICTURE" + 
-					" INNER JOIN HOUSE on HOUSE.HOS_ID =house_picture.hos_no" + 
+					" INNER JOIN HOUSE on HOUSE.HOS_NO =house_picture.hos_no" + 
 					" INNER JOIN my_collection on my_collection.hos_no =HOUSE.hos_NO"  + 
 					" where my_collection.tnt_no = ? ");
 			pstmt.setString(1,tnt_no);
@@ -171,7 +172,7 @@ public class CollectionDAO implements CollectionDAO_Interface{
 	    	    	  System.out.println(rs.getString("HOS_NAME"));
 	    	    	  
 	    	    	  list.add(vo); }
-//					System.out.println(list);
+					System.out.println(list+"DAO");
 	    	      }
 							
 	    	      

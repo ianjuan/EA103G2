@@ -174,39 +174,7 @@ session.setAttribute("HOS",hosno);
                         
                         
                     </div>
-                    <div class="info" id="message">
-                        <h2>房屋問答</h2>
-                        <ul class="full">
-                            <li>
-                                <div class="date">2020-09-13 13:46:11</div>
-                                <div class="reply">
-                                    <h4>
-                                        <p>感謝您的提問，房東將儘快給您回覆！</p><em>（NO.2157079）</em>
-                                    </h4>
-                                    <div class="anwser">
-                                        <p>包含管理費，且社區倒垃圾，及代收包裹。</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="date">2020-09-13 13:46:11</div>
-                                <div class="reply">
-                                    <h4>
-                                        <p>感謝您的提問，房東將儘快給您回覆！</p><em>（NO.2157079）</em>
-                                    </h4>
-                                    <div class="anwser">
-                                        <p>包含管理費，且社區倒垃圾，及代收包裹。</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <h3>我要提問<span>（限500字內）</span></h3>
-                        <div class="txt-area">
-                            <div class="nums"> <i>0</i>/500</div>
-                            <textarea name="" placeholder="請在此輸入您的提問，需要刊登者回覆後才會在頁面上顯示出來，為保障您的個資權益，請勿留下您的個人資料！"></textarea>
-                        </div>
-                        <button class="waves-effect waves-light btn-large" id="sent">送出留言</button>
-                    </div>
+             
                 </div>
                 <!--右側內容-->
                 <div class="col-4" id="right-site">
@@ -275,7 +243,7 @@ session.setAttribute("HOS",hosno);
         <input class="start date" id="end" type="text" readonly="readonly"/>
       </div>
       <div class="input-field">
-        <button class="btn" type="button">送出</button>
+        <button class="btn btn-checkin" type="button">送出</button>
       </div>
     </div>
   </div>
@@ -364,7 +332,34 @@ $(".gallery-thumbs .swiper-wrapper").append(
 	        $('html,body').animate({scrollTop:$('.booking').offset().top}, 500);});  
 	    }); 
 	}); 
+	   
+	$(document).on("click", ".btn-checkin", function() {
+		$.ajax({//存入資料庫階段
+			  url:"<%=request.getContextPath()%>/apl/Con_aplServlet",
+		 	  type:"POST",
+		 	  data:{ 
+		 		  action:"addfromhouse",
+		 		 tnt_no:"<%= tntno %>",
+		 		hos_no:"<%= hosno %>",
+		 			apl_str:$("#start").val(),
+		 			apl_end:$("#end").val()
+		 	  },
+		 	  success:function(data)
+		 	  {	
+				alert("申請入住成功，請等待回複");
+				$('.close').click();
 
+		 	  }//以上成功才執行
+		 	  ,
+		 	  error:function(data)
+		 	  {
+		 		 alert("申請入住失敗，伺服器忙碌中，請稍後再試")   
+		 		 }
+		  
+		  })
+	});
+
+	
     $(document).on("click", ".description .fav", function() {
     	if($(".fav").hasClass("saved")){
     		$.ajax({//存入資料庫階段
@@ -418,7 +413,7 @@ console.log(picnum);
  
 <div id="notice">
     <p> </p>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.fancybox.min.js"></script>
