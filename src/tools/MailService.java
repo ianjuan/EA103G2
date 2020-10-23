@@ -18,7 +18,7 @@ import javax.mail.internet.MimeUtility;
 public class MailService {
 
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
-	public boolean sendMail(String to, String subject, String name, String newPwd, String member) {
+	public boolean sendMail(String to, String subject, String name, String newPwd, String member, String indexPage) {
 //		if ("tnt".equalsIgnoreCase(member))
 //		3A8C68
 		String color = ("tnt".equalsIgnoreCase(member))? "#3A8C68" : "#916A3C"; 
@@ -236,7 +236,9 @@ public class MailService {
 		   		"			<tbody><tr>\r\n" + 
 		   		"				<td>\r\n" + 
 		   		"					<div style=\"background:"+ color+";border-radius:50px;text-align:center;margin:0 auto\">\r\n" + 
-		   		"						<a href=\"#;url=https%253A%252F%252F#%252F19425-6657&amp;m_id=GaO1P2\" style=\"width:180px;background:none repeat scroll 0 0 "+ color+";border-radius:50px;color:#fff;display:inline-block;font-size:16px;padding:8px 10px;text-align:center;text-decoration:underline;text-decoration:none\" target=\"_blank\" data-saferedirecturl=\"https://www.google.com/url?q=#/action/edm/click.php?edm_id%3DaGZadDhJWVk2ZnkxS2NvN2RR%26url%3Dhttps%25253A%25252F%25252F#%25252F19425-6657%26m_id%3DGaO1P2&amp;source=gmail&amp;ust=1603353788198000&amp;usg=AFQjCNG04iZsEqJjDFWH0Q2knlDUUEltlQ\">\r\n" + 
+		   		"						<a href=\""
+		   		+ indexPage 
+		   		+ "\" style=\"width:180px;background:none repeat scroll 0 0 "+ color+";border-radius:50px;color:#fff;display:inline-block;font-size:16px;padding:8px 10px;text-align:center;text-decoration:underline;text-decoration:none\" target=\"_blank\" data-saferedirecturl=\"https://www.google.com/url?q=#/action/edm/click.php?edm_id%3DaGZadDhJWVk2ZnkxS2NvN2RR%26url%3Dhttps%25253A%25252F%25252F#%25252F19425-6657%26m_id%3DGaO1P2&amp;source=gmail&amp;ust=1603353788198000&amp;usg=AFQjCNG04iZsEqJjDFWH0Q2knlDUUEltlQ\">\r\n" + 
 		   		"							點我回首頁\r\n" + 
 		   		"						</a>\r\n" + 
 		   		"					</div>\r\n" + 

@@ -37,12 +37,12 @@ public class TntServlet2 extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = null;
-		
-		if ("logout".equals(action)) { 
+
+		if ("logout".equals(action)) {
 			System.out.println("action: " + action);
 			HttpSession session = req.getSession();
 			session.removeAttribute("tnt_no");
-			res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp"); 	
+			res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp");
 		}
 
 		if ("login".equals(action)) { // 來自login.jsp的請求-form post
@@ -122,7 +122,7 @@ public class TntServlet2 extends HttpServlet {
 						return;
 					}
 					// *工作3: (-->如無來源網頁:則重導至login_success.jsp)
-					res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp"); 				
+					res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp");
 				}
 
 			} catch (Exception e) {
@@ -216,18 +216,15 @@ public class TntServlet2 extends HttpServlet {
 
 				System.out.println("註冊後端驗證: " + errorMsgs);
 
-				
-				
 				Part part = req.getPart("tnt_pic");
 				byte[] tnt_pic = null;
 				System.out.println("part.getSize():" + part.getSize());
 				Boolean isupdatePic = false;
-				if (part.getSize() != 0){
+				if (part.getSize() != 0) {
 					InputStream in = part.getInputStream();
 					tnt_pic = getPictureByteArray(in);
 					isupdatePic = true;
 				}
-				
 
 				TntVO tntVO = new TntVO();
 				tntVO.setTnt_email(tnt_email);
@@ -242,7 +239,7 @@ public class TntServlet2 extends HttpServlet {
 				tntVO.setTnt_dist(tnt_dist);
 				tntVO.setTnt_add(tnt_add);
 				if (isupdatePic) {
-				tntVO.setTnt_pic(tnt_pic);
+					tntVO.setTnt_pic(tnt_pic);
 				}
 				// Send the use back to the form, if there were errors
 //				if (!errorMsgs.isEmpty()) {
@@ -269,9 +266,9 @@ public class TntServlet2 extends HttpServlet {
 
 			}
 		}
-		
+
 		// 來自forgetPwd.jsp的請求 - ajax_forgetPwd
-		if ("forgetPwd".equals(action)) { 
+		if ("forgetPwd".equals(action)) {
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -300,16 +297,19 @@ public class TntServlet2 extends HttpServlet {
 					TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
 					String tnt_name = tntVO.getTnt_name();
 					String tnt_pwd = getAuthCode();
+					String indexPage = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
+							+ req.getContextPath() + "/front-end/index/index.jsp";
 //					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + tnt_pwd + "\n" + "請登入後至會員專區修改密碼";
 //					MailService0 mailService = new MailService0();
 					MailService mailService = new MailService();
-					
-					//記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+					// 記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					tnt_email = "ea103g2@gmail.com";
-					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					System.out.println(req.getContextPath());
+					// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 //					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", messageText);
-					Boolean successSendMail =  mailService.sendMail(tnt_email, "新密碼通知", tnt_name, tnt_pwd, "tnt");
+					Boolean successSendMail = mailService.sendMail(tnt_email, "新密碼通知", tnt_name, tnt_pwd, "tnt",
+							indexPage);
 					if (successSendMail) {
 						resString = "true";
 						tntSvc.updateTntPwd(tnt_no, tnt_pwd);
@@ -317,18 +317,17 @@ public class TntServlet2 extends HttpServlet {
 						out.print(resString);
 					}
 				}
-				
 
 			} catch (Exception e) {
 //				errorMsgs.add("修改資料失敗:" + e.getMessage());
 				System.out.println("忘記密碼Exception:" + e.getMessage());
 			}
 		}
-		
-		//==============================以下來自會員專區=============================================
-		
+
+		// ==============================以下來自會員專區=============================================
+
 		// 來自info.jsp的請求 - ajax_infoUpdateProfile(formData)
-		if ("infoUpdateProfile".equals(action)) { 
+		if ("infoUpdateProfile".equals(action)) {
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 //			req.setAttribute("errorMsgs", errorMsgs);
@@ -357,28 +356,29 @@ public class TntServlet2 extends HttpServlet {
 //				System.out.println(tnt_city);
 //				System.out.println(tnt_dist);
 //				System.out.println(tnt_add);
-				
+
 				/*************************** 2.開始修改資料 ***************************************/
 				HttpSession session = req.getSession();
 				String tnt_no = (String) session.getAttribute("tnt_no");
-				
+
 //				System.out.println(tnt_no);
-				
+
 				TntService tntSvc = new TntService();
 				TntVO tntVO_origin = tntSvc.getOneTntProfile(tnt_no);
-				
+
 //				System.out.println(0);
-				
+
 				String tnt_pwd = tntVO_origin.getTnt_pwd();
 				Integer tnt_status = tntVO_origin.getTnt_status();
 //				System.out.println(tnt_pwd);
 //				System.out.println(tnt_status);
-				
-				tntSvc.updateTntProfile(tnt_no, tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex, tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
-				
+
+				tntSvc.updateTntProfile(tnt_no, tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex,
+						tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
+
 				out = res.getWriter();
 				out.print("true");
-				
+
 			} catch (Exception e) {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
 				System.out.println("info profile 修改失敗:" + e.getMessage());
@@ -386,45 +386,45 @@ public class TntServlet2 extends HttpServlet {
 		}
 
 		// 來自info.jsp的請求 - ajax_infoPicUpload(formData)
-		if ("infoPicUpload".equals(action)) { 
+		if ("infoPicUpload".equals(action)) {
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 //			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				Part part = req.getPart("tnt_pic");
 				System.out.println("part.getSize():" + part.getSize());
-				if (part.getSize() != 0){
+				if (part.getSize() != 0) {
 					InputStream in = part.getInputStream();
 					byte[] tnt_pic = getPictureByteArray(in);
-					
+
 //					System.out.println("1");
-					
+
 					TntVO tntVO = new TntVO();
 					tntVO.setTnt_pic(tnt_pic);
-					
+
 //					System.out.println("2");
-					
+
 					HttpSession session = req.getSession();
 					String tnt_no = (String) session.getAttribute("tnt_no");
-					
+
 //					System.out.println(tnt_no);
-					
+
 					TntService tntSvc = new TntService();
 					tntSvc.updateTntPic(tnt_no, tnt_pic);
-					
+
 //					System.out.println("3");
-					
+
 					out = res.getWriter();
 					out.print("true");
 //					out.close();
 				}
-				
+
 			} catch (Exception e) {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
 				System.out.println("info profile 修改失敗:" + e.getMessage());
 			}
 		}
-		
+
 		if ("infoChgPwd".equals(action)) { // 來自info.jsp infoChgPwd的請求-form post
 			System.out.println("action: " + action);
 
@@ -436,7 +436,7 @@ public class TntServlet2 extends HttpServlet {
 				String tnt_no = (String) session.getAttribute("tnt_no");
 				String tnt_pwd = req.getParameter("tnt_pwd");
 				String tnt_pwd_new = req.getParameter("tnt_pwd_new");
-				
+
 //				System.out.println(tnt_pwd_new);
 
 				/*************************** 2.開始比對登入資料 ***************************************/
@@ -466,12 +466,70 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("infoChgPwd Exception: " + e.getMessage());
 			}
 		}
-		
-		
+
+		// 來自pocket.jsp的請求 - ajax_pocketUpdateBankCard(formData)
+		if ("infoUpdateBankCard".equals(action)) {
+			System.out.println("action: " + action);
+			List<String> errorMsgs = new LinkedList<String>();
+//					req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				String tnt_email = req.getParameter("tnt_bank");
+				String tnt_acc = "yjwuws17";
+				String tnt_id = req.getParameter("tnt_id");
+				String tnt_name = req.getParameter("tnt_name");
+				java.sql.Date tnt_birth = java.sql.Date.valueOf(req.getParameter("tnt_birth").trim());
+				Boolean tnt_sex = Boolean.parseBoolean(req.getParameter("tnt_sex"));
+				String tnt_mobile = req.getParameter("tnt_mobile");
+				String tnt_city = req.getParameter("tnt_city");
+				String tnt_dist = req.getParameter("tnt_dist");
+				String tnt_add = req.getParameter("tnt_add");
+//						
+//						System.out.println(tnt_email);
+//						System.out.println(tnt_acc);
+//						System.out.println(tnt_id);
+//						
+//						System.out.println(tnt_name);
+//						System.out.println(tnt_birth);
+//						System.out.println(tnt_sex);
+//						
+//						System.out.println(tnt_mobile);
+//						System.out.println(tnt_city);
+//						System.out.println(tnt_dist);
+//						System.out.println(tnt_add);
+
+				/*************************** 2.開始修改資料 ***************************************/
+				HttpSession session = req.getSession();
+				String tnt_no = (String) session.getAttribute("tnt_no");
+
+//						System.out.println(tnt_no);
+
+				TntService tntSvc = new TntService();
+				TntVO tntVO_origin = tntSvc.getOneTntProfile(tnt_no);
+
+//						System.out.println(0);
+
+				String tnt_pwd = tntVO_origin.getTnt_pwd();
+				Integer tnt_status = tntVO_origin.getTnt_status();
+//						System.out.println(tnt_pwd);
+//						System.out.println(tnt_status);
+
+				tntSvc.updateTntProfile(tnt_no, tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex,
+						tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
+
+				out = res.getWriter();
+				out.print("true");
+
+			} catch (Exception e) {
+//						errorMsgs.add("註冊失敗:" + e.getMessage());
+				System.out.println("info profile 修改失敗:" + e.getMessage());
+			}
+		}
+
 	}
 
 	// ===================private methods===========================
-	//登入驗證
+	// 登入驗證
 	private String loginValidate(List<TntVO> list, String tnt_email, String tnt_pwd) {
 		String tnt_no = "EmailnotRegisterYet";
 
@@ -486,7 +544,8 @@ public class TntServlet2 extends HttpServlet {
 		}
 		return tnt_no;
 	}
-	//身分證驗證
+
+	// 身分證驗證
 	private Boolean idvalidate(String tnt_id) {
 		String checkHead = "ABCDEFGHJKLMNPQRSTUVWXYZIO"; // 字母代號對照表
 
@@ -525,8 +584,8 @@ public class TntServlet2 extends HttpServlet {
 
 		return baos.toByteArray(); // toByteArray()可以讓我們取得這個資料流內建的byte[]
 	}
-	
-	//信用卡驗證
+
+	// 信用卡驗證
 	private boolean CC_Check(String ccNumber) {
 		int sum = 0;
 		boolean alternate = false;
@@ -543,8 +602,8 @@ public class TntServlet2 extends HttpServlet {
 		}
 		return (sum % 10 == 0);
 	}
-	
-	//產生亂數8碼
+
+	// 產生亂數8碼
 	private String getAuthCode() {
 		int[] unicodeArr = new int[26 + 26 + 10];
 		int element = (int) '0';

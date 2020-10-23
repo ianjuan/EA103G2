@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.tnt.model.*"%>
 
 
@@ -186,13 +187,14 @@
                                 <div class="row no-gutters justify-content-around">
 <!--                                     justify-content-between -->
                                         <div class="pocketTitleSmall" style="font-size:30px; margin:0px">
-                                        	<p class="pocketTitleSmall" style="display: contents;color: #212529; width:40%">錢包餘額:<span style="color:#fff;">_</span></p>$ 10,000 元</div>
+                                        	<p class="pocketTitleSmall" style="display: contents;color: #212529; width:40%">錢包餘額:<span style="color:#fff;">_</span>
+                                        	</p>$ <fmt:formatNumber type="number" maxFractionDigits="3" value="${tntVO_pocket.tnt_balance}" /> 元</div>
                                     </div>
-<%--                                 ${tntVO_pocket.tnt_pocket} --%>
+                                
                                     <hr class="login100-form-title p-b-10">
                                     
-                                    <form class="blanceInputform" enctype="multipart/form-data">
-		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than blance">
+                                    <form class="balanceInputform" enctype="multipart/form-data">
+		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than balance">
 		                                        <input class="register100" type="text" name="tnt_bankbranch" id="tnt_bankbranch">
 		                                        <span class="focus-register100"></span>
 		                                        <span class="label-register100">請輸入提款金額</span>
@@ -201,13 +203,13 @@
                                     
                                     <div class="row no-gutters justify-content-around" > 
 				                            <div class="bankTitleSmall">收款帳號<br><span style="color: #444;margin-left:30px">中國信託   **** 1234</span></div>
-				                            <div class="wrap-btnBlanceSmall" style=" display: inline-block;">
-				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBlanceSmall" id="blanceWithdraw">提領</a>
+				                            <div class="wrap-btnBalanceSmall" style=" display: inline-block;">
+				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBalanceSmall" id="balanceWithdraw">提領</a>
 				                            </div>
 				                    </div>
 				                    <hr style="margin: 25px 40px;">
-				                    <form class="blanceInputform" enctype="multipart/form-data">
-		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than blance">
+				                    <form class="balanceInputform" enctype="multipart/form-data">
+		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than balance">
 		                                        <input class="register100" type="text" name="tnt_bankbranch" id="tnt_bankbranch">
 		                                        <span class="focus-register100"></span>
 		                                        <span class="label-register100">請輸入儲值金額</span>
@@ -215,8 +217,8 @@
                                     </form>
 				                    <div class="row no-gutters justify-content-around" > 
 				                            <div class="bankTitleSmall">付款信用卡<br><span style="color: #444;margin-left:30px">中國信託  **** 1234</span></div>
-				                            <div class="wrap-btnBlanceSmall" style=" display: inline-block;">
-				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBlanceSmall" id="blanceDeposit">儲值</a>
+				                            <div class="wrap-btnBalanceSmall" style=" display: inline-block;">
+				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBalanceSmall" id="balanceDeposit">儲值</a>
 				                            </div>
 				                    </div>
 
@@ -460,7 +462,7 @@
 
                                 </form>
                                 <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button>
+                                    <button class="login100-form-btn m-t-10 infoBtn" id="btnBankCard">儲存資訊</button>
                                     <!--id="btnProfile"-->
                                 </div>
                             </div>

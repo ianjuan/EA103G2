@@ -147,7 +147,7 @@ public class TntService {
 
 		TntVO tntVO = new TntVO();
 		tntVO.setTnt_no(tnt_no);
-		tntVO.setTnt_blance(tnt_blance);
+		tntVO.setTnt_balance(tnt_blance);
 		dao.update_pocket(tntVO);
 		return tntVO;
 	}
