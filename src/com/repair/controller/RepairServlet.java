@@ -43,7 +43,8 @@ public class RepairServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
-	System.out.println("action="+action);
+		System.out.println("action="+action);
+		
 		//房客新增修繕圖片
 	if("pic_insert".equals(action)) {
 		List<String> errorMsgs = new LinkedList<String>();
@@ -99,7 +100,33 @@ public class RepairServlet extends HttpServlet{
 		
 	}
 	
+	if("getOne_For_updPic".equals(action)){
+		List<String> errorMsgs = new LinkedList<String>();
 	
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		try {
+			/***************************1.接收請求參數****************************************/
+			String rep_no = req.getParameter("rep_no");
+			
+			/***************************2.開始查詢資料****************************************/
+			RepairService repairSvc = new RepairService();
+			RepairVO repairVO = repairSvc.getOneRepair(rep_no);
+			/***************************3.查詢完成,準備轉交(Send the Success view)************/	
+			req.setAttribute("repairVO", repairVO);
+			System.out.println(repairVO.getRep_no());
+			String url = "/front-end/repair/updPic.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		} catch (Exception e) {
+			errorMsgs.add("無法更新此筆修繕紀錄:" + e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/repair/listAllRepair.jsp");
+			//返回上一頁
+			failureView.forward(req, res);
+			
+		}	
+	}
 		
 		
 		//tenant new a repair //房客新增一筆修繕申請
