@@ -91,7 +91,7 @@
             	    title: 'Now loading',
             	    allowEscapeKey: false,
             	    allowOutsideClick: false,
-            	    timer: 5000,
+//            	    timer: 5000,
             	    onOpen: () => {
             	      swal.showLoading();
             	    }
@@ -115,9 +115,11 @@
                     console.log("res棒");
                     console.log(""+data);
                     if (data === 'false') { //信箱尚未註冊
+                    	swal.hideLoading();
                         $('.wrap-validate-login').addClass('validate-input alert-validate-login');
                     } 
                     if (data === 'true') {
+                    	swal.hideLoading();
                     	Swal.fire({
                     		// position: 'top-end',
 //                    		icon: 'success',
@@ -126,7 +128,11 @@
                     		showConfirmButton: true,
 //                    		timer: 1500, 
 //                    		animate: false
-                    	})
+                    	}).then((result) => {
+                  		  if (result.isConfirmed) {
+                			  redirect();
+                		  } 
+                		});
 //                        alert("我們已將認證信傳送到您的信箱，請盡快至您的信箱收信");
 //                        window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
                     }
@@ -136,30 +142,8 @@
                 }
             })
         }
+
         
-        
-        
-        const showLoading = function() {
-        	  swal({
-        	    title: 'Now loading',
-        	    allowEscapeKey: false,
-        	    allowOutsideClick: false,
-        	    timer: 2000,
-        	    onOpen: () => {
-        	      swal.showLoading();
-        	    }
-        	  }).then(
-        	    () => {},
-        	    (dismiss) => {
-        	      if (dismiss === 'timer') {
-        	        console.log('closed by timer!!!!');
-        	        swal({ 
-        	          title: 'Finished!',
-        	          type: 'success',
-        	          timer: 2000,
-        	          showConfirmButton: false
-        	        })
-        	      }
-        	    }
-        	  )
-        	};
+        function redirect() {
+            window.location.href = "/EA103G2/front-end/index/index.jsp";
+        }

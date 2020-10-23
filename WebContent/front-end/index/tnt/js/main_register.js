@@ -648,7 +648,7 @@
                     		  if (result.isConfirmed) {
                     			  redirect();
                     		  } 
-                    		})
+                    		});
                     }
                 },
                 error: function() {
