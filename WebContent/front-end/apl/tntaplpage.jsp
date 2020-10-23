@@ -112,12 +112,20 @@
 			     				<input type="hidden" name="action"	value="tntcancelapl">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>">
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos=${con_aplVO.hos_no}">
 								<li><button id="btn2">瀏覽房屋</button></li>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
-			     				<input type="hidden" name="apl_status" value=4>
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="action"	value="tntcancelapl">
+			     				</FORM>
+			     				
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+								<c:if test="${con_aplVO.apl_status == 2}">
+								<li><button id="btn2">房源推薦</button></li>
+								</c:if>
+								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
+			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+			     				<input type="hidden" name="action"	value="tntrecommend">
 			     				</FORM>
 			     				
 								<li><button id="btn3">聊天</button></li>
