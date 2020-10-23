@@ -258,7 +258,6 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String GET_ONE_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT where tnt_no=?";
 	private static final String GET_ALL_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT ORDER BY tnt_no";
 	private static final String GET_UNVRF_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove,TNT_ID_VRFTIME from TENANT where tnt_id_isupload=?";
-	private static final String GET_UNVRF_UNRESULT_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove,TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? AND tnt_id_result=? ORDER BY TNT_NO";
 
 	@Override
 	public void update_vrf(TntVO tntVO) {
@@ -464,7 +463,10 @@ public class TntDAO implements TenantDAO_interface {
 		}
 		return list;
 	}
-	
+
+	private static final String GET_UNVRF_UNRESULT_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove,TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? AND tnt_id_result!=? ORDER BY TNT_ID_UPLOADTIME";
+	private static final String GET_ALL_UNVRF_UNRESULT_STMT = "SELECT tnt_no AS tnt_no, tnt_name as tnt_name, tnt_id as tnt_id, tnt_birth as tnt_birth , tnt_mobile as tnt_mobile, tnt_email as tnt_email, tnt_id_uploadtime as tnt_id_uploadtime, tnt_id_isupload as tnt_id_isupload, tnt_id_result as tnt_id_result, tnt_id_disapprove as tnt_id_disapprove,TNT_ID_VRFTIME as TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? AND tnt_id_result!=? union SELECT lld_no AS tnt_no, lld_name as tnt_name, lld_id as tnt_id, lld_birth as tnt_birth , lld_mobile as tnt_mobile, lld_email as tnt_email, lld_id_uploadtime as tnt_id_uploadtime, lld_id_isupload as tnt_id_isupload, lld_id_result as tnt_id_result, lld_id_disapprove as tnt_id_disapprove,lld_ID_VRFTIME as TNT_ID_VRFTIME from landlord where lld_id_isupload=? AND lld_id_result!=? ORDER BY TNT_ID_UPLOADTIME";
+
 	public List<TntVO> getUnvrf_Unresult(Integer Number, Integer Number2) {
 		List<TntVO> list = new ArrayList<TntVO>();
 		TntVO tntVO = null;
@@ -474,9 +476,11 @@ public class TntDAO implements TenantDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_UNVRF_UNRESULT_STMT);
+			pstmt = con.prepareStatement(GET_ALL_UNVRF_UNRESULT_STMT);
 			pstmt.setInt(1, Number);
 			pstmt.setInt(2, Number2);
+			pstmt.setInt(3, Number);
+			pstmt.setInt(4, Number2);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -522,8 +526,9 @@ public class TntDAO implements TenantDAO_interface {
 		}
 		return list;
 	}
-	
-	private static final String GET_VRF_PICF_STMT = "select TNT_ID_PICF,TNT_ID_PICB,TNT_ID_PIC2 from TENANT where TNT_NO=?";
+
+	private static final String GET_VRF_PICF_STMT = "select TNT_ID_PICF,TNT_ID_PICB ,TNT_ID_PIC2 from TENANT where TNT_NO=?";
+	private static final String GET_LVRF_PICF_STMT = "select LLD_ID_PICF AS TNT_ID_PICF,LLD_ID_PICB AS TNT_ID_PICB,LLD_ID_PIC2 AS TNT_ID_PIC2 from LANDLORD where LLD_NO=?";
 
 	@Override
 	public TntVO findByPK_pic(String tnt_no) {
@@ -534,8 +539,16 @@ public class TntDAO implements TenantDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_VRF_PICF_STMT);
+
+			if (tnt_no.startsWith("T")) {
+				pstmt = con.prepareStatement(GET_VRF_PICF_STMT);
+			} else if (tnt_no.startsWith("L")) {
+				pstmt = con.prepareStatement(GET_LVRF_PICF_STMT);
+			} else {
+				System.out.println("wrong sql");
+			}
 			pstmt.setString(1, tnt_no);
+
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				tntVO = new TntVO();
@@ -574,9 +587,13 @@ public class TntDAO implements TenantDAO_interface {
 
 		return tntVO;
 	}
-	
-	
+
+	// ---------------------------------------------------------------------------------
+
 	private static final String UPDATE_PASS_VRF = "UPDATE TENANT SET TNT_ID_RESULT=?, EMP_NO=? where TNT_NO=?";
+	private static final String UPDATE_PASS_LVRF = "UPDATE LANDLORD SET LLD_ID_RESULT=?, EMP_NO=? where LLD_NO=?";
+	private static final String UPDATE_FAIL_VRF = "UPDATE TENANT SET TNT_ID_RESULT=?, EMP_NO=?,TNT_ID_DISAPPROVE=?,TNT_ID_ISUPLOAD=? where TNT_NO=?";
+	private static final String UPDATE_FAIL_LVRF = "UPDATE LANDLORD SET LLD_ID_RESULT=?, EMP_NO=?,LLD_ID_DISAPPROVE=?,LLD_ID_ISUPLOAD=? where LLD_NO=?";
 
 	public void pass_Vrf(TntVO tntVO) {
 		Connection con = null;
@@ -584,13 +601,17 @@ public class TntDAO implements TenantDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_PASS_VRF);
+			if (tntVO.getTnt_no().startsWith("T")) {
+				pstmt = con.prepareStatement(UPDATE_PASS_VRF);
+			} else if (tntVO.getTnt_no().startsWith("L")) {
+				pstmt = con.prepareStatement(UPDATE_PASS_LVRF);
+			} else {
+				System.out.println("wrong sql");
+			}
 
-			
 			pstmt.setInt(1, tntVO.getTnt_id_result());
 			pstmt.setString(2, tntVO.getEmp_no());
 			pstmt.setString(3, tntVO.getTnt_no());
-
 
 			pstmt.executeUpdate();
 
@@ -614,5 +635,46 @@ public class TntDAO implements TenantDAO_interface {
 		}
 	}
 
-	
+	public void fail_Vrf(TntVO tntVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			con = ds.getConnection();
+			if (tntVO.getTnt_no().startsWith("T")) {
+				pstmt = con.prepareStatement(UPDATE_FAIL_VRF);
+			} else if (tntVO.getTnt_no().startsWith("L")) {
+				pstmt = con.prepareStatement(UPDATE_FAIL_LVRF);
+			} else {
+				System.out.println("wrong sql");
+			}
+
+			pstmt.setInt(1, tntVO.getTnt_id_result());
+			pstmt.setString(2, tntVO.getEmp_no());
+			pstmt.setString(3, tntVO.getTnt_id_disapprove());
+			pstmt.setInt(4, tntVO.getTnt_id_isupload());
+			pstmt.setString(5, tntVO.getTnt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
 }

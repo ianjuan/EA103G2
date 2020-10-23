@@ -98,6 +98,18 @@ public class TntService {
 		dao.pass_Vrf(tntVO);
 		return tntVO;
 	}
+	
+	public TntVO failVrf(String tnt_no, Integer tnt_id_result,String emp_no,String tnt_id_disapprove,Integer tnt_id_isupload) {
+		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
+		tntVO.setEmp_no(emp_no);
+		tntVO.setTnt_id_result(tnt_id_result);
+		tntVO.setTnt_id_disapprove(tnt_id_disapprove);
+		tntVO.setTnt_id_isupload(tnt_id_isupload);
+		dao.fail_Vrf(tntVO);
+		return tntVO;
+	}
+	
 	public TntVO getVrfTntPic(String tnt_no) {
 		return dao.findByPK_pic(tnt_no);
 	}

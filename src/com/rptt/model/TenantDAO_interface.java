@@ -15,6 +15,7 @@ public interface TenantDAO_interface {
     public List<TntVO> get_unvrf(String Number);
 	public TntVO findByPK_pic(String tnt_no);
     public void pass_Vrf(TntVO tntVO);
+    public void fail_Vrf(TntVO tntVO);
 	public List<TntVO> getUnvrf_Unresult(Integer number, Integer number2);
 
 
