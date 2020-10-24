@@ -748,8 +748,8 @@ public class TntDAO implements TenantDAO_interface {
 	}
 
 	// =================================3.bank/card==================================
-	private static final String UPDATE_BANK_CARD_STMT = "UPDATE TENANT set tnt_card=?, tnt_cardsvc=?, tnt_carddue=?, tnt_bank=?, tnt_bankbrach=?, tnt_bankacc=? where tnt_no=?";
-	private static final String GET_ONE_BANK_CARD_STMT = "SELECT tnt_card, tnt_cardsvc, tnt_carddue, tnt_bank, tnt_bankbrach, tnt_bankacc from TENANT where tnt_no=?";
+	private static final String UPDATE_BANK_CARD_STMT = "UPDATE TENANT set tnt_card=?, tnt_cardsvc=?, tnt_carddue=?, tnt_bank=?, tnt_bankbranch=?, tnt_bankacc=? where tnt_no=?";
+	private static final String GET_ONE_BANK_CARD_STMT = "SELECT tnt_card, tnt_cardsvc, tnt_carddue, tnt_bank, tnt_bankbranch, tnt_bankacc from TENANT where tnt_no=?";
 
 	@Override
 	public void update_bank_card(TntVO tntVO) {
@@ -763,7 +763,7 @@ public class TntDAO implements TenantDAO_interface {
 			pstmt.setInt(2, tntVO.getTnt_cardsvc());
 			pstmt.setDate(3, tntVO.getTnt_carddue());
 			pstmt.setInt(4, tntVO.getTnt_bank());
-			pstmt.setString(5, tntVO.getTnt_bankbrach());
+			pstmt.setString(5, tntVO.getTnt_bankbranch());
 			pstmt.setString(6, tntVO.getTnt_bankacc());
 			pstmt.setString(7, tntVO.getTnt_no());
 
@@ -809,7 +809,7 @@ public class TntDAO implements TenantDAO_interface {
 				tntVO.setTnt_cardsvc(rs.getInt("tnt_cardsvc"));
 				tntVO.setTnt_carddue(rs.getDate("tnt_carddue"));
 				tntVO.setTnt_bank(rs.getInt("tnt_bank"));
-				tntVO.setTnt_bankbrach(rs.getString("tnt_bank"));
+				tntVO.setTnt_bankbranch(rs.getString("tnt_bank"));
 				tntVO.setTnt_bankacc(rs.getString("tnt_bank"));
 			}
 

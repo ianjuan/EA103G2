@@ -167,13 +167,13 @@ public class TntService {
 		return dao.findByPK_pocket(tnt_no);
 	}
 	 
-	public TntVO updateTntBankCard(String tnt_no, int tnt_bank, String tnt_bankbrach, String tnt_bankacc, long tnt_card,
+	public TntVO updateTntBankCard(String tnt_no, int tnt_bank, String tnt_bankbranch, String tnt_bankacc, long tnt_card,
 			int tnt_cardsvc, Date tnt_carddue) {
 
 		TntVO tntVO = new TntVO();
 		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_bank(tnt_bank);
-		tntVO.setTnt_bankbrach(tnt_bankbrach);
+		tntVO.setTnt_bankbranch(tnt_bankbranch);
 		tntVO.setTnt_bankacc(tnt_bankacc);
 		tntVO.setTnt_card(tnt_card);
 		tntVO.setTnt_cardsvc(tnt_cardsvc);

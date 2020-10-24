@@ -111,7 +111,10 @@
 
                 return c % 10 === 0;
             }
-
+            
+            //借放-信用卡效期預設 最小值:this month
+            var strThisMonth = thisYear + '-' + thisMonth;
+            $('#tnt_carddue').attr('min',strThisMonth);
 
         })(jQuery);
 

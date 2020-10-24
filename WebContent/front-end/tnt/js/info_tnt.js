@@ -660,11 +660,11 @@
             if (anyalert.length === 0) {
                 var formData = new FormData(theform.get(0));
                 formData.append('action', 'infoChgPwd');
-                ajax_infoChgPwd(formData);
+                ajax_infoChgPwd(formData,theform);
             }
         });
 
-        function ajax_infoChgPwd(formData) {
+        function ajax_infoChgPwd(formData,theform) {
             $.ajax({ // 存入資料庫階段
                 url: "/EA103G2/tnt/TntServlet2",
                 type: "POST",
@@ -683,15 +683,58 @@
                     if (data === 'true') {
                     	Swal.fire({
                     		icon: 'success',
-                    		title: '修改成功!',
-                    		showConfirmButton: false,
-                    		timer: 1500
-                    	})
+                    		title: '密碼修改成功!',
+                    		text: "請用新的密碼重新登入",
+//                    		showConfirmButton: false,
+//                    		timer: 1500,
+                    		showConfirmButton: true
+                    	}).then((result) => {
+                    		  if (result.isConfirmed) {
+                    			  redirect();
+                    		  } 
+                    	});
+                    	
+//                    	 //inputs
+//                        var inputs = theform.find('.validate-input .register100');
+//                    	console.log(inputs);
+//                        inputs.each(function() {
+//                            $(this).val('');
+//                        });
                    }
-                    
                 },
                 error: function() {
-                    console.log("真的不棒")
+                    console.log("真的不棒");
+                	Swal.fire({
+                		icon: 'warning',
+                		title: '發生錯誤',
+                		text: "請稍後重新點選送出",
+                	    showDenyButton: true,
+                		});
                 }
-            })
+            });
+        }
+        
+        
+        function ajax_logout_ChgPwd(formData,theform) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/front-end/index/tnt/login.jsp?action=logout_ChgPwd",
+                type: "GET",
+//                data: formData,
+                // 告訴jQuery不要去處理髮送的資料
+                processData: false,
+                // 告訴jQuery不要去設定Content-Type請求頭
+                contentType: false,
+
+                success: function() { // 以上成功才執行
+//                	console.log("data:" + data);
+                    console.log("res棒");
+                },
+                error: function() {
+                    console.log("真的不棒");
+                }
+            });
+        }
+        
+        function redirect() {
+            window.location.href = "/EA103G2/front-end/index/tnt/login.jsp?action=logout_ChgPwd";
         }

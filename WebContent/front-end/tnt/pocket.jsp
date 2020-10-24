@@ -455,7 +455,7 @@
                                         <span class="label-register100">信用卡安全碼</span>
                                     </div>
                                     <div class="wrap-register100 validate-input" data-validate="Valid due date is required">
-                                        <input class="register100" type="month" name="tnt_carddue" id="tnt_carddue">
+                                        <input class="register100" type="month" name="tnt_carddue" id="tnt_carddue" min="">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100 label-register100-carddue"></span>
                                     </div>
