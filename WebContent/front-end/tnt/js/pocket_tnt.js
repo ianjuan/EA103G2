@@ -236,19 +236,19 @@
          *    [ 按鈕Ajax infoProfile ]
          */
 
-        $('#btninfoProfile').click(function(e) {
+        $('#btnBankCard').click(function(e) {
             e.preventDefault();
-            console.log('btn - info update profile');
+            console.log('btn - pocket update BankCard');
             var theform = $(this).parent().prev('form');
             validateAll(theform);
             if ($('.alert-validate').length === 0) {
                 var formData = new FormData(theform.get(0));
-                formData.append('action', 'infoUpdateProfile');
-                ajax_infoUpdateProfile(formData);
+                formData.append('action', 'infoUpdateBankCard');
+                ajax_pocketUpdateBankCard(formData);
             }
         });
 
-        function ajax_infoUpdateProfile(formData) {
+        function ajax_pocketUpdateBankCard(formData) {
             $.ajax({ // 存入資料庫階段
                 url: "/EA103G2/tnt/TntServlet2",
                 type: "POST",
@@ -258,8 +258,16 @@
                 // 告訴jQuery不要去設定Content-Type請求頭
                 contentType: false,
 
-                success: function() { // 以上成功才執行
+                success: function(data) { // 以上成功才執行
                     console.log("res棒");
+                    if (data === 'true') {
+                    	Swal.fire({
+                    		icon: 'success',
+                    		title: '修改成功!',
+                    		showConfirmButton: false,
+                    		timer: 1500
+                    	})
+                   }
                 },
                 error: function() {
                     console.log("真的不棒")

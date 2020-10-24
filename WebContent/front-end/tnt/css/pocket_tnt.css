@@ -1068,7 +1068,7 @@
             color: #3a8c68;
         }
         
-        .wrap-btnBlanceSmall {
+        .wrap-btnBalanceSmall {
             width: 40%;
             display: -webkit-box;
             display: -webkit-flex;
@@ -1079,7 +1079,7 @@
             justify-content: center;
         }
         
-        .btnBlanceSmall {
+        .btnBalanceSmall {
             display: -webkit-box;
             display: -webkit-flex;
             display: -moz-box;
@@ -1115,27 +1115,27 @@
             color: #777;
         }
         
-        #blanceWithdraw {
+        #balanceWithdraw {
         	background: #ECD4D4;
             color: #9e3e3e;
         }
         
-        #blanceDeposit {
+        #balanceDeposit {
             background-color: #d1dfe8;
     		color: #367196;
         }
         
-        #blanceWithdraw:hover {
+        #balanceWithdraw:hover {
         	background: #9e3e3e;
             color: #ECD4D4;
         }
         
-        #blanceDeposit:hover {
+        #balanceDeposit:hover {
         	background: #367196;
             color: #d1dfe8;
         }
         
-        .blanceInputform {
+        .balanceInputform {
         	padding: 10px 100px 0px 50px;
         }
         

@@ -635,7 +635,7 @@ public class TntDAO implements TenantDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_POCKET_STMT);
 
-			pstmt.setInt(1, tntVO.getTnt_blance());
+			pstmt.setInt(1, tntVO.getTnt_balance());
 			pstmt.setString(2, tntVO.getTnt_no());
 
 			pstmt.executeUpdate();
@@ -679,7 +679,7 @@ public class TntDAO implements TenantDAO_interface {
 
 			while (rs.next()) {
 				tntVO = new TntVO();
-				tntVO.setTnt_blance(rs.getInt("tnt_balance"));
+				tntVO.setTnt_balance(rs.getInt("tnt_balance"));
 			}
 
 		} catch (SQLException se) {
