@@ -105,6 +105,10 @@ public class Con_aplService {
 		return dao.tntgetAll(tnt_no);
 	}
 	
+	public List<Con_aplVO> hosgetall(String hos_no){
+		return dao.hosgetall(hos_no);
+	}
+	
 	public List<HouseVO> getAll(Map<String, String> map) {
 		return dao.getAll(map);
 	}

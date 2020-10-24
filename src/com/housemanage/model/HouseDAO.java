@@ -56,7 +56,7 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String DELETE_HOUSEPIC = "DELETE FROM HOUSE_PICTURE where pic_no=?";
 	private static final String DELETE_HOUSEINFO = "DELETE FROM HOUSE where hos_no=?";
 	private static final String GET_ALLHOUSE = "SELECT hos_no,h.lld_no,lld_name,hos_add,hos_status,hos_type,hos_room FROM HOUSE h JOIN LANDLORD l on h.lld_no = l.lld_no";
-
+	private static final String UPDATE_STATUS = "UPDATE HOUSE SET HOS_STATUS = ? WHERE HOS_NO = ?";
 	@Override
 	public void insertHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr) {
 		Connection con = null;
@@ -299,6 +299,43 @@ public class HouseDAO implements HouseDAO_interface {
 			pstmt.setInt(10, houseVO.getHos_wash());
 			pstmt.setInt(11, houseVO.getHos_hoter());
 			pstmt.setString(12, houseVO.getHos_no());
+
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateStatus(HouseVO houseVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+
+			pstmt.setString(1, houseVO.getHos_status());
+			pstmt.setString(2, houseVO.getHos_no());
 
 			pstmt.executeUpdate();
 

@@ -23,7 +23,7 @@
 	}
 	pageContext.setAttribute("list", list);	
 %>
-
+<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,7 +106,7 @@
 							<li><span class="infotitle">地址 : </span><span>${houseVO.hos_add}</span></li>
 							<li><span class="infotitle">房間類型 : </span><span>${houseVO.hos_room}</span></li>
 							<li><span class="infotitle">每月租金 : </span><span>${houseVO.hos_rentfee}</span></li>
-							<li><span class="infotitle">房屋狀態 : </span><span>${houseVO.hos_status}</span></li>
+							<li><span class="infotitle">房屋狀態/申請數量 : </span><span>${houseVO.hos_status}/ ${aplSvc.hosgetall(houseVO.hos_no).size()}個申請</span></li>
 						</ul>
 					</div>
 					<div class="rinfo">
@@ -117,6 +117,15 @@
 								<input type="hidden" name="lld_no" value="<%=lld_no%>">
 								<input type="hidden" name="action" value="getHouseInfo">
 								<li><button id="btn2" type="submit">資訊修改</button></li>
+							</FORM>
+							
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+								<input type="hidden" name="hos_no" value="${houseVO.hos_no}">
+								<input type="hidden" name="lld_no" value="<%=lld_no%>">
+								<input type="hidden" name="action" value="hosgetall">
+								<c:if test="${aplSvc.hosgetall(houseVO.hos_no).size() != 0}">
+								<li><button id="btn2" type="submit">租屋申請</button></li>
+								</c:if>
 							</FORM>
 						</ul>
 					</div>

@@ -14,8 +14,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
 			+ "hos_rentfee,hos_gasfee,hos_manafee,hos_netfee,hos_puwaterfee,hos_puelefee,hos_parkfee,hos_bro)"
 			+ " VALUES ('HOS' || lpad(SEQ_HOS_NO.NEXTVAL, 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?,"
-			+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
-			+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?," + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_WATERFEE = "INSERT INTO VARFEE_LIST (varf_no,hos_no,var_no,pay_type,pay_amount) VALUES ('VARF' || lpad(SEQ_VARF_NO.NEXTVAL, 6, '0'), 'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0'), 'VAR000001', ?, ?)";
 	private static final String INSERT_ELECTFEE = "INSERT INTO VARFEE_LIST (varf_no,hos_no,var_no,pay_type,pay_amount) VALUES ('VARF' || lpad(SEQ_VARF_NO.NEXTVAL, 6, '0'), 'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0'), 'VAR000002', ?, ?)";
 	private static final String UPDATE_HOUSEINFO = "UPDATE HOUSE set hos_name=?,hos_liffun=?,hos_trans=?,hos_add=?,hos_type=?,hos_room=?,hos_pat=?,hos_floor=?,hos_pnum=?,hos_lng=?,hos_lat=?,hos_date=SYSDATE,hos_status=?, "
@@ -43,6 +42,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	private static final String DELETE_HOUSEPIC = "DELETE FROM HOUSE_PICTURE where pic_no=?";
 	private static final String DELETE_HOUSEINFO = "DELETE FROM HOUSE where hos_no=?";
 	private static final String GET_ALLHOUSE = "SELECT hos_no,lld_no,hos_name,hos_add,hos_status FROM HOUSE";
+	private static final String UPDATE_STATUS = "UPDATE HOUSE SET HOS_STATUS = ? WHERE HOS = ?";
 
 	@Override
 	public void insertHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr) {
@@ -99,9 +99,9 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			pstmt.setInt(42, houseVO.getHos_parkfee());
 			pstmt.setInt(43, houseVO.getHos_bro());
 
-			pstmt.executeUpdate();			
+			pstmt.executeUpdate();
 			pstmt.clearParameters();
-			
+
 			pstmt = con.prepareStatement(INSERT_WATERFEE);
 
 			pstmt.setInt(1, houseVO.getHos_waterfeetype());
@@ -109,12 +109,12 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 
 			pstmt.executeUpdate();
 			pstmt.clearParameters();
-			
+
 			pstmt = con.prepareStatement(INSERT_ELECTFEE);
 
 			pstmt.setInt(1, houseVO.getHos_electfeetype());
 			pstmt.setDouble(2, houseVO.getHos_electfee());
-			
+
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -141,7 +141,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			}
 		}
 	}
-		
+
 	@Override
 	public void updateHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr, String[] pic_no) {
 		Connection con = null;
@@ -198,34 +198,34 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 
 			pstmt.executeUpdate();
 			pstmt.clearParameters();
-			
+
 			pstmt = con.prepareStatement(UPDATE_WATERFEE);
-			
+
 			pstmt.setInt(1, houseVO.getHos_waterfeetype());
 			pstmt.setDouble(2, houseVO.getHos_waterfee());
 			pstmt.setString(3, houseVO.getHos_no());
-			
+
 			pstmt.executeUpdate();
 			pstmt.clearParameters();
-			
+
 			pstmt = con.prepareStatement(UPDATE_ELECTFEE);
-			
+
 			pstmt.setInt(1, houseVO.getHos_electfeetype());
 			pstmt.setDouble(2, houseVO.getHos_electfee());
 			pstmt.setString(3, houseVO.getHos_no());
-			
+
 			pstmt.executeUpdate();
 			pstmt.clearParameters();
-			
-			for(HouseVO hos_pic : hos_picArr) {				
+
+			for (HouseVO hos_pic : hos_picArr) {
 				pstmt = con.prepareStatement(UPDATE_HOSPIC);
 				pstmt.setString(1, houseVO.getHos_no());
 				pstmt.setBytes(2, hos_pic.getHos_pic());
 				pstmt.executeUpdate();
 				pstmt.clearParameters();
 			}
-			
-			for(int i=0; i<pic_no.length; i++) {
+
+			for (int i = 0; i < pic_no.length; i++) {
 				pstmt = con.prepareStatement(DELETE_HOUSEPIC);
 				pstmt.setString(1, pic_no[i]);
 				pstmt.executeUpdate();
@@ -256,7 +256,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			}
 		}
 	}
-	
+
 	@Override
 	public void updateHouseFurniture(HouseVO houseVO) {
 		Connection con = null;
@@ -310,7 +310,47 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 			}
 		}
 	}
-	
+
+	@Override
+	public void updateStatus(HouseVO houseVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+
+			pstmt.setString(1, houseVO.getHos_status());
+			pstmt.setString(2, houseVO.getHos_no());
+
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
 	@Override
 	public HouseVO getLldInfo(String lld_no) {
 		HouseVO houseVO = null;
@@ -426,7 +466,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 				houseVO.setHos_puelefee(rs.getInt("hos_puelefee"));
 				houseVO.setHos_parkfee(rs.getInt("hos_parkfee"));
 			}
-			
+
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -468,7 +508,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_WATERFEE);
@@ -523,7 +563,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ELECTFEE);
@@ -569,7 +609,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		}
 		return houseVO;
 	}
-	
+
 	@Override
 	public List<HouseVO> getLldHousePic(String hos_no) {
 		List<HouseVO> list = new ArrayList<HouseVO>();
@@ -627,10 +667,10 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<HouseVO> getLldAllHouse(String lld_no) {
-		
+
 		return null;
 	}
 
@@ -761,7 +801,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public List<HouseVO> getLldOffHouse(String lld_no) {
 		List<HouseVO> list = new ArrayList<HouseVO>();
@@ -772,7 +812,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		ResultSet rs = null;
 
 		try {
-			
+
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_LLDOFFHOUSE);
@@ -924,10 +964,10 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 		}
 		return list;
 	}
-	
+
 	@Override
 	public HouseVO addMoney(HouseVO houseVO) {
-		
+
 		return null;
 	}
 
@@ -1122,14 +1162,14 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //		System.out.print(houseVO5.getHos_electfee() + ",");
 //
 //		System.out.println("---------------------");
-		
+
 		// 查詢房東名字
 		HouseVO houseVO6 = dao.getLldInfo("LLD000001");
 		System.out.print(houseVO6.getLld_name() + ",");
 		System.out.print(houseVO6.getLld_balance() + ",");
 
 		System.out.println("---------------------");
-			
+
 		// 查詢房屋圖片編號
 //		List<HouseVO> list1 = dao.getLldHousePic("HOS014046");
 //		System.out.print(list1.get(0).getPic_no() + ",");
@@ -1138,7 +1178,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 //			System.out.println("---------------------");
 //			System.out.println();
 //		}
-				
+
 //		// 查詢房東已出租房屋
 //		List<HouseVO> list2 = dao.getLldRentHouse("LLD000001");
 //		for (HouseVO aHouse : list2) {

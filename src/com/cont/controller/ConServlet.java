@@ -487,7 +487,7 @@ public class ConServlet extends HttpServlet {
 				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, hos_dep,
 						con_sta, con_che_date, con_no);
 				/*************************** 扣房客押金 **********************/
-				Integer tnt_blance = tntSvc.getOneTntPocket(tnt_no).getTnt_blance() - hos_dep;
+				Integer tnt_blance = tntSvc.getOneTntPocket(tnt_no).getTnt_balance() - hos_dep;
 				tntSvc.updateTntPocket(tnt_no, tnt_blance);
 				/*************************** 加房東錢錢 **********************/
 				String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();

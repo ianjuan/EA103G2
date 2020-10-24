@@ -15,6 +15,7 @@ public interface Con_aplDAO_interface {
 	    public Con_aplVO findByPrimaryKey(String apl_no);
 	    public Con_aplVO getaplbyhos(String hos_no);
 	    public List<Con_aplVO> getAll();
+	    public List<Con_aplVO> hosgetall(String hos_no);
 	    public List<Con_aplVO> lldgetAll(String lld_no);
 	    public List<Con_aplVO> tntgetAll(String tnt_no);
 	    public List<HouseVO> getAll(Map<String, String> map);

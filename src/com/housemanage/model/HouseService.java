@@ -160,6 +160,17 @@ public class HouseService {
 		return houseVO;
 	}
 	
+	public HouseVO updateStatus(String hos_status, String hos_no) {
+		
+		HouseVO houseVO = new HouseVO();
+
+		houseVO.setHos_status(hos_status);
+		houseVO.setHos_no(hos_no);
+		dao.updateStatus(houseVO);
+
+		return houseVO;
+	}
+	
 	public HouseVO getLldInfo(String lld_no) {
 		return dao.getLldInfo(lld_no);
 	}
