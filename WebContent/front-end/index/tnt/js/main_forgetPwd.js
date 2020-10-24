@@ -88,7 +88,7 @@
                 formData.append('action', 'forgetPwd');
                 //                console.log(formData);
                 Swal.fire({
-            	    title: 'Now loading',
+            	    title: '請稍後 . . . ',
             	    allowEscapeKey: false,
             	    allowOutsideClick: false,
 //            	    timer: 5000,

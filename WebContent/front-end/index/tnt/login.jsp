@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tnt.model.*"%>
 <%
-  TntVO tntVO = (TntVO) request.getAttribute("tntVO");
+  TntVO tntVO_req = (TntVO) request.getAttribute("tntVO_req");
 %>
 <html lang="zh-Hant">
 
@@ -42,12 +42,12 @@
                     <span class="login100-form-title p-b-10"> 房客登入 </span>
                     <hr class="login100-form-title p-b-10">
                     <div class="wrap-register100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="register100" type="text" name="tnt_email" id="tnt_email" value="<%= (tntVO==null)? "" : tntVO.getTnt_email()%>">
+                        <input class="register100" type="text" name="tnt_email" id="tnt_email" value="<%= (tntVO_req==null)? "" : tntVO_req.getTnt_email()%>">
                         <div class="focus-register100"></div>
                         <div class="label-register100">信箱</div>
                     </div>
                     <div class="wrap-register100 validate-input" data-validate="Less than 8 [a-zA-Z0-9]">
-                        <input class="register100" type="password" name="tnt_pwd" id="tnt_pwd" value="<%= (tntVO==null)? "" : tntVO.getTnt_pwd()%>">
+                        <input class="register100" type="password" name="tnt_pwd" id="tnt_pwd" value="<%= (tntVO_req==null)? "" : tntVO_req.getTnt_pwd()%>">
                         <span class="focus-register100"></span>
                         <span class="label-register100">密碼</span>
                     </div>
@@ -98,6 +98,8 @@
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/js/jquery.js"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/js/main_login.js"></script>
@@ -118,9 +120,27 @@
 		for (var i = 0; i < inputs.length; i++) {
             $(inputs[i]).focus();
             $(inputs[i]).blur();
-    }
+    	}
 	}
-    
+
+	
+    var emailVrfMsgsJs;
+    console.log(emailVrfMsgsJs);
+    <c:if test="${not empty emailVrfMsgs}">
+        <c:forEach var="msg" items="${emailVrfMsgs}">
+        	emailVrfMsgsJs = '${msg}';
+        </c:forEach>
+	</c:if>
+	console.log(emailVrfMsgsJs);
+	if (typeof(emailVrfMsgsJs)!=='undefined'){
+		Swal.fire({
+    		icon: 'success',
+    		title: '信箱驗成功',
+    		text: "帳號已啟用, 請登入以繼續",
+    	    showDenyButton: true,
+    	    animation: false,
+    		});
+	}
 	</script>
 </body>
 

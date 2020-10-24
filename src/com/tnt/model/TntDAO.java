@@ -33,7 +33,8 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String GET_ALL_ACCOUNT_STMT = "SELECT tnt_no, tnt_email, tnt_pwd from TENANT";
 	private static final String GET_ONE_ACCOUNT_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_PWD FROM TENANT where TNT_NO =?";
 	private static final String UPDATE_PWD_STMT = "UPDATE TENANT set TNT_PWD=? where TNT_NO=?";
-
+	private static final String UPDATE_STATUS_STMT = "UPDATE TENANT set TNT_STATUS=? where TNT_NO=?";
+	
 	private static final String UPDATE_PIC_STMT = "UPDATE TENANT set TNT_PIC=? where TNT_NO = ?";
 	private static final String GET_ONE_PIC_STMT = "SELECT TNT_NO, TNT_PIC FROM TENANT where TNT_NO = ?";
 
@@ -504,12 +505,47 @@ public class TntDAO implements TenantDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			System.out.println(tntVO.getTnt_pwd());
-			System.out.println(tntVO.getTnt_no());
+//			System.out.println(tntVO.getTnt_pwd());
+//			System.out.println(tntVO.getTnt_no());
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_PWD_STMT);
 
 			pstmt.setString(1, tntVO.getTnt_pwd());
+			pstmt.setString(2, tntVO.getTnt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("12323A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void update_status(TntVO tntVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+//			System.out.println(tntVO.getTnt_pwd());
+//			System.out.println(tntVO.getTnt_no());
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS_STMT);
+
+			pstmt.setInt(1, tntVO.getTnt_status());
 			pstmt.setString(2, tntVO.getTnt_no());
 
 			pstmt.executeUpdate();

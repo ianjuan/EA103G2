@@ -1,5 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.tnt.model.*"%>
+<%
+  TntVO tntVO = (TntVO) session.getAttribute("tntVO");
+%>
+<% String tnt_no = (String) session.getAttribute("tnt_no");%>
+<html lang="zh-Hant">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans:ital,wght@1,600&family=Pacifico&display=swap" rel="stylesheet">
@@ -15,6 +21,7 @@
     <title>Document</title>
     
 </head>
+
 <body>
     <header>
     <div class="container">
@@ -66,6 +73,11 @@
             </div>
         </div>
     </section>
+    ${tntVO.tnt_name}
+    <%=tntVO.getTnt_name()%>
+     <%=tntVO.getTnt_no()%>
+     
+<%=tnt_no%>
 
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

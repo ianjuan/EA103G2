@@ -128,6 +128,17 @@ public class TntService {
 		return tntVO;
 	}
 	
+	public TntVO updateTntStatus(String tnt_no, int tnt_status) {
+
+		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
+		tntVO.setTnt_status(tnt_status);
+		dao.update_status(tntVO);
+
+		return tntVO;
+	}
+	
+	
 	public TntVO updateTntPic(String tnt_no, byte[] tnt_pic) {
 
 		TntVO tntVO = new TntVO();
