@@ -238,7 +238,70 @@
          * ================================================================== 
          *    [ 按鈕Ajax infoProfile ]
          */
+        
+        // 1.提領
+        $('#btnbalanceWithdraw').click(function(e) {
+            e.preventDefault();
+            console.log('btn - balance Withdraw');
+            if (/^\d+$/.test($(this).val().trim()) === false) {
+            	$(this).parent().addClass('alert-validate');
+            }
+            if (/^\d+$/.test($(this).val().trim()) === true) {
+            	$(this).parent().removeClass('alert-validate');
+            	var formData = new FormData($('#withdrawform')[0]);
+            	formData.append('action', 'balanceWithdraw');
+            	Swal.fire({
+            	    title: '請稍後 . . . ',
+            	    allowEscapeKey: false,
+            	    allowOutsideClick: false,
+//            	    timer: 5000,
+            	    onOpen: () => {
+            	      swal.showLoading();
+            	    }
+            	  })
+                ajax_balanceWithdraw(formData);
+            }
+        });
+        
+        function ajax_balanceWithdraw(formData,theform) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/tnt/TntServlet2",
+                type: "POST",
+                data: formData,
+                // 告訴jQuery不要去處理髮送的資料
+                processData: false,
+                // 告訴jQuery不要去設定Content-Type請求頭
+                contentType: false,
 
+                success: function(data) { // 以上成功才執行
+                    console.log("res棒");
+                    if (data === 'true') {
+                    	Swal.fire({
+                    		icon: 'success',
+                    		title: '修改成功!',
+                    		showConfirmButton: false,
+                    		timer: 1500
+                    	})
+                        var inputs = theform.find('.validate-input .register100');
+                        inputs.each(function() {
+                            $(this).val('');
+                        });
+                        $('#tnt_bank').val('');
+                   }
+                },
+                error: function() {
+                    console.log("真的不棒");
+                    Swal.fire({
+                		icon: 'warning',
+                		title: '發生錯誤',
+                		text: "請稍後重新點選送出",
+                	    showDenyButton: true,
+                	});
+                }
+            });
+        }
+        
+        // 3.收付款設定
         $('#btnBankCard').click(function(e) {
             e.preventDefault();
             console.log('btn - pocket update BankCard');
@@ -286,5 +349,7 @@
                 	    showDenyButton: true,
                 	});
                 }
-            })
+            });
         }
+        
+        
