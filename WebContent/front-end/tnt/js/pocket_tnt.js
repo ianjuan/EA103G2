@@ -247,11 +247,11 @@
             if ($('.alert-validate').length === 0) {
                 var formData = new FormData(theform.get(0));
                 formData.append('action', 'infoUpdateBankCard');
-                ajax_pocketUpdateBankCard(formData);
+                ajax_pocketUpdateBankCard(formData,theform);
             }
         });
 
-        function ajax_pocketUpdateBankCard(formData) {
+        function ajax_pocketUpdateBankCard(formData,theform) {
             $.ajax({ // 存入資料庫階段
                 url: "/EA103G2/tnt/TntServlet2",
                 type: "POST",
@@ -270,10 +270,21 @@
                     		showConfirmButton: false,
                     		timer: 1500
                     	})
+                        var inputs = theform.find('.validate-input .register100');
+                        inputs.each(function() {
+                            $(this).val('');
+                        });
+                        $('#tnt_bank').val('');
                    }
                 },
                 error: function() {
-                    console.log("真的不棒")
+                    console.log("真的不棒");
+                    Swal.fire({
+                		icon: 'warning',
+                		title: '發生錯誤',
+                		text: "請稍後重新點選送出",
+                	    showDenyButton: true,
+                	});
                 }
             })
         }

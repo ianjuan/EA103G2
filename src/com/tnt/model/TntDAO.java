@@ -759,10 +759,10 @@ public class TntDAO implements TenantDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_BANK_CARD_STMT);
-			pstmt.setLong(1, tntVO.getTnt_card());
+			pstmt.setString(1, tntVO.getTnt_card());
 			pstmt.setInt(2, tntVO.getTnt_cardsvc());
 			pstmt.setDate(3, tntVO.getTnt_carddue());
-			pstmt.setInt(4, tntVO.getTnt_bank());
+			pstmt.setString(4, tntVO.getTnt_bank());
 			pstmt.setString(5, tntVO.getTnt_bankbranch());
 			pstmt.setString(6, tntVO.getTnt_bankacc());
 			pstmt.setString(7, tntVO.getTnt_no());
@@ -805,12 +805,12 @@ public class TntDAO implements TenantDAO_interface {
 
 			while (rs.next()) {
 				tntVO = new TntVO();
-				tntVO.setTnt_card(rs.getLong("tnt_card"));
+				tntVO.setTnt_card(rs.getString("tnt_card"));
 				tntVO.setTnt_cardsvc(rs.getInt("tnt_cardsvc"));
 				tntVO.setTnt_carddue(rs.getDate("tnt_carddue"));
-				tntVO.setTnt_bank(rs.getInt("tnt_bank"));
-				tntVO.setTnt_bankbranch(rs.getString("tnt_bank"));
-				tntVO.setTnt_bankacc(rs.getString("tnt_bank"));
+				tntVO.setTnt_bank(rs.getString("tnt_bank"));
+				tntVO.setTnt_bankbranch(rs.getString("tnt_bankbranch"));
+				tntVO.setTnt_bankacc(rs.getString("tnt_bankacc"));
 			}
 
 		} catch (SQLException se) {

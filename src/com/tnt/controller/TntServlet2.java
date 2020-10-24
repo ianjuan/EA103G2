@@ -113,10 +113,11 @@ public class TntServlet2 extends HttpServlet {
 					req.removeAttribute("tntVO_req"); // 移除錯誤轉交用的req scope的"tntVO"
 					
 					String tnt_name = tntSvc.getOneTntProfile(tnt_no).getTnt_name(); // 幫泓元存session
+					Boolean tnt_sex = tntSvc.getOneTntProfile(tnt_no).getTnt_sex(); // 幫泓元存session
 					TntVO tntVO_session = new TntVO();
 					tntVO_session.setTnt_email(tnt_email);
 					tntVO_session.setTnt_name(tnt_name);
-					
+					tntVO_session.setTnt_sex(tnt_sex);
 
 					HttpSession session = req.getSession();
 					session.setAttribute("tnt_no", tnt_no); // *工作1: 在session內做已經登入過的標識
@@ -458,15 +459,6 @@ public class TntServlet2 extends HttpServlet {
 			}
 		}
 
-//		if ("logout_ChgPwd".equals(action)) {
-//			System.out.println("action: " + action);
-//			HttpSession session = req.getSession();
-//			session.removeAttribute("tnt_no");
-//			res.sendRedirect(req.getContextPath() + "/front-end/index/tnt/login.jsp");
-//		}
-//		
-		
-
 		// 來自pocket.jsp的請求 - ajax_pocketUpdateBankCard(formData)
 		if ("infoUpdateBankCard".equals(action)) {
 			System.out.println("action: " + action);
@@ -474,14 +466,14 @@ public class TntServlet2 extends HttpServlet {
 //					req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-				Integer tnt_bank = Integer.valueOf(req.getParameter("tnt_bank"));
+				String tnt_bank = req.getParameter("tnt_bank");
 				System.out.println(tnt_bank);
 				String tnt_bankbranch = req.getParameter("tnt_bankbranch");
 				System.out.println(tnt_bankbranch);
 				
 				String tnt_bankacc = req.getParameter("tnt_bankacc");
 				System.out.println(tnt_bankacc);
-				Long tnt_card = Long.valueOf(req.getParameter("tnt_card"));
+				String tnt_card = req.getParameter("tnt_card");
 				System.out.println(tnt_card);
 				Integer tnt_cardsvc = Integer.valueOf(req.getParameter("tnt_cardsvc"));
 				System.out.println(tnt_cardsvc);
