@@ -3,17 +3,24 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.tnt.model.*"%>
 
-
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 
 <%
 	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
 	request.setAttribute("tntVO", tntVO);
-%>
-<%
 	TntVO tntVO_pocket = tntSvc.getOneTntPocket(tnt_no);
 	request.setAttribute("tntVO_pocket", tntVO_pocket);
+	TntVO tntVO_bankcard = tntSvc.getOneTntBankCard(tnt_no);
+	request.setAttribute("tntVO_bankcard", tntVO_bankcard);
+%>
+<%
+	String bankAccEnd = tntVO_bankcard.getTnt_bankacc();
+	int tmp = bankAccEnd.length();
+	bankAccEnd = bankAccEnd.substring(tmp-4);
+	String cardEnd = tntVO_bankcard.getTnt_card();
+	tmp = cardEnd.length();
+	cardEnd = cardEnd.substring(tmp-4);
 %> 
 
 <head>
@@ -94,22 +101,7 @@
 
     </script>
 </head>
-
 <body class="landing">
-<!--     Header -->
-<!--     <header id="header"> -->
-<!--         <h1> -->
-<!--             <a href="index.html" style="color: #555">愛租I-ZU</a> -->
-<!--         </h1> -->
-<!--         <nav id="nav"> -->
-<!--             <ul> -->
-<!--                 <li><a href="index.html">尋找房源</a></li> -->
-<!--                 <li><a href="generic.html">地圖找房</a></li> -->
-<!--                 <li><a href="elements.html">會員登入</a></li> -->
-<!--                 <li><a href="#" class="special">註冊會員</a></li> -->
-<!--             </ul> -->
-<!--         </nav> -->
-<!--     </header> -->
 	<jsp:include page="/front-end/navbar/navbar.jsp"/>
     <section>
         <section class="content">
@@ -195,14 +187,14 @@
                                     
                                     <form class="balanceInputform" enctype="multipart/form-data">
 		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than balance">
-		                                        <input class="register100" type="text" name="tnt_bankbranch" id="tnt_bankbranch">
+		                                        <input class="register100" type="text" name="pocket_withdraw" id="pocket_withdraw">
 		                                        <span class="focus-register100"></span>
 		                                        <span class="label-register100">請輸入提款金額</span>
 		                                    </div>
                                     </form>
                                     
                                     <div class="row no-gutters justify-content-around" > 
-				                            <div class="bankTitleSmall">收款帳號<br><span style="color: #444;margin-left:30px">中國信託   **** 1234</span></div>
+				                            <div class="bankTitleSmall">收款帳號<br><span style="color: #444;margin-left:30px">中國信託   **** <%=bankAccEnd%></span></div>
 				                            <div class="wrap-btnBalanceSmall" style=" display: inline-block;">
 				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBalanceSmall" id="balanceWithdraw">提領</a>
 				                            </div>
@@ -210,13 +202,13 @@
 				                    <hr style="margin: 25px 40px;">
 				                    <form class="balanceInputform" enctype="multipart/form-data">
 		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than balance">
-		                                        <input class="register100" type="text" name="tnt_bankbranch" id="tnt_bankbranch">
+		                                        <input class="register100" type="text" name="pocket_deposit" id="pocket_deposit">
 		                                        <span class="focus-register100"></span>
 		                                        <span class="label-register100">請輸入儲值金額</span>
 		                                    </div>
                                     </form>
 				                    <div class="row no-gutters justify-content-around" > 
-				                            <div class="bankTitleSmall">付款信用卡<br><span style="color: #444;margin-left:30px">中國信託  **** 1234</span></div>
+				                            <div class="bankTitleSmall">付款信用卡<br><span style="color: #444;margin-left:30px">台新銀行  **** <%=cardEnd%></span></div>
 				                            <div class="wrap-btnBalanceSmall" style=" display: inline-block;">
 				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBalanceSmall" id="balanceDeposit">儲值</a>
 				                            </div>
@@ -455,7 +447,7 @@
                                         <span class="label-register100">信用卡安全碼</span>
                                     </div>
                                     <div class="wrap-register100 validate-input" data-validate="Valid due date is required">
-                                        <input class="register100" type="month" name="tnt_carddue" id="tnt_carddue">
+                                        <input class="register100" type="month" name="tnt_carddue" id="tnt_carddue" min="">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100 label-register100-carddue"></span>
                                     </div>
@@ -512,11 +504,18 @@
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.datetimepicker.full.js"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/pocket_tnt.js"></script>
     <!--===============================================================================================-->
+    
+    <%
+    String[] bankArray = {"台灣銀行","土地銀行","合庫商銀","第一銀行","華南銀行","彰化銀行","上海銀行","台北富邦","國泰世華","高雄銀行","兆豐商銀","農業金庫","花旗銀行","澳盛銀行","王道銀行","台灣企銀","渣打商銀","台中商銀","京城商銀","匯豐銀行","瑞興銀行","華泰銀行","臺灣新光銀行","中華郵政","聯邦銀行","遠東銀行","元大銀行","永豐銀行","玉山銀行","凱基銀行","星展銀行","台新銀行","大眾銀行","日盛銀行","安泰銀行","中國信託","美國銀行","首都銀行","中華開發","德意志銀行","東亞銀行","巴黎銀行","台北五信","台北九信","陽信銀行","基隆一信","基隆二信","板信銀行","淡水一信","淡水信合社","宜蘭信合社","桃園信合社","新竹一信","新竹三信","台中二信","三信銀行","彰化一信","彰化五信","彰化六信","彰化十信","鹿港信合社","嘉義三信","嘉義四信","台南三信","高雄三信","花蓮一信","花蓮二信","澎湖一信","澎湖二信","金門信合社","通苑區漁會","南龍區漁會","彰化區漁會","雲林區漁會","嘉義區漁會","南市區漁會","南縣區漁會","小港漁會","彌陀永安興達林園漁會","東港林邊琉球區漁會","新港漁會","澎湖區漁會","麻豆農會","下營農會","官田農會","大內農會","新市農會","安定農會","仁德農會","南化農會","七股區農會","農金資中心","高雄市農會","新北市地區農會","宜蘭農會","桃園地區農會","神岡鄉農會","名間鄉農會","彰化地區農會","雲林地區農會","嘉義地區農會","台南地區農會","高雄地區農會","屏東地區農會","花蓮地區農會","台東地區農會","澎湖區農會","台中市農會","連江縣農會","北斗農會","線西農會","伸港鄉農會","福興農會","彰化市農會","梧棲區農會","大肚區農會","大里市農會","汐止市農會","新莊市農會","桃園新竹區農會","冬山鄉農會","西湖鄉農會","草屯鎮農會","三義農會","南庄鄉農會","台南市農會","板橋市農會","新北市農會北區共用中心","田尾鄉農會","農漁會中區共用中心","關貿網路","台北區支付處","信合社南區資訊中心","金融聯合資訊中心","票據交換所"};
+    String[] bankCode = {"004","005","006","007","008","009","011","012","013","016","017","018","021","039","048","050","052","053","054","081","101","102","103","700","803","805","806","807","808","809","810","812","814","815","816","822","022","025","040","072","075","082","104","106","108","114","115","118","119","120","124","127","130","132","146","147","158","161","162","163","165","178","179","188","204","215","216","222","223","224","508","510","511","12","515","517","518","520","521","523","524","525","542","549","551","552","557","558","562","567","568","600","605","606","607","608","612","613","614","616","617","618","619","620","621","622","624","625","627","633","635","636","650","651","870","882","901","903","904","910","912","915","916","919","921","922","928","951","953","954","995","996","997","998","999"};
+    %>
 
 
 
