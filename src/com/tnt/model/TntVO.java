@@ -24,10 +24,10 @@ public class TntVO implements java.io.Serializable {
 	// -------pocket-------
 	private int tnt_balance;
 	// -------card/bank-------
-	private int tnt_bank;
-	private String tnt_bankbrach;
+	private String tnt_bank;
+	private String tnt_bankbranch;
 	private String tnt_bankacc;
-	private long tnt_card;
+	private String tnt_card;
 	private int tnt_cardsvc;
 	private Date tnt_carddue;
 	// -------CMT-------
@@ -180,20 +180,20 @@ public class TntVO implements java.io.Serializable {
 		this.tnt_balance = tnt_balance;
 	}
 
-	public int getTnt_bank() {
+	public String getTnt_bank() {
 		return tnt_bank;
 	}
 
-	public void setTnt_bank(int tnt_bank) {
+	public void setTnt_bank(String tnt_bank) {
 		this.tnt_bank = tnt_bank;
 	}
 
-	public String getTnt_bankbrach() {
-		return tnt_bankbrach;
+	public String getTnt_bankbranch() {
+		return tnt_bankbranch;
 	}
 
-	public void setTnt_bankbrach(String tnt_bankbrach) {
-		this.tnt_bankbrach = tnt_bankbrach;
+	public void setTnt_bankbranch(String tnt_bankbranch) {
+		this.tnt_bankbranch = tnt_bankbranch;
 	}
 
 	public String getTnt_bankacc() {
@@ -204,11 +204,11 @@ public class TntVO implements java.io.Serializable {
 		this.tnt_bankacc = tnt_bankacc;
 	}
 
-	public long getTnt_card() {
+	public String getTnt_card() {
 		return tnt_card;
 	}
 
-	public void setTnt_card(long tnt_card) {
+	public void setTnt_card(String tnt_card) {
 		this.tnt_card = tnt_card;
 	}
 
@@ -347,7 +347,7 @@ public class TntVO implements java.io.Serializable {
 	public void setTnt_auth_rpt(Integer tnt_auth_rpt) {
 		this.tnt_auth_rpt = tnt_auth_rpt;
 	}
-	
-	
+
+
 
 }

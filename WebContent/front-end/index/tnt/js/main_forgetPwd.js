@@ -121,7 +121,6 @@
                     if (data === 'true') {
                     	swal.hideLoading();
                     	Swal.fire({
-                    		// position: 'top-end',
 //                    		icon: 'success',
                     		title: '已發送驗證信!',
                     		text: "請盡快至您的信箱收信",
@@ -133,14 +132,19 @@
                 			  redirect();
                 		  } 
                 		});
-//                        alert("我們已將認證信傳送到您的信箱，請盡快至您的信箱收信");
-//                        window.location.href = "/EA103G2/back-end/tnt/select_page.jsp";
                     }
                 },
                 error: function() {
-                    console.log("真的不棒")
+                    console.log("真的不棒");
+                    	swal.hideLoading();
+                    	Swal.fire({
+                    		icon: 'warning',
+                    		title: '發生錯誤',
+                    		text: "請稍後重新點選送出",
+                    	    showDenyButton: true,
+                    		});
                 }
-            })
+            });
         }
 
         

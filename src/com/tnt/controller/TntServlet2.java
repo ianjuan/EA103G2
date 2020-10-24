@@ -113,10 +113,11 @@ public class TntServlet2 extends HttpServlet {
 					req.removeAttribute("tntVO_req"); // 移除錯誤轉交用的req scope的"tntVO"
 					
 					String tnt_name = tntSvc.getOneTntProfile(tnt_no).getTnt_name(); // 幫泓元存session
+					Boolean tnt_sex = tntSvc.getOneTntProfile(tnt_no).getTnt_sex(); // 幫泓元存session
 					TntVO tntVO_session = new TntVO();
 					tntVO_session.setTnt_email(tnt_email);
 					tntVO_session.setTnt_name(tnt_name);
-					
+					tntVO_session.setTnt_sex(tnt_sex);
 
 					HttpSession session = req.getSession();
 					session.setAttribute("tnt_no", tnt_no); // *工作1: 在session內做已經登入過的標識
@@ -451,12 +452,6 @@ public class TntServlet2 extends HttpServlet {
 					tntSvc.updateTntPwd(tnt_no, tnt_pwd_new);
 					out.print("true");
 				} else {
-//					System.out.println("5");
-//					errorMsgs.add("密碼錯誤");
-//					req.setAttribute("tntVO", tntVO); // 含有輸入格式錯誤的tntVO物件,也存入req
-//					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/tnt/info.jsp");
-//					failureView.forward(req, res);
-//					return; // 程式中斷
 					out.print("false");
 				}
 			} catch (Exception e) {
@@ -471,55 +466,42 @@ public class TntServlet2 extends HttpServlet {
 //					req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-				String tnt_email = req.getParameter("tnt_bank");
-				String tnt_acc = "yjwuws17";
-				String tnt_id = req.getParameter("tnt_id");
-				String tnt_name = req.getParameter("tnt_name");
-				java.sql.Date tnt_birth = java.sql.Date.valueOf(req.getParameter("tnt_birth").trim());
-				Boolean tnt_sex = Boolean.parseBoolean(req.getParameter("tnt_sex"));
-				String tnt_mobile = req.getParameter("tnt_mobile");
-				String tnt_city = req.getParameter("tnt_city");
-				String tnt_dist = req.getParameter("tnt_dist");
-				String tnt_add = req.getParameter("tnt_add");
-//						
-//						System.out.println(tnt_email);
-//						System.out.println(tnt_acc);
-//						System.out.println(tnt_id);
-//						
-//						System.out.println(tnt_name);
-//						System.out.println(tnt_birth);
-//						System.out.println(tnt_sex);
-//						
-//						System.out.println(tnt_mobile);
-//						System.out.println(tnt_city);
-//						System.out.println(tnt_dist);
-//						System.out.println(tnt_add);
+				String tnt_bank = req.getParameter("tnt_bank");
+				System.out.println(tnt_bank);
+				String tnt_bankbranch = req.getParameter("tnt_bankbranch");
+				System.out.println(tnt_bankbranch);
+				
+				String tnt_bankacc = req.getParameter("tnt_bankacc");
+				System.out.println(tnt_bankacc);
+				String tnt_card = req.getParameter("tnt_card");
+				System.out.println(tnt_card);
+				Integer tnt_cardsvc = Integer.valueOf(req.getParameter("tnt_cardsvc"));
+				System.out.println(tnt_cardsvc);
+				String tnt_carddueStr = req.getParameter("tnt_carddue");
+				tnt_carddueStr = tnt_carddueStr + "-01";
+				System.out.println(tnt_carddueStr);
+				java.sql.Date tnt_carddue = java.sql.Date.valueOf(tnt_carddueStr);
+
+				System.out.println(tnt_carddue);
+
 
 				/*************************** 2.開始修改資料 ***************************************/
 				HttpSession session = req.getSession();
 				String tnt_no = (String) session.getAttribute("tnt_no");
 
-//						System.out.println(tnt_no);
+				System.out.println(tnt_no);
 
 				TntService tntSvc = new TntService();
-				TntVO tntVO_origin = tntSvc.getOneTntProfile(tnt_no);
-
-//						System.out.println(0);
-
-				String tnt_pwd = tntVO_origin.getTnt_pwd();
-				Integer tnt_status = tntVO_origin.getTnt_status();
-//						System.out.println(tnt_pwd);
-//						System.out.println(tnt_status);
-
-				tntSvc.updateTntProfile(tnt_no, tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex,
-						tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
+				tntSvc.updateTntBankCard(tnt_no, tnt_bank, tnt_bankbranch, tnt_bankacc, tnt_card, tnt_cardsvc, tnt_carddue);
 
 				out = res.getWriter();
 				out.print("true");
 
 			} catch (Exception e) {
 //						errorMsgs.add("註冊失敗:" + e.getMessage());
-				System.out.println("info profile 修改失敗:" + e.getMessage());
+				System.out.println("pocket 銀行信用卡 修改失敗:" + e.getMessage());
+				out = res.getWriter();
+				out.print("false");
 			}
 		}
 
