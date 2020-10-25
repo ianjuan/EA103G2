@@ -32,18 +32,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House_Off</title>
+<title>合約管理</title>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/contlist.css">
+<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_rent.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-	<div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
+	<div><jsp:include page="/front-end/navbar/navbar.jsp"/></div>
 	<div id="body">
 		<div id="left">
 			<nav id="housenav">
@@ -63,7 +63,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="gettntcontract">
-						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
+						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
 						<span id="count">共<%=list.size()%>個合約</span>
 					</FORM>
 					
@@ -75,9 +75,26 @@
 			<c:forEach var="conVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
+						<c:if test="${conVO.con_sta == 0}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/apl/images/aplimage.jpg"
+							src="<%=request.getContextPath()%>/front-end/contract/images/lldsign.png"
 							class="pic" />
+						</c:if>
+						<c:if test="${conVO.con_sta == 1}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/contract/images/tntsign.jpg"
+							class="pic" />
+						</c:if>
+						<c:if test="${conVO.con_sta == 2}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/contract/images/un_check.png"
+							class="pic" />
+						</c:if>
+						<c:if test="${conVO.con_sta == 3}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/contract/images/live.png"
+							class="pic" />
+						</c:if>
 					</div>
 					<div class="cinfo">
 						<ul>

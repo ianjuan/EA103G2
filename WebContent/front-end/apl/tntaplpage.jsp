@@ -35,18 +35,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House_Off</title>
+<title>已租房屋</title>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/apl/css/apl.css">
+<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_rent.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-	<div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
+	<div><jsp:include page="/front-end/navbar/navbar.jsp"/></div>
 	<div id="body">
 		<div id="left">
 			<nav id="housenav">
@@ -65,7 +65,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="gettntcontract">
-						<button type="submit" class="link">歷史合約</button><br>
+						<button type="submit" class="link">合約管理</button><br>
 					</FORM>
 					
 				</div>
@@ -76,9 +76,26 @@
 			<c:forEach var="con_aplVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
+						<c:if test="${con_aplVO.apl_status == 0}">
 						<img
 							src="<%=request.getContextPath()%>/front-end/apl/images/aplimage.jpg"
 							class="pic" />
+						</c:if>
+						<c:if test="${con_aplVO.apl_status == 1}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/apl/images/accept.jpg"
+							class="pic" />
+						</c:if>
+						<c:if test="${con_aplVO.apl_status == 2}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/apl/images/reject.png"
+							class="pic" />
+						</c:if>
+						<c:if test="${con_aplVO.apl_status == 3}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/apl/images/cancel.jpg"
+							class="pic" />
+						</c:if>
 					</div>
 					<div class="cinfo">
 						<ul>
@@ -112,17 +129,24 @@
 			     				<input type="hidden" name="action"	value="tntcancelapl">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>">
-								<li><button id="btn2">瀏覽房屋</button></li>
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos=${con_aplVO.hos_no}">
+								<li><button id="btn3">瀏覽房屋</button></li>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
-			     				<input type="hidden" name="apl_status" value=4>
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="action"	value="tntcancelapl">
 			     				</FORM>
 			     				
-								<li><button id="btn3">聊天</button></li>
-								
-														
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+								<c:if test="${con_aplVO.apl_status == 2}">
+								<li><button id="btn4">房源推薦</button></li>
+								</c:if>
+								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
+			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+			     				<input type="hidden" name="action"	value="tntrecommend">
+			     				</FORM>
+			     				
+								<li><button id="btn5">聊天</button></li>
+																						
 							</ul>
 						</div>					
 					</div>

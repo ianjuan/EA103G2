@@ -1,6 +1,9 @@
 package com.apl.model;
 
 import java.util.List;
+import java.util.Map;
+
+import com.housemanage.model.HouseVO;
 
 public class Con_aplService {
 
@@ -100,6 +103,14 @@ public class Con_aplService {
 	
 	public List<Con_aplVO> tntgetAll(String tnt_no){
 		return dao.tntgetAll(tnt_no);
+	}
+	
+	public List<Con_aplVO> hosgetall(String hos_no){
+		return dao.hosgetall(hos_no);
+	}
+	
+	public List<HouseVO> getAll(Map<String, String> map) {
+		return dao.getAll(map);
 	}
 
 	public Con_aplStatus[] getCon_aplStatusAll() {

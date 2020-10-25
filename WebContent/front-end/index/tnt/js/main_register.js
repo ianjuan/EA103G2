@@ -622,6 +622,16 @@
             //   var formData = new FormData();
             var formData = new FormData($('#registerform')[0]);
             formData.append('action', 'register');
+            Swal.fire({
+        	    title: '請稍後 . . . ',
+        	    text: "正在發送驗證信",
+        	    allowEscapeKey: false,
+        	    allowOutsideClick: false,
+//        	    timer: 5000,
+        	    onOpen: () => {
+        	      swal.showLoading();
+        	    }
+        	  })
             ajax_register(formData);
         });
 
@@ -639,10 +649,11 @@
                 	console.log("res棒");
                     console.log(""+data);
                     if (data === 'true') {
+                    	swal.hideLoading();
                     	Swal.fire({
                     		icon: 'success',
-                    		title: '註冊成功!',
-                    		text: "歡迎成為愛租房客會員",
+                    		title: '註冊成功',
+                    		text: "請盡速至信箱完成驗證",
                     	    showDenyButton: true,
                     		}).then((result) => {
                     		  if (result.isConfirmed) {
@@ -650,9 +661,24 @@
                     		  } 
                     		});
                     }
+                    if (data === 'false') {
+                    	swal.hideLoading();
+                    	Swal.fire({
+                    		icon: 'warning',
+                    		title: '發生錯誤',
+                    		text: "請稍後重新點選送出",
+                    	    showDenyButton: true,
+                    		});
+                    }
                 },
                 error: function() {
                     console.log("真的不棒")
+                    Swal.fire({
+                    		icon: 'warning',
+                    		title: '發生錯誤',
+                    		text: "請稍後重新點選送出",
+                    	    showDenyButton: true,
+                    		})
                 }
             });
         }

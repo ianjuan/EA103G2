@@ -1,0 +1,203 @@
+
+/* --------------------------��������css----------------------------- */
+
+.evatitle {
+	width: 100%;
+	font-weight: bold;
+	font-style: italic;
+	color: #B35812;
+	font-size: 160%;
+/* 	text-align: center; */
+/* 	text-shadow: 0px 0px 2px #fff, 2px 2px 2px brown; */
+}
+.modal-body ul{
+	list-style:none;
+	padding-left: 0px;
+}
+.item {
+	line-height: 38px;
+}
+.itemtitle {
+	font-weight: bold;
+	font-size: 120%;
+	margin-right: 5px;
+	color: #693919;
+}
+.item textarea {
+	width: 98%;
+	border: 1px solid black;
+	border-radius: 10px;
+	outline: none;
+	font-size: 100%;
+	font-weight: bold;
+	resize:none;
+}
+.item textarea:focus {
+	border: 1px solid #36F9A0;
+	background-color:black;
+	color: white;
+}
+.item textarea:focus::placeholder {
+	color: white;
+}
+.fontstyle {
+	font-size: 70%;
+	color: #737373;
+	line-height:5px;
+}
+.logo {
+	display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.logo img{
+/* 	display: inline-block; */
+	width: 30px;
+	margin-right: 8px;
+}
+
+/* --------------------------�Ҧ�����css----------------------------- */
+
+.allhousetitle {
+	display: block;
+	margin: 0 auto;
+	font-weight: bold;
+	font-size: 160%;
+	font-style: italic;
+	color: #B35812;
+}
+.listlogo {
+	display:flex;
+    align-items:center;
+    justify-content:center;
+    float:left;
+    margin-left: 20px;
+}
+.listlogo img{
+	width: 25px;
+	margin-right: 8px;
+}
+.evatime {
+	line-height: 40px;
+	float:right;
+	font-size: 80%;
+	color: brown;
+}
+.avgpoint {
+	line-height: 38px;
+	font-size: 120%;
+	color: #EA9906;
+}
+
+/* --------------------------�P�Pcss----------------------------- */
+
+.rating {
+  --default: #8A91B4;
+  --active: #FDCF10;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: -webkit-box;
+/*   display: flex; */
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  flex-direction: row-reverse;
+}
+.rating li {
+  --star-before-r: 0;
+  --star-before-y: 0;
+  --star-after-r: 0;
+  --star-after-y: 0;
+  --star-o: 1;
+  --star-blur: 0;
+  padding: 0 4px;
+}
+.rating li:hover {
+  --color: var(--active);
+  --dot-scale: 1;
+}
+.rating li:hover ~ li {
+  --color: var(--active);
+  --dot-scale: 1;
+}
+.rating li.active {
+  --star-scale: 1;
+  --dot-duration: 0s;
+}
+.rating li.activeColor {
+  --color: var(--active);
+}
+.rating li button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  -webkit-transform: scale(var(--scale, 1));
+          transform: scale(var(--scale, 1));
+  -webkit-transition: -webkit-transform .2s;
+  transition: -webkit-transform .2s;
+  transition: transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
+}
+.rating li button:active {
+  --scale: .8;
+}
+.rating li button:before {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background: var(--color, var(--default));
+  -webkit-transform: scale(var(--dot-scale, 0.8)) translateZ(0);
+          transform: scale(var(--dot-scale, 0.8)) translateZ(0);
+  -webkit-transition: background 0.25s, -webkit-transform var(--dot-duration, 0.25s);
+  transition: background 0.25s, -webkit-transform var(--dot-duration, 0.25s);
+  transition: background 0.25s, transform var(--dot-duration, 0.25s);
+  transition: background 0.25s, transform var(--dot-duration, 0.25s), -webkit-transform var(--dot-duration, 0.25s);
+}
+.rating li button .star {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  opacity: var(--star-o);
+  -webkit-filter: blur(calc(var(--star-blur) * 1px));
+          filter: blur(calc(var(--star-blur) * 1px));
+  -webkit-transform: translateY(calc(var(--star-y, 0) * 1px)) scale(var(--star-scale, 0)) translateZ(0);
+          transform: translateY(calc(var(--star-y, 0) * 1px)) scale(var(--star-scale, 0)) translateZ(0);
+}
+.rating li button .star:before, .rating li button .star:after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-transform: translateY(calc(var(--y, var(--star-before-y)) * 1px)) rotate(calc(var(--r, var(--star-before-r)) * 1deg)) translateZ(0);
+          transform: translateY(calc(var(--y, var(--star-before-y)) * 1px)) rotate(calc(var(--r, var(--star-before-r)) * 1deg)) translateZ(0);
+  background: var(--color, var(--default));
+  -webkit-transition: background .25s;
+  transition: background .25s;
+}
+.rating li button .star:before {
+  -webkit-clip-path: polygon(50% 5%, 65% 35%, 30% 60%, 2.5% 40%, 35% 35%);
+          clip-path: polygon(50% 5%, 65% 35%, 30% 60%, 2.5% 40%, 35% 35%);
+}
+.rating li button .star:after {
+  --r: var(--star-after-r);
+  --y: var(--star-after-y);
+  -webkit-clip-path: polygon(65% 35%, 97.5% 40%, 70% 60%, 80% 95%, 50% 74%, 20% 95%, 30% 60%);
+          clip-path: polygon(65% 35%, 97.5% 40%, 70% 60%, 80% 95%, 50% 74%, 20% 95%, 30% 60%);
+}

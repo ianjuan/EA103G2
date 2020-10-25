@@ -7,6 +7,7 @@ public interface TenantDAO_interface {
 	public List<TntVO> getAll_account();
 	public TntVO findByPK_account(String tnt_no); //暫時沒用到
 	public void update_pwd(TntVO tntVO);
+	public void update_status(TntVO tntVO);
 	
 	public void update_pic(TntVO tntVO);
 	public TntVO findByPK_pic(String tnt_no);

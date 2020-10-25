@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.tnt.model.*"%>
-
 
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
@@ -9,10 +9,49 @@
 <%
 	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
 	request.setAttribute("tntVO", tntVO);
-%>
-<%
 	TntVO tntVO_pocket = tntSvc.getOneTntPocket(tnt_no);
 	request.setAttribute("tntVO_pocket", tntVO_pocket);
+	TntVO tntVO_bankcard = tntSvc.getOneTntBankCard(tnt_no);
+	request.setAttribute("tntVO_bankcard", tntVO_bankcard);
+%>
+<%
+    String bank = tntVO_bankcard.getTnt_bank();
+	String bankinfoStr = "";
+	if (bank != null){
+		String bankAccEnd = tntVO_bankcard.getTnt_bankacc();
+		int tmp = bankAccEnd.length();
+		bankAccEnd = bankAccEnd.substring(tmp-4);
+		bankinfoStr = bank + "&nbsp&nbsp****&nbsp" + bankAccEnd;
+		
+	} else {
+		bankinfoStr = "尚未更新收款資訊";
+	}
+	String card = tntVO_bankcard.getTnt_card();
+	String cardinfoStr = "";
+	if (card != null){
+// 		String cardEnd = tntVO_bankcard.getTnt_card();
+		int tmp = card.length();
+		card = card.substring(tmp-4);
+		cardinfoStr = "台新銀行&nbsp&nbsp****&nbsp" + card;
+	} else {
+		cardinfoStr = "尚未更新付款資訊";
+	}
+	
+	
+	
+	
+// 	String bankAccEnd = tntVO_bankcard.getTnt_bankacc();
+// 	if (bankAccEnd != null){
+// 		int tmp = bankAccEnd.length();
+// 		bankAccEnd = bankAccEnd.substring(tmp-4);
+// 	}
+// 	String cardEnd = tntVO_bankcard.getTnt_card();
+// 	if (cardEnd != null){
+// 		int tmp = cardEnd.length();
+// 		cardEnd = cardEnd.substring(tmp-4);
+// 	}
+	
+	
 %> 
 
 <head>
@@ -93,22 +132,7 @@
 
     </script>
 </head>
-
 <body class="landing">
-<!--     Header -->
-<!--     <header id="header"> -->
-<!--         <h1> -->
-<!--             <a href="index.html" style="color: #555">愛租I-ZU</a> -->
-<!--         </h1> -->
-<!--         <nav id="nav"> -->
-<!--             <ul> -->
-<!--                 <li><a href="index.html">尋找房源</a></li> -->
-<!--                 <li><a href="generic.html">地圖找房</a></li> -->
-<!--                 <li><a href="elements.html">會員登入</a></li> -->
-<!--                 <li><a href="#" class="special">註冊會員</a></li> -->
-<!--             </ul> -->
-<!--         </nav> -->
-<!--     </header> -->
 	<jsp:include page="/front-end/navbar/navbar.jsp"/>
     <section>
         <section class="content">
@@ -186,37 +210,38 @@
                                 <div class="row no-gutters justify-content-around">
 <!--                                     justify-content-between -->
                                         <div class="pocketTitleSmall" style="font-size:30px; margin:0px">
-                                        	<p class="pocketTitleSmall" style="display: contents;color: #212529; width:40%">錢包餘額:<span style="color:#fff;">_</span></p>$ 10,000 元</div>
+                                        	<p class="pocketTitleSmall" style="display: contents;color: #212529; width:40%">錢包餘額:<span style="color:#fff;">_</span>
+                                        	</p>$ <fmt:formatNumber type="number" maxFractionDigits="3" value="${tntVO_pocket.tnt_balance}" /> 元</div>
                                     </div>
-<%--                                 ${tntVO_pocket.tnt_pocket} --%>
+                                
                                     <hr class="login100-form-title p-b-10">
-                                    
-                                    <form class="blanceInputform" enctype="multipart/form-data">
-		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than blance">
-		                                        <input class="register100" type="text" name="tnt_bankbranch" id="tnt_bankbranch">
+<!--                                 class="balanceInputform"    id="withdrawform" id="registerform"-->
+                                    <form  class="balanceInputform" id="withdrawform" enctype="multipart/form-data">
+		                                    <div class="wrap-register100 validate-input" data-validate="Please enter a positive integer">
+		                                        <input class="register100" type="text" name="pocket_withdraw" id="pocket_withdraw">
 		                                        <span class="focus-register100"></span>
 		                                        <span class="label-register100">請輸入提款金額</span>
 		                                    </div>
                                     </form>
                                     
                                     <div class="row no-gutters justify-content-around" > 
-				                            <div class="bankTitleSmall">收款帳號<br><span style="color: #444;margin-left:30px">中國信託   **** 1234</span></div>
-				                            <div class="wrap-btnBlanceSmall" style=" display: inline-block;">
-				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBlanceSmall" id="blanceWithdraw">提領</a>
+				                            <div class="bankTitleSmall">收款帳號<br><span style="color: #444;margin-left:30px"><%=bankinfoStr%></span></div>
+				                            <div class="wrap-btnBalanceSmall" style=" display: inline-block;">
+				                               <button class="btnBalanceSmall" id="btnbalanceWithdraw">提領</button>
 				                            </div>
 				                    </div>
 				                    <hr style="margin: 25px 40px;">
-				                    <form class="blanceInputform" enctype="multipart/form-data">
-		                                    <div class="wrap-register100 validate-input" data-validate="Withdraw should greater than blance">
-		                                        <input class="register100" type="text" name="tnt_bankbranch" id="tnt_bankbranch">
+				                    <form class="balanceInputform" id="depositform" enctype="multipart/form-data">
+		                                    <div class="wrap-register100 validate-input" data-validate="Please enter a positive integer">
+		                                        <input class="register100" type="text" name="pocket_deposit" id="pocket_deposit">
 		                                        <span class="focus-register100"></span>
 		                                        <span class="label-register100">請輸入儲值金額</span>
 		                                    </div>
                                     </form>
 				                    <div class="row no-gutters justify-content-around" > 
-				                            <div class="bankTitleSmall">付款信用卡<br><span style="color: #444;margin-left:30px">中國信託  **** 1234</span></div>
-				                            <div class="wrap-btnBlanceSmall" style=" display: inline-block;">
-				                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="btnBlanceSmall" id="blanceDeposit">儲值</a>
+				                            <div class="bankTitleSmall">付款信用卡<br><span style="color: #444;margin-left:30px"><%=cardinfoStr%></span></div>
+				                            <div class="wrap-btnBalanceSmall" style=" display: inline-block;">
+				                               <button class="btnBalanceSmall" id="btnbalanceDeposit">儲值</button>
 				                            </div>
 				                    </div>
 
@@ -225,51 +250,51 @@
                             <!--End form1 Pocket -->
 
                             <!--Start form2 upcoming Money-->
-                            <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
-                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">待收/待繳紀錄
-                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
-                                            <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
-                                        </svg>
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp">
-                                            <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path>
-                                        </svg>
-                                    </a>
-                                </h4>
-                                <hr class="login100-form-title p-b-10">
-                                <!-- <div class="login100-form validate-form"> -->
-                                <form id="registerform" enctype="multipart/form-data">
-                                    form1
-                                </form>
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button>
-                                    <!--id="btnProfile"-->
-                                </div>
-                            </div>
+<!--                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4"> -->
+<!--                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">待收/待繳紀錄 -->
+<!--                                     <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown"> -->
+<!--                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;"> -->
+<!--                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path> -->
+<!--                                         </svg> -->
+<!--                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp"> -->
+<!--                                             <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path> -->
+<!--                                         </svg> -->
+<!--                                     </a> -->
+<!--                                 </h4> -->
+<!--                                 <hr class="login100-form-title p-b-10"> -->
+<!--                                 <div class="login100-form validate-form"> -->
+<!--                                 <form id="registerform" enctype="multipart/form-data"> -->
+<!--                                     form1 -->
+<!--                                 </form> -->
+<!--                                 <div class="container-login100-form-btn"> -->
+<!--                                     <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button> -->
+<!--                                     id="btnProfile" -->
+<!--                                 </div> -->
+<!--                             </div> -->
                             <!--End form2 upcoming Money -->
 
                             <!--Start form3 history Money-->
-                            <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
-                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">歷史紀錄
-                                    <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
-                                            <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
-                                        </svg>
-                                        <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp">
-                                            <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path>
-                                        </svg>
-                                    </a>
-                                </h4>
-                                <hr class="login100-form-title p-b-10">
-                                <!-- <div class="login100-form validate-form"> -->
-                                <form id="registerform" enctype="multipart/form-data">
-                                    form1
-                                </form>
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button>
-                                    <!--id="btnProfile"-->
-                                </div>
-                            </div>
+<!--                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4"> -->
+<!--                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">歷史紀錄 -->
+<!--                                     <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown"> -->
+<!--                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;"> -->
+<!--                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path> -->
+<!--                                         </svg> -->
+<!--                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-up fa-w-14 angleUp"> -->
+<!--                                             <path data-v-9403d44c="" fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z" class=""></path> -->
+<!--                                         </svg> -->
+<!--                                     </a> -->
+<!--                                 </h4> -->
+<!--                                 <hr class="login100-form-title p-b-10"> -->
+<!--                                 <div class="login100-form validate-form"> -->
+<!--                                 <form id="registerform" enctype="multipart/form-data"> -->
+<!--                                     form1 -->
+<!--                                 </form> -->
+<!--                                 <div class="container-login100-form-btn"> -->
+<!--                                     <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button> -->
+<!--                                     id="btnProfile" -->
+<!--                                 </div> -->
+<!--                             </div> -->
                             <!--End form3 history Money -->
 
                             <!--Start form4 BankCard-->
@@ -292,141 +317,141 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
                                             <option value="">選擇銀行及代號
-                                            <option data-v-9403d44c="" value="004">004 台灣銀行</option>
-                                            <option data-v-9403d44c="" value="005">005 土地銀行</option>
-                                            <option data-v-9403d44c="" value="006">006 合庫商銀</option>
-                                            <option data-v-9403d44c="" value="007">007 第一銀行</option>
-                                            <option data-v-9403d44c="" value="008">008 華南銀行</option>
-                                            <option data-v-9403d44c="" value="009">009 彰化銀行</option>
-                                            <option data-v-9403d44c="" value="011">011 上海銀行</option>
-                                            <option data-v-9403d44c="" value="012">012 台北富邦</option>
-                                            <option data-v-9403d44c="" value="013">013 國泰世華</option>
-                                            <option data-v-9403d44c="" value="016">016 高雄銀行</option>
-                                            <option data-v-9403d44c="" value="017">017 兆豐商銀</option>
-                                            <option data-v-9403d44c="" value="018">018 農業金庫</option>
-                                            <option data-v-9403d44c="" value="021">021 花旗銀行</option>
-                                            <option data-v-9403d44c="" value="039">039 澳盛銀行</option>
-                                            <option data-v-9403d44c="" value="048">048 王道銀行</option>
-                                            <option data-v-9403d44c="" value="050">050 台灣企銀</option>
-                                            <option data-v-9403d44c="" value="052">052 渣打商銀</option>
-                                            <option data-v-9403d44c="" value="053">053 台中商銀</option>
-                                            <option data-v-9403d44c="" value="054">054 京城商銀</option>
-                                            <option data-v-9403d44c="" value="081">081 匯豐銀行</option>
-                                            <option data-v-9403d44c="" value="101">101 瑞興銀行</option>
-                                            <option data-v-9403d44c="" value="102">102 華泰銀行</option>
-                                            <option data-v-9403d44c="" value="103">103 臺灣新光銀行</option>
-                                            <option data-v-9403d44c="" value="700">700 中華郵政</option>
-                                            <option data-v-9403d44c="" value="803">803 聯邦銀行</option>
-                                            <option data-v-9403d44c="" value="805">805 遠東銀行</option>
-                                            <option data-v-9403d44c="" value="806">806 元大銀行</option>
-                                            <option data-v-9403d44c="" value="807">807 永豐銀行</option>
-                                            <option data-v-9403d44c="" value="808">808 玉山銀行</option>
-                                            <option data-v-9403d44c="" value="809">809 凱基銀行</option>
-                                            <option data-v-9403d44c="" value="810">810 星展銀行</option>
-                                            <option data-v-9403d44c="" value="812">812 台新銀行</option>
-                                            <option data-v-9403d44c="" value="814">814 大眾銀行</option>
-                                            <option data-v-9403d44c="" value="815">815 日盛銀行</option>
-                                            <option data-v-9403d44c="" value="816">816 安泰銀行</option>
-                                            <option data-v-9403d44c="" value="822">822 中國信託</option>
-                                            <option data-v-9403d44c="" value="022">022 美國銀行</option>
-                                            <option data-v-9403d44c="" value="025">025 首都銀行</option>
-                                            <option data-v-9403d44c="" value="040">040 中華開發</option>
-                                            <option data-v-9403d44c="" value="072">072 德意志銀行</option>
-                                            <option data-v-9403d44c="" value="075">075 東亞銀行</option>
-                                            <option data-v-9403d44c="" value="082">082 巴黎銀行</option>
-                                            <option data-v-9403d44c="" value="104">104 台北五信</option>
-                                            <option data-v-9403d44c="" value="106">106 台北九信</option>
-                                            <option data-v-9403d44c="" value="108">108 陽信銀行</option>
-                                            <option data-v-9403d44c="" value="114">114 基隆一信</option>
-                                            <option data-v-9403d44c="" value="115">115 基隆二信</option>
-                                            <option data-v-9403d44c="" value="118">118 板信銀行</option>
-                                            <option data-v-9403d44c="" value="119">119 淡水一信</option>
-                                            <option data-v-9403d44c="" value="120">120 淡水信合社</option>
-                                            <option data-v-9403d44c="" value="124">124 宜蘭信合社</option>
-                                            <option data-v-9403d44c="" value="127">127 桃園信合社</option>
-                                            <option data-v-9403d44c="" value="130">130 新竹一信</option>
-                                            <option data-v-9403d44c="" value="132">132 新竹三信</option>
-                                            <option data-v-9403d44c="" value="146">146 台中二信</option>
-                                            <option data-v-9403d44c="" value="147">147 三信銀行</option>
-                                            <option data-v-9403d44c="" value="158">158 彰化一信</option>
-                                            <option data-v-9403d44c="" value="161">161 彰化五信</option>
-                                            <option data-v-9403d44c="" value="162">162 彰化六信</option>
-                                            <option data-v-9403d44c="" value="163">163 彰化十信</option>
-                                            <option data-v-9403d44c="" value="165">165 鹿港信合社</option>
-                                            <option data-v-9403d44c="" value="178">178 嘉義三信</option>
-                                            <option data-v-9403d44c="" value="179">179 嘉義四信</option>
-                                            <option data-v-9403d44c="" value="188">188 台南三信</option>
-                                            <option data-v-9403d44c="" value="204">204 高雄三信</option>
-                                            <option data-v-9403d44c="" value="215">215 花蓮一信</option>
-                                            <option data-v-9403d44c="" value="216">216 花蓮二信</option>
-                                            <option data-v-9403d44c="" value="222">222 澎湖一信</option>
-                                            <option data-v-9403d44c="" value="223">223 澎湖二信</option>
-                                            <option data-v-9403d44c="" value="224">224 金門信合社</option>
-                                            <option data-v-9403d44c="" value="508">508 通苑區漁會</option>
-                                            <option data-v-9403d44c="" value="510">510 南龍區漁會</option>
-                                            <option data-v-9403d44c="" value="511">511 彰化區漁會</option>
-                                            <option data-v-9403d44c="" value="512">512 雲林區漁會</option>
-                                            <option data-v-9403d44c="" value="515">515 嘉義區漁會</option>
-                                            <option data-v-9403d44c="" value="517">517 南市區漁會</option>
-                                            <option data-v-9403d44c="" value="518">518 南縣區漁會</option>
-                                            <option data-v-9403d44c="" value="520">520 小港漁會</option>
-                                            <option data-v-9403d44c="" value="521">521 彌陀永安興達林園漁會</option>
-                                            <option data-v-9403d44c="" value="523">523 東港林邊琉球區漁會</option>
-                                            <option data-v-9403d44c="" value="524">524 新港漁會</option>
-                                            <option data-v-9403d44c="" value="525">525 澎湖區漁會</option>
-                                            <option data-v-9403d44c="" value="542">542 麻豆農會</option>
-                                            <option data-v-9403d44c="" value="549">549 下營農會</option>
-                                            <option data-v-9403d44c="" value="551">551 官田農會</option>
-                                            <option data-v-9403d44c="" value="552">552 大內農會</option>
-                                            <option data-v-9403d44c="" value="557">557 新市農會</option>
-                                            <option data-v-9403d44c="" value="558">558 安定農會</option>
-                                            <option data-v-9403d44c="" value="562">562 仁德農會</option>
-                                            <option data-v-9403d44c="" value="567">567 南化農會</option>
-                                            <option data-v-9403d44c="" value="568">568 七股區農會</option>
-                                            <option data-v-9403d44c="" value="600">600 農金資中心</option>
-                                            <option data-v-9403d44c="" value="605">605 高雄市農會</option>
-                                            <option data-v-9403d44c="" value="606">606 新北市地區農會</option>
-                                            <option data-v-9403d44c="" value="607">607 宜蘭農會</option>
-                                            <option data-v-9403d44c="" value="608">608 桃園地區農會</option>
-                                            <option data-v-9403d44c="" value="612">612 神岡鄉農會</option>
-                                            <option data-v-9403d44c="" value="613">613 名間鄉農會</option>
-                                            <option data-v-9403d44c="" value="614">614 彰化地區農會</option>
-                                            <option data-v-9403d44c="" value="616">616 雲林地區農會</option>
-                                            <option data-v-9403d44c="" value="617">617 嘉義地區農會</option>
-                                            <option data-v-9403d44c="" value="618">618 台南地區農會</option>
-                                            <option data-v-9403d44c="" value="619">619 高雄地區農會</option>
-                                            <option data-v-9403d44c="" value="620">620 屏東地區農會</option>
-                                            <option data-v-9403d44c="" value="621">621 花蓮地區農會</option>
-                                            <option data-v-9403d44c="" value="622">622 台東地區農會</option>
-                                            <option data-v-9403d44c="" value="624">624 澎湖區農會</option>
-                                            <option data-v-9403d44c="" value="625">625 台中市農會</option>
-                                            <option data-v-9403d44c="" value="627">627 連江縣農會</option>
-                                            <option data-v-9403d44c="" value="633">633 北斗農會</option>
-                                            <option data-v-9403d44c="" value="635">635 線西農會</option>
-                                            <option data-v-9403d44c="" value="636">636 伸港鄉農會</option>
-                                            <option data-v-9403d44c="" value="650">650 福興農會</option>
-                                            <option data-v-9403d44c="" value="651">651 彰化市農會</option>
-                                            <option data-v-9403d44c="" value="870">870 梧棲區農會</option>
-                                            <option data-v-9403d44c="" value="882">882 大肚區農會</option>
-                                            <option data-v-9403d44c="" value="901">901 大里市農會</option>
-                                            <option data-v-9403d44c="" value="903">903 汐止市農會</option>
-                                            <option data-v-9403d44c="" value="904">904 新莊市農會</option>
-                                            <option data-v-9403d44c="" value="910">910 桃園新竹區農會</option>
-                                            <option data-v-9403d44c="" value="912">912 冬山鄉農會</option>
-                                            <option data-v-9403d44c="" value="915">915 西湖鄉農會</option>
-                                            <option data-v-9403d44c="" value="916">916 草屯鎮農會</option>
-                                            <option data-v-9403d44c="" value="919">919 三義農會</option>
-                                            <option data-v-9403d44c="" value="921">921 南庄鄉農會</option>
-                                            <option data-v-9403d44c="" value="922">922 台南市農會</option>
-                                            <option data-v-9403d44c="" value="928">928 板橋市農會</option>
-                                            <option data-v-9403d44c="" value="951">951 新北市農會北區共用中心</option>
-                                            <option data-v-9403d44c="" value="953">953 田尾鄉農會</option>
-                                            <option data-v-9403d44c="" value="954">954 農漁會中區共用中心</option>
-                                            <option data-v-9403d44c="" value="995">995 關貿網路</option>
-                                            <option data-v-9403d44c="" value="996">996 台北區支付處</option>
-                                            <option data-v-9403d44c="" value="997">997 信合社南區資訊中心</option>
-                                            <option data-v-9403d44c="" value="998">998 金融聯合資訊中心</option>
-                                            <option data-v-9403d44c="" value="999">999 票據交換所</option>
+                                            <option data-v-9403d44c="" value="台灣銀行">004 台灣銀行</option>
+                                            <option data-v-9403d44c="" value="土地銀行">005 土地銀行</option>
+                                            <option data-v-9403d44c="" value="合庫商銀">006 合庫商銀</option>
+                                            <option data-v-9403d44c="" value="第一銀行">007 第一銀行</option>
+                                            <option data-v-9403d44c="" value="華南銀行">008 華南銀行</option>
+                                            <option data-v-9403d44c="" value="彰化銀行">009 彰化銀行</option>
+                                            <option data-v-9403d44c="" value="上海銀行">011 上海銀行</option>
+                                            <option data-v-9403d44c="" value="台北富邦">012 台北富邦</option>
+                                            <option data-v-9403d44c="" value="國泰世華">013 國泰世華</option>
+                                            <option data-v-9403d44c="" value="高雄銀行">016 高雄銀行</option>
+                                            <option data-v-9403d44c="" value="兆豐商銀">017 兆豐商銀</option>
+                                            <option data-v-9403d44c="" value="農業金庫">018 農業金庫</option>
+                                            <option data-v-9403d44c="" value="花旗銀行">021 花旗銀行</option>
+                                            <option data-v-9403d44c="" value="澳盛銀行">039 澳盛銀行</option>
+                                            <option data-v-9403d44c="" value="王道銀行">048 王道銀行</option>
+                                            <option data-v-9403d44c="" value="台灣企銀">050 台灣企銀</option>
+                                            <option data-v-9403d44c="" value="渣打商銀">052 渣打商銀</option>
+                                            <option data-v-9403d44c="" value="台中商銀">053 台中商銀</option>
+                                            <option data-v-9403d44c="" value="京城商銀">054 京城商銀</option>
+                                            <option data-v-9403d44c="" value="匯豐銀行">081 匯豐銀行</option>
+                                            <option data-v-9403d44c="" value="瑞興銀行">101 瑞興銀行</option>
+                                            <option data-v-9403d44c="" value="華泰銀行">102 華泰銀行</option>
+                                            <option data-v-9403d44c="" value="臺灣新光銀行">103 臺灣新光銀行</option>
+                                            <option data-v-9403d44c="" value="中華郵政">700 中華郵政</option>
+                                            <option data-v-9403d44c="" value="聯邦銀行">803 聯邦銀行</option>
+                                            <option data-v-9403d44c="" value="遠東銀行">805 遠東銀行</option>
+                                            <option data-v-9403d44c="" value="元大銀行">806 元大銀行</option>
+                                            <option data-v-9403d44c="" value="永豐銀行">807 永豐銀行</option>
+                                            <option data-v-9403d44c="" value="玉山銀行">808 玉山銀行</option>
+                                            <option data-v-9403d44c="" value="凱基銀行">809 凱基銀行</option>
+                                            <option data-v-9403d44c="" value="星展銀行">810 星展銀行</option>
+                                            <option data-v-9403d44c="" value="台新銀行">812 台新銀行</option>
+                                            <option data-v-9403d44c="" value="大眾銀行">814 大眾銀行</option>
+                                            <option data-v-9403d44c="" value="日盛銀行">815 日盛銀行</option>
+                                            <option data-v-9403d44c="" value="安泰銀行">816 安泰銀行</option>
+                                            <option data-v-9403d44c="" value="中國信託">822 中國信託</option>
+                                            <option data-v-9403d44c="" value="美國銀行">022 美國銀行</option>
+                                            <option data-v-9403d44c="" value="首都銀行">025 首都銀行</option>
+                                            <option data-v-9403d44c="" value="中華開發">040 中華開發</option>
+                                            <option data-v-9403d44c="" value="德意志銀行">072 德意志銀行</option>
+                                            <option data-v-9403d44c="" value="東亞銀行">075 東亞銀行</option>
+                                            <option data-v-9403d44c="" value="巴黎銀行">082 巴黎銀行</option>
+                                            <option data-v-9403d44c="" value="台北五信">104 台北五信</option>
+                                            <option data-v-9403d44c="" value="台北九信">106 台北九信</option>
+                                            <option data-v-9403d44c="" value="陽信銀行">108 陽信銀行</option>
+                                            <option data-v-9403d44c="" value="基隆一信">114 基隆一信</option>
+                                            <option data-v-9403d44c="" value="基隆二信">115 基隆二信</option>
+                                            <option data-v-9403d44c="" value="板信銀行">118 板信銀行</option>
+                                            <option data-v-9403d44c="" value="淡水一信">119 淡水一信</option>
+                                            <option data-v-9403d44c="" value="淡水信合社">120 淡水信合社</option>
+                                            <option data-v-9403d44c="" value="宜蘭信合社">124 宜蘭信合社</option>
+                                            <option data-v-9403d44c="" value="桃園信合社">127 桃園信合社</option>
+                                            <option data-v-9403d44c="" value="新竹一信">130 新竹一信</option>
+                                            <option data-v-9403d44c="" value="新竹三信">132 新竹三信</option>
+                                            <option data-v-9403d44c="" value="台中二信">146 台中二信</option>
+                                            <option data-v-9403d44c="" value="三信銀行">147 三信銀行</option>
+                                            <option data-v-9403d44c="" value="彰化一信">158 彰化一信</option>
+                                            <option data-v-9403d44c="" value="彰化五信">161 彰化五信</option>
+                                            <option data-v-9403d44c="" value="彰化六信">162 彰化六信</option>
+                                            <option data-v-9403d44c="" value="彰化十信">163 彰化十信</option>
+                                            <option data-v-9403d44c="" value="鹿港信合社">165 鹿港信合社</option>
+                                            <option data-v-9403d44c="" value="嘉義三信">178 嘉義三信</option>
+                                            <option data-v-9403d44c="" value="嘉義四信">179 嘉義四信</option>
+                                            <option data-v-9403d44c="" value="台南三信">188 台南三信</option>
+                                            <option data-v-9403d44c="" value="高雄三信">204 高雄三信</option>
+                                            <option data-v-9403d44c="" value="花蓮一信">215 花蓮一信</option>
+                                            <option data-v-9403d44c="" value="花蓮二信">216 花蓮二信</option>
+                                            <option data-v-9403d44c="" value="澎湖一信">222 澎湖一信</option>
+                                            <option data-v-9403d44c="" value="澎湖二信">223 澎湖二信</option>
+                                            <option data-v-9403d44c="" value="金門信合社">224 金門信合社</option>
+                                            <option data-v-9403d44c="" value="通苑區漁會">508 通苑區漁會</option>
+                                            <option data-v-9403d44c="" value="南龍區漁會">510 南龍區漁會</option>
+                                            <option data-v-9403d44c="" value="彰化區漁會">511 彰化區漁會</option>
+                                            <option data-v-9403d44c="" value="雲林區漁會">512 雲林區漁會</option>
+                                            <option data-v-9403d44c="" value="嘉義區漁會">515 嘉義區漁會</option>
+                                            <option data-v-9403d44c="" value="南市區漁會">517 南市區漁會</option>
+                                            <option data-v-9403d44c="" value="南縣區漁會">518 南縣區漁會</option>
+                                            <option data-v-9403d44c="" value="小港漁會">520 小港漁會</option>
+                                            <option data-v-9403d44c="" value="彌陀永安興達林園漁會">521 彌陀永安興達林園漁會</option>
+                                            <option data-v-9403d44c="" value="東港林邊琉球區漁會">523 東港林邊琉球區漁會</option>
+                                            <option data-v-9403d44c="" value="新港漁會">524 新港漁會</option>
+                                            <option data-v-9403d44c="" value="澎湖區漁會">525 澎湖區漁會</option>
+                                            <option data-v-9403d44c="" value="麻豆農會">542 麻豆農會</option>
+                                            <option data-v-9403d44c="" value="下營農會">549 下營農會</option>
+                                            <option data-v-9403d44c="" value="官田農會">551 官田農會</option>
+                                            <option data-v-9403d44c="" value="大內農會">552 大內農會</option>
+                                            <option data-v-9403d44c="" value="新市農會">557 新市農會</option>
+                                            <option data-v-9403d44c="" value="安定農會">558 安定農會</option>
+                                            <option data-v-9403d44c="" value="仁德農會">562 仁德農會</option>
+                                            <option data-v-9403d44c="" value="南化農會">567 南化農會</option>
+                                            <option data-v-9403d44c="" value="七股區農會">568 七股區農會</option>
+                                            <option data-v-9403d44c="" value="農金資中心">600 農金資中心</option>
+                                            <option data-v-9403d44c="" value="高雄市農會">605 高雄市農會</option>
+                                            <option data-v-9403d44c="" value="新北市地區農會">606 新北市地區農會</option>
+                                            <option data-v-9403d44c="" value="宜蘭農會">607 宜蘭農會</option>
+                                            <option data-v-9403d44c="" value="桃園地區農會">608 桃園地區農會</option>
+                                            <option data-v-9403d44c="" value="神岡鄉農會">612 神岡鄉農會</option>
+                                            <option data-v-9403d44c="" value="名間鄉農會">613 名間鄉農會</option>
+                                            <option data-v-9403d44c="" value="彰化地區農會">614 彰化地區農會</option>
+                                            <option data-v-9403d44c="" value="雲林地區農會">616 雲林地區農會</option>
+                                            <option data-v-9403d44c="" value="嘉義地區農會">617 嘉義地區農會</option>
+                                            <option data-v-9403d44c="" value="台南地區農會">618 台南地區農會</option>
+                                            <option data-v-9403d44c="" value="高雄地區農會">619 高雄地區農會</option>
+                                            <option data-v-9403d44c="" value="屏東地區農會">620 屏東地區農會</option>
+                                            <option data-v-9403d44c="" value="花蓮地區農會">621 花蓮地區農會</option>
+                                            <option data-v-9403d44c="" value="台東地區農會">622 台東地區農會</option>
+                                            <option data-v-9403d44c="" value="澎湖區農會">624 澎湖區農會</option>
+                                            <option data-v-9403d44c="" value="台中市農會">625 台中市農會</option>
+                                            <option data-v-9403d44c="" value="連江縣農會">627 連江縣農會</option>
+                                            <option data-v-9403d44c="" value="北斗農會">633 北斗農會</option>
+                                            <option data-v-9403d44c="" value="線西農會">635 線西農會</option>
+                                            <option data-v-9403d44c="" value="伸港鄉農會">636 伸港鄉農會</option>
+                                            <option data-v-9403d44c="" value="福興農會">650 福興農會</option>
+                                            <option data-v-9403d44c="" value="彰化市農會">651 彰化市農會</option>
+                                            <option data-v-9403d44c="" value="梧棲區農會">870 梧棲區農會</option>
+                                            <option data-v-9403d44c="" value="大肚區農會">882 大肚區農會</option>
+                                            <option data-v-9403d44c="" value="大里市農會">901 大里市農會</option>
+                                            <option data-v-9403d44c="" value="汐止市農會">903 汐止市農會</option>
+                                            <option data-v-9403d44c="" value="新莊市農會">904 新莊市農會</option>
+                                            <option data-v-9403d44c="" value="桃園新竹區農會">910 桃園新竹區農會</option>
+                                            <option data-v-9403d44c="" value="冬山鄉農會">912 冬山鄉農會</option>
+                                            <option data-v-9403d44c="" value="西湖鄉農會">915 西湖鄉農會</option>
+                                            <option data-v-9403d44c="" value="草屯鎮農會">916 草屯鎮農會</option>
+                                            <option data-v-9403d44c="" value="三義農會">919 三義農會</option>
+                                            <option data-v-9403d44c="" value="南庄鄉農會">921 南庄鄉農會</option>
+                                            <option data-v-9403d44c="" value="台南市農會">922 台南市農會</option>
+                                            <option data-v-9403d44c="" value="板橋市農會">928 板橋市農會</option>
+                                            <option data-v-9403d44c="" value="新北市農會北區共用中心">951 新北市農會北區共用中心</option>
+                                            <option data-v-9403d44c="" value="田尾鄉農會">953 田尾鄉農會</option>
+                                            <option data-v-9403d44c="" value="農漁會中區共用中心">954 農漁會中區共用中心</option>
+                                            <option data-v-9403d44c="" value="關貿網路">995 關貿網路</option>
+                                            <option data-v-9403d44c="" value="台北區支付處">996 台北區支付處</option>
+                                            <option data-v-9403d44c="" value="信合社南區資訊中心">997 信合社南區資訊中心</option>
+                                            <option data-v-9403d44c="" value="金融聯合資訊中心">998 金融聯合資訊中心</option>
+                                            <option data-v-9403d44c="" value="票據交換所">999 票據交換所</option>
 
                                         </span>
                                     </select>
@@ -453,14 +478,14 @@
                                         <span class="label-register100">信用卡安全碼</span>
                                     </div>
                                     <div class="wrap-register100 validate-input" data-validate="Valid due date is required">
-                                        <input class="register100" type="month" name="tnt_carddue" id="tnt_carddue">
+                                        <input class="register100" type="month" name="tnt_carddue" id="tnt_carddue" min="">
                                         <span class="focus-register100"></span>
                                         <span class="label-register100 label-register100-carddue"></span>
                                     </div>
 
                                 </form>
                                 <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button>
+                                    <button class="login100-form-btn m-t-10 infoBtn" id="btnBankCard">儲存資訊</button>
                                     <!--id="btnProfile"-->
                                 </div>
                             </div>
@@ -510,11 +535,18 @@
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.datetimepicker.full.js"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/pocket_tnt.js"></script>
     <!--===============================================================================================-->
+    
+<%--     <% --%>
+<!--      String[] bankArray = {"台灣銀行","土地銀行","合庫商銀","第一銀行","華南銀行","彰化銀行","上海銀行","台北富邦","國泰世華","高雄銀行","兆豐商銀","農業金庫","花旗銀行","澳盛銀行","王道銀行","台灣企銀","渣打商銀","台中商銀","京城商銀","匯豐銀行","瑞興銀行","華泰銀行","臺灣新光銀行","中華郵政","聯邦銀行","遠東銀行","元大銀行","永豐銀行","玉山銀行","凱基銀行","星展銀行","台新銀行","大眾銀行","日盛銀行","安泰銀行","中國信託","美國銀行","首都銀行","中華開發","德意志銀行","東亞銀行","巴黎銀行","台北五信","台北九信","陽信銀行","基隆一信","基隆二信","板信銀行","淡水一信","淡水信合社","宜蘭信合社","桃園信合社","新竹一信","新竹三信","台中二信","三信銀行","彰化一信","彰化五信","彰化六信","彰化十信","鹿港信合社","嘉義三信","嘉義四信","台南三信","高雄三信","花蓮一信","花蓮二信","澎湖一信","澎湖二信","金門信合社","通苑區漁會","南龍區漁會","彰化區漁會","雲林區漁會","嘉義區漁會","南市區漁會","南縣區漁會","小港漁會","彌陀永安興達林園漁會","東港林邊琉球區漁會","新港漁會","澎湖區漁會","麻豆農會","下營農會","官田農會","大內農會","新市農會","安定農會","仁德農會","南化農會","七股區農會","農金資中心","高雄市農會","新北市地區農會","宜蘭農會","桃園地區農會","神岡鄉農會","名間鄉農會","彰化地區農會","雲林地區農會","嘉義地區農會","台南地區農會","高雄地區農會","屏東地區農會","花蓮地區農會","台東地區農會","澎湖區農會","台中市農會","連江縣農會","北斗農會","線西農會","伸港鄉農會","福興農會","彰化市農會","梧棲區農會","大肚區農會","大里市農會","汐止市農會","新莊市農會","桃園新竹區農會","冬山鄉農會","西湖鄉農會","草屯鎮農會","三義農會","南庄鄉農會","台南市農會","板橋市農會","新北市農會北區共用中心","田尾鄉農會","農漁會中區共用中心","關貿網路","台北區支付處","信合社南區資訊中心","金融聯合資訊中心","票據交換所"}; -->
+<!--      String[] bankCode = {"004","005","006","007","008","009","011","012","013","016","017","018","021","039","048","050","052","053","054","081","101","102","103","700","803","805","806","807","808","809","810","812","814","815","816","822","022","025","040","072","075","082","104","106","108","114","115","118","119","120","124","127","130","132","146","147","158","161","162","163","165","178","179","188","204","215","216","222","223","224","508","510","511","12","515","517","518","520","521","523","524","525","542","549","551","552","557","558","562","567","568","600","605","606","607","608","612","613","614","616","617","618","619","620","621","622","624","625","627","633","635","636","650","651","870","882","901","903","904","910","912","915","916","919","921","922","928","951","953","954","995","996","997","998","999"}; -->
+<%--     %> --%>
 
 
 

@@ -128,6 +128,17 @@ public class TntService {
 		return tntVO;
 	}
 	
+	public TntVO updateTntStatus(String tnt_no, int tnt_status) {
+
+		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
+		tntVO.setTnt_status(tnt_status);
+		dao.update_status(tntVO);
+
+		return tntVO;
+	}
+	
+	
 	public TntVO updateTntPic(String tnt_no, byte[] tnt_pic) {
 
 		TntVO tntVO = new TntVO();
@@ -143,11 +154,11 @@ public class TntService {
 	}
 
 	
-	public TntVO updateTntPocket(String tnt_no, int tnt_blance) {
+	public TntVO updateTntPocket(String tnt_no, int tnt_balance) {
 
 		TntVO tntVO = new TntVO();
 		tntVO.setTnt_no(tnt_no);
-		tntVO.setTnt_blance(tnt_blance);
+		tntVO.setTnt_balance(tnt_balance);
 		dao.update_pocket(tntVO);
 		return tntVO;
 	}
@@ -156,13 +167,13 @@ public class TntService {
 		return dao.findByPK_pocket(tnt_no);
 	}
 	 
-	public TntVO updateTntBankCard(String tnt_no, int tnt_bank, String tnt_bankbrach, String tnt_bankacc, long tnt_card,
+	public TntVO updateTntBankCard(String tnt_no, String tnt_bank, String tnt_bankbranch, String tnt_bankacc, String tnt_card,
 			int tnt_cardsvc, Date tnt_carddue) {
 
 		TntVO tntVO = new TntVO();
 		tntVO.setTnt_no(tnt_no);
 		tntVO.setTnt_bank(tnt_bank);
-		tntVO.setTnt_bankbrach(tnt_bankbrach);
+		tntVO.setTnt_bankbranch(tnt_bankbranch);
 		tntVO.setTnt_bankacc(tnt_bankacc);
 		tntVO.setTnt_card(tnt_card);
 		tntVO.setTnt_cardsvc(tnt_cardsvc);
@@ -250,3 +261,4 @@ public class TntService {
 
 
 }
+
