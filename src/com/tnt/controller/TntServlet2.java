@@ -608,21 +608,18 @@ public class TntServlet2 extends HttpServlet {
 					String tnt_no = (String) session.getAttribute("tnt_no");
 
 							System.out.println(tnt_no);
-//
+
 					TntService tntSvc = new TntService();
 					tntSvc.updateTntVrfPics(tnt_no, tnt_id_picf, tnt_id_picb, tnt_id_pic2, 1 );
 
-//
-////							System.out.println("3");
+					out = res.getWriter();
+					out.print("true");
+					out.close();
 
-//					out = res.getWriter();
-//					out.print("true");
-////							out.close();
-//				}
 
 			} catch (Exception e) {
 //						errorMsgs.add("註冊失敗:" + e.getMessage());
-				System.out.println("info profile 修改失敗:" + e.getMessage());
+				System.out.println("vrf pics 修改失敗:" + e.getMessage());
 			}
 		}
 

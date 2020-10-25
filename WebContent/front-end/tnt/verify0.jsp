@@ -31,7 +31,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animate/animate.css">
     <!--===============================================================================================-->
-	<!--     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/haburgers.min.css"> -->
+<!--     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/haburgers.min.css"> -->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
@@ -174,27 +174,58 @@
                                         </svg>
                                     </a>
                                 </h4>
-                                <hr class="login100-form-title">
+                                <hr class="login100-form-title p-b-10">
+                                <!-- <div class="login100-form validate-form"> -->
                                 
-                                <form class="registerform" id="vrfPicsform" enctype="multipart/form-data">
-                                <div class="txt-vrfPics-hint">請上傳清晰證件照三張<br>包含身分證正反面及第二證件正面</div>
-<!-- 										<div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 身分證正面</div>  -->
+                                <form class="registerform" enctype="multipart/form-data">
+<!--                                 <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照三張<br>包含身分證正反面及第二證件正面</div> -->
+										<div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 身分證正面</div> 
                                         <div class="wrapperBackground">
                                             <div class="wrapperUploadHandler" id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
                                                 <label id="fileInput" for="inputF">
-                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_id_pics" multiple> Upload Files
-<!--                                                     name="tnt_id_picf" -->
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_id_picf" multiple> Upload Files
                                                 </label>
-                                                <button type="button" class="delclass" id="del" ondrop="dropDelHandler(event)">Delete</button>
+                                                <button type="button" id="del" ondrop="dropDelHandler(event)">Delete</button>
                                             </div>
                                         </div>
                                         <div id="picWrapper">
-
+                                            <!-- <div class="grid" id="grid"> -->
+                                            <!-- </div> -->
+                                        </div>
+                                </form>
+                                <form class="registerform" enctype="multipart/form-data">
+                                <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 身分證背面</div> 
+                                        <div class="wrapperBackground">
+                                            <div class="wrapperUploadHandler" id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                                <label id="fileInput2" for="inputF2">
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF2" name="tnt_id_picb" multiple> Upload Files
+                                                </label>
+                                                <button type="button" id="del2" ondrop="dropDelHandler(event)">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div id="picWrapper2">
+                                            <!-- <div class="grid" id="grid"> -->
+                                            <!-- </div> -->
+                                        </div>
+                                </form>
+                                <form class="registerform" enctype="multipart/form-data">
+                                <div class="txt-vrfPics-hint m-b-10">請上傳清晰證件照 - 第二證件正面</div> 
+                                        <div class="wrapperBackground">
+                                            <div class="wrapperUploadHandler" id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
+                                                <label id="fileInput3" for="inputF3">
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF3" name="tnt_id_pic2" multiple> Upload Files
+                                                </label>
+                                                <button type="button" id="del3" ondrop="dropDelHandler(event)">Delete</button>
+                                            </div>
+                                        </div>
+                                        <div id="picWrapper3">
+                                            <!-- <div class="grid" id="grid"> -->
+                                            <!-- </div> -->
                                         </div>
                                 </form>
 
                                 <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn m-t-16 infoBtn" id="btnVrfPics">儲存資訊</button>
+                                    <button class="login100-form-btn m-t-16 infoBtn" id="btninfoPic">儲存資訊</button>
                                 </div>
                             </div>
                             <!--End form info Pic-->
@@ -210,6 +241,17 @@
         </section>
 
     </section>
+
+
+    <!--  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+    </script> -->
 
 
     <!--===============================================================================================-->
