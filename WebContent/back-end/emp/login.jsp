@@ -43,10 +43,10 @@
                                             </div>
                                             <form class="user" action="<%=request.getContextPath()%>/back-end/emp/emp.do" method="post">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="±b¸¹¡G" name="emp_acc">
+                                                    <input type="text" class="form-control form-control-user" id="exampleInputEmail"  placeholder="±b¸¹¡G" name="emp_acc" value="yybwDf0M">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="±K½X¡G" name="emp_pwd">
+                                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="±K½X¡G" name="emp_pwd" value="v23PnY2C">
                                                 </div>
                                                 <div class=" form-group">
                                                     <div class="custom-control custom-checkbox small">
