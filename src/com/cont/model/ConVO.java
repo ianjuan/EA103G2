@@ -9,9 +9,9 @@ public class ConVO {
 	private String apl_no;
 	private String tnt_no;
 	private String hos_no;
-	private byte[] con_lld_sign;
+	private String con_lld_sign;
 	private Timestamp con_lld_signtime;
-	private byte[] con_tnt_sign;
+	private String con_tnt_sign;
 	private Timestamp con_tnt_signtime;
 	private Integer con_out_normal;
 	private Timestamp con_date;
@@ -62,12 +62,20 @@ public class ConVO {
 		this.hos_no = hos_no;
 	}
 
-	public byte[] getCon_lld_sign() {
+	public String getCon_lld_sign() {
 		return con_lld_sign;
 	}
 
-	public void setCon_lld_sign(byte[] con_lld_sign) {
+	public void setCon_lld_sign(String con_lld_sign) {
 		this.con_lld_sign = con_lld_sign;
+	}
+
+	public String getCon_tnt_sign() {
+		return con_tnt_sign;
+	}
+
+	public void setCon_tnt_sign(String con_tnt_sign) {
+		this.con_tnt_sign = con_tnt_sign;
 	}
 
 	public Timestamp getCon_lld_signtime() {
@@ -78,13 +86,7 @@ public class ConVO {
 		this.con_lld_signtime = con_lld_signtime;
 	}
 
-	public byte[] getCon_tnt_sign() {
-		return con_tnt_sign;
-	}
-
-	public void setCon_tnt_sign(byte[] con_tnt_sign) {
-		this.con_tnt_sign = con_tnt_sign;
-	}
+	
 
 	public Timestamp getCon_tnt_signtime() {
 		return con_tnt_signtime;

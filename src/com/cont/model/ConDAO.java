@@ -113,8 +113,8 @@ public class ConDAO implements ConDAO_interface {
 			pstmt.setString(1, conVO.getApl_no());
 			pstmt.setString(2, conVO.getTnt_no());
 			pstmt.setString(3, conVO.getHos_no());
-			pstmt.setBytes(4, conVO.getCon_lld_sign());
-			pstmt.setBytes(5, conVO.getCon_tnt_sign());
+			pstmt.setString(4, conVO.getCon_lld_sign());
+			pstmt.setString(5, conVO.getCon_tnt_sign());
 			pstmt.setInt(6, conVO.getCon_out_normal());
 			pstmt.setDate(7, conVO.getCon_che_date());
 			pstmt.setDate(8, conVO.getCon_dep_bkdate());
@@ -169,8 +169,8 @@ public class ConDAO implements ConDAO_interface {
 			pstmt.setString(1, conVO.getApl_no());
 			pstmt.setString(2, conVO.getTnt_no());
 			pstmt.setString(3, conVO.getHos_no());
-			pstmt.setBytes(4, conVO.getCon_lld_sign());
-			pstmt.setBytes(5, conVO.getCon_tnt_sign());		
+			pstmt.setString(4, conVO.getCon_lld_sign());
+			pstmt.setString(5, conVO.getCon_tnt_sign());		
 			pstmt.setDate(6, conVO.getCon_che_date());		
 			pstmt.setInt(7, conVO.getCon_dep_sta());
 			pstmt.setInt(8, conVO.	getHos_dep());
@@ -422,9 +422,9 @@ public class ConDAO implements ConDAO_interface {
 				conVO.setApl_no(rs.getString("APL_NO"));
 				conVO.setTnt_no(rs.getString("TNT_NO"));
 				conVO.setHos_no(rs.getString("HOS_NO"));
-				conVO.setCon_lld_sign(rs.getBytes("CON_LLD_SIGN"));
+				conVO.setCon_lld_sign(rs.getString("CON_LLD_SIGN"));
 				conVO.setCon_lld_signtime(rs.getTimestamp("CON_LLD_SIGNTIME"));
-				conVO.setCon_tnt_sign(rs.getBytes("CON_TNT_SIGN"));
+				conVO.setCon_tnt_sign(rs.getString("CON_TNT_SIGN"));
 				conVO.setCon_tnt_signtime(rs.getTimestamp("CON_TNT_SIGNTIME"));
 				conVO.setCon_out_normal(rs.getInt("CON_OUT_NORMAL"));
 				conVO.setCon_date(rs.getTimestamp("CON_DATE"));
@@ -671,9 +671,9 @@ public class ConDAO implements ConDAO_interface {
 				conVO.setApl_no(rs.getString("APL_NO"));
 				conVO.setTnt_no(rs.getString("TNT_NO"));
 				conVO.setHos_no(rs.getString("HOS_NO"));
-				conVO.setCon_lld_sign(rs.getBytes("CON_LLD_SIGN"));
+				conVO.setCon_lld_sign(rs.getString("CON_LLD_SIGN"));
 				conVO.setCon_lld_signtime(rs.getTimestamp("CON_LLD_SIGNTIME"));
-				conVO.setCon_tnt_sign(rs.getBytes("CON_TNT_SIGN"));
+				conVO.setCon_tnt_sign(rs.getString("CON_TNT_SIGN"));
 				conVO.setCon_tnt_signtime(rs.getTimestamp("CON_TNT_SIGNTIME"));
 				conVO.setCon_out_normal(rs.getInt("CON_OUT_NORMAL"));
 				conVO.setCon_date(rs.getTimestamp("CON_DATE"));

@@ -26,7 +26,7 @@ public class ConService {
 		return conVO;
 	}
 
-	public ConVO updatebeforerent(String apl_no, String tnt_no, String hos_no, byte[] con_lld_sign, byte[] con_tnt_sign,
+	public ConVO updatebeforerent(String apl_no, String tnt_no, String hos_no, String con_lld_sign, String con_tnt_sign,
 			Integer con_dep_sta, Integer hos_dep, Integer con_sta, Date con_che_date, String con_no) {
 
 		ConVO conVO = new ConVO();
@@ -107,7 +107,7 @@ public class ConService {
 		return conVO;
 	}
 
-	public ConVO update(String apl_no, String tnt_no, String hos_no, byte[] con_lld_sign, byte[] con_tnt_sign,
+	public ConVO update(String apl_no, String tnt_no, String hos_no, String con_lld_sign, String con_tnt_sign,
 			Integer con_dep_sta, Date con_che_date, String con_no, Integer hos_dep,  Date con_chkdate, Integer con_comchkdate,
 			 Integer con_chk_sta, Integer con_chr_fee,Integer con_out_normal,String con_chr_itm, Integer con_is_chr,
 			 Integer con_rent_agn, Integer con_bill_paid, Date con_dep_bkdate, Date con_lastb_pdate) {

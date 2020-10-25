@@ -153,7 +153,7 @@
 							<tr>
 								<th>手機:</th>
 								<td>
-									<input type="TEXT" name="lld_mobile" value="<%=lldVO.getLld_mobile()%>" />
+									<input type="TEXT" name="lld_mobile" value="<%=conVO.getCon_lld_sign()%>" />
 								</td>
 							</tr>
 							
@@ -163,15 +163,9 @@
 							<div class="container">
 								<div class="row">
 									<div class="col-md-12">
-										<h1 style="font-style: italic;">請於下方簽名欄簽名!!</h1>
+										<h3 style="font-style: italic;">請於下方簽名欄簽名</h3>
 									</div>
 								</div>	
-								<div class="row" style="margin-bottom: 5px;">
-									<div class="col-md-12">
-										<button type="button" class="btn btn-primary" id="sig-submitBtn">確認</button>
-										<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
-									</div>
-								</div>
 								<div class="row">
 									<div class="col-md-12">
 								 		<canvas id="sig-canvas" width="850" height="200" style="z-index:9999;position: relative;">
@@ -179,14 +173,20 @@
 								 		</canvas>
 								 	</div>
 								</div>
-								<div class="row">
+								<div class="row" style="margin-bottom: 5px;">
 									<div class="col-md-12">
-										<textarea id="sig-dataUrl" class="form-control" rows="2" readonly>圖片的 URL 我隱藏起來囉 不顯示!</textarea>
+										<button type="button" class="btn btn-primary" id="sig-submitBtn">確認</button>
+										
+										<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
 									</div>
 								</div>
+								<br>
+								您的簽名<br>
 								<div class="row">
 									<div class="col-md-12">
-										<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
+										<img id="sig-image" src="<%=conVO.getCon_lld_sign()%>" alt="簽名圖片底家啦!"/>
+										<input id="sign" type="hidden" name="con_lld_sign" value="" />
+										
 									</div>
 								</div>
 							</div>

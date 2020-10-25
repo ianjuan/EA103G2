@@ -533,6 +533,7 @@ function imgShow(outerdiv, innerdiv, bigimg, _this){
 	  var sigImage = document.getElementById("sig-image");
 	  var clearBtn = document.getElementById("sig-clearBtn");
 	  var submitBtn = document.getElementById("sig-submitBtn");
+	  var sign = document.getElementById("sign");
 	  clearBtn.addEventListener("click", function(e) {
 		sigImage.style.display = "none";
 		clearCanvas();
@@ -541,12 +542,14 @@ function imgShow(outerdiv, innerdiv, bigimg, _this){
 		ctx.lineWidth = 4;
 	    sigText.innerHTML = "Data URL for your signature will go here!";
 	    sigImage.setAttribute("src", "");
+	    sign.setAttribute("value", "");
 	  }, false);
 	  submitBtn.addEventListener("click", function(e) {
 	    var dataUrl = canvas.toDataURL();
 	    sigImage.style.display = "block";
 	    sigText.innerHTML = dataUrl;
 	    sigImage.setAttribute("src", dataUrl);
+	    sign.setAttribute("value", dataUrl);
 	  }, false);
 
 	})();
