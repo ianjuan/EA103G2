@@ -17,17 +17,6 @@ public class NewsService {
 		return dao.getAll();
 	}
 	
-	public NewsVO addNews(String new_content, String emp_no) {
-
-		NewsVO newsVO = new NewsVO();
-
-		newsVO.setNew_content(new_content);
-		newsVO.setEmp_no(emp_no);
-		newsVO.setNew_blob(null);
-		dao.insert(newsVO);
-		return newsVO;
-	}
-
 	public void updateFun() {
 
 	}

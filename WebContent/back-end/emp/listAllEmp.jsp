@@ -108,8 +108,8 @@
 
 
   <!-- Bootstrap core JavaScript-->
-  <script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
-  <script src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
+<%--   <script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script> --%>
+<%--   <script src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script> --%>
   <script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
   <script src="<%=request.getContextPath()%>/back-end/vendor/datatables/jquery.dataTables.min.js"></script>
