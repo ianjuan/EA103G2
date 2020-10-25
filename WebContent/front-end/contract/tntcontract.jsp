@@ -128,33 +128,36 @@
 						</table>
 					</div>
 					<div id="cbody2">
-						<table>
-							<tr>
-								<th rowspan="3">房客簽名:</th>
-								<td>
-									<label>
-										<input type="file" id="loadPic" onchange="load()" name="con_tnt_sign" required>
-										<img src="https://www.flaticon.com/svg/static/icons/svg/3378/3378213.svg" class="uploadpic"/>
-										<span class="uploadfont" for="loadPic">&nbsp;&nbsp;上傳圖片&nbsp;&nbsp;</span>									
-									</label>
-									<input type="button" class="funbtn" value="刪除" onclick="del()" style="margin-top: 6px;">
-								</td>
-							</tr>
-							<tr>	
-								<td>
-									<div id="preview">
-									<img
-							src="<%=request.getContextPath()%>/ContractTntSingleImgReader?id=${conVO.con_no}" class="pic" />
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<h3 style="font-style: italic;">請於下方簽名欄簽名</h3>
 									</div>
-								</td>
-							</tr>
-						</table>
-						<div id="outerdiv"
-							style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;">
-							<div id="innerdiv" style="position: absolute;">
-								<img id="bigimg" style="border: 5px solid #fff;" src="" />
+								</div>	
+								<div class="row">
+									<div class="col-md-12">
+								 		<canvas id="sig-canvas" width="850" height="200" style="z-index:9999;position: relative;">
+								 			Get a better browser, bro.
+								 		</canvas>
+								 	</div>
+								</div>
+								<div class="row" style="margin-bottom: 5px;">
+									<div class="col-md-12">
+										<button type="button" class="btn btn-primary" id="sig-submitBtn">確認</button>
+										
+										<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
+									</div>
+								</div>
+								<br>
+								您的簽名<br>
+								<div class="row">
+									<div class="col-md-12">
+										<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
+										<input id="sign" type="hidden" name="con_tnt_sign" value=""/>
+										
+									</div>
+								</div>
 							</div>
-						</div>
 					</div>
 					<div id="cbody3">
 						<table>
@@ -533,6 +536,7 @@
 			</div>
 		</form>
 	</div>
-	<div id="foot"></div>		
+	<div id="foot"></div>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont.js" charset="UTF-8"></script>		
 </body>
 </html>
