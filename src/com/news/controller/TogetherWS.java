@@ -19,7 +19,7 @@ import com.websocket.jedis.*;
 
 @ServerEndpoint("/TogetherWS/{userName}")
 public class TogetherWS {
-	private static final Set<Session> connectedSessions = Collections.synchronizedSet(new HashSet<>());
+	private static final Set<Object> connectedSessions = Collections.synchronizedSet(new HashSet<>());
 	Gson gson = new Gson();
 	/*
 	 * 如果想取得HttpSession與ServletContext必須實作
@@ -34,9 +34,9 @@ public class TogetherWS {
 	@OnMessage
 	public void onMessage(Session userSession, String message) {
 		
-		for (Session session : connectedSessions) {
-			if (session.isOpen())
-				session.getAsyncRemote().sendText(message);
+		for (Object session : connectedSessions) {
+			if (((Session) session).isOpen())
+				((Session) session).getAsyncRemote().sendText(message);
 				JedisHandleMessage.saveNews("後台公告",message);
 				
 		}
