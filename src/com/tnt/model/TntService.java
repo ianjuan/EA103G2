@@ -168,7 +168,7 @@ public class TntService {
 	}
 	 
 	public TntVO updateTntBankCard(String tnt_no, String tnt_bank, String tnt_bankbranch, String tnt_bankacc, String tnt_card,
-			int tnt_cardsvc, Date tnt_carddue) {
+			String tnt_cardsvc, Date tnt_carddue) {
 
 		TntVO tntVO = new TntVO();
 		tntVO.setTnt_no(tnt_no);

@@ -17,22 +17,25 @@
 <%
     String bank = tntVO_bankcard.getTnt_bank();
 	String bankinfoStr = "";
+	Boolean hasBankinfoJS = false;
 	if (bank != null){
 		String bankAccEnd = tntVO_bankcard.getTnt_bankacc();
 		int tmp = bankAccEnd.length();
 		bankAccEnd = bankAccEnd.substring(tmp-4);
 		bankinfoStr = bank + "&nbsp&nbsp****&nbsp" + bankAccEnd;
-		
+		hasBankinfoJS = true;
 	} else {
 		bankinfoStr = "尚未更新收款資訊";
 	}
 	String card = tntVO_bankcard.getTnt_card();
 	String cardinfoStr = "";
+	Boolean hasCardinfoJS = false;
 	if (card != null){
 // 		String cardEnd = tntVO_bankcard.getTnt_card();
 		int tmp = card.length();
 		card = card.substring(tmp-4);
 		cardinfoStr = "台新銀行&nbsp&nbsp****&nbsp" + card;
+		hasCardinfoJS = true;
 	} else {
 		cardinfoStr = "尚未更新付款資訊";
 	}
@@ -548,7 +551,10 @@
 <!--      String[] bankCode = {"004","005","006","007","008","009","011","012","013","016","017","018","021","039","048","050","052","053","054","081","101","102","103","700","803","805","806","807","808","809","810","812","814","815","816","822","022","025","040","072","075","082","104","106","108","114","115","118","119","120","124","127","130","132","146","147","158","161","162","163","165","178","179","188","204","215","216","222","223","224","508","510","511","12","515","517","518","520","521","523","524","525","542","549","551","552","557","558","562","567","568","600","605","606","607","608","612","613","614","616","617","618","619","620","621","622","624","625","627","633","635","636","650","651","870","882","901","903","904","910","912","915","916","919","921","922","928","951","953","954","995","996","997","998","999"}; -->
 <%--     %> --%>
 
-
+<script>
+	var hasBankinfoJS = <%=hasBankinfoJS%>;
+	var hasCardinfoJS = <%=hasCardinfoJS%>;
+</script>
 
 </body>
 
