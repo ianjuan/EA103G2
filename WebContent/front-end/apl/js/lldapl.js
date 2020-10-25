@@ -1,8 +1,8 @@
 var i = 1;
 
-window.onload = function() {
+window.onload = function(){
 	show();
-
+		
 	var menuBtn = document.querySelector('.menu-btn');
 	var nav = document.querySelector('#housenav');
 	var lineOne = document.querySelector('#housenav .menu-btn .line--1');
@@ -15,7 +15,7 @@ window.onload = function() {
 		lineTwo.classList.toggle('line-fade-out');
 		lineThree.classList.toggle('line-cross');
 		link.classList.toggle('fade-in');
-	})
+	})	
 }
 
 function notice1(event) {
@@ -55,21 +55,21 @@ function notice2(event) {
 	let a = $(_this).parent().parent()[0];
 
 	swal({
-		  title: "Are you sure?",
-		  text: "Once deleted, you will not be able to recover this imaginary file!",
+		  title: "確定拒絕?",
+		  text: "一旦拒絕, 將跟此房客說掰掰!",
 		  icon: "warning",
 		  buttons: true,
 		  dangerMode: true,
 		})
 		.then((willDelete) => {
 		  if (willDelete) {
-		    swal("Poof! Your imaginary file has been deleted!", {
+		    swal("再也看不到這房客囉!", {
 		      icon: "success",
 		    }).then(function() {
 				a.submit();
 		    });
 		  } else {
-		    swal("Your imaginary file is safe!");
+		    swal("還有機會跟他結緣!");
 		  }
 		});
 }

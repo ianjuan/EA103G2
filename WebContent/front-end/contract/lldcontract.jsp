@@ -153,7 +153,7 @@
 							<tr>
 								<th>手機:</th>
 								<td>
-									<input type="TEXT" name="lld_mobile" value="<%=conVO.getCon_lld_sign()%>" />
+									<input type="TEXT" name="lld_mobile" value="<%=lldVO.getLld_mobile()%>" />
 								</td>
 							</tr>
 							
@@ -184,8 +184,8 @@
 								您的簽名<br>
 								<div class="row">
 									<div class="col-md-12">
-										<img id="sig-image" src="<%=conVO.getCon_lld_sign()%>" alt="簽名圖片底家啦!"/>
-										<input id="sign" type="hidden" name="con_lld_sign" value="" />
+										<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
+										<input id="sign" type="hidden" name="con_lld_sign" value=""/>
 										
 									</div>
 								</div>

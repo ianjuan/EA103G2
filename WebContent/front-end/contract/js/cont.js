@@ -527,9 +527,10 @@ function imgShow(outerdiv, innerdiv, bigimg, _this){
 	  function clearCanvas() {
 	    canvas.width = canvas.width;
 	  }
+	  
+	  
 
-	  // Set up the UI
-	  var sigText = document.getElementById("sig-dataUrl");
+	// Set up the UI
 	  var sigImage = document.getElementById("sig-image");
 	  var clearBtn = document.getElementById("sig-clearBtn");
 	  var submitBtn = document.getElementById("sig-submitBtn");
@@ -540,14 +541,12 @@ function imgShow(outerdiv, innerdiv, bigimg, _this){
 	    var ctx = canvas.getContext("2d");
 		ctx.strokeStyle = "#222222";
 		ctx.lineWidth = 4;
-	    sigText.innerHTML = "Data URL for your signature will go here!";
 	    sigImage.setAttribute("src", "");
 	    sign.setAttribute("value", "");
 	  }, false);
 	  submitBtn.addEventListener("click", function(e) {
 	    var dataUrl = canvas.toDataURL();
 	    sigImage.style.display = "block";
-	    sigText.innerHTML = dataUrl;
 	    sigImage.setAttribute("src", dataUrl);
 	    sign.setAttribute("value", dataUrl);
 	  }, false);

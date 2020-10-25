@@ -1,6 +1,12 @@
 package com.emp.controller;
 
 import java.io.*;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -10,6 +16,18 @@ import javax.servlet.http.*;
 import com.emp.model.*;
 import com.rig.model.RightService;
 import com.rig.model.RightVO;
+import javax.websocket.CloseReason;
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.news.model.NewsVO;
+import com.websocket.jedis.*;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class EmployeeServlet extends HttpServlet {
@@ -45,7 +63,7 @@ public class EmployeeServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
 		HttpSession session=null;
-
+		Gson gson = new Gson();
 		if("forgot".equals(action)) {
 			String emp_mail= req.getParameter("emp_mail");
 			 if (allowMail(emp_mail)==null) { 
@@ -69,7 +87,7 @@ public class EmployeeServlet extends HttpServlet {
 		}
 		if("login".equals(action)) {
 			    out = res.getWriter();
-
+			    
 			    // 【取得使用者 帳號(account) 密碼(password)】
 			    String emp_acc = req.getParameter("emp_acc");
 			    String emp_pwd = req.getParameter("emp_pwd");
@@ -83,6 +101,7 @@ public class EmployeeServlet extends HttpServlet {
 			      session = req.getSession();
 			      EmployeeVO empVO= allowUser(emp_acc, emp_pwd);
 			      session.setAttribute("empVO", empVO);   //*工作1: 才在session內做已經登入過的標識
+
 			       try {                                                        
 			         String location = (String) session.getAttribute("location");
 			         
