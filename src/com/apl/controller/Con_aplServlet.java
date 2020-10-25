@@ -1,8 +1,8 @@
 package com.apl.controller;
 
 import java.io.IOException;
+
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,17 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import com.apl.model.Con_aplDAO;
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
 import com.cont.model.ConService;
-import com.housedet.model.HosDetVO;
 import com.housemanage.model.HouseService;
 import com.housemanage.model.HouseVO;
-
-import oracle.net.aso.s;
 
 public class Con_aplServlet extends HttpServlet {
 
@@ -64,51 +60,16 @@ public class Con_aplServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String str = req.getParameter("lld_no");
-				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入房東編號");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
-					failureView.forward(req, res);
-					// 程式中斷
-					return;
-				}
+				String lld_no = req.getParameter("lld_no");
 
-				String lldno = null;
-				try {
-					lldno = new String(str);
-				} catch (Exception e) {
-					errorMsgs.add("房東編號格式不正確");
-				}
-				// Send the use back to the form, if there were errors
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
-					failureView.forward(req, res);
-					return;// 程式中斷
-				}
 				/*************************** 2.開始查詢資料 *****************************************/
-				// 確認有此LLD_NO
-//				LldService lldService = new LldService();
-//				LldVO lldVO = lldService.getOneLldProfile(lld_no);
-//				if (lldVO == null) {
-//					errorMsgs.add("查無資料");
-//				}
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
-//					failureView.forward(req, res);
-//					return;// 程式中斷
-//				}
-
-				// 撈申請資料
 				Con_aplService con_aplService = new Con_aplService();
-				List<Con_aplVO> list = con_aplService.lldgetAll(lldno);
+				List<Con_aplVO> list = con_aplService.lldgetAll(lld_no);
+
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				HttpSession session = req.getSession();
 				// 資料庫取出的list物件,存入session
-				req.setAttribute("lld_no", lldno);
+				req.setAttribute("lld_no", lld_no);
 				session.setAttribute("list", list);
 				// Send the Success view
 				String url = "/front-end/apl/lldaplpage.jsp";
@@ -416,7 +377,6 @@ public class Con_aplServlet extends HttpServlet {
 				}
 
 				Integer apl_status = new Integer(req.getParameter("apl_status").trim());
-//				Integer apl_status = new Integer(0);
 
 				Con_aplVO con_aplVO = new Con_aplVO();
 				con_aplVO.setTnt_no(tnt_no);
@@ -486,8 +446,6 @@ public class Con_aplServlet extends HttpServlet {
 		if ("lldupdate".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-//			 Store this set in the request scope, in case we need to
-//			 send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
@@ -503,46 +461,77 @@ public class Con_aplServlet extends HttpServlet {
 
 				/*************************** 來自租屋申請頁面 *****************************************/
 				if (hos_no == null) {
+
 					Con_aplService con_aplService = new Con_aplService();
-					con_aplService.lldUpdateCon_apl(apl_no, apl_status);
-					List<Con_aplVO> list = con_aplService.lldgetAll(lld_no);
 
 					if (apl_status == 1) {
+
 						Con_aplVO con_aplVO = new Con_aplVO();
 						con_aplVO = con_aplService.getOneCon_apl(apl_no);
 						String tnt_no = con_aplVO.getTnt_no();
 						hos_no = con_aplVO.getHos_no();
-						System.out.println(tnt_no);
-						System.out.println(hos_no);
 
+						String tem = apl_no;
+
+						// reject others application
+						List<Con_aplVO> list = con_aplService.hosgetall(hos_no);
+						for (Con_aplVO hos : list) {
+							apl_no = hos.getApl_no();
+							apl_status = 2;
+
+							con_aplService.lldUpdateCon_apl(apl_no, apl_status);
+						}
+
+						// get the origin one back
+						apl_no = tem;
+						apl_status = 1;
+
+						// create new contract
 						ConService conService = new ConService();
 						conService.addbeforerent(apl_no, tnt_no, hos_no);
 
+						// house no longer be sold
 						HouseService houseService = new HouseService();
 						String hos_status = "出租中";
 						houseService.updateStatus(hos_status, hos_no);
-						HttpSession session = req.getSession();
-						req.setAttribute("lldno", lld_no);
-						session.setAttribute("list", list);
-						// Send the Success view
-						String url = "/front-end/apl/lldaplpage.jsp";
-						RequestDispatcher successView = req.getRequestDispatcher(url);
-						successView.forward(req, res);
-						return;
+
 					}
+
+					con_aplService.lldUpdateCon_apl(apl_no, apl_status);
+					List<Con_aplVO> list = con_aplService.lldgetAll(lld_no);
+
+					HttpSession session = req.getSession();
+					session.setAttribute("lld_no", lld_no);
+					session.setAttribute("list", list);
+					String url = "/front-end/apl/lldaplpage.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+					return;
+
 				} else {
-					//來自房屋網頁
+					// 來自房屋網頁
 					Con_aplService con_aplService = new Con_aplService();
-					con_aplService.lldUpdateCon_apl(apl_no, apl_status);
-					List<Con_aplVO> list = con_aplService.lldgetAll(lld_no);
 
 					if (apl_status == 1) {
+
 						Con_aplVO con_aplVO = new Con_aplVO();
 						con_aplVO = con_aplService.getOneCon_apl(apl_no);
 						String tnt_no = con_aplVO.getTnt_no();
-						hos_no = con_aplVO.getHos_no();
-						System.out.println(tnt_no);
-						System.out.println(hos_no);
+
+						String tem = apl_no;
+
+						// reject others application
+						List<Con_aplVO> list = con_aplService.hosgetall(hos_no);
+						for (Con_aplVO hos : list) {
+							apl_no = hos.getApl_no();
+							apl_status = 2;
+
+							con_aplService.lldUpdateCon_apl(apl_no, apl_status);
+						}
+
+						// get the origin one back
+						apl_no = tem;
+						apl_status = 1;
 
 						ConService conService = new ConService();
 						conService.addbeforerent(apl_no, tnt_no, hos_no);
@@ -550,15 +539,19 @@ public class Con_aplServlet extends HttpServlet {
 						HouseService houseService = new HouseService();
 						String hos_status = "出租中";
 						houseService.updateStatus(hos_status, hos_no);
-						HttpSession session = req.getSession();
-						req.setAttribute("lldno", lld_no);
-						session.setAttribute("list", list);
-						// Send the Success view
-						String url = "/front-end/house_manage/house_unrent.jsp";
-						RequestDispatcher successView = req.getRequestDispatcher(url);
-						successView.forward(req, res);
-						return;
+
 					}
+
+					con_aplService.lldUpdateCon_apl(apl_no, apl_status);
+					List<Con_aplVO> list = con_aplService.lldgetAll(lld_no);
+
+					HttpSession session = req.getSession();
+					session.setAttribute("lld_no", lld_no);
+					session.setAttribute("list", list);
+					String url = "/front-end/house_manage/house_unrent.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url);
+					successView.forward(req, res);
+					return;
 				}
 
 				/*************************** 其他可能的錯誤處理 *************************************/
@@ -570,11 +563,10 @@ public class Con_aplServlet extends HttpServlet {
 			}
 		}
 
+		// update application date
 		if ("tntupdate".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-//			 Store this set in the request scope, in case we need to
-//			 send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
@@ -583,9 +575,6 @@ public class Con_aplServlet extends HttpServlet {
 				String tnt_no = req.getParameter("tnt_no");
 				Date apl_str = Date.valueOf(req.getParameter("apl_str"));
 				Date apl_end = Date.valueOf(req.getParameter("apl_end"));
-				System.out.println(apl_no);
-				System.out.println(apl_str);
-				System.out.println(apl_end);
 
 				/*************************** 2.開始修改資料 *****************************************/
 				Con_aplService con_aplService = new Con_aplService();
@@ -597,7 +586,6 @@ public class Con_aplServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
 				session.setAttribute("list", list);
-				// Send the Success view
 				String url = "/front-end/apl/tntaplpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -615,8 +603,6 @@ public class Con_aplServlet extends HttpServlet {
 		if ("tntcancelapl".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-//		 Store this set in the request scope, in case we need to
-//		 send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
@@ -635,7 +621,6 @@ public class Con_aplServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				req.setAttribute("tnt_no", tnt_no);
 				session.setAttribute("list", list);
-				// Send the Success view
 				String url = "/front-end/apl/tntaplpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -653,8 +638,6 @@ public class Con_aplServlet extends HttpServlet {
 		if ("tntrecommend".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
-//		 Store this set in the request scope, in case we need to
-//		 send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
