@@ -78,8 +78,8 @@ public class TntService {
 
 	
 
-	public List<TntVO> getAllVrf() {
-		return dao.getAll_vrf();
+	public List<TntVO> getAllVrf(Integer Number,Integer Number2) {
+		return dao.getAll_vrf(Number,Number2);
 	}
 	
 	public List<TntVO> getUnvrf(String Number) {
@@ -114,5 +114,8 @@ public class TntService {
 		return dao.findByPK_pic(tnt_no);
 	}
 
+	public List<TntVO> getTnt(String Number) {
+		return dao.findByNo(Number);
+	}
 
 }

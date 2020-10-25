@@ -5,8 +5,7 @@
 <%@ page import="java.util.*"%>
 
 <%
-	RpttService rpttSvc = new RpttService();
-	List<RpttVO> list = rpttSvc.getAllRptt();
+	List<TntVO> list = (List<TntVO>) request.getAttribute("TntVO");
 	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
@@ -21,7 +20,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>檢舉</title>
+<title>驗證</title>
 
 
 <!-- Custom fonts for this template -->
@@ -44,30 +43,28 @@
 	href="${pageContext.request.contextPath}/back-end/vendor/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link
-	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
-	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="main_vrf_back.css" type="text/css">
 
-<link rel="stylesheet" href="main_back.css" type="text/css">
+
 <style>
-button.checkall {
-	font-size: 15px;
-	font-weight: 600;
-	color: #8a97a0;
-	background-color: #fff;
-	border-radius: 2px;
-	border: 1px solid #8a97a0;
-	text-align: center;
+.modal-full {
+	min-width: 70%;
+	margin-left: 80;
 }
 
-.toggle.ios, .toggle-on.ios, .toggle-off.ios {
-	border-radius: 20px;
+.modal-full .modal-content {
+	min-height: auto;
 }
 
-.toggle.ios .toggle-handle {
-	border-radius: 20px;
-}
+/* .pic { */
+/* 	width: 500px; */
+/* 	height: 300px; */
+/* 	margin: 10px; */
+/* } */
 </style>
+
 
 
 </head>
@@ -407,16 +404,17 @@ button.checkall {
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<div class="row">
-								<div class="col-md-9">
-									<h4 class="m-0 font-weight-bold text-primary">檢舉房客</h4>
+								<div class="col-md-8">
+									<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 								</div>
-								<div class="col-md-3">
+						
+								<div class="col-md-4">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
-											搜尋: <input type="text" size="24" name="Number"
-												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input
-												type="hidden" name="action" value="get_want_all_display">
-											<input type="submit"
+											搜尋: <input type="text" size="20" name="Number"
+												placeholder="輸入 房客/ 房東編號"> <input type="hidden"
+												name="action" value="get_want_vrf_display"> <input
+												type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 												tabindex="-1" />
 										</h4>
@@ -429,81 +427,99 @@ button.checkall {
 								<table class="table table-bordered" id="dataTable">
 									<thead>
 										<tr>
-											<th>檢舉編號</th>
-											<th>房客編號</th>
-											<th>房東編號</th>
-											<th width="10%">檢舉時間</th>
-											<th>員工編號</th>
-											<th>處理狀態</th>
-											<th>處理結果</th>
-											<th width="10%">檢舉完成時間</th>
-											<th>內容註記</th>
+											<th>會員編號</th>
+											<th>會員姓名</th>
+											<th>會員生日</th>
+											<th>會員手機</th>
+											<th>會員信箱</th>
+											<th>上傳時間</th>
+											<th>快速瀏覽</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>檢舉編號</th>
-											<th>房客編號</th>
-											<th>房東編號</th>
-											<th width="10%">檢舉時間</th>
-											<th>員工編號</th>
-											<th>處理狀態</th>
-											<th>處理結果</th>
-											<th width="10%">檢舉完成時間</th>
-											<th>內容註記</th>
+											<th>會員編號</th>
+											<th>會員姓名</th>
+											<th>會員生日</th>
+											<th>會員手機</th>
+											<th>會員信箱</th>
+											<th>上傳時間</th>
+											<th>快速瀏覽</th>
 										</tr>
 									</tfoot>
 									<tbody>
 										<%@ include file="page1.file"%>
-										<c:forEach var="rpttVO" items="${list}" begin="<%=pageIndex%>"
+										<c:forEach var="tntVO" items="${list}" begin="<%=pageIndex%>"
 											end="<%=pageIndex+rowsPerPage-1%>">
 											<tr>
-												<td>${rpttVO.rptt_no}</td>
-												<td>${rpttVO.tnt_no}</td>
-												<td>${rpttVO.lld_no}</td>
-												<td width="10%">${rpttVO.rptt_time}</td>
-												<td>${rpttVO.emp_no}</td>
-												<c:choose>
-													<c:when test="${rpttVO.rptt_status==0}">
-														<td>未處理</td>
-													</c:when>
-													<c:otherwise>
-														<td>已處理</td>
-													</c:otherwise>
-												</c:choose>
-												<c:choose>
-													<c:when test="${rpttVO.rptt_result==1}">
-														<td>通過</td>
-													</c:when>
-													<c:when test="${rpttVO.rptt_result==2}">
-														<td>未通過</td>
-													</c:when>
-													<c:otherwise>
-														<td></td>
-													</c:otherwise>
-												</c:choose>
-												<td width="10%">${rpttVO.rptt_done_time}</td>
+												<td>${tntVO.tnt_no}</td>
+												<td>${tntVO.tnt_name}</td>
+												<td>${tntVO.tnt_birth}</td>
+												<td>${tntVO.tnt_mobile}</td>
+												<td>${tntVO.tnt_email}</td>
+												<td>${tntVO.tnt_id_uploadtime}</td>
+
 												<td>
 													<button class="check" data-toggle="modal"
-														data-target="#${rpttVO.rptt_no}">查看詳情</button>
+														data-target="#${tntVO.tnt_no}">查看詳情</button>
 												</td>
+
 											</tr>
-											<div class="modal fade" id="${rpttVO.rptt_no}" tabindex="-1"
+											<!-- Modal HTML -->
+											<div class="modal fade" id="${tntVO.tnt_no}" tabindex="-1"
 												role="dialog">
-												<div class="modal-dialog">
+												<div class="modal-dialog  modal-full" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
-															<div class="modal-body">
-																<form action="RpttServlet" method="post">
-																	<label for="reason">檢舉原因:</label>
-																	<textarea class="reason" name="rptt_content" readonly>${rpttVO.rptt_content}</textarea>
-																	<div class="form-group">
-																		<label for="note">結果註記:</label>
-																		<textarea id="note" name="rptt_note" readonly>${rpttVO.rptt_note}</textarea>
+															<div class="modal-body" style="height: auto">
+																<div class="row">
+																	<div class="col-md-9">
+																		<img
+																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=front"
+																			class="pic" /> <img
+																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=back"
+																			class="pic" /> <img
+																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=second"
+																			class="pic" />
+
 																	</div>
-																</form>
+
+																	<div class="col-md-3">
+																		<label for="name">會員編號:</label> ${tntVO.tnt_no} <br>
+																		<label for="name">會員姓名:</label> ${tntVO.tnt_name} <br>
+																		<label for="name">會員生日:</label> ${tntVO.tnt_birth} <br>
+
+																		<label for="name">會員身分證字號:</label> ${tntVO.tnt_id}<br>
+																		<form action="RpttServlet" method="post">
+																			<div>
+																				<input type="hidden" name="tnt_no"
+																					value="${tntVO.tnt_no}"> <input
+																					type="hidden" name="emp_no"
+																					value="<%=pageContext.getAttribute("emp_no")%>">
+																				<button type="submit" class="pass" name="action"
+																					value="passVrf">通過</button>
+																			</div>
+																		</form>
+																		<form action="RpttServlet" method="post">
+																			<div>
+																				<input type="hidden" name="tnt_no"
+																					value="${tntVO.tnt_no}"> <input
+																					type="hidden" name="emp_no"
+																					value="<%=pageContext.getAttribute("emp_no")%>">
+																				<button type="submit" class="fail" name="action"
+																					value="failVrf">不通過</button>
+																				<label for="reason">退件原因:</label><br>
+																				<textarea id="reason" name="tnt_id_disapprove"
+																					required="required"></textarea>
+																			</div>
+																		</form>
+
+
+																	</div>
+																</div>
 															</div>
 														</div>
+
 													</div>
 												</div>
 											</div>
@@ -514,8 +530,6 @@ button.checkall {
 							</div>
 						</div>
 					</div>
-
-
 					<footer class="sticky-footer bg-white">
 						<div class="container my-auto">
 							<div class="copyright text-center my-auto">
@@ -587,8 +601,8 @@ button.checkall {
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-	<script
-		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
 </body>
 
 </html>
