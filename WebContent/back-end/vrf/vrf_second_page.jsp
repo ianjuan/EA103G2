@@ -5,7 +5,8 @@
 <%@ page import="java.util.*"%>
 
 <%
-	List<RpttVO> list = (List<RpttVO>) request.getAttribute("rpttVO");
+	TntService tntSvc = new TntService();
+	List<TntVO> list = tntSvc.getAllVrf(1, 2);
 	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
@@ -20,7 +21,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>檢舉</title>
+<title>身分驗證</title>
 
 
 <!-- Custom fonts for this template -->
@@ -47,14 +48,30 @@
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">
 
-<link rel="stylesheet" href="main_back.css" type="text/css">
+<link rel="stylesheet" href="main_vrf_back.css" type="text/css">
 <style>
+button.checkall {
+	font-size: 15px;
+	font-weight: 600;
+	color: #8a97a0;
+	background-color: #fff;
+	border-radius: 2px;
+	border: 1px solid #8a97a0;
+	text-align: center;
+}
+
 .toggle.ios, .toggle-on.ios, .toggle-off.ios {
 	border-radius: 20px;
 }
 
 .toggle.ios .toggle-handle {
 	border-radius: 20px;
+}
+
+.pic {
+	width: 420px;
+	height: 250px;
+	margin: 10px;
 }
 </style>
 
@@ -155,7 +172,7 @@
 							class="collapse-item" href="blank.html">Blank Page</a>
 					</div>
 				</div></li>
-			<form METHOD="post" ACTION="RpttServlet" name="clickTable">
+			<form METHOD="post" ACTION="TntServlet" name="clickTable">
 				<!-- Nav Item - Charts -->
 				<li class="nav-item"><a class="nav-link" href="charts.html">
 						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
@@ -164,7 +181,7 @@
 				<!-- Nav Item - Tables -->
 				<li class="nav-item active"><a class="nav-link" href="#"
 					onclick="del()"> <i class="fas fa-fw fa-table"></i>
-						<form METHOD="post" ACTION="RpttServlet" name="clickTable">
+						<form METHOD="post" ACTION="TntServlet" name="clickTable">
 
 							<input type="hidden" name="Number" value="0"> <input
 								type="hidden" name="action" value="get_want_display"> <span
@@ -397,14 +414,14 @@
 						<div class="card-header py-3">
 							<div class="row">
 								<div class="col-md-9">
-									<h4 class="m-0 font-weight-bold text-primary">檢舉房客</h4>
+									<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 								</div>
 								<div class="col-md-3">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
 											搜尋: <input type="text" size="24" name="Number"
-												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input
-												type="hidden" name="action" value="get_want_all_display">
+												placeholder="房客/ 房東/ 員工編號"> <input
+												type="hidden" name="action" value="get_want_vrf">
 											<input type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 												tabindex="-1" />
@@ -413,83 +430,90 @@
 								</div>
 							</div>
 						</div>
+							<div>
+							<c:if test="${not empty errorMsgs}">
+								<p></p>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+						</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable">
 									<thead>
 										<tr>
-											<th>檢舉編號</th>
-											<th>房客編號</th>
-											<th>房東編號</th>
-											<th width="10%">檢舉時間</th>
-											<th>員工編號</th>
-											<th>處理狀態</th>
-											<th>處理結果</th>
-											<th width="10%">檢舉完成時間</th>
-											<th>內容註記</th>
+											<th>會員編號</th>
+											<th>會員姓名</th>
+											<th>會員生日</th>
+											<th>會員手機</th>
+											<th>會員信箱</th>
+											<th>上傳時間</th>
+											<th>驗證結果</th>
+											<th>詳情瀏覽</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>檢舉編號</th>
-											<th>房客編號</th>
-											<th>房東編號</th>
-											<th width="10%">檢舉時間</th>
-											<th>員工編號</th>
-											<th>處理狀態</th>
-											<th>處理結果</th>
-											<th width="10%">檢舉完成時間</th>
-											<th>內容註記</th>
+											<th>會員編號</th>
+											<th>會員姓名</th>
+											<th>會員生日</th>
+											<th>會員手機</th>
+											<th>會員信箱</th>
+											<th>上傳時間</th>
+											<th>驗證結果</th>
+											<th>詳情瀏覽</th>
 										</tr>
 									</tfoot>
 									<tbody>
 										<%@ include file="page1.file"%>
-										<c:forEach var="rpttVO" items="${list}">
+										<c:forEach var="tntVO" items="${list}" begin="<%=pageIndex%>"
+											end="<%=pageIndex+rowsPerPage-1%>">
 											<tr>
-												<td>${rpttVO.rptt_no}</td>
-												<td>${rpttVO.tnt_no}</td>
-												<td>${rpttVO.lld_no}</td>
-												<td width="10%">${rpttVO.rptt_time}</td>
-												<td>${rpttVO.emp_no}</td>
+												<td>${tntVO.tnt_no}</td>
+												<td>${tntVO.tnt_name}</td>
+												<td>${tntVO.tnt_birth}</td>
+												<td>${tntVO.tnt_mobile}</td>
+												<td>${tntVO.tnt_email}</td>
+												<td>${tntVO.tnt_id_uploadtime}</td>
 												<c:choose>
-													<c:when test="${rpttVO.rptt_status==0}">
-														<td>未處理</td>
-													</c:when>
-													<c:otherwise>
-														<td>已處理</td>
-													</c:otherwise>
-												</c:choose>
-												<c:choose>
-													<c:when test="${rpttVO.rptt_result==1}">
+													<c:when test="${tntVO.tnt_id_result==1}">
 														<td>通過</td>
 													</c:when>
-													<c:when test="${rpttVO.rptt_result==2}">
-														<td>未通過</td>
+													<c:when test="${tntVO.tnt_id_result==2}">
+														<td>不通過</td>
 													</c:when>
 													<c:otherwise>
-														<td></td>
+														<td>審核中</td>
 													</c:otherwise>
 												</c:choose>
-												<td width="10%">${rpttVO.rptt_done_time}</td>
 												<td>
 													<button class="check" data-toggle="modal"
-														data-target="#${rpttVO.rptt_no}">查看詳情</button>
+														data-target="#${tntVO.tnt_no}">查看詳情</button>
 												</td>
 											</tr>
-											<div class="modal fade" id="${rpttVO.rptt_no}" tabindex="-1"
+											<div class="modal fade" id="${tntVO.tnt_no}" tabindex="-1"
 												role="dialog">
 												<div class="modal-dialog">
 													<div class="modal-content">
 														<div class="modal-header">
 															<div class="modal-body">
-																<form action="RpttServlet" method="post">
-																	<label for="reason">檢舉原因:</label>
-																	<textarea class="reason" name="rptt_content" readonly>${rpttVO.rptt_content}</textarea>
-																	<div class="form-group">
-																		<label for="note">結果註記:</label>
-																		<textarea id="note" name="rptt_note" readonly>${rpttVO.rptt_note}</textarea>
-																	</div>
-																</form>
+																<img
+																	src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=front"
+																	class="pic" /> <img
+																	src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=back"
+																	class="pic" /> <img
+																	src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=second"
+																	class="pic" /><br><br>
+																<div
+																	style=" margin: 0; outline: 0;color: #8a97a0;">
+																	<label for="name">驗證員工:</label> ${tntVO.emp_no} <br>
+																	<label for="name">驗證時間:</label> ${tntVO.tnt_id_vrftime}
+																	<br> <label for="name">退件原因:</label>
+																	${tntVO.tnt_id_disapprove} <br>
+																</div>
 															</div>
 														</div>
 													</div>
@@ -577,13 +601,6 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
 	<script
 		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-	<script>
-		$(function() {
-			$('#showornot').change(function() {
-				document.getElementById("#show").submit();
-			})
-		})
-	</script>
 </body>
 
 </html>
