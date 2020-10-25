@@ -256,7 +256,7 @@ public class TntDAO implements TenantDAO_interface {
 	// =================================5.vrf==================================
 	private static final String UPDATE_VRF_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_uploadtime=?, tnt_id_isupload=?, tnt_id_result=?, tnt_id_disapprove=?, tnt_id_vrftime=? where tnt_no=?";
 	private static final String GET_ONE_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT where tnt_no=?";
-	private static final String GET_ALL_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT ORDER BY tnt_no";
+	private static final String GET_ALL_VRF_STMT = "SELECT tnt_no AS tnt_no, tnt_name as tnt_name, tnt_id as tnt_id, tnt_birth as tnt_birth , tnt_mobile as tnt_mobile, tnt_email as tnt_email, tnt_id_uploadtime as tnt_id_uploadtime, tnt_id_isupload as tnt_id_isupload, emp_no as emp_no,tnt_id_result as tnt_id_result, tnt_id_disapprove as tnt_id_disapprove,TNT_ID_VRFTIME as TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? or tnt_id_result=? union SELECT lld_no AS tnt_no, lld_name as tnt_name, lld_id as tnt_id, lld_birth as tnt_birth , lld_mobile as tnt_mobile, lld_email as tnt_email, lld_id_uploadtime as tnt_id_uploadtime, lld_id_isupload as tnt_id_isupload, emp_no as emp_no, lld_id_result as tnt_id_result, lld_id_disapprove as tnt_id_disapprove,lld_ID_VRFTIME as TNT_ID_VRFTIME from landlord where lld_id_isupload=? or lld_id_result=? ORDER BY TNT_ID_UPLOADTIME";
 	private static final String GET_UNVRF_STMT = "SELECT tnt_no, tnt_name, tnt_id, tnt_birth, tnt_mobile, tnt_email, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove,TNT_ID_VRFTIME from TENANT where tnt_id_isupload=?";
 
 	@Override
@@ -354,7 +354,7 @@ public class TntDAO implements TenantDAO_interface {
 	}
 
 	@Override
-	public List<TntVO> getAll_vrf() {
+	public List<TntVO> getAll_vrf(Integer Number, Integer Number2) {
 		List<TntVO> list = new ArrayList<TntVO>();
 		TntVO tntVO = null;
 		Connection con = null;
@@ -364,16 +364,25 @@ public class TntDAO implements TenantDAO_interface {
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_VRF_STMT);
+			pstmt.setInt(1, Number);
+			pstmt.setInt(2, Number2);
+			pstmt.setInt(3, Number);
+			pstmt.setInt(4, Number2);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				tntVO.setTnt_id_picf(rs.getBytes("tnt_id_picf"));
-				tntVO.setTnt_id_picb(rs.getBytes("tnt_id_picb"));
-				tntVO.setTnt_id_pic2(rs.getBytes("tnt_id_pic2"));
-				tntVO.setTnt_id_uploadtime(rs.getTimestamp("tnt_id_uploadtime"));
+				tntVO = new TntVO();
+				tntVO.setTnt_no(rs.getString("tnt_no"));
+				tntVO.setTnt_name(rs.getString("tnt_name"));
+				tntVO.setTnt_birth(rs.getDate("tnt_birth"));
+				tntVO.setTnt_id(rs.getString("tnt_id"));
+				tntVO.setTnt_mobile(rs.getString("tnt_mobile"));
+				tntVO.setTnt_email(rs.getString("tnt_email"));
 				tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
+				tntVO.setEmp_no(rs.getString("emp_no"));
 				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
 				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+				tntVO.setTnt_id_uploadtime(rs.getTimestamp("tnt_id_uploadtime"));
 				tntVO.setTnt_id_vrftime(rs.getTimestamp("tnt_id_vrftime"));
 				list.add(tntVO);
 			}
@@ -675,6 +684,89 @@ public class TntDAO implements TenantDAO_interface {
 				}
 			}
 		}
+	}
+
+	private static final String GET_WANT_VRF_STMT = "SELECT* FROM (SELECT tnt_no AS tnt_no, tnt_name as tnt_name, tnt_id as tnt_id, tnt_birth as tnt_birth , tnt_mobile as tnt_mobile, tnt_email as tnt_email, tnt_id_uploadtime as tnt_id_uploadtime, tnt_id_isupload as tnt_id_isupload, emp_no as emp_no,tnt_id_result as tnt_id_result, tnt_id_disapprove as tnt_id_disapprove,TNT_ID_VRFTIME as TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? or tnt_id_result=? union SELECT lld_no AS tnt_no, lld_name as tnt_name, lld_id as tnt_id, lld_birth as tnt_birth , lld_mobile as tnt_mobile, lld_email as tnt_email, lld_id_uploadtime as tnt_id_uploadtime, lld_id_isupload as tnt_id_isupload, emp_no as emp_no, lld_id_result as tnt_id_result, lld_id_disapprove as tnt_id_disapprove,lld_ID_VRFTIME as TNT_ID_VRFTIME from landlord where lld_id_isupload=? or lld_id_result=? ) WHERE TNT_NO=? OR EMP_NO=? OR TNT_MOBILE=? OR TNT_EMAIL=? OR TNT_ID=?ORDER BY TNT_ID_UPLOADTIME";
+	private static final String GET_EMP_VRF_STMT = "SELECT* FROM (SELECT tnt_no AS tnt_no, tnt_name as tnt_name, tnt_id as tnt_id, tnt_birth as tnt_birth , tnt_mobile as tnt_mobile, tnt_email as tnt_email, tnt_id_uploadtime as tnt_id_uploadtime, tnt_id_isupload as tnt_id_isupload, emp_no as emp_no,tnt_id_result as tnt_id_result, tnt_id_disapprove as tnt_id_disapprove,TNT_ID_VRFTIME as TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? or tnt_id_result=? union SELECT lld_no AS tnt_no, lld_name as tnt_name, lld_id as tnt_id, lld_birth as tnt_birth , lld_mobile as tnt_mobile, lld_email as tnt_email, lld_id_uploadtime as tnt_id_uploadtime, lld_id_isupload as tnt_id_isupload, emp_no as emp_no, lld_id_result as tnt_id_result, lld_id_disapprove as tnt_id_disapprove,lld_ID_VRFTIME as TNT_ID_VRFTIME from landlord where lld_id_isupload=? or lld_id_result=? ) WHERE EMP_NO=? ORDER BY TNT_ID_UPLOADTIME";
+
+	@Override
+	public List<TntVO> findByNo(String Number) {
+		List<TntVO> list = new ArrayList<TntVO>();
+		TntVO tntVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+
+			pstmt = con.prepareStatement(GET_WANT_VRF_STMT);
+
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, 2);
+			pstmt.setInt(3, 1);
+			pstmt.setInt(4, 2);
+			pstmt.setString(5, Number);
+			pstmt.setString(6, Number);
+			pstmt.setString(7, Number);
+			pstmt.setString(8, Number);
+			pstmt.setString(9, Number);
+		
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				tntVO = new TntVO();
+				tntVO.setTnt_no(rs.getString("tnt_no"));
+				tntVO.setTnt_name(rs.getString("tnt_name"));
+				tntVO.setTnt_birth(rs.getDate("tnt_birth"));
+				tntVO.setTnt_id(rs.getString("tnt_id"));
+				tntVO.setTnt_mobile(rs.getString("tnt_mobile"));
+				tntVO.setTnt_email(rs.getString("tnt_email"));
+				tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
+				tntVO.setEmp_no(rs.getString("emp_no"));
+				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
+				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+				tntVO.setTnt_id_uploadtime(rs.getTimestamp("tnt_id_uploadtime"));
+				tntVO.setTnt_id_vrftime(rs.getTimestamp("tnt_id_vrftime"));
+				list.add(tntVO);
+			}
+
+		} catch (
+
+		SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+		return list;
 	}
 
 }

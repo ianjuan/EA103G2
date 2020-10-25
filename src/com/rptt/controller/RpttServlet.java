@@ -687,7 +687,7 @@ public class RpttServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
-				String Number = req.getParameter("Number");
+				String Number = req.getParameter("Number").trim();
 				if (Number == null || (Number.trim()).length() == 0) {
 					errorMsgs.add("請正確輸入欲搜尋編號");
 				}
@@ -700,18 +700,18 @@ public class RpttServlet extends HttpServlet {
 				}
 
 				/*************************** 2.開始查詢資料 *****************************************/
-				RpttService rpttSvc = new RpttService();
-				List<RpttVO> rpttVO = rpttSvc.getRptt(Number);
-				if (rpttVO.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
+				TntService tntSvc = new TntService();
+				List<TntVO> tntVO = tntSvc.getTnt(Number);
+				if (tntVO.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_main_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("此編號找不到");
 					return;
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/first_page.jsp";
+				req.setAttribute("TntVO", tntVO);
+				String url = "/back-end/vrf/vrf_first_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				System.out.println("成功轉過去囉");
@@ -720,8 +720,62 @@ public class RpttServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				System.out.println("無法取得555");
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
+				errorMsgs.add("搜尋不到或是未填寫要查詢的編號! 麻煩重新輸入一次");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_main_page.jsp");
+				failureView.forward(req, res);
+			}
+
+		}
+		
+		if ("get_want_vrf".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+
+				String Number = req.getParameter("Number");
+				System.out.println("來到get_want_vrf:"+Number);
+				if (Number == null || (Number.trim()).length() == 0) {
+					System.out.println("來到get_want_vrf1"+Number);
+					errorMsgs.add("未填寫要查詢的編號! 麻煩重新輸入一次");
+					String url = "/back-end/vrf/vrf_second_page.jsp";
+					RequestDispatcher FailView = req.getRequestDispatcher(url);
+					FailView.forward(req, res);
+					return;
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_second_page.jsp");
+					failureView.forward(req, res);
+					System.out.println("sec編號輸入錯誤");
+					return;
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				TntService tntSvc = new TntService();
+				List<TntVO> tntVO = tntSvc.getTnt(Number);
+				if (tntVO.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_second_search_page.jsp");
+					failureView.forward(req, res);
+					System.out.println("此編號找不到");
+					return;
+				}
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("TntVO", tntVO);
+				String url = "/back-end/vrf/vrf_second_search_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("成功轉過去囉");
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+
+			} catch (Exception e) {
+				System.out.println("vrf_second無法取得");
+				errorMsgs.add("搜尋不到或是未填寫要查詢的編號! 麻煩重新輸入一次");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_second_page.jsp");
 				failureView.forward(req, res);
 			}
 

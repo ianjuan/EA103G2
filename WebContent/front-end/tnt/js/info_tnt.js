@@ -714,7 +714,6 @@
             });
         }
         
-        
         function ajax_logout_ChgPwd(formData,theform) {
             $.ajax({ // 存入資料庫階段
                 url: "/EA103G2/front-end/index/tnt/login.jsp?action=logout_ChgPwd",

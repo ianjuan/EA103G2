@@ -73,7 +73,7 @@
                         div.setAttribute("class", "picPreview");
                         input.setAttribute("class", "picCheckbox");
                         input.setAttribute("id", "checkbox_id_picf");
-                        img.setAttribute("id", "tnt_id_picf");
+                        img.setAttribute("class", "tnt_pic");
                     });
 
                 } else {
@@ -148,171 +148,6 @@
             e.dataTransfer.setData("text", e.target.parentElement.getAttribute("name"));
         }
         
-//        /*
-//         * ================================================================== 
-//         *    [ 圖片上傳(程昕) IDpicb ]
-//         */
-//        var img_IDpicb = document.createElement("img");
-//        var inputF_IDpicb = document.getElementById("inputF_IDpicb");
-//        var fileInput_IDpicb = document.getElementById("fileInput_IDpicb");
-//
-//
-//
-//        inputF_IDpicb.addEventListener("change", fileUpload_IDpicb);
-//
-//        function fileUpload2_IDpicb(files) { //preview
-//        	console.log("fileUpload2_IDpicb");
-//            for (var i = 0; i < files.length; i++) {
-//                if (files[i].type.indexOf("image") !== -1) { // or picture.type.includes("image");
-//
-//                    var fileReader_IDpicb = new FileReader();
-//                    fileReader_IDpicb.readAsDataURL(files[i]); // readyState 1
-//                    // console.log(fileReader);
-//                    let filename = files[i].name; //  Must be let!! !!!!
-//                    // console.log('set Filename=' + filename);
-//                    fileReader.addEventListener("load", function(e) { // readyState2
-//                        var picPreview_IDpicb = document.getElementsByClassName("picPreview_IDpicb");
-//                        if (typeof(picPreview_IDpicb[0]) !== "undefined") {
-//                            $(".picPreview_IDpicb").empty();
-//                        }
-//                        var img = document.createElement("img");
-//                        var input = document.createElement("input");
-//                        var div = document.createElement("div");
-//                        img.setAttribute("src", this.result); // 只能用e.target 不能用 fileReader(readystate:1, Asynchronous)
-//                        //e.target 是在捕獲冒泡 
-//                        input.setAttribute("type", "checkbox");
-//                        div.appendChild(input);
-//                        div.appendChild(img);
-//                        document.getElementById("picWrapper_IDpicb").append(div);
-//
-//                        img.addEventListener("click", (e) => { // click pic to checked checkbox
-//                            e.currentTarget.previousSibling.click();
-//                        });
-//
-//                        div.addEventListener("dragstart", dragStartHandler_IDpicb); //adding dragEvent to newly created pic
-//                        div.setAttribute("draggable", true);
-//                        div.setAttribute("name", filename); //LIne 122 important
-//                        div.setAttribute("class", "picPreview_IDpicb");  //"picPreview");
-//                        input.setAttribute("class", "picCheckbox");
-//                        input.setAttribute("id", "checkbox_id_picb");
-//                        img.setAttribute("id", "tnt_id_picb");
-//                    });
-//
-//                } else {
-//                    alert("請上傳圖片");
-//                }
-//            }
-//        }
-//        //----------------------------------------------
-//        var del_IDpicb = document.getElementById("del_IDpicb");
-//        del_IDpicb.addEventListener("click", deletFilePreview_IDpicb);
-//
-//        function deletFilePreview_IDpicb() {
-//        	console.log('deletFilePreview_IDpicb');
-//            var checkbox = document.querySelectorAll('div input[id="checkbox_id_picb"]');
-////            var checkbox = document.querySelectorAll('div input[type="checkbox"]');
-//            var isChecked = false;
-//            for (var i = 0; i < checkbox.length; i++) {
-//                if (checkbox[i].checked) {
-//                    isChecked = true;
-//                    var filename = checkbox[i].parentElement.getAttribute("name"); //getFilename from checked div
-//                    checkbox[i].parentElement.remove();
-//
-//                    console.log("out i=" + i);
-//                    console.log("out filename=" + filename);
-//
-////                    DeleteFileNameFile(filename);
-//                }
-//            }
-//            if (isChecked === false) {
-//            	Swal.fire({
-//            		icon: 'warning',
-//            		title: '請勾選刪除項目',
-//            		showConfirmButton: false,
-//            		timer: 1000,
-//            		animation: false
-//            	});
-//            }
-//        }
-//
-//        //=================================================
-//        function fileUpload_IDpicb(e) {
-//        	console.log('fileUpload_IDpicb');
-//            var picture = inputF_IDpicb.files;
-//            fileUpload2_IDpicb(picture);
-//             handleFile_IDpicb(picture)
-//        }
-//
-//        function dropUploadHandler_IDpicb(e) {
-//        	console.log('dropUploadHandler_IDpicb');
-//            var dtFiles = e.dataTransfer.files; //return FileList
-//
-//             handleFile_IDpicb(dtFiles);
-//            fileUpload2_IDpicb(dtFiles);
-//        }
-//        //=============================================
-//        function handleFile_IDpicb(files) {
-//        	console.log('handleFile_IDpicb');
-//            ([...files]).forEach(uploadFileDrop_IDpicb); //convert arraylist to array
-//        }
-//
-//        function uploadFileDrop_IDpicb(file) {}
-//        console.log('uploadFileDrop_IDpicb');
-//        ['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
-//            window.addEventListener(ev, function(e) {
-//                e.preventDefault();
-//            })
-//        });
-//
-//        function dropDelHandler_IDpicb(e) {
-//        	console.log('dropDelHandler_IDpicb');
-//            var domName = e.dataTransfer.getData("text");
-//            document.getElementsByName(domName)[0].remove();
-////            DeleteFileNameFile(domName);
-//        }
-//
-//        function dragStartHandler_IDpicb(e) {
-//        	console.log('dragStartHandler_IDpicb');
-//            e.dataTransfer.setData("text", e.target.parentElement.getAttribute("name"));
-//        }
-//        
-//        /*------------------------------------------------------------------
-//        [ End-Origin-Register ]*/
-//
-//        /*
-//         * ================================================================== 
-//         *    [ validateAll(the form) ]
-//         */
-//
-//        function validateAll(theform) {
-//            console.log(theform);
-//            //selects
-//            var selects = theform.find('select.wrap-register100');
-//            selects.each(function() {
-//                if ($(this).val().trim() == '') {
-//                    $(this).addClass('alert-validate-selects');
-//                }
-//            });
-//
-//            //inputs
-//            var inputs = theform.find('.validate-input .register100');
-//            var check = true;
-//
-//            for (var i = 0; i < inputs.length; i++) {
-//                if ($(inputs).val().trim() == '') {
-//                    showValidate(inputs[i]);
-//                    check = false;
-//                }
-//            }
-//
-//            inputs.each(function() {
-//                $(this).focus(function() {
-//                    hideValidate(this);
-//                });
-//            });
-//
-//            return check;
-//        }
 
         /*
          * ================================================================== 
@@ -414,10 +249,10 @@
                     		icon: 'success',
                     		title: '上傳成功!',
                     		showConfirmButton: false,
-                    		timer: 1500
-                    	})
-                    	$(".picPreview").empty();
-//                    	location.reload(true);
+                    		timer: 1200
+                    	}).then((result) => {
+                    		$(".picPreview").empty();
+                    	});
                    }
                 },
                 error: function() {

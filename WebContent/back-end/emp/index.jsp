@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.news.model.*"%>
+<%@ page import="java.util.*"%>
 
+<jsp:useBean id="newsSvc" scope="page" class="com.news.model.NewsService" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -146,13 +149,14 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> 
 <!-- 							通知小鈴鐺可配合後台推播系統 -->
-								<span class="badge badge-danger badge-counter">1</span>
+								<span id="bellcount" class="badge badge-danger badge-counter">${newsSvc.all.size()}</span>
 						</a> 
 <!-- 						Dropdown - Alerts -->
-							<div
+							<div 
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
-								<h6 class="dropdown-header">推播</h6>
+								<h6 id="bell" class="dropdown-header">推播</h6>
+							 <c:forEach var="newsVO" items="${newsSvc.all}">
 <!-- 								第一個展開推播 -->
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="mr-3">
@@ -161,10 +165,11 @@
 										</div>
 									</div>
 									<div>
-										<div class="small text-gray-500">2020年10月01日</div>
-										<span class="font-weight-bold">中秋節....！</span>
+										<div class="small text-gray-500">${newsVO.new_date}</div>
+										<span id="alert" class="font-weight-bold">${newsVO.new_content}</span>
 									</div>
 								</a>
+							 </c:forEach>
 <!-- 								Nav Item - Messages -->
 								<li class="nav-item dropdown no-arrow mx-1"><a
 									class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
@@ -172,7 +177,7 @@
 									aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i>
 <!-- 										Counter - Messages  -->
 										<span
-										class="badge badge-danger badge-counter">2</span>
+										class="badge badge-danger badge-counter">1</span>
 								</a>
 <!-- 								 Dropdown - Messages -->
 									<div
@@ -219,7 +224,7 @@
 										src="data:image/png;base64,${empVO.emp_pic}"></c:if>
 										<c:if test="${empVO.emp_pic == null}">
 										<img class="img-profile rounded-circle"
-										src="https://lh3.googleusercontent.com/proxy/RRqy5KvGEkYV7FlQzrBE3rIf8Xs4Fz1rAMN7dVCZwj_yTIRo5GHQMrHnV9YAmS07EcGWARAV-d0cue4NikVqfGEMT5toV2ZKg7rF0Q"></c:if>
+										src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMF9nq4kTIfW-uuGD9R0-wyLcPACsO3CHbag&usqp=CAU"></c:if>
 										
 								</a>
 <!-- 								 Dropdown - User Information -->
@@ -254,8 +259,8 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">待處理檢舉</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">員工編號：</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${empVO.emp_no}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -264,21 +269,127 @@
                 </div>
               </div>
             </div>
+          <button id="btn_con" onclick="connect();">點我連線WebSocket</button>
+          <button id="btn_close" onclick="disconnect();">點我關閉WebSocket連線</button>
+          <input type="text" id="announce" value="">
+          <button id="btn_send" onclick="sendMessage();">點我發送訊息</button>
+          
+          <h1 id="h1">Chat Room</h1>
+	<h3 id="statusOutput" class="statusOutput"></h3>
+	<div class="panel input-area">
+	</div>
           </div>
 					</div>
 				</div>
-
+			
 			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
-			<script src="<%=request.getContextPath()%>/back-end/js/ajax.js"></script>
 			<script>
-// 			$("#logout").click(function(){
-// 				${sessionScope.invalidate};
-// 				console.log("hi");
-// 			})
-			</script>
-			</div>
+			 $(function(){
+			      $(".collapse-item").click(function() {
+			    	  console.log(this.innerText);
+			    	  var ajax_select = this.innerText;
+			    	  var ajax_url="";
+			    	  if(ajax_select=="全體員工"){
+			    		  ajax_url = "listAllEmp.jsp";
+			    	   }
+			    	  else if(ajax_select=="查詢員工"){
+			    		  ajax_url = "select_page.jsp";
+			    	  }
+			    	  else if(ajax_select=="新增員工"){
+			    		  ajax_url = "addEmp.jsp";
+			    	  }
+
+			        $.ajax({
+			        	
+			          type: "GET",
+			          url: ajax_url,
+			          dataType: "html",
+			          async:true,
+			          success: function(data) {
+			        	  if(ajax_url!=""){
+			            $("#ajax_result").html(data);
+			            }},
+			          error: function(xhr) {
+			            alert("Ajax發生錯誤:"+xhr.status);
+			            }     
+			          });
+			        });
+			      });
+			</script><script>
+			
+	var MyPoint = "/TogetherWS/melon";
+	var host = window.location.host;
+	var path = window.location.pathname;
+	var webCtx = path.substring(0, path.indexOf('/', 1));
+	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+
+	var statusOutput = document.getElementById("statusOutput");
+	var webSocket;
+	
+	function connect() {
+		// create a websocket
+		webSocket = new WebSocket(endPointURL);
+
+		webSocket.onopen = function(event) {
+			updateStatus("WebSocket Connected");
+			document.getElementById('btn_con').disabled = true;
+			document.getElementById('btn_close').disabled = false;
+			document.getElementById('btn_send').disabled = false;
+		};
+		
+		webSocket.onmessage = function(event) {
+			var jsonObj = JSON.parse(event.data);
+			var new_content = jsonObj.new_content;
+			var bell='<a class="dropdown-item d-flex align-items-center" href="#">';
+				bell+='<div class="mr-3">';
+				bell+='<div class="icon-circle bg-primary">';
+				bell+='<i class="fas fa-file-alt text-white"></i>';
+				bell+='</div>';
+				bell+='</div>';
+				bell+='<div>';
+				bell+='<div class="small text-gray-500">2020年10月25日</div>';
+				bell+= '<span id="alert" class="font-weight-bold">'+new_content+'</span>';
+				bell+= '</div>';
+				bell+='</a>';
+			$('#bell').after(bell);
+		};
+
+		webSocket.onclose = function(event) {
+			updateStatus("WebSocket Disconnected");
+		};
+	}
+
+
+	function sendMessage() {
+		var inputMessage = document.getElementById("announce");
+		var new_content = inputMessage.value.trim();
+		if (new_content === "") {
+			alert("Input a message");
+			inputMessage.focus();
+		} else {
+			var jsonObj = {
+			    "new_no" : ${newsSvc.all.size()},
+				"new_content" : new_content,
+				"new_date" : "2020年10月25日"
+			};
+			webSocket.send(JSON.stringify(jsonObj));
+		}
+	}
+
+	function disconnect() {
+		document.getElementById('btn_con').disabled = false;
+		document.getElementById('btn_close').disabled = true;
+		document.getElementById('btn_send').disabled = true;
+		webSocket.close();
+
+	}
+
+	function updateStatus(newStatus) {
+		statusOutput.innerHTML = newStatus;
+	}
+</script>
 
 	
 </body>
