@@ -44,9 +44,53 @@ public class RepairServlet extends HttpServlet{
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
 		System.out.println("action="+action);
+	
+		
+		if ("delPic".equals(action)) { 
+			System.out.println("有近來");
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			System.out.println("還沒進到try");
+			try {
+				/***************************1.接收請求參數****************************************/
+
+				String reppic_no_array[] = req.getParameterValues("reppic_no[]");
+				if(reppic_no_array!=null) {
+					for(int i=0;i<reppic_no_array.length;i++) {
+						String reppic_no = reppic_no_array[i];
+						String new_reppic_no=reppic_no_array[i].concat("D");
+						System.out.println(new_reppic_no);
+						/***************************2.開始修改資料*****************************************/
+						RepairService repairSvc = new RepairService();
+						repairSvc.delPic(reppic_no, new_reppic_no);
+					}
+				}
+				
+				/***************************3.修改完成,準備轉交(Send the Success view)*************/
+			
+				//為了讓圖片在updPic.jsp新增上傳後能在同業面看到所有pic
+				String rep_no = req.getParameter("rep_no");
+				RepairService repSvc = new RepairService();
+				RepairVO repairVO = repSvc.getOneRepair(rep_no);
+				req.setAttribute("repairVO", repairVO);
+				//準備轉交
+				String url = "/front-end/repair/updPic.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);
+				
+			} catch (Exception e) {
+				errorMsgs.add("無法刪除此圖片:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/repair/updPic.jsp");
+				failureView.forward(req, res);
+				
+			}	
+		}
 		
 		//房客新增修繕圖片
-	if("pic_insert".equals(action)) {
+	if("pic_insert".equals(action)||"pic_upd_insert".equals(action)) {
 		List<String> errorMsgs = new LinkedList<String>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		
@@ -82,8 +126,18 @@ public class RepairServlet extends HttpServlet{
 				
 		}//for 
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/
-
-			String url = "/front-end/repair/listAllRepair.jsp";
+			String url=null;
+			if("pic_insert".equals(action)) {
+				url = "/front-end/repair/listAllRepair.jsp";
+			}else {
+				url = "/front-end/repair/updPic.jsp";
+			}
+			//為了讓圖片在updPic.jsp新增上傳後能在同業面看到所有pic
+			String rep_no = req.getParameter("rep_no");
+			RepairService repSvc = new RepairService();
+			RepairVO repairVO = repSvc.getOneRepair(rep_no);
+			req.setAttribute("repairVO", repairVO);
+			
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);	
 			System.out.println("3");
@@ -108,7 +162,7 @@ public class RepairServlet extends HttpServlet{
 		try {
 			/***************************1.接收請求參數****************************************/
 			String rep_no = req.getParameter("rep_no");
-			
+			System.out.println(rep_no);
 			/***************************2.開始查詢資料****************************************/
 			RepairService repairSvc = new RepairService();
 			RepairVO repairVO = repairSvc.getOneRepair(rep_no);
@@ -120,6 +174,7 @@ public class RepairServlet extends HttpServlet{
 			successView.forward(req, res);
 		} catch (Exception e) {
 			errorMsgs.add("無法更新此筆修繕紀錄:" + e.getMessage());
+			e.printStackTrace();
 			RequestDispatcher failureView = req
 					.getRequestDispatcher("/front-end/repair/listAllRepair.jsp");
 			//返回上一頁

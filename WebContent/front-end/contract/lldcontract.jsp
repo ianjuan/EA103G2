@@ -45,8 +45,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont.css">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont.js" charset="UTF-8"></script>
+	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont.css">	
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -110,7 +109,7 @@
 					<ul>
 						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="titleshow(event)" value="1">基本資訊</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="titleshow(event)" value="2">房屋圖片</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="titleshow(event)" value="2">簽名圖片</button></li>
 						<li class="title2">></li>
 						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="titleshow(event)" value="3">家具設備</button></li>
 						<li class="title2">></li>
@@ -161,69 +160,36 @@
 						</table>
 					</div>
 					<div id="cbody2">
-<!-- 						<table> -->
-								
-									<!-- Content -->
 							<div class="container">
 								<div class="row">
 									<div class="col-md-12">
-										<h1>請在這裡簽名</h1>
-										
+										<h1 style="font-style: italic;">請於下方簽名欄簽名!!</h1>
+									</div>
+								</div>	
+								<div class="row" style="margin-bottom: 5px;">
+									<div class="col-md-12">
+										<button type="button" class="btn btn-primary" id="sig-submitBtn">確認</button>
+										<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
-								 		<canvas id="sig-canvas" width="500" height="160" style="z-index:9999;position: relative;">
+								 		<canvas id="sig-canvas" width="850" height="200" style="z-index:9999;position: relative;">
 								 			Get a better browser, bro.
 								 		</canvas>
 								 	</div>
 								</div>
-<!-- 								<div class="row"> -->
-<!-- 									<div class="col-md-12"> -->
-<!-- 										<button class="btn btn-primary" id="sig-submitBtn">Submit Signature</button> -->
-<!-- 										<button class="btn btn-default" id="sig-clearBtn">Clear Signature</button> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<br/> -->
-<!-- 								<div class="row"> -->
-<!-- 									<div class="col-md-12"> -->
-<!-- 										<textarea id="sig-dataUrl" class="form-control" rows="5">Data URL for your signature will go here!</textarea> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<br/> -->
-<!-- 								<div class="row"> -->
-<!-- 									<div class="col-md-12"> -->
-<!-- 										<img id="sig-image" src="" alt="Your signature will go here!"/> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<tr> -->
-<!-- 								<th rowspan="3">房東簽名:</th> -->
-<!-- 								<td> -->
-<!-- 									<label> -->
-<!-- 										<input type="file" id="loadPic" onchange="load()" name="con_lld_sign" required> -->
-<!-- 										<img src="https://www.flaticon.com/svg/static/icons/svg/3378/3378213.svg" class="uploadpic"/> -->
-<!-- 										<span class="uploadfont" for="loadPic">&nbsp;&nbsp;上傳圖片&nbsp;&nbsp;</span>									 -->
-<!-- 									</label> -->
-<!-- 									<input type="button" class="funbtn" value="刪除" onclick="del()" style="margin-top: 6px;"> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr>	 -->
-<!-- 								<td> -->
-<!-- 									<div id="preview"> -->
-<!-- 									<img -->
-<%-- 							src="<%=request.getContextPath()%>/ContractSingleImgReader?id=${conVO.con_no}" class="pic" /> --%>
-<!-- 									</div> -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 						</table> -->
-<!-- 						<div id="outerdiv" -->
-<!-- 							style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;"> -->
-<!-- 							<div id="innerdiv" style="position: absolute;"> -->
-<!-- 								<img id="bigimg" style="border: 5px solid #fff;" src="" /> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-						</div>
+								<div class="row">
+									<div class="col-md-12">
+										<textarea id="sig-dataUrl" class="form-control" rows="2" readonly>圖片的 URL 我隱藏起來囉 不顯示!</textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
+									</div>
+								</div>
+							</div>
 					</div>
 					<div id="cbody3">
 						<table>
@@ -575,11 +541,11 @@
 				<input type="hidden" name="con_no" value="<%=conVO.getCon_no()%>">
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
 				<div id="cfoot">
-					<button class="btn" type="button" onclick="notice2()">全部重填</button>
-					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
-					<button class="btn" id="ne1" type="button" onclick="next()">下頁</button>	
+					<button class="pagebtn" type="button" onclick="notice2()">全部重填</button>
+					<button class="pagebtn" id="pr1" type="button" onclick="previous()">上頁</button>
+					<button class="pagebtn" id="ne1" type="button" onclick="next()">下頁</button>	
 					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="btn" type="button" onclick="notice1()">送出合約</button>					
+					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>					
 				</div>				
 			</div>
 			<div id="right">
@@ -593,15 +559,17 @@
 					</ul>
 				</div>
 				<div id="rfoot">
-					<button class="btn" type="button" onclick="notice2()">全部重填</button>
-					<button class="btn" id="pr2" type="button" onclick="previous()">上頁</button>
-					<button class="btn" id="ne2" type="button" onclick="next()">下頁</button>
+					<button class="pagebtn" type="button" onclick="notice2()">全部重填</button>
+					<button class="pagebtn" id="pr2" type="button" onclick="previous()">上頁</button>
+					<button class="pagebtn" id="ne2" type="button" onclick="next()">下頁</button>
 					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="btn" type="button" onclick="notice1()">送出合約</button>
+					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>
 				</div>
 			</div>
 		</form>
 	</div>
-	<div id="foot"></div>		
+	<div id="foot"></div>
+	
+	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont.js" charset="UTF-8"></script>
 </body>
 </html>

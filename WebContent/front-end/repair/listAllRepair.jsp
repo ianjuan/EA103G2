@@ -13,20 +13,68 @@
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/NewFile.css">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/NewFile.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/NewFileBtn.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/lightslider.css"">
+<script src="<%=request.getContextPath()%>/front-end/repair/js/lightslider.js"></script> 
+<style>
+    	ul{
+			list-style: none outside none;
+		    padding-left: 0;
+            margin: 0;
+		}
+        .demo .item{
+            margin-bottom: 60px;
+        }
+		.content-slider li{
+		    background-color: #ed3020;
+/* 		    text-align: center; */
+			text-align: left;
+		    color: #FFF;
+		}
+		.content-slider h3 {
+		    margin: 0;
+		    padding: 70px 0;
+		}
+		.demo{
+			width: 800px;
+		}
+</style>
+<script>
+    	 $(document).ready(function() {
+			$("#content-slider").lightSlider({
+                loop:true,
+                keyPress:true
+            });
+            $('#image-gallery').lightSlider({
+                gallery:true,
+                item:1,
+                thumbItem:9,
+                slideMargin: 0,
+                speed:500,
+                auto:true,
+                loop:true,
+                onSliderLoad: function() {
+                    $('#image-gallery').removeClass('cS-hidden');
+                }  
+            });
+		});
+</script>
 
 <title>房客修繕紀錄 - listAllRepair.jsp</title>
 
-<style>
-
-</style>
 
 </head>
+<button class="learn-more">Learn More</button>
+
+
 <body bgcolor='white'>
 
 <% session.setAttribute("tnt_no", "TNT000012");%>
@@ -37,12 +85,14 @@
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 <section id='second'>
-<div class='.container-md'>
+<!-- <div class='.container-md'> -->
+
+<div class='.container-fluid'>
  <div class='row'>
-        <div class='col-md-2'></div>
-        <div class='col-md-8  text-center'>
+<!--         <div class='col-md-2'></div> -->
+        <div class='col-md-10  text-center'>
             <h3 class='subtitle'>修繕申請紀錄</h3> 
-<%! int i = 0; %>          
+       
  <c:forEach var="conVO" items="${conSvc.all}"> 
      <c:if test="${tnt_no==conVO.tnt_no}"> 
 
@@ -50,30 +100,34 @@
 
             <div class='row' >
 				<!--修改圖片 -->
-                <div class='col-md-2'>
+              <div class='col-md-2'>
                 <c:if test="${repairVO.rep_pro eq 0}">
                 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
-				 		<input type="hidden" name="tnt_no" value="${rep_no}">
+				 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 				        <input type="hidden" name="action" value="getOne_For_updPic">
 				     	<button type="submit" class="btn btn-primary" ${(repairVO.rep_pro eq 0)?'':"disabled"}>上傳圖片</button>
 					</FORM>
                 </c:if>
                 <!--修繕圖片 -->
-                  <c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
-						
-					<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120">
-		
-					</c:forEach>
-		
-					
-					
-					
-					
-					
-					
-					
-				
-                </div>
+				<div class="demo">
+        			<div class="item">            
+            			<div class="clearfix" style="max-width:100px;">
+    						<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+			                  <c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
+									<c:if test="${(repair_pictureVO.reppic_no).indexOf('D')== -1}">
+										<li data-thumb="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}"> 
+<%-- 											<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120"> --%>
+												<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="15" height="15">
+
+										</li>
+									</c:if>
+							  </c:forEach>
+							</ul>
+            			</div>
+        			</div>
+				</div>	
+
+              </div>
                 <div class='col-md-4  text-center'>
                   <div class='text'>
                     <h6 class='rep_status'>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h6>

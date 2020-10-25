@@ -25,8 +25,9 @@ public interface RepairDAO_interface {
 	public void insert_pic(Repair_pictureVO repair_pictureVO);
 	//取出圖片
 	public List<Repair_pictureVO> getPicsNo(String rep_no);
-
-
+	
+	public void del_pic(String reppic_no, String new_reppic_no);
+	
 
 
 }
