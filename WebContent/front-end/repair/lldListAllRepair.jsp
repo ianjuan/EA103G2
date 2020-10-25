@@ -91,7 +91,9 @@ ${lld_no}
 								<!--修繕圖片 -->
 								<div class='col-md-2'>
                   					<a href='#'><c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
-										<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120">
+										<c:if test="${(repair_pictureVO.reppic_no).indexOf('D')== -1}">
+											<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120">
+										</c:if>
 									</c:forEach></a>
                 				</div>
 								<!--房屋訊息 -->

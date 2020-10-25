@@ -50,6 +50,8 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 	private static final String INSERT_REPAIR_PIC="INSERT INTO REPAIR_PICTURE (REPPIC_NO, REP_NO, REPPIC_PIC) VALUES ('REPPIC' || lpad(SEQ_REPPIC_NO.NEXTVAL, 6,'0'), ?, ?)";
 	//取出圖片
 	private static final String GET_ALL_PIC_BY_REPNO = "SELECT REPPIC_NO, REP_NO FROM REPAIR_PICTURE WHERE REP_NO=?";
+	//刪除圖片
+	private static final String DEL_REPAIR_PIC="UPDATE REPAIR_PICTURE SET REPPIC_NO=? WHERE REPPIC_NO=?";
 	
 	public List<Repair_pictureVO> getPicsNo (String rep_no) {
 		List<Repair_pictureVO> listNo = new ArrayList<Repair_pictureVO>();
@@ -572,6 +574,46 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 					+ e.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database Repair error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+
+	@Override
+	public void del_pic(String reppic_no, String new_reppic_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DEL_REPAIR_PIC);
+			pstmt.setString(1, new_reppic_no);
+			pstmt.setString(2, reppic_no);
+			pstmt.executeUpdate();
+
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load Repair_picture database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database Repair_picture error occured. "
 					+ se.getMessage());
 		} finally {
 			if (pstmt != null) {
