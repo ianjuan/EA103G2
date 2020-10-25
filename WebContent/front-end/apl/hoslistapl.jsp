@@ -138,7 +138,7 @@
 							<ul>
 								<FORM name="aplForm" METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 								<c:if test="${con_aplVO.apl_status == 0}">
-								<li><button class="btn" type="button" onclick="notice1()">接受申請</button></li>
+								<li><button class="btn" id="btn1 "type="button" onclick="notice1(event)">接受申請</button></li>
 								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=1>
@@ -147,9 +147,9 @@
 			     				<input type="hidden" name="action"	value="lldupdate">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+			     				<FORM name="cancel" METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 			     				<c:if test="${con_aplVO.apl_status == 0}">
-								<li><button id="btn2">拒絕申請</button></li>
+								<li><button class="btn" id="btn2 "type="button" onclick="notice2(event)">拒絕申請</button></li>
 								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=2>

@@ -18,7 +18,9 @@ window.onload = function() {
 	})
 }
 
-function notice1() {
+function notice1(event) {
+	let _this=event.target;
+	let a = $(_this).parent().parent()[0];
 	var list = document.getElementsByClassName("cinfo").length;
 
 	swal({
@@ -36,13 +38,38 @@ function notice1() {
 		}
 	}).then(function(isConfirm) {
 		if (isConfirm) {
-			swal("已接受此申請", "success", {
+			swal("恭喜", "已接受此申請", "success", {
 				button : "確認"
 			}).then(function() {
-				document.aplForm.submit();
+				a.submit();
 			});
 		} else {
 			return false;
 		}
 	});
+}
+
+function notice2(event) {
+	
+	let _this=event.target;
+	let a = $(_this).parent().parent()[0];
+
+	swal({
+		  title: "Are you sure?",
+		  text: "Once deleted, you will not be able to recover this imaginary file!",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+		    swal("Poof! Your imaginary file has been deleted!", {
+		      icon: "success",
+		    }).then(function() {
+				a.submit();
+		    });
+		  } else {
+		    swal("Your imaginary file is safe!");
+		  }
+		});
 }
