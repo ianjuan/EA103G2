@@ -154,11 +154,11 @@ public class TntService {
 	}
 
 	
-	public TntVO updateTntPocket(String tnt_no, int tnt_blance) {
+	public TntVO updateTntPocket(String tnt_no, int tnt_balance) {
 
 		TntVO tntVO = new TntVO();
 		tntVO.setTnt_no(tnt_no);
-		tntVO.setTnt_balance(tnt_blance);
+		tntVO.setTnt_balance(tnt_balance);
 		dao.update_pocket(tntVO);
 		return tntVO;
 	}

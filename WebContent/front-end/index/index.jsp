@@ -73,11 +73,11 @@
             </div>
         </div>
     </section>
-    ${tntVO.tnt_name}
-    <%=tntVO.getTnt_name()%>
-     <%=tntVO.getTnt_no()%>
+<%--     ${tntVO.tnt_name} --%>
+<%--     <%=tntVO.getTnt_name()%> --%>
+<%--      <%=tntVO.getTnt_no()%> --%>
      
-<%=tnt_no%>
+<%-- <%=tnt_no%> --%>
 
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
