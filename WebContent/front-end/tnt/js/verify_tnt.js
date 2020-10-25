@@ -384,9 +384,10 @@
         $('#btnVrfPics').click(function(e) {
             e.preventDefault();
             console.log('btn - Vrf Pics');
-            var theform = $(this).parent().prev('form');
-            if ($('.picPreview').find('img').length===1) {
-                var formData = new FormData(theform.get(0));
+//            var theform = $(this).parent().prev('form');
+            if ($('.picPreview').find('img').length===3) {
+            	var formData = new FormData($('#vrfPicsform')[0]);
+//                var formData = new FormData(theform.get(0));
                 formData.append('action', 'vrfPicsUpload');
 //              console.log(formData);
                 for (let key of formData.keys()) {
@@ -416,7 +417,7 @@
                     		timer: 1500
                     	})
                     	$(".picPreview").empty();
-                    	location.reload(true);
+//                    	location.reload(true);
                    }
                 },
                 error: function() {

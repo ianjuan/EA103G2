@@ -760,7 +760,7 @@ public class TntDAO implements TenantDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_BANK_CARD_STMT);
 			pstmt.setString(1, tntVO.getTnt_card());
-			pstmt.setInt(2, tntVO.getTnt_cardsvc());
+			pstmt.setString(2, tntVO.getTnt_cardsvc());
 			pstmt.setDate(3, tntVO.getTnt_carddue());
 			pstmt.setString(4, tntVO.getTnt_bank());
 			pstmt.setString(5, tntVO.getTnt_bankbranch());
@@ -806,7 +806,7 @@ public class TntDAO implements TenantDAO_interface {
 			while (rs.next()) {
 				tntVO = new TntVO();
 				tntVO.setTnt_card(rs.getString("tnt_card"));
-				tntVO.setTnt_cardsvc(rs.getInt("tnt_cardsvc"));
+				tntVO.setTnt_cardsvc(rs.getString("tnt_cardsvc"));
 				tntVO.setTnt_carddue(rs.getDate("tnt_carddue"));
 				tntVO.setTnt_bank(rs.getString("tnt_bank"));
 				tntVO.setTnt_bankbranch(rs.getString("tnt_bankbranch"));

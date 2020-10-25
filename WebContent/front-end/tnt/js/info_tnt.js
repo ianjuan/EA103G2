@@ -638,10 +638,10 @@
                     		icon: 'success',
                     		title: '上傳成功!',
                     		showConfirmButton: false,
-                    		timer: 1500
-                    	})
-                    	$(".picPreview").empty();
-                    	location.reload(true);
+                    		timer: 1000
+                    	}).then((result) => {
+                    		location.reload(true);
+                    	});
                    }
                 },
                 error: function() {

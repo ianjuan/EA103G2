@@ -28,7 +28,7 @@ public class TntVO implements java.io.Serializable {
 	private String tnt_bankbranch;
 	private String tnt_bankacc;
 	private String tnt_card;
-	private int tnt_cardsvc;
+	private String tnt_cardsvc;
 	private Date tnt_carddue;
 	// -------CMT-------
 	private int tnt_cmt_starsum;
@@ -212,11 +212,11 @@ public class TntVO implements java.io.Serializable {
 		this.tnt_card = tnt_card;
 	}
 
-	public int getTnt_cardsvc() {
+	public String getTnt_cardsvc() {
 		return tnt_cardsvc;
 	}
 
-	public void setTnt_cardsvc(int tnt_cardsvc) {
+	public void setTnt_cardsvc(String tnt_cardsvc) {
 		this.tnt_cardsvc = tnt_cardsvc;
 	}
 

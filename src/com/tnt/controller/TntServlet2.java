@@ -444,6 +444,7 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("infoChgPwd Exception: " + e.getMessage());
 			}
 		}
+
 // ===================================以下來自我的錢包 pocket.jsp=====================================================
 
 		// 來自pocket.jsp的請求 - ajax_balanceWithdraw(formData)
@@ -541,7 +542,8 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println(tnt_bankacc);
 				String tnt_card = req.getParameter("tnt_card");
 				System.out.println(tnt_card);
-				Integer tnt_cardsvc = Integer.valueOf(req.getParameter("tnt_cardsvc"));
+//				Integer tnt_cardsvc = Integer.valueOf(req.getParameter("tnt_cardsvc"));
+				String tnt_cardsvc = req.getParameter("tnt_cardsvc");
 				System.out.println(tnt_cardsvc);
 				String tnt_carddueStr = req.getParameter("tnt_carddue");
 				tnt_carddueStr = tnt_carddueStr + "-01";
@@ -568,6 +570,48 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("pocket 銀行信用卡 修改失敗:" + e.getMessage());
 				out = res.getWriter();
 				out.print("false");
+			}
+		}
+
+// ===================================以下來自身分驗證 verify.jsp=====================================================
+
+		// 來自info.jsp的請求 - ajax_infoPicUpload(formData)
+		if ("vrfPicsUpload".equals(action)) {
+			System.out.println("action: " + action);
+			List<String> errorMsgs = new LinkedList<String>();
+//					req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				Part part = req.getPart("tnt_pic");
+				System.out.println("part.getSize():" + part.getSize());
+				if (part.getSize() != 0) {
+					InputStream in = part.getInputStream();
+					byte[] tnt_pic = getPictureByteArray(in);
+
+//							System.out.println("1");
+
+					TntVO tntVO = new TntVO();
+					tntVO.setTnt_pic(tnt_pic);
+
+//							System.out.println("2");
+
+					HttpSession session = req.getSession();
+					String tnt_no = (String) session.getAttribute("tnt_no");
+
+//							System.out.println(tnt_no);
+
+					TntService tntSvc = new TntService();
+					tntSvc.updateTntPic(tnt_no, tnt_pic);
+
+//							System.out.println("3");
+
+					out = res.getWriter();
+					out.print("true");
+//							out.close();
+				}
+
+			} catch (Exception e) {
+//						errorMsgs.add("註冊失敗:" + e.getMessage());
+				System.out.println("info profile 修改失敗:" + e.getMessage());
 			}
 		}
 
