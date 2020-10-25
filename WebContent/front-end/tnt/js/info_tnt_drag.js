@@ -440,7 +440,26 @@
             ([...files]).forEach(uploadFileDrop); //convert arraylist to array
         }
 
-        function uploadFileDrop(file) {}
+        function uploadFileDrop(file) {
+//            var url = "uploadAndDelete.do";
+//            var xhr = new XMLHttpRequest();
+            var formData = new FormData();
+//            xhr.open("post", url, true);
+//            xhr.addEventListener("readyStatechange", function(e) {
+//                if (xhr.readState == 4 && xhr.status == 200) {
+//                    alert("success!");
+//                } else {
+//                    alert("error!");
+//                }
+//            });
+
+            formData.append("file", file);
+            // xhr.setRequestHeader("Content-Type", "multipart/form-data");//don't write this!!
+            // xhr.setRequestHeader("content-type", false);//don't write this!!
+//            xhr.send(formData);
+            
+        }
+
 
 
         ['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
