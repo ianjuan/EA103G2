@@ -49,8 +49,7 @@ public class TntVO implements java.io.Serializable {
 	private Integer tnt_auth_cmt;
 	private Integer tnt_auth_rpt;
 	
-	public TntVO() {
-	}
+	public TntVO() {}
 
 	public String getTnt_no() {
 		return tnt_no;
