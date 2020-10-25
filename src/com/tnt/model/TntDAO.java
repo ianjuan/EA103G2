@@ -856,6 +856,7 @@ public class TntDAO implements TenantDAO_interface {
 
 			pstmt.setInt(1, tntVO.getTnt_cmt_starsum());
 			pstmt.setInt(2, tntVO.getTnt_cmt_count());
+			pstmt.setString(3, tntVO.getTnt_no());
 
 			pstmt.executeUpdate();
 
@@ -931,6 +932,47 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String GET_ONE_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT where tnt_no=?";
 	private static final String GET_ALL_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT ORDER BY tnt_no";
 
+	private static final String UPDATE_VRF_PICS_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_isupload=? where tnt_no=?";
+	
+	
+	@Override
+	public void update_vrf_pics(TntVO tntVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_VRF_PICS_STMT);
+
+			pstmt.setBytes(1, tntVO.getTnt_id_picf());
+			pstmt.setBytes(2, tntVO.getTnt_id_picb());
+			pstmt.setBytes(3, tntVO.getTnt_id_pic2());
+			pstmt.setInt(4, tntVO.getTnt_id_isupload());
+			pstmt.setString(5, tntVO.getTnt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error ocurred." + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	
 	@Override
 	public void update_vrf(TntVO tntVO) {
 		Connection con = null;
@@ -1078,7 +1120,7 @@ public class TntDAO implements TenantDAO_interface {
 		return list;
 	}
 
-	// =================================6.rpt&auth==================================
+	// =================================6.rpt==================================
 	private static final String UPDATE_RPT_STMT = "UPDATE TENANT set tnt_reported_count=? where tnt_no=?";
 	private static final String GET_ONE_RPT_STMT = "SELECT tnt_reported_count from TENANT where tnt_no=?";
 

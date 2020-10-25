@@ -226,6 +226,19 @@ public class TntService {
 	public List<TntVO> getAllVrf() {
 		return dao.getAll_vrf();
 	}
+	
+	public TntVO updateTntVrfPics(String tnt_no, byte[] tnt_id_picf, byte[] tnt_id_picb, byte[] tnt_id_pic2, int tnt_id_isupload) {
+
+		TntVO tntVO = new TntVO();
+		tntVO.setTnt_no(tnt_no);
+		tntVO.setTnt_id_picf(tnt_id_picf);
+		tntVO.setTnt_id_picb(tnt_id_picb);
+		tntVO.setTnt_id_pic2(tnt_id_pic2);
+		tntVO.setTnt_id_isupload(tnt_id_isupload);
+		dao.update_vrf_pics(tntVO);
+
+		return tntVO;
+	}
 
 	public TntVO updateTntRpt(String tnt_no, int tnt_reported_count) {
 
