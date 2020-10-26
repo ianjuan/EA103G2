@@ -108,24 +108,21 @@
                     contentType: false,
 
                     success: function(data) { // 以上成功才執行
-                        //                    console.log("" + data);
                         console.log("res棒");
                         console.log(""+data);
                         if (data === 'false') { //信箱尚未註冊
-//                        	Swal.hideLoading();
-//                        	swal.disableLoading();
                         	swal.close();
                             $('.wrap-validate-login').addClass('validate-input alert-validate-login');
                         } 
     
                         if (data === 'true') {
-//                        	swal.hideLoading();
                         	swal.close();
                         	Swal.fire({
-//                        		icon: 'success',
+                        		icon: 'success',
                         		title: '已發送驗證信!',
                         		text: "請盡快至您的信箱收信",
                         		showConfirmButton: true,
+                        		confirmButtonText: '點我回首頁',
 //                        		timer: 1500, 
 //                        		animate: false
                         	}).then((result) => {
@@ -142,7 +139,7 @@
                         		icon: 'warning',
                         		title: '發生錯誤',
                         		text: "請稍後重新點選送出",
-                        	    showDenyButton: true,
+                        		showConfirmButton: true,
                         		});
                     }
                 });
@@ -157,15 +154,6 @@
         function redirect() {
             window.location.href = "/EA103G2/front-end/index/index.jsp";
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
 //        

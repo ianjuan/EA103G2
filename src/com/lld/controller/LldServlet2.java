@@ -277,6 +277,7 @@ public class LldServlet2 extends HttpServlet {
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			out = res.getWriter();
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String lld_email = req.getParameter("lld_email");
@@ -297,6 +298,9 @@ public class LldServlet2 extends HttpServlet {
 				}
 				if (!validateEmail) {
 					resString = "false";
+					out.print(resString);
+					out.close();
+					return;
 				}
 				if (validateEmail) {
 					LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
@@ -318,8 +322,9 @@ public class LldServlet2 extends HttpServlet {
 					if (successSendMail) {
 						resString = "true";
 						lldSvc.updateLldPwd(lld_no, lld_pwd);
-						out = res.getWriter();
 						out.print(resString);
+						out.close();
+						return;
 					}
 				}
 

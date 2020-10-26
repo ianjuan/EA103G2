@@ -277,6 +277,7 @@ public class TntServlet2 extends HttpServlet {
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			out = res.getWriter();
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
@@ -297,7 +298,6 @@ public class TntServlet2 extends HttpServlet {
 				}
 				if (!validateEmail) {
 					resString = "false";
-					out = res.getWriter();
 					out.print(resString);
 					out.close();
 					return;
@@ -322,7 +322,6 @@ public class TntServlet2 extends HttpServlet {
 					if (successSendMail) {
 						resString = "true";
 						tntSvc.updateTntPwd(tnt_no, tnt_pwd);
-						out = res.getWriter();
 						out.print(resString);
 						out.close();
 						return;
