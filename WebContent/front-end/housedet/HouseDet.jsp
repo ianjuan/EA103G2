@@ -135,7 +135,7 @@ session.setAttribute("HOS",hosno);
                                 <p class=<%= vo.getHos_net() ==0 ? "no":"yes" %> >網路</p>
                             </li>
                             <li>
-                                <p class=<%= vo.getHos_drink() ==0 ? "no":"yes" %>>銀水雞</p>
+                                <p class=<%= vo.getHos_drink() ==0 ? "no":"yes" %>>飲水機</p>
                             </li>
                             <li>
                                 <p class=<%= vo.getHos_forth() ==0 ? "no":"yes" %>>第四台</p>
