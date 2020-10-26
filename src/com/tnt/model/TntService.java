@@ -222,6 +222,10 @@ public class TntService {
 	public TntVO getOneTntVrf(String tnt_no) {
 		return dao.findByPK_vrf(tnt_no);
 	}
+	
+	public TntVO getOneTntVrf(String tnt_no, Boolean getVrfPics) {
+		return dao.findByPK_vrf(tnt_no, getVrfPics);
+	}
 
 	public List<TntVO> getAllVrf() {
 		return dao.getAll_vrf();

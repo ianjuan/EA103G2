@@ -307,7 +307,7 @@ public class TntServlet2 extends HttpServlet {
 					String tnt_name = tntVO.getTnt_name();
 					String tnt_pwd = getAuthCode();
 					String indexPage = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
-							+ req.getContextPath() + "/front-end/index/index.jsp";
+							+ req.getContextPath() + "/front-end/index/tnt/login.jsp";
 //					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + tnt_pwd + "\n" + "請登入後至會員專區修改密碼";
 //					MailService0 mailService = new MailService0();
 					MailService mailService = new MailService();

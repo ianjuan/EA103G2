@@ -41,20 +41,6 @@
 	}
 	
 	
-	
-	
-// 	String bankAccEnd = tntVO_bankcard.getTnt_bankacc();
-// 	if (bankAccEnd != null){
-// 		int tmp = bankAccEnd.length();
-// 		bankAccEnd = bankAccEnd.substring(tmp-4);
-// 	}
-// 	String cardEnd = tntVO_bankcard.getTnt_card();
-// 	if (cardEnd != null){
-// 		int tmp = cardEnd.length();
-// 		cardEnd = cardEnd.substring(tmp-4);
-// 	}
-	
-	
 %> 
 
 <head>
@@ -247,8 +233,6 @@
 				                               <button class="btnBalanceSmall" id="btnbalanceDeposit">儲值</button>
 				                            </div>
 				                    </div>
-
-                                
                             </div>
                             <!--End form1 Pocket -->
 

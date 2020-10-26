@@ -691,9 +691,8 @@
                     		icon: 'success',
                     		title: '密碼修改成功!',
                     		text: "請用新的密碼重新登入",
-//                    		showConfirmButton: false,
-//                    		timer: 1500,
-                    		showConfirmButton: true
+                    		showConfirmButton: true,
+                    		confirmButtonText: '重新登入',
                     	}).then((result) => {
                     		  if (result.isConfirmed) {
                     			  redirect();
