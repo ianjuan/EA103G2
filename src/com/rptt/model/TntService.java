@@ -118,4 +118,8 @@ public class TntService {
 		return dao.findByNo(Number);
 	}
 
+	public TntVO getEmail(String tnt_no) {
+		return dao.findEmail(tnt_no);
+	}
+	
 }

@@ -171,12 +171,9 @@
 				<li class="nav-item active"><a class="nav-link" href="#"
 					onclick="del()"> <i class="fas fa-fw fa-table"></i>
 						<form METHOD="post" ACTION="RpttServlet" name="clickTable">
-
-							<input type="hidden" name="Number" value="0"> <input
-								type="hidden" name="action" value="get_want_display"> <span
-								onclick="clickTable.submit()">Tables </span>
+							<input type="hidden" name="action" value="get_vrf_main_page">
+							<span onclick="clickTable.submit()">身分驗證 </span>
 						</form></a></li>
-
 				<!-- Divider -->
 				<hr class="sidebar-divider d-none d-md-block">
 
@@ -401,17 +398,22 @@
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<div class="row">
-								<div class="col-md-9">
+							<div class="row justify-content-between">
+								<div class="col-8">
 									<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 								</div>
-								<div class="col-md-3">
+								<div class="col-1">
+									<a href="vrf_second_page.jsp">
+										<button class="checkall">查看全部</button>
+									</a>
+								</div>
+								<div class="col-3">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
-											搜尋: <input type="text" size="24" name="Number"
-												placeholder="輸入房客/ 房東/ 員工編號"> <input type="hidden"
-												name="action" value="get_want_vrf"> <input
-												type="submit"
+											搜尋: <input type="text" size="32" name="Number"
+												placeholder="輸入會員編號/姓名/電話/信箱/身份證字號"> <input
+												type="hidden" name="action" value="get_want_vrf_display">
+											<input type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 												tabindex="-1" />
 										</h4>
