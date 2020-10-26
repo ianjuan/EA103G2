@@ -160,8 +160,8 @@ session.setAttribute("HOS",hosno);
                     <!--屋況說明-->
                     <div class="info">
                         <h2>地圖位置</h2>                    
-                    <div class="map">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.396775446296!2d121.52616831500599!3d25.020605483978564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a98e596b4a89%3A0xeeee920255b63d69!2z5Y-w6Zu75aSn5qiT56uZ!5e0!3m2!1szh-TW!2stw!4v1600146985805!5m2!1szh-TW!2stw" frameborder="0"></iframe>
+                    <div class="map" id="map">
+<!--                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.396775446296!2d121.52616831500599!3d25.020605483978564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a98e596b4a89%3A0xeeee920255b63d69!2z5Y-w6Zu75aSn5qiT56uZ!5e0!3m2!1szh-TW!2stw!4v1600146985805!5m2!1szh-TW!2stw" frameborder="0"></iframe> -->
                     </div></div>
                     <!--地圖-->
                     <div class="info">
@@ -403,7 +403,21 @@ $(".gallery-thumbs .swiper-wrapper").append(
 }
 
 	})
-
+function initMap() {
+            geocoder = new google.maps.Geocoder();
+            map = new google.maps.Map(document.getElementById('map'), { //產生地圖
+                center: { lat: <%=vo.getHos_lat()%>, lng: <%=vo.getHos_lng()%> }, //經緯度初始化
+                zoom: 17,
+                mapTypeControl: false
+            });
+            marker = new google.maps.Marker({ //插上座標
+                map: map,
+                position: {
+                    lat: <%=vo.getHos_lat()%>,
+                    lng: <%=vo.getHos_lng()%>
+                }
+            });
+        }
 console.log(picnum);
 
 </script>
@@ -414,7 +428,7 @@ console.log(picnum);
 <div id="notice">
     <p> </p>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxL16LHes_Y4e96wJGKpsPGMXQJ_VlBL8&callback=initMap" async defer></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.fancybox.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.cookie.min.js"></script>
