@@ -5,11 +5,7 @@
 <%@ page import="com.repair.controller.*"%>
 
 
-<%
-	RepairService repairSvc = new RepairService();
-	List<RepairVO> list = repairSvc.lldGetAll("LLD000171");
-	pageContext.setAttribute("list",list);
-%>
+
 
 <% session.setAttribute("lld_no", "LLD000171");%>
 

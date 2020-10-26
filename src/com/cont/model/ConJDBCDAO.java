@@ -34,13 +34,13 @@ public class ConJDBCDAO implements ConDAO_interface {
 
 	private static final String GET_ALL_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_LLD_SIGNTIME, "
 			+ "CON_TNT_SIGN, to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_TNT_SIGNTIME, to_char(CON_DATE, 'yyyy-mm-dd hh:mm:ss')CON_DATE, to_char(CON_CHE_DATE, 'yyyy-mm-dd')CON_CHE_DATE, CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd')CON_CHKDATE, "
-			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd')CON_COMCHKDATE, CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
+			+ "CON_COMCHKDATE, CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
 			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd')CON_LASTB_PDATE, to_char(CON_DEP_BKDATE, 'yyyy-mm-dd')CON_DEP_BKDATE, CON_OUT_NORMAL, CON_STA "
 			+ "FROM CONTRACT ORDER BY CON_NO";
 
 	private static final String GET_ONE_STMT = "SELECT CON_NO, APL_NO, TNT_NO, HOS_NO, CON_LLD_SIGN, to_char(CON_LLD_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_LLD_SIGNTIME, "
 			+ "CON_TNT_SIGN, to_char(CON_TNT_SIGNTIME, 'yyyy-mm-dd hh:mm:ss')CON_TNT_SIGNTIME, to_char(CON_DATE, 'yyyy-mm-dd hh:mm:ss')CON_DATE, to_char(CON_CHE_DATE, 'yyyy-mm-dd')CON_CHE_DATE, CON_DEP_STA, to_char(CON_CHKDATE, 'yyyy-mm-dd')CON_CHKDATE, "
-			+ "to_char(CON_COMCHKDATE, 'yyyy-mm-dd')CON_COMCHKDATE, CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
+			+ "CON_COMCHKDATE, CON_CHK_STA, CON_CHR_FEE, CON_CHR_ITM, CON_IS_CHR, CON_RENT_AGN,"
 			+ "CON_BILL_PAID, to_char(CON_LASTB_PDATE, 'yyyy-mm-dd')CON_LASTB_PDATE, to_char(CON_DEP_BKDATE, 'yyyy-mm-dd')CON_DEP_BKDATE, CON_OUT_NORMAL, CON_STA "
 			+ "FROM CONTRACT WHERE CON_NO = ?";
 
