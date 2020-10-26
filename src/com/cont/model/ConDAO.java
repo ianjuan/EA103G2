@@ -653,17 +653,13 @@ public class ConDAO implements ConDAO_interface {
 	public List<ConVO> getAll() {
 		List<ConVO> list = new ArrayList<ConVO>();
 		ConVO conVO = null;
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
 		try {
-
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				conVO = new ConVO();
 
@@ -693,7 +689,7 @@ public class ConDAO implements ConDAO_interface {
 				list.add(conVO);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace(System.err);
 		}
 		return list;
 	}

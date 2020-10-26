@@ -4,27 +4,25 @@
 <%@ page import="com.repair.model.*"%>
 <%@ page import="com.cont.model.*"%>
 <%@ page import="com.apl.model.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>還不給我跑出來 阿阿阿阿</title>
 </head>
 <body>
-<jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
-	
-	${repSvc.getOneRepair('REP000007').con_no}
+123123123123123123123123
+<%  
+ConService conService = new ConService();
+List<ConVO> list = conService.getAll(); 
+System.out.println(list.size());
+for(ConVO conVO: list){
+	System.out.println(conVO.getApl_no());
+}
+%>
 
-<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
-	
-	<c:forEach var="Con_aplVO" items="${aplSvc.all}">
-		${Con_aplVO.apl_no}
-	</c:forEach>
 
-<jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
- <c:forEach var="ConVO" items="${conSvc.all}"> 
-	${ConVO.con_no}
-</c:forEach>
 
 </body>
 </html>
