@@ -125,6 +125,7 @@ public class RecServlet extends HttpServlet {
 						+ housewatVO.getHos_waterfee() * (int) (recVO.getRec_water()) + houseVO.getHos_gasfee()
 						+ houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee()
 						+ houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
+				System.out.println(rec_total);
 
 				recService.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
 				recVO = recService.getOneRec(rec_no);

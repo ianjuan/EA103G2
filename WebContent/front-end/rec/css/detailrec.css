@@ -136,7 +136,7 @@ body {
 }
 
 #cbody1, #cbody2, #cbody3, #cbody4, #cbody5 {
-	display: none;
+	display: block;
 	margin: 20px 0;
 }		
 .title1 {
