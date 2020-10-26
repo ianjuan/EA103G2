@@ -15,7 +15,7 @@ a:hover{
 .btn{
     background-color: #F05F5C;
     color: white;
-    padding: 9px 26px;
+    padding: 9px 30px;
     border-radius:20px;
 }
 #intro.jumbotron{
@@ -35,9 +35,6 @@ a:hover{
 
 }
 
-header nav img{
-    width: 175px;
-}
 
 header li{
     margin: o 20px;
@@ -47,9 +44,16 @@ header li{
 #second .subtitle{
     padding-top: 20px;
     padding-bottom: 40px;
+    
 }
 #second{
     padding: 0px 0px;
+}
+
+#second .content{
+    border: 3px solid #cde3e4;
+    border-radius: 30px;
+    padding:20px;
 }
 
 #second .row{
@@ -61,7 +65,7 @@ header li{
 #second .col-md-8 .row{
     background-color: rgb(221, 245, 247);
     padding:20px;
-    margin:30px;
+    margin:50px;
    
 }
 /* 調整房屋資訊排版 */
@@ -84,15 +88,7 @@ header li{
 }
 
 
-/* #second img{ */
-/*     width:200px; */
-/*     height:190px; */
-/*     margin-bottom: 15px; */
-/*     border-radius: 20%; */
-/*     border:7px solid white; */
-/*     position:relative; */
-   
-/* } */
+
 
 /* 調整修繕資訊排版 */
 
