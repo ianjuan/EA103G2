@@ -93,7 +93,11 @@
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button>
 						<br><span id="count">共<%=list.size()%>間</span>
 					</FORM>
-					<button type="button" class="link">修繕管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					<button type="button" class="link">評價管理</button>
 				</div>
 			</nav>
