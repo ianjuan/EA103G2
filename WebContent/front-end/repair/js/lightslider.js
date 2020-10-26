@@ -347,39 +347,39 @@
                     var i = 0,
                         pagers = '',
                         v = 0;
-                    for (i = 0; i < length; i++) {
-                        if (settings.mode === 'slide') {
-                            // calculate scene * slide value
-                            if (!settings.autoWidth) {
-                                v = i * ((slideWidth + settings.slideMargin) * settings.slideMove);
-                            } else {
-                                v += ((parseInt($children.eq(i).width()) + settings.slideMargin) * settings.slideMove);
-                            }
-                        }
-                        var thumb = $children.eq(i * settings.slideMove).attr('data-thumb');
-                        if (settings.gallery === true) {
-                            pagers += '<li style="width:100%;' + property + ':' + thumbWidth + 'px;' + gutter + ':' + settings.thumbMargin + 'px"><a href="#"><img src="' + thumb + '" /></a></li>';
-                        } else {
-                            pagers += '<li><a href="#">' + (i + 1) + '</a></li>';
-                        }
-                        if (settings.mode === 'slide') {
-                            if ((v) >= w - elSize - settings.slideMargin) {
-                                i = i + 1;
-                                var minPgr = 2;
-                                if (settings.autoWidth) {
-                                    pagers += '<li><a href="#">' + (i + 1) + '</a></li>';
-                                    minPgr = 1;
-                                }
-                                if (i < minPgr) {
-                                    pagers = null;
-                                    $slide.parent().addClass('noPager');
-                                } else {
-                                    $slide.parent().removeClass('noPager');
-                                }
-                                break;
-                            }
-                        }
-                    }
+//                    for (i = 0; i < length; i++) {
+//                        if (settings.mode === 'slide') {
+//                            // calculate scene * slide value
+//                            if (!settings.autoWidth) {
+//                                v = i * ((slideWidth + settings.slideMargin) * settings.slideMove);
+//                            } else {
+//                                v += ((parseInt($children.eq(i).width()) + settings.slideMargin) * settings.slideMove);
+//                            }
+//                        }
+//                        var thumb = $children.eq(i * settings.slideMove).attr('data-thumb');
+//                        if (settings.gallery === true) {
+//                            pagers += '<li style="width:100%;' + property + ':' + thumbWidth + 'px;' + gutter + ':' + settings.thumbMargin + 'px"><a href="#"><img src="' + thumb + '" /></a></li>';
+//                        } else {
+//                            pagers += '<li><a href="#">' + (i + 1) + '</a></li>';
+//                        }
+//                        if (settings.mode === 'slide') {
+//                            if ((v) >= w - elSize - settings.slideMargin) {
+//                                i = i + 1;
+//                                var minPgr = 2;
+//                                if (settings.autoWidth) {
+//                                    pagers += '<li><a href="#">' + (i + 1) + '</a></li>';
+//                                    minPgr = 1;
+//                                }
+//                                if (i < minPgr) {
+//                                    pagers = null;
+//                                    $slide.parent().addClass('noPager');
+//                                } else {
+//                                    $slide.parent().removeClass('noPager');
+//                                }
+//                                break;
+//                            }
+//                        }
+//                    }
                     var $cSouter = $slide.parent();
                     $cSouter.find('.lSPager').html(pagers); 
                     if (settings.gallery === true) {
