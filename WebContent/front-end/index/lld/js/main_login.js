@@ -86,6 +86,10 @@
 
                 $(thisAlert).removeClass('alert-validate');
             }
+//            $('nav').removeClass('bg-light')
+//            $('nav.bg-light').css('background-color','#D7C8B6 !important');
+//            $('nav.navbar').css('background-color','#D7C8B6 !important');
+            
 
         })(jQuery);
 

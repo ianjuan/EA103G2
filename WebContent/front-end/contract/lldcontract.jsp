@@ -109,13 +109,13 @@
 					<ul>
 						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="titleshow(event)" value="1">基本資訊</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="titleshow(event)" value="2">簽名圖片</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn2" onclick="titleshow(event)" value="2">家具設備</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="titleshow(event)" value="3">家具設備</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn3" onclick="titleshow(event)" value="3">各項費用</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn4" onclick="titleshow(event)" value="4">各項費用</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn4" onclick="titleshow(event)" value="4">其他條件</button></li>
 						<li class="title2">></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn5" onclick="titleshow(event)" value="5">其他條件</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn5" onclick="titleshow(event)" value="5">合約簽名</button></li>
 					</ul>
 				</div>		
 				<div id="cbody">				
@@ -159,39 +159,8 @@
 							
 						</table>
 					</div>
+					
 					<div id="cbody2">
-							<div class="container">
-								<div class="row">
-									<div class="col-md-12">
-										<h3 style="font-style: italic;">請於下方簽名欄簽名</h3>
-									</div>
-								</div>	
-								<div class="row">
-									<div class="col-md-12">
-								 		<canvas id="sig-canvas" width="850" height="200" style="z-index:9999;position: relative;">
-								 			Get a better browser, bro.
-								 		</canvas>
-								 	</div>
-								</div>
-								<div class="row" style="margin-bottom: 5px;">
-									<div class="col-md-12">
-										<button type="button" class="btn btn-primary" id="sig-submitBtn">確認</button>
-										
-										<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
-									</div>
-								</div>
-								<br>
-								您的簽名<br>
-								<div class="row">
-									<div class="col-md-12">
-										<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
-										<input id="sign" type="hidden" name="con_lld_sign" value=""/>
-										
-									</div>
-								</div>
-							</div>
-					</div>
-					<div id="cbody3">
 						<table>
 							<tr>
 								<th>家具:</th>
@@ -417,7 +386,7 @@
 							</tr>
 						</table>
 					</div>
-					<div id="cbody4">
+					<div id="cbody3">
 						<table cellpadding="11">
 							<tr>
 								<th>租金</th>
@@ -484,7 +453,7 @@
 							
 						</table>
 					</div>
-					<div id="cbody5">
+					<div id="cbody4">
 						<table cellpadding="15">
 							<tr>
 								<th>可遷入日</th>
@@ -535,6 +504,38 @@
 								</td>
 							</tr>
 						</table>
+					</div>
+					<div id="cbody5">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<h3 style="font-style: italic;">請於下方簽名欄簽名</h3>
+									</div>
+								</div>	
+								<div class="row">
+									<div class="col-md-12">
+								 		<canvas id="sig-canvas" width="850" height="200" style="z-index:9999;position: relative;">
+								 			Get a better browser, bro.
+								 		</canvas>
+								 	</div>
+								</div>
+								<div class="row" style="margin-bottom: 5px;">
+									<div class="col-md-12">
+										<button type="button" class="btn btn-primary" id="sig-submitBtn">確認</button>
+										
+										<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
+									</div>
+								</div>
+								<br>
+								您的簽名<br>
+								<div class="row">
+									<div class="col-md-12">
+										<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
+										<input id="sign" type="hidden" name="con_lld_sign" value=""/>
+										
+									</div>
+								</div>
+							</div>
 					</div>			        				
 				</div>
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -545,17 +546,17 @@
 					<button class="pagebtn" id="pr1" type="button" onclick="previous()">上頁</button>
 					<button class="pagebtn" id="ne1" type="button" onclick="next()">下頁</button>	
 					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>					
+					<button class="pagebtn" type="button" onclick="notice1()">合約預覽</button>					
 				</div>				
 			</div>
 			<div id="right">
 				<div id="rhead">
 					<ul>
 						<li class="title1"><button type="button" class="titlebtn" id="btn6" onclick="titleshow(event)" value="1">基本資訊</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="titleshow(event)" value="2">房屋圖片</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn8" onclick="titleshow(event)" value="3">家具設備</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn9" onclick="titleshow(event)" value="4">各項費用</button></li>
-						<li class="title1"><button type="button" class="titlebtn" id="btn10" onclick="titleshow(event)" value="5">其他條件</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn7" onclick="titleshow(event)" value="2">家具設備</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn8" onclick="titleshow(event)" value="3">各項費用</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn9" onclick="titleshow(event)" value="4">其他條件</button></li>
+						<li class="title1"><button type="button" class="titlebtn" id="btn10" onclick="titleshow(event)" value="2">房屋圖片</button></li>
 					</ul>
 				</div>
 				<div id="rfoot">

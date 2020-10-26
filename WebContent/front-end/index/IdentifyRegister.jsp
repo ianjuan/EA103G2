@@ -52,13 +52,13 @@
                     <hr class="login100-form-title p-b-10">
                     <div class="identity-wrap">
                         <div class="identity-img-wrap m-r-10 m-l-10">
-                            <img src="https://www.dd-room.com/_nuxt/img/2b7ea73.png" width="300">
+                            <img src="<%=request.getContextPath()%>/images/lld.png" width="300">
                             <div class="container-login100-form-btn m-t-10">
                                <a href="/EA103G2/front-end/index/lld/register.jsp" class="login100-form-btn btnIdentify">我是房東</a>
                             </div>
                         </div>
                         <div class="identity-img-wrap m-r-10 m-l-10">
-                            <img src="https://www.dd-room.com/_nuxt/img/78b1566.png" width="300">
+                        	<img src="<%=request.getContextPath()%>/images/tnt.png" width="300">
                             <div class="container-login100-form-btn m-t-10">
                                 <a href="/EA103G2/front-end/index/tnt/register.jsp" class="login100-form-btn btnIdentify">我是房客</a>
                             </div>
