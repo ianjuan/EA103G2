@@ -111,17 +111,16 @@
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 								<c:if test="${conVO.con_sta != 0 && conVO.con_sta != 1}">
-								<li><button id="btn2">合約書</button></li>
+								<li><button id="btn1">合約書</button></li>
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
-			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
-			     				<input type="hidden" name="action"	value="gettntfinalcontract">
+			     				<input type="hidden" name="action"	value="getcontract">
 			     				</FORM>
 			     				
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 								<c:if test="${conVO.con_sta == 0 || conVO.con_sta == 1}">
-								<li><button id="btn1">合約管理</button></li>
+								<li><button id="btn1">簽署合約</button></li>
 								</c:if>
 								<input type="hidden" name="con_no"  value="${conVO.con_no}">
 								<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
