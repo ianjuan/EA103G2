@@ -41,7 +41,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont.css">
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -128,38 +127,6 @@
 						</table>
 					</div>
 					<div id="cbody2">
-							<div class="container">
-								<div class="row">
-									<div class="col-md-12">
-										<h3 style="font-style: italic;">請於下方簽名欄簽名</h3>
-									</div>
-								</div>	
-								<div class="row">
-									<div class="col-md-12">
-								 		<canvas id="sig-canvas" width="850" height="200" style="z-index:9999;position: relative;">
-								 			Get a better browser, bro.
-								 		</canvas>
-								 	</div>
-								</div>
-								<div class="row" style="margin-bottom: 5px;">
-									<div class="col-md-12">
-										<button type="button" class="btn btn-primary" id="sig-submitBtn">確認</button>
-										
-										<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
-									</div>
-								</div>
-								<br>
-								您的簽名<br>
-								<div class="row">
-									<div class="col-md-12">
-										<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
-										<input id="sign" type="hidden" name="con_tnt_sign" value=""/>
-										
-									</div>
-								</div>
-							</div>
-					</div>
-					<div id="cbody3">
 						<table>
 							<tr>
 								<th>家具:</th>
@@ -385,7 +352,7 @@
 							</tr>
 						</table>
 					</div>
-					<div id="cbody4">
+					<div id="cbody3">
 						<table cellpadding="11">
 							<tr>
 								<th>租金</th>
@@ -452,7 +419,7 @@
 							
 						</table>
 					</div>
-					<div id="cbody5">
+					<div id="cbody4">
 						<table cellpadding="15">
 							<tr>
 								<th>可遷入日</th>
@@ -503,6 +470,38 @@
 								</td>
 							</tr>
 						</table>
+					</div>				
+					<div id="cbody5">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<h3 style="font-style: italic;">請於下方簽名欄簽名</h3>
+									</div>
+								</div>	
+								<div class="row">
+									<div class="col-md-12">
+								 		<canvas id="sig-canvas" width="850" height="200" style="z-index:9999;position: relative;">
+								 			Get a better browser, bro.
+								 		</canvas>
+								 	</div>
+								</div>
+								<div class="row" style="margin-bottom: 5px;">
+									<div class="col-md-12">
+										<button type="button" class="btn btn-primary" id="sig-submitBtn">確認</button>
+										
+										<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
+									</div>
+								</div>
+								<br>
+								您的簽名<br>
+								<div class="row">
+									<div class="col-md-12">
+										<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
+										<input id="sign" type="hidden" name="con_tnt_sign" value=""/>
+										
+									</div>
+								</div>
+							</div>
 					</div>			        				
 				</div>
 				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
@@ -531,7 +530,7 @@
 					<button class="btn" id="pr2" type="button" onclick="previous()">上頁</button>
 					<button class="btn" id="ne2" type="button" onclick="next()">下頁</button>
 					<input type="hidden" name="action" value="updateonetntcontract">
-					<button class="btn" type="button" onclick="notice1()">送出合約</button>
+					<button class="btn" type="button" onclick="notice1()">合約預覽</button>
 				</div>
 			</div>
 		</form>

@@ -93,7 +93,11 @@
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button>
 						<br><span id="count">共<%=list.size()%>間</span>
 					</FORM>
-					<button type="button" class="link">修繕管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					<button type="button" class="link">評價管理</button>
 				</div>
 			</nav>
@@ -143,7 +147,7 @@
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
-			     				<input type="hidden" name="action"	value="getcontract">
+			     				<input type="hidden" name="action"	value="checklldcontract">
 			     				</FORM>
 			     				
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
@@ -175,15 +179,6 @@
 			     				<input type="hidden" name="action"	value="getlldrec">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
-								<c:if test="${conVO.con_sta != 0 && conVO.con_sta != 1 && conVO.con_sta != 2}">
-								<li><button id="btn2">修繕申請</button></li>
-								</c:if>
-			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
-			     				<input type="hidden" name="tnt_no" value="<%=lld_no%>">
-			     				<input type="hidden" name="action"	value="getlldrepair">
-			     				</FORM>
-			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 			     				<c:if test="${conSvc.getOneCon(conVO.con_no).con_comchkdate == 1}">
 								<li><button id="btn4">驗房結果</button></li>
@@ -194,9 +189,7 @@
 			     				</FORM>
 			     				
 								<li><button id="btn5">聊天</button></li>
-								
-														
-														
+																						
 							</ul>
 						</div>					
 					</div>

@@ -216,14 +216,6 @@
 						 出租人： <br>
 						 姓名：<font color="blue"><b><%=lldVO.getLld_name()%></b></font>　　簽章
 						 
-						 <c:if test="${conVO.con_lld_sign == null}">
-						 <img src="<%=request.getContextPath()%>/front-end/contract/images/tntsignature.png" alt="簽名圖片底家啦!"/><br>
-						 </c:if>
-						 
-						 <c:if test="${conVO.con_lld_sign != null}">
-						 <img src="${conVO.con_lld_sign}" alt="簽名圖片底家啦!"/><br>
-						 </c:if>
-						 
 						 統一編號：<font color="blue"><b><%=lldVO.getLld_id()%></b></font> <br>
 						 戶籍地址：<font color="blue"><b><%=lldVO.getLld_city()%><%=lldVO.getLld_dist()%><%=lldVO.getLld_add()%></b></font> <br>
 						 通訊地址：<font color="blue"><b><%=lldVO.getLld_city()%><%=lldVO.getLld_dist()%><%=lldVO.getLld_add()%></b></font> <br>

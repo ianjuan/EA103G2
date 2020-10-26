@@ -67,6 +67,12 @@
 						<span id="count">共<%=list.size()%>個合約</span>
 					</FORM>
 					
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+						<input type="hidden" name="action" value="getTntRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
+					
 				</div>
 			</nav>
 		</div>
@@ -115,7 +121,7 @@
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
-			     				<input type="hidden" name="action"	value="getcontract">
+			     				<input type="hidden" name="action"	value="checktntcontract">
 			     				</FORM>
 			     				
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
@@ -139,14 +145,13 @@
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 								<c:if test="${conVO.con_sta != 0 && conVO.con_sta != 1 && conVO.con_sta != 2}">
-								<li><button id="btn2">修繕申請</button></li>
+								<li><button id="btn3">修繕申請</button></li>
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="action"	value="gettntrepair">
 			     				</FORM>
 			     				
-			     				<li><button id="btn3">提前解約</button></li>
 			     				
 								<li><button id="btn3">聊天</button></li>
 																					

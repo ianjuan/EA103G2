@@ -288,6 +288,10 @@ float:left;
 display: inline-flex;
 }
 
+#skel-layers-hiddenWrapper{
+	display: none;
+}
+
             </style>
             <script>
         
