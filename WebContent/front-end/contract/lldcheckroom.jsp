@@ -10,9 +10,8 @@
 	HouseVO houseVO = (HouseVO) request.getAttribute("houseVO");
 	
 	ConVO conVO = (ConVO)request.getAttribute("conVO");
- 	LldVO lldVO = (LldVO)request.getAttribute("lldVO");
  	
- 	String lld_no = (String) session.getAttribute("lld_no");
+ 	String lld_no = (String) request.getAttribute("lld_no");
 	if (lld_no == null) {
 		lld_no = request.getParameter("lld_no");
 	}
@@ -25,7 +24,7 @@
 	
 	pageContext.setAttribute("houseVO", houseVO);
 	pageContext.setAttribute("conVO", conVO);
-	pageContext.setAttribute("lldVO", lldVO);
+	pageContext.setAttribute("lld_no", lld_no);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -36,47 +35,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>House_Pub</title>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont.css">
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont.js" charset="UTF-8"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>修改房屋資訊</title>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/checkroom.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/checkroom.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">愛租I-ZU</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active" href="#">尋找房源<span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#">地圖找房</a>
-                    <a class="nav-item nav-link" href="<%=request.getContextPath()%>/front-end/house_manage/housemanage_index.jsp">我的房屋</a>
-                    <li class="nav-item dropdown">
-                        <span data-toggle="dropdown" class="member">
-                            <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" class="memberpic" />
-                            <span class="membername"><%=lldInfo.getLld_name()%></span>
-                        </span>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">最新通知</a>
-                            <a class="dropdown-item" href="#">個人資訊</a>
-                            <a class="dropdown-item" href="#">我的錢包</a>
-                            <a class="dropdown-item" href="#">登出</a>
-						</div>
-					</li>
-				</div>
-			</div>
-		</div>
-	</nav>
+	<div><jsp:include page="/front-end/navbar/navbar.jsp"/></div>
 	<div id="body">
 		<div id="left">
 			<nav id="housenav">
@@ -120,7 +93,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
-						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
+						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
 					</FORM>
                 </div>
             </nav>
@@ -148,44 +121,47 @@
 							</tr>
 							
 							<tr>
-								<th>是否有損毀:(沒有以下不用填寫)</th>
+								<th>是否有損毀:</th>
 								<td>
-									<input type="TEXT" name="chr"  />
+									<label class="item_name">
+												<select name="XD">
+												  <option value="1" selected>否</option>
+												  <option value="2">是</option>
+												</select>
+									</label>
 								</td>
 							</tr>
 							
 							<tr>
 								<th>損毀物品:</th>
 								<td>
-									<input type="TEXT" name="con_chr_itm" />
+									<input type="TEXT" placeholder="無" name="con_chr_itm_name" />
 								</td>
 							</tr>
 							
 							<tr>
 								<th>損毀描述:</th>
 								<td>
-									<input type="TEXT" name="con_chr_itm" />
+									<input type="TEXT" placeholder="無" name="con_chr_itm" />
 								</td>
 							</tr>
 							
 							<tr>
 								<th>毀損費用:</th>
 								<td>
-									<input type="TEXT" name="con_chr_fee" />
+									<input type="number" id="parkfee1" class="num1" min="0" placeholder="0" step="100" name="con_chr_fee" />
 								</td>
 							</tr>
 							
 						</table>
 					</div>
-				<input type="hidden" name="lld_no" value="<%=lld_no%>">
+				<input type="hidden" name="lld_no" value="<%=houseVO.getLld_no()%>">
 				<input type="hidden" name="con_no" value="<%=conVO.getCon_no()%>">
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
 				<div id="cfoot">
 					<button class="btn" type="button" onclick="notice2()">全部重填</button>
-					<button class="btn" id="pr1" type="button" onclick="previous()">上頁</button>
-					<button class="btn" id="ne1" type="button" onclick="next()">下頁</button>	
-					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="btn" type="button" onclick="notice1()">送出合約</button>					
+					<input type="hidden" name="action" value="lldcheckroom">
+					<button class="btn" type="button" onclick="notice1()">送出結果</button>					
 				</div>				
 			</div>
 			<div id="right">
@@ -193,8 +169,8 @@
 				</div>
 				<div id="rfoot">
 					<button class="btn" type="button" onclick="notice2()">全部重填</button>
-					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="btn" type="button" onclick="notice1()">送出驗房結果</button>
+					<input type="hidden" name="action" value="lldcheckroom">
+					<button class="btn" type="button" onclick="notice1()">送出結果</button>
 				</div>
 			</div>
 		</form>

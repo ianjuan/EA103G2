@@ -65,7 +65,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="gettntcontract">
-						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
+						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
 					</FORM>
                 </div>
             </nav>

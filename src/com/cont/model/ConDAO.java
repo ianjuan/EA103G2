@@ -32,7 +32,7 @@ public class ConDAO implements ConDAO_interface {
 
 	private static final String UPDATE_STA = "UPDATE CONTRACT SET CON_STA = ? WHERE CON_NO = ?";
 	
-	private static final String BEFORE_CHECKOUT_UPDATE_STMT = "UPDATE CONTRACT SET HOS_DEP = ?, CON_DEP_STA = ?, CON_COMCHKDATE = ?, CON_CHKDATE = ?, CON_CHK_STA = ?, CON_CHR_FEE = ?, CON_CHR_ITM = ?, CON_IS_CHR = ? WHERE CON_NO = ?";
+	private static final String BEFORE_CHECKOUT_UPDATE_STMT = "UPDATE CONTRACT SET HOS_DEP = ?, CON_DEP_STA = ?, CON_COMCHKDATE = ?, CON_CHKDATE = ?, CON_CHK_STA = ?, CON_CHR_FEE = ?, CON_CHR_ITM_NAME = ?,CON_CHR_ITM = ?, CON_IS_CHR = ? WHERE CON_NO = ?";
 
 	private static final String CHECKOUT_UPDATE_STMT = "UPDATE CONTRACT SET CON_RENT_AGN = ?, CON_BILL_PAID = ?, CON_LASTB_PDATE = ?, CON_DEP_BKDATE = ?, CON_OUT_NORMAL = ? WHERE CON_NO = ?";
 
@@ -294,9 +294,10 @@ public class ConDAO implements ConDAO_interface {
 			pstmt.setDate(4, conVO.getCon_chkdate());
 			pstmt.setInt(5, conVO.getCon_chk_sta());
 			pstmt.setInt(6, conVO.getCon_chr_fee());
-			pstmt.setString(7, conVO.getCon_chr_itm());
-			pstmt.setInt(8, conVO.getCon_is_chr());
-			pstmt.setString(9, conVO.getCon_no());
+			pstmt.setString(7, conVO.getCon_chr_itm_name());
+			pstmt.setString(8, conVO.getCon_chr_itm());
+			pstmt.setInt(9, conVO.getCon_is_chr());
+			pstmt.setString(10, conVO.getCon_no());
 
 			pstmt.executeUpdate();
 

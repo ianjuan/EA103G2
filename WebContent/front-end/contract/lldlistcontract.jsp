@@ -91,7 +91,7 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button>
-						<br><span id="count">共<%=list.size()%>間</span>
+						<br><span id="count">共<%=list.size()%>個合約</span>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -185,7 +185,7 @@
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-			     				<input type="hidden" name="action"	value="lldcheckroom">
+			     				<input type="hidden" name="action"	value="lldbeforecheckroom">
 			     				</FORM>
 			     				
 								<li><button id="btn5">聊天</button></li>
