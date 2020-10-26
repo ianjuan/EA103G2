@@ -413,6 +413,16 @@
 								</div>
 							</div>
 						</div>
+						<div>
+							<c:if test="${not empty errorMsgs}">
+								<p></p>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+						</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable">

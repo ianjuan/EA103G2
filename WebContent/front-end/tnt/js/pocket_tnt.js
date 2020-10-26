@@ -239,12 +239,19 @@
          *    [ 按鈕Ajax infoProfile ]
          */
         
-        // 1.提領按鈕
+        // 1.銀行提領按鈕
         $('#btnbalanceWithdraw').click(function(e) {
             e.preventDefault();
             console.log('btn - balance Withdraw');
             inputWithdraw = $('#pocket_withdraw');
-            if (/^\d+$/.test(inputWithdraw.val().trim()) === false || inputWithdraw.val()==="0") {
+            if (!hasBankinfoJS){
+            	Swal.fire({
+            		icon: 'warning',
+            		title: '請更新收款帳號',
+            	    showDenyButton: true,
+            	    animation: false
+            	});
+            } else if (/^\d+$/.test(inputWithdraw.val().trim()) === false || inputWithdraw.val()==="0") {
             	inputWithdraw.parent().addClass('alert-validate');
             } else {  // 前端驗證成功(提領金額為正整數) 
             	inputWithdraw.parent().removeClass('alert-validate');
@@ -322,12 +329,19 @@
             }
         });
         
-     // 2.儲值按鈕
+     // 2.信用卡儲值按鈕
         $('#btnbalanceDeposit').click(function(e) {
             e.preventDefault();
             console.log('btn - balance Deposit');
             inputDeposit = $('#pocket_deposit');
-            if (/^\d+$/.test(inputDeposit.val().trim()) === false || inputDeposit.val()==="0") {
+            if (!hasCardinfoJS){
+            	Swal.fire({
+            		icon: 'warning',
+            		title: '請更新付款卡號',
+            	    showDenyButton: true,
+            	    animation: false
+            	});
+            } else if (/^\d+$/.test(inputDeposit.val().trim()) === false || inputDeposit.val()==="0") {
             	inputDeposit.parent().addClass('alert-validate');
             } else {  // 前端驗證成功(儲值金額為正整數) 
             	inputDeposit.parent().removeClass('alert-validate');
@@ -434,14 +448,17 @@
                     	Swal.fire({
                     		icon: 'success',
                     		title: '修改成功!',
-                    		showConfirmButton: false,
-                    		timer: 1500
-                    	})
-                        var inputs = theform.find('.validate-input .register100');
-                        inputs.each(function() {
-                            $(this).val('');
-                        });
-                        $('#tnt_bank').val('');
+                    		showConfirmButton: true,
+                    	}).then((result) => {
+                    		if (result.isConfirmed) {
+                      			location.reload(true);
+                      		} 
+                      	});  
+//                        var inputs = theform.find('.validate-input .register100');
+//                        inputs.each(function() {
+//                            $(this).val('');
+//                        });
+//                        $('#tnt_bank').val('');
                    }
                 },
                 error: function() {

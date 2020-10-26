@@ -4,8 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -444,6 +447,7 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("infoChgPwd Exception: " + e.getMessage());
 			}
 		}
+
 // ===================================以下來自我的錢包 pocket.jsp=====================================================
 
 		// 來自pocket.jsp的請求 - ajax_balanceWithdraw(formData)
@@ -541,7 +545,8 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println(tnt_bankacc);
 				String tnt_card = req.getParameter("tnt_card");
 				System.out.println(tnt_card);
-				Integer tnt_cardsvc = Integer.valueOf(req.getParameter("tnt_cardsvc"));
+//				Integer tnt_cardsvc = Integer.valueOf(req.getParameter("tnt_cardsvc"));
+				String tnt_cardsvc = req.getParameter("tnt_cardsvc");
 				System.out.println(tnt_cardsvc);
 				String tnt_carddueStr = req.getParameter("tnt_carddue");
 				tnt_carddueStr = tnt_carddueStr + "-01";
@@ -568,6 +573,53 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("pocket 銀行信用卡 修改失敗:" + e.getMessage());
 				out = res.getWriter();
 				out.print("false");
+			}
+		}
+
+// ===================================以下來自身分驗證 verify.jsp=====================================================
+
+		// 來自vrf.jsp的請求 - ajax_vrfPicsUpload(formData)
+		if ("vrfPicsUpload".equals(action)) {
+			System.out.println("action: " + action);
+			List<String> errorMsgs = new LinkedList<String>();
+//					req.setAttribute("errorMsgs", errorMsgs);
+			
+			ArrayList<byte[]> byteArray = new ArrayList<byte[]>();
+			try {
+				ArrayList<Part> parts = new ArrayList<Part>(req.getParts());
+//				System.out.println(parts.size());
+				for (int i=0; i<parts.size()-1; i++) {
+//					System.out.println(i);
+					Part part = parts.get(i);
+					InputStream in = part.getInputStream();
+					byte[] byte_pic = getPictureByteArray(in);
+//					System.out.println(byte_pic);
+					byteArray.add(i, byte_pic);
+				}
+				byte[] tnt_id_picf = byteArray.get(0);
+//				System.out.println(tnt_id_picf);
+				byte[] tnt_id_picb = byteArray.get(1);
+//				System.out.println(tnt_id_picb);
+				byte[] tnt_id_pic2 = byteArray.get(2);
+//				System.out.println(tnt_id_pic2);
+
+//
+					HttpSession session = req.getSession();
+					String tnt_no = (String) session.getAttribute("tnt_no");
+
+							System.out.println(tnt_no);
+
+					TntService tntSvc = new TntService();
+					tntSvc.updateTntVrfPics(tnt_no, tnt_id_picf, tnt_id_picb, tnt_id_pic2, 1 );
+
+					out = res.getWriter();
+					out.print("true");
+					out.close();
+
+
+			} catch (Exception e) {
+//						errorMsgs.add("註冊失敗:" + e.getMessage());
+				System.out.println("vrf pics 修改失敗:" + e.getMessage());
 			}
 		}
 

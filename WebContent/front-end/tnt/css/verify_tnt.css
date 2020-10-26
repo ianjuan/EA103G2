@@ -896,29 +896,17 @@
             z-index: -1;
             text-align: center;
             margin: 0px;
-            /* margin-top: 12vh; */
             width: 100%;
-            /*680px*/
-            height: 300px;
-            /* background-color: rgba(255, 255, 255, 0.8); */
-            /* box-shadow: 0px 3px 1px 0px rgba(87, 87, 87, 0.3) */
+            height: 180px;
         }
 
         .wrapperUploadHandler {
             width: 95%;
-            /*650px*/
-            height: 270px;
-            /* border-width: 0.5vh; */
-            /*0.2vh*/
-            /* border-radius: 15%; */
-            /* border-style: solid; */
-            /*dotted;*/
-            /* border-color: #AACFBF; */
+            height: 150px;
             border: 5px dashed #AACFBF;
             border-radius: 50px;
             margin: auto;
             box-sizing: border-box;
-            /* padding-top: 10%; */
             overflow: hidden;
             font-family: sans-serif;
         }
@@ -928,39 +916,16 @@
             position: absolute;
 
         }
-        label #inputF2 {
-            visibility: hidden;
-            position: absolute;
 
-        }
-        label #inputF3 {
-            visibility: hidden;
-            position: absolute;
-
-        }
 
         #fileInput {
             display: block;
             color: #AACFBF;
             font-size: 40px;
             cursor: pointer;
-            padding-top: 10%;
+            padding-top: 2%;
         }
-        #fileInput2 {
-            display: block;
-            color: #AACFBF;
-            font-size: 40px;
-            cursor: pointer;
-            padding-top: 10%;
-        }
-        #fileInput3 {
-            display: block;
-            color: #AACFBF;
-            font-size: 40px;
-            cursor: pointer;
-            padding-top: 10%;
-        }
-
+   
         #uploadContent {
             margin: auto;
             margin-top: 36px;
@@ -968,7 +933,6 @@
         }
 
         #uploadContent img {
-            /* width: auto; */
             height: 300px;
         }
 
@@ -976,40 +940,8 @@
             display: inline-block;
         }
 
-        #del {
-            margin-top: 9%;
-            margin-left: -3px;
-            text-decoration: none;
-            color: #C76363;
-            border: solid #C76363;
-            border-radius: 15px;
-            width: 100px;
-            height: 50px;
-            font-size: 20px;
-            box-shadow: 3px 3px 1px 0px rgba(87, 87, 87, 0.3), inset 3px 3px 1px 0px rgba(87, 87, 87, 0.3);
-            text-shadow: 2.5px 2.5px 0px rgba(87, 87, 87, 0.3);
-            background-color: transparent;
-            outline: none;
-            opacity: 0.7;
-        }
-        #del2 {
-            margin-top: 9%;
-            margin-left: -3px;
-            text-decoration: none;
-            color: #C76363;
-            border: solid #C76363;
-            border-radius: 15px;
-            width: 100px;
-            height: 50px;
-            font-size: 20px;
-            box-shadow: 3px 3px 1px 0px rgba(87, 87, 87, 0.3), inset 3px 3px 1px 0px rgba(87, 87, 87, 0.3);
-            text-shadow: 2.5px 2.5px 0px rgba(87, 87, 87, 0.3);
-            background-color: transparent;
-            outline: none;
-            opacity: 0.7;
-        }
-        #del3 {
-            margin-top: 9%;
+        .delclass {            /* #del */
+/*             margin-top: 9%; */
             margin-left: -3px;
             text-decoration: none;
             color: #C76363;
@@ -1027,17 +959,12 @@
 
         /*ÀY¶K¹wÄý*/
         #picWrapper {
-            height: 360px
-        }
-        #picWrapper2 {
-            height: 360px
-        }
-        #picWrapper3 {
-            height: 360px
+            height: 550px
         }
 
         .picPreview {
             text-align: center;
+            padding-bottom: 10px;
         }
 
         .picCheckbox {
@@ -1045,34 +972,16 @@
             margin: auto;
         }
 
-        #tnt_id_picf {
-            padding: 20px;
+        .tnt_pic {
+            padding: 10px;
             border-radius: 10px;
             border: #1d1d52 dashed 2px;
             box-sizing: border-box;
-            margin-top: 20px;
-            height: 300px;
+            margin-top: 10px;
+            height: 150px;
             width: auto;
         }
-        #tnt_id_picb {
-            padding: 20px;
-            border-radius: 10px;
-            border: #1d1d52 dashed 2px;
-            box-sizing: border-box;
-            margin-top: 20px;
-            height: 300px;
-            width: auto;
-        }
-        #tnt_id_pic2 {
-            padding: 20px;
-            border-radius: 10px;
-            border: #1d1d52 dashed 2px;
-            box-sizing: border-box;
-            margin-top: 20px;
-            height: 300px;
-            width: auto;
-        }
-
+     
 
         /*------------------------------------------------------------------
 [ info_tnt ]*/
@@ -1096,7 +1005,7 @@
         }
 
         .registerform {
-            padding: 10px 50px 0px 50px;
+            padding: 0px 50px 0px 50px;
         }
 
         .infoBtn {
@@ -1128,6 +1037,13 @@
         img.imgBigHeadPic {
             width: 100%;
             height: auto;
+        }
+        
+        .txt-vrfPics-hint {
+            text-align: center;
+            color: #3a8c68;
+            font-weight: bold;
+            font-size: 17px;
         }
 
         /*------------------------------------------------------------------

@@ -418,13 +418,7 @@
                 }
             }
             if (isChecked === false) {
-            	Swal.fire({
-            		icon: 'warning',
-            		title: '請勾選刪除項目',
-            		showConfirmButton: false,
-            		timer: 1000,
-            		animation: false
-            	});
+                alert("請勾選刪除項目");
             }
         }
 
@@ -446,7 +440,26 @@
             ([...files]).forEach(uploadFileDrop); //convert arraylist to array
         }
 
-        function uploadFileDrop(file) {}
+        function uploadFileDrop(file) {
+//            var url = "uploadAndDelete.do";
+//            var xhr = new XMLHttpRequest();
+            var formData = new FormData();
+//            xhr.open("post", url, true);
+//            xhr.addEventListener("readyStatechange", function(e) {
+//                if (xhr.readState == 4 && xhr.status == 200) {
+//                    alert("success!");
+//                } else {
+//                    alert("error!");
+//                }
+//            });
+
+            formData.append("file", file);
+            // xhr.setRequestHeader("Content-Type", "multipart/form-data");//don't write this!!
+            // xhr.setRequestHeader("content-type", false);//don't write this!!
+//            xhr.send(formData);
+            
+        }
+
 
 
         ['dragover', 'dragleave', 'dragenter', 'drop'].forEach(ev => {
@@ -644,10 +657,10 @@
                     		icon: 'success',
                     		title: '上傳成功!',
                     		showConfirmButton: false,
-                    		timer: 1000
-                    	}).then((result) => {
-                    		location.reload(true);
-                    	});
+                    		timer: 1500
+                    	})
+                    	$(".picPreview").empty();
+                    	location.reload(true);
                    }
                 },
                 error: function() {
@@ -719,6 +732,7 @@
                 }
             });
         }
+        
         
         function ajax_logout_ChgPwd(formData,theform) {
             $.ajax({ // 存入資料庫階段
