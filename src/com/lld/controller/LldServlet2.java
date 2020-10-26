@@ -133,7 +133,7 @@ public class LldServlet2 extends HttpServlet {
 						return;
 					}
 					// *工作3: (-->如無來源網頁:則重導至login_success.jsp)
-					res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp");
+					res.sendRedirect(req.getContextPath() + "/front-end/house_manage/house_index.jsp");
 				}
 
 			} catch (Exception e) {

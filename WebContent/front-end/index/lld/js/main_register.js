@@ -614,20 +614,30 @@
                 $('#divbtnRegister').toggle();
             }
         });
-        //submit
+      //submit
         $('#btnRegister.login100-form-btn').click(function(e) {
             e.preventDefault();
             console.log('btn - submit');
             // ajax_register();
             //   var formData = new FormData();
             var formData = new FormData($('#registerform')[0]);
-            formData.append('action', 'insert');
+            formData.append('action', 'register');
+            Swal.fire({
+        	    title: '請稍後 . . . ',
+        	    text: "正在發送驗證信",
+        	    allowEscapeKey: false,
+        	    allowOutsideClick: false,
+//        	    timer: 5000,
+        	    onOpen: () => {
+        	      swal.showLoading();
+        	    }
+        	  })
             ajax_register(formData);
         });
 
         function ajax_register(formData) {
             $.ajax({ // 存入資料庫階段
-                url: "/EA103G2/lld//LldServlet2",
+                url: "/EA103G2/lld/LldServlet2",
                 type: "POST",
                 data: formData,
                 // 告訴jQuery不要去處理髮送的資料
@@ -635,16 +645,44 @@
                 // 告訴jQuery不要去設定Content-Type請求頭
                 contentType: false,
 
-                success: function() { // 以上成功才執行
-                    console.log("res棒");
-                    redirect();
+                success: function(data) { // 以上成功才執行
+                	console.log("res棒");
+                    console.log(""+data);
+                    if (data === 'true') {
+                    	swal.hideLoading();
+                    	Swal.fire({
+                    		icon: 'success',
+                    		title: '註冊成功',
+                    		text: "請盡速至信箱完成驗證",
+                    	    showDenyButton: true,
+                    		}).then((result) => {
+                    		  if (result.isConfirmed) {
+                    			  redirect();
+                    		  } 
+                    		});
+                    }
+                    if (data === 'false') {
+                    	swal.hideLoading();
+                    	Swal.fire({
+                    		icon: 'warning',
+                    		title: '發生錯誤',
+                    		text: "請稍後重新點選送出",
+                    	    showDenyButton: true,
+                    		});
+                    }
                 },
                 error: function() {
                     console.log("真的不棒")
+                    Swal.fire({
+                    		icon: 'warning',
+                    		title: '發生錯誤',
+                    		text: "請稍後重新點選送出",
+                    	    showDenyButton: true,
+                    		})
                 }
             });
         }
 
         function redirect() {
-            window.location.href = "/EA103G2/back-end/lld/select_page.jsp";
+            window.location.href = "/EA103G2/front-end/index/index.jsp";
         }
