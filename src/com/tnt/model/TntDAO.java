@@ -895,6 +895,7 @@ public class TntDAO implements TenantDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				tntVO = new TntVO();
 				tntVO.setTnt_cmt_starsum(rs.getInt("tnt_cmt_starsum"));
 				tntVO.setTnt_cmt_count(rs.getInt("tnt_cmt_count"));
 			}
@@ -930,7 +931,7 @@ public class TntDAO implements TenantDAO_interface {
 	// =================================5.vrf==================================
 	private static final String UPDATE_VRF_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_uploadtime=?, tnt_id_isupload=?, tnt_id_result=?, tnt_id_disapprove=?, tnt_id_vrftime=? where tnt_no=?";
 	private static final String GET_ONE_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT where tnt_no=?";
-	private static final String GET_ONE_VRF_NOPICS_STMT = "SELECT tnt_id_isupload, tnt_id_result, tnt_id_disapprove, from TENANT where tnt_no=?";
+	private static final String GET_ONE_VRF_NOPICS_STMT = "SELECT tnt_id_isupload, tnt_id_result, tnt_id_disapprove from TENANT where tnt_no=?";
 	private static final String GET_ALL_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT ORDER BY tnt_no";
 
 	private static final String UPDATE_VRF_PICS_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_isupload=? where tnt_no=?";
@@ -1028,6 +1029,7 @@ public class TntDAO implements TenantDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				tntVO = new TntVO();
 				tntVO.setTnt_id_picf(rs.getBytes("tnt_id_picf"));
 				tntVO.setTnt_id_picb(rs.getBytes("tnt_id_picb"));
 				tntVO.setTnt_id_pic2(rs.getBytes("tnt_id_pic2"));
@@ -1072,16 +1074,19 @@ public class TntDAO implements TenantDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_VRF_NOPICS_STMT);
 
 			if (!getVrfPics) {
+				
 				pstmt.setString(1, tnt_no);
+				
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
+					tntVO = new TntVO();
 					tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
 					tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
 					tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
@@ -1130,6 +1135,7 @@ public class TntDAO implements TenantDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				tntVO = new TntVO();
 				tntVO.setTnt_id_picf(rs.getBytes("tnt_id_picf"));
 				tntVO.setTnt_id_picb(rs.getBytes("tnt_id_picb"));
 				tntVO.setTnt_id_pic2(rs.getBytes("tnt_id_pic2"));
@@ -1222,6 +1228,7 @@ public class TntDAO implements TenantDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				tntVO = new TntVO();
 				tntVO.setTnt_reported_count(rs.getInt("tnt_reported_count"));
 			}
 
@@ -1309,6 +1316,7 @@ public class TntDAO implements TenantDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				tntVO = new TntVO();
 				tntVO.setTnt_auth_chat(rs.getInt("tnt_auth_chat"));
 				tntVO.setTnt_auth_res(rs.getInt("tnt_auth_res"));
 				tntVO.setTnt_auth_cmt(rs.getInt("tnt_auth_cmt"));

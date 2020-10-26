@@ -15,10 +15,9 @@
 	TntVO tntVO_vrf = tntSvc.getOneTntVrf(tnt_no, false);
 	int tnt_id_isupload = tntVO_vrf.getTnt_id_isupload();
 	int tnt_id_result = tntVO_vrf.getTnt_id_result();
-	String tnt_id_disapprove = tntVO_vrf.getTnt_id_disapprove();
+	String tnt_id_disapprove = (tnt_id_result==2)?tntVO_vrf.getTnt_id_disapprove():"not yet";
 	request.setAttribute("tntVO_vrf", tntVO_vrf);
 %>
-
 
 <head>
     <title>Verify</title>
@@ -112,12 +111,6 @@
                                 </svg>
                             </a>
                             <div class="basicInfo__userImg mx-auto mb-3 divBigHeadPic">
-                                <!-- <input type="file" accept="image/jpg, image/jpeg, image/png" name="name" class="d-none"> -->
-<%--                                 <a class="awrapBigHeadPic" --%>
-<!--                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-camera fa-w-16"> -->
-<!--                                         <path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path> -->
-<!--                                     </svg> -->
-<!--                                 </a> -->
                                 <a class="awrapBigHeadPic">
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
                                  </a>
@@ -170,9 +163,21 @@
                                     </svg>
                                 </div>
                             </div>
+                            <!--Start form1 vrf hint-->
+                            <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
+<!--                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">個人身分驗證</h4>  -->
+<!--                                     <hr class="login100-form-title p-b-10"> -->
+									<hr style="margin: 25px 40px;">
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate0" >請上傳個人證件<br>通過審核後，您將可以簽訂合約。</div>
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate1" >您的身分認證將於24小時內完成<br>通過審核後，您將可以簽訂合約。</div>
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate2" >恭喜您已完成身分認證<br>您可以簽訂合約、線上繳費。</div>
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate3">您前次提交身分認證資訊，未能通過審核，<br>原因為：<%=tnt_id_disapprove%>。<br>請重新上傳證件以完成身分驗證。</div>
+				                    <hr style="margin: 25px 40px;">
+                            </div>
+                            <!--End form1 vrf hint- -->
 
                             <!--Start form info Pic-->
-                            <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
+                            <div data-v-9403d44c="" id="form-wrap-vrfpics" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">上傳身分證件
                                     <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
@@ -191,7 +196,7 @@
                                         <div class="wrapperBackground">
                                             <div class="wrapperUploadHandler" id=wrapperUploadHandler ondrop="dropUploadHandler(event)">
                                                 <label id="fileInput" for="inputF">
-                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_id_pics" multiple> Upload Files
+                                                    <input ondrop="dropUploadHandler(event)" type="file" id="inputF" name="tnt_id_pics" multiple> Upload Photos
 <!--                                                     name="tnt_id_picf" -->
                                                 </label>
                                                 <button type="button" class="delclass" id="del" ondrop="dropDelHandler(event)">Delete</button>
@@ -244,7 +249,47 @@
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/verify_tnt.js"></script>
     <!--===============================================================================================-->
 
+<script>
 
+var tnt_id_isupload = <%=tnt_id_isupload%>;
+var tnt_id_result = <%=tnt_id_result%>;
+var tnt_id_disapprove = '<%=tnt_id_disapprove%>';
+console.log('tnt_id_isupload'+tnt_id_isupload);
+console.log('tnt_id_result'+tnt_id_result );
+
+if (tnt_id_isupload == 0){
+	$('#vrfstate0').show();
+	$('#vrfstate1').hide();
+	$('#vrfstate2').hide();
+	$('#vrfstate3').hide();
+	$('#form-wrap-vrfpics').show();
+}
+if (tnt_id_isupload == 1){
+	if (tnt_id_result == 0){
+		$('#form-wrap-vrfpics').hide();
+		$('#vrfstate0').hide();
+		$('#vrfstate1').show();
+		$('#vrfstate2').hide();
+		$('#vrfstate3').hide();
+	}
+	if (tnt_id_result == 1){
+		$('#form-wrap-vrfpics').hide();
+		$('#vrfstate0').hide();
+		$('#vrfstate1').hide();
+		$('#vrfstate2').show();
+		$('#vrfstate3').hide();
+	}
+	if (tnt_id_result == 2){
+		$('#form-wrap-vrfpics').show();
+		$('#vrfstate0').hide();
+		$('#vrfstate1').hide();
+		$('#vrfstate2').hide();
+		$('#vrfstate3').show();
+	}
+	
+}
+
+</script>
 
 </body>
 
