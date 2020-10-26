@@ -28,6 +28,8 @@
 <%HouseDetService hds =new HouseDetService();
 Gson gson = new Gson();
 String	tntno=(String)session.getAttribute("tnt_no");
+String	lldno=(String)session.getAttribute("lld_no");
+
 String hosno=request.getParameter("hos");
 session.setAttribute("HOS",hosno);
  	List<HosDetVO> list = hds.getHosDetfromHOSNO(hosno);
@@ -212,7 +214,7 @@ session.setAttribute("HOS",hosno);
                                 <p><%= vo.getLld_mobile() %></p>
                             </a></div>
                         <div class="functions"><a class="blue blue-booking" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a><a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a><a class="red" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />檢舉</a>
-                    	   <a class="full select-live" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.svg" alt=""/>我要入住</a>
+                    	   <a class="full select-live" href="#" <%= lldno == null ? "":"style='display:none;'" %>><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.svg" alt=""/>我要入住</a>
                         </div>
                     </div>
                     <!--提醒-->
