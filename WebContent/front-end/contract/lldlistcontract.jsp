@@ -143,7 +143,7 @@
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
-			     				<input type="hidden" name="action"	value="getcontract">
+			     				<input type="hidden" name="action"	value="checklldcontract">
 			     				</FORM>
 			     				
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">

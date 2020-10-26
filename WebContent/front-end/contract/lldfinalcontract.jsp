@@ -20,10 +20,13 @@
 	ConVO conVO = (ConVO) request.getAttribute("conVO");
 	Con_aplVO con_aplVO = (Con_aplVO) request.getAttribute("con_aplVO");
  	
- 	String tnt_no = (String) session.getAttribute("tnt_no");
-	if (tnt_no == null) {
-		tnt_no = request.getParameter("tnt_no");
+ 	String lld_no = (String) session.getAttribute("lld_no");
+	if (lld_no == null) {
+		lld_no = request.getParameter("lld_no");
 	}
+	
+	HouseService houseSvc = new HouseService();
+	HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 	
 	String con_no = (String) request.getAttribute("con_no");
 	
@@ -40,7 +43,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>房客終版合約</title>
+	<title>房東終版合約</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -61,18 +64,45 @@
                     <div class="line line--3"></div>
                 </div>                
                 <div class="nav-links">
-                    
-                
+                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldAllHouse">
+						<button type="submit" class="link">首頁</button>
+					</FORM>
+					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
+						<input type="hidden" name="action" value="getLldPub">
+						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRentHouse">
+						<button type="submit" class="link">已租房屋</button>
+						
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldUnRentHouse">
+						<button type="submit" class="link">待租房屋</button>
+					</FORM>					
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldOffHouse">
+						<button type="submit" class="link">下架房屋</button>
+					</FORM>					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-						<input type="hidden" name="action" value="tntgetallapl">
-						<button type="submit" class="link">租屋申請</button><br>
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="lldgetAll">
+						<button type="submit" class="link">租屋申請</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
-						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-						<input type="hidden" name="action" value="gettntcontract">
-						<button type="submit" class="link">歷史合約</button><br>
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getlldcontract">
+						<button type="submit" class="link" style="color: #D37707;">合約管理</button>
 					</FORM>
+					<button type="button" class="link">修繕管理</button>
+					<button type="button" class="link">評價管理</button>
                 </div>
             </nav>
 		</div>
@@ -255,7 +285,7 @@
 						 			
 						
 						
-					<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+					<input type="hidden" name="tnt_no" value="<%=lld_no%>">
 					<input type="hidden" name="con_no" value="<%=con_no%>">
 				<div id="cfoot">
 					<button class="pagebtn" type="button" onclick="notice2()">修改申請</button>
