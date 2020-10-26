@@ -7,6 +7,7 @@
 <%@ page import="com.repair.controller.*"%>
 <%@ page import="com.repair_picture.model.*"%>
 <%@ page import="com.housemanage.model.*"%>
+<%@ page import="com.apl.model.*"%>
 
 <html>
 <head>
@@ -93,7 +94,7 @@ h1, h2, h3, h4, h5, h6, table{
 <body bgcolor='white'>
 
 
-<% String tnt_no = (String)session.getAttribute("tnt_no"); %>
+<%-- <% String tnt_no = (String)session.getAttribute("tnt_no"); %> --%>
 
 
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
@@ -138,12 +139,14 @@ ${tnt_no}
 <div class='row'>
 
 <div class='col-md-12  text-center'>
-            <h3 class='subtitle'>修繕申請紀錄</h3> 
-<div class="content">      01
- <c:forEach var="ConVO" items="${conSvc.all}"> 02
-     <c:if test="${tnt_no==ConVO.getTnt_no}"> 03
+            <h3 class='subtitle'>修繕申請紀錄3</h3> 
+     
+<div class="content"> 
+ <c:forEach var="ConVO" items="${conSvc.all}"> 
 
-		<c:forEach var="repairVO" items="${repSvc.tntGetAll(ConVO.con_no)}">04
+     <c:if test="${tnt_no==ConVO.tnt_no}"> 
+ 
+		<c:forEach var="repairVO" items="${repSvc.tntGetAll(ConVO.con_no)}">
 	
             <div class='row' >
             
