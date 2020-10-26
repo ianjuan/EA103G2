@@ -73,7 +73,7 @@
 
             return check;
         }
-
+        
         /*
          * ================================================================== 
          *    [ 按鈕Ajax - forgetPwd ]
@@ -86,68 +86,153 @@
             if ($('.alert-validate').length === 0) {
                 var formData = new FormData($('#forgetPwdform')[0]);
                 formData.append('action', 'forgetPwd');
-                //                console.log(formData);
-                Swal.fire({
-            	    title: '請稍後 . . . ',
-            	    allowEscapeKey: false,
-            	    allowOutsideClick: false,
-//            	    timer: 5000,
-            	    onOpen: () => {
-            	      swal.showLoading();
-            	    }
-            	  })
-                ajax_forgetPwd(formData);
+                
+                $.ajax({ // 存入資料庫階段
+                	beforeSend: function() {
+                      Swal.fire({
+                	    title: '請稍後 . . . ',
+                	    allowEscapeKey: false,
+                	    allowOutsideClick: false,
+                	    showConfirmButton: false,
+                	    onOpen: () => {
+                	      swal.showLoading();
+                	    }
+                	  });
+            		},
+                    url: "/EA103G2/tnt/TntServlet2",
+                    type: "POST",
+                    data: formData,
+                    // 告訴jQuery不要去處理發送的資料
+                    processData: false,
+                    // 告訴jQuery不要去設定Content-Type請求頭
+                    contentType: false,
+
+                    success: function(data) { // 以上成功才執行
+                        console.log("res棒");
+                        console.log(""+data);
+                        if (data === 'false') { //信箱尚未註冊
+                        	swal.close();
+                            $('.wrap-validate-login').addClass('validate-input alert-validate-login');
+                        } 
+    
+                        if (data === 'true') {
+                        	swal.close();
+                        	Swal.fire({
+                        		icon: 'success',
+                        		title: '已發送驗證信!',
+                        		text: "請盡快至您的信箱收信",
+                        		showConfirmButton: true,
+                        		confirmButtonText: '點我回首頁',
+//                        		timer: 1500, 
+//                        		animate: false
+                        	}).then((result) => {
+                      		  if (result.isConfirmed) {
+                    			  redirect();
+                    		  } 
+                    		});
+                        }
+                    },
+                    error: function() {
+                        console.log("真的不棒");
+                        	swal.hideLoading();
+                        	Swal.fire({
+                        		icon: 'warning',
+                        		title: '發生錯誤',
+                        		text: "請稍後重新點選送出",
+                        		showConfirmButton: true,
+                        		});
+                    }
+                });
+                
             }
         });
 
         function ajax_forgetPwd(formData) {
-            $.ajax({ // 存入資料庫階段
-                url: "/EA103G2/tnt/TntServlet2",
-                type: "POST",
-                data: formData,
-                // 告訴jQuery不要去處理發送的資料
-                processData: false,
-                // 告訴jQuery不要去設定Content-Type請求頭
-                contentType: false,
-
-                success: function(data) { // 以上成功才執行
-                    //                    console.log("" + data);
-                    console.log("res棒");
-                    console.log(""+data);
-                    if (data === 'false') { //信箱尚未註冊
-                    	swal.hideLoading();
-                        $('.wrap-validate-login').addClass('validate-input alert-validate-login');
-                    } 
-                    if (data === 'true') {
-                    	swal.hideLoading();
-                    	Swal.fire({
-//                    		icon: 'success',
-                    		title: '已發送驗證信!',
-                    		text: "請盡快至您的信箱收信",
-                    		showConfirmButton: true,
-//                    		timer: 1500, 
-//                    		animate: false
-                    	}).then((result) => {
-                  		  if (result.isConfirmed) {
-                			  redirect();
-                		  } 
-                		});
-                    }
-                },
-                error: function() {
-                    console.log("真的不棒");
-                    	swal.hideLoading();
-                    	Swal.fire({
-                    		icon: 'warning',
-                    		title: '發生錯誤',
-                    		text: "請稍後重新點選送出",
-                    	    showDenyButton: true,
-                    		});
-                }
-            });
+            
         }
-
         
         function redirect() {
             window.location.href = "/EA103G2/front-end/index/index.jsp";
         }
+        
+        
+//        
+//        
+//
+//        /*
+//         * ================================================================== 
+//         *    [ 按鈕Ajax - forgetPwd org!]
+//         */
+//        $('#btnforgetPwd.login100-form-btn').click(function(e) {
+//            e.preventDefault();
+//            console.log('btn - btnforgetPwd');
+//            $('.wrap-validate-login').removeClass('validate-input alert-validate-login');
+//            validateAllProfile();
+//            if ($('.alert-validate').length === 0) {
+//                var formData = new FormData($('#forgetPwdform')[0]);
+//                formData.append('action', 'forgetPwd');
+//                //                console.log(formData);
+//                Swal.fire({
+//            	    title: '請稍後 . . . ',
+//            	    allowEscapeKey: false,
+//            	    allowOutsideClick: false,
+////            	    timer: 5000,
+//            	    onOpen: () => {
+//            	      swal.showLoading();
+//            	    }
+//            	  })
+//                ajax_forgetPwd(formData);
+//            }
+//        });
+//
+//        function ajax_forgetPwd(formData) {
+//            $.ajax({ // 存入資料庫階段
+//                url: "/EA103G2/tnt/TntServlet2",
+//                type: "POST",
+//                data: formData,
+//                // 告訴jQuery不要去處理發送的資料
+//                processData: false,
+//                // 告訴jQuery不要去設定Content-Type請求頭
+//                contentType: false,
+//
+//                success: function(data) { // 以上成功才執行
+//                    //                    console.log("" + data);
+//                    console.log("res棒");
+//                    console.log(""+data);
+//                    if (data === 'false') { //信箱尚未註冊
+//                    	swal.hideLoading();
+//                        $('.wrap-validate-login').addClass('validate-input alert-validate-login');
+//                    } 
+//                    if (data === 'true') {
+//                    	swal.hideLoading();
+//                    	Swal.fire({
+////                    		icon: 'success',
+//                    		title: '已發送驗證信!',
+//                    		text: "請盡快至您的信箱收信",
+//                    		showConfirmButton: true,
+////                    		timer: 1500, 
+////                    		animate: false
+//                    	}).then((result) => {
+//                  		  if (result.isConfirmed) {
+//                			  redirect();
+//                		  } 
+//                		});
+//                    }
+//                },
+//                error: function() {
+//                    console.log("真的不棒");
+//                    	swal.hideLoading();
+//                    	Swal.fire({
+//                    		icon: 'warning',
+//                    		title: '發生錯誤',
+//                    		text: "請稍後重新點選送出",
+//                    	    showDenyButton: true,
+//                    		});
+//                }
+//            });
+//        }
+//
+//        
+//        function redirect() {
+//            window.location.href = "/EA103G2/front-end/index/index.jsp";
+//        }

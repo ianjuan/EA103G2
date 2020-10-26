@@ -4,41 +4,93 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import com.tnt.model.*;
+import com.lld.model.*;
 
-//@WebServlet("/ImgReader2")
 public class ImgReader extends HttpServlet {
 
-	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-			req.setCharacterEncoding("UTF-8");
-			ServletOutputStream out = res.getOutputStream();
-			
-			String mem_no = req.getParameter("id").trim();
-			
-
-			if (mem_no.substring(0, 3).equalsIgnoreCase("tnt")) {
-				String tnt_no = mem_no;
-				TntService TntSvc = new TntService();
-				TntVO tntVO = TntSvc.getOneTntPic(tnt_no);
-					byte[] b = tntVO.getTnt_pic();
-					out.write(b);
-					out.close();
+		req.setCharacterEncoding("UTF-8");
+		ServletOutputStream out = res.getOutputStream();
+		
+		// 判斷身分 取得byteArray與性別
+		String mem_no = req.getParameter("id").trim();
+		byte[] byteArray = null;
+		Boolean mem_sex = false;
+		if (mem_no.substring(0, 3).equalsIgnoreCase("tnt")) {
+			TntService tntSvc = new TntService();
+			TntVO tntVO = tntSvc.getOneTntPic(mem_no);
+			byteArray = tntVO.getTnt_pic();
+			mem_sex = tntSvc.getOneTntProfile(mem_no).getTnt_sex();
+		}
+		if (mem_no.substring(0, 3).equalsIgnoreCase("lld")) {
+			LldService lldSvc = new LldService();
+			LldVO lldVO = lldSvc.getOneLldPic(mem_no);
+			byteArray = lldVO.getLld_pic();
+			mem_sex = lldSvc.getOneLldProfile(mem_no).getLld_sex();
+		}
+		
+		// 讀圖
+		if (byteArray != null) {
+			out.write(byteArray);
+			out.close();
+		} else {  //還沒有大頭貼
+			String resourceString = "";
+			if (mem_sex) {
+				resourceString = "/resource/Mycol/images/person_man.png";
+			} else {
+				resourceString = "/resource/Mycol/images/person_women.png";					
 			}
-			if (mem_no.substring(0, 3).equalsIgnoreCase("lld")) {
-				String lld_no = mem_no;
-				TntService TntSvc = new TntService();
-				TntVO tntVO = TntSvc.getOneTntPic(lld_no);
-					byte[] b = tntVO.getTnt_pic();
-					out.write(b);
-					out.close();
-			}
-			
-			
+			InputStream in = getServletContext().getResourceAsStream(resourceString);
+//			InputStream in = getServletContext().getResourceAsStream("/images/NoData/null2.jpg");
+			byte[] b = new byte[in.available()];
+			in.read(b);
+			out.write(b);
+			in.close();
+			out.close();
+		}
+		
 
-
+		
+		
+		
+//		if (mem_no.substring(0, 3).equalsIgnoreCase("tnt")) {
+//			String tnt_no = mem_no;
+//			TntVO tntVO = tntSvc.getOneTntPic(tnt_no);
+//			byteArray = tntVO.getTnt_pic();
+//			if (byteArray != null) {
+//				out.write(byteArray);
+//				out.close();
+//			} else {  //還沒有大頭貼
+//				String resourceString = "";
+//				Boolean tnt_sex = tntSvc.getOneTntProfile(tnt_no).getTnt_sex();
+//				if (tnt_sex) {
+//					resourceString = "/resource/Mycol/images/person_man.png";
+//				} else {
+//					resourceString = "/resource/Mycol/images/person_women.png";					
+//				}
+//				InputStream in = getServletContext().getResourceAsStream(resourceString);
+////				InputStream in = getServletContext().getResourceAsStream("/images/NoData/null2.jpg");
+//				byte[] b = new byte[in.available()];
+//				in.read(b);
+//				out.write(b);
+//				in.close();
+//				out.close();
+//			}
+//
+//		}
+//		if (mem_no.substring(0, 3).equalsIgnoreCase("lld")) {
+//			String lld_no = mem_no;
+//			TntVO tntVO = tntSvc.getOneTntPic(lld_no);
+//			byteArray = tntVO.getTnt_pic();
+//			out.write(byteArray);
+//			out.close();
+//		}
 	}
+	
+	
+
 }

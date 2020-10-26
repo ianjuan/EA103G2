@@ -28,6 +28,8 @@
 <%HouseDetService hds =new HouseDetService();
 Gson gson = new Gson();
 String	tntno=(String)session.getAttribute("tnt_no");
+String	lldno=(String)session.getAttribute("lld_no");
+
 String hosno=request.getParameter("hos");
 session.setAttribute("HOS",hosno);
  	List<HosDetVO> list = hds.getHosDetfromHOSNO(hosno);
@@ -135,7 +137,7 @@ session.setAttribute("HOS",hosno);
                                 <p class=<%= vo.getHos_net() ==0 ? "no":"yes" %> >網路</p>
                             </li>
                             <li>
-                                <p class=<%= vo.getHos_drink() ==0 ? "no":"yes" %>>銀水雞</p>
+                                <p class=<%= vo.getHos_drink() ==0 ? "no":"yes" %>>飲水機</p>
                             </li>
                             <li>
                                 <p class=<%= vo.getHos_forth() ==0 ? "no":"yes" %>>第四台</p>
@@ -160,8 +162,8 @@ session.setAttribute("HOS",hosno);
                     <!--屋況說明-->
                     <div class="info">
                         <h2>地圖位置</h2>                    
-                    <div class="map">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.396775446296!2d121.52616831500599!3d25.020605483978564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a98e596b4a89%3A0xeeee920255b63d69!2z5Y-w6Zu75aSn5qiT56uZ!5e0!3m2!1szh-TW!2stw!4v1600146985805!5m2!1szh-TW!2stw" frameborder="0"></iframe>
+                    <div class="map" id="map">
+<!--                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.396775446296!2d121.52616831500599!3d25.020605483978564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a98e596b4a89%3A0xeeee920255b63d69!2z5Y-w6Zu75aSn5qiT56uZ!5e0!3m2!1szh-TW!2stw!4v1600146985805!5m2!1szh-TW!2stw" frameborder="0"></iframe> -->
                     </div></div>
                     <!--地圖-->
                     <div class="info">
@@ -212,7 +214,7 @@ session.setAttribute("HOS",hosno);
                                 <p><%= vo.getLld_mobile() %></p>
                             </a></div>
                         <div class="functions"><a class="blue blue-booking" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a><a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a><a class="red" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />檢舉</a>
-                    	   <a class="full select-live" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.svg" alt=""/>我要入住</a>
+                    	   <a class="full select-live" href="#" <%= lldno == null ? "":"style='display:none;'" %>><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.svg" alt=""/>我要入住</a>
                         </div>
                     </div>
                     <!--提醒-->
@@ -403,7 +405,22 @@ $(".gallery-thumbs .swiper-wrapper").append(
 }
 
 	})
-
+function initMap() {
+            geocoder = new google.maps.Geocoder();
+            map = new google.maps.Map(document.getElementById('map'), { //產生地圖
+                center: { lat: <%=vo.getHos_lat()%>, lng: <%=vo.getHos_lng()%> }, //經緯度初始化
+                zoom: 17,
+                mapTypeControl: false
+            });          
+            marker = new google.maps.Marker({ //插上座標
+                map: map,
+                animation: google.maps.Animation.BOUNCE,
+                position: {                	
+                    lat: <%=vo.getHos_lat()%>,
+                    lng: <%=vo.getHos_lng()%>
+                }
+            });
+        }
 console.log(picnum);
 
 </script>
@@ -414,7 +431,7 @@ console.log(picnum);
 <div id="notice">
     <p> </p>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxL16LHes_Y4e96wJGKpsPGMXQJ_VlBL8&callback=initMap" async defer></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.fancybox.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.cookie.min.js"></script>

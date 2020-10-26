@@ -654,7 +654,8 @@
                     		icon: 'success',
                     		title: '註冊成功',
                     		text: "請盡速至信箱完成驗證",
-                    	    showDenyButton: true,
+                    		showConfirmButton: true,
+                    	    confirmButtonText: '點我回首頁',
                     		}).then((result) => {
                     		  if (result.isConfirmed) {
                     			  redirect();
@@ -667,7 +668,7 @@
                     		icon: 'warning',
                     		title: '發生錯誤',
                     		text: "請稍後重新點選送出",
-                    	    showDenyButton: true,
+                    		showConfirmButton: true,
                     		});
                     }
                 },
@@ -677,7 +678,7 @@
                     		icon: 'warning',
                     		title: '發生錯誤',
                     		text: "請稍後重新點選送出",
-                    	    showDenyButton: true,
+                    		showConfirmButton: true,
                     		})
                 }
             });

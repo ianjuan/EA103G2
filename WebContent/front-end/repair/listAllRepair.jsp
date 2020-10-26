@@ -93,8 +93,8 @@ h1, h2, h3, h4, h5, h6, table{
 <body bgcolor='white'>
 
 
+<% String tnt_no = (String)session.getAttribute("tnt_no"); %>
 
-<% session.setAttribute("tnt_no", "TNT000012");%>
 
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
@@ -102,7 +102,7 @@ h1, h2, h3, h4, h5, h6, table{
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 
 
-
+${tnt_no}
 <section id='second'>
 
 <div class='.container-fluid'>
@@ -139,15 +139,15 @@ h1, h2, h3, h4, h5, h6, table{
 
 <div class='col-md-12  text-center'>
             <h3 class='subtitle'>修繕申請紀錄</h3> 
-<div class="content">      
- <c:forEach var="conVO" items="${conSvc.all}"> 
-     <c:if test="${tnt_no==conVO.tnt_no}"> 
+<div class="content">      01
+ <c:forEach var="ConVO" items="${conSvc.all}"> 02
+     <c:if test="${tnt_no==ConVO.getTnt_no}"> 03
 
-		<c:forEach var="repairVO" items="${repSvc.tntGetAll(conVO.con_no)}">
-
+		<c:forEach var="repairVO" items="${repSvc.tntGetAll(ConVO.con_no)}">04
+	
             <div class='row' >
             
-				<!--修改圖片 -->
+				修改圖片
               <div class='col-md-2'>
 <%--                 <c:if test="${repairVO.rep_pro eq 0}"> --%>
                 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6, table{
                   <div class='text'>
                     <h6 class='rep_status'>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h6>
                     <a href='#'>
-                    	房屋編號<br>${conVO.hos_no}
+                    	房屋編號<br>${ConVO.hos_no}
                     
 <!--                     <h5 class='hos_name'>【文化中心第一排】【黃金學區】db重灌後再試 -->
 							
@@ -174,7 +174,7 @@ h1, h2, h3, h4, h5, h6, table{
 <!--                     </h5> -->
 					</a>
                     <br>居住日期<br>
-                    <h6>${aplSvc.getOneCon_apl(conVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(conVO.apl_no).apl_end}</h6>   
+                    <h6>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h6>   
                   </div>       
                 </div>
                 
@@ -199,9 +199,9 @@ h1, h2, h3, h4, h5, h6, table{
 
                 <div class='col-md-2'>
                   <div class='allbtn'>
-					<!--編輯(狀態為處理中可編輯) -->
+					編輯(狀態為處理中可編輯)
                       <button class='btn'  data-toggle="modal" data-target="#detail"  ${(repairVO.rep_pro eq 0)?'':"disabled"}>編輯</button><br>
-                      		<!-- Modal -->
+                      		Modal
 							<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
@@ -233,7 +233,7 @@ h1, h2, h3, h4, h5, h6, table{
                     
                     
                     <button class='btn'  data-toggle="modal" data-target="#report" ${(repairVO.rep_pro eq 1)?'':"disabled"} >回報結果</button><br>
-                      		<!-- Modal -->
+                      		Modal
 							<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
@@ -344,18 +344,13 @@ h1, h2, h3, h4, h5, h6, table{
 <!-- 			     <input type="hidden" name="action"	value="getOne_For_Report"></FORM>		 -->
 <!-- 			</td> -->
 <%-- 			<td>${repairVO.rep_end_time}</td> --%>
-<!-- <!-- 			<td> --> -->
-<%-- <%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-page/repair.servlet" style="margin-bottom: 0px;"> --%> 
-<!-- <!-- 			     <input type="submit" value="刪除"> --> 
-<%-- <%-- 			     <input type="hidden" name="empno"  value="${repairVO.rep_no}"> --%> 
-<!-- <!-- 			     <input type="hidden" name="action" value="delete"></FORM> --> 
-<!-- <!-- 			</td> --> 
-<!-- 			</tr> -->
+
+<!--  			</tr> -->
 		
 <%-- 			</c:forEach> --%>
 <%--        </c:if> --%>
 <%-- </c:forEach> --%>
-<!-- </table> -->
+<!--  </table>  -->
 
 
 

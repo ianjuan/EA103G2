@@ -288,6 +288,10 @@ float:left;
 display: inline-flex;
 }
 
+#skel-layers-hiddenWrapper{
+	display: none;
+}
+
             </style>
             <script>
         
@@ -316,7 +320,7 @@ display: inline-flex;
          	                   "<li class='nav-item dropdown'>"+
        	                    "<span data-toggle='dropdown' class='member'>"+
        	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-       	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
+       	                     "<span class='membername'><%= volive ? tntVO.getTnt_name().trim():" " %></span>"+
        	                    "</span>"+
        	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
        	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
@@ -346,7 +350,7 @@ display: inline-flex;
           	                   "<li class='nav-item dropdown'>"+
         	                    "<span data-toggle='dropdown' class='member'>"+
         	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-        	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
+           	                        "<span class='membername'><%= volive ? tntVO.getTnt_name().trim():" " %></span>"+
         	                    "</span>"+
         	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
         	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
