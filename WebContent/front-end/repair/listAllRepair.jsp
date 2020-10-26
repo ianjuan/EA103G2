@@ -111,30 +111,7 @@ ${tnt_no}
 	<div class='row'>
 		<div class='col-md-12 nav'><jsp:include page="/front-end/repair/navbar.jsp"/></div>
 	</div>
-<!-- left nav bar -->
-<!-- 側邊navbar -->
-<!-- 		 <div id="left"> -->
-<!-- 					<nav id="housenav"> -->
-<!-- 		                <div class="menu-btn"> -->
-<!-- 		                    <div class="line line--1"></div> -->
-<!-- 		                    <div class="line line--2"></div> -->
-<!-- 		                    <div class="line line--3"></div> -->
-<!-- 		                </div>                 -->
-<!-- 		                <div class="nav-links"> -->
-		<%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet"> --%>
-		<%-- 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>"> --%>
-		<!-- 						<input type="hidden" name="action" value="tntgetallapl"> -->
-<!-- 								<button type="submit" class="link">租屋申請</button><br> -->
-		<!-- 					</FORM> -->
-							
-		<%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet"> --%>
-		<%-- 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>"> --%>
-		<!-- 						<input type="hidden" name="action" value="gettntcontract"> -->
-<!-- 								<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br> -->
-		<!-- 					</FORM> -->
-<!-- 		                </div> -->
-<!-- 		            </nav> -->
-<!-- 			</div> -->
+
 
 <div class='row'>
 
@@ -150,17 +127,15 @@ ${tnt_no}
 	
             <div class='row' >
             
-				修改圖片
+<!--修改圖片 -->
               <div class='col-md-2'>
-<%--                 <c:if test="${repairVO.rep_pro eq 0}"> --%>
+                <c:if test="${repairVO.rep_pro eq 0}">
                 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 				 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 				        <input type="hidden" name="action" value="getOne_For_updPic">
 				     	<button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 0)?'上傳圖片':"查看圖片"}</button>
 					</FORM>
-<%--                 </c:if> --%>
-
-
+                </c:if>
               </div>
                 <div class='col-md-4  text-center'>
                   <div class='text'>

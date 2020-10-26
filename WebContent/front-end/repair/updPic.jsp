@@ -156,16 +156,18 @@
 		</c:forEach>
 	</ul>
 </c:if>
+
 <!-- top/left bar -->
 <%-- 	<div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div> --%>
-		<div id="left">
+				<div id="left">
 			<nav id="housenav">
-                <div class="menu-btn">
-                    <div class="line line--1"></div>
-                    <div class="line line--2"></div>
-                    <div class="line line--3"></div>
-                </div>                
-                <div class="nav-links">
+				<div class="menu-btn">
+					<div class="line line--1"></div>
+					<div class="line line--2"></div>
+					<div class="line line--3"></div>
+				</div>
+				<div class="nav-links">		
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="tntgetallapl">
@@ -175,12 +177,18 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="gettntcontract">
-						<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br>
+						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
 					</FORM>
-                </div>
-            </nav>
+					
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+						<input type="hidden" name="action" value="getTntRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
+					
+				</div>
+			</nav>
 		</div>
-
 
 		
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />

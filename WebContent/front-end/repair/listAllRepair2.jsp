@@ -27,7 +27,7 @@
 
 </head>
 <body bgcolor='white'>
-<% session.setAttribute("tnt_no", "TNT000012");%>
+<% session.setAttribute("tnt_no", "TNT000077");%>
 
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
