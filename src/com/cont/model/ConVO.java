@@ -26,6 +26,7 @@ public class ConVO {
 	private Integer con_chk_sta;
 	private Integer con_chr_fee;
 	private String con_chr_itm;
+	private String con_chr_itm_name;
 	private Integer con_is_chr;
 	private Integer con_rent_agn;
 	private Integer con_sta;
@@ -198,6 +199,15 @@ public class ConVO {
 
 	public void setCon_chr_itm(String con_chr_itm) {
 		this.con_chr_itm = con_chr_itm;
+	}
+	
+
+	public String getCon_chr_itm_name() {
+		return con_chr_itm_name;
+	}
+
+	public void setCon_chr_itm_name(String con_chr_itm_name) {
+		this.con_chr_itm_name = con_chr_itm_name;
 	}
 
 	public Integer getCon_is_chr() {

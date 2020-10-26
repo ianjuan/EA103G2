@@ -102,7 +102,7 @@
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
-						<button type="submit" class="link">歷史合約</button><br>
+						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
 					</FORM>
                 </div>
             </nav>
