@@ -94,7 +94,7 @@ session.setAttribute("HOS",hosno);
                                 <p><%= vo.getHos_mdate() %></p>
                             </li>
                             <li><span>格局</span>
-                                <p><%= vo.getHos_pat() %></p>
+                                <p><%= vo.getHos_pat()==null ? "待屋主提供資訊": vo.getHos_pat() %></p>
                             </li>
                       
                         </ul>
@@ -191,16 +191,16 @@ session.setAttribute("HOS",hosno);
                         </div>
                         <ul class="full">
                             <li><span>坪數</span>
-                                <p>10坪</p>
+                                <p><%= vo.getHos_pnum() %>坪</p>
                             </li>
                             <li><span>樓層</span>
-                                <p>4F/5F</p>
+                                <p><%= vo.getHos_floor() %></p>
                             </li>
                             <li><span>型態</span>
-                                <p>公寓</p>
+                                <p><%= vo.getHos_type() %></p>
                             </li>
                             <li><span>現況</span>
-                                <p>獨立套房</p>
+                                <p><%= vo.getHos_room() %></p>
                             </li>
                         </ul>
                     </div>

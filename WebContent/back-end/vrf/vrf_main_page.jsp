@@ -25,8 +25,6 @@
 
 
 <!-- Custom fonts for this template -->
-
-
 <link
 	href="${pageContext.request.contextPath}/back-end/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -44,11 +42,11 @@
 	href="${pageContext.request.contextPath}/back-end/vendor/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link
+	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+	rel="stylesheet">
+
 <link rel="stylesheet" href="main_vrf_back.css" type="text/css">
-
-
 <style>
 .modal-full {
 	min-width: 70%;
@@ -174,10 +172,8 @@
 				<li class="nav-item active"><a class="nav-link" href="#"
 					onclick="del()"> <i class="fas fa-fw fa-table"></i>
 						<form METHOD="post" ACTION="RpttServlet" name="clickTable">
-
-							<input type="hidden" name="Number" value="0"> <input
-								type="hidden" name="action" value="get_want_display"> <span
-								onclick="clickTable.submit()">Tables </span>
+							<input type="hidden" name="action" value="get_vrf_main_page">
+							<span onclick="clickTable.submit()">身分驗證 </span>
 						</form></a></li>
 
 				<!-- Divider -->
@@ -389,36 +385,31 @@
 									Logout
 								</a>
 							</div></li>
-
 					</ul>
-
 				</nav>
 				<!-- End of Topbar -->
-
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
 					<!-- Page Heading -->
-
-
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<div class="row">
-								<div class="col-md-8">
+							<div class="row justify-content-between">
+								<div class="col-8">
 									<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 								</div>
-								<div class="col-md-1">
+								<div class="col-1">
 									<a href="vrf_second_page.jsp">
 										<button class="checkall">查看全部</button>
 									</a>
 								</div>
-								<div class="col-md-3">
+								<div class="col-3">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
-											搜尋: <input type="text" size="24" name="Number"
-												placeholder="輸入 房客/ 房東編號"> <input type="hidden" name="action"
-												value="get_want_vrf_display"> <input type="submit"
+											搜尋: <input type="text" size="32" name="Number"
+												placeholder="輸入會員編號/姓名/電話/信箱/身份證字號"> <input
+												type="hidden" name="action" value="get_want_vrf_display">
+											<input type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 												tabindex="-1" />
 										</h4>
@@ -462,7 +453,6 @@
 												<td>${tntVO.tnt_mobile}</td>
 												<td>${tntVO.tnt_email}</td>
 												<td>${tntVO.tnt_id_uploadtime}</td>
-
 												<td>
 													<button class="check" data-toggle="modal"
 														data-target="#${tntVO.tnt_no}">查看詳情</button>
@@ -485,14 +475,11 @@
 																			class="pic" /> <img
 																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=second"
 																			class="pic" />
-
 																	</div>
-
 																	<div class="col-md-3">
 																		<label for="name">會員編號:</label> ${tntVO.tnt_no} <br>
 																		<label for="name">會員姓名:</label> ${tntVO.tnt_name} <br>
 																		<label for="name">會員生日:</label> ${tntVO.tnt_birth} <br>
-
 																		<label for="name">會員身分證字號:</label> ${tntVO.tnt_id}<br>
 																		<form action="RpttServlet" method="post">
 																			<div>
@@ -517,13 +504,10 @@
 																					required="required"></textarea>
 																			</div>
 																		</form>
-
-
 																	</div>
 																</div>
 															</div>
 														</div>
-
 													</div>
 												</div>
 											</div>
@@ -605,6 +589,8 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+	<script
+		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
 </body>

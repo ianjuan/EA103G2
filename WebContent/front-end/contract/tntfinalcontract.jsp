@@ -76,7 +76,7 @@
                 </div>
             </nav>
 		</div>
-		<form class="table" name="recForm" METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+		<form class="table" name="recForm" METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 			<div id="center">
 				<div id="chead">
 					<ul>
@@ -258,15 +258,13 @@
 					<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 					<input type="hidden" name="con_no" value="<%=con_no%>">
 				<div id="cfoot">
-					<button class="pagebtn" type="button" onclick="notice2()">修改申請</button>
-					<input type="hidden" name="action" value="gettntrec">
+					<input type="hidden" name="action" value="afterpreviewtntcontract">
 					<button class="pagebtn" type="button" onclick="notice1()">確定</button>					
 				</div>				
 			</div>
 
 				<div id="rfoot">
-					<button class="pagebtn" type="button" onclick="notice2()">修改申請</button>
-					<input type="hidden" name="action" value="gettntrec">
+					<input type="hidden" name="action" value="afterpreviewtntcontract">
 					<button class="pagebtn" type="button" onclick="notice1()">確定</button>
 				</div>
 			</div>

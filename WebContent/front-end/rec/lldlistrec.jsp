@@ -130,8 +130,8 @@
 						<div class="rinfo">
 							
 							<ul>
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
-								<li><button type="button" id="btn1" data-toggle="modal" data-target="fullin">評價房客</button></li>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>">
+								<li><button type="button" id="btn1" data-toggle="modal" data-target="fullin">填寫帳單</button></li>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
 								<input type="hidden" name="con_no"  value="${recVO.con_no}">
@@ -140,7 +140,7 @@
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
-								<li><button type="button" id="btn2">帳單明細</button></li>
+								<li><button id="btn2">帳單明細</button></li>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
 								<input type="hidden" name="con_no"  value="${recVO.con_no}">

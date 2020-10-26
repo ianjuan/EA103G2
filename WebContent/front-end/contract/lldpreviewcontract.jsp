@@ -106,7 +106,7 @@
                 </div>
             </nav>
 		</div>
-		<form class="table" name="recForm" METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+		<form class="table" name="recForm" METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 			<div id="center">
 				<div id="chead">
 					<ul>
@@ -281,16 +281,16 @@
 					<input type="hidden" name="tnt_no" value="<%=lld_no%>">
 					<input type="hidden" name="con_no" value="<%=con_no%>">
 				<div id="cfoot">
-					<button class="pagebtn" type="button" onclick="notice2()">修改申請</button>
-					<input type="hidden" name="action" value="gettntrec">
-					<button class="pagebtn" type="button" onclick="notice1()">確定</button>					
+					<button class="pagebtn" type="button" onclick="notice2()">返回修改</button>
+					<input type="hidden" name="action" value="afterpreviewlldcontract">
+					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>					
 				</div>				
 			</div>
 
 				<div id="rfoot">
-					<button class="pagebtn" type="button" onclick="notice2()">修改申請</button>
-					<input type="hidden" name="action" value="gettntrec">
-					<button class="pagebtn" type="button" onclick="notice1()">確定</button>
+					<button class="pagebtn" type="button" onclick="notice2()">返回修改</button>
+					<input type="hidden" name="action" value="afterpreviewlldcontract">
+					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>
 				</div>
 			</div>
 		</FORM>			
@@ -310,6 +310,7 @@
 			lineThree.classList.toggle('line-cross');
 			link.classList.toggle('fade-in');
 		})
-		</script>	
+		</script>
+			<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont.js" charset="UTF-8"></script>		
 </body>
 </html>

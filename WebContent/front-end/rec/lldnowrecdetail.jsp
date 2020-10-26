@@ -48,7 +48,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/rec/css/detailrec.css">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/rec/js/detailrec.js" charset="UTF-8"></script>
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -253,9 +252,9 @@
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 				<input type="hidden" name="con_no" value="<%=con_no%>">
 				<div id="cfoot">
-					<button class="btn" type="button" onclick="notice2()">修改申請</button>
+					<button class="btn" type="button" onclick="notice1">修改申請</button>
 					<input type="hidden" name="action" value="getlldrec">
-					<button class="btn" type="button" onclick="notice1()">確定</button>					
+					<button class="btn">確定</button>					
 				</div>				
 			</div>
 			<div id="right">
@@ -264,13 +263,14 @@
 					</ul>
 				</div>
 				<div id="rfoot">
-					<button class="btn" type="button" onclick="notice2()">修改申請</button>
+					<button class="btn" type="button" onclick="notice1">修改申請</button>
 					<input type="hidden" name="action" value="getlldrec">
-					<button class="btn" type="button" onclick="notice1()">確定</button>
+					<button class="btn">確定</button>
 				</div>
 			</div>
 		</FORM>			
 	</div>
 	<div id="foot"></div>		
+	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/rec/js/detailrec.js" charset="UTF-8"></script>	
 </body>
 </html>
