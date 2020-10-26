@@ -307,7 +307,7 @@ public class LldServlet2 extends HttpServlet {
 					String lld_name = lldVO.getLld_name();
 					String lld_pwd = getAuthCode();
 					String indexPage = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
-							+ req.getContextPath() + "/front-end/index/index.jsp";
+							+ req.getContextPath() + "/front-end/index/lld/login.jsp";
 //					String messageText = "Hello! " + lld_name + "\n"+ "您的新密碼:  " + lld_pwd + "\n" + "請登入後至會員專區修改密碼";
 //					MailService0 mailService = new MailService0();
 					MailService mailService = new MailService();

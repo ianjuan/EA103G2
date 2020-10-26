@@ -562,7 +562,7 @@ public class MailService {
 		   		"						<a href=\""
 		   		+ indexPage 
 		   		+ "\" style=\"width:180px;background:none repeat scroll 0 0 "+ color+";border-radius:50px;color:#fff;display:inline-block;font-size:16px;padding:8px 10px;text-align:center;text-decoration:underline;text-decoration:none\" target=\"_blank\" data-saferedirecturl=\"https://www.google.com/url?q=#/action/edm/click.php?edm_id%3DaGZadDhJWVk2ZnkxS2NvN2RR%26url%3Dhttps%25253A%25252F%25252F#%25252F19425-6657%26m_id%3DGaO1P2&amp;source=gmail&amp;ust=1603353788198000&amp;usg=AFQjCNG04iZsEqJjDFWH0Q2knlDUUEltlQ\">\r\n" + 
-		   		"							點我回首頁\r\n" + 
+		   		"							新密碼重新登入\r\n" + 
 		   		"						</a>\r\n" + 
 		   		"					</div>\r\n" + 
 		   		"				</td>\r\n" + 
