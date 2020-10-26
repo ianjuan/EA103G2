@@ -56,7 +56,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-	                        "<span class='membername'><%= tntVO.getTnt_name() %></span>"+
+	                        "<span class='membername'>劉德華</span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
@@ -90,7 +90,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-	                        "<span class='membername'><%= tntVO.getTnt_name() %></span>"+
+	                        "<span class='membername'>劉德華</span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+

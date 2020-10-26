@@ -4,7 +4,7 @@
 
 <%
 		TntVO tntVO = (TntVO) session.getAttribute("tntVO");
-
+		
 		String	tntno=(String)session.getAttribute("tnt_no");
 		String	lldno=(String)session.getAttribute("lld_no");		
 		%>
