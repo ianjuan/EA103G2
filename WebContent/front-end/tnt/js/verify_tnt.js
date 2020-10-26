@@ -40,45 +40,50 @@
         inputF.addEventListener("change", fileUpload);
 
         function fileUpload2(files) { //preview
+            if ($('.picPreview').length===3) {
+            	$(".picPreview").remove();
+            }
             for (var i = 0; i < files.length; i++) {
-                if (files[i].type.indexOf("image") !== -1) { // or picture.type.includes("image");
-
-                    var fileReader = new FileReader();
-                    fileReader.readAsDataURL(files[i]); // readyState 1
-                    // console.log(fileReader);
-                    let filename = files[i].name; //  Must be let!! !!!!
-                    // console.log('set Filename=' + filename);
-                    fileReader.addEventListener("load", function(e) { // readyState2
-                        var picPreview = document.getElementsByClassName("picPreview");
-                        if (typeof(picPreview[0]) !== "undefined") {
-//                            $(".picPreview").empty();
-                        }
-                        var img = document.createElement("img");
-                        var input = document.createElement("input");
-                        var div = document.createElement("div");
-                        img.setAttribute("src", this.result); // 只能用e.target 不能用 fileReader(readystate:1, Asynchronous)
-                        //e.target 是在捕獲冒泡 
-                        input.setAttribute("type", "checkbox");
-                        div.appendChild(input);
-                        div.appendChild(img);
-                        document.getElementById("picWrapper").append(div);
-
-                        img.addEventListener("click", (e) => { // click pic to checked checkbox
-                            e.currentTarget.previousSibling.click();
-                        });
-
-                        div.addEventListener("dragstart", dragStartHandler); //adding dragEvent to newly created pic
-                        div.setAttribute("draggable", true);
-                        div.setAttribute("name", filename); //LIne 122 important
-                        div.setAttribute("class", "picPreview");
-                        input.setAttribute("class", "picCheckbox");
-                        input.setAttribute("id", "checkbox_id_picf");
-                        img.setAttribute("class", "tnt_pic");
-                    });
-
-                } else {
-                    alert("請上傳圖片");
-                }
+            	if (i < 3) { // 一次傳3張
+	                if (files[i].type.indexOf("image") !== -1) { // or picture.type.includes("image");
+	                    var fileReader = new FileReader();
+	                    fileReader.readAsDataURL(files[i]); // readyState 1
+	                    // console.log(fileReader);
+	                    let filename = files[i].name; //  Must be let!! !!!!
+	                    // console.log('set Filename=' + filename);
+	                    fileReader.addEventListener("load", function(e) { // readyState2
+	                        var picPreview = document.getElementsByClassName("picPreview");
+//	                        if (typeof(picPreview[0]) !== "undefined") {
+//                           	 $(".picPreview").empty();
+//	                        }
+	                        var img = document.createElement("img");
+	                        var input = document.createElement("input");
+	                        var div = document.createElement("div");
+	                        img.setAttribute("src", this.result); // 只能用e.target 不能用 fileReader(readystate:1, Asynchronous)
+	                        //e.target 是在捕獲冒泡 
+	                        input.setAttribute("type", "checkbox");
+	                        div.appendChild(input);
+	                        div.appendChild(img);
+	                        document.getElementById("picWrapper").append(div);
+	
+	                        img.addEventListener("click", (e) => { // click pic to checked checkbox
+	                            e.currentTarget.previousSibling.click();
+	                        });
+	
+	                        div.addEventListener("dragstart", dragStartHandler); //adding dragEvent to newly created pic
+	                        div.setAttribute("draggable", true);
+	                        div.setAttribute("name", filename); //LIne 122 important
+	                        div.setAttribute("class", "picPreview");
+	                        input.setAttribute("class", "picCheckbox");
+	                        input.setAttribute("id", "checkbox_id_picf");
+	                        img.setAttribute("class", "tnt_pic");
+	                    });
+	
+	                } else {
+	                    alert("請上傳圖片");
+	                }
+	                
+	            }
             }
         }
         //----------------------------------------------
@@ -86,8 +91,8 @@
         del.addEventListener("click", deletFilePreview);
 
         function deletFilePreview() {
-            var checkbox = document.querySelectorAll('div input[id="checkbox_id_picf"]');
-//            var checkbox = document.querySelectorAll('div input[type="checkbox"]');
+//            var checkbox = document.querySelectorAll('div input[id="checkbox_id_picf"]');
+            var checkbox = document.querySelectorAll('div input[type="checkbox"]');
             var isChecked = false;
             for (var i = 0; i < checkbox.length; i++) {
                 if (checkbox[i].checked) {
@@ -157,20 +162,6 @@
         $('.angleUpDown').each(function(index, element) {
             $(this).click(function() {
                 var infoformwrap = $(this).closest('div');
-                //              infoformwrap.children('form').toggle();  //form toggle
-                ////                 $(this).closest('div').children('form').toggle();  
-                //                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
-                //                 var angleUp = '.angleUp:eq(' + index + ')';
-                //                 $(angleDown).toggle();
-                //                 $(angleUp).toggle();
-                //                 
-                //                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
-                //                  pbtmp = '10px';
-                //                 }else{
-                //                    pbtmp = '48px';
-                //                 }
-                //                 infoformwrap.css('padding-bottom',pbtmp);
-                //                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
                 togglethefrom(infoformwrap, index);
             });
         });
@@ -215,20 +206,25 @@
          *    [ 按鈕Ajax Vrf ]
          */
         
-      //info按鈕2 - btninfoPic 
+      //按鈕 - btnVrfPics 
         $('#btnVrfPics').click(function(e) {
             e.preventDefault();
             console.log('btn - Vrf Pics');
-//            var theform = $(this).parent().prev('form');
             if ($('.picPreview').find('img').length===3) {
             	var formData = new FormData($('#vrfPicsform')[0]);
-//                var formData = new FormData(theform.get(0));
                 formData.append('action', 'vrfPicsUpload');
-//              console.log(formData);
-                for (let key of formData.keys()) {
-                     console.log(key + " : " + formData.get(key));
-                }
+//                for (let key of formData.keys()) {
+//                     console.log(key + " : " + formData.get(key));
+//                }
                 ajax_vrfPicsUpload(formData);
+            } else {
+            	Swal.fire({
+            		icon: 'warning',
+            		title: '請上傳清晰證件照三張',
+            		text: "包含身分證正反面及第二證件正面",
+            		animation: false,
+            	    showDenyButton: true,
+            		});
             }
         });
 
@@ -251,7 +247,8 @@
                     		showConfirmButton: false,
                     		timer: 1200
                     	}).then((result) => {
-                    		$(".picPreview").empty();
+//                    		$(".picPreview").empty();
+                    		location.reload(true);
                     	});
                    }
                 },

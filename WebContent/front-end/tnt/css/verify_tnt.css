@@ -1005,7 +1005,7 @@
         }
 
         .registerform {
-            padding: 10px 50px 0px 50px;
+            padding: 0px 50px 0px 50px;
         }
 
         .infoBtn {
@@ -1043,6 +1043,7 @@
             text-align: center;
             color: #3a8c68;
             font-weight: bold;
+            font-size: 17px;
         }
 
         /*------------------------------------------------------------------

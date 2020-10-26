@@ -8,124 +8,155 @@
 <%@ page import="com.repair_picture.model.*"%>
 <%@ page import="com.housemanage.model.*"%>
 
-
 <html>
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/NewFile.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/NewFileBtn.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<!-- boostrape -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<!-- boostrape -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/lightslider.css"">
-<script src="<%=request.getContextPath()%>/front-end/repair/js/lightslider.js"></script> 
+
+<script src="<%=request.getContextPath()%>/front-end/repair/css/navbar.css"></script> 
+
 <style>
-    	ul{
-			list-style: none outside none;
-		    padding-left: 0;
-            margin: 0;
-		}
-        .demo .item{
-            margin-bottom: 60px;
-        }
-		.content-slider li{
-		    background-color: #ed3020;
-/* 		    text-align: center; */
-			text-align: left;
-		    color: #FFF;
-		}
-		.content-slider h3 {
-		    margin: 0;
-		    padding: 70px 0;
-		}
-		.demo{
-			width: 800px;
-		}
+
+/*     left nav bar */
+    #left {
+	width: 20%;
+	height: 700px;
+	float: left;
+}
+
+.navbar {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+}
+
+/* 上傳圖片btn */
+.btn-primary {
+    color: #fff;
+    background-color: rgb(221, 210, 160);
+    border-color: rgb(221, 210, 160);
+}
+a{
+    color: rgb(221, 210, 160);
+    text-decoration: none;
+    background-color: transparent;
+}
+a:hover {
+    color: darkgrey;
+    text-decoration: none;
+}
+
+/* 文字 */
+h1, h2, h3, h4, h5, h6, table{
+    font-family: Microsoft JhengHei;
+    font-family: 'Montserrat', sans-serif;
+    
+}
 </style>
 <script>
-    	 $(document).ready(function() {
-			$("#content-slider").lightSlider({
-                loop:true,
-                keyPress:true
-            });
-            $('#image-gallery').lightSlider({
-                gallery:true,
-                item:1,
-                thumbItem:9,
-                slideMargin: 0,
-                speed:500,
-                auto:true,
-                loop:true,
-                onSliderLoad: function() {
-                    $('#image-gallery').removeClass('cS-hidden');
-                }  
-            });
-		});
+    	
 </script>
 
 <title>房客修繕紀錄 - listAllRepair.jsp</title>
 
+<!-- 頂層nav-bar -->
+
 
 </head>
-<button class="learn-more">Learn More</button>
+
+<!-- <button class="learn-more">Learn More</button> -->
 
 
 <body bgcolor='white'>
 
-<% session.setAttribute("tnt_no", "TNT000012");%>
 
+
+<% session.setAttribute("tnt_no", "TNT000012");%>
 
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
+
+
+
 <section id='second'>
-<!-- <div class='.container-md'> -->
 
 <div class='.container-fluid'>
- <div class='row'>
-<!--         <div class='col-md-2'></div> -->
-        <div class='col-md-10  text-center'>
+<!-- 	top nav bar -->
+	<div class='row'>
+		<div class='col-md-12 nav'><jsp:include page="/front-end/repair/navbar.jsp"/></div>
+	</div>
+<!-- left nav bar -->
+<!-- 側邊navbar -->
+<!-- 		 <div id="left"> -->
+<!-- 					<nav id="housenav"> -->
+<!-- 		                <div class="menu-btn"> -->
+<!-- 		                    <div class="line line--1"></div> -->
+<!-- 		                    <div class="line line--2"></div> -->
+<!-- 		                    <div class="line line--3"></div> -->
+<!-- 		                </div>                 -->
+<!-- 		                <div class="nav-links"> -->
+		<%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet"> --%>
+		<%-- 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>"> --%>
+		<!-- 						<input type="hidden" name="action" value="tntgetallapl"> -->
+<!-- 								<button type="submit" class="link">租屋申請</button><br> -->
+		<!-- 					</FORM> -->
+							
+		<%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet"> --%>
+		<%-- 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>"> --%>
+		<!-- 						<input type="hidden" name="action" value="gettntcontract"> -->
+<!-- 								<button type="submit" class="link" style="color: #D37707;">歷史合約</button><br> -->
+		<!-- 					</FORM> -->
+<!-- 		                </div> -->
+<!-- 		            </nav> -->
+<!-- 			</div> -->
+
+<div class='row'>
+
+<div class='col-md-12  text-center'>
             <h3 class='subtitle'>修繕申請紀錄</h3> 
-       
+<div class="content">      
  <c:forEach var="conVO" items="${conSvc.all}"> 
      <c:if test="${tnt_no==conVO.tnt_no}"> 
 
 		<c:forEach var="repairVO" items="${repSvc.tntGetAll(conVO.con_no)}">
 
             <div class='row' >
+            
 				<!--修改圖片 -->
               <div class='col-md-2'>
-                <c:if test="${repairVO.rep_pro eq 0}">
+<%--                 <c:if test="${repairVO.rep_pro eq 0}"> --%>
                 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 				 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 				        <input type="hidden" name="action" value="getOne_For_updPic">
-				     	<button type="submit" class="btn btn-primary" ${(repairVO.rep_pro eq 0)?'':"disabled"}>上傳圖片</button>
+				     	<button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 0)?'上傳圖片':"查看圖片"}</button>
 					</FORM>
-                </c:if>
-                <!--修繕圖片 -->
-				<div class="demo">
-        			<div class="item">            
-            			<div class="clearfix" style="max-width:100px;">
-    						<ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-			                  <c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
-									<c:if test="${(repair_pictureVO.reppic_no).indexOf('D')== -1}">
-										<li data-thumb="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}"> 
-<%-- 											<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120"> --%>
-												<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="15" height="15">
+<%--                 </c:if> --%>
 
-										</li>
-									</c:if>
-							  </c:forEach>
-							</ul>
-            			</div>
-        			</div>
-				</div>	
 
               </div>
                 <div class='col-md-4  text-center'>
@@ -249,7 +280,9 @@
             </c:forEach>
        </c:if>
 </c:forEach>
+</div>
       </div>
+     
     </div>
 
 <div>

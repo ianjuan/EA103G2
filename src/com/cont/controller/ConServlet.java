@@ -548,7 +548,7 @@ public class ConServlet extends HttpServlet {
 				String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
 				System.out.println(lld_no);
 				LldService lldService = new LldService();
-				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_blance();
+				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_balance();
 				lldService.updateLldPocket(lld_no, lld_blance);
 				/*************************** 改租屋狀態 **********************/
 				con_sta = 3;

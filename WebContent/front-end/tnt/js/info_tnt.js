@@ -418,7 +418,13 @@
                 }
             }
             if (isChecked === false) {
-                alert("請勾選刪除項目");
+            	Swal.fire({
+            		icon: 'warning',
+            		title: '請勾選刪除項目',
+            		showConfirmButton: false,
+            		timer: 1000,
+            		animation: false
+            	});
             }
         }
 
