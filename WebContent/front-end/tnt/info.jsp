@@ -31,7 +31,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animate/animate.css">
     <!--===============================================================================================-->
-<!--     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/haburgers.min.css"> -->
+	<!--     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/haburgers.min.css"> -->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
@@ -123,17 +123,20 @@
                                 </li>
                                 <li class="mb-3">
                                     <a href="<%=request.getContextPath()%>/front-end/tnt/verify.jsp" class="basicInfo__menu__link">
-                                        <img src="https://www.dd-room.com/_nuxt/img/1d5e617.png" width="30" class="mr-2">身分驗證
+                                        <img src="<%=request.getContextPath()%>/images/infoIcon_vrf.png" width="30" class="mr-2">身分驗證
+<!--                                         https://www.dd-room.com/_nuxt/img/1d5e617.png -->
                                     </a>
                                 </li>
                                 <li class="mb-3">
                                     <a href="<%=request.getContextPath()%>/front-end/tnt/pocket.jsp" class="basicInfo__menu__link">
-                                        <img src="https://www.dd-room.com/_nuxt/img/2dc32e9.png" width="30" class="mr-2">我的錢包
+                                        <img src="<%=request.getContextPath()%>/images/infoIcon_pocket.png" width="30" class="mr-2">我的錢包
+<!--                                         https://www.dd-room.com/_nuxt/img/2dc32e9.png -->
                                     </a>
                                 </li>
                                 <li class="mb-3">
                                     <a href="/basicInfo/account" class="basicInfo__menu__link">
-                                        <img src="https://www.dd-room.com/_nuxt/img/3d03113.png" width="30" class="mr-2">我的預約
+                                        <img src="<%=request.getContextPath()%>/images/infoIcon_rsv.png" width="30" class="mr-2">我的預約
+<!--                                         https://www.dd-room.com/_nuxt/img/3d03113.png -->
                                     </a>
                                 </li>
                                 <li class="mb-3">

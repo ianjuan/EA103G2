@@ -31,6 +31,12 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/lld/css/main_login.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+    <style>
+    nav{
+    	background-color: #D7C8B6 !important;
+    }
+    </style>
+    
 </head>
 
 <body class="landing">
