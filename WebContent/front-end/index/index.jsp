@@ -282,10 +282,11 @@ float:left;
             
 #header nav > ul > li{
 
-display: inline-flex;}
+display: inline-flex;
+}
+
             </style>
             <script>
-            console.log("<%= tntVO.getTnt_name() %>");
         
         if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 
@@ -312,7 +313,7 @@ display: inline-flex;}
          	                   "<li class='nav-item dropdown'>"+
        	                    "<span data-toggle='dropdown' class='member'>"+
        	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-       	                        "<span class='membername'><%= tntVO.getTnt_name() %></span>"+
+       	                        "<span class='membername'>123</span>"+
        	                    "</span>"+
        	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
        	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
@@ -342,7 +343,7 @@ display: inline-flex;}
           	                   "<li class='nav-item dropdown'>"+
         	                    "<span data-toggle='dropdown' class='member'>"+
         	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-        	                        "<span class='membername'><%= tntVO.getTnt_name() %></span>"+
+        	                        "<span class='membername'>123</span>"+
         	                    "</span>"+
         	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
         	                        "<a class='dropdown-item' href='#'>最新通知</a>"+

@@ -409,7 +409,7 @@
 									<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 								</div>
 								<div class="col-md-1">
-									<a href="second_page.jsp">
+									<a href="vrf_second_page.jsp">
 										<button class="checkall">查看全部</button>
 									</a>
 								</div>

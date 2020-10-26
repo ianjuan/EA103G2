@@ -13,7 +13,9 @@ public class RepairService {
 	}
 	
 	public List<Repair_pictureVO> getAllPicNo(String rep_no){
-		return dao.getPicsNo(rep_no);
+		List<Repair_pictureVO> list = dao.getPicsNo(rep_no);
+		
+		return list;
 	}
 	
 	public Repair_pictureVO addRepair_pic(String rep_no, byte[] reppic_pic) {
@@ -101,6 +103,10 @@ public class RepairService {
 
 	public List<RepairVO> lldGetAll(String lld_no){
 		return dao.lld_getAll(lld_no);
+	}
+
+	public void delPic(String reppic_no, String new_reppic_no) {
+		dao.del_pic(reppic_no, new_reppic_no);
 	}
 
 

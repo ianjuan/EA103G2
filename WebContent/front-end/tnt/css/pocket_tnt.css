@@ -1115,22 +1115,22 @@
             color: #777;
         }
         
-        #balanceWithdraw {
+        #btnbalanceWithdraw {
         	background: #ECD4D4;
             color: #9e3e3e;
         }
         
-        #balanceDeposit {
+        #btnbalanceDeposit{
             background-color: #d1dfe8;
     		color: #367196;
         }
         
-        #balanceWithdraw:hover {
+        #btnbalanceWithdraw:hover {
         	background: #9e3e3e;
             color: #ECD4D4;
         }
         
-        #balanceDeposit:hover {
+        #btnbalanceDeposit:hover {
         	background: #367196;
             color: #d1dfe8;
         }

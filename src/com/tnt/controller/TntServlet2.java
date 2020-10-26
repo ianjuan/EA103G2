@@ -4,8 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +40,6 @@ public class TntServlet2 extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		PrintWriter out = null;
-		
 
 		if ("logout".equals(action)) {
 			System.out.println("action: " + action);
@@ -51,7 +53,7 @@ public class TntServlet2 extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			req.removeAttribute("emailVrfMsgs");
-			
+
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				// 【取得使用者 帳號(account) 密碼(password)】
@@ -111,7 +113,7 @@ public class TntServlet2 extends HttpServlet {
 					System.out.println(tnt_no + ": 登入成功");
 //					tntVO.setTnt_no(tnt_no);
 					req.removeAttribute("tntVO_req"); // 移除錯誤轉交用的req scope的"tntVO"
-					
+
 					String tnt_name = tntSvc.getOneTntProfile(tnt_no).getTnt_name(); // 幫泓元存session
 					Boolean tnt_sex = tntSvc.getOneTntProfile(tnt_no).getTnt_sex(); // 幫泓元存session
 					TntVO tntVO_session = new TntVO();
@@ -122,7 +124,7 @@ public class TntServlet2 extends HttpServlet {
 					HttpSession session = req.getSession();
 					session.setAttribute("tnt_no", tnt_no); // *工作1: 在session內做已經登入過的標識
 					session.setAttribute("tntVO", tntVO_session);
-					
+
 					String location = (String) session.getAttribute("location");
 					if (location != null) { // *工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
 						System.out.println("Servlet-redirect:" + location);
@@ -138,7 +140,7 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("登入Exception: " + e.getMessage());
 			}
 		}
-		
+
 		if ("register".equals(action)) { // 來自Register.jsp的請求 - ajax_register(formData)
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
@@ -146,7 +148,7 @@ public class TntServlet2 extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
-				String tnt_acc = getAuthCode();    // 信箱驗證碼
+				String tnt_acc = getAuthCode(); // 信箱驗證碼
 				String tnt_pwd = req.getParameter("tnt_pwd");
 				String tnt_id = req.getParameter("tnt_id");
 				String tnt_name = req.getParameter("tnt_name");
@@ -194,11 +196,12 @@ public class TntServlet2 extends HttpServlet {
 					tntVO = tntSvc.addTnt(tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex, tnt_mobile,
 							tnt_city, tnt_dist, tnt_add);
 				}
-				
+
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 
 				String emailVrfLink = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
-						+ req.getContextPath() + req.getServletPath() + "?action=emailVrf&tnt_email="+tnt_email+"&code="+tnt_acc;
+						+ req.getContextPath() + req.getServletPath() + "?action=emailVrf&tnt_email=" + tnt_email
+						+ "&code=" + tnt_acc;
 				MailService mailService = new MailService();
 				// 記得要改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				String tnt_email_to = "ea103g2@gmail.com";
@@ -208,7 +211,7 @@ public class TntServlet2 extends HttpServlet {
 					out = res.getWriter();
 					out.print("true");
 				}
-				
+
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
@@ -217,25 +220,25 @@ public class TntServlet2 extends HttpServlet {
 
 			}
 		}
-		
+
 		if ("emailVrf".equals(action)) {
 			System.out.println("action: " + action);
 			List<String> emailVrfMsgs = new LinkedList<String>();
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
-				String tnt_acc = req.getParameter("code");    // 信箱驗證碼
-				
+				String tnt_acc = req.getParameter("code"); // 信箱驗證碼
+
 				/*************************** 2.開始驗證資料 ***************************************/
 				TntService tntSvc = new TntService();
 				List<TntVO> list = tntSvc.getAllProfile();
 				Boolean validateEmail = false;
 				String tnt_no = "";
-				
+
 				for (TntVO tntVO : list) {
 					if (tnt_email.equals(tntVO.getTnt_email())) {
 						validateEmail = true;
-						tnt_no = tntVO.getTnt_no();	
+						tnt_no = tntVO.getTnt_no();
 					}
 				}
 				if (validateEmail) {
@@ -245,15 +248,15 @@ public class TntServlet2 extends HttpServlet {
 					}
 				}
 				emailVrfMsgs.add("success emailVrf");
-				req.setAttribute("emailVrfMsgs", emailVrfMsgs); //重導無法取得req的參數 forward或include才可以喔
-			
+				req.setAttribute("emailVrfMsgs", emailVrfMsgs); // 重導無法取得req的參數 forward或include才可以喔
+
 				/*************************** 3.驗證完成,準備轉交(Send the Success view) ***********/
 				System.out.println("信箱驗證完成: 轉交login.jsp");
 //				res.sendRedirect(req.getContextPath() + "/front-end/index/tnt/login.jsp");
-				
+
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/index/tnt/login.jsp");
 				successView.forward(req, res);
-				
+
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
@@ -261,9 +264,8 @@ public class TntServlet2 extends HttpServlet {
 //				out.print("false");
 
 			}
-			
-		}
 
+		}
 
 		// 來自forgetPwd.jsp的請求 - ajax_forgetPwd
 		if ("forgetPwd".equals(action)) {
@@ -322,7 +324,7 @@ public class TntServlet2 extends HttpServlet {
 			}
 		}
 
-		// ==============================以下來自會員專區=============================================
+// ===================================以下來自會員專區 info.jsp==================================================
 
 		// 來自info.jsp的請求 - ajax_infoUpdateProfile(formData)
 		if ("infoUpdateProfile".equals(action)) {
@@ -341,19 +343,6 @@ public class TntServlet2 extends HttpServlet {
 				String tnt_city = req.getParameter("tnt_city");
 				String tnt_dist = req.getParameter("tnt_dist");
 				String tnt_add = req.getParameter("tnt_add");
-//				
-//				System.out.println(tnt_email);
-//				System.out.println(tnt_acc);
-//				System.out.println(tnt_id);
-//				
-//				System.out.println(tnt_name);
-//				System.out.println(tnt_birth);
-//				System.out.println(tnt_sex);
-//				
-//				System.out.println(tnt_mobile);
-//				System.out.println(tnt_city);
-//				System.out.println(tnt_dist);
-//				System.out.println(tnt_add);
 
 				/*************************** 2.開始修改資料 ***************************************/
 				HttpSession session = req.getSession();
@@ -459,6 +448,87 @@ public class TntServlet2 extends HttpServlet {
 			}
 		}
 
+// ===================================以下來自我的錢包 pocket.jsp=====================================================
+
+		// 來自pocket.jsp的請求 - ajax_balanceWithdraw(formData)
+		if ("balanceWithdraw".equals(action)) {
+			System.out.println("action: " + action);
+			List<String> errorMsgs = new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				out = res.getWriter();
+				int tnt_pocket_withdraw = Integer.valueOf(req.getParameter("pocket_withdraw"));
+				System.out.println(tnt_pocket_withdraw);
+
+				HttpSession session = req.getSession();
+				String tnt_no = (String) session.getAttribute("tnt_no");
+//
+				System.out.println(tnt_no);
+//
+				TntService tntSvc = new TntService();
+				TntVO tntVO = tntSvc.getOneTntPocket(tnt_no);
+				int tnt_balance = tntVO.getTnt_balance();
+				if (tnt_balance < tnt_pocket_withdraw) { // 提領金額大於餘額 退回
+					out.print("false");
+					return;
+				}
+				/*************************** 2.開始修改資料 ***************************************/
+				if (tnt_balance > tnt_pocket_withdraw) {
+					tnt_balance = tnt_balance - tnt_pocket_withdraw;
+					tntSvc.updateTntPocket(tnt_no, tnt_balance);
+					out = res.getWriter();
+					out.print("true");
+					return;
+				}
+
+			} catch (Exception e) {
+//								errorMsgs.add("pocket提領失敗:" + e.getMessage());
+				System.out.println("pocket 提領 失敗:" + e.getMessage());
+				out = res.getWriter();
+				out.print("false");
+			}
+		}
+
+		// 來自pocket.jsp的請求 - ajax_balanceDeposit(formData)
+		if ("balanceDeposit".equals(action)) {
+			System.out.println("action: " + action);
+			List<String> errorMsgs = new LinkedList<String>();
+//					req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				out = res.getWriter();
+				int tnt_pocket_deposit = Integer.valueOf(req.getParameter("pocket_deposit"));
+				System.out.println(tnt_pocket_deposit);
+
+				HttpSession session = req.getSession();
+				String tnt_no = (String) session.getAttribute("tnt_no");
+				//
+				System.out.println(tnt_no);
+				//
+				TntService tntSvc = new TntService();
+				TntVO tntVO = tntSvc.getOneTntPocket(tnt_no);
+				int tnt_balance = tntVO.getTnt_balance();
+				if (tnt_pocket_deposit < 0) { // 暫時多寫的
+					out.print("false");
+					return;
+				}
+				/*************************** 2.開始修改資料 ***************************************/
+				if (tnt_pocket_deposit > 0) {
+					tnt_balance = tnt_balance + tnt_pocket_deposit;
+					tntSvc.updateTntPocket(tnt_no, tnt_balance);
+					out = res.getWriter();
+					out.print("true");
+					return;
+				}
+			} catch (Exception e) {
+//				errorMsgs.add("pocket 儲值失敗:" + e.getMessage());
+				System.out.println("pocket 儲值失敗:" + e.getMessage());
+				out = res.getWriter();
+				out.print("false");
+			}
+		}
+
 		// 來自pocket.jsp的請求 - ajax_pocketUpdateBankCard(formData)
 		if ("infoUpdateBankCard".equals(action)) {
 			System.out.println("action: " + action);
@@ -470,12 +540,13 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println(tnt_bank);
 				String tnt_bankbranch = req.getParameter("tnt_bankbranch");
 				System.out.println(tnt_bankbranch);
-				
+
 				String tnt_bankacc = req.getParameter("tnt_bankacc");
 				System.out.println(tnt_bankacc);
 				String tnt_card = req.getParameter("tnt_card");
 				System.out.println(tnt_card);
-				Integer tnt_cardsvc = Integer.valueOf(req.getParameter("tnt_cardsvc"));
+//				Integer tnt_cardsvc = Integer.valueOf(req.getParameter("tnt_cardsvc"));
+				String tnt_cardsvc = req.getParameter("tnt_cardsvc");
 				System.out.println(tnt_cardsvc);
 				String tnt_carddueStr = req.getParameter("tnt_carddue");
 				tnt_carddueStr = tnt_carddueStr + "-01";
@@ -484,7 +555,6 @@ public class TntServlet2 extends HttpServlet {
 
 				System.out.println(tnt_carddue);
 
-
 				/*************************** 2.開始修改資料 ***************************************/
 				HttpSession session = req.getSession();
 				String tnt_no = (String) session.getAttribute("tnt_no");
@@ -492,7 +562,8 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println(tnt_no);
 
 				TntService tntSvc = new TntService();
-				tntSvc.updateTntBankCard(tnt_no, tnt_bank, tnt_bankbranch, tnt_bankacc, tnt_card, tnt_cardsvc, tnt_carddue);
+				tntSvc.updateTntBankCard(tnt_no, tnt_bank, tnt_bankbranch, tnt_bankacc, tnt_card, tnt_cardsvc,
+						tnt_carddue);
 
 				out = res.getWriter();
 				out.print("true");
@@ -502,6 +573,53 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("pocket 銀行信用卡 修改失敗:" + e.getMessage());
 				out = res.getWriter();
 				out.print("false");
+			}
+		}
+
+// ===================================以下來自身分驗證 verify.jsp=====================================================
+
+		// 來自vrf.jsp的請求 - ajax_vrfPicsUpload(formData)
+		if ("vrfPicsUpload".equals(action)) {
+			System.out.println("action: " + action);
+			List<String> errorMsgs = new LinkedList<String>();
+//					req.setAttribute("errorMsgs", errorMsgs);
+			
+			ArrayList<byte[]> byteArray = new ArrayList<byte[]>();
+			try {
+				ArrayList<Part> parts = new ArrayList<Part>(req.getParts());
+//				System.out.println(parts.size());
+				for (int i=0; i<parts.size()-1; i++) {
+//					System.out.println(i);
+					Part part = parts.get(i);
+					InputStream in = part.getInputStream();
+					byte[] byte_pic = getPictureByteArray(in);
+//					System.out.println(byte_pic);
+					byteArray.add(i, byte_pic);
+				}
+				byte[] tnt_id_picf = byteArray.get(0);
+//				System.out.println(tnt_id_picf);
+				byte[] tnt_id_picb = byteArray.get(1);
+//				System.out.println(tnt_id_picb);
+				byte[] tnt_id_pic2 = byteArray.get(2);
+//				System.out.println(tnt_id_pic2);
+
+//
+					HttpSession session = req.getSession();
+					String tnt_no = (String) session.getAttribute("tnt_no");
+
+							System.out.println(tnt_no);
+
+					TntService tntSvc = new TntService();
+					tntSvc.updateTntVrfPics(tnt_no, tnt_id_picf, tnt_id_picb, tnt_id_pic2, 1 );
+
+					out = res.getWriter();
+					out.print("true");
+					out.close();
+
+
+			} catch (Exception e) {
+//						errorMsgs.add("註冊失敗:" + e.getMessage());
+				System.out.println("vrf pics 修改失敗:" + e.getMessage());
 			}
 		}
 
@@ -601,4 +719,3 @@ public class TntServlet2 extends HttpServlet {
 	}
 
 }
-

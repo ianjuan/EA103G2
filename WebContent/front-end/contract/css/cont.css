@@ -56,8 +56,28 @@ body {
 	margin-right: 5px;
 }
 
-#cbody2 td {
-	padding: 5px;
+#cbody2 {
+	overflow: hidden;
+}
+
+#sig-canvas {
+	border: 2px dotted #CCCCCC;
+	border-radius: 15px;
+	cursor: crosshair;
+}
+
+#sig-dataUrl {
+	width: 80%;
+	resize: none;
+	margin-top: 5px;
+	display: none;
+}
+
+#sig-image {
+	width: 95%;
+	height:200px;
+	margin-top: 5px;
+	display: none;
 }
 
 #cbody4 .num1 {
@@ -250,7 +270,7 @@ body {
 	color: white;
 }
 
-.btn {
+.pagebtn {
 	width: 10%;
 	height: 40px;
 	float: left;
@@ -266,11 +286,11 @@ body {
 	padding: 0;
 }
 
-.btn:hover {
+.pagebtn:hover {
 	background-color: lightgray;
 }
 
-.btn:active {
+.pagebtn:active {
 	background-color: gray;
 	transform: translateY(5px);
 }
@@ -632,7 +652,7 @@ translateX
 		transform: translateX(-30px);
 		width: 170px;
 	}
-	.btn {
+	.pagebtn {
 		font-size: 90%;
 	}
 	.pic, #preview1 .pic1div {
@@ -663,7 +683,7 @@ translateX
 	.titlebtn {
 		width: 90%;
 	}
-	.btn {
+	.pagebtn {
 		width: 78%;
 		float: none;
 		margin: 10px 10px;
@@ -735,11 +755,5 @@ translateX
 	#housenav .nav-links.fade-in {
 		transform: translateX(0px);
 		opacity: 1;
-	}
-	#sig-canvas {
-		border: 2px dotted #CCCCCC;
-		border-radius: 15px;
-		cursor: crosshair;
-	}
-	
+	}		
 }

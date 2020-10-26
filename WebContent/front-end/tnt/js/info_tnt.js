@@ -340,10 +340,10 @@
                 $(selects[i]).blur();
             }
             $('#f_date1').blur();
-//            console.log($('.xdsoft_datetimepicker').css('display'));
+            console.log($('.xdsoft_datetimepicker').css('display'));
 //            $('.xdsoft_datetimepicker').css('display','none');
         });
-
+        
         /*
          * ================================================================== 
          *    [ 圖片上傳(程昕) ]
@@ -418,22 +418,28 @@
                 }
             }
             if (isChecked === false) {
-                alert("請勾選刪除項目");
+            	Swal.fire({
+            		icon: 'warning',
+            		title: '請勾選刪除項目',
+            		showConfirmButton: false,
+            		timer: 1000,
+            		animation: false
+            	});
             }
         }
 
         //=================================================
         function fileUpload(e) {
             var picture = inputF.files;
-            fileUpload2(picture);
-            // handleFile(picture)
+             fileUpload2(picture);
+             handleFile(picture)
         }
 
         function dropUploadHandler(e) {
             var dtFiles = e.dataTransfer.files; //return FileList
 
-            // handleFile(dtFiles);
-            fileUpload2(dtFiles);
+             handleFile(dtFiles);
+             fileUpload2(dtFiles);
         }
         //=============================================
         function handleFile(files) {
@@ -638,10 +644,10 @@
                     		icon: 'success',
                     		title: '上傳成功!',
                     		showConfirmButton: false,
-                    		timer: 1500
-                    	})
-                    	$(".picPreview").empty();
-                    	location.reload(true);
+                    		timer: 1000
+                    	}).then((result) => {
+                    		location.reload(true);
+                    	});
                    }
                 },
                 error: function() {
@@ -713,7 +719,6 @@
                 }
             });
         }
-        
         
         function ajax_logout_ChgPwd(formData,theform) {
             $.ajax({ // 存入資料庫階段

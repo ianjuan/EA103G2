@@ -189,6 +189,7 @@ public class ConServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();
 				ConVO conVO = conSvc.getOneCon(con_no);
+				System.out.println(conVO.getCon_lld_sign());
 
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
@@ -388,11 +389,10 @@ public class ConServlet extends HttpServlet {
 						hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_no);
 
 				/*************************** 房東簽名 ****************************************/
-				Part part = req.getPart("con_lld_sign");
-				InputStream in = part.getInputStream();
-				byte[] con_lld_sign = getPictureByteArray(in);
+				String con_lld_sign = req.getParameter("con_lld_sign");
+				System.out.println(con_lld_sign);
 
-				byte[] con_tnt_sign = null;
+				String con_tnt_sign = null;
 				/*************************** 更新合約 **********************/
 				ConService conSvc = new ConService();
 				ConVO conVOGET = conSvc.getOneCon(con_no);
@@ -466,11 +466,9 @@ public class ConServlet extends HttpServlet {
 						tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
 				/*************************** 房東簽名 ****************************************/
 				ConService conSvc = new ConService();
-				byte[] con_lld_sign = conSvc.getOneCon(con_no).getCon_lld_sign();
+				String con_lld_sign = conSvc.getOneCon(con_no).getCon_lld_sign();
 
-				Part part1 = req.getPart("con_tnt_sign");
-				InputStream in1 = part1.getInputStream();
-				byte[] con_tnt_sign = getPictureByteArray(in1);
+				String con_tnt_sign = req.getParameter("con_tnt_sign");
 				/*************************** 更新合約 **********************/
 				ConVO conVOGET = conSvc.getOneCon(con_no);
 				String apl_no = conVOGET.getApl_no();
@@ -493,7 +491,7 @@ public class ConServlet extends HttpServlet {
 				String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
 				System.out.println(lld_no);
 				LldService lldService = new LldService();
-				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_blance();
+				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_balance();
 				lldService.updateLldPocket(lld_no, lld_blance);
 				/*************************** 改租屋狀態 **********************/
 				con_sta = 3;

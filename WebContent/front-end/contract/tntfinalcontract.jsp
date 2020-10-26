@@ -98,7 +98,7 @@
 						 (三)租賃附屬設備： <br>
 						 (四)其他：   。 <br>
 						 第二條 租賃期間 <br>
-    					 租賃期間自民國<%=con_aplVO.getApl_str()%>起至民國<%=con_aplVO.getApl_str()%>止。 <br>
+    					 租賃期間自西元<%=con_aplVO.getApl_str()%>起至西元<%=con_aplVO.getApl_str()%>止。 <br>
 						 第三條 租金約定及支付 <br>
   						  承租人每月租金為新臺幣(下同)<%=houseVO.getHos_rentfee()%>元整，每期應繳納   個月租金，並於每■月□期一日前支付，不得藉任何理由拖延或拒絕；出租人亦不得任意要求調整租金。 <br>
 						 租金支付方式：□現金繳付■轉帳繳付 <br>
@@ -214,16 +214,33 @@
 						 立契約書人 <br>
 						 出租人： <br>
 						 姓名(名稱)：<%=lldVO.getLld_name()%>　　簽章
+						 
+						 <c:if test="${conVO.con_lld_sign == null}">
+						 <img src="<%=request.getContextPath()%>/front-end/contract/images/tntsignature.png" alt="簽名圖片底家啦!"/><br>
+						 </c:if>
+						 
+						 <c:if test="${conVO.con_lld_sign != null}">
+						 <img src="${conVO.con_lld_sign}" alt="簽名圖片底家啦!"/><br>
+						 </c:if>
+						 
 						 統一編號：<%=lldVO.getLld_id()%> <br>
-						 戶籍地址：<%=lldVO.getLld_add()%> <br>
-						 通訊地址：<%=lldVO.getLld_add()%> <br>
+						 戶籍地址：<%=lldVO.getLld_city()%><%=lldVO.getLld_dist()%><%=lldVO.getLld_add()%> <br>
+						 通訊地址：<%=lldVO.getLld_city()%><%=lldVO.getLld_dist()%><%=lldVO.getLld_add()%> <br>
 						 聯絡電話：<%=lldVO.getLld_mobile()%> <br>
 						 電子郵件信箱：<%=lldVO.getLld_email()%> <br>
 						 承租人： <br>
 						 姓名(名稱)：<%=tntVO.getTnt_name()%>   簽章 <br>
+						 
+						 <c:if test="${conVO.con_tnt_sign == null}">
+						 <img src="<%=request.getContextPath()%>/front-end/contract/images/lldsignature.png" alt="簽名圖片底家啦!"/><br>
+						 </c:if>
+						 
+						 <c:if test="${conVO.con_tnt_sign != null}">
+						 <img src="${conVO.con_tnt_sign}" alt="簽名圖片底家啦!"/><br>
+						 </c:if>
 						 統一編號：<%=tntVO.getTnt_id()%> <br>
-						 戶籍地址：<%=tntVO.getTnt_add()%> <br>
-						 通訊地址：<%=tntVO.getTnt_add()%> <br>
+						 戶籍地址：<%=tntVO.getTnt_city()%><%=tntVO.getTnt_dist()%><%=tntVO.getTnt_add()%> <br>
+						 通訊地址：<%=tntVO.getTnt_city()%><%=tntVO.getTnt_dist()%><%=tntVO.getTnt_add()%> <br>
 						 聯絡電話：<%=tntVO.getTnt_mobile()%> <br>
 						 電子郵件信箱：<%=tntVO.getTnt_email()%> <br>
 						 保證人： <br>
@@ -233,15 +250,10 @@
 						 通訊地址：桃園區中壢市中央路300號 <br>
 						 聯絡電話：0988755012 <br>
 						 電子郵件信箱：ea103g2@gmail.com <br>
-						 中華民國<%=conVO.getCon_date()%> <br>
-			
-<!-- 						<h1>請在此處簽名</h1> -->
-							
-<!-- 						<div class="col-md-12"> -->
-<%-- 							 <canvas id="sig-canvas" width="500" height="160"> --%>
-<!-- 							 	Get a better browser, bro. -->
-<%-- 							 </canvas> --%>
-<!-- 						</div> -->
+						 <%=conVO.getCon_date()%> <br>
+						 			
+						
+						
 					<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 					<input type="hidden" name="con_no" value="<%=con_no%>">
 				<div id="cfoot">
