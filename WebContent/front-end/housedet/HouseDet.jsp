@@ -409,10 +409,11 @@ function initMap() {
                 center: { lat: <%=vo.getHos_lat()%>, lng: <%=vo.getHos_lng()%> }, //經緯度初始化
                 zoom: 17,
                 mapTypeControl: false
-            });
+            });          
             marker = new google.maps.Marker({ //插上座標
                 map: map,
-                position: {
+                animation: google.maps.Animation.BOUNCE,
+                position: {                	
                     lat: <%=vo.getHos_lat()%>,
                     lng: <%=vo.getHos_lng()%>
                 }
