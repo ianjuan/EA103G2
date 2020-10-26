@@ -420,28 +420,6 @@
             transform: scale(1);
         }
 
-        /*.eff-focus-selection {
-            visibility: visible;
-            opacity: 1;
-            
-            -webkit-transform: scale(1);
-            -moz-transform: scale(1);
-            -ms-transform: scale(1);
-            -o-transform: scale(1);
-            transform: scale(1);
-        } */
-
-        /*         .register100:focus {
-            height: 48px;
-        } */
-
-        /* .register100:focus+.focus-register100+.label-register100 {
-            top: -9px;
-            right: 3px;
-            font-size: 13px;
-            border: 1px solid red;
-            background-color: #fff;
-        } */
         .register100:focus+.focus-register100+.label-register100 {
             display: inline-block;
             top: -9px;
@@ -457,8 +435,6 @@
         .register100:focus+.focus-register100+.label-register100-birth::after {
             content: 'BIRTH';
         }
-
-
 
         .has-val {
             height: 50px !important;
@@ -709,165 +685,7 @@
             background: #333333;
             color: #fff;
         }
-        /*========泓元區==========================================================
-[ Header ]*/
-        body.landing #header {
-            background-color: #D7C8B6;
-            left: 0;
-            position: fixed;
-            top: 0;
-        }
-
-        body.landing #header nav a {
-            color: #4E6258;
-        }
-        #header {
-            background-color: #383b43;
-            color: #ffffff;
-            cursor: default;
-            font-size: 1.1em;
-            height: 4em;
-            line-height: 5em;
-            width: 100%;
-            z-index: 10000;
-        }
-
-        #header h1 {
-            color: #ffffff;
-            height: inherit;
-            left: 3em;
-            line-height: inherit;
-            margin: 0;
-            padding: 0;
-            position: absolute;
-        }
-
-        #header h1 a {
-            font-size: 1em;
-        }
-        #header h1 a:hover {
-            color: #4E6258;
-        }
-        #header nav {
-            height: inherit;
-            line-height: inherit;
-            position: absolute;
-            right: 3em;
-            vertical-align: middle;
-        }
-
-        #header nav>ul {
-            list-style: none;
-            margin: 0;
-            padding-left: 0;
-        }
-
-        #header nav>ul>li {
-            border-radius: 4px;
-            display: inline-block;
-            margin-left: 2em;
-            padding-left: 0;
-        }
-
-        #header nav>ul>li a {
-            -moz-transition: color 0.2s ease-in-out;
-            -webkit-transition: color 0.2s ease-in-out;
-            -o-transition: color 0.2s ease-in-out;
-            -ms-transition: color 0.2s ease-in-out;
-            transition: color 0.2s ease-in-out;
-            color: #cdced0;
-            display: inline-block;
-            text-decoration: none;
-        }
-
-        #header nav>ul>li a:active, #header nav>ul>li a:hover {
-            color: #ffffff;
-        }
-
-        #header nav>ul>li:first-child {
-            margin-left: 0;
-        }
-
-        #header nav>ul>li .button {
-            background-color: #fff;
-            color: #444 !important;
-            height: 2.25em;
-            line-height: 2.25em;
-            margin-bottom: 0;
-            padding: 0 1em;
-            position: relative;
-            top: -0.075em;
-            vertical-align: middle;
-        }
-
-        #header .container {
-            position: relative;
-        }
-
-        #header .container h1 {
-            left: 0;
-        }
-
-        #header .container nav {
-            right: 0;
-        }
-
-        /* Footer */
-        #footer {
-            background: #383b43;
-            padding: 6em 0em 4em;
-        }
-
-        #footer h2, #footer h3, #footer h4 {
-            color: #ffffff;
-        }
-
-        #footer p, #footer a, #footer li {
-            color: #cdced0;
-        }
-
-        #footer .links {
-            border-bottom: 1px solid rgba(144, 144, 144, 0.25);
-            margin-bottom: 4em;
-            padding-bottom: 1em;
-        }
-
-        #footer .copyright {
-            margin-top: 0.65em;
-            padding: 0;
-        }
-
-        #footer .copyright li {
-            color: #858585;
-            display: inline-block;
-            list-style: none;
-            margin-left: 0.5em;
-            padding-left: 0.5em;
-        }
-
-        #footer .copyright li:first-child {
-            margin-left: 0;
-            padding-left: 0;
-        }
-
-        #footer .copyright a {
-            color: #858585;
-        }
-
-        #footer .icons {
-            text-align: right;
-        }
-
-        #footer a.icon {
-            color: #ffffff;
-            font-size: 0.65em;
-            height: 4em;
-            line-height: 4em;
-            width: 4em;
-            cursor: pointer;
-        }
-        /*泓元區end*/
-
+     
         /*===============大吳-datetimepicker========================================
 [ datetimepicker ]*/
         .xdsoft_datetimepicker .xdsoft_datepicker {
@@ -1003,7 +821,7 @@
             display: block;
             margin: auto;
         }
-        #tnt_pic {
+        #lld_pic {
             padding: 20px;
             border-radius: 10px;
             border: #1d1d52 dashed 2px;

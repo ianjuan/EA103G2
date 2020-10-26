@@ -44,6 +44,7 @@ public class LldServlet2 extends HttpServlet {
 		if ("logout".equals(action)) {
 			System.out.println("action: " + action);
 			HttpSession session = req.getSession();
+			session.removeAttribute("tnt_no");
 			session.removeAttribute("lld_no");
 			res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp");
 		}
@@ -114,7 +115,7 @@ public class LldServlet2 extends HttpServlet {
 //					lldVO.setLld_no(lld_no);
 					req.removeAttribute("lldVO_req"); // 移除錯誤轉交用的req scope的"lldVO"
 
-					String lld_name = lldSvc.getOneLldProfile(lld_no).getLld_name(); // 幫泓元存session
+					String lld_name = lldSvc.getOneLldProfile(lld_no).getLld_name().trim(); // 幫泓元存session
 					Boolean lld_sex = lldSvc.getOneLldProfile(lld_no).getLld_sex(); // 幫泓元存session
 					LldVO lldVO_session = new LldVO();
 					lldVO_session.setLld_email(lld_email);
@@ -122,6 +123,10 @@ public class LldServlet2 extends HttpServlet {
 					lldVO_session.setLld_sex(lld_sex);
 
 					HttpSession session = req.getSession();
+					session.removeAttribute("tnt_no");
+					session.removeAttribute("lld_no");
+					session.removeAttribute("tntVO");
+					session.removeAttribute("lldVO");
 					session.setAttribute("lld_no", lld_no); // *工作1: 在session內做已經登入過的標識
 					session.setAttribute("lldVO", lldVO_session);
 

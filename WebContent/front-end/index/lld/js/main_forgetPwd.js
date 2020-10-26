@@ -102,7 +102,7 @@
 
         function ajax_forgetPwd(formData) {
             $.ajax({ // 存入資料庫階段
-                url: "/EA103G2/lld/LldTntServlet2",
+                url: "/EA103G2/lld/LldServlet2",
                 type: "POST",
                 data: formData,
                 // 告訴jQuery不要去處理發送的資料

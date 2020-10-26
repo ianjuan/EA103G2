@@ -45,6 +45,7 @@ public class TntServlet2 extends HttpServlet {
 			System.out.println("action: " + action);
 			HttpSession session = req.getSession();
 			session.removeAttribute("tnt_no");
+			session.removeAttribute("lld_no");
 			res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp");
 		}
 
@@ -114,7 +115,7 @@ public class TntServlet2 extends HttpServlet {
 //					tntVO.setTnt_no(tnt_no);
 					req.removeAttribute("tntVO_req"); // 移除錯誤轉交用的req scope的"tntVO"
 
-					String tnt_name = tntSvc.getOneTntProfile(tnt_no).getTnt_name(); // 幫泓元存session
+					String tnt_name = tntSvc.getOneTntProfile(tnt_no).getTnt_name().trim(); // 幫泓元存session
 					Boolean tnt_sex = tntSvc.getOneTntProfile(tnt_no).getTnt_sex(); // 幫泓元存session
 					TntVO tntVO_session = new TntVO();
 					tntVO_session.setTnt_email(tnt_email);
@@ -122,6 +123,10 @@ public class TntServlet2 extends HttpServlet {
 					tntVO_session.setTnt_sex(tnt_sex);
 
 					HttpSession session = req.getSession();
+					session.removeAttribute("tnt_no");
+					session.removeAttribute("lld_no");
+					session.removeAttribute("tntVO");
+					session.removeAttribute("lldVO");
 					session.setAttribute("tnt_no", tnt_no); // *工作1: 在session內做已經登入過的標識
 					session.setAttribute("tntVO", tntVO_session);
 
@@ -292,6 +297,10 @@ public class TntServlet2 extends HttpServlet {
 				}
 				if (!validateEmail) {
 					resString = "false";
+					out = res.getWriter();
+					out.print(resString);
+					out.close();
+					return;
 				}
 				if (validateEmail) {
 					TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
@@ -315,6 +324,8 @@ public class TntServlet2 extends HttpServlet {
 						tntSvc.updateTntPwd(tnt_no, tnt_pwd);
 						out = res.getWriter();
 						out.print(resString);
+						out.close();
+						return;
 					}
 				}
 

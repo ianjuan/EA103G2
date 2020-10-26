@@ -187,7 +187,7 @@
 
         var somedate2 = new Date();
         somedate2.setFullYear(somedate2.getFullYear() - 18);
-        console.log(somedate2);
+        // console.log(somedate2);
         var somedate3 = new Date();
         somedate3.setFullYear(somedate3.getFullYear() - 18);
         somedate3.setDate(somedate3.getDate() + 1);
@@ -614,7 +614,7 @@
                 $('#divbtnRegister').toggle();
             }
         });
-      //submit
+        //submit
         $('#btnRegister.login100-form-btn').click(function(e) {
             e.preventDefault();
             console.log('btn - submit');
