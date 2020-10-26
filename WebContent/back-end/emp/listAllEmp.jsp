@@ -81,7 +81,7 @@
 				<td>
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do">
-						<input type="submit" value="修改" class="btn btn-outline-primary">
+						<input type="text" value="修改" class="btn btn-outline-primary">
 						<input type="hidden" name="emp_no" value="${employeeVO.emp_no}">
 						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
@@ -89,7 +89,7 @@
 				<td>
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do">
-						<input type="submit" value="查看" class="btn btn-outline-primary">
+						<input type="text" value="查看" class="btn btn-outline-primary">
 						<input type="hidden" name="emp_no" value="${employeeVO.emp_no}">
 						<input type="hidden" name="action" value="getOne_For_Display">
 					</FORM>
@@ -115,7 +115,35 @@
   <script src="<%=request.getContextPath()%>/back-end/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="<%=request.getContextPath()%>/back-end/js/demo/datatables-demo.js"></script>
-
+  <script>
+  $(".btn").click(function() {
+	  var ajax_select;
+	  var ajax_url="";
+	  var emp_no = $(this).next().eq(0).attr("value");//取得下一行的value 這裡是emp_no
+// 	  var action = $(this).next().next().attr("value");
+	  ajax_select = this.value;
+	  if(ajax_select=="查看"){
+		  ajax_url = "<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no="+ emp_no;
+	   }
+	  else if(ajax_select=="修改"){
+		  ajax_url = "<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no="+ emp_no;
+  		}
+  
+    $.ajax({
+      type: "GET",
+      url: ajax_url,
+      dataType: "html",
+      async:true,
+      success: function(data) {
+    	  if(ajax_url!=""){
+        $("#ajax_result").html(data);
+        }},
+      error: function(xhr) {
+        alert("Ajax發生錯誤:"+xhr.status);
+        }     	        
+	  });
+  }); 
+  </script>
 </body>
 
 </html>

@@ -56,17 +56,15 @@ vertical-align:baseline;
 		name="form1" >
 		<table>
 			<tr>
-				<td>員工帳號:</td>
-				<td><input type="TEXT" name="emp_acc" class="form-control form-control-user"
+				<td><input type="TEXT" name="emp_acc" class="form-control form-control-user" placeholder="員工帳號"
 					value="<%=(empVO == null) ? "" : empVO.getEmp_acc()%>" /></td>
 			</tr>
 			<tr>
-				<td>員工密碼:</td>
-				<td><input type="password" name="emp_pwd" class="form-control form-control-user" 
+				<td><input type="password" name="emp_pwd" class="form-control form-control-user" placeholder="員工密碼"
 					value="<%=(empVO == null) ? "" : empVO.getEmp_pwd()%>" /></td>
 			</tr>
 			<tr>
-				<td>職位:</td>
+<!-- 				<td>職位:</td> -->
 				<td><input type="radio" name="emp_title" 
 					value="0" />員工
 					<input type="radio" name="emp_title" 
@@ -75,13 +73,12 @@ vertical-align:baseline;
 					value="2" />經理</td>
 			</tr>
 			<tr>
-				<td>員工姓名:</td>
-				<td><input type="TEXT" name="emp_name" class="form-control form-control-user" 
+				<td><input type="TEXT" name="emp_name" class="form-control form-control-user" placeholder="員工姓名"
 					value="<%=(empVO == null) ? "" : empVO.getEmp_name()%>" /></td>
 			</tr>
 				<tr>
-				<td>員工權限:</td>
-				<td style="text-align:left">
+<!-- 				<td>員工權限:</td> -->
+				<td>
 					<c:forEach var="fun_list" items="${funSvc.all}">
 											<br>
 						<input type="checkbox" id="${fun_list.fun_no}" name="fun_no" value="${fun_list.fun_no}" data-toggle="toggle">
