@@ -18,6 +18,8 @@ public interface TenantDAO_interface {
     public void fail_Vrf(TntVO tntVO);
 	public List<TntVO> getUnvrf_Unresult(Integer number, Integer number2);
 	public List<TntVO> findByNo(String number);
+	public TntVO findEmail(String tnt_no);
+
 
 
 

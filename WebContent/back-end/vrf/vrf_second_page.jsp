@@ -172,7 +172,7 @@ button.checkall {
 							class="collapse-item" href="blank.html">Blank Page</a>
 					</div>
 				</div></li>
-			<form METHOD="post" ACTION="TntServlet" name="clickTable">
+			<form METHOD="post" ACTION="RpttServlet" name="clickTable">
 				<!-- Nav Item - Charts -->
 				<li class="nav-item"><a class="nav-link" href="charts.html">
 						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
@@ -181,11 +181,9 @@ button.checkall {
 				<!-- Nav Item - Tables -->
 				<li class="nav-item active"><a class="nav-link" href="#"
 					onclick="del()"> <i class="fas fa-fw fa-table"></i>
-						<form METHOD="post" ACTION="TntServlet" name="clickTable">
-
-							<input type="hidden" name="Number" value="0"> <input
-								type="hidden" name="action" value="get_want_display"> <span
-								onclick="clickTable.submit()">Tables </span>
+						<form METHOD="post" ACTION="RpttServlet" name="clickTable">
+							<input type="hidden" name="action" value="get_vrf_main_page">
+							<span onclick="clickTable.submit()">身分驗證 </span>
 						</form></a></li>
 
 				<!-- Divider -->
@@ -419,10 +417,10 @@ button.checkall {
 								<div class="col-md-3">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
-											搜尋: <input type="text" size="24" name="Number"
-												placeholder="房客/ 房東/ 員工編號"> <input
-												type="hidden" name="action" value="get_want_vrf">
-											<input type="submit"
+											搜尋: <input type="text" size="36" name="Number"
+												placeholder="會員編號/姓名/信箱/手機/身分證字號/員工編號 "> <input
+												type="hidden" name="action" value="get_want_vrf"> <input
+												type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 												tabindex="-1" />
 										</h4>
@@ -430,7 +428,7 @@ button.checkall {
 								</div>
 							</div>
 						</div>
-							<div>
+						<div>
 							<c:if test="${not empty errorMsgs}">
 								<p></p>
 								<ul>
@@ -506,9 +504,8 @@ button.checkall {
 																	src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=back"
 																	class="pic" /> <img
 																	src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=second"
-																	class="pic" /><br><br>
-																<div
-																	style=" margin: 0; outline: 0;color: #8a97a0;">
+																	class="pic" /><br> <br>
+																<div style="margin: 0; outline: 0; color: #8a97a0;">
 																	<label for="name">驗證員工:</label> ${tntVO.emp_no} <br>
 																	<label for="name">驗證時間:</label> ${tntVO.tnt_id_vrftime}
 																	<br> <label for="name">退件原因:</label>
@@ -526,8 +523,6 @@ button.checkall {
 							</div>
 						</div>
 					</div>
-
-
 					<footer class="sticky-footer bg-white">
 						<div class="container my-auto">
 							<div class="copyright text-center my-auto">

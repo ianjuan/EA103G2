@@ -56,6 +56,16 @@
 .toggle.ios .toggle-handle {
 	border-radius: 20px;
 }
+
+button.checkall {
+	font-size: 15px;
+	font-weight: 600;
+	color: #8a97a0;
+	background-color: #fff;
+	border-radius: 2px;
+	border: 1px solid #8a97a0;
+	text-align: center;
+}
 </style>
 
 
@@ -165,10 +175,8 @@
 				<li class="nav-item active"><a class="nav-link" href="#"
 					onclick="del()"> <i class="fas fa-fw fa-table"></i>
 						<form METHOD="post" ACTION="RpttServlet" name="clickTable">
-
-							<input type="hidden" name="Number" value="0"> <input
-								type="hidden" name="action" value="get_want_display"> <span
-								onclick="clickTable.submit()">Tables </span>
+							<input type="hidden" name="action" value="get_main_page">
+							<span onclick="clickTable.submit()">會員檢舉 </span>
 						</form></a></li>
 
 				<!-- Divider -->
@@ -396,15 +404,20 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<div class="row">
-								<div class="col-md-9">
+								<div class="col-md-8">
 									<h4 class="m-0 font-weight-bold text-primary">檢舉房客</h4>
+								</div>
+								<div class="col-md-1">
+									<a href="second_page.jsp">
+										<button class="checkall">查看全部</button>
+									</a>
 								</div>
 								<div class="col-md-3">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
-											搜尋: <input type="text" size="24" name="Number"
+											搜尋: <input type="text" size="27" name="Number"
 												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input
-												type="hidden" name="action" value="get_want_all_display">
+												type="hidden" name="action" value="get_want_display">
 											<input type="submit"
 												style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 												tabindex="-1" />
