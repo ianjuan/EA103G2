@@ -7,9 +7,13 @@
 <head>
 <%
 	TntVO tntVO = (TntVO) session.getAttribute("tntVO");
-
-		String	tntno=(String)session.getAttribute("tnt_no");
-		String	lldno=(String)session.getAttribute("lld_no");		
+	String	tntno=(String)session.getAttribute("tnt_no");
+	String	lldno=(String)session.getAttribute("lld_no");	
+	boolean volive=true;
+		if(tntVO==null){
+			volive=false;
+		}
+		
 		%>
 		<div id="div-nav"></div>
 		
@@ -24,7 +28,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	$("#div-nav").append(
 			"<nav class='navbar navbar-expand-lg navbar-light bg-light' style='background-color:#AACFBF !important;'>"+
             "<div class='container'>"+
-                "<a class='navbar-brand' href='#'>愛租I-ZU</a>"+
+                "<a class='navbar-brand' href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a>"+
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>"+
                     "<span class='navbar-toggler-icon'></span>"+
                 "</button>"+
@@ -44,7 +48,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 		$("#div-nav").append(
 				"<nav class='navbar navbar-expand-lg navbar-light bg-light' style='background-color:#D7C8B6 !important;'>"+
 	            "<div class='container'>"+
-	                "<a class='navbar-brand' href='#'>愛租I-ZU</a>"+
+	                "<a class='navbar-brand' href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a>"+
 	                "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>"+
 	                    "<span class='navbar-toggler-icon'></span>"+
 	                "</button>"+
@@ -56,7 +60,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-	                        "<span class='membername'>劉德華</span>"+
+	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
@@ -77,7 +81,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 		$("#div-nav").append(
 				"<nav class='navbar navbar-expand-lg navbar-light bg-light' style='background-color:#AACFBF !important;'>"+
 	            "<div class='container'>"+
-	                "<a class='navbar-brand' href='#'>愛租I-ZU</a>"+
+	                "<a class='navbar-brand' href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a>"+
 	                "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>"+
 	                    "<span class='navbar-toggler-icon'></span>"+
 	                "</button>"+
@@ -90,7 +94,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-	                        "<span class='membername'>劉德華</span>"+
+	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
