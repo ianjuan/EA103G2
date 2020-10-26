@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="com.tnt.model.*"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
 <%
+	TntVO tntVO = (TntVO) session.getAttribute("tntVO");
+
 		String	tntno=(String)session.getAttribute("tnt_no");
 		String	lldno=(String)session.getAttribute("lld_no");		
 		%>
@@ -26,8 +30,8 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
                 "</button>"+
                 "<div class='collapse navbar-collapse' id='navbarNavAltMarkup'>"+
                 "<div class='navbar-nav ml-auto'>"+
-                "<a class='nav-item nav-link active' href='<%=request.getContextPath()%>/front-end/selectpage/SELECTpage.jsp'>尋找房源<span class='sr-only'>(current)</span></a>"+
-                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/mapserach/gmap2.jsp'>地圖找房</a>"+
+                "<a class='nav-item nav-link active' href='<%=request.getContextPath()%>/front-end/index/SELECTpage.jsp'>尋找房源<span class='sr-only'>(current)</span></a>"+
+                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/index/gmap.jsp'>地圖找房</a>"+
                 "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/index/Identify.jsp'>會員登入</a>"+
               "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/index/IdentifyRegister.jsp'>註冊會員</a>"+
            " </div>"+   
@@ -46,13 +50,13 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "</button>"+
 	                "<div class='collapse navbar-collapse' id='navbarNavAltMarkup'>"+
 	                "<div class='navbar-nav ml-auto'>"+
-	                "<a class='nav-item nav-link active' href='<%=request.getContextPath()%>/front-end/selectpage/SELECTpage.jsp'>尋找房源<span class='sr-only'>(current)</span></a>"+
-	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/mapserach/gmap2.jsp'>地圖找房</a>"+
+	                "<a class='nav-item nav-link active' href='<%=request.getContextPath()%>/front-end/index/SELECTpage.jsp'>尋找房源<span class='sr-only'>(current)</span></a>"+
+	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/index/gmap.jsp'>地圖找房</a>"+
 	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp'>我的房屋</a>"+
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-	                        "<span class='membername'>劉德華</span>"+
+	                        "<span class='membername'><%= tntVO.getTnt_name() %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
@@ -79,14 +83,14 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "</button>"+
 	                "<div class='collapse navbar-collapse' id='navbarNavAltMarkup'>"+
 	                "<div class='navbar-nav ml-auto'>"+
-	                "<a class='nav-item nav-link active' href='<%=request.getContextPath()%>/front-end/selectpage/SELECTpage.jsp'>尋找房源<span class='sr-only'>(current)</span></a>"+
-	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/mapserach/gmap2.jsp'>地圖找房</a>"+
+	                "<a class='nav-item nav-link active' href='<%=request.getContextPath()%>/front-end/index/SELECTpage.jsp'>尋找房源<span class='sr-only'>(current)</span></a>"+
+	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/index/gmap.jsp'>地圖找房</a>"+
 	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/collection/Mycol.jsp'>我的收藏</a>"+
 	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/apl/tntaplpage.jsp'>我的租屋</a>"+   /*大蟒蛇請改這一行 改完說一下 love u <3*/
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-	                        "<span class='membername'>劉德華</span>"+
+	                        "<span class='membername'><%= tntVO.getTnt_name() %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
