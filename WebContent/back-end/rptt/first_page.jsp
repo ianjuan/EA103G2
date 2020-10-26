@@ -162,10 +162,8 @@ button.checkall {
 				<li class="nav-item active"><a class="nav-link" href="#"
 					onclick="del()"> <i class="fas fa-fw fa-table"></i>
 						<form METHOD="post" ACTION="RpttServlet" name="clickTable">
-
-							<input type="hidden" name="Number" value="0"> <input
-								type="hidden" name="action" value="get_want_display"> <span
-								onclick="clickTable.submit()">Tables </span>
+							<input type="hidden" name="action" value="get_main_page">
+							<span onclick="clickTable.submit()">會員檢舉 </span>
 						</form></a></li>
 
 				<!-- Divider -->
@@ -404,7 +402,7 @@ button.checkall {
 								<div class="col-md-3">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
-											搜尋: <input type="text" size="24" name="Number"
+											搜尋: <input type="text" size="27" name="Number"
 												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input
 												type="hidden" name="action" value="get_want_display">
 											<input type="submit"
@@ -509,7 +507,9 @@ button.checkall {
 															<form action="RpttServlet" method="post" name="detail"
 																id="detail">
 																<input type="hidden" name="rptt_no"
-																	value="<%=rpttvo.getRptt_no()%>"><label
+																	value="<%=rpttvo.getRptt_no()%>"><input
+																	type="hidden" name="tnt_no"
+																	value="<%=rpttvo.getTnt_no()%>"><label
 																	for="reason1">檢舉原因:</label>
 																<textarea class="reason1" name="rptt_content" readonly><%=rpttvo.getRptt_content()%></textarea>
 																<div class="form-group">

@@ -67,6 +67,24 @@ public class RpttServlet extends HttpServlet {
 			}
 
 		}
+		// 點擊bar icon回到主頁面
+		if ("get_main_page".equals(action)) {
+
+			try {
+				String url = "/back-end/rptt/main_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("成功轉過去囉");
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+
+			} catch (Exception e) {
+				System.out.println("無法取得555");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
+				failureView.forward(req, res);
+			}
+
+		}
 
 		if ("get_want_all_display".equals(action)) {
 
@@ -291,12 +309,11 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("emp有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
-				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/first_page.jsp";
+
+				String url = "/back-end/rptt/main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("4.emp轉不過來");
+				System.out.println("轉到main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -345,12 +362,10 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("emp有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
-				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/first_page.jsp";
+				String url = "/back-end/rptt/main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("4.emp轉不過來");
+				System.out.println("轉到main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -386,12 +401,10 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("note有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
-				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/first_page.jsp";
+				String url = "/back-end/rptt/main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("4.emp轉不過來");
+				System.out.println("轉到main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -429,12 +442,10 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("result有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
-				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/first_page.jsp";
+				String url = "/back-end/rptt/main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("4.emp轉不過來");
+				System.out.println("轉到main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -459,6 +470,8 @@ public class RpttServlet extends HttpServlet {
 				System.out.println(rptt_result);
 				String rptt_note = req.getParameter("rptt_note");
 				System.out.println(rptt_note);
+				String tnt_no = req.getParameter("tnt_no");
+				System.out.println(tnt_no);
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				RpttVO rpttVO1 = new RpttVO();
@@ -470,14 +483,22 @@ public class RpttServlet extends HttpServlet {
 				RpttService rpttSvc = new RpttService();
 				rpttVO1 = rpttSvc.fail(rptt_no, rptt_result, rptt_note);
 				System.out.println("result有更新了");
+				TntService tntSvc = new TntService();
+				TntVO tntVO1 = tntSvc.getEmail(tnt_no);
+				String TntEmail = "xiyuan345@gmail.com";
+				String TntName = tntVO1.getTnt_name();
+				String TntAcc = tntVO1.getTnt_acc();
+				String TntDissaprove = tntVO1.getTnt_id_disapprove();
+				Integer type = 1;
+				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
+				MailService mailservice = new MailService();
+				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				List<RpttVO> rpttVO = rpttSvc.getRptt("0");
-				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/first_page.jsp";
+				String url = "/back-end/rptt/main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到權限修改那裏");
+				System.out.println("轉到main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -617,9 +638,21 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("裝入完畢PASS");
 
 				TntService tntSvc = new TntService();
+
 				tntVO1 = tntSvc.passVrf(tnt_no, tnt_id_result, emp_no);
 				System.out.println("tntpass有更新了");
 
+				TntVO tntVO2 = tntSvc.getEmail(tnt_no);
+				String TntEmail = "xiyuan345@gmail.com";
+				String TntName = tntVO2.getTnt_name();
+				String TntAcc = tntVO2.getTnt_acc();
+				String TntDissaprove = tntVO2.getTnt_id_disapprove();
+				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
+
+				Integer type = 2;
+				MailService mailservice = new MailService();
+				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
+				System.out.println("驗證成功信寄出去了");
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
 				String url = "/back-end/vrf/vrf_main_page.jsp";
@@ -663,6 +696,17 @@ public class RpttServlet extends HttpServlet {
 				TntService tntSvc = new TntService();
 				tntVO1 = tntSvc.failVrf(tnt_no, tnt_id_result, emp_no, tnt_id_disapprove, tnt_id_isupload);
 				System.out.println("tntfail有更新了");
+
+				TntVO tntVO2 = tntSvc.getEmail(tnt_no);
+				String TntEmail = "xiyuan345@gmail.com";
+				String TntName = tntVO2.getTnt_name();
+				String TntAcc = tntVO2.getTnt_acc();
+				String TntDissaprove = tntVO2.getTnt_id_disapprove();
+				Integer type = 3;
+				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
+				MailService mailservice = new MailService();
+				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
+				System.out.println("驗證失敗信寄出去了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
@@ -726,7 +770,7 @@ public class RpttServlet extends HttpServlet {
 			}
 
 		}
-		
+
 		if ("get_want_vrf".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -735,10 +779,10 @@ public class RpttServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
-				String Number = req.getParameter("Number");
-				System.out.println("來到get_want_vrf:"+Number);
+				String Number = req.getParameter("Number").trim();
+				System.out.println("來到get_want_vrf:" + Number);
 				if (Number == null || (Number.trim()).length() == 0) {
-					System.out.println("來到get_want_vrf1"+Number);
+					System.out.println("來到get_want_vrf1" + Number);
 					errorMsgs.add("未填寫要查詢的編號! 麻煩重新輸入一次");
 					String url = "/back-end/vrf/vrf_second_page.jsp";
 					RequestDispatcher FailView = req.getRequestDispatcher(url);
@@ -757,7 +801,8 @@ public class RpttServlet extends HttpServlet {
 				TntService tntSvc = new TntService();
 				List<TntVO> tntVO = tntSvc.getTnt(Number);
 				if (tntVO.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_second_search_page.jsp");
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/back-end/vrf/vrf_second_search_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("此編號找不到");
 					return;
@@ -776,6 +821,24 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("vrf_second無法取得");
 				errorMsgs.add("搜尋不到或是未填寫要查詢的編號! 麻煩重新輸入一次");
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_second_page.jsp");
+				failureView.forward(req, res);
+			}
+
+		}
+		// 點擊bar icon 回到vrf主頁面
+		if ("get_vrf_main_page".equals(action)) {
+
+			try {
+				String url = "/back-end/vrf/vrf_main_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("成功轉過去囉");
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+
+			} catch (Exception e) {
+				System.out.println("無法取得555");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
 				failureView.forward(req, res);
 			}
 

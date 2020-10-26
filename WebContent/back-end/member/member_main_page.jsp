@@ -5,7 +5,8 @@
 <%@ page import="java.util.*"%>
 
 <%
-	List<TntVO> list = (List<TntVO>) request.getAttribute("TntVO");
+	TntService tntSvc = new TntService();
+	List<TntVO> list = tntSvc.getUnvrf_Unresult(1, 1);
 	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
@@ -24,8 +25,6 @@
 
 
 <!-- Custom fonts for this template -->
-
-
 <link
 	href="${pageContext.request.contextPath}/back-end/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
@@ -43,26 +42,18 @@
 	href="${pageContext.request.contextPath}/back-end/vendor/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link
+	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+	rel="stylesheet">
+
 <link rel="stylesheet" href="main_vrf_back.css" type="text/css">
-
-
 <style>
-.modal-full {
-	min-width: 70%;
-	margin-left: 80;
+th.colum1 {
+	height: auto;
+	text-align: right;
+	font-size: 18px;
+	font-color: red;
 }
-
-.modal-full .modal-content {
-	min-height: auto;
-}
-
-/* .pic { */
-/* 	width: 500px; */
-/* 	height: 300px; */
-/* 	margin: 10px; */
-/* } */
 </style>
 
 
@@ -386,31 +377,20 @@
 									Logout
 								</a>
 							</div></li>
-
 					</ul>
-
 				</nav>
 				<!-- End of Topbar -->
-
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-
 					<!-- Page Heading -->
-
-
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<div class="row justify-content-between">
-								<div class="col-8">
-									<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
+								<div class="col-7">
+									<h4 class="m-0 font-weight-bold text-primary">會員查詢</h4>
 								</div>
-								<div class="col-1">
-									<a href="vrf_second_page.jsp">
-										<button class="checkall">查看全部</button>
-									</a>
-								</div>
-								<div class="col-3">
+								<div class="col-5">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
 											搜尋: <input type="text" size="32" name="Number"
@@ -427,108 +407,83 @@
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable">
+
+									<tbody>
 									<thead>
 										<tr>
-											<th>會員編號</th>
-											<th>會員姓名</th>
-											<th>會員生日</th>
-											<th>會員手機</th>
-											<th>會員信箱</th>
-											<th>上傳時間</th>
-											<th>快速瀏覽</th>
+											<th>基本資料</th>
 										</tr>
 									</thead>
-									<tfoot>
-										<tr>
-											<th>會員編號</th>
-											<th>會員姓名</th>
-											<th>會員生日</th>
-											<th>會員手機</th>
-											<th>會員信箱</th>
-											<th>上傳時間</th>
-											<th>快速瀏覽</th>
-										</tr>
-									</tfoot>
-									<tbody>
-										<%@ include file="page1.file"%>
-										<c:forEach var="tntVO" items="${list}" begin="<%=pageIndex%>"
-											end="<%=pageIndex+rowsPerPage-1%>">
-											<tr>
-												<td>${tntVO.tnt_no}</td>
-												<td>${tntVO.tnt_name}</td>
-												<td>${tntVO.tnt_birth}</td>
-												<td>${tntVO.tnt_mobile}</td>
-												<td>${tntVO.tnt_email}</td>
-												<td>${tntVO.tnt_id_uploadtime}</td>
-
-												<td>
-													<button class="check" data-toggle="modal"
-														data-target="#${tntVO.tnt_no}">查看詳情</button>
-												</td>
-
-											</tr>
-											<!-- Modal HTML -->
-											<div class="modal fade" id="${tntVO.tnt_no}" tabindex="-1"
-												role="dialog">
-												<div class="modal-dialog  modal-full" role="document">
-													<div class="modal-content">
-														<div class="modal-header">
-															<div class="modal-body" style="height: auto">
-																<div class="row">
-																	<div class="col-md-9">
-																		<img
-																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=front"
-																			class="pic" /> <img
-																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=back"
-																			class="pic" /> <img
-																			src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=second"
-																			class="pic" />
-
-																	</div>
-
-																	<div class="col-md-3">
-																		<label for="name">會員編號:</label> ${tntVO.tnt_no} <br>
-																		<label for="name">會員姓名:</label> ${tntVO.tnt_name} <br>
-																		<label for="name">會員生日:</label> ${tntVO.tnt_birth} <br>
-
-																		<label for="name">會員身分證字號:</label> ${tntVO.tnt_id}<br>
-																		<form action="RpttServlet" method="post">
-																			<div>
-																				<input type="hidden" name="tnt_no"
-																					value="${tntVO.tnt_no}"> <input
-																					type="hidden" name="emp_no"
-																					value="<%=pageContext.getAttribute("emp_no")%>">
-																				<button type="submit" class="pass" name="action"
-																					value="passVrf">通過</button>
-																			</div>
-																		</form>
-																		<form action="RpttServlet" method="post">
-																			<div>
-																				<input type="hidden" name="tnt_no"
-																					value="${tntVO.tnt_no}"> <input
-																					type="hidden" name="emp_no"
-																					value="<%=pageContext.getAttribute("emp_no")%>">
-																				<button type="submit" class="fail" name="action"
-																					value="failVrf">不通過</button>
-																				<label for="reason">退件原因:</label><br>
-																				<textarea id="reason" name="tnt_id_disapprove"
-																					required="required"></textarea>
-																			</div>
-																		</form>
-
-
-																	</div>
-																</div>
-															</div>
-														</div>
-
-													</div>
-												</div>
-											</div>
-										</c:forEach>
+									<tr>
+										<th class="colum1" width="5%">a</th>
+										<td width="15%">十月 26, 2020 7:16:39 下午
+											org.apache.catalina.startup.Catalina start</td>
+										<th class="colum1" width="5%">c</th>
+										<td width="15%">b</td>
+										<th class="colum1" width="5%">b</th>
+										<td width="15%">c</td>
+									</tr>
+									<tr>
+										<th class="colum1" width="5%">a</th>
+										<td width="15%">十月 26, 2020 7:16:39 下午
+											org.apache.catalina.startup.Catalina start</td>
+										<th class="colum1" width="5%">c</th>
+										<td width="15%">b</td>
+										<th class="colum1" width="5%">b</th>
+										<td width="15%">c</td>
+									</tr>
+									<tr>
+										<th class="colum1" width="5%">a</th>
+										<td width="15%">十月 26, 2020 7:16:39 下午
+											org.apache.catalina.startup.Catalina start</td>
+										<th class="colum1" width="5%">c</th>
+										<td width="15%">b</td>
+										<th class="colum1" width="5%">b</th>
+										<td width="15%">c</td>
+									</tr>
 									</tbody>
+
 								</table>
-								<%@ include file="page2.file"%>
+								<br>
+								<br>
+								<table class="table table-bordered" id="dataTable">
+
+									<tbody>
+									<thead>
+										<tr>
+											<th>會員權限</th>
+										</tr>
+									</thead>
+									<tr>
+										<th class="colum1" width="5%">a</th>
+										<td width="15%">十月 26, 2020 7:16:39 下午
+											org.apache.catalina.startup.Catalina start</td>
+										<th class="colum1" width="5%">c</th>
+										<td width="15%">b</td>
+										<th class="colum1" width="5%">b</th>
+										<td width="15%">c</td>
+									</tr>
+									<tr>
+										<th class="colum1" width="5%">a</th>
+										<td width="15%">十月 26, 2020 7:16:39 下午
+											org.apache.catalina.startup.Catalina start</td>
+										<th class="colum1" width="5%">c</th>
+										<td width="15%">b</td>
+										<th class="colum1" width="5%">b</th>
+										<td width="15%">c</td>
+									</tr>
+									<tr>
+										<th class="colum1" width="5%">a</th>
+										<td width="15%">十月 26, 2020 7:16:39 下午
+											org.apache.catalina.startup.Catalina start</td>
+										<th class="colum1" width="5%">c</th>
+										<td width="15%">b</td>
+										<th class="colum1" width="5%">b</th>
+										<td width="15%">c</td>
+									</tr>
+									</tbody>
+
+								</table>
 							</div>
 						</div>
 					</div>
@@ -603,6 +558,8 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+	<script
+		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
 </body>

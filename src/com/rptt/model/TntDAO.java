@@ -25,8 +25,8 @@ public class TntDAO implements TenantDAO_interface {
 			+ "VALUES ('TNT' || lpad(SEQ_TNT_NO.NEXTVAL, 5, '0'),?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String INSERT_PROFILE_STMT2 = "INSERT INTO TENANT (TNT_NO, TNT_EMAIL)"
 			+ "VALUES ('TNT' || lpad(SEQ_TNT_NO.NEXTVAL, 5, '0'),?)";
-	private static final String UPDATE_PROFILE_STMT = "UPDATE TENANT set TNT_EMAIL=?, TNT_ACC=?, TNT_PWD=?, TNT_ID=?, TNT_NAME=?, TNT_BIRTH=?, TNT_SEX=?, TNT_MOBILE=?, TNT_CITY=?, TNT_DIST=?, TNT_ADD=?, TNT_PIC=?, TNT_STATUS=? where TNT_NO = ?";
-	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT where TNT_NO = ?";
+	private static final String UPDATE_PROFILE_STMT = "UPDATE TENANT set TNT_EMAIL=?, TNT_ACC=?, TNT_ID=?, TNT_NAME=?, TNT_BIRTH=?, TNT_SEX=?, TNT_MOBILE=?, TNT_CITY=?, TNT_DIST=?, TNT_ADD=?, TNT_STATUS=? where TNT_NO = ?";
+	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS,TNT_JOINTIME,TNT_BALANCE,TNT_BANKBRANCH, TNT_BANKACC,TNT_CARD,TNT_CARDDUE,TNT_CMT_STARSUM,TNT_CMT_COUNT, EMP_NO,TNT_ID_UPLOADTIME,TNT_ID_ISUPLOAD,TNT_ID_RESULT,TNT_ID_VRFTIME,TNT_REPORTED_COUNT,TNT_AUTH_CHAT,TNT_AUTH_RES,TNT_AUTH_CMT,TNT_AUTH_RPT FROM TENANT where TNT_NO =?";
 	private static final String GET_ALL_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT order by TNT_NO";
 	private static final String GET_ALL_ACCOUNT_STMT = "SELECT tnt_no, tnt_email, tnt_pwd from TENANT";
 
@@ -686,8 +686,7 @@ public class TntDAO implements TenantDAO_interface {
 		}
 	}
 
-	private static final String GET_WANT_VRF_STMT = "SELECT* FROM (SELECT tnt_no AS tnt_no, tnt_name as tnt_name, tnt_id as tnt_id, tnt_birth as tnt_birth , tnt_mobile as tnt_mobile, tnt_email as tnt_email, tnt_id_uploadtime as tnt_id_uploadtime, tnt_id_isupload as tnt_id_isupload, emp_no as emp_no,tnt_id_result as tnt_id_result, tnt_id_disapprove as tnt_id_disapprove,TNT_ID_VRFTIME as TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? or tnt_id_result=? union SELECT lld_no AS tnt_no, lld_name as tnt_name, lld_id as tnt_id, lld_birth as tnt_birth , lld_mobile as tnt_mobile, lld_email as tnt_email, lld_id_uploadtime as tnt_id_uploadtime, lld_id_isupload as tnt_id_isupload, emp_no as emp_no, lld_id_result as tnt_id_result, lld_id_disapprove as tnt_id_disapprove,lld_ID_VRFTIME as TNT_ID_VRFTIME from landlord where lld_id_isupload=? or lld_id_result=? ) WHERE TNT_NO=? OR EMP_NO=? OR TNT_MOBILE=? OR TNT_EMAIL=? OR TNT_ID=?ORDER BY TNT_ID_UPLOADTIME";
-	private static final String GET_EMP_VRF_STMT = "SELECT* FROM (SELECT tnt_no AS tnt_no, tnt_name as tnt_name, tnt_id as tnt_id, tnt_birth as tnt_birth , tnt_mobile as tnt_mobile, tnt_email as tnt_email, tnt_id_uploadtime as tnt_id_uploadtime, tnt_id_isupload as tnt_id_isupload, emp_no as emp_no,tnt_id_result as tnt_id_result, tnt_id_disapprove as tnt_id_disapprove,TNT_ID_VRFTIME as TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? or tnt_id_result=? union SELECT lld_no AS tnt_no, lld_name as tnt_name, lld_id as tnt_id, lld_birth as tnt_birth , lld_mobile as tnt_mobile, lld_email as tnt_email, lld_id_uploadtime as tnt_id_uploadtime, lld_id_isupload as tnt_id_isupload, emp_no as emp_no, lld_id_result as tnt_id_result, lld_id_disapprove as tnt_id_disapprove,lld_ID_VRFTIME as TNT_ID_VRFTIME from landlord where lld_id_isupload=? or lld_id_result=? ) WHERE EMP_NO=? ORDER BY TNT_ID_UPLOADTIME";
+	private static final String GET_WANT_VRF_STMT = "SELECT* FROM (SELECT tnt_no AS tnt_no, tnt_name as tnt_name, tnt_id as tnt_id, tnt_birth as tnt_birth , tnt_mobile as tnt_mobile, tnt_email as tnt_email, tnt_id_uploadtime as tnt_id_uploadtime, tnt_id_isupload as tnt_id_isupload, emp_no as emp_no,tnt_id_result as tnt_id_result, tnt_id_disapprove as tnt_id_disapprove,TNT_ID_VRFTIME as TNT_ID_VRFTIME from TENANT where tnt_id_isupload=? or tnt_id_result=? union SELECT lld_no AS tnt_no, lld_name as tnt_name, lld_id as tnt_id, lld_birth as tnt_birth , lld_mobile as tnt_mobile, lld_email as tnt_email, lld_id_uploadtime as tnt_id_uploadtime, lld_id_isupload as tnt_id_isupload, emp_no as emp_no, lld_id_result as tnt_id_result, lld_id_disapprove as tnt_id_disapprove,lld_ID_VRFTIME as TNT_ID_VRFTIME from landlord where lld_id_isupload=? or lld_id_result=? ) WHERE TNT_NO=? OR EMP_NO=? OR TNT_MOBILE=? OR TNT_EMAIL=? OR TNT_ID=? OR TNT_NAME LIKE ? ORDER BY TNT_ID_UPLOADTIME";
 
 	@Override
 	public List<TntVO> findByNo(String Number) {
@@ -712,7 +711,7 @@ public class TntDAO implements TenantDAO_interface {
 			pstmt.setString(7, Number);
 			pstmt.setString(8, Number);
 			pstmt.setString(9, Number);
-		
+			pstmt.setString(10, "%" + Number + "%");
 
 			rs = pstmt.executeQuery();
 
@@ -767,6 +766,64 @@ public class TntDAO implements TenantDAO_interface {
 		}
 
 		return list;
+	}
+
+	private static final String GET_EMAIL = "select TNT_NAME,TNT_EMAIL,TNT_ACC, TNT_ID_DISAPPROVE from TENANT where TNT_NO=?";
+
+	public TntVO findEmail(String tnt_no) {
+		TntVO tntVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+
+			if (tnt_no.startsWith("T")) {
+				pstmt = con.prepareStatement(GET_EMAIL);
+			} else {
+				System.out.println("wrong sql");
+			}
+			pstmt.setString(1, tnt_no);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				tntVO = new TntVO();
+				tntVO.setTnt_name(rs.getString("tnt_name"));
+				tntVO.setTnt_email(rs.getString("tnt_email"));
+				tntVO.setTnt_acc(rs.getString("tnt_acc"));
+				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return tntVO;
 	}
 
 }

@@ -176,10 +176,8 @@ button.checkall {
 				<li class="nav-item active"><a class="nav-link" href="#"
 					onclick="del()"> <i class="fas fa-fw fa-table"></i>
 						<form METHOD="post" ACTION="RpttServlet" name="clickTable">
-
-							<input type="hidden" name="Number" value="0"> <input
-								type="hidden" name="action" value="get_want_display"> <span
-								onclick="clickTable.submit()">Tables </span>
+							<input type="hidden" name="action" value="get_main_page">
+							<span onclick="clickTable.submit()">會員檢舉 </span>
 						</form></a></li>
 
 				<!-- Divider -->
@@ -413,7 +411,7 @@ button.checkall {
 								<div class="col-md-3">
 									<form METHOD="post" ACTION="RpttServlet">
 										<h4>
-											搜尋: <input type="text" size="24" name="Number"
+											搜尋: <input type="text" size="27" name="Number"
 												placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input
 												type="hidden" name="action" value="get_want_all_display">
 											<input type="submit"
