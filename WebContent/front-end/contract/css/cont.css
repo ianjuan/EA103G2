@@ -52,11 +52,11 @@ body {
 	box-sizing: content-box;
 }
 
-#cbody1 label, #cbody5 label {
+#cbody1 label, #cbody4 label {
 	margin-right: 5px;
 }
 
-#cbody2 {
+#cbody5 {
 	overflow: hidden;
 }
 
@@ -80,7 +80,7 @@ body {
 	display: none;
 }
 
-#cbody4 .num1 {
+#cbody3 .num1 {
 	width: 40%;
 }
 
