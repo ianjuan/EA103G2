@@ -22,21 +22,18 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
     <!--===============================================================================================-->
-<!--     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"> -->
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main_register.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
     <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
-
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 </head>
 
 <body class="landing">
 <jsp:include page="/front-end/navbar/navbar.jsp"/>
-        <div id="quickpick">Quick Input</div>
-
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-form validate-form">
@@ -131,7 +128,7 @@
             <!--login100-form-->
         </div>
     </div>
-   
+  
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -146,8 +143,6 @@
     <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/countdowntime/countdowntime.js"></script>
-    <!--===============================================================================================-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/lld/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/index/lld/js/jquery.datetimepicker.full.js"></script>
