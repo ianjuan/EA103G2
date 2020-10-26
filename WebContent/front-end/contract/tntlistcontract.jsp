@@ -137,6 +137,15 @@
 			     				<input type="hidden" name="action"	value="gettntrec">
 			     				</FORM>
 			     				
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+								<c:if test="${conVO.con_sta != 0 && conVO.con_sta != 1 && conVO.con_sta != 2}">
+								<li><button id="btn2">修繕申請</button></li>
+								</c:if>
+			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
+			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+			     				<input type="hidden" name="action"	value="gettntrepair">
+			     				</FORM>
+			     				
 			     				<li><button id="btn3">提前解約</button></li>
 			     				
 								<li><button id="btn3">聊天</button></li>
