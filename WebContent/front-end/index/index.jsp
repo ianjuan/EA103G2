@@ -4,7 +4,10 @@
 
 <%
 		TntVO tntVO = (TntVO) session.getAttribute("tntVO");
-		
+		boolean volive=true;
+		if(tntVO==null){
+			volive=false;
+		}
 		String	tntno=(String)session.getAttribute("tnt_no");
 		String	lldno=(String)session.getAttribute("lld_no");		
 		%>
@@ -291,7 +294,7 @@ display: inline-flex;
         if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 
         	$("#header").append(
-        			 "<h1><a href='index.jsp'>愛租I-ZU</a></h1>"+
+        			 "<h1><a href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a></h1>"+
         	            "<nav id='nav'>"+
         	               " <ul>"+
         	                    "<li><a href='<%=request.getContextPath()%>/front-end/index/SELECTpage.jsp'>尋找房源</a></li>"+
@@ -304,7 +307,7 @@ display: inline-flex;
         }
         	if("<%= lldno%>"!=="null"){
         		$("#header").append(
-        				 "<h1><a href='index.jsp'>愛租I-ZU</a></h1>"+
+        				 "<h1><a href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a></h1>"+
          	            "<nav id='nav'>"+
          	               " <ul>"+
          	                    "<li><a href='<%=request.getContextPath()%>/front-end/index/SELECTpage.jsp'>尋找房源</a></li>"+
@@ -313,7 +316,7 @@ display: inline-flex;
          	                   "<li class='nav-item dropdown'>"+
        	                    "<span data-toggle='dropdown' class='member'>"+
        	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-       	                        "<span class='membername'>123</span>"+
+       	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
        	                    "</span>"+
        	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
        	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
@@ -330,10 +333,10 @@ display: inline-flex;
         		)
         	
         	}
-        	if("<%= tntno%>"!=="null"){
+        	if("<%= tntno %>"!=="null"){
         <%-- 		<img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" > --%>
         		$("#header").append(
-        				 "<h1><a href='index.jsp'>愛租I-ZU</a></h1>"+
+        				 "<h1><a href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a></h1>"+
           	            "<nav id='nav'>"+
           	               " <ul>"+
           	                    "<li><a href='<%=request.getContextPath()%>/front-end/index/SELECTpage.jsp'>尋找房源</a></li>"+
@@ -343,7 +346,7 @@ display: inline-flex;
           	                   "<li class='nav-item dropdown'>"+
         	                    "<span data-toggle='dropdown' class='member'>"+
         	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-        	                        "<span class='membername'>123</span>"+
+        	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
         	                    "</span>"+
         	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
         	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
