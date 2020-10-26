@@ -151,8 +151,8 @@ public class RepairServlet extends HttpServlet{
 			failureView.forward(req, res);
 			
 		}
-		
 	}
+	
 	
 	if("getOne_For_updPic".equals(action)){
 		List<String> errorMsgs = new LinkedList<String>();
@@ -182,7 +182,89 @@ public class RepairServlet extends HttpServlet{
 			
 		}	
 	}
+	if("getTntRepair".equals(action)) {
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		System.out.println("getTntRepair:1");
 		
+		try {
+			/***************************1.接收請求參數，錯誤處理**********************/
+			String tnt_no = req.getParameter("tnt_no");
+			/***************************2.新增完成,準備轉交(Send the Success view)***********/
+			req.setAttribute("tnt_no", tnt_no);
+			String url = "/front-end/repair/listAllRepair.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);	
+			/***************************其他可能的錯誤處理**********************************/
+		}catch(Exception e){
+			System.out.println("跳轉失敗");
+			errorMsgs.add(e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/contract/tntlistcontract.jsp");
+			failureView.forward(req, res);
+			errorMsgs.add("頁面連結失敗");
+		}
+	
+		
+	}
+	
+	if("getLldRepair".equals(action)) {
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		System.out.println("getLldRepair:1");
+		
+		try {
+			/***************************1.接收請求參數，錯誤處理**********************/
+			String lld_no = req.getParameter("lld_no");
+			/***************************2.新增完成,準備轉交(Send the Success view)***********/
+			req.setAttribute("lld_no", lld_no);
+			String url = "/front-end/repair/lldListAllRepair.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);	
+			/***************************其他可能的錯誤處理**********************************/
+		}catch(Exception e){
+			System.out.println("跳轉失敗");
+			errorMsgs.add(e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/contract/lldlistcontract.jsp");
+			failureView.forward(req, res);
+			errorMsgs.add("頁面連結失敗");
+		}
+	
+		
+	}
+	
+	
+	
+	if("tnt_into_insert".equals(action)) {
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		System.out.println("tnt_into_insert:1");
+		
+		try {
+			/***************************1.接收請求參數，錯誤處理**********************/
+			String con_no = req.getParameter("con_no");
+			
+			RepairVO repairVO = new RepairVO();
+			repairVO.setCon_no(con_no);
+			
+			/***************************2.新增完成,準備轉交(Send the Success view)***********/
+			req.setAttribute("repairVO", repairVO);
+			String url = "/front-end/repair/addReppic.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);	
+			/***************************其他可能的錯誤處理**********************************/
+		}catch(Exception e){
+			System.out.println("跳轉失敗");
+			errorMsgs.add(e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/repair/addRepair.jsp");
+			failureView.forward(req, res);
+			errorMsgs.add("頁面連結失敗");
+		}
+	}
+
+	
 		
 		//tenant new a repair //房客新增一筆修繕申請
 	if("tnt_insert".equals(action)) {
@@ -192,12 +274,11 @@ public class RepairServlet extends HttpServlet{
 		try {
 			/***************************1.接收請求參數，錯誤處理**********************/
 			ConService conSrv = new ConService();
-			Integer con_sta = conSrv.getOneCon(req.getParameter("con_no")).getCon_sta();
+//			Integer con_sta = conSrv.getOneCon(req.getParameter("con_no")).getCon_sta();
 //			上線時要打開
 //			if(!(con_sta==1)) {
 //				errorMsgs.add("非入住中，無法申請修繕");
 //			}
-			
 			
 			
 			String con_no = req.getParameter("con_no");
@@ -619,6 +700,8 @@ if ("updateEnddate".equals(action)) {
 				}
 				
 				}
+			
+			
 				
 	}
 			}
