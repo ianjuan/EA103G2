@@ -34,7 +34,7 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String GET_ONE_ACCOUNT_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_PWD FROM TENANT where TNT_NO =?";
 	private static final String UPDATE_PWD_STMT = "UPDATE TENANT set TNT_PWD=? where TNT_NO=?";
 	private static final String UPDATE_STATUS_STMT = "UPDATE TENANT set TNT_STATUS=? where TNT_NO=?";
-	
+
 	private static final String UPDATE_PIC_STMT = "UPDATE TENANT set TNT_PIC=? where TNT_NO = ?";
 	private static final String GET_ONE_PIC_STMT = "SELECT TNT_NO, TNT_PIC FROM TENANT where TNT_NO = ?";
 
@@ -534,7 +534,7 @@ public class TntDAO implements TenantDAO_interface {
 			}
 		}
 	}
-	
+
 	@Override
 	public void update_status(TntVO tntVO) {
 		Connection con = null;
@@ -930,11 +930,11 @@ public class TntDAO implements TenantDAO_interface {
 	// =================================5.vrf==================================
 	private static final String UPDATE_VRF_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_uploadtime=?, tnt_id_isupload=?, tnt_id_result=?, tnt_id_disapprove=?, tnt_id_vrftime=? where tnt_no=?";
 	private static final String GET_ONE_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT where tnt_no=?";
+	private static final String GET_ONE_VRF_NOPICS_STMT = "SELECT tnt_id_isupload, tnt_id_result, tnt_id_disapprove, from TENANT where tnt_no=?";
 	private static final String GET_ALL_VRF_STMT = "SELECT tnt_id_picf, tnt_id_picb, tnt_id_pic2, tnt_id_uploadtime, tnt_id_isupload, tnt_id_result, tnt_id_disapprove, tnt_id_vrftime from TENANT ORDER BY tnt_no";
 
 	private static final String UPDATE_VRF_PICS_STMT = "UPDATE TENANT set tnt_id_picf=?, tnt_id_picb=?, tnt_id_pic2=?, tnt_id_isupload=? where tnt_no=?";
-	
-	
+
 	@Override
 	public void update_vrf_pics(TntVO tntVO) {
 		Connection con = null;
@@ -971,8 +971,7 @@ public class TntDAO implements TenantDAO_interface {
 			}
 		}
 	}
-	
-	
+
 	@Override
 	public void update_vrf(TntVO tntVO) {
 		Connection con = null;
@@ -1037,6 +1036,56 @@ public class TntDAO implements TenantDAO_interface {
 				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
 				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
 				tntVO.setTnt_id_vrftime(rs.getTimestamp("tnt_id_vrftime"));
+			}
+
+		} catch (SQLException se) {
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return tntVO;
+	}
+
+	@Override
+	public TntVO findByPK_vrf(String tnt_no, Boolean getVrfPics) {
+		TntVO tntVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_VRF_NOPICS_STMT);
+
+			if (!getVrfPics) {
+				pstmt.setString(1, tnt_no);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
+					tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
+					tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+				}
 			}
 
 		} catch (SQLException se) {

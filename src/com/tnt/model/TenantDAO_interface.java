@@ -30,6 +30,7 @@ public interface TenantDAO_interface {
     
     public void update_vrf(TntVO tntVO);
     public TntVO findByPK_vrf(String tnt_no);
+    public TntVO findByPK_vrf(String tnt_no, Boolean getVrfPics);
     public List<TntVO> getAll_vrf();
     public void update_vrf_pics(TntVO tntVO);
     

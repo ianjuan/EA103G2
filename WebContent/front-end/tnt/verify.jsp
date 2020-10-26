@@ -12,8 +12,11 @@
 %>
 
 <%
-	TntVO tntVO_vrf = tntSvc.getOneTntVrf(tnt_no);
-	request.setAttribute("tntVO", tntVO);
+	TntVO tntVO_vrf = tntSvc.getOneTntVrf(tnt_no, false);
+	int tnt_id_isupload = tntVO_vrf.getTnt_id_isupload();
+	int tnt_id_result = tntVO_vrf.getTnt_id_result();
+	String tnt_id_disapprove = tntVO_vrf.getTnt_id_disapprove();
+	request.setAttribute("tntVO_vrf", tntVO_vrf);
 %>
 
 
