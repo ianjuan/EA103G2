@@ -67,7 +67,7 @@
 		}
 		
 /* 		 @media (max-width:1199.98px) { */
-       @media (max-width:2000px) {
+       @media (max-width:3000px) {
             .basicInfo__list {
                 position: fixed;
                 top: 54px;
