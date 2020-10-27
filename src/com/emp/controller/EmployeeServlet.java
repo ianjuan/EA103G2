@@ -16,6 +16,8 @@ import javax.servlet.http.*;
 import com.emp.model.*;
 import com.rig.model.RightService;
 import com.rig.model.RightVO;
+import com.websocket.jedis.JedisHandleMessage;
+
 import javax.websocket.CloseReason;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -27,7 +29,7 @@ import javax.websocket.server.ServerEndpoint;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.news.model.NewsVO;
-import com.websocket.jedis.*;
+
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class EmployeeServlet extends HttpServlet {
@@ -76,7 +78,7 @@ public class EmployeeServlet extends HttpServlet {
 				 	EmployeeVO empVO= allowMail(emp_mail);
 				 	session = req.getSession();
 				    System.out.println(empVO.getEmp_no());
-				 	session.setAttribute("empVO", empVO);
+				 	req.setAttribute("empVO", empVO);
 					RequestDispatcher forgot = req.getRequestDispatcher("/back-end/emp/forgot");//MailService
 					forgot.forward(req, res);
 			    }
@@ -101,7 +103,7 @@ public class EmployeeServlet extends HttpServlet {
 			      session = req.getSession();
 			      EmployeeVO empVO= allowUser(emp_acc, emp_pwd);
 			      session.setAttribute("empVO", empVO);   //*工作1: 才在session內做已經登入過的標識
-
+			      
 			       try {                                                        
 			         String location = (String) session.getAttribute("location");
 			         
@@ -112,7 +114,7 @@ public class EmployeeServlet extends HttpServlet {
 			           return;
 			         }
 			       }catch (Exception ignored) { }
-			      res.sendRedirect(req.getContextPath()+"/back-end/emp/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
+			      res.sendRedirect(req.getContextPath()+"/back-end/index.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
 			    }
 			  }
 

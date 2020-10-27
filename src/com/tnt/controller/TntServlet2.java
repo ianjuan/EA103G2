@@ -111,8 +111,16 @@ public class TntServlet2 extends HttpServlet {
 					}
 				}
 				if (tnt_no.substring(0, 3).equalsIgnoreCase("tnt")) { // 登入成功
+					int tnt_status = tntSvc.getOneTntProfile(tnt_no).getTnt_status();  // 檢查帳號是否啟用
+					if (tnt_status == 0) {
+						errorMsgs.add("帳號未啟用，請前往信箱完成驗證");
+						System.out.println(tnt_no + ": 帳號未啟用，請前往信箱完成驗證");
+						req.setAttribute("tntVO_req", tntVO); // 含有輸入格式錯誤的tntVO物件,也存入req
+						RequestDispatcher failureView = req.getRequestDispatcher("/front-end/index/tnt/login.jsp");
+						failureView.forward(req, res);
+						return; // 程式中斷
+					}
 					System.out.println(tnt_no + ": 登入成功");
-//					tntVO.setTnt_no(tnt_no);
 					req.removeAttribute("tntVO_req"); // 移除錯誤轉交用的req scope的"tntVO"
 
 					String tnt_name = tntSvc.getOneTntProfile(tnt_no).getTnt_name().trim(); // 幫泓元存session
@@ -307,7 +315,7 @@ public class TntServlet2 extends HttpServlet {
 					String tnt_name = tntVO.getTnt_name();
 					String tnt_pwd = getAuthCode();
 					String indexPage = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
-							+ req.getContextPath() + "/front-end/index/index.jsp";
+							+ req.getContextPath() + "/front-end/index/tnt/login.jsp";
 //					String messageText = "Hello! " + tnt_name + "\n"+ "您的新密碼:  " + tnt_pwd + "\n" + "請登入後至會員專區修改密碼";
 //					MailService0 mailService = new MailService0();
 					MailService mailService = new MailService();
@@ -593,12 +601,12 @@ public class TntServlet2 extends HttpServlet {
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 //					req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			ArrayList<byte[]> byteArray = new ArrayList<byte[]>();
 			try {
 				ArrayList<Part> parts = new ArrayList<Part>(req.getParts());
 //				System.out.println(parts.size());
-				for (int i=0; i<parts.size()-1; i++) {
+				for (int i = 0; i < parts.size() - 1; i++) {
 //					System.out.println(i);
 					Part part = parts.get(i);
 					InputStream in = part.getInputStream();
@@ -614,18 +622,17 @@ public class TntServlet2 extends HttpServlet {
 //				System.out.println(tnt_id_pic2);
 
 //
-					HttpSession session = req.getSession();
-					String tnt_no = (String) session.getAttribute("tnt_no");
+				HttpSession session = req.getSession();
+				String tnt_no = (String) session.getAttribute("tnt_no");
 
-							System.out.println(tnt_no);
+				System.out.println(tnt_no);
 
-					TntService tntSvc = new TntService();
-					tntSvc.updateTntVrfPics(tnt_no, tnt_id_picf, tnt_id_picb, tnt_id_pic2, 1 );
+				TntService tntSvc = new TntService();
+				tntSvc.updateTntVrfPics(tnt_no, tnt_id_picf, tnt_id_picb, tnt_id_pic2, 1);
 
-					out = res.getWriter();
-					out.print("true");
-					out.close();
-
+				out = res.getWriter();
+				out.print("true");
+				out.close();
 
 			} catch (Exception e) {
 //						errorMsgs.add("註冊失敗:" + e.getMessage());

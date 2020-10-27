@@ -22,21 +22,10 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">單筆員工資料</h6>
+              <h6 class="m-0 font-weight-bold text-primary">員工資料</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>員工資料</h3>
-				<h4>
-					<a href="<%=request.getContextPath()%>/back-end/emp/index.jsp"><i
-						class="fas fa-home"></i>回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
 
 	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		<tr>

@@ -111,6 +111,15 @@ public class LldServlet2 extends HttpServlet {
 					}
 				}
 				if (lld_no.substring(0, 3).equalsIgnoreCase("lld")) { // 登入成功
+					int lld_status = lldSvc.getOneLldProfile(lld_no).getLld_status();  // 檢查帳號是否啟用
+					if (lld_status == 0) {
+						errorMsgs.add("帳號未啟用，請前往信箱完成驗證");
+						System.out.println(lld_no + ": 帳號未啟用，請前往信箱完成驗證");
+						req.setAttribute("lldVO_req", lldVO); // 含有輸入格式錯誤的lldVO物件,也存入req
+						RequestDispatcher failureView = req.getRequestDispatcher("/front-end/index/lld/login.jsp");
+						failureView.forward(req, res);
+						return; // 程式中斷
+					}
 					System.out.println(lld_no + ": 登入成功");
 //					lldVO.setLld_no(lld_no);
 					req.removeAttribute("lldVO_req"); // 移除錯誤轉交用的req scope的"lldVO"
@@ -307,7 +316,7 @@ public class LldServlet2 extends HttpServlet {
 					String lld_name = lldVO.getLld_name();
 					String lld_pwd = getAuthCode();
 					String indexPage = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
-							+ req.getContextPath() + "/front-end/index/index.jsp";
+							+ req.getContextPath() + "/front-end/index/lld/login.jsp";
 //					String messageText = "Hello! " + lld_name + "\n"+ "您的新密碼:  " + lld_pwd + "\n" + "請登入後至會員專區修改密碼";
 //					MailService0 mailService = new MailService0();
 					MailService mailService = new MailService();

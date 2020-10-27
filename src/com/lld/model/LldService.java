@@ -5,6 +5,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.tnt.model.TntVO;
+
 public class LldService {
 	LandlordDAO_interface dao;
 
@@ -221,6 +223,10 @@ public class LldService {
 
 	public LldVO getOneLldVrf(String lld_no) {
 		return dao.findByPK_vrf(lld_no);
+	}
+	
+	public LldVO getOneLldVrf(String lld_no, Boolean getVrfPics) {
+		return dao.findByPK_vrf(lld_no, getVrfPics);
 	}
 
 	public List<LldVO> getAllVrf() {

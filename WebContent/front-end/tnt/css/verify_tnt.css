@@ -1041,9 +1041,15 @@
         
         .txt-vrfPics-hint {
             text-align: center;
-            color: #3a8c68;
+            color: #3a8c68; /*#367196*/
             font-weight: bold;
             font-size: 17px;
+        }
+        .vrfstate {
+        	color: #3a8c68;
+        	font-weight: normal;
+    		line-height: 2;
+    		font-size: 20;
         }
 
         /*------------------------------------------------------------------

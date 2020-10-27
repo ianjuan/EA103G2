@@ -19,7 +19,6 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <head>
-<title>員工資料修改</title>
 <!-- 外部js匯入 -->
 </head>
 <body>
@@ -28,20 +27,10 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">新增員工資料</h6>
+              <h6 class="m-0 font-weight-bold text-primary">更新員工資料</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-	<tr><td>
-		 <h3>員工資料修改</h3>
-		 
-		 <h4><a href="<%=request.getContextPath()%>/back-end/emp/index.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">

@@ -29,7 +29,8 @@ public interface LandlordDAO_interface {
     public LldVO findByPK_cmt(String lld_no);
     
     public void update_vrf(LldVO lldVO);
-    public LldVO findByPK_vrf(String lld_no);
+    public LldVO findByPK_vrf(String lld_no);  //前台沒用到
+    public LldVO findByPK_vrf(String lld_no, Boolean getVrfPics);
     public List<LldVO> getAll_vrf();
     public void update_vrf_pics(LldVO lldVO);
     

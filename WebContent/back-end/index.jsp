@@ -149,7 +149,7 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> 
 <!-- 							通知小鈴鐺可配合後台推播系統 -->
-								<span id="bellcount" class="badge badge-danger badge-counter">${newsSvc.all.size()}</span>
+								<span id="bellcount" class="badge badge-danger badge-counter"><c:out value="${newsSvc.all.size() <3 ? newsSvc.all.size() : '3+' }"></c:out></span>
 						</a> 
 <!-- 						Dropdown - Alerts -->
 							<div 
@@ -222,16 +222,16 @@
 										<c:if test="${empVO.emp_pic != null}">
 										<img class="img-profile rounded-circle"
 										src="data:image/png;base64,${empVO.emp_pic}"></c:if>
-										<c:if test="${empVO.emp_pic == null}">
-										<img class="img-profile rounded-circle"
-										src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMF9nq4kTIfW-uuGD9R0-wyLcPACsO3CHbag&usqp=CAU"></c:if>
+<%-- 										<c:if test="${empVO.emp_pic == null}"> --%>
+<!-- 										<img class="img-profile rounded-circle" -->
+<%-- 										src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMF9nq4kTIfW-uuGD9R0-wyLcPACsO3CHbag&usqp=CAU"></c:if> --%>
 										
 								</a>
 <!-- 								 Dropdown - User Information -->
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no=${empVO.emp_no}"> <i
+										<a class="dropdown-item" href="javascript:void(0)"> <i
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
 										</a> <a class="dropdown-item" href="#"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
@@ -287,10 +287,11 @@
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 			<script>
 			 $(function(){
+				 var ajax_select;
+				 var ajax_url="";
 			      $(".collapse-item").click(function() {
 			    	  console.log(this.innerText);
-			    	  var ajax_select = this.innerText;
-			    	  var ajax_url="";
+			    	  ajax_select = this.innerText;
 			    	  if(ajax_select=="全體員工"){
 			    		  ajax_url = "listAllEmp.jsp";
 			    	   }
@@ -300,24 +301,54 @@
 			    	  else if(ajax_select=="新增員工"){
 			    		  ajax_url = "addEmp.jsp";
 			    	  }
-
+			    	  console.log(ajax_url);
 			        $.ajax({
-			        	
 			          type: "GET",
 			          url: ajax_url,
 			          dataType: "html",
 			          async:true,
 			          success: function(data) {
 			        	  if(ajax_url!=""){
+			        		  ajax_url="";
 			            $("#ajax_result").html(data);
 			            }},
 			          error: function(xhr) {
 			            alert("Ajax發生錯誤:"+xhr.status);
-			            }     
-			          });
-			        });
-			      });
-			</script><script>
+			            }     	        
+			    	  });
+			      });  
+			      
+			      $(".dropdown-item").click(function() {
+			    	  console.log(this.innerText);
+			    	  ajax_select = this.innerText;
+			    	  if(ajax_select==" 個人資料"){
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no=${empVO.emp_no}";
+			    	   }
+			    	  console.log(ajax_url);
+			        $.ajax({
+			          type: "GET",
+			          url: ajax_url,
+			          dataType: "html",
+			          async:true,
+			          success: function(data) {
+			        	  if(ajax_url!=""){
+			        		  
+			            $("#ajax_result").html(data);
+			            }},
+			          error: function(xhr) {
+			            alert("Ajax發生錯誤:"+xhr.status);
+			            }     	        
+			    	  });
+			      });  
+			 });
+			 
+		
+		 
+		  
+// 		 btn-outline-primary
+			</script>
+			
+			<script>
 			
 	var MyPoint = "/TogetherWS/melon";
 	var host = window.location.host;
@@ -372,7 +403,7 @@
 			var jsonObj = {
 			    "new_no" : ${newsSvc.all.size()},
 				"new_content" : new_content,
-				"new_date" : "2020年10月25日"
+				"new_date" : "2020年10月26日"
 			};
 			webSocket.send(JSON.stringify(jsonObj));
 		}
