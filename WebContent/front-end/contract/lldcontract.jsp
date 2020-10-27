@@ -355,10 +355,9 @@
 								<span class="signfunfont">粗細</span>
 							</div>
 							<div class="row">
-								<div class="col-md-12">
-									<img class="region" id="sig-image" src="" alt="簽名圖片底家啦!"/>
-									<input class="region" id="sign" type="hidden" name="con_lld_sign" value=""/>										
-								</div>
+								<img class="region" id="sig-image" src="" alt="簽名圖片底家啦!"/>
+								<span id="signnotice">您的簽名</span>
+								<input class="region" id="sign" type="hidden" name="con_lld_sign" value=""/>										
 							</div>
 						</div>
 						 

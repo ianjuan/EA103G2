@@ -241,8 +241,10 @@ function hidediv(){
 	  var clearBtn = document.getElementById("sig-clearBtn");
 	  var submitBtn = document.getElementById("sig-submitBtn");
 	  var sign = document.getElementById("sign");
+	  var signnotice = document.getElementById("signnotice");
 	  clearBtn.addEventListener("click", function(e) {				
 		sigImage.style.display = "none";
+		signnotice.style.display = "none";
 		clearCanvas();
 	    var ctx = canvas.getContext("2d");
 	    sigImage.setAttribute("src", "");
@@ -253,6 +255,7 @@ function hidediv(){
 	  submitBtn.addEventListener("click", function(e) {
 	    var dataUrl = canvas.toDataURL();
 	    sigImage.style.display = "block";
+	    signnotice.style.display = "block";
 	    sigImage.setAttribute("src", dataUrl);
 	    sign.setAttribute("value", dataUrl);
 	  }, false);
