@@ -2,10 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tnt.model.*"%>
 <%
-  String action = request .getParameter("action");
-  if ("logout_ChgPwd".equals(action)){
-	  session.removeAttribute("tnt_no");
-  }
+	session.removeAttribute("lld_no");
+	session.removeAttribute("tnt_no");
+%>
+<%
+//   String action = request .getParameter("action");
+//   if ("logout_ChgPwd".equals(action)){
+// 	  session.removeAttribute("tnt_no");
+//   }
 %>
 <%
   TntVO tntVO_req = (TntVO) request.getAttribute("tntVO_req");

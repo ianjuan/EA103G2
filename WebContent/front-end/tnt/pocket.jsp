@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.tnt.model.*"%>
 
+<% session.removeAttribute("lld_no"); %>
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 

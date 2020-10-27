@@ -32,6 +32,8 @@
                     showValidate($(this));
                 }
             })
+            
+            $('#nullnav').attr('style','background-color:#D7C8B6 !important;');
 
         })(jQuery);
 
