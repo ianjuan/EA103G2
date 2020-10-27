@@ -485,26 +485,7 @@ body {
 #housenav .nav-links .link:hover {
 	color: rgba(0, 0, 0, .5);
 }
-.bg-light {
-    background-color: #D7C8B6!important;
-}
-.navbar-light .navbar-nav .nav-link {
-    color: #393939!important;
-    font-weight: bold;
-}
-.nav-item .member{
-    display: flex;
-}
-.nav-item .member .memberpic{
-    width: 40px;
-    margin-right: 5px;
-    outline: none;
-}
-.nav-item .member .membername{
-    float: right;
-    align-self:center;
-    display: block;
-}
+
 @keyframes swing{
 	15%{transform: translateX(2px);}
 	40%{transform: translateX(-2px);}
