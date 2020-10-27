@@ -11,4 +11,5 @@ public interface RecDAO_interface {
 	public RecVO findByPrimaryKey(String rec_no);
 	public List<RecVO> getAll();
 	public List<RecVO> getLddAllByCon(String con_no);
+	public List<RecVO> getAllUpaidByCon(String con_no);
 }

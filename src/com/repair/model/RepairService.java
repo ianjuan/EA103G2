@@ -98,6 +98,7 @@ public class RepairService {
 	}
 
 	public List<RepairVO> tntGetAll(String con_no){
+		System.out.println("tntGetAll service");
 		return dao.tnt_getAll(con_no);
 	}
 

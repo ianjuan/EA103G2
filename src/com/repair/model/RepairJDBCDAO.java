@@ -498,7 +498,7 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-
+System.out.println(" repair dao");
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(TNT_GET_ALL_STMT);
@@ -506,6 +506,8 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				System.out.println(" repair dao rs");
+
 				repairVO = new RepairVO();
 				repairVO.setRep_no(rs.getString("REP_NO"));
 				repairVO.setCon_no(rs.getString("CON_NO"));
@@ -549,6 +551,7 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 					}
 				}
 			}
+		System.out.println(" return repair dao");
 
 		return list;
 	}
