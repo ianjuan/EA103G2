@@ -1,19 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="com.tnt.model.*"%>
+    <%@ page import="com.lld.model.*"%>
     
 <!DOCTYPE html>
 <html>
 <head>
 <%
 	TntVO tntVO = (TntVO) session.getAttribute("tntVO");
+	LldVO lldVO = (LldVO) session.getAttribute("lldVO");
 	String	tntno=(String)session.getAttribute("tnt_no");
 	String	lldno=(String)session.getAttribute("lld_no");	
-	boolean volive=true;
+	boolean lldvolive=true;
+	boolean tntvolive=true;
+	
 		if(tntVO==null){
-			volive=false;
+			tntvolive=false;
 		}
 		
+		if(lldVO==null){
+			lldvolive=false;
+		}
 		%>
 		<div id="div-nav"></div>
 		
@@ -60,7 +67,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='<%=request.getContextPath()%>/ImgReader?id=<%= lldno%>' class='memberpic' />"+
-	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
+	                        "<span class='membername'><%= lldvolive ? lldVO.getLld_name():" " %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
@@ -94,7 +101,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
 	                        "<input type='image' src='<%=request.getContextPath()%>/ImgReader?id=<%= tntno%>' class='memberpic' />"+
-	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
+	                        "<span class='membername'><%= tntvolive ? tntVO.getTnt_name():" " %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+

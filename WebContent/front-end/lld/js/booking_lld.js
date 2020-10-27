@@ -22,7 +22,7 @@
              * [ Validate for each input By myself]
              */
             // 信箱
-            $('#tnt_email.register100').on('blur', function() {
+            $('#lld_email.register100').on('blur', function() {
                 if (/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/.test($(this).val().trim()) === false) {
                     // if (validate($(this)) == false) {
                     showValidate($(this));

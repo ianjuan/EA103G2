@@ -1,15 +1,23 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tnt.model.*"%>
+<%@ page import="com.lld.model.*"%>
 
 <%
-		TntVO tntVO = (TntVO) session.getAttribute("tntVO");
-		boolean volive=true;
-		if(tntVO==null){
-			volive=false;
-		}
-		String	tntno=(String)session.getAttribute("tnt_no");
-		String	lldno=(String)session.getAttribute("lld_no");		
+	TntVO tntVO = (TntVO) session.getAttribute("tntVO");
+	LldVO lldVO = (LldVO) session.getAttribute("lldVO");
+	String	tntno=(String)session.getAttribute("tnt_no");
+	String	lldno=(String)session.getAttribute("lld_no");	
+	boolean lldvolive=true;
+	boolean tntvolive=true;
+
+	if(tntVO==null){
+		tntvolive=false;
+	}
+	
+	if(lldVO==null){
+		lldvolive=false;
+	}	
 		%>
 <html lang="zh-Hant-TW">
 
@@ -240,9 +248,12 @@
     display: flex;
 }
 .nav-item .member .memberpic{
-    width: 40px;
+    width: 45px;
     margin-right: 5px;
     outline: none;
+ height: 45px;
+ margin-top: 2px;
+  border-radius: 30px;
 }
 .nav-item .member .membername{
     float: right;
@@ -312,21 +323,21 @@ display: inline-flex;
         	if("<%= lldno%>"!=="null"){
         		$("#header").append(
         				 "<h1><a href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a></h1>"+
-         	            "<nav id='nav'>"+
+         	            "<nav id='nav' >"+
          	               " <ul>"+
          	                    "<li><a href='<%=request.getContextPath()%>/front-end/index/SELECTpage.jsp'>尋找房源</a></li>"+
          	                    "<li><a href='<%=request.getContextPath()%>/front-end/index/gmap.jsp'>地圖找房</a></li>"+
          	                    "<li><a href='<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp'>我的房屋</a></li>"+         	                    
          	                   "<li class='nav-item dropdown'>"+
        	                    "<span data-toggle='dropdown' class='member'>"+
-       	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-       	                     "<span class='membername'><%= volive ? tntVO.getTnt_name().trim():" " %></span>"+
+       	                        "<input type='image' src='<%=request.getContextPath()%>/ImgReader?id=<%= lldno%>' class='memberpic' />"+
+       	                     "<span class='membername'><%= lldvolive ? lldVO.getLld_name().trim():" " %></span>"+
        	                    "</span>"+
        	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
        	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
-       	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/info.jsp'>個人資訊</a>"+
-       	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/pocket.jsp'>我的錢包</a>"+
-       	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/tnt/TntServlet2?action=logout'>登出</a>"+       
+       	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/lld/info.jsp'>個人資訊</a>"+
+       	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/lld/pocket.jsp'>我的錢包</a>"+
+       	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/lld/LldServlet2?action=logout'>登出</a>"+       
        	                    "</div>"+
        	                "</li>"+
          	                    
@@ -335,13 +346,14 @@ display: inline-flex;
          	            
         				
         		)
-        	
+        	$("#header").css("background-color", "#D7C8B6");
+            	$("#navPanel").css("background", "#D7C8B6");
         	}
         	if("<%= tntno %>"!=="null"){
         <%-- 		<img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" > --%>
         		$("#header").append(
         				 "<h1><a href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a></h1>"+
-          	            "<nav id='nav'>"+
+          	            "<nav id='nav' >"+
           	               " <ul>"+
           	                    "<li><a href='<%=request.getContextPath()%>/front-end/index/SELECTpage.jsp'>尋找房源</a></li>"+
           	                    "<li><a href='<%=request.getContextPath()%>/front-end/index/gmap.jsp'>地圖找房</a></li>"+
@@ -349,8 +361,8 @@ display: inline-flex;
           	                    "<li><a href='<%=request.getContextPath()%>/front-end/apl/tntaplpage.jsp'>我的租屋</a></li>"+         	                    
           	                   "<li class='nav-item dropdown'>"+
         	                    "<span data-toggle='dropdown' class='member'>"+
-        	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
-           	                        "<span class='membername'><%= volive ? tntVO.getTnt_name().trim():" " %></span>"+
+        	                        "<input type='image' src='<%=request.getContextPath()%>/ImgReader?id=<%= tntno%>' class='memberpic' />"+
+           	                        "<span class='membername'><%= tntvolive ? tntVO.getTnt_name().trim():" " %></span>"+
         	                    "</span>"+
         	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
         	                        "<a class='dropdown-item' href='#'>最新通知</a>"+

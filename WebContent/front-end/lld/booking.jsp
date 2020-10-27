@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.tnt.model.*"%>
+<%@ page import="com.lld.model.*"%>
 
 <% session.removeAttribute("lld_no"); %>
-<% String tnt_no = (String) session.getAttribute("tnt_no");%>
-<jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
+<% String lld_no = (String) session.getAttribute("lld_no");%>
+<jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
 
 <%
-	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
-	request.setAttribute("tntVO", tntVO);
+	LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
+	request.setAttribute("lldVO", lldVO);
 %>
 
 <head>
@@ -21,23 +21,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/front-end/tnt/images/icons/favicon.ico" />
+    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/front-end/lld/images/icons/favicon.ico" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animate/animate.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
-<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/select2/select2.min.css"> --%>
+<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/select2/select2.min.css"> --%>
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/util.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/util.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/booking_tnt.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/booking_lld.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 
@@ -124,25 +124,25 @@
                             </a>
                             <div class="basicInfo__userImg mx-auto mb-3 divBigHeadPic">
                                 <a class="awrapBigHeadPic">
-                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
+                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${lldVOVO.lld_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
-                            <p class="text-gray text-center mb-3">房客</p>
-                            <h4 class="text-center">${tntVO.tnt_name} 個人資訊</h4>
+                            <p class="text-gray text-center mb-3">房東</p>
+                            <h4 class="text-center">${lldVO.lld_name} 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/info.jsp" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/info.jsp" class="basicInfo__menu__link">
                                         <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" class="mr-2">基本資訊
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/verify.jsp" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/verify.jsp" class="basicInfo__menu__link">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_vrf.png" width="30" class="mr-2">身分驗證
 <!--                                         https://www.dd-room.com/_nuxt/img/1d5e617.png -->
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/pocket.jsp" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/pocket.jsp" class="basicInfo__menu__link">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_pocket.png" width="30" class="mr-2">我的錢包
 <!--                                         https://www.dd-room.com/_nuxt/img/2dc32e9.png -->
                                     </a>
@@ -155,7 +155,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=gettntcontract" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=getlldcontract" class="basicInfo__menu__link">
                                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" class="mr-2">我的合約</a>
                                 </li>
                             </ul>
@@ -175,18 +175,18 @@
                             <div class="border-top w-50 mx-auto"></div>
                             <ul class="basicInfo__menu mt-4 shrink__list mb-0 pl-0">
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/info.jsp" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/info.jsp" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" height="30">
                                     </a>
                                 </li>
                                 
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/verify.jsp" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/verify.jsp" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_vrf.png" width="30" height="30">
                                     </a>
                                 </li>
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/pocket.jsp" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/pocket.jsp" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_pocket.png" width="30" height="30">
                                     </a>
                                 </li>
@@ -198,7 +198,7 @@
                                 </li>
                                 
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=gettntcontract" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=getlldcontract" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" height="30">
                                     </a>
                                 </li>
@@ -239,26 +239,26 @@
     </section>
 
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/js/animsition.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/js/popper.js"></script>
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/js/popper.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/select2/select2.min.js"></script> --%>
+<%--     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/select2/select2.min.js"></script> --%>
     <!--===============================================================================================-->
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/daterangepicker/moment.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/daterangepicker/daterangepicker.js"></script> --%>
+<%--     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/daterangepicker/moment.min.js"></script> --%>
+<%--     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/daterangepicker/daterangepicker.js"></script> --%>
     <!--===============================================================================================-->
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/countdowntime/countdowntime.js"></script> --%>
+<%--     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/countdowntime/countdowntime.js"></script> --%>
     <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.js"></script>
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.datetimepicker.full.js"></script> --%>
+    <script src="<%=request.getContextPath()%>/front-end/lld/js/jquery.js"></script>
+<%--     <script src="<%=request.getContextPath()%>/front-end/lld/js/jquery.datetimepicker.full.js"></script> --%>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/js/booking_tnt.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/js/booking_lld..js"></script>
     <!--===============================================================================================-->
     
 <script>

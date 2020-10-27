@@ -814,34 +814,8 @@
                 opacity: 1;
             }
         }
-
-        /*==================================================================
-[ Social ]*/
-        .login100-form-social-item {
-            width: 36px;
-            height: 36px;
-            font-size: 18px;
-            color: #fff;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .login100-form-social-item:hover {
-            background: #333333;
-            color: #fff;
-        }
         
-        /*===============¤j§d-datetimepicker========================================
-[ datetimepicker ]*/
-        .xdsoft_datetimepicker .xdsoft_datepicker {
-            width: 300px;
-            /* width:  300px; */
-        }
 
-        .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-            height: 151px;
-            /* height:  151px; */
-        }
 
         /*===============select========================================
 [ select ]*/
@@ -885,6 +859,8 @@
         select.select-has-val {
             border: 1px solid #AACFBF;
         }
+
+       
 
         /*------------------------------------------------------------------
 [ info_tnt ]*/
