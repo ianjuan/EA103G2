@@ -32,14 +32,15 @@ button.pass, button.fail {
 	width: 100%;
 }
 
-button#checkall {
-	font-size: 16px;
+button.alter {
+	font-size: 15px;
 	font-weight: 600;
 	color: #0f868c;
 	background-color: #fff;
 	border-radius: 8px;
 	border: 1px solid #0f868c;
 	text-align: center;
+	padding:1;
 }
 
 button.check {
