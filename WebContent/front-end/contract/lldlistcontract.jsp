@@ -114,7 +114,7 @@
 						</c:if>
 						<c:if test="${conVO.con_sta == 1}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/tntsign.jpg"
+							src="<%=request.getContextPath()%>/front-end/contract/images/tntsign.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${conVO.con_sta == 2}">

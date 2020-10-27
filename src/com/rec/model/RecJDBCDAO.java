@@ -25,7 +25,7 @@ public class RecJDBCDAO implements RecDAO_interface {
 	private static final String LLDUPDATE = "UPDATE RECURRING_ORDER SET REC_WATER = ?, REC_ELEC = ?, REC_STA = ?, REC_TOTAL = ? WHERE REC_NO = ?";
 	private static final String GET_ONE_REC_FRON_CON = "SELECT REC_NO, C.CON_NO, C.HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA, REC_TOTAL "
 			+ "FROM recurring_order R JOIN CONTRACT C ON R.CON_NO = C.CON_NO WHERE C.CON_NO = ?";
-
+	private static final String CHECKOUT_PAID = "SELECT REC_NO, REC_MON, REC_TOTAL FROM recurring_order WHERE REC_STA = 1 AND CON_NO = ?";
 	@Override
 	public void insert(RecVO recVO) {
 
@@ -443,6 +443,64 @@ public class RecJDBCDAO implements RecDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<RecVO> getAllUpaidByCon(String con_no) {
+		List<RecVO> list = new ArrayList<RecVO>();
+		RecVO recVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(CHECKOUT_PAID);
+			pstmt.setString(1, con_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				recVO = new RecVO();
+				recVO.setRec_no(rs.getString("REC_NO"));
+				recVO.setRec_mon(rs.getInt("REC_MON"));
+				recVO.setRec_total(rs.getInt("REC_TOTAL"));
+				list.add(recVO);
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 
 	public static void main(String[] args) {
 
@@ -499,6 +557,15 @@ public class RecJDBCDAO implements RecDAO_interface {
 //			System.out.println(aRec.getRec_sta());
 //			System.out.println("---------------------");
 //	}
+		
+		//SEARCH
+		List<RecVO> list = dao.getAllUpaidByCon("CON000501");
+		for (RecVO aRec : list) {
+			System.out.print(aRec.getRec_no()+ ",");
+			System.out.print(aRec.getRec_mon()+ ",");
+			System.out.println(aRec.getRec_total());
+			System.out.println("---------------------");
+	}
 
 //		//SEARCH
 //		List<RecVO> list = dao.getAll();

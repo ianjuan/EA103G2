@@ -88,7 +88,7 @@
 						</c:if>
 						<c:if test="${conVO.con_sta == 1}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/tntsign.jpg"
+							src="<%=request.getContextPath()%>/front-end/contract/images/tntsign.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${conVO.con_sta == 2}">
@@ -150,6 +150,15 @@
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="action"	value="gettntrepair">
+			     				</FORM>
+			     				
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
+			     				<c:if test="${conSvc.getOneCon(conVO.con_no).con_comchkdate == 2}">
+								<li><button id="btn4">準備退房</button></li>
+								</c:if>
+			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
+			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+			     				<input type="hidden" name="action"	value="tntcheckout">
 			     				</FORM>
 			     				
 			     				
