@@ -25,6 +25,7 @@
 	String con_no = (String) request.getAttribute("con_no");
 	
 	pageContext.setAttribute("houseVO", houseVO);
+	pageContext.setAttribute("tnt_no", tnt_no);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -37,13 +38,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>House_Pub</title>
+	<title>定期帳單</title>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/rec/css/detailrec.css">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/rec/js/detailrec.js" charset="UTF-8"></script>
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -189,17 +189,18 @@
 								</td>
 							</tr>
 							
-							
-							
 						</table>
 					</div>		        				
 				</div>
+				<input type="hidden" name="rec_no" value="<%=recVO.getRec_no()%>">
 				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 				<input type="hidden" name="con_no" value="<%=con_no%>">
+				<input type="hidden" id="tnt_total" name="tnt_total" value="<%=recVO.getRec_total()%>">
+				<input type="hidden" id="tnt_balance" name="tnt_balance" value="<%=tntSvc.getOneTntPocket(tnt_no).getTnt_balance()%>">
 				<div id="cfoot">
 					<button class="btn" type="button" onclick="notice2()">修改申請</button>
-					<input type="hidden" name="action" value="gettntrec">
-					<button class="btn" type="button" onclick="notice1()">確定</button>					
+					<input type="hidden" name="action" value="tntpayrec">
+					<button class="btn" type="button" onclick="checkmoney()">繳交費用</button>					
 				</div>				
 			</div>
 			<div id="right">
@@ -209,12 +210,13 @@
 				</div>
 				<div id="rfoot">
 					<button class="btn" type="button" onclick="notice2()">修改申請</button>
-					<input type="hidden" name="action" value="gettntrec">
-					<button class="btn" type="button" onclick="notice1()">確定</button>
+					<input type="hidden" name="action" value="tntpayrec">
+					<button class="btn" type="button" onclick="checkmoney()">繳交費用</button>
 				</div>
 			</div>
 		</FORM>			
 	</div>
-	<div id="foot"></div>		
+	<div id="foot"></div>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/rec/js/detailrec.js" charset="UTF-8"></script>		
 </body>
 </html>

@@ -31,7 +31,7 @@ public class RecDAO implements RecDAO_interface{
 	private static final String GET_ALL_STMT = "SELECT REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA, REC_TOTAL FROM RECURRING_ORDER ORDER BY REC_NO";
 	private static final String GET_ONE_STMT = "SELECT REC_NO, CON_NO, HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA, REC_TOTAL FROM RECURRING_ORDER WHERE REC_NO = ?";
 	private static final String DELETE = "DELETE FROM RECURRING_ORDER WHERE REC_NO = ?";
-	private static final String UPDATE = "UPDATE RECURRING_ORDER SET CON_NO = ?, HOS_NO = ?, REC_MON = ?, REC_WATER = ?, REC_ELEC = ?, REC_STA = ?, REC_TOTAL WHERE REC_NO = ?";
+	private static final String UPDATE = "UPDATE RECURRING_ORDER SET CON_NO = ?, HOS_NO = ?, REC_MON = ?, REC_WATER = ?, REC_ELEC = ?, REC_STA = ?, REC_TOTAL = ? WHERE REC_NO = ?";
 	private static final String LLDUPDATE = "UPDATE RECURRING_ORDER SET REC_WATER = ?, REC_ELEC = ?, REC_STA = ?, REC_TOTAL = ? WHERE REC_NO = ?";
 	private static final String GET_ONE_REC_FRON_CON = "SELECT REC_NO, C.CON_NO, C.HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA, REC_TOTAL "
 			+ "FROM recurring_order R JOIN CONTRACT C ON R.CON_NO = C.CON_NO WHERE C.CON_NO = ?";
