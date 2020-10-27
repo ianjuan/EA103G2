@@ -132,12 +132,12 @@
 				<div id="cfoot">
 					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>	
 					<input type="hidden" name="action" value="getOne_lld_Update">
-					<button class="btn" id="submit" type="submit">送出訂單</button>					
+					<button class="btn" id="submit" type="submit">送出帳單</button>					
 				</div>				
 				<div id="rfoot">
 					<button class="btn" id="reset" type="reset" onclick="notice2()">全部重填</button>
 					<input type="hidden" name="action" value="getOne_lld_Update">
-					<button class="btn" id="submit" type="submit">送出訂單</button>
+					<button class="btn" id="submit" type="submit">送出帳單</button>
 				</div>
 			</div>
 		</form>

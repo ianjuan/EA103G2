@@ -34,6 +34,7 @@ public class LldVO implements java.io.Serializable {
 	private int lld_cmt_starsum;
 	private int lld_cmt_count;
 	// -------VRF-------
+	private String emp_no;
 	private byte[] lld_id_picf;
 	private byte[] lld_id_picb;
 	private byte[] lld_id_pic2;
@@ -244,6 +245,14 @@ public class LldVO implements java.io.Serializable {
 		this.lld_cmt_count = lld_cmt_count;
 	}
 
+	public String getEmp_no() {
+		return emp_no;
+	}
+
+	public void setEmp_no(String emp_no) {
+		this.emp_no = emp_no;
+	}
+
 	public byte[] getLld_id_picf() {
 		return lld_id_picf;
 	}
@@ -355,6 +364,5 @@ public class LldVO implements java.io.Serializable {
 	public void setLld_auth_hos(Integer lld_auth_hos) {
 		this.lld_auth_hos = lld_auth_hos;
 	}
-    
-    
+
 }

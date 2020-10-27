@@ -302,6 +302,67 @@ public class RecServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("tntpayrec".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String tnt_no = req.getParameter("tnt_no");
+				String con_no = req.getParameter("con_no");
+				String rec_no = req.getParameter("rec_no");
+				System.out.println("test");
+				System.out.println(tnt_no);
+				System.out.println(con_no);
+				System.out.println(rec_no);
+
+				RecService recService = new RecService();
+				Integer rec_total = recService.getOneRec(rec_no).getRec_total();
+				
+				//房客繳交定期費用
+				TntService tntService = new TntService();
+				Integer tnt_balance = tntService.getOneTntPocket(tnt_no).getTnt_balance() - rec_total;
+				tntService.updateTntPocket(tnt_no, tnt_balance);
+				
+				RecVO recVO = recService.getOneRec(rec_no);
+				String hos_no = recVO.getHos_no();
+				System.out.println(hos_no);
+				Integer rec_mon = recVO.getRec_mon();
+				System.out.println(rec_mon);
+				Integer rec_water = recVO.getRec_water();
+				System.out.println(rec_water);
+				Integer rec_elec = recVO.getRec_elec();
+				System.out.println(rec_elec);
+				Integer rec_sta = 2;
+				
+				recService.updateRec(con_no, hos_no, rec_mon, rec_water, rec_elec, rec_no, rec_sta, rec_total);
+				
+				//房東收到錢錢
+				ConService conService = new ConService();
+				LldService lldService = new LldService();
+				HouseService houseService = new HouseService();
+				String lld_no = houseService.getHouseInfo(conService.getOneCon(con_no).getHos_no()).getLld_no();
+
+				Integer lld_balance = lldService.getOneLldPocket(lld_no).getLld_balance() + rec_total;
+				lldService.updateLldPocket(lld_no, lld_balance);
+				
+				List<RecVO> list = recService.getLddAllByCon(con_no);
+
+				HttpSession session = req.getSession();
+				session.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("list", list);
+				String url = "/front-end/rec/tntlistrec.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 		if ("getOne_For_Update".equals(action)) {
 

@@ -178,7 +178,8 @@ body {
     border-radius: 10px;
     line-height: 25px;
     white-space: nowrap;
-    overflow: auto;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 .cinfo ul li:hover {
     background-color: #FEFFE8;
@@ -332,27 +333,6 @@ body {
         transform: translateX(0px);
         opacity: 1;
     }
-}
-
-.bg-light {
-    background-color: #D7C8B6!important;
-}
-.navbar-light .navbar-nav .nav-link {
-    color: #393939!important;
-    font-weight: bold;
-}
-.nav-item .member{
-    display: flex;
-}
-.nav-item .member .memberpic{
-    width: 40px;
-    margin-right: 5px;
-    outline: none;
-}
-.nav-item .member .membername{
-    float: right;
-    align-self:center;
-    display: block;
 }
 
 table {

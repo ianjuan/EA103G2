@@ -26,7 +26,6 @@ public class TntDAO implements TenantDAO_interface {
 	private static final String INSERT_PROFILE_STMT2 = "INSERT INTO TENANT (TNT_NO, TNT_EMAIL)"
 			+ "VALUES ('TNT' || lpad(SEQ_TNT_NO.NEXTVAL, 5, '0'),?)";
 	private static final String UPDATE_PROFILE_STMT = "UPDATE TENANT set TNT_EMAIL=?, TNT_ACC=?, TNT_ID=?, TNT_NAME=?, TNT_BIRTH=?, TNT_SEX=?, TNT_MOBILE=?, TNT_CITY=?, TNT_DIST=?, TNT_ADD=?, TNT_STATUS=? where TNT_NO = ?";
-	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS,TNT_JOINTIME,TNT_BALANCE,TNT_BANKBRANCH, TNT_BANKACC,TNT_CARD,TNT_CARDDUE,TNT_CMT_STARSUM,TNT_CMT_COUNT, EMP_NO,TNT_ID_UPLOADTIME,TNT_ID_ISUPLOAD,TNT_ID_RESULT,TNT_ID_VRFTIME,TNT_REPORTED_COUNT,TNT_AUTH_CHAT,TNT_AUTH_RES,TNT_AUTH_CMT,TNT_AUTH_RPT FROM TENANT where TNT_NO =?";
 	private static final String GET_ALL_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_PWD, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_PIC, TNT_STATUS, TNT_JOINTIME FROM TENANT order by TNT_NO";
 	private static final String GET_ALL_ACCOUNT_STMT = "SELECT tnt_no, tnt_email, tnt_pwd from TENANT";
 
@@ -122,6 +121,8 @@ public class TntDAO implements TenantDAO_interface {
 		}
 	}
 
+	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_STATUS,TNT_JOINTIME,TNT_BALANCE,TNT_BANK,TNT_BANKBRANCH, TNT_BANKACC,TNT_CARD,TNT_CARDDUE,TNT_CMT_STARSUM,TNT_CMT_COUNT, EMP_NO,TNT_ID_UPLOADTIME,TNT_ID_ISUPLOAD,TNT_ID_RESULT,TNT_ID_VRFTIME,TNT_ID_DISAPPROVE,TNT_REPORTED_COUNT,TNT_AUTH_CHAT,TNT_AUTH_RES,TNT_AUTH_CMT,TNT_AUTH_RPT FROM TENANT where TNT_NO =?";
+
 	@Override
 	public TntVO findByPK_profile(String tnt_no) {
 		TntVO tntVO = null;
@@ -140,10 +141,10 @@ public class TntDAO implements TenantDAO_interface {
 
 			while (rs.next()) {
 				tntVO = new TntVO();
+				// -------profile-------
 				tntVO.setTnt_no(rs.getString("tnt_no"));
 				tntVO.setTnt_email(rs.getString("tnt_email"));
 				tntVO.setTnt_acc(rs.getString("tnt_acc"));
-				tntVO.setTnt_pwd(rs.getString("tnt_pwd"));
 				tntVO.setTnt_id(rs.getString("tnt_id"));
 				tntVO.setTnt_name(rs.getString("tnt_name"));
 				tntVO.setTnt_birth(rs.getDate("tnt_birth"));
@@ -152,9 +153,33 @@ public class TntDAO implements TenantDAO_interface {
 				tntVO.setTnt_city(rs.getString("tnt_city"));
 				tntVO.setTnt_dist(rs.getString("tnt_dist"));
 				tntVO.setTnt_add(rs.getString("tnt_add"));
-				tntVO.setTnt_pic(rs.getBytes("tnt_pic"));
 				tntVO.setTnt_status(rs.getInt("tnt_status"));
 				tntVO.setTnt_jointime(rs.getTimestamp("tnt_jointime"));
+				// -------pocket-------
+				tntVO.setTnt_balance(rs.getInt("tnt_balance"));
+				// -------card/bank-------
+				tntVO.setTnt_bank(rs.getInt("tnt_bank"));
+				tntVO.setTnt_bankbranch(rs.getString("tnt_bankbranch"));
+				tntVO.setTnt_bankacc(rs.getString("tnt_bankacc"));
+				tntVO.setTnt_card(rs.getLong("tnt_card"));
+				tntVO.setTnt_carddue(rs.getDate("tnt_carddue"));
+				// -------CMT-------
+				tntVO.setTnt_cmt_starsum(rs.getInt("tnt_cmt_starsum"));
+				tntVO.setTnt_cmt_count(rs.getInt("tnt_cmt_count"));
+				// -------VRF-------
+				tntVO.setEmp_no(rs.getString("emp_no"));
+				tntVO.setTnt_id_uploadtime(rs.getTimestamp("tnt_id_uploadtime"));
+				tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
+				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
+				tntVO.setTnt_id_vrftime(rs.getTimestamp("tnt_id_vrftime"));
+				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+				// -------RPT&AUTH-------
+				tntVO.setTnt_reported_count(rs.getInt("tnt_reported_count"));
+				tntVO.setTnt_auth_chat(rs.getInt("tnt_auth_chat"));
+				tntVO.setTnt_auth_res(rs.getInt("tnt_auth_res"));
+				tntVO.setTnt_auth_cmt(rs.getInt("tnt_auth_cmt"));
+				tntVO.setTnt_auth_rpt(rs.getInt("tnt_auth_rpt"));
+
 			}
 
 		} catch (SQLException se) {
@@ -826,4 +851,46 @@ public class TntDAO implements TenantDAO_interface {
 		return tntVO;
 	}
 
+	// --------以下為member--------------------------------------------------------------------------------------------
+	private static final String UPDATE_AUTH_STMT = "UPDATE TENANT set tnt_auth_chat=?, tnt_auth_res=?, tnt_auth_cmt=?, tnt_auth_rpt=?, tnt_reported_count=? where tnt_no=?";
+	
+	@Override
+	public void update_auth(TntVO tntVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_AUTH_STMT);
+			pstmt.setInt(1, tntVO.getTnt_auth_chat());
+			pstmt.setInt(2, tntVO.getTnt_auth_res());
+			pstmt.setInt(3, tntVO.getTnt_auth_cmt());
+			pstmt.setInt(4, tntVO.getTnt_auth_rpt());
+			pstmt.setInt(5, tntVO.getTnt_reported_count());
+			pstmt.setString(6, tntVO.getTnt_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error ocurred." + se.getMessage());
+
+		} catch (Exception se) {
+			se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

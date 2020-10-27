@@ -331,7 +331,7 @@ $(".gallery-thumbs .swiper-wrapper").append(
 
 	$(document).ready(function(){
 	    $(function(){ $('.blue-booking').click(function(){ 
-	        $('html,body').animate({scrollTop:$('.booking').offset().top}, 500);});  
+	        $('html,body').animate({scrollTop:$('.booking').offsetTop}, 500);});  
 	    }); 
 	}); 
 	   

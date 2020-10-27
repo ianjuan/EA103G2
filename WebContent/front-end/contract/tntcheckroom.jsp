@@ -5,29 +5,31 @@
 <%@ page import="com.housemanage.model.*"%>
 <%@ page import="com.cont.model.*"%>
 <%@ page import="com.lld.model.*"%>
+<%@ page import="com.rec.model.*"%>
 
 <%
 	HouseVO houseVO = (HouseVO) request.getAttribute("houseVO");
 	
 	ConVO conVO = (ConVO)request.getAttribute("conVO");
+	
+	String checkouttotal = (String)request.getAttribute("checkouttotal");
+	
+	List<RecVO> list = (List<RecVO>)request.getAttribute("list");
  	
- 	String lld_no = (String) request.getAttribute("lld_no");
-	if (lld_no == null) {
-		lld_no = request.getParameter("lld_no");
+ 	String tnt_no = (String) request.getAttribute("tnt_no");
+	if (tnt_no == null) {
+		tnt_no = request.getParameter("tnt_no");
 	}
 	
-	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
-	if (lldInfo == null) {
-		HouseService houseSvc = new HouseService();
-		lldInfo = houseSvc.getLldInfo(lld_no);
-	}
 	
 	pageContext.setAttribute("houseVO", houseVO);
 	pageContext.setAttribute("conVO", conVO);
-	pageContext.setAttribute("lld_no", lld_no);
+	pageContext.setAttribute("tnt_no", tnt_no);
+	pageContext.setAttribute("list", list);
+	pageContext.setAttribute("checkouttotal", checkouttotal);
 %>
 
-<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
+<jsp:useBean id="recSvc" scope="page" class="com.rec.model.RecService" />
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 <jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
@@ -59,41 +61,22 @@
                     <div class="line line--3"></div>
                 </div>                
                 <div class="nav-links">
-                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldAllHouse">
-						<button type="submit" class="link">首頁</button>
-					</FORM>
-                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldUnRentHouse">
-						<button type="submit" class="link">待租房屋</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldRentHouse">
-						<button type="submit" class="link">已租房屋</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldOffHouse">
-						<button type="submit" class="link">下架房屋</button>
-					</FORM>
-					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
-						<input type="hidden" name="action" value="getLldPub">
-						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
-					</FORM>					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="lldgetAll">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+						<input type="hidden" name="action" value="tntgetallapl">
 						<button type="submit" class="link">租屋申請</button><br>
 					</FORM>
+					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getlldcontract">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+						<input type="hidden" name="action" value="gettntcontract">
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
+					</FORM>
+					
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+						<input type="hidden" name="action" value="getTntRepair">
+						<button type="submit" class="link">修繕管理</button><br>
 					</FORM>
                 </div>
             </nav>
@@ -123,33 +106,67 @@
 							<tr>
 								<th>是否有損毀:</th>
 								<td>
-									<label class="item_name">
-												<select name="XD">
-												  <option value="1" selected>否</option>
-												  <option value="2">是</option>
-												</select>
-									</label>
+									<c:if test="${conVO.con_chr_fee == 0}">
+									否
+								</c:if>
+								<c:if test="${conVO.con_chr_fee != 0}">
+									否
+								</c:if>
 								</td>
 							</tr>
 							
 							<tr>
 								<th>損毀物品:</th>
 								<td>
-									<input type="TEXT" placeholder="無" name="con_chr_itm_name" />
+									<%=conVO.getCon_chr_itm_name()%>
 								</td>
 							</tr>
 							
 							<tr>
 								<th>損毀描述:</th>
 								<td>
-									<input type="TEXT" placeholder="無" name="con_chr_itm" />
+									<%=conVO.getCon_chr_itm()%>
 								</td>
 							</tr>
 							
 							<tr>
 								<th>毀損費用:</th>
 								<td>
-									<input type="number" id="parkfee1" class="num1" min="0" placeholder="0" step="100" name="con_chr_fee" />
+									<%=conVO.getCon_chr_fee()%>元
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<th>是否繳清帳單:</th>
+								<td>
+								<c:if test="${recVO.rec_total == 0}">
+									是
+								</c:if>
+								<c:if test="${recVO.rec_total != 0}">
+									否
+								</c:if>
+								</td>
+							</tr>
+							
+							<c:forEach var="recVO" items="${list}">
+							<tr>
+								<th>尚未繳清帳單:</th>
+								<td>
+									${recSvc.getMonthText(recVO.rec_mon)}
+								</td>
+							</tr>
+							<tr>
+								<th>尚未繳清帳單費用:</th>
+								<td>
+									${recVO.rec_total}元
+								</td>
+							</tr>
+							</c:forEach>
+							<tr>
+								<th>總共:</th>
+								<td>
+									<%=checkouttotal%>元
 								</td>
 							</tr>
 							

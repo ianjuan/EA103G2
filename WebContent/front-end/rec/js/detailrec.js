@@ -17,6 +17,43 @@ window.onload = function(){
 	})			
 }
 
+function checkmoney(){
+	var money = parseInt(document.getElementById("tnt_balance").value);
+	var total = parseInt(document.getElementById("tnt_total").value);
+	
+	console.log(money.value);
+	console.log(total.value);
+	if(money < total){
+		swal("您的電子錢包餘額為 : " + money + "元").then(function(){
+			swal({title:"請問是否要儲值?", text:"本月帳單為" + total + "元" , icon:"info", buttons: {
+			      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+			    }}).then(function(isConfirm){
+				if(isConfirm){
+					swal("扣款成功!", {button: "確認"}).then(function(){
+						document.recForm.submit();
+					});
+				} else {
+					return false;
+				}	    				
+			})
+		});
+	} else {
+		swal("目前電子錢包金額為" + money + "元").then(function(){
+			swal({title:"是否繳交本月帳單?", text:"本月帳單為" + total + "元" , icon:"info", buttons: {
+			      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+			    }}).then(function(isConfirm){
+				if(isConfirm){
+					swal("繳費成功!!", {button: "確認"}).then(function(){
+						document.recForm.submit();
+					});
+				} else {
+					return false;
+				}	    				
+			})
+		});
+	}
+}
+
 
 
 function notice2(){

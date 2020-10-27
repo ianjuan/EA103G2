@@ -14,8 +14,10 @@
 
         .nav-item .member .memberpic {
             width: 40px;
+            height: 40px;
             margin-right: 5px;
             outline: none;
+                border-radius: 30px;
         }
 
         .nav-item .member .membername {

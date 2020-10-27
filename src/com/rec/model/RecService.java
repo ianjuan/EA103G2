@@ -82,6 +82,10 @@ public class RecService {
 		return dao.getLddAllByCon(con_no);
 	}
 	
+	public List<RecVO> getAllUpaidByCon(String con_no){
+		return dao.getAllUpaidByCon(con_no);
+	}
+	
 	public RecStatus[] getRecStatusall() {
 		return RecStatus.values();
 	}

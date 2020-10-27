@@ -30,6 +30,8 @@ import com.housemanage.model.*;
 import com.lld.model.LldService;
 import com.lld.model.LldVO;
 import com.rec.model.RecService;
+import com.rec.model.RecVO;
+import com.sun.javafx.font.directwrite.RECT;
 import com.tnt.model.TntService;
 import com.tnt.model.TntVO;
 
@@ -522,9 +524,7 @@ public class ConServlet extends HttpServlet {
 				conSvc.updatebeforerent(apl_no, tnt_no, hos_no, con_lld_sign, con_tnt_sign, con_dep_sta, hos_dep,
 						con_sta, con_che_date, con_no);
 
-				/***************************
-				 * 準備跳轉房東閱覽合約
-				 ****************************************/
+				/**************************** 準備跳轉房東閱覽合約****************************************/
 
 				Con_aplService con_aplService = new Con_aplService();
 
@@ -802,8 +802,7 @@ public class ConServlet extends HttpServlet {
 				ConVO conVO = conSvc.getOneCon(con_no);
 				Date con_chkdate = conVO.getCon_che_date();
 				System.out.println(con_chkdate);
-				Integer con_comchkdate = conVO.getCon_comchkdate();
-				System.out.println(con_comchkdate);
+				Integer con_comchkdate = 2;
 				Integer con_chk_sta = conVO.getCon_chk_sta();
 				System.out.println(con_chk_sta);
 				Integer con_is_chr = conVO.getCon_is_chr();
@@ -819,6 +818,10 @@ public class ConServlet extends HttpServlet {
 
 				String con_chr_itm_name = req.getParameter("con_chr_itm_name");
 				String con_chr_itm = req.getParameter("con_chr_itm");
+				if (con_chr_itm_name == null) {
+					con_chr_itm_name = "無";
+					con_chr_itm = "無";
+				}
 
 				conSvc.updatebeforecheckout(hos_dep, con_dep_sta, con_chkdate, con_comchkdate, con_chk_sta, con_chr_fee,
 						con_chr_itm, con_chr_itm_name, con_is_chr, con_no);
@@ -829,6 +832,56 @@ public class ConServlet extends HttpServlet {
 				req.setAttribute("lld_no", lld_no);
 				session.setAttribute("list", list);
 				String url = "/front-end/contract/lldlistcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
+		if ("tntcheckout".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String con_no = new String(req.getParameter("con_no"));
+				String tnt_no = new String(req.getParameter("tnt_no"));
+				System.out.println(tnt_no);
+				System.out.println(con_no);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				ConService conSvc = new ConService();
+				ConVO conVO = conSvc.getOneCon(con_no);
+				System.out.println(conVO.getCon_chr_itm_name());
+				
+				RecService recService = new RecService();
+				List<RecVO> list = recService.getAllUpaidByCon(con_no);
+				
+				Integer checktotal = conVO.getCon_chr_fee();
+				for (RecVO recVO : list) {
+					checktotal += recVO.getRec_total();
+				}
+				
+				String checkouttotal = Integer.toString(checktotal);
+				
+				HouseService houseService = new HouseService();
+				HouseVO houseVO = houseService.getHouseInfo(conVO.getHos_no());
+				
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				HttpSession session = req.getSession();
+				req.setAttribute("tnt_no", tnt_no);
+				req.setAttribute("conVO", conVO);
+				req.setAttribute("houseVO", houseVO);
+				req.setAttribute("list", list);
+				req.setAttribute("checkouttotal", checkouttotal);
+				String url = "/front-end/contract/tntcheckroom.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
