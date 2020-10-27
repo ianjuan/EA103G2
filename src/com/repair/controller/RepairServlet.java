@@ -153,7 +153,37 @@ public class RepairServlet extends HttpServlet{
 		}
 	}
 	
+	//房東
+	if("getOne_For_seePic".equals(action)){
+		List<String> errorMsgs = new LinkedList<String>();
 	
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		try {
+			/***************************1.接收請求參數****************************************/
+			String rep_no = req.getParameter("rep_no");
+			System.out.println(rep_no);
+			/***************************2.開始查詢資料****************************************/
+			RepairService repairSvc = new RepairService();
+			RepairVO repairVO = repairSvc.getOneRepair(rep_no);
+			/***************************3.查詢完成,準備轉交(Send the Success view)************/	
+			req.setAttribute("repairVO", repairVO);
+			System.out.println(repairVO.getRep_no());
+			String url = "/front-end/repair/lldSeePic.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		} catch (Exception e) {
+			errorMsgs.add("無法查看此筆修繕紀錄:" + e.getMessage());
+			e.printStackTrace();
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/repair/lldListAllRepair.jsp");
+			//返回上一頁
+			failureView.forward(req, res);
+			
+		}	
+	}
+	
+	//房客
 	if("getOne_For_updPic".equals(action)){
 		List<String> errorMsgs = new LinkedList<String>();
 	

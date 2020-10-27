@@ -664,7 +664,6 @@ public class ConDAO implements ConDAO_interface {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				conVO = new ConVO();
-
 				conVO.setCon_no(rs.getString("CON_NO"));
 				conVO.setApl_no(rs.getString("APL_NO"));
 				conVO.setTnt_no(rs.getString("TNT_NO"));

@@ -76,6 +76,9 @@ h1, h2, h3, h4, h5, h6, table{
     font-family: 'Montserrat', sans-serif;
     
 }
+.hos_name{
+	color: pink;
+}
 </style>
 <script>
     	
@@ -93,8 +96,8 @@ h1, h2, h3, h4, h5, h6, table{
 
 <body bgcolor='white'>
 
-
-<%-- <% String tnt_no = (String)session.getAttribute("tnt_no"); %> --%>
+<% session.setAttribute("tnt_no", "TNT000008");%>
+<% String tnt_no = (String)session.getAttribute("tnt_no"); %>
 
 
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
@@ -116,40 +119,28 @@ ${tnt_no}
 <div class='row'>
 
 <div class='col-md-12  text-center'>
-            <h3 class='subtitle'>修繕申請紀錄3</h3> 
+            <h3 class='subtitle'>修繕申請紀錄</h3> 
      
 <div class="content"> 
  <c:forEach var="ConVO" items="${conSvc.all}"> 
-
      <c:if test="${tnt_no==ConVO.tnt_no}"> 
- 
 		<c:forEach var="repairVO" items="${repSvc.tntGetAll(ConVO.con_no)}">
-	
-            <div class='row' >
-            
-<!--修改圖片 -->
+            <div class='row' >		
               <div class='col-md-2'>
-                <c:if test="${repairVO.rep_pro eq 0}">
+<%--                 <c:if test="${repairVO.rep_pro eq 0}"> --%>
                 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 				 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 				        <input type="hidden" name="action" value="getOne_For_updPic">
-				     	<button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 0)?'上傳圖片':"查看圖片"}</button>
+				     	<button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 0)?'上傳圖片':'查看圖片'}</button>
 					</FORM>
-                </c:if>
+<%--                 </c:if> --%>
               </div>
                 <div class='col-md-4  text-center'>
                   <div class='text'>
                     <h6 class='rep_status'>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h6>
                     <a href='#'>
-                    	房屋編號<br>${ConVO.hos_no}
-                    
-<!--                     <h5 class='hos_name'>【文化中心第一排】【黃金學區】db重灌後再試 -->
-							
-<%--                     			${hosSvc.getHouseInfo(conVO.hos_no).hos_name} --%>
-<%--      							${conVO.hos_no} --%>
-
-        
-<!--                     </h5> -->
+                    	修繕編號<br>${repairVO.rep_no}
+              			<h5 class='hos_name'>${hosSvc.getHouseInfo(ConVO.hos_no).hos_name}</h5>
 					</a>
                     <br>居住日期<br>
                     <h6>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h6>   
@@ -177,9 +168,9 @@ ${tnt_no}
 
                 <div class='col-md-2'>
                   <div class='allbtn'>
-					編輯(狀態為處理中可編輯)
+<!-- 					編輯(狀態為處理中可編輯) -->
                       <button class='btn'  data-toggle="modal" data-target="#detail"  ${(repairVO.rep_pro eq 0)?'':"disabled"}>編輯</button><br>
-                      		Modal
+<!--                       		Modal -->
 							<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
@@ -211,7 +202,7 @@ ${tnt_no}
                     
                     
                     <button class='btn'  data-toggle="modal" data-target="#report" ${(repairVO.rep_pro eq 1)?'':"disabled"} >回報結果</button><br>
-                      		Modal
+<!--                       		Modal -->
 							<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
