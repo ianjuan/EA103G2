@@ -167,7 +167,7 @@
 						 ■網路費<font color="blue"><b><%=houseVO.getHos_netfee()%></b></font>元 <br>
 						 □其他：______。 <br>
 						 第六條 稅費負擔之約定  <br>
-                         本租賃契約有關稅費、代辦費，依下列約定辦理： <br>
+                                                                         本租賃契約有關稅費、代辦費，依下列約定辦理： <br>
 						 一、房屋稅、地價稅由出租人負擔。 <br>
 						 二、銀錢收據之印花稅由出租人負擔。 <br>
 						 第七條 使用房屋之限制 <br>
@@ -216,8 +216,8 @@
  						 前項遺留物處理所需費用，由擔保金(押金)先行扣抵，如有不足，出租人得向承租人請求給付不足之費用。 <br>
 						 第十七條 通知送達及寄送 <br>
     					 除本契約另有約定外，出租人與承租人雙方相互間之通知，以郵寄為之者，應以本契約所記載之地址為準； <br>
-                         並得以■電子郵件□簡訊□其他__方式為之(無約定通知方式者，應以郵寄為之)； <br>
-                         如因地址變更未通知他方或因__，致通知無法到達時（包括拒收），以他方第一次郵遞或通知之日期推定為到達日。 <br>
+				                         並得以■電子郵件□簡訊□其他__方式為之(無約定通知方式者，應以郵寄為之)； <br>
+				                         如因地址變更未通知他方或因__，致通知無法到達時（包括拒收），以他方第一次郵遞或通知之日期推定為到達日。 <br>
 						 第十八條 疑義處理 <br>
     					 本契約各條款如有疑義時，應為有利於承租人之解釋。 <br>
 						 第十九條 其他約定 <br>
@@ -275,9 +275,7 @@
 						 聯絡電話：0988755012 <br>
 						 電子郵件信箱：ea103g2@gmail.com <br>
 						 西元<%=conVO.getCon_date()%> <br>
-						 			
-						
-						
+						 															
 					<input type="hidden" name="tnt_no" value="<%=lld_no%>">
 					<input type="hidden" name="con_no" value="<%=con_no%>">
 				<div id="cfoot">
@@ -311,6 +309,6 @@
 			link.classList.toggle('fade-in');
 		})
 		</script>
-			<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont.js" charset="UTF-8"></script>		
+		<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont.js" charset="UTF-8"></script>		
 </body>
 </html>

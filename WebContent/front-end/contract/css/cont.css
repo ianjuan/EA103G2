@@ -24,8 +24,10 @@ body {
 #chead {
 	width: 100%;
 	height: 80px;
-	text-align: center;
+	text-align: left;
 	float: left;
+	display: flex;
+	align-items: center;
 }
 
 #chead ul {
@@ -37,11 +39,18 @@ body {
 	outline: none;
 }
 
+#chead a {
+	margin-left: 8px;
+	font-style: italic;
+	text-decoration:underline;	
+}
+
 #cbody {
 	width: 100%;
 	height: 550px;
 	margin: 0 auto;
-	overflow: auto;
+	overflow-x: hidden;
+	overflow-y: scroll;	
 }
 
 #cbody label {
@@ -64,20 +73,32 @@ body {
 	border: 2px dotted #CCCCCC;
 	border-radius: 15px;
 	cursor: crosshair;
+	margin-top: 5px;
 }
 
-#sig-dataUrl {
-	width: 80%;
-	resize: none;
+#signbtn {
 	margin-top: 5px;
-	display: none;
+	margin-bottom: 5px;
 }
 
 #sig-image {
-	width: 95%;
+	width: 80%;
 	height:200px;
-	margin-top: 5px;
+	margin-bottom: 5px;
 	display: none;
+}
+
+#other_con_item {
+	display: none;
+}
+
+#other_con_item_show {
+	margin-left: 3px;
+}
+
+#other_con_item_hide {
+	display: none;
+	margin-left: 3px;
 }
 
 #cbody3 .num1 {
@@ -664,10 +685,10 @@ translateX
 	body {
 		font-size: 90%;
 	}
-	#chead {
-		display: none;
-		height: 0px;
-	}
+/* 	#chead { */
+/* 		display: none; */
+/* 		height: 0px; */
+/* 	} */
 	#cbody {
 		height: 700px;
 	}
@@ -756,4 +777,43 @@ translateX
 		transform: translateX(0px);
 		opacity: 1;
 	}		
+}
+
+mark {
+  --color1: springgreen;
+  --color2: springgreen;
+  --bg-height: 40%;
+    
+  all: unset;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(var(--color1)), to(var(--color2)));
+  background-image: linear-gradient(var(--color1), var(--color2));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 var(--bg-height);
+  -webkit-animation: highlight 800ms 1 ease-out;
+          animation: highlight 800ms 1 ease-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+
+
+@-webkit-keyframes highlight {
+  to {
+    background-size: 100% var(--bg-height);
+  }
+}
+
+
+@keyframes highlight {
+  to {
+    background-size: 100% var(--bg-height);
+  }
+}
+
+main {
+  width: min(50ch, 80%);
+  margin: 0 auto;
+  padding: 100px 0;
 }

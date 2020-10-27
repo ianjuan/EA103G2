@@ -177,7 +177,8 @@ body {
     border-radius: 10px;
     line-height: 25px;
     white-space: nowrap;
-    overflow: auto;
+    overflow : hidden;
+    text-overflow: ellipsis;
 }
 .cinfo ul li:hover {
     background-color: #FEFFE8;
