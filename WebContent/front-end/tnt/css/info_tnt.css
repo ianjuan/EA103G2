@@ -1104,9 +1104,9 @@
         }
 
         /*------------------------------------------------------------------
-[ shrink Ωb¿Y  ]*/
-        .svg-inline--fa,
-        svg:not(:root).svg-inline--fa {
+[ shrink ]*/
+		/*Ωb¿Y */
+        .svg-inline--fa,svg:not(:root).svg-inline--fa {
             overflow: visible;
         }
 
@@ -1119,3 +1119,31 @@
             font-size: inherit;
             height: 1em;
             vertical-align: -.125em;
+        }
+        /*shrink */
+        .shrink {
+            position: fixed;
+            left: 0;
+            top: 53px;
+            width: 72px;
+            height: 100vh;
+            box-shadow: 0 0 1px rgba(0, 0, 0, .5);
+            z-index: 1
+        }
+         .shrink__img {
+            width: 40px;
+            height: 40px
+        }
+
+        .shrink__list {
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .shrink__list-icon {
+            width: 100%;
+            display: flex;
+            justify-content: center
+        }
+        

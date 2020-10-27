@@ -26,7 +26,7 @@
 if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 
 	$("#div-nav").append(
-			"<nav class='navbar navbar-expand-lg navbar-light bg-light' style='background-color:#AACFBF !important;'>"+
+			"<nav class='navbar navbar-expand-lg navbar-light bg-light' id='nullnav' style='background-color:#AACFBF !important;'>"+
             "<div class='container'>"+
                 "<a class='navbar-brand' href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a>"+
                 "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>"+
@@ -59,14 +59,14 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp'>我的房屋</a>"+
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
-	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
+	                        "<input type='image' src='<%=request.getContextPath()%>/ImgReader?id=<%= lldno%>' class='memberpic' />"+
 	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
-	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/info.jsp'>個人資訊</a>"+
-	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/pocket.jsp'>我的錢包</a>"+
-	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/tnt/TntServlet2?action=logout'>登出</a>"+       
+	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/lld/info.jsp'>個人資訊</a>"+
+	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/lld/pocket.jsp'>我的錢包</a>"+
+	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/lld/LldServlet2?action=logout'>登出</a>"+       
 	                    "</div>"+
 	                "</li>"+
 	            "</div>"+   
@@ -93,7 +93,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                "<a class='nav-item nav-link' href='<%=request.getContextPath()%>/front-end/apl/tntaplpage.jsp'>我的租屋</a>"+   /*大蟒蛇請改這一行 改完說一下 love u <3*/
 	                "<li class='nav-item dropdown'>"+
 	                    "<span data-toggle='dropdown' class='member'>"+
-	                        "<input type='image' src='https://www.flaticon.com/svg/static/icons/svg/236/236831.svg' class='memberpic' />"+
+	                        "<input type='image' src='<%=request.getContextPath()%>/ImgReader?id=<%= tntno%>' class='memberpic' />"+
 	                        "<span class='membername'><%= volive ? tntVO.getTnt_name():" " %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
