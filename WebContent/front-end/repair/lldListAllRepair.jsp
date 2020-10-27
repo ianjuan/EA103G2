@@ -3,47 +3,26 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.repair.model.*"%>
 <%@ page import="com.repair.controller.*"%>
+<%@ page import="com.housemanage.model.*"%>
+<%@ page import="com.apl.model.*"%>
+<%@ page import="com.tnt.model.*"%>
+<%@ page import="com.cont.model.*"%>
+<%@ page import="com.lld.model.*"%>
 
 
-
-
-<% session.setAttribute("lld_no", "LLD000171");%>
+<% session.setAttribute("lld_no", "LLD000224");%>
 
 <html>
 <head>
 <title>房東修繕紀錄 - lldListAllRepair.jsp</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/NewFile.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/NewFile.css">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <div class="container">
+    
 ​
-  <a class="navbar-brand" href="#">愛租I-ZU</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ml-auto">
- <a class="nav-item nav-link active" href="https://codepen.io/">尋找房源<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">地圖找房</a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">我的收藏</a>
-      <li class="nav-item dropdown">
-        <span data-toggle="dropdown">
-        <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" style="width:40px" />
-          我是房東
-</span>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">最新通知</a>
-          <a class="dropdown-item" href="#">個人資訊</a>
-          <a class="dropdown-item" href="#">我的錢包</a>
-          <a class="dropdown-item" href="#">登出</a>
-        </div>
-      </li>
-    </div>
-  </div></div>
-</nav>
 <style>
 
 </style>
@@ -62,7 +41,7 @@ ${lld_no}
 <section id='second'>
 <div class='.container-md'>
 
-<!-- <!-- join --> -->
+<!-- join -->
 <%-- 	<c:forEach var="HouseVO" items="${hosSvc.allHouse}">  --%>
 <%-- 		<c:if test="${lld_no==HouseVO.lld_no}">  --%>
 <%-- 			<c:forEach var="ConVO" items="${conSvc.getConbyhos(HouseVO.hos_no)}">  --%>
@@ -79,26 +58,24 @@ ${lld_no}
 			<!-- join -->
 	<c:forEach var="HouseVO" items="${hosSvc.allHouse}"> 
 		<c:if test="${lld_no==HouseVO.lld_no}"> 
-			<c:forEach var="ConVO" items="${conSvc.getConbyhos(HouseVO.hos_no)}"> 
-				<c:if test="${HouseVO.hos_no==ConVO.hos_no}"> 
-					<c:forEach var="repVO" items="${repSvc.tntGetAll(conVO.con_no)}">
-						<c:if test="${repVO.con_no==conVO.con_no}">	
+			<!-- conSvc.getConbyhos(HouseVO.hos_no)===ConVO -->
+					<c:forEach var="repairVO" items="${repSvc.tntGetAll(conSvc.getConbyhos(HouseVO.hos_no).con_no)}">
+						<c:if test="${repairVO.con_no==conSvc.getConbyhos(HouseVO.hos_no).con_no}">	
 							<div class='row' >
 								<!--修繕圖片 -->
-								<div class='col-md-2'>
-                  					<a href='#'><c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
-										<c:if test="${(repair_pictureVO.reppic_no).indexOf('D')== -1}">
-											<img src="<%=request.getContextPath()%>/repair/repair_picture.servlet?reppic_no=${repair_pictureVO.reppic_no}" width="120" height="120">
-										</c:if>
-									</c:forEach></a>
-                				</div>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							        <input type="hidden" name="action" value="getOne_For_seePic">
+							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
+								</FORM>
 								<!--房屋訊息 -->
                 				<div class='col-md-4  text-center'>
                   					<div class='text'>
                     					<h6 class='rep_status'>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h6>
-                    					<a href='#'>房屋編號<br>${conVO.hos_no}</a>
+                    					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
+                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(conVO.apl_no).apl_end}</h6>   
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>   
                     				</div>       
                	 				</div>
 								<!--修繕起訖 -->
@@ -111,7 +88,7 @@ ${lld_no}
                       					</tr>
                       					<tr>
                         					<td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
-                        					<td><code><h4>${repairVO.rep_case_str}</h4></code></td>
+                        					<td><code><h4> ${repairVO.rep_case_str}</h4></code></td>
                         					<td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
                       					</tr>
                       				</table>
@@ -183,12 +160,15 @@ ${lld_no}
 									</div>
 								</div>
 							</div>
-						</c:if>
-					</c:forEach>							
-				</c:if>
-			</c:forEach>
-		</c:if>
-	</c:forEach>
+						</div>
+					</c:if>
+				</c:forEach>							
+			</c:if>
+<%-- 		</c:set> --%>
+<%-- 	</c:if> --%>
+</c:forEach>
+		
+	
 <!-- join -->						
 	</div>						
 </div>
