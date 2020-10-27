@@ -1,4 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+	session.removeAttribute("lld_no");
+	session.removeAttribute("tnt_no");
+%>
+
 <html lang="zh-Hant">
 
 <head>

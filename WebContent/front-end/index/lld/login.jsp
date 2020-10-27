@@ -2,8 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.lld.model.*"%>
 <%
-  LldVO lldVO = (LldVO) request.getAttribute("lldVO");
+	session.removeAttribute("lld_no");
+	session.removeAttribute("tnt_no");
 %>
+<%
+//   String action = request .getParameter("action");
+//   if ("logout_ChgPwd".equals(action)){
+// 	  session.removeAttribute("lld_no");
+//   }
+%>
+<%
+  LldVO lldVO_req = (LldVO) request.getAttribute("lldVO_req");
+%>
+
 <html lang="zh-Hant">
 
 <head>
@@ -30,17 +41,11 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/lld/css/util.css">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/lld/css/main_login.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
-    <style>
-    nav{
-    	background-color: #D7C8B6 !important;
-    }
-    </style>
-    
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 </head>
 
 <body class="landing">
-<jsp:include page="/front-end/navbar/navbar.jsp"/>
+  <jsp:include page="/front-end/navbar/navbar.jsp"/>
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-form validate-form">
@@ -48,12 +53,12 @@
                     <span class="login100-form-title p-b-10"> 房東登入 </span>
                     <hr class="login100-form-title p-b-10">
                     <div class="wrap-register100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="register100" type="text" name="lld_email" id="lld_email" value="<%= (lldVO==null)? "" : lldVO.getLld_email()%>">
+                        <input class="register100" type="text" name="lld_email" id="lld_email" value="<%= (lldVO_req==null)? "" : lldVO_req.getLld_email()%>">
                         <div class="focus-register100"></div>
                         <div class="label-register100">信箱</div>
                     </div>
                     <div class="wrap-register100 validate-input" data-validate="Less than 8 [a-zA-Z0-9]">
-                        <input class="register100" type="password" name="lld_pwd" id="lld_pwd" value="<%= (lldVO==null)? "" : lldVO.getLld_pwd()%>">
+                        <input class="register100" type="password" name="lld_pwd" id="lld_pwd" value="<%= (lldVO_req==null)? "" : lldVO_req.getLld_pwd()%>">
                         <span class="focus-register100"></span>
                         <span class="label-register100">密碼</span>
                     </div>
@@ -88,7 +93,7 @@
             <!--login100-form-->
         </div>
     </div>
-    
+   
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -103,6 +108,8 @@
     <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/lld/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/lld/js/jquery.js"></script>
     <!--===============================================================================================-->
@@ -124,9 +131,27 @@
 		for (var i = 0; i < inputs.length; i++) {
             $(inputs[i]).focus();
             $(inputs[i]).blur();
-    }
+    	}
 	}
-    
+
+	
+    var emailVrfMsgsJs;
+    console.log(emailVrfMsgsJs);
+    <c:if test="${not empty emailVrfMsgs}">
+        <c:forEach var="msg" items="${emailVrfMsgs}">
+        	emailVrfMsgsJs = '${msg}';
+        </c:forEach>
+	</c:if>
+	console.log(emailVrfMsgsJs);
+	if (typeof(emailVrfMsgsJs)!=='undefined'){
+		Swal.fire({
+    		icon: 'success',
+    		title: '信箱驗成功',
+    		text: "帳號已啟用, 請登入以繼續",
+    	    showDenyButton: true,
+    	    animation: false,
+    		});
+	}
 	</script>
 </body>
 

@@ -69,10 +69,14 @@ body {
 	overflow: hidden;
 }
 
+#cfoot button {
+	outline: none;
+}
+
 #sig-canvas {
 	border: 2px dotted #CCCCCC;
 	border-radius: 15px;
-	cursor: crosshair;
+	cursor: cell;
 	margin-top: 5px;
 }
 
@@ -88,6 +92,23 @@ body {
 	display: none;
 }
 
+.signfunfont {
+	display: inline-block;
+	margin-top: 11px;
+}
+
+#color {
+	margin-top: 5px;
+	margin-left: 15px;
+	border-radius: 5px;
+	width: 30px;
+}
+
+#size {
+	margin-left: 15px;
+	width: 50px;
+}
+
 #other_con_item {
 	display: none;
 }
@@ -99,6 +120,10 @@ body {
 #other_con_item_hide {
 	display: none;
 	margin-left: 3px;
+}
+
+#other_hide {
+	display: none;
 }
 
 #cbody3 .num1 {
@@ -780,8 +805,8 @@ translateX
 }
 
 mark {
-  --color1: springgreen;
-  --color2: springgreen;
+  --color1: #00FFE2;
+  --color2: #00FFE2;
   --bg-height: 40%;
     
   all: unset;
@@ -790,8 +815,8 @@ mark {
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0 var(--bg-height);
-  -webkit-animation: highlight 800ms 1 ease-out;
-          animation: highlight 800ms 1 ease-out;
+  -webkit-animation: highlight 2000ms 1 ease-out;
+          animation: highlight 2000ms 1 ease-out;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
   -webkit-animation-play-state: paused;

@@ -14,23 +14,72 @@ window.onload = function(){
 	})
 }
 
+$(document).ready(function(){
+    $(function(){ $('#fur').click(function(){ 
+    	console.log( $('#furdiv')[0].offsetTop );
+        $('#cbody').animate({scrollTop:$('#furdiv')[0].offsetTop-150}, 500);});  
+    }); 
+});
+
+$(document).ready(function(){
+    $(function(){ $('#other_show').click(function(){ 
+        $('#cbody').animate({scrollTop:$('#other_con_item_show')[0].offsetTop-150}, 500);});  
+    }); 
+});
+
+$(document).ready(function(){
+    $(function(){ $('#other_hide').click(function(){
+        $('#cbody').animate({scrollTop:$('#other_con_item_hide')[0].offsetTop-150}, 500);});  
+    }); 
+});
+
+$(document).ready(function(){
+    $(function(){ $('#other_con_item_show').click(function(){
+        $('#cbody').animate({scrollTop:$('#other_con_item_hide')[0].offsetTop-150}, 500);});  
+    }); 
+});
+
+$(document).ready(function(){
+    $(function(){ $('#fee').click(function(){
+        $('#cbody').animate({scrollTop:$('#feediv')[0].offsetTop-150}, 500);});  
+    }); 
+});
+
+$(document).ready(function(){
+    $(function(){ $('#signhref').click(function(){
+        $('#cbody').animate({scrollTop:$('#signdiv')[0].offsetTop-100}, 500);});  
+    }); 
+});
+
+$(document).ready(function(){
+    $(function(){ $('#top').click(function(){
+        $('#cbody').animate({scrollTop:$('#cbody')[0].offsetTop-150}, 500);});  
+    }); 
+});
+
 function notice1(){		
-	swal({title:"確定要送出合約了嗎?", text:"" , icon:"info", buttons: {
-	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
-	    }}).then(function(isConfirm){
-			if(isConfirm){
-				swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
-					document.contForm.submit();
-				});
-			} else {
-				return false;
-			}
-	    });
+	var sign = document.getElementById("sign").getAttribute("value").trim();
+	console.log(sign);
+	 if(sign === ""){
+		 swal("別忘記要簽名哦~", "你各位簽完記得要按確認阿", "error", {button: "確認"});
+	 } else {
+		 swal({title:"確定要送出合約了嗎?", text:"" , icon:"info", buttons: {
+		      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+		    }}).then(function(isConfirm){
+				if(isConfirm){
+					swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
+						document.contForm.submit();
+					});
+				} else {
+					return false;
+				}
+		    });
+	 }		
 }
 
 function notice2(){
 	swal({title:"確定要重新填寫嗎?", text:"" , icon:"info", buttons: {
-	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+	      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 	    }}).then(function(isConfirm){
 		if(isConfirm){
 			swal("已重置欄位!", "" , "success", {button: "確認"}).then(function(){
@@ -46,12 +95,16 @@ function showdiv(){
 	document.getElementById("other_con_item").style.display = "block";
 	document.getElementById("other_con_item_show").style.display = "none";
 	document.getElementById("other_con_item_hide").style.display = "block";
+	document.getElementById("other_show").style.display = "none";
+	document.getElementById("other_hide").style.display = "block";
 }
 
 function hidediv(){
 	document.getElementById("other_con_item").style.display = "none";
 	document.getElementById("other_con_item_show").style.display = "block";
 	document.getElementById("other_con_item_hide").style.display = "none";
+	document.getElementById("other_show").style.display = "block";
+	document.getElementById("other_hide").style.display = "none";
 }
 
 (function() {
@@ -68,7 +121,9 @@ function hidediv(){
 
 	  var canvas = document.getElementById("sig-canvas");
 	  var ctx = canvas.getContext("2d");
-	  ctx.strokeStyle = "#222222";
+	  var color = document.getElementById("color");
+	  var size = document.getElementById("size");
+	  ctx.strokeStyle = "#1543F6";
 	  ctx.lineWidth = 4;
 
 	  var drawing = false;
@@ -119,7 +174,17 @@ function hidediv(){
 	    var me = new MouseEvent("mouseup", {});
 	    canvas.dispatchEvent(me);
 	  }, false);
-
+	  
+	  color.addEventListener('change', function(){
+		 ctx.strokeStyle = color.value;
+		 color.setAttribute("value", color.value);
+	  });
+	  
+	  size.addEventListener('change', function(){
+		 ctx.lineWidth = parseInt(size.value);
+		 size.setAttribute("value", parseInt(size.value));
+	  });
+	  
 	  function getMousePos(canvasDom, mouseEvent) {
 	    var rect = canvasDom.getBoundingClientRect();
 	    return {
@@ -171,21 +236,19 @@ function hidediv(){
 	    canvas.width = canvas.width;
 	  }
 	  
-	  
-
 	// Set up the UI
 	  var sigImage = document.getElementById("sig-image");
 	  var clearBtn = document.getElementById("sig-clearBtn");
 	  var submitBtn = document.getElementById("sig-submitBtn");
 	  var sign = document.getElementById("sign");
-	  clearBtn.addEventListener("click", function(e) {
+	  clearBtn.addEventListener("click", function(e) {				
 		sigImage.style.display = "none";
 		clearCanvas();
 	    var ctx = canvas.getContext("2d");
-		ctx.strokeStyle = "#222222";
-		ctx.lineWidth = 4;
 	    sigImage.setAttribute("src", "");
 	    sign.setAttribute("value", "");
+	    ctx.strokeStyle = color.getAttribute("value");
+		ctx.lineWidth = size.getAttribute("value");
 	  }, false);
 	  submitBtn.addEventListener("click", function(e) {
 	    var dataUrl = canvas.toDataURL();
