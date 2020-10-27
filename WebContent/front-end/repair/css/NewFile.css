@@ -1,14 +1,14 @@
-h1, h2, h3, h4, h5, h6, table{
+#second h1, h2, h3, h4, h5, h6, table{
     font-family: Microsoft JhengHei;
     font-family: 'Montserrat', sans-serif;
 }
 
-p, a, input, label, textarea, span, ul, li{
+#second p, a, input, label, textarea, span, ul, li{
     font-family: Microsoft JhengHei;
     font-family: 'Montserrat', sans-serif;
     
 }
-a:hover{
+second a:hover{
     text-decoration:none;
 }
 /* 廣告 */

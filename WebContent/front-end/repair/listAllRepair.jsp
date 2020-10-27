@@ -26,8 +26,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- 元 nav bar= -->
+<link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 
-<script src="<%=request.getContextPath()%>/front-end/repair/css/navbar.css"></script> 
 
 <style>
 
@@ -60,12 +61,12 @@
     background-color: rgb(221, 210, 160);
     border-color: rgb(221, 210, 160);
 }
-a{
+#second a {
     color: rgb(221, 210, 160);
     text-decoration: none;
     background-color: transparent;
 }
-a:hover {
+#seconf a:hover {
     color: darkgrey;
     text-decoration: none;
 }
@@ -106,14 +107,14 @@ h1, h2, h3, h4, h5, h6, table{
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 
 
-${tnt_no}
-<section id='second'>
 
-<div class='.container-fluid'>
 <!-- 	top nav bar -->
 	<div class='row'>
-		<div class='col-md-12 nav'><jsp:include page="/front-end/repair/navbar.jsp"/></div>
+  <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
 	</div>
+	
+<div class='.container-fluid'>
+<section id='second'>
 
 
 <div class='row'>
@@ -140,7 +141,7 @@ ${tnt_no}
                     <h6 class='rep_status'>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h6>
                     <a href='#'>
                     	修繕編號<br>${repairVO.rep_no}
-              			<h5 class='hos_name'>${hosSvc.getHouseInfo(ConVO.hos_no).hos_name}</h5>
+              			<h5 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h5>
 					</a>
                     <br>居住日期<br>
                     <h6>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h6>   
@@ -324,6 +325,10 @@ ${tnt_no}
 
 
 <%-- <%@ include file="page2.file" %> --%>
-
+<script>
+$(document).on("click", ".hos_name", function() {
+        	window.location.href='<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos='+$(this).attr('id');
+		});
+</script>
 </body>
 </html>
