@@ -25,6 +25,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/lightslider.css"">
 <script src="<%=request.getContextPath()%>/front-end/repair/js/lightslider.js"></script> 
+
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/train.css"">
+
 <style>
 	
 	.demo .item .clearfix .image-gallery {
@@ -41,6 +44,11 @@
 	img{
 	border-radius: 10px;
 	}
+	
+	#view img{
+	width:90%;
+}
+
 	.image-gallery li{
 		bottom:0;
 		right:0;
@@ -123,6 +131,18 @@
 	height: 700px;
 	float: left;
 }
+
+#noPic #picNon {
+    font-size: xxx-large;
+    font-color: grey;
+    position: relative;
+    bottom: 500px;
+}
+
+#goBcck{
+	position: relative;
+    bottom: 500px;
+}
     
 </style>
 <script>
@@ -156,6 +176,63 @@
 		</c:forEach>
 	</ul>
 </c:if>
+
+<jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
+
+<c:choose>
+	    	<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">	
+	    		<div id="trainDiv">
+					<div class="center" id="center">
+						  <div class="mountains"></div>
+						  <div class="frame">
+						    <div class="train"><span id="${repairVO.rep_pro eq 0? 'noPic':'PicNon'}"><a> ${repairVO.rep_pro eq 0?"暫   無   圖   片，點  我  新  增 ":" 暫   無   圖   片 "}</a> </span>
+						      	<a id="goBack" href="${pageContext.request.contextPath }/front-end/repair/listAllRepair.jsp?tnt_no=${tnt_no}"><button class="learn-more">回上一頁</button></a>
+						      <div class="engine-front">
+						        <div class="chimney">
+						          <div class="smoke"></div>
+						          <div class="smoke smoke-2"></div>
+						          <div class="smoke smoke-3"></div>
+						          <div class="smoke smoke-4"></div>
+						        </div>
+						      </div>
+						
+						      <div class="engine-body"></div>
+						
+						      <div class="compartment">
+						        <div class="compartment-window"></div>
+						      </div>
+						
+						      <div class="compartment compartment-two">
+						        <div class="compartment-window"></div>
+						      </div>
+						
+						      <div class="compartment compartment-three">
+						        <div class="compartment-window"></div>
+						      </div>
+						
+						      <div class="wheel-holder">
+						        <div class="wheel"></div>
+						        <div class="wheel wheel-2">
+						          <div class="wheel-joint"></div>
+						          <div class="wheel-joint wheel-joint-2"></div>
+						        </div>
+						        <div class="wheel wheel-3"></div>
+						        <div class="wheel wheel-4"></div>
+						        <div class="wheel wheel-5"></div>
+						        <div class="wheel wheel-6"></div>
+						        <div class="wheel wheel-7"></div>
+						        <div class="wheel wheel-8"></div>
+						        <div class="wheel wheel-9"></div>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="bridge"></div>
+					</div>
+	  	  		</div>
+	  	  	</c:when>
+	  	  <c:otherwise>	
+
+
 
 <!-- top/left bar -->
 <%-- 	<div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div> --%>
@@ -191,7 +268,6 @@
 		</div>
 
 		
-<jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
 		
 <div class="container-fluid">
 <!-- 輪播 -->
@@ -272,10 +348,23 @@
   </div> 
 </div>
 
-			
+
+</c:otherwise>
+</c:choose>
+		
 			
 			
 <script>
+var noPic = document.getElementById("noPic");
+var center = document.getElementById("center");
+var trainDiv = document.getElementById("trainDiv");
+noPic.addEventListener('click', function(e) {
+	var childs = trainDiv.childNodes; 
+	 for(var i = 0; i < childs.length; i++) {  
+		 trainDiv.removeChild(childs[i]); 
+		}
+});
+
 var myPic = document.getElementById("myPic");
 // var filename = document.getElementById("filename");
 
