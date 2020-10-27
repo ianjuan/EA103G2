@@ -72,12 +72,12 @@ padding-left:0px;
 }
 
 .business-card .title {
-	background: #c1b4a3;
+	background: #99BAAB;
 	color: #fff;
 	font-weight: bold;
 	font-size: larger;
-	border-top: 2px solid #c1b4a3;
-	border-left: 2px solid #c1b4a3;
+	border-top: 2px solid #aacfbf;
+	border-left: 2px solid #aacfbf;
 	border-radius: 14px ;
 }
 
@@ -145,12 +145,12 @@ padding-left:0px;
 		BookingService bks = new BookingService();
 	String hosno=(String)session.getAttribute("HOS");
 	String lldno=(String)session.getAttribute("lld_no");
+	String tntno=(String)session.getAttribute("tnt_no");
 
 			String list = bks.getBookingInfoListBylldno(lldno);
-			String resorder = bks.getResOrderbylldno(lldno);
+			String resorder = bks.getResOrderbytntno(tntno);
 			pageContext.setAttribute("list", list);//KEY，VALUE
 			pageContext.setAttribute("order", resorder);//KEY，VALUE
-			String tntno=(String)session.getAttribute("tnt_no");
 
 	%>
 </body>
@@ -165,60 +165,7 @@ var list= JSON.parse('${list}');//JSON轉JS格式
 var order= JSON.parse('${order}');
 var ordercount=0;
 var ob;
-var allowtime=['10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00'];
 
-
-$('#save').click(function(){//確認新增預約
-	  $('#exampleModal').modal('hide');	
-	   	var theday=$("#date").val()
-	   	var arrayfortime=[];
-	   	var Itallday= true;
-     	if($('#allday').prop('checked')){
-     		theday=ob;
-     	};
-	   	if(theday.length<12){	   		
-	 		 for (let value of allowtime) { 
-	 			console.log(theday+value);
-	 			arrayfortime.push(theday+value)}}
-	   	else{
-	   		Itallday=false;
-	   		arrayfortime.push(theday)
-	   	}
-	   	console.log(arrayfortime);
-	  $.ajax({//存入資料庫階段
-		  url:"<%=request.getContextPath()%>/booking/bookingServlet",
-	 	  type:"POST",
-	 	  data:{
-	 		  action:"insert",
-	 		  data:JSON.stringify(arrayfortime),	
-	 	 	  lld_no:"<%=lldno %>"
-	 	  },
-		success:function(id){//以上成功才執行
-	 		  console.log(id+"HEN棒");
-			 var i=0;
-			 if(Itallday){
-					for (let value of allowtime){
-					  	 calendar.addEvent({
-					       start:theday+"T"+value,//加入該日期
-					       resdno:id//給他ID
-					     });
-					  	 }
-				 
-			 }else{
-				for (let value of arrayfortime){
-					console.log("有沒有進迴圈啦"+value);
-				  	 calendar.addEvent({
-				       start:value,//加入該日期
-				       resdno:id//給他ID
-				     });
-				  	 }}
-				   }	
-	 	 	 ,error:function(data)
-		 	  {
-		 		  console.log("真的不棒")
-		 	  }	 		    
-	 		});	  			
-	 	  });
 	 	 	
   document.addEventListener('DOMContentLoaded', function() {
 	 
@@ -232,8 +179,7 @@ $('#save').click(function(){//確認新增預約
     	      height: 650,
      editable: true,     
       //hiddenDays: [0], 星期幾不顯示 [0]-[6]=禮拜日-六
-      slotMinTime: "09:00:00",//最早與最晚時間
-      slotMaxTime: "22:00:00",
+
       locale: 'zh-tw',
       initialDate: new Date(),//初始時間 目前為當前時間
       navLinks: true, //日期可點嗎?
@@ -244,63 +190,9 @@ $('#save').click(function(){//確認新增預約
       validRange: {
     	    start: new Date()
     	  },
-
-      select: function(info) {
-    	  dateStr = info.startStr;
-		 ob=info.startStr;
-    	  console.log(dateStr);
-    	  $('#exampleModal').modal('show');	//預約設定畫面SHOW  	  
-    	 $("#date").datetimepicker({//預約設定選時間的初始化
-    		 value:dateStr+"T10:00",
-    		 format:'Y-m-d H:i',
-    		 autoclose: true,
-    		    todayBtn: true,
-    		    language: 'zh-CN',
-    		    step:30,
-    		    allowTimes:allowtime,
-    		    minView: 1      
-    		});
-    	
-           calendar.unselect()
-        },
-       eventClick: function(arg) {//點選日曆上已成立的
-    	
-    	   console.log(arg);
-    	   console.log(arg.event.extendedProps.timemoment);
-   		console.log(arg.event.extendedProps.status);
- 	   if(arg.event.extendedProps.status=='1'){
+       eventClick: function(arg) {//點選日曆上已成立的 	   
  		   alert("已被預約無法直接刪除時段，請與房客聯繫");
- 		   return;
- 	   }
-       console.log(arg.event);
-    	   console.log(arg.event.extendedProps);       	
-    	   console.log(arg.event.extendedProps.resdno);
-    	   if(open){ //如果是房東
-    		   if (confirm('確定要刪除該時段嗎?')) {//按鈕確認是否 回傳相對應ture false
-    			   $.ajax({//存入資料庫階段
-    					  url:"<%=request.getContextPath()%>/booking/bookingServlet",
-    				 	  type:"POST",
-    				 	  data:{ action:"delete",
-    				 		  data:arg.event.extendedProps.resdno
-    				 	  },
-    				 	  success:function(data){//以上成功才執行
-    				 		  console.log(data);
-    		        			 arg.event.remove();
 
-    				 		  	console.log("res棒");
-    				 	  },
-    				 	  error:function(data)
-    				 	  {
-    				 		  console.log("真的不棒")
-    				 	  }
-    				  
-    				  })
-        			 
-       				}}
-   
-   
-    	
-       
        },
      editable: false,
       dayMaxEvents: true, // allow "more" link when too many events
@@ -318,11 +210,11 @@ $('#save').click(function(){//確認新增預約
     					"<img src='https://i.imgur.com/afYq1aQ.jpg' alt='' class='avatar' />"+
     				"</div>"+
     				"<div class='content span2'>"+
-    					"<span class='finer-print'>預約人:"+order.tnt_name+"<br /> 預約時段:"+order.order_date+ "<br />"+
-    						"連絡電話:"+order.tnt_mobile+"<br /> 預約房屋物件:"+order.hos_name+ "<br /> 地址:"+
+    					"<span class='finer-print'>房東:"+order.lld_name+"<br /> 預約時段:"+order.order_date+ "<br />"+
+    						"連絡電話:"+order.lld_mobile+"<br /> 預約房屋物件:"+order.hos_name+ "<br /> 地址:"+
     						order.hos_add+"<br />"+
     					"</span>"+
-    					"<button>查看房客資訊</button>"+
+    					"<button>查看房東資訊</button>"+
     					"<button>取消預約</button>"+
     				"</div>"+
     			"</div>"+
@@ -337,11 +229,11 @@ $('#save').click(function(){//確認新增預約
         					"<img src='https://i.imgur.com/afYq1aQ.jpg' alt='' class='avatar' />"+
         				"</div>"+
         				"<div class='content span2' style='display:none' > "+
-    					"<span class='finer-print'>預約人:"+order.tnt_name+"<br /> 預約時段:"+order.order_date+ "<br />"+
-        						"連絡電話:"+order.tnt_mobile+"<br /> 預約房屋物件:"+order.hos_name+ "<br /> 地址:"+
+    					"<span class='finer-print'>房東:"+order.lld_name+"<br /> 預約時段:"+order.order_date+ "<br />"+
+        						"連絡電話:"+order.lld_mobile+"<br /> 預約房屋物件:"+order.hos_name+ "<br /> 地址:"+
         						order.hos_add+"<br />"+
         					"</span>"+
-        					"<button>查看房客資訊</button>"+
+        					"<button>查看房東資訊</button>"+
         					"<button>取消預約</button>"+
         				"</div>"+
         			"</div>"+
@@ -350,24 +242,13 @@ $('#save').click(function(){//確認新增預約
     	}
     	ordercount++;
     });
-     list.forEach(function(data){
+    order.forEach(function(data){
     	 var titles;//讓被預約的STATUS不能再點選
-		 console.log(data.resd_status);
-		console.log(data)
-    	 if(data.resd_status=="1"){
     	 calendar.addEvent({
  			start:data.resd_date,
- 			resdno:data.resd_no,
-             status:data.resd_status,
+ 			hosno:data.hos_no,
              backgroundColor:"yellow",
-             timemoment:data.resd_date
           })
-     }
-     else{calendar.addEvent({
-                start:data.resd_date,
-                resdno:data.resd_no,
-                timemoment:data.resd_date
-             }); }
      })
     calendar.render();
   });

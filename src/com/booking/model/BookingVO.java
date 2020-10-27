@@ -17,7 +17,54 @@ String tnt_name;
 String tnt_sex;
 String tnt_mobile;
 byte[] tnt_pic;
+String lld_name;
+String lld_sex;
+String lld_mobile;
+byte[] lld_pic;
 
+public String getLld_name() {
+	return lld_name;
+}
+
+
+public void setLld_name(String lld_name) {
+	this.lld_name = lld_name;
+}
+
+
+public String getLld_sex() {
+	return lld_sex;
+}
+
+
+public void setLld_sex(String lld_sex) {
+	this.lld_sex = lld_sex;
+}
+
+
+public String getLld_mobile() {
+	return lld_mobile;
+}
+
+
+public void setLld_mobile(String lld_mobile) {
+	this.lld_mobile = lld_mobile;
+}
+
+
+public byte[] getLld_pic() {
+	return lld_pic;
+}
+
+
+public void setLld_pic(byte[] lld_pic) {
+	this.lld_pic = lld_pic;
+}
+
+
+public byte[] getTnt_pic() {
+	return tnt_pic;
+}
 public void setTnt_pic(byte[] tnt_pic) {
 	this.tnt_pic = tnt_pic;
 }

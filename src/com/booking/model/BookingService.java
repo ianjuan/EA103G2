@@ -13,6 +13,20 @@ public class BookingService {
 	public BookingService() {
 			dao=new BookingDAO();
 		}
+	public String getResOrderbytntno(String tntno){
+		List<BookingVO> list=dao.getResOrderbytntno(tntno);
+		for(int i=0;i<list.size();i++) {
+			String date=list.get(i).getOrder_date();
+			String[] month=date.split("-");
+			String[] day=month[2].split(" ");
+			String[] time=day[1].split(":");
+			list.get(i).setOrder_date(month[1]+"月"+day[0]+"日"+time[0]+"點"+time[1]+"分");
+		}
+		Gson gson = new Gson();
+		String jsonStr = gson.toJson(list);
+		return jsonStr;
+		
+	}
 	public String getBookingInfoListByhosno(String hos_no) {
 		List<BookingVO> list=dao.getBookingInfoListByhosno(hos_no);
 		Gson gson = new Gson();

@@ -319,7 +319,8 @@ public class BookingDAO implements BookingDAO_interface {
 					"	INNER JOIN TENANT TNT ON RO.TNT_NO=TNT.TNT_NO " + 
 					"	INNER JOIN HOUSE H ON RO.HOS_NO=H.HOS_NO " + 
 					"    INNER JOIN LANDLORD L ON H.LLD_NO =L.LLD_NO " + 
-					"	WHERE L.LLD_NO = ? ORDER BY RO.ORDER_DATE ");
+					"	WHERE L.LLD_NO = ? AND RO.ORDER_DATE >=  sysdate "  + 
+					" ORDER BY RO.ORDER_DATE ");
 			pstmt.setString(1, lldno);
 
 			rs = pstmt.executeQuery();
@@ -372,6 +373,126 @@ public class BookingDAO implements BookingDAO_interface {
 		}
 		return list;
 	}
+	public List<BookingVO> getBookingInfoListBytntno(String tntno){//取得行程表 根據房客編號
+		List<BookingVO> list = new ArrayList<BookingVO>();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			// 可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令 可增加指令彈性
+			pstmt = con.prepareStatement("SELECT RESD_NO,LLD_NO,RESD_DATE,RESD_STATUS FROM RESERVATION_DATE  "
+					 + "WHERE lld_no = ? ");
+			pstmt.setString(1, tntno);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BookingVO vo = new BookingVO();
+				vo.setResd_no(rs.getString("RESD_NO"));
+				vo.setLld_no(rs.getString("LLD_NO"));
+				vo.setResd_status(rs.getString("RESD_STATUS"));
+				System.out.println(rs.getString("RESD_STATUS") + "拿到STATUS");
+				vo.setResd_date(rs.getDate("RESD_DATE").toString() + "T" + rs.getTime("RESD_DATE").toString());
+				list.add(vo);
+				System.out.println(list);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL壞了 ");
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	
+
+	public List<BookingVO> getResOrderbytntno(String tntno){//取得行程表 根據房客編號
+		List<BookingVO> list = new ArrayList<BookingVO>();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		System.out.println(tntno);
+		try {
+			con = ds.getConnection();
+			// 可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令 可增加指令彈性
+			pstmt = con.prepareStatement("SELECT ro.res_no,RO.ORDER_DATE,RO.RES_TYPE, L.LLD_NAME,L.LLD_SEX,L.LLD_PIC,L.LLD_MOBILE, H.HOS_NO,H.HOS_NAME,H.HOS_ADD " + 
+					" FROM RESERVARTION_ORDER RO  " + 
+					" INNER JOIN HOUSE H ON RO.HOS_NO=H.HOS_NO  " + 
+					" INNER JOIN LANDLORD L ON H.LLD_NO =L.LLD_NO  " + 
+					" WHERE RO.TNT_NO  = ? AND RO.ORDER_DATE >=  sysdate " + 
+					" ORDER BY RO.ORDER_DATE");
+			pstmt.setString(1, tntno);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				BookingVO vo = new BookingVO();
+				vo.setRes_no(rs.getString("RES_NO"));
+				vo.setRes_type(rs.getString("RES_TYPE"));
+				vo.setLld_name(rs.getString("LLD_NAME").trim());
+				vo.setLld_sex(rs.getString("LLD_SEX"));
+				vo.setHos_no(rs.getString("RES_TYPE"));
+				vo.setLld_pic(rs.getBytes("LLD_PIC"));
+				vo.setLld_mobile(rs.getString("LLD_MOBILE"));
+				vo.setHos_name(rs.getString("HOS_NAME"));
+				vo.setHos_add(rs.getString("HOS_ADD"));
+				vo.setOrder_date(rs.getString("ORDER_DATE"));
+				vo.setHos_no(rs.getString("HOS_NO"));
+				vo.setResd_date(rs.getString("ORDER_DATE"));
+				System.out.println(rs.getDate("ORDER_DATE") + rs.getTime("ORDER_DATE").toString());
+				list.add(vo);
+				System.out.println(list);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("SQL壞了 ");
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 	
 }
