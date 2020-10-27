@@ -106,16 +106,16 @@
 		<form class="table" name="contForm" METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet" enctype="multipart/form-data">
 			<div id="center">
 				<div id="chead">
-					<h2>房屋租賃契約書</h2><a class="fur" href="#">傢俱設備</a><a class="fee" href="#">費用</a><a class="sign" href="#">簽名</a><a class="other" href="#">其他項目</a>
+					<h2>房屋租賃契約書</h2><a id="top" href="#">置頂</a><a id="fur" href="#">傢俱設備</a><a id="fee" href="#">費用</a><a id="signhref" href="#">簽名</a><a id="other_show" href="#">其他項目</a><a id="other_hide" href="#">其他項目</a>
 				</div>		
 				<div id="cbody">
 				         <br>			
 						 立契約書人承租人<mark><b><%=lldVO.getLld_name()%></b></mark>，出租人<b>___</b>茲為房屋租賃事宜，雙方同意本契約條款如下： <br><br>
 						<strong>第一條 房屋租賃標的</strong><br><br>
-						&nbsp;&nbsp;一、門牌<mark><b><%=houseVO.getHos_add()%>。</b></mark><br><br>
-						&nbsp;&nbsp;二、面積共計<mark><b><%=houseVO.getHos_pnum()%></b></mark>平方公尺。<br><br>
+						&nbsp;&nbsp;一、地址：<mark><b><%=houseVO.getHos_add()%>。</b></mark><br><br>
+						&nbsp;&nbsp;二、面積共計：<mark><b><%=houseVO.getHos_pnum()%></b></mark>平方公尺。<br><br>
 						&nbsp;&nbsp;三、車位： <mark><b><%=houseVO.getHos_park()%>。</b></mark><br><br>
-						<div class="furdiv">
+						<div id="furdiv">
 							&nbsp;&nbsp;四、租賃附屬設備： <br><br>
 							<%=houseVO.getHos_table()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>桌子</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_table'>"+
@@ -130,7 +130,7 @@
 								  "<option value='9'>9</option>"+
 								  "<option value='10'>10</option>"+
 								"</select>"+
-							"&nbsp;&nbsp張。</label><br><br><br>":""%>
+							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_table' value='0'>"%>
 							<%=houseVO.getHos_chair()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>椅子</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_chair'>"+
 								  "<option value='1'>1</option>"+
@@ -144,7 +144,7 @@
 								  "<option value='9'>9</option>"+
 								  "<option value='10'>10</option>"+
 								"</select>"+
-							"&nbsp;&nbsp張。</label><br><br><br>":""%>
+							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_chair' value='0'>"%>
 							<%=houseVO.getHos_bed()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>床</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_bed'>"+
 								  "<option value='1'>1</option>"+
@@ -158,7 +158,7 @@
 								  "<option value='9'>9</option>"+
 								  "<option value='10'>10</option>"+
 								"</select>"+
-							"&nbsp;&nbsp張。</label><br><br><br>":""%>
+							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_bed' value='0'>"%>
 							<%=houseVO.getHos_closet()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>衣櫃</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_closet'>"+
 								  "<option value='1'>1</option>"+
@@ -172,7 +172,7 @@
 								  "<option value='9'>9</option>"+
 								  "<option value='10'>10</option>"+
 								"</select>"+
-							"&nbsp;&nbsp個。</label><br><br><br>":""%>
+							"&nbsp;&nbsp個。</label><br><br><br>":"<input type='hidden' name='hos_closet' value='0'>"%>
 							<%=houseVO.getHos_sofa()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>沙發</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_sofa'>"+
 								  "<option value='1'>1</option>"+
@@ -186,7 +186,7 @@
 								  "<option value='9'>9</option>"+
 								  "<option value='10'>10</option>"+
 								"</select>"+
-							"&nbsp;&nbsp張。</label><br><br><br>":""%>
+							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_sofa' value='0'>"%>
 							<%=houseVO.getHos_refrig()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>冰箱</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_refrig'>"+
 								  "<option value='1'>1</option>"+
@@ -195,7 +195,7 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":""%>
+							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_refrig' value='0'>"%>
 							<%=houseVO.getHos_tv()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>電視</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_tv'>"+
 								  "<option value='1'>1</option>"+
@@ -204,7 +204,7 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":""%>
+							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_tv' value='0'>"%>
 							<%=houseVO.getHos_drink()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>飲水機</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_drink'>"+
 								  "<option value='1'>1</option>"+
@@ -213,7 +213,7 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":""%>
+							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_drink' value='0'>"%>
 							<%=houseVO.getHos_aircon()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>冷氣</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_aircon'>"+
 								  "<option value='1'>1</option>"+
@@ -222,7 +222,7 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":""%>
+							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_aircon' value='0'>"%>
 							<%=houseVO.getHos_wash()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>洗衣機</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_wash'>"+
 								  "<option value='1'>1</option>"+
@@ -231,7 +231,7 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":""%>
+							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_wash' value='0'>"%>
 							<%=houseVO.getHos_hoter()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>熱水器</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_hoter'>"+
 								  "<option value='1'>1</option>"+
@@ -240,14 +240,16 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":""%>
+							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_hoter' value='0'>"%>
 						</div>						
-						&nbsp;&nbsp;五、其他： <mark><b><%=houseVO.getHos_forth()>0?"第四台  ":""%></b></mark><mark><b><%=houseVO.getHos_net()>0?"網路  ":""%></b></mark><mark><b><%=houseVO.getHos_gas()>0?"天然瓦斯":""%></b></mark>。<br><br>
+						&nbsp;&nbsp;五、其他： <%=houseVO.getHos_forth()>0?"<mark><b>第四台</b></mark> ":""%><%=houseVO.getHos_net()>0?"<mark><b>網路</b></mark> ":""%><%=houseVO.getHos_gas()>0?"<mark><b>天然瓦斯</b></mark>":""%>。<br><br>
 						<strong>第二條 租賃期間</strong><br><br>
     					&nbsp;&nbsp;租賃期間自西元<b>___</b>起至西元<b>___</b>止。<br><br>
-						<strong>第三條 租金約定及支付</strong><br><br>
-  						&nbsp;&nbsp;承租人每月租金為新臺幣(下同)<mark><b><%=houseVO.getHos_rentfee()%>元</b></mark>整，每期應繳納<mark ><b>一個月</b></mark>租金，並於每月一日前支付，不得藉任何理由拖延或拒絕；出租人亦不得任意要求調整租金。<br><br>
-						&nbsp;&nbsp;租金支付方式：□現金繳付■轉帳繳付 <br><br>
+						<div id="feediv">
+							<strong>第三條 租金約定及支付</strong><br><br>
+	  						&nbsp;&nbsp;承租人每月租金為新臺幣(下同)<mark><b><%=houseVO.getHos_rentfee()%>元</b></mark>整，每期應繳納<mark ><b>一個月</b></mark>租金，並於每月一日前支付，不得藉任何理由拖延或拒絕；出租人亦不得任意要求調整租金。<br><br>
+							&nbsp;&nbsp;租金支付方式：□現金繳付■轉帳繳付 <br><br>
+						</div>						
 						<strong>第四條 擔保金（押金）約定及返還</strong><br><br>
 						&nbsp;&nbsp;擔保金（押金）由租賃雙方約定為<mark><b>兩個月</b></mark>租金，金額為<mark><b><%=houseVO.getHos_rentfee()*2%></b></mark>元整。承租人應於簽訂本契約之同時給付出租人。<br><br>
    						&nbsp;&nbsp;前項擔保金（押金），除有第十一條第三項、第十二條第四項及第十六條第二項之情形外，出租人應於租期屆滿或租賃契約終止，承租人交還房屋時返還之。<br><br>
@@ -257,13 +259,13 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;房屋每月<mark ><b><%=houseVO.getHos_manafee()%></b></mark>元整。 <br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;租賃期間因不可歸責於雙方當事人之事由，致本費用增加者，承租人就增加部分之金額，以負擔百分之十為限；如本費用減少者，承租人負擔減少後之金額。<br><br>
 						&nbsp;&nbsp;二、水費：<br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==0?"■":"□"%>由出租人負擔。<br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==1?"■":"□"%>每度<mark ><b><%=houseVOwaterfee.getHos_waterfeetype()==1?houseVOwaterfee.getHos_waterfee():"__"%></b></mark>元。<br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==2?"■":"□"%>每月<%=houseVOwaterfee.getHos_waterfeetype()==2?houseVOwaterfee.getHos_waterfee():"__"%>元。<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==0?"■<mark><b>由出租人負擔</b></mark>。":"□<mark><b>由出租人負擔</b></mark>。"%><br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==1?"■":"□"%>每度<%=houseVOwaterfee.getHos_waterfeetype()==1?"<mark><b>"+houseVOwaterfee.getHos_waterfee()+"</b></mark>":"__"%>元。<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==2?"■":"□"%>每月<%=houseVOwaterfee.getHos_waterfeetype()==2?"<mark><b>"+houseVOwaterfee.getHos_waterfee()+"</b></mark>":"__"%>元。<br><br>
 						&nbsp;&nbsp;<strong>三、電費：<strong><br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==0?"■":"□"%>由出租人負擔。<br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==1?"■":"□"%>每度<mark ><b><%=houseVOelectfee.getHos_electfeetype()==1?houseVOelectfee.getHos_electfee():"__"%></b></mark>元。<br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==2?"■":"□"%>每月<%=houseVOelectfee.getHos_electfeetype()==2?houseVOelectfee.getHos_electfee():"__"%>元。<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==0?"■<mark><b>由出租人負擔</b></mark>。":"□<mark><b>由出租人負擔</b></mark>。"%><br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==1?"■":"□"%>每度<%=houseVOelectfee.getHos_electfeetype()==1?"<mark><b>"+houseVOelectfee.getHos_electfee()+"</b></mark>":"__"%>元。<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==2?"■":"□"%>每月<%=houseVOelectfee.getHos_electfeetype()==2?"<mark><b>"+houseVOelectfee.getHos_electfee()+"</b></mark>":"__"%>元。<br><br>
 						&nbsp;&nbsp;四、其他費用及其支付方式：<br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVO.getHos_gasfee()>0?"■":"□"%>瓦斯費：<mark><b><%=houseVO.getHos_gasfee()%></b></mark>元。<br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVO.getHos_puwaterfee()>0?"■":"□"%>公共水費：<mark><b><%=houseVO.getHos_puwaterfee()%></b></mark>元。<br><br>
@@ -271,7 +273,7 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVO.getHos_netfee()>0?"■":"□"%>網路費：<mark><b><%=houseVO.getHos_netfee()%></b></mark>元。<br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVO.getHos_parkfee()>0?"■":"□"%>停車位費：<mark><b><%=houseVO.getHos_parkfee()%></b></mark>元。<br><br>
 						
-						<button type="button" class="btn" id="other_con_item_show" onclick="showdiv()">其他項目</button>
+						<button type="button" class="btn" id="other_con_item_show" onclick="showdiv()">展開其他項目</button>
 						<button type="button" class="btn" id="other_con_item_hide" onclick="hidediv()">隱藏</button>
 						<div id="other_con_item">
 							<br><strong>第六條 稅費負擔之約定</strong><br><br>
@@ -354,22 +356,26 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;□其他（測量成果圖、室內空間現狀照片） <br><br>
 						</div>
 						
-						<br>立契約書人<br>
-						 出租人： <br>
-						 姓名：<mark><b><%=lldVO.getLld_name()%></b></mark>　　簽章 (<span style="mark-style: italic;">請於下方簽名欄簽名</span>)
-						 
+						<div id="signdiv"><br>立契約書人<br><br></div>						
+						&nbsp;&nbsp;出租人： <br><br>
+						&nbsp;&nbsp;姓名：<mark><b><%=lldVO.getLld_name()%></b></mark><br><br>
+						&nbsp;&nbsp;簽章 (<span style="mark-style: italic;">請於下方簽名欄簽名</span>)
 						<div class="container">
 							<div class="row">
 								 <canvas id="sig-canvas" width="800" height="200" style="z-index:9999;position: relative;"></canvas>
 							</div>
 							<div class="row" id="signbtn">
 								<button type="button" class="btn btn-primary" id="sig-submitBtn" style="margin-right: 5px;">確認</button>										
-								<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>
+								<button type="button" class="btn btn-default" id="sig-clearBtn">清除</button>									
+								<input type="color" id="color" value="#1543F6">
+								<span class="signfunfont">顏色</span>
+								<input type="range" id="size" value="4" min="1" max="10" step="1">
+								<span class="signfunfont">粗細</span>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
-									<img id="sig-image" src="" alt="簽名圖片底家啦!"/>
-									<input id="sign" type="hidden" name="con_lld_sign" value=""/>										
+									<img class="region" id="sig-image" src="" alt="簽名圖片底家啦!"/>
+									<input class="region" id="sign" type="hidden" name="con_lld_sign" value=""/>										
 								</div>
 							</div>
 						</div>
@@ -412,18 +418,7 @@
 	<div id="foot"></div>
 	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont1.js" charset="UTF-8"></script>
-	<script>
-		$(document).ready(function(){
-		    $(function(){ $('.fur').click(function(){ 
-		        $('html,body').animate({scrollTop:$('.furdiv').offset().top}, 500);});  
-		    }); 
-		});
-		$(document).ready(function(){
-		    $(function(){ $('.other').click(function(){ 
-		        $('html,body').animate({scrollTop:$('#other_con_item_show').offset().top}, 500);});  
-		    }); 
-		});
-	
+	<script>			
 	  	(function (document) {
 		  const markers = [...document.querySelectorAll('mark')];
 		  
