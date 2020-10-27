@@ -76,7 +76,7 @@ body {
 #sig-canvas {
 	border: 2px dotted #CCCCCC;
 	border-radius: 15px;
-	cursor: cell;
+	cursor: pointer;
 	margin-top: 5px;
 }
 
@@ -100,8 +100,9 @@ body {
 #color {
 	margin-top: 5px;
 	margin-left: 15px;
-	border-radius: 5px;
-	width: 30px;
+	border-radius: 20px;
+	width: 20px;
+	outline: none;
 }
 
 #size {
