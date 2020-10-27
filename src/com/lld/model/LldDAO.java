@@ -34,7 +34,7 @@ public class LldDAO implements LandlordDAO_interface {
 	private static final String GET_ONE_ACCOUNT_STMT = "SELECT LLD_NO, LLD_EMAIL, LLD_PWD FROM LANDLORD where LLD_NO =?";
 	private static final String UPDATE_PWD_STMT = "UPDATE LANDLORD set LLD_PWD=? where LLD_NO=?";
 	private static final String UPDATE_STATUS_STMT = "UPDATE LANDLORD set LLD_STATUS=? where LLD_NO=?";
-	
+
 	private static final String UPDATE_PIC_STMT = "UPDATE LANDLORD set LLD_PIC=? where LLD_NO = ?";
 	private static final String GET_ONE_PIC_STMT = "SELECT LLD_NO, LLD_PIC FROM LANDLORD where LLD_NO = ?";
 
@@ -534,7 +534,7 @@ public class LldDAO implements LandlordDAO_interface {
 			}
 		}
 	}
-	
+
 	@Override
 	public void update_status(LldVO lldVO) {
 		Connection con = null;
@@ -895,6 +895,7 @@ public class LldDAO implements LandlordDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				lldVO = new LldVO();
 				lldVO.setLld_cmt_starsum(rs.getInt("lld_cmt_starsum"));
 				lldVO.setLld_cmt_count(rs.getInt("lld_cmt_count"));
 			}
@@ -930,11 +931,11 @@ public class LldDAO implements LandlordDAO_interface {
 	// =================================5.vrf==================================
 	private static final String UPDATE_VRF_STMT = "UPDATE LANDLORD set lld_id_picf=?, lld_id_picb=?, lld_id_pic2=?, lld_id_uploadtime=?, lld_id_isupload=?, lld_id_result=?, lld_id_disapprove=?, lld_id_vrftime=? where lld_no=?";
 	private static final String GET_ONE_VRF_STMT = "SELECT lld_id_picf, lld_id_picb, lld_id_pic2, lld_id_uploadtime, lld_id_isupload, lld_id_result, lld_id_disapprove, lld_id_vrftime from LANDLORD where lld_no=?";
+	private static final String GET_ONE_VRF_NOPICS_STMT = "SELECT lld_id_isupload, lld_id_result, lld_id_disapprove from LANDLORD where lld_no=?";
 	private static final String GET_ALL_VRF_STMT = "SELECT lld_id_picf, lld_id_picb, lld_id_pic2, lld_id_uploadtime, lld_id_isupload, lld_id_result, lld_id_disapprove, lld_id_vrftime from LANDLORD ORDER BY lld_no";
 
 	private static final String UPDATE_VRF_PICS_STMT = "UPDATE LANDLORD set lld_id_picf=?, lld_id_picb=?, lld_id_pic2=?, lld_id_isupload=? where lld_no=?";
-	
-	
+
 	@Override
 	public void update_vrf_pics(LldVO lldVO) {
 		Connection con = null;
@@ -971,8 +972,7 @@ public class LldDAO implements LandlordDAO_interface {
 			}
 		}
 	}
-	
-	
+
 	@Override
 	public void update_vrf(LldVO lldVO) {
 		Connection con = null;
@@ -1029,6 +1029,7 @@ public class LldDAO implements LandlordDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				lldVO = new LldVO();
 				lldVO.setLld_id_picf(rs.getBytes("lld_id_picf"));
 				lldVO.setLld_id_picb(rs.getBytes("lld_id_picb"));
 				lldVO.setLld_id_pic2(rs.getBytes("lld_id_pic2"));
@@ -1037,6 +1038,59 @@ public class LldDAO implements LandlordDAO_interface {
 				lldVO.setLld_id_result(rs.getInt("lld_id_result"));
 				lldVO.setLld_id_disapprove(rs.getString("lld_id_disapprove"));
 				lldVO.setLld_id_vrftime(rs.getTimestamp("lld_id_vrftime"));
+			}
+
+		} catch (SQLException se) {
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return lldVO;
+	}
+
+	@Override
+	public LldVO findByPK_vrf(String lld_no, Boolean getVrfPics) {
+		LldVO lldVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_VRF_NOPICS_STMT);
+
+			if (!getVrfPics) {
+				
+				pstmt.setString(1, lld_no);
+				
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					lldVO = new LldVO();
+					lldVO.setLld_id_isupload(rs.getInt("lld_id_isupload"));
+					lldVO.setLld_id_result(rs.getInt("lld_id_result"));
+					lldVO.setLld_id_disapprove(rs.getString("lld_id_disapprove"));
+				}
 			}
 
 		} catch (SQLException se) {
@@ -1081,6 +1135,7 @@ public class LldDAO implements LandlordDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				lldVO = new LldVO();
 				lldVO.setLld_id_picf(rs.getBytes("lld_id_picf"));
 				lldVO.setLld_id_picb(rs.getBytes("lld_id_picb"));
 				lldVO.setLld_id_pic2(rs.getBytes("lld_id_pic2"));
@@ -1173,6 +1228,7 @@ public class LldDAO implements LandlordDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				lldVO = new LldVO();
 				lldVO.setLld_reported_count(rs.getInt("lld_reported_count"));
 			}
 
@@ -1205,8 +1261,8 @@ public class LldDAO implements LandlordDAO_interface {
 	}
 
 	// =================================7.auth==================================
-	private static final String UPDATE_AUTH_STMT = "UPDATE LANDLORD set lld_auth_chat=?, lld_auth_res=?, lld_auth_cmt=?, lld_auth_rpt=?, lld_auth_hos=? where lld_no=?";
-	private static final String GET_ONE_AUTH_STMT = "SELECT lld_auth_chat, lld_auth_res, lld_auth_cmt, lld_auth_rpt, lld_auth_hos from LANDLORD where lld_no=?";
+	private static final String UPDATE_AUTH_STMT = "UPDATE LANDLORD set lld_auth_chat=?, lld_auth_res=?, lld_auth_cmt=?, lld_auth_rpt=? where lld_no=?";
+	private static final String GET_ONE_AUTH_STMT = "SELECT lld_auth_chat, lld_auth_res, lld_auth_cmt, lld_auth_rpt from LANDLORD where lld_no=?";
 
 	@Override
 	public void update_auth(LldVO lldVO) {
@@ -1221,8 +1277,7 @@ public class LldDAO implements LandlordDAO_interface {
 			pstmt.setInt(2, lldVO.getLld_auth_res());
 			pstmt.setInt(3, lldVO.getLld_auth_cmt());
 			pstmt.setInt(4, lldVO.getLld_auth_rpt());
-			pstmt.setInt(5, lldVO.getLld_auth_hos());
-			pstmt.setString(6, lldVO.getLld_no());
+			pstmt.setString(5, lldVO.getLld_no());
 
 			pstmt.executeUpdate();
 
@@ -1261,11 +1316,11 @@ public class LldDAO implements LandlordDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				lldVO = new LldVO();
 				lldVO.setLld_auth_chat(rs.getInt("lld_auth_chat"));
 				lldVO.setLld_auth_res(rs.getInt("lld_auth_res"));
 				lldVO.setLld_auth_cmt(rs.getInt("lld_auth_cmt"));
 				lldVO.setLld_auth_rpt(rs.getInt("lld_auth_rpt"));
-				lldVO.setLld_auth_hos(rs.getInt("lld_auth_hos"));
 			}
 
 		} catch (SQLException se) {

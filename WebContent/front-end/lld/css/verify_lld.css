@@ -1044,6 +1044,12 @@
             font-weight: bold;
             font-size: 17px;
         }
+        .vrfstate {
+        	color: #916a3c;
+        	font-weight: normal;
+    		line-height: 2;
+    		font-size: 20;
+        }
 
         /*------------------------------------------------------------------
 [ Backend validate ]*/
