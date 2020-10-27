@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.lld.model.*"%>
 
-<% session.removeAttribute("lld_no"); %>
+<% session.removeAttribute("tnt_no"); %>
 <% String lld_no = (String) session.getAttribute("lld_no");%>
 <jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
 
@@ -63,11 +63,11 @@
 		 }
 		 
 		.text-primary {
-   			color: #3a8c68!important;
+   			color: #916a3c!important;
 		}
 		
 /* 		 @media (max-width:1199.98px) { */
-       @media (max-width:2000px) {
+       @media (max-width:3000px) {
             .basicInfo__list {
                 position: fixed;
                 top: 54px;
@@ -124,7 +124,7 @@
                             </a>
                             <div class="basicInfo__userImg mx-auto mb-3 divBigHeadPic">
                                 <a class="awrapBigHeadPic">
-                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${lldVOVO.lld_no}" width="110" class="imgBigHeadPic">
+                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${lldVO.lld_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
                             <p class="text-gray text-center mb-3">房東</p>
@@ -258,7 +258,7 @@
     <script src="<%=request.getContextPath()%>/front-end/lld/js/jquery.js"></script>
 <%--     <script src="<%=request.getContextPath()%>/front-end/lld/js/jquery.datetimepicker.full.js"></script> --%>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/lld/js/booking_lld..js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/js/booking_lld.js"></script>
     <!--===============================================================================================-->
     
 <script>
