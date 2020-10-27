@@ -113,17 +113,31 @@
 			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
+					<c:if test="${recVO.rec_sta == 0}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/apl/images/aplimage.jpg"
+							src="<%=request.getContextPath()%>/front-end/rec/images/unfill.png"
 							class="pic" />
+					</c:if>
+					<c:if test="${recVO.rec_sta == 1}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/rec/images/unpaid.png"
+							class="pic" />
+					</c:if>
+					<c:if test="${recVO.rec_sta == 2}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/rec/images/paid.jpg"
+							class="pic" />
+					</c:if>
 					</div>
 					<div class="cinfo">
 						<ul>
 							<li><span class="infotitle">訂單編號 : </span><span>${recVO.rec_no}</span></li>							
 							<li><span class="infotitle">訂單月份 : </span><span>${recSvc.getMonthText(recVO.rec_mon)}</span></li>
-							<li><span class="infotitle">本月使用水量 : </span><span>${recVO.rec_water}</span></li>
-							<li><span class="infotitle">本月使用電量 : </span><span>${recVO.rec_elec}</span></li>
-							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}</span></li>
+							<c:if test="${recVO.rec_sta != 0}">
+							<li><span class="infotitle">本月使用水量 : </span><span>${recVO.rec_water}度</span></li>
+							<li><span class="infotitle">本月使用電量 : </span><span>${recVO.rec_elec}度</span></li>
+							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}元</span></li>
+							</c:if>
 							<li><span class="infotitle">帳單狀態 : </span><span>${recSvc.getRecStatusText(recVO.rec_sta)}</span></li>
 						</ul>
 					</div>					
@@ -131,7 +145,9 @@
 							
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+								<c:if test="${recVO.rec_sta == 0}">
 								<li><button id="btn1">填寫帳單</button></li>
+								</c:if>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
 								<input type="hidden" name="con_no"  value="${recVO.con_no}">
@@ -140,7 +156,9 @@
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+			     				<c:if test="${recVO.rec_sta == 1}">
 								<li><button id="btn2">帳單明細</button></li>
+								</c:if>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
 								<input type="hidden" name="con_no"  value="${recVO.con_no}">
@@ -149,7 +167,9 @@
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+			     				<c:if test="${recVO.rec_sta != 0}">
 								<li><button type="button" id="btn3" data-toggle="modal" data-target="#exampleModalCenter">評價房客</button></li>
+								</c:if>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
 								<input type="hidden" name="con_no"  value="${recVO.con_no}">
@@ -157,7 +177,7 @@
 <!-- 			     				<input type="hidden" name="action"	value="getOne_For_Update"> -->
 			     				</FORM>
 			     				
-								<li><button id="btn3">聊天</button></li>
+								<li><button id="btn4">聊天</button></li>
 								
 														
 							</ul>
