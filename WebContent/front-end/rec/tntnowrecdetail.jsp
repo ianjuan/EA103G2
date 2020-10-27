@@ -198,9 +198,14 @@
 				<input type="hidden" id="tnt_total" name="tnt_total" value="<%=recVO.getRec_total()%>">
 				<input type="hidden" id="tnt_balance" name="tnt_balance" value="<%=tntSvc.getOneTntPocket(tnt_no).getTnt_balance()%>">
 				<div id="cfoot">
+					<c:if test="${recVO.rec_sta == 1}">
 					<button class="btn" type="button" onclick="notice2()">修改申請</button>
 					<input type="hidden" name="action" value="tntpayrec">
-					<button class="btn" type="button" onclick="checkmoney()">繳交費用</button>					
+					<button class="btn" type="button" onclick="checkmoney()">繳交費用</button>
+					</c:if>
+					<c:if test="${recVO.rec_sta == 2}">
+					<button class="btn">確定</button>
+					</c:if>					
 				</div>				
 			</div>
 			<div id="right">
@@ -209,9 +214,15 @@
 					</ul>
 				</div>
 				<div id="rfoot">
+					<c:if test="${recVO.rec_sta == 1}">
 					<button class="btn" type="button" onclick="notice2()">修改申請</button>
 					<input type="hidden" name="action" value="tntpayrec">
 					<button class="btn" type="button" onclick="checkmoney()">繳交費用</button>
+					</c:if>
+					<c:if test="${recVO.rec_sta == 2}">
+					<input type="hidden" name="action" value="tntpayrec">
+					<button class="btn">確定</button>
+					</c:if>	
 				</div>
 			</div>
 		</FORM>			

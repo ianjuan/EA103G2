@@ -292,6 +292,7 @@
 		<url-pattern>/back-end/rptt/RpttServlet</url-pattern>
 		<url-pattern>/front-end/rptt/RpttServlet</url-pattern>
 		<url-pattern>/back-end/vrf/RpttServlet</url-pattern>
+			<url-pattern>/back-end/member/RpttServlet</url-pattern>
 	</servlet-mapping>
 	
 <!-- 	Melon -->

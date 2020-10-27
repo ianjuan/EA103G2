@@ -19,7 +19,7 @@ public interface TenantDAO_interface {
 	public List<TntVO> getUnvrf_Unresult(Integer number, Integer number2);
 	public List<TntVO> findByNo(String number);
 	public TntVO findEmail(String tnt_no);
-
+    public void update_auth(TntVO tntvo);
 
 
 
