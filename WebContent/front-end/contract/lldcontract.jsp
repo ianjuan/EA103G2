@@ -112,11 +112,11 @@
 				         <br>			
 						 立契約書人承租人<mark><b><%=lldVO.getLld_name()%></b></mark>，出租人<b>___</b>茲為房屋租賃事宜，雙方同意本契約條款如下： <br><br>
 						<strong>第一條 房屋租賃標的</strong><br><br>
-						&nbsp;&nbsp;一、地址：<mark><b><%=houseVO.getHos_add()%>。</b></mark><br><br>
-						&nbsp;&nbsp;二、面積共計：<mark><b><%=houseVO.getHos_pnum()%></b></mark>平方公尺。<br><br>
-						&nbsp;&nbsp;三、車位： <mark><b><%=houseVO.getHos_park()%>。</b></mark><br><br>
+						&nbsp;&nbsp;<b>一、地址：</b><mark><b><%=houseVO.getHos_add()%>。</b></mark><br><br>
+						&nbsp;&nbsp;<b>二、面積共計：</b><mark><b><%=houseVO.getHos_pnum()%></b></mark>坪。<br><br>
+						&nbsp;&nbsp;<b>三、車位： </b><mark><b><%=houseVO.getHos_park()%>。</b></mark><br><br>
 						<div id="furdiv">
-							&nbsp;&nbsp;四、租賃附屬設備： <br><br>
+							&nbsp;&nbsp;<b>四、租賃附屬設備： </b><br><br>
 							<%=houseVO.getHos_table()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>桌子</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_table'>"+
 								  "<option value='1'>1</option>"+
@@ -124,11 +124,6 @@
 								  "<option value='3'>3</option>"+
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
-								  "<option value='6'>6</option>"+
-								  "<option value='7'>7</option>"+
-								  "<option value='8'>8</option>"+
-								  "<option value='9'>9</option>"+
-								  "<option value='10'>10</option>"+
 								"</select>"+
 							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_table' value='0'>"%>
 							<%=houseVO.getHos_chair()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>椅子</b></mark>&nbsp;&nbsp;"+
@@ -138,11 +133,6 @@
 								  "<option value='3'>3</option>"+
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
-								  "<option value='6'>6</option>"+
-								  "<option value='7'>7</option>"+
-								  "<option value='8'>8</option>"+
-								  "<option value='9'>9</option>"+
-								  "<option value='10'>10</option>"+
 								"</select>"+
 							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_chair' value='0'>"%>
 							<%=houseVO.getHos_bed()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>床</b></mark>&nbsp;&nbsp;"+
@@ -152,11 +142,6 @@
 								  "<option value='3'>3</option>"+
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
-								  "<option value='6'>6</option>"+
-								  "<option value='7'>7</option>"+
-								  "<option value='8'>8</option>"+
-								  "<option value='9'>9</option>"+
-								  "<option value='10'>10</option>"+
 								"</select>"+
 							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_bed' value='0'>"%>
 							<%=houseVO.getHos_closet()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>衣櫃</b></mark>&nbsp;&nbsp;"+
@@ -166,11 +151,6 @@
 								  "<option value='3'>3</option>"+
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
-								  "<option value='6'>6</option>"+
-								  "<option value='7'>7</option>"+
-								  "<option value='8'>8</option>"+
-								  "<option value='9'>9</option>"+
-								  "<option value='10'>10</option>"+
 								"</select>"+
 							"&nbsp;&nbsp個。</label><br><br><br>":"<input type='hidden' name='hos_closet' value='0'>"%>
 							<%=houseVO.getHos_sofa()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>沙發</b></mark>&nbsp;&nbsp;"+
@@ -180,11 +160,6 @@
 								  "<option value='3'>3</option>"+
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
-								  "<option value='6'>6</option>"+
-								  "<option value='7'>7</option>"+
-								  "<option value='8'>8</option>"+
-								  "<option value='9'>9</option>"+
-								  "<option value='10'>10</option>"+
 								"</select>"+
 							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_sofa' value='0'>"%>
 							<%=houseVO.getHos_refrig()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>冰箱</b></mark>&nbsp;&nbsp;"+
@@ -242,31 +217,34 @@
 								"</select>"+
 							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_hoter' value='0'>"%>
 						</div>						
-						&nbsp;&nbsp;五、其他： <%=houseVO.getHos_forth()>0?"<mark><b>第四台</b></mark> ":""%><%=houseVO.getHos_net()>0?"<mark><b>網路</b></mark> ":""%><%=houseVO.getHos_gas()>0?"<mark><b>天然瓦斯</b></mark>":""%>。<br><br>
+						&nbsp;&nbsp;<b>五、其他： </b><%=houseVO.getHos_forth()>0?"<mark><b>第四台</b></mark> ":""%><%=houseVO.getHos_net()>0?"<mark><b>網路</b></mark> ":""%><%=houseVO.getHos_gas()>0?"<mark><b>天然瓦斯</b></mark>":""%>。<br><br>
 						<strong>第二條 租賃期間</strong><br><br>
     					&nbsp;&nbsp;租賃期間自西元<b>___</b>起至西元<b>___</b>止。<br><br>
 						<div id="feediv">
 							<strong>第三條 租金約定及支付</strong><br><br>
-	  						&nbsp;&nbsp;承租人每月租金為新臺幣(下同)<mark><b><%=houseVO.getHos_rentfee()%>元</b></mark>整，每期應繳納<mark ><b>一個月</b></mark>租金，並於每月一日前支付，不得藉任何理由拖延或拒絕；出租人亦不得任意要求調整租金。<br><br>
+	  						&nbsp;&nbsp;承租人每月租金為新臺幣(下同)<mark><b><%=houseVO.getHos_rentfee()%>元</b></mark>整，每期應繳納<mark ><b>一個月</b></mark>租金，並於每月一日前支付，不得藉任何理由拖延或拒絕；<br>
+	  						&nbsp;&nbsp;出租人亦不得任意要求調整租金。<br><br>
 							&nbsp;&nbsp;租金支付方式：□現金繳付■轉帳繳付 <br><br>
 						</div>						
 						<strong>第四條 擔保金（押金）約定及返還</strong><br><br>
 						&nbsp;&nbsp;擔保金（押金）由租賃雙方約定為<mark><b>兩個月</b></mark>租金，金額為<mark><b><%=houseVO.getHos_rentfee()*2%></b></mark>元整。承租人應於簽訂本契約之同時給付出租人。<br><br>
-   						&nbsp;&nbsp;前項擔保金（押金），除有第十一條第三項、第十二條第四項及第十六條第二項之情形外，出租人應於租期屆滿或租賃契約終止，承租人交還房屋時返還之。<br><br>
+   						&nbsp;&nbsp;前項擔保金（押金），除有第十一條第三項、第十二條第四項及第十六條第二項之情形外，<br>
+   						&nbsp;&nbsp;出租人應於租期屆滿或租賃契約終止，承租人交還房屋時返還之。<br><br>
 						<strong>第五條 租賃期間相關費用之支付</strong><br><br>
 						&nbsp;&nbsp;租賃期間，使用房屋所生之相關費用： <br><br>
-						&nbsp;&nbsp;一、管理費：<br><br>
+						&nbsp;&nbsp;<b>一、管理費：</b><br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;房屋每月<mark ><b><%=houseVO.getHos_manafee()%></b></mark>元整。 <br><br>
-						&nbsp;&nbsp;&nbsp;&nbsp;租賃期間因不可歸責於雙方當事人之事由，致本費用增加者，承租人就增加部分之金額，以負擔百分之十為限；如本費用減少者，承租人負擔減少後之金額。<br><br>
-						&nbsp;&nbsp;二、水費：<br><br>
+						&nbsp;&nbsp;&nbsp;&nbsp;租賃期間因不可歸責於雙方當事人之事由，致本費用增加者，承租人就增加部分之金額，以負擔百分之十為限；<br>
+						&nbsp;&nbsp;&nbsp;&nbsp;如本費用減少者，承租人負擔減少後之金額。<br><br>
+						&nbsp;&nbsp;<b>二、水費：</b><br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==0?"■<mark><b>由出租人負擔</b></mark>。":"□<mark><b>由出租人負擔</b></mark>。"%><br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==1?"■":"□"%>每度<%=houseVOwaterfee.getHos_waterfeetype()==1?"<mark><b>"+houseVOwaterfee.getHos_waterfee()+"</b></mark>":"__"%>元。<br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOwaterfee.getHos_waterfeetype()==2?"■":"□"%>每月<%=houseVOwaterfee.getHos_waterfeetype()==2?"<mark><b>"+houseVOwaterfee.getHos_waterfee()+"</b></mark>":"__"%>元。<br><br>
-						&nbsp;&nbsp;<strong>三、電費：<strong><br><br>
+						&nbsp;&nbsp;<b>三、電費：</b><br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==0?"■<mark><b>由出租人負擔</b></mark>。":"□<mark><b>由出租人負擔</b></mark>。"%><br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==1?"■":"□"%>每度<%=houseVOelectfee.getHos_electfeetype()==1?"<mark><b>"+houseVOelectfee.getHos_electfee()+"</b></mark>":"__"%>元。<br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVOelectfee.getHos_electfeetype()==2?"■":"□"%>每月<%=houseVOelectfee.getHos_electfeetype()==2?"<mark><b>"+houseVOelectfee.getHos_electfee()+"</b></mark>":"__"%>元。<br><br>
-						&nbsp;&nbsp;四、其他費用及其支付方式：<br><br>
+						&nbsp;&nbsp;<b>四、其他費用及其支付方式：</b><br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVO.getHos_gasfee()>0?"■":"□"%>瓦斯費：<mark><b><%=houseVO.getHos_gasfee()%></b></mark>元。<br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVO.getHos_puwaterfee()>0?"■":"□"%>公共水費：<mark><b><%=houseVO.getHos_puwaterfee()%></b></mark>元。<br><br>
 						&nbsp;&nbsp;&nbsp;&nbsp;<%=houseVO.getHos_puelefee()>0?"■":"□"%>公共電費：<mark><b><%=houseVO.getHos_puelefee()%></b></mark>元。<br><br>
@@ -286,14 +264,16 @@
 							&nbsp;&nbsp;出租人□同意■不同意將本房屋之全部或一部分轉租、出借或 以其他方式供他人使用，或將租賃權轉讓於他人。<br>
 							&nbsp;&nbsp;前項出租人同意轉租者，承租人應提示出租人同意轉租之證明文件。 <br><br>
 							<strong>第八條 修繕及改裝</strong><br><br>
-							&nbsp;&nbsp;房屋或附屬設備損壞而有修繕之必要時，應由出租人負責修繕。但租賃雙方另有約定、習慣或可歸責於承租人之事由者，不在此限。 <br>
-							&nbsp;&nbsp;前項由出租人負責修繕者，如出租人未於承租人所定相當期限內修繕時，承租人得自行修繕並請求出租人償還其費用或於第三條約定之租金中扣除。 <br>
+							&nbsp;&nbsp;房屋或附屬設備損壞而有修繕之必要時，應由出租人負責修繕。 <br>
+							&nbsp;&nbsp;但租賃雙方另有約定、習慣或可歸責於承租人之事由者，不在此限。 <br>
+							&nbsp;&nbsp;前項由出租人負責修繕者，如出租人未於承租人所定相當期限內修繕時，<br>
+							&nbsp;&nbsp;承租人得自行修繕並請求出租人償還其費用或於第三條約定之租金中扣除。 <br>
 							&nbsp;&nbsp;房屋有改裝設施之必要，承租人應經出租人同意，始得依相關法令自行裝設，但不得損害原有建築之結構安全。 <br>
 							&nbsp;&nbsp;前項情形承租人返還房屋時，■應負責回復原狀□現況返還□其他__。 <br><br>
 							<strong>第九條 承租人之責任</strong><br><br>
 	    					&nbsp;&nbsp;承租人應以善良管理人之注意保管房屋，如違反此項義務，致房屋毀損或滅失者，應負損害賠償責任。<br>
 	    					&nbsp;&nbsp;但依約定之方法或依房屋之性質使用、收益，致房屋有毀損或滅失者，不在此限。 <br><br>
-							<strong>第十條 房屋部分滅失<strong><br><br>
+							<strong>第十條 房屋部分滅失</strong><br><br>
 	   						&nbsp;&nbsp;租賃關係存續中，因不可歸責於承租人之事由，致房屋之一部滅失者，承租人得按滅失之部分，請求減少租金。 <br><br>
 							<strong>第十一條 提前終止租約</strong><br><br>
 							&nbsp;&nbsp;本契約於期限屆滿前，租賃雙方■得□不得終止租約。 <br>
@@ -303,8 +283,10 @@
 							&nbsp;&nbsp;租期屆滿前，依第二項終止租約者，出租人已預收之租金應返還予承租人。 <br><br>
 							<strong>第十二條 房屋之返還</strong><br><br>
 							&nbsp;&nbsp;租期屆滿或租賃契約終止時，承租人應即將房屋返還出租人並遷出戶籍或其他登記。 <br>
-							&nbsp;&nbsp;前項房屋之返還，應由租賃雙方共同完成屋況及設備之點交手續。租賃之一方未會同點交，經他方定相當期限催告仍不會同者，視為完成點交。 <br>
-							&nbsp;&nbsp;承租人未依第一項約定返還房屋時，出租人得向承租人請求未返還房屋期間之相當月租金額外，並得請求相當月租金額一倍(未足一個月者，以日租金折算)之違約金至返還為止。 <br>
+							&nbsp;&nbsp;前項房屋之返還，應由租賃雙方共同完成屋況及設備之點交手續。<br>
+							&nbsp;&nbsp;租賃之一方未會同點交，經他方定相當期限催告仍不會同者，視為完成點交。 <br>
+							&nbsp;&nbsp;承租人未依第一項約定返還房屋時，出租人得向承租人請求未返還房屋期間之相當月租金額外，<br>
+							&nbsp;&nbsp;並得請求相當月租金額一倍(未足一個月者，以日租金折算)之違約金至返還為止。 <br>
 	    					&nbsp;&nbsp;前項金額及承租人未繳清之相關費用，出租人得由第四條之擔保金(押金)中扣抵。 <br><br>
 							<strong>第十三條 房屋所有權之讓與</strong><br><br>
 							&nbsp;&nbsp;出租人於房屋交付後，承租人占有中，縱將其所有權讓與第三人，本契約對於受讓人仍繼續存在。 <br>
@@ -356,7 +338,7 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;□其他（測量成果圖、室內空間現狀照片） <br><br>
 						</div>
 						
-						<div id="signdiv"><br>立契約書人<br><br></div>						
+						<div id="signdiv"><br><strong>立契約書人</strong><br><br></div>						
 						&nbsp;&nbsp;出租人： <br><br>
 						&nbsp;&nbsp;姓名：<mark><b><%=lldVO.getLld_name()%></b></mark><br><br>
 						&nbsp;&nbsp;簽章 (<span style="mark-style: italic;">請於下方簽名欄簽名</span>)
@@ -420,7 +402,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont1.js" charset="UTF-8"></script>
 	<script>			
 	  	(function (document) {
-		  const markers = [...document.querySelectorAll('mark')];
+		  const markers = document.querySelectorAll('mark');
 		  
 		  const observer = new IntersectionObserver(entries => {
 		    entries.forEach((entry) => {
