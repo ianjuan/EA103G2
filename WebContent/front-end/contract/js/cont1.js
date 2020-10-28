@@ -91,7 +91,7 @@ function notice1(){
 		      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 		    }}).then(function(isConfirm){
 				if(isConfirm){
-					swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
+					swal("成功送出!!", "", "success", {button: "確認"}).then(function(){
 						document.contForm.submit();
 					});
 				} else {
@@ -102,11 +102,11 @@ function notice1(){
 }
 
 function notice2(){
-	swal({title:"確定要重新填寫嗎?", text:"" , icon:"info", buttons: {
+	swal({title:"確定要重置嗎?", text:"" , icon:"info", buttons: {
 	      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 	    }}).then(function(isConfirm){
 		if(isConfirm){
-			swal("已重置欄位!", "" , "success", {button: "確認"}).then(function(){
+			swal("已重置!", "" , "success", {button: "確認"}).then(function(){
 				document.contForm.reset();
 			});
 		} else {
