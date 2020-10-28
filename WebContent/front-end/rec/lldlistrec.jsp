@@ -186,7 +186,7 @@
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
 								<input type="hidden" name="con_no"  value="${recVO.con_no}">
-			     				<input type="hidden" name="tnt_no" value="<%=lld_no%>">
+			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 <!-- 			     				<input type="hidden" name="action"	value="getOne_For_Update"> -->
 			     				</FORM>
 			     				
