@@ -5,6 +5,8 @@
 <%@ page import="com.housemanage.model.*"%>
 <%@ page import="com.cont.model.*"%>
 <%@ page import="com.lld.model.*"%>
+<%@ page import="com.tnt.model.*"%>
+<%@page import="com.apl.model.Con_aplVO"%>
 
 <%
 	HouseVO houseVO = (HouseVO) request.getAttribute("houseVO");
@@ -12,7 +14,9 @@
 	HouseVO houseVOelectfee = (HouseVO) request.getAttribute("houseVOelectfee");
 	
 	ConVO conVO = (ConVO)request.getAttribute("conVO");
+	TntVO tntVO = (TntVO) request.getAttribute("tntVO");
  	LldVO lldVO = (LldVO)request.getAttribute("lldVO");
+ 	Con_aplVO con_aplVO = (Con_aplVO) request.getAttribute("con_aplVO");
  	
  	String lld_no = (String) session.getAttribute("lld_no");
 	if (lld_no == null) {
@@ -109,8 +113,8 @@
 					<h2>房屋租賃契約書</h2><a id="top" href="#">置頂</a><a id="fur" href="#">傢俱設備</a><a id="fee" href="#">費用</a><a id="signhref" href="#">簽名</a><a id="other_show" href="#">其他項目</a><a id="other_hide" href="#">其他項目</a>
 				</div>		
 				<div id="cbody">
-				         <br>			
-						 立契約書人承租人<mark><b><%=lldVO.getLld_name()%></b></mark>，出租人<b>___</b>茲為房屋租賃事宜，雙方同意本契約條款如下： <br><br>
+				        <br>			
+						 立契約書人出租人<mark><b><%=lldVO.getLld_name().trim()%></b></mark>，承租人<mark><b><%=tntVO.getTnt_name().trim()%></b></mark>&nbsp;茲為房屋租賃事宜，雙方同意本契約條款如下： <br><br>
 						<strong>第一條 房屋租賃標的</strong><br><br>
 						&nbsp;&nbsp;<b>一、地址：</b><mark><b><%=houseVO.getHos_add()%>。</b></mark><br><br>
 						&nbsp;&nbsp;<b>二、面積共計：</b><mark><b><%=houseVO.getHos_pnum()%></b></mark>坪。<br><br>
@@ -219,7 +223,7 @@
 						</div>						
 						&nbsp;&nbsp;<b>五、其他： </b><%=houseVO.getHos_forth()>0?"<mark><b>第四台</b></mark> ":""%><%=houseVO.getHos_net()>0?"<mark><b>網路</b></mark> ":""%><%=houseVO.getHos_gas()>0?"<mark><b>天然瓦斯</b></mark>":""%>。<br><br>
 						<strong>第二條 租賃期間</strong><br><br>
-    					&nbsp;&nbsp;租賃期間自西元<b>___</b>起至西元<b>___</b>止。<br><br>
+    					&nbsp;&nbsp;租賃期間自西元<mark><b><%=con_aplVO.getApl_str()%></b></mark>起至西元<mark><b><%=con_aplVO.getApl_end()%></b></mark>止。<br><br>
 						<div id="feediv">
 							<strong>第三條 租金約定及支付</strong><br><br>
 	  						&nbsp;&nbsp;承租人每月租金為新臺幣(下同)<mark><b><%=houseVO.getHos_rentfee()%>元</b></mark>整，每期應繳納<mark ><b>一個月</b></mark>租金，並於每月一日前支付，不得藉任何理由拖延或拒絕；<br>
@@ -339,7 +343,7 @@
 						</div>
 						
 						<div id="signdiv"><br><strong>立契約書人</strong><br><br></div>						
-						&nbsp;&nbsp;出租人： <br><br>
+						出租人： <br><br>
 						&nbsp;&nbsp;姓名：<mark><b><%=lldVO.getLld_name()%></b></mark><br><br>
 						&nbsp;&nbsp;簽章 (<span style="mark-style: italic;">請於下方簽名欄簽名</span>)
 						<div class="container">
@@ -361,65 +365,44 @@
 							</div>
 						</div>
 						 
-						 統一編號：<mark><b><%=lldVO.getLld_id()%></b></mark><br><br>
-						 戶籍地址：<mark><b><%=lldVO.getLld_city()%><%=lldVO.getLld_dist()%><%=lldVO.getLld_add()%></b></mark><br><br>
-						 通訊地址：<mark><b><%=lldVO.getLld_city()%><%=lldVO.getLld_dist()%><%=lldVO.getLld_add()%></b></mark><br><br>
-						 聯絡電話：<mark><b><%=lldVO.getLld_mobile()%></b></mark><br><br>
-						 電子郵件信箱：<mark><b><%=lldVO.getLld_email()%></b></mark> <br><br>
-<!-- 						 承租人： <br> -->
-<!-- 						 姓名：<mark ><b></b></mark>   簽章 <br> -->
+						&nbsp;&nbsp;統一編號：<mark><b><%=lldVO.getLld_id()%></b></mark><br><br>
+						&nbsp;&nbsp;戶籍地址：<mark><b><%=lldVO.getLld_city()%><%=lldVO.getLld_dist()%><%=lldVO.getLld_add()%></b></mark><br><br>
+						&nbsp;&nbsp;通訊地址：<mark><b><%=lldVO.getLld_city()%><%=lldVO.getLld_dist()%><%=lldVO.getLld_add()%></b></mark><br><br>
+						&nbsp;&nbsp;聯絡電話：<mark><b><%=lldVO.getLld_mobile()%></b></mark><br><br>
+						&nbsp;&nbsp;電子郵件信箱：<mark><b><%=lldVO.getLld_email()%></b></mark><br><br>
+												
+						承租人<br><br>
+						&nbsp;&nbsp;姓名：<mark><b><%=tntVO.getTnt_name()%></b></mark><br><br>
+						&nbsp;&nbsp;簽章 <br><br>
 						 
-<!-- 						 統一編號：<mark ><b></b></mark> <br> -->
-<!-- 						 戶籍地址：<mark ><b></b></mark> <br> -->
-<!-- 						 通訊地址：<mark ><b></b></mark> <br> -->
-<!-- 						 聯絡電話：<mark ><b></b></mark> <br> -->
-<!-- 						 電子郵件信箱：<mark ><b></b></mark> <br> -->
-<!-- 						 保證人： <br> -->
-						 名稱：愛租　 <br>
-						 戶籍地址：桃園區中壢市中央路300號 <br>
-						 通訊地址：桃園區中壢市中央路300號 <br>
-						 聯絡電話：0988755012 <br>
-						 電子郵件信箱：ea103g2@gmail.com <br>
-<%-- 						 西元<%=conVO.getCon_date()%><br>			        				 --%>
+						&nbsp;&nbsp;統一編號：<mark><b><%=tntVO.getTnt_id()%></b></mark><br><br>
+						&nbsp;&nbsp;戶籍地址：<mark><b><%=tntVO.getTnt_city()%><%=tntVO.getTnt_dist()%><%=tntVO.getTnt_add()%></b></mark><br><br>
+						&nbsp;&nbsp;通訊地址：<mark><b><%=tntVO.getTnt_city()%><%=tntVO.getTnt_dist()%><%=tntVO.getTnt_add()%></b></mark><br><br>
+						&nbsp;&nbsp;聯絡電話：<mark><b><%=tntVO.getTnt_mobile()%></b></mark><br><br>
+						&nbsp;&nbsp;電子郵件信箱：<mark><b><%=tntVO.getTnt_email()%></b></mark><br><br><br>
+						
+						名稱：愛租　 <br>
+						戶籍地址：桃園區中壢市中央路300號 <br>
+						通訊地址：桃園區中壢市中央路300號 <br>
+						聯絡電話：0988755012 <br>
+						電子郵件信箱：ea103g2@gmail.com <br>
+<%-- 						 西元<%=conVO.getCon_date()%><br> --%>
 				</div>
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 				<input type="hidden" name="con_no" value="<%=conVO.getCon_no()%>">
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
 				<input type="hidden" name="lld_mobile" value="<%=lldVO.getLld_mobile()%>">
 				<div id="cfoot">
-					<button class="pagebtn" type="button" onclick="notice2()">全部重填</button>	
+					<button class="pagebtn" type="button" onclick="notice2()">重新填寫</button>	
 					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="pagebtn" type="button" onclick="notice1()">合約預覽</button>					
+					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>					
 				</div>				
 			</div>
-			<div id="right">
-			</div>
+			<div id="right"></div>
 		</form>
 	</div>
 	<div id="foot"></div>
 	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont1.js" charset="UTF-8"></script>
-	<script>			
-	  	(function (document) {
-		  const markers = document.querySelectorAll('mark');
-		  
-		  const observer = new IntersectionObserver(entries => {
-		    entries.forEach((entry) => {
-		      if (entry.intersectionRatio > 0) {
-		        entry.target.style.animationPlayState = 'running';
-		        observer.unobserve(entry.target);
-		      }
-		    });
-		  }, {
-		    threshold: 0.8
-		  });
-		  
-		  markers.forEach(mark => {
-		    observer.observe(mark);
-		  });
-		})(document);
-	  	
-	  	
-	</script>
 </body>
 </html>
