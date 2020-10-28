@@ -72,8 +72,6 @@ public class ConServlet extends HttpServlet {
 				/*************************** 1.接收請求參數 ****************************************/
 				String con_no = new String(req.getParameter("con_no"));
 				String hos_no = new String(req.getParameter("hos_no"));
-				String lld_no = null;
-				String tnt_no = null;
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				ConService conSvc = new ConService();
@@ -90,12 +88,12 @@ public class ConServlet extends HttpServlet {
 				HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
 				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
 
-				lld_no = houseSvc.getHouseInfo(hos_no).getLld_no();
 				LldService lldService = new LldService();
+				String lld_no = houseSvc.getHouseInfo(hos_no).getLld_no();				
 				LldVO lldVO = lldService.getOneLldProfile(lld_no);
 
 				TntService tntSvc = new TntService();
-				tnt_no = conSvc.getOneCon(con_no).getTnt_no();
+				String tnt_no = conSvc.getOneCon(con_no).getTnt_no();
 				TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
@@ -106,6 +104,7 @@ public class ConServlet extends HttpServlet {
 				req.setAttribute("con_aplVO", con_aplVO);
 				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 				req.setAttribute("houseVOelectfee", houseVOelectfee);
+								
 				String url = "/front-end/contract/tntfinalcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -308,7 +307,7 @@ public class ConServlet extends HttpServlet {
 				ConService conSvc = new ConService();
 				ConVO conVO = conSvc.getOneCon(con_no);
 				System.out.println(conVO.getCon_lld_sign());
-
+								
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
 
@@ -318,12 +317,22 @@ public class ConServlet extends HttpServlet {
 				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
 				List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
 				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
-
+				
+				String tnt_no = conSvc.getOneCon(con_no).getTnt_no();				
+				TntService tntService = new TntService();
+				TntVO tntVO = tntService.getOneTntProfile(tnt_no);
+				
+				String apl_no = conSvc.getOneCon(con_no).getApl_no();
+				Con_aplService con_aplService = new Con_aplService();
+				Con_aplVO con_aplVO = con_aplService.getOneCon_apl(apl_no);
+				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
-				req.setAttribute("lldVO", lldVO);
+				req.setAttribute("lldVO", lldVO);				
 				req.setAttribute("lld_no", lld_no);
-				req.setAttribute("houseVO", houseVO);
+				req.setAttribute("tntVO", tntVO);
+				req.setAttribute("con_aplVO", con_aplVO);
+				req.setAttribute("houseVO", houseVO);				
 				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 				req.setAttribute("houseVOelectfee", houseVOelectfee);
 				req.setAttribute("houseVOpicno", houseVOpicno);// lld_sign
@@ -367,11 +376,21 @@ public class ConServlet extends HttpServlet {
 				HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
 				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
 				List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
+				
+				String lld_no = houseSvc.getHouseInfo((conSvc.getOneCon(con_no).getHos_no())).getLld_no();
+				LldService lldSvc = new LldService();
+				LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
+				
+				String apl_no = conSvc.getOneCon(con_no).getApl_no();
+				Con_aplService con_aplService = new Con_aplService();
+				Con_aplVO con_aplVO = con_aplService.getOneCon_apl(apl_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
 				req.setAttribute("tntVO", tntVO);
 				req.setAttribute("tnt_no", tnt_no);
+				req.setAttribute("lldVO", lldVO);
+				req.setAttribute("con_aplVO", con_aplVO);
 				req.setAttribute("houseVO", houseVO);
 				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 				req.setAttribute("houseVOelectfee", houseVOelectfee);
@@ -543,7 +562,9 @@ public class ConServlet extends HttpServlet {
 				TntService tntSvc = new TntService();
 				tnt_no = conSvc.getOneCon(con_no).getTnt_no();
 				TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
-
+				
+				List<ConVO> list = conSvc.lldgetcon(lld_no);
+				
 				/*************************** 查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
 				req.setAttribute("tntVO", tntVO);
@@ -552,7 +573,12 @@ public class ConServlet extends HttpServlet {
 				req.setAttribute("con_aplVO", con_aplVO);
 				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 				req.setAttribute("houseVOelectfee", houseVOelectfee);
-				String url = "/front-end/contract/lldpreviewcontract.jsp";
+				
+				HttpSession session = req.getSession();
+				session.setAttribute("lld_no", lld_no);
+				session.setAttribute("list", list);
+				
+				String url = "/front-end/contract/lldlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
@@ -570,7 +596,7 @@ public class ConServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				String lld_no = (String) req.getAttribute("lld_no");
+				String lld_no = (String) req.getParameter("lld_no");
 				System.out.println(lld_no);
 
 				ConService conService = new ConService();
@@ -701,7 +727,10 @@ public class ConServlet extends HttpServlet {
 
 				tnt_no = conSvc.getOneCon(con_no).getTnt_no();
 				tntVO = tntSvc.getOneTntProfile(tnt_no);
-
+				
+				ConService conService = new ConService();
+				List<ConVO> list = conService.tntgetcon(tnt_no);
+								
 				/*************************** 查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
 				req.setAttribute("tntVO", tntVO);
@@ -710,7 +739,12 @@ public class ConServlet extends HttpServlet {
 				req.setAttribute("con_aplVO", con_aplVO);
 				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 				req.setAttribute("houseVOelectfee", houseVOelectfee);
-				String url = "/front-end/contract/tntpreviewcontract.jsp";
+				
+				HttpSession session = req.getSession();
+				session.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("list", list);
+				
+				String url = "/front-end/contract/tntlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
@@ -727,7 +761,7 @@ public class ConServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				String tnt_no = (String) req.getAttribute("tnt_no");
+				String tnt_no = (String) req.getParameter("tnt_no");
 				System.out.println(tnt_no);
 
 				ConService conService = new ConService();
@@ -736,7 +770,7 @@ public class ConServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
 				session.setAttribute("list", list);
-				String url = "/front-end/contract/lldlistcontract.jsp";
+				String url = "/front-end/contract/tntlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
@@ -949,11 +983,23 @@ public class ConServlet extends HttpServlet {
 				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
 				List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
 				HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+				
+				String con_no = conSvc.getConbyhos(hos_no).getCon_no();
+				
+				String tnt_no = conSvc.getOneCon(con_no).getTnt_no();				
+				TntService tntService = new TntService();
+				TntVO tntVO = tntService.getOneTntProfile(tnt_no);
+				
+				String apl_no = conSvc.getOneCon(con_no).getApl_no();
+				Con_aplService con_aplService = new Con_aplService();
+				Con_aplVO con_aplVO = con_aplService.getOneCon_apl(apl_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				req.setAttribute("conVO", conVO);
 				req.setAttribute("lldVO", lldVO);
 				req.setAttribute("lld_no", lld_no);
+				req.setAttribute("tntVO", tntVO);
+				req.setAttribute("con_aplVO", con_aplVO);
 				req.setAttribute("houseVO", houseVO);
 				req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 				req.setAttribute("houseVOelectfee", houseVOelectfee);
