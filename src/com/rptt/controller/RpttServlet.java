@@ -845,25 +845,6 @@ public class RpttServlet extends HttpServlet {
 		}
 //-----------------以下是member的操作---------------------------------------------------------------------------------------------------------------------
 
-		// 點擊bar icon 回到member主頁面
-		if ("get_member_main_page".equals(action)) {
-
-			try {
-				String url = "/back-end/member/member_main_page.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				System.out.println("成功轉過去囉");
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-
-			} catch (Exception e) {
-				System.out.println("無法取得555");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
-				failureView.forward(req, res);
-			}
-
-		}
-
 		if ("changeAuth".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -930,6 +911,51 @@ public class RpttServlet extends HttpServlet {
 			}
 		}
 
+		
+		
+		
+		if ("get_want_member".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+
+				String Number = req.getParameter("Number").toUpperCase(); //Number可轉大寫且為身份證字號或編號
+				if (Number == null || (Number.trim()).length() == 0) {
+					errorMsgs.add("請正確輸入欲搜尋編號");
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
+					failureView.forward(req, res);
+					System.out.println("編號輸入錯誤");
+					return;
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				TntService tntSvc = new TntService();
+				TntVO tntVO = tntSvc.getOneTntProfile(Number);
+				
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("TntVO", tntVO);
+				String url = "/back-end/member/member_main_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("成功轉過去囉");
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+
+			} catch (Exception e) {
+				System.out.println("無法取得555");
+				errorMsgs.add("搜尋不到或是未填寫要查詢的編號! 麻煩重新輸入一次");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_main_page.jsp");
+				failureView.forward(req, res);
+			}
+
+		}
 	}
 
 }

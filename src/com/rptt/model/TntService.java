@@ -5,6 +5,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
+
+
 public class TntService {
 	TenantDAO_interface dao;
 
@@ -140,6 +142,9 @@ public class TntService {
 	
 		return tntVO;
 		
+	}
+	public TntVO getOneTntProfile(String tnt_no) {
+		return dao.findByPK_profile(tnt_no);
 	}
 
 }
