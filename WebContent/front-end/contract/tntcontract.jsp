@@ -37,12 +37,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>House_Pub</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont_tnt.css">
+	
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont.css">
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
@@ -221,7 +222,7 @@
 						<div id="signdiv"><br><strong>立契約書人</strong><br><br></div>						
 						出租人 <br><br>
 						&nbsp;&nbsp;姓名：<font color="blue"><b><%=lldVO.getLld_name()%></b></font><br><br>
-						&nbsp;&nbsp;簽章
+						&nbsp;&nbsp;簽章：
 						<c:if test="${conVO.con_lld_sign == null}">
 							<img src="<%=request.getContextPath()%>/front-end/contract/images/tntsignature.png" alt="簽名圖片底家啦!"/><br>
 						</c:if>

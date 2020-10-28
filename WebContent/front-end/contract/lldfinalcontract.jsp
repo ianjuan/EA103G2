@@ -256,7 +256,7 @@
 						<div id="signdiv"><br><strong>立契約書人</strong><br><br></div>						
 						出租人 <br><br>
 						&nbsp;&nbsp;姓名：<font color="blue"><b><%=lldVO.getLld_name()%></b></font><br><br>
-						&nbsp;&nbsp;簽章
+						&nbsp;&nbsp;簽章：
 						<c:if test="${conVO.con_lld_sign == null}">
 							<img src="<%=request.getContextPath()%>/front-end/contract/images/tntsignature.png" alt="簽名圖片底家啦!"/><br>
 						</c:if>
@@ -273,7 +273,7 @@
 						
 						承租人<br><br>
 						&nbsp;&nbsp;姓名：<font color="blue"><b><%=tntVO.getTnt_name()%></b></font><br><br>
-						&nbsp;&nbsp;簽章
+						&nbsp;&nbsp;簽章：
 						<c:if test="${conVO.con_tnt_sign == null}">
 							<img src="<%=request.getContextPath()%>/front-end/contract/images/lldsignature.png" alt="簽名圖片底家啦!"/><br>
 						</c:if>						 
