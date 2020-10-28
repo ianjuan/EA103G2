@@ -175,6 +175,10 @@ public class HouseService {
 		return dao.getLldInfo(lld_no);
 	}
 	
+	public HouseVO gethosno(String lld_no) {
+		return dao.getHosno(lld_no);
+	}
+	
 	public HouseVO getHouseInfo(String hos_no) {
 		return dao.getHouseInfo(hos_no);
 	}
