@@ -109,7 +109,7 @@
 					<h2>房屋租賃契約書</h2><a id="top" href="#">置頂</a><a id="fur" href="#">傢俱設備</a><a id="fee" href="#">費用</a><a id="signhref" href="#">簽名</a><a id="other_show" href="#">其他項目</a><a id="other_hide" href="#">其他項目</a>
 				</div>		
 				<div id="cbody">
-				         <br>			
+				        <br>			
 						 立契約書人承租人<mark><b><%=lldVO.getLld_name()%></b></mark>，出租人<b>___</b>茲為房屋租賃事宜，雙方同意本契約條款如下： <br><br>
 						<strong>第一條 房屋租賃標的</strong><br><br>
 						&nbsp;&nbsp;<b>一、地址：</b><mark><b><%=houseVO.getHos_add()%>。</b></mark><br><br>
@@ -392,34 +392,11 @@
 					<button class="pagebtn" type="button" onclick="notice1()">合約預覽</button>					
 				</div>				
 			</div>
-			<div id="right">
-			</div>
+			<div id="right"></div>
 		</form>
 	</div>
 	<div id="foot"></div>
 	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont1.js" charset="UTF-8"></script>
-	<script>			
-	  	(function (document) {
-		  const markers = document.querySelectorAll('mark');
-		  
-		  const observer = new IntersectionObserver(entries => {
-		    entries.forEach((entry) => {
-		      if (entry.intersectionRatio > 0) {
-		        entry.target.style.animationPlayState = 'running';
-		        observer.unobserve(entry.target);
-		      }
-		    });
-		  }, {
-		    threshold: 0.8
-		  });
-		  
-		  markers.forEach(mark => {
-		    observer.observe(mark);
-		  });
-		})(document);
-	  	
-	  	
-	</script>
 </body>
 </html>
