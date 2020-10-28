@@ -12,7 +12,7 @@
 %>
 
 <head>
-    <title>Booking</title>
+    <title>Bills</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans:ital,wght@1,600&family=Pacifico&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="css/style.css"> -->
@@ -72,7 +72,7 @@
        @media (max-width:3000px) {
             .basicInfo__list {
                 position: fixed;
-                top: 54px;
+                top: 53px;
                 left: 0;
                 background: #fff;
                 box-shadow: 0 2px 4px 0 rgba(45, 45, 45, .2);
@@ -116,7 +116,7 @@
             <div class="" id="infocontainer">
 <!--                 <div class="row no-gutters justify-content-center"> -->
                     <!--start info list -->
-                    <div class="basicInfo__list"  id="basicinfolist" style="display: none;"> 
+                    <div class="basicInfo__list"  id="basicinfolist" style="left:-320px;"> 
 <!--                     <div class="basicInfo__list col-lg-3" style="display: none;" id="basicinfolist">  -->
                         <div class="basicInfo__list__content bg-white px-4 pt-lg-7 pt-md-5 pt-2 sticky-top">
                             <a class="basicInfo__list-backIcon text-primary basicInfo__list__content-backIcon d-xl-none">
@@ -374,7 +374,7 @@
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.js"></script>
 <%--     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.datetimepicker.full.js"></script> --%>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/js/booking_tnt.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/tnt/js/bills_tnt.js"></script>
     <!--===============================================================================================-->
     
  <!--引用jQuery-->
