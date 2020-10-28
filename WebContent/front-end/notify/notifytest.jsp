@@ -31,7 +31,7 @@
 		webSocket.onmessage = function(event) {			
 			var jsonObj = JSON.parse(event.data);
 			var dateForNow=new Date().getTime();
-			
+			console.log(jsonObj);
 			
 			if(Array.isArray(jsonObj)){
 				if(jsonObj !== null){
@@ -45,7 +45,7 @@
 						var showNotifyDay;
 					
 						if(dateForLong <= (1000*60*60)){ //時間短於一小時
-							showNotifyDay=new Date(mitime).getMinutes();
+							showNotifyDay=new Date(dateForLong).getMinutes();
 							showNotifyDay=showNotifyDay+"分鐘前";
 							
 						}else if(dateForLong <= (1000*60*60*24)){ //時間短於一天

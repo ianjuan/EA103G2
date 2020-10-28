@@ -5,13 +5,15 @@ private static final long serialVersionUID = 1L;
 	
 	private String title;
 	private String content;
+	private String url;
 	private Long time;
 	
-	public NotifyVO(String title,String content,Long time) {
+	public NotifyVO(String title,String content,Long time, String url) {
 		super();
 		this.title=title;
 		this.content=content;
 		this.time=time;
+		this.url=url;
 	}
 	
 	public String getTitle() {
@@ -31,5 +33,13 @@ private static final long serialVersionUID = 1L;
 	}
 	public void setTime(long time) {
 		this.time = time;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

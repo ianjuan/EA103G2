@@ -552,7 +552,7 @@ body {
 	width: 200px;
 	transition: all 800ms cubic-bezier(.8, 0, .33, 1);
 	border-radius: 0% 10% 10% 0%;
-	background: linear-gradient(180deg, #F1F1F1 20%, #EDEDD7 80%);
+	background: linear-gradient(180deg, #E9FCF4 20%, #DDFAED 80%);
 	margin-top: 10px;
 }
 

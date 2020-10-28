@@ -34,7 +34,9 @@
 <link
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="main_member_back.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/back-end/member/main_member_back.css"
+	type="text/css">
 
 
 <style>
@@ -110,6 +112,7 @@ input:checked+.slider:before {
 </head>
 
 <body id="page-top">
+
 	<div class="container-fluid">
 		<!-- Page Heading -->
 		<!-- DataTales Example -->
@@ -465,7 +468,7 @@ input:checked+.slider:before {
 										</label>
 									</div>
 								</div>
-								<br>													
+								<br>
 								<div>
 									<input type="hidden" name="tnt_no" value="${tntVO.tnt_no}">
 									<button type="submit" class="pass" name="action"
@@ -476,22 +479,16 @@ input:checked+.slider:before {
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+			<!-- Bootstrap core JavaScript-->
 
-
-	<!-- Bootstrap core JavaScript-->
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/back-end/member/member.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script
-		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
-
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<script
+				src="${pageContext.request.contextPath}/back-end/member/member.js"></script>
+			<script
+				src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			<script
+				src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 </body>
 
 </html>
