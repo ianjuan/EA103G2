@@ -14,12 +14,15 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
 import com.notify.model.NotifyDAO;
 import com.notify.model.NotifyVO;
 
+@ServerEndpoint("/NotifyServlet/{userNo}")
 public class NotifyServlet {
+
 	private static Map<String, Session> sessionsMap = new ConcurrentHashMap<>();
 	Gson gson = new Gson();
 
@@ -71,12 +74,12 @@ public class NotifyServlet {
 	}
 	
 	
-	public void broadcast(String userNo,String title,String content) {
+	public void broadcast(String userNo,String title,String content, String url) {
 		
 		if(userNo==null)return;
 		
 		//將提醒存進redis資料庫
-		NotifyVO notify =new NotifyVO(title, content, new Date().getTime());
+		NotifyVO notify =new NotifyVO(title, content, new Date().getTime(), url);
 		String notifyJson = gson.toJson(notify);
 		NotifyDAO.saveNotify(userNo, notifyJson);
 		System.out.println("存進資料庫的訊息："+notifyJson);

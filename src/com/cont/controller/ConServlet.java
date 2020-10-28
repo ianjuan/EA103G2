@@ -29,6 +29,7 @@ import com.housedet.model.HosDetVO;
 import com.housemanage.model.*;
 import com.lld.model.LldService;
 import com.lld.model.LldVO;
+import com.notify.controller.NotifyServlet;
 import com.rec.model.RecService;
 import com.rec.model.RecVO;
 import com.sun.javafx.font.directwrite.RECT;
@@ -634,6 +635,7 @@ public class ConServlet extends HttpServlet {
 				Con_aplService aplSvc = new Con_aplService();
 				Con_aplVO con_aplVO = aplSvc.getOneCon_apl(apl_no);
 				Date con_che_date = con_aplVO.getApl_str();
+				
 				/*************************** 更新押金 **********************/
 				HouseService hosSvc = new HouseService();
 				Integer hos_dep = (hosSvc.getHouseInfo(hos_no).getHos_rentfee()) * 2;
