@@ -8,6 +8,7 @@ public interface HouseDAO_interface {
 	public void updateHouseFurniture(HouseVO houseVO);
 	public void updateStatus(HouseVO houseVO);
 	public HouseVO getLldInfo(String lld_no);
+	public HouseVO getHosno(String lld_no);
 	public HouseVO getHouseInfo(String hos_no);
 	public HouseVO getHouseWaterfee(String hos_no);
 	public HouseVO getHouseElectfee(String hos_no);

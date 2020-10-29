@@ -75,7 +75,7 @@ padding-left:0px;
 	background: #c1b4a3;
 	color: #fff;
 	font-weight: bold;
-	font-size: 25px;
+	font-size: larger;
 	border-top: 2px solid #c1b4a3;
 	border-left: 2px solid #c1b4a3;
 	border-radius: 14px ;
@@ -195,26 +195,15 @@ $('#save').click(function(){//確認新增預約
 	 	  },
 		success:function(id){//以上成功才執行
 	 		  console.log(id+"HEN棒");
-			 var i=0;
-			 if(Itallday){
-					for (let value of allowtime){
+			 var data=JSON.parse(id);
+				 data.forEach(function(obj){
 					  	 calendar.addEvent({
-					       start:theday+"T"+value,//加入該日期
-					       resdno:id//給他ID
+					       start:obj.resd_date,
+					       resdno:obj.resd_no//給他ID
 					     });
-					  	 }
-				 
-			 }else{
-				for (let value of arrayfortime){
-					console.log("有沒有進迴圈啦"+value);
-				  	 calendar.addEvent({
-				       start:value,//加入該日期
-				       resdno:id//給他ID
-				     });
-				  	 }}
-				   }	
-	 	 	 ,error:function(data)
-		 	  {
+				});			 
+		
+		},error:function(data){
 		 		  console.log("真的不棒")
 		 	  }	 		    
 	 		});	  			
@@ -264,7 +253,6 @@ $('#save').click(function(){//確認新增預約
            calendar.unselect()
         },
        eventClick: function(arg) {//點選日曆上已成立的
-    	
     	   console.log(arg);
     	   console.log(arg.event.extendedProps.timemoment);
    		console.log(arg.event.extendedProps.status);
@@ -280,7 +268,7 @@ $('#save').click(function(){//確認新增預約
     			   $.ajax({//存入資料庫階段
     					  url:"<%=request.getContextPath()%>/booking/bookingServlet",
     				 	  type:"POST",
-    				 	  data:{ action:"delete",
+    				 	  data:{ action:"deletelld",
     				 		  data:arg.event.extendedProps.resdno
     				 	  },
     				 	  success:function(data){//以上成功才執行
@@ -318,7 +306,7 @@ $('#save').click(function(){//確認新增預約
     					"<img src='https://i.imgur.com/afYq1aQ.jpg' alt='' class='avatar' />"+
     				"</div>"+
     				"<div class='content span2'>"+
-    					"預約人:"+order.tnt_name+"<br /> <span class='finer-print'>預約時段:"+order.order_date+ "<br />"+
+    					"<span class='finer-print'>預約人:"+order.tnt_name+"<br /> 預約時段:"+order.order_date+ "<br />"+
     						"連絡電話:"+order.tnt_mobile+"<br /> 預約房屋物件:"+order.hos_name+ "<br /> 地址:"+
     						order.hos_add+"<br />"+
     					"</span>"+
@@ -337,7 +325,7 @@ $('#save').click(function(){//確認新增預約
         					"<img src='https://i.imgur.com/afYq1aQ.jpg' alt='' class='avatar' />"+
         				"</div>"+
         				"<div class='content span2' style='display:none' > "+
-        					"預約人:"+order.tnt_name+"<br /> <span class='finer-print'>預約時段:"+order.order_date+ "<br />"+
+    					"<span class='finer-print'>預約人:"+order.tnt_name+"<br /> 預約時段:"+order.order_date+ "<br />"+
         						"連絡電話:"+order.tnt_mobile+"<br /> 預約房屋物件:"+order.hos_name+ "<br /> 地址:"+
         						order.hos_add+"<br />"+
         					"</span>"+
@@ -355,17 +343,15 @@ $('#save').click(function(){//確認新增預約
 		 console.log(data.resd_status);
 		console.log(data)
     	 if(data.resd_status=="1"){
-    	 console.log(calendar.addEvent({
- 			title:"已預約",
+    	 calendar.addEvent({
  			start:data.resd_date,
  			resdno:data.resd_no,
              status:data.resd_status,
              backgroundColor:"yellow",
              timemoment:data.resd_date
-          }))
+          })
      }
      else{calendar.addEvent({
-    			title:"可預約",
                 start:data.resd_date,
                 resdno:data.resd_no,
                 timemoment:data.resd_date

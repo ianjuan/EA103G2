@@ -86,7 +86,7 @@ public class HouseServlet extends HttpServlet {
 			
 			String url = null;
 			if(lld_balance < 1000) {
-				url = "/front-end/house_manage/addmoney.jsp";
+				url = "/front-end/lld/pocket.jsp";
 			}else {
 				url = "/front-end/house_manage/house_pub.jsp";
 			}

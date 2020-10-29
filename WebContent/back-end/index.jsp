@@ -2,10 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.news.model.*"%>
 <%@ page import="java.util.*"%>
-
-<jsp:useBean id="newsSvc" scope="page" class="com.news.model.NewsService" />
 <!DOCTYPE html>
 <html lang="en">
+<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
 
 <head>
 <meta charset="utf-8">
@@ -24,7 +23,7 @@
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
-<body id="page-top">
+<body onload="connect();" onunload="disconnect();">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- Sidebar -->
@@ -33,7 +32,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="<%=request.getContextPath()%>/back-end/emp/index.jsp">
+				href="<%=request.getContextPath()%>/back-end/index.jsp">
 				<div class="sidebar-brand-icon">
 					<i class="fas fa-igloo"></i>
 				</div>
@@ -42,7 +41,7 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/emp/index.jsp"> <i
+			<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index.jsp"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>儀錶板</span>
 			</a></li>
 			<!-- Divider -->
@@ -67,16 +66,50 @@
 			</li>
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseFive"
-				aria-expanded="true" aria-controls="collapseFive"> <i
-					class="fas fa-user"></i> <span>會員</span>
+				data-toggle="collapse" data-target="#collapseTwoo"
+				aria-expanded="true" aria-controls="collapseTwoo"> <i
+					class="fas fa-user"></i> <span>會員查詢</span>
 			</a>
-				<div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+				<div id="collapseTwoo" class="collapse" aria-labelledby="headingTwoo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
+						<h6 class="collapse-header">查詢</h6>
 						<a class="collapse-item" href="javascript:void(0)">房東</a> 
 						<a	class="collapse-item" href="javascript:void(0)">房客</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
+					</div>
+				</div>
+			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwooo"
+				aria-expanded="true" aria-controls="collapseTwooo"> <i
+					class="fas fa-user"></i> <span>身分驗證</span>
+			</a>
+				<div id="collapseTwooo" class="collapse" aria-labelledby="headingTwooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">驗證</h6>
+						<a class="collapse-item" href="javascript:void(0)">驗證</a> 
+
+					</div>
+				</div>
+			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwoooo"
+				aria-expanded="true" aria-controls="collapseTwoooo"> <i
+					class="fas fa-user"></i> <span>會員檢舉</span>
+			</a>
+				<div id="collapseTwoooo" class="collapse" aria-labelledby="headingTwoooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">檢舉</h6>
+						<a class="collapse-item" href="javascript:void(0)">房客檢舉</a> 
+						<a class="collapse-item" href="javascript:void(0)">房東檢舉</a>
+						<a class="collapse-item" href="javascript:void(0)">房屋檢舉</a>
+						<a class="collapse-item" href="javascript:void(0)">房客評價檢舉</a>
+						<a class="collapse-item" href="javascript:void(0)">房東評價檢舉</a>
+						<a class="collapse-item" href="javascript:void(0)">房屋評價檢舉</a>
+						<a class="collapse-item" href="javascript:void(0)">修繕檢舉</a>
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -85,13 +118,13 @@
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseThree"
 				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>前台</span>
+					class="fas fa-user"></i> <span>後台</span>
 			</a>
 				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="javascript:void(0)">最新消息</a> 
+						<a class="collapse-item" href="javascript:void(0)">後台公告</a> 
 					</div>
 				</div>
 			</li>
@@ -149,27 +182,12 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> 
 <!-- 							通知小鈴鐺可配合後台推播系統 -->
-								<span id="bellcount" class="badge badge-danger badge-counter"><c:out value="${newsSvc.all.size() <3 ? newsSvc.all.size() : '3+' }"></c:out></span>
 						</a> 
 <!-- 						Dropdown - Alerts -->
 							<div 
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
-								<h6 id="bell" class="dropdown-header">推播</h6>
-							 <c:forEach var="newsVO" items="${newsSvc.all}">
-<!-- 								第一個展開推播 -->
-								<a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="mr-3">
-										<div class="icon-circle bg-primary">
-											<i class="fas fa-file-alt text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">${newsVO.new_date}</div>
-										<span id="alert" class="font-weight-bold">${newsVO.new_content}</span>
-									</div>
-								</a>
-							 </c:forEach>
+
 <!-- 								Nav Item - Messages -->
 								<li class="nav-item dropdown no-arrow mx-1"><a
 									class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
@@ -220,11 +238,9 @@
 									aria-expanded="false"> <span
 										class="mr-2v23PnY2C d-none d-lg-inline text-gray-600 small"><c:out value="${empVO.emp_name}" default="請重新登入"></c:out></span>
 										<c:if test="${empVO.emp_pic != null}">
-										<img class="img-profile rounded-circle"
-										src="data:image/png;base64,${empVO.emp_pic}"></c:if>
-<%-- 										<c:if test="${empVO.emp_pic == null}"> --%>
-<!-- 										<img class="img-profile rounded-circle" -->
-<%-- 										src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMF9nq4kTIfW-uuGD9R0-wyLcPACsO3CHbag&usqp=CAU"></c:if> --%>
+										<img class="img-profile rounded-circle" src='data:image/png;base64,<c:forEach var="employeeVO" items="${empSvc.getAll()}">
+										<c:if test="${employeeVO.emp_no == empVO.emp_no }">${employeeVO.emp_pic }</c:if>
+										</c:forEach>'></c:if>
 										
 								</a>
 <!-- 								 Dropdown - User Information -->
@@ -253,7 +269,12 @@
 					<h1 class="h3 mb-4 text-gray-800"></h1>
 					<!-- -- -- -- -- -- -- -- --Content-- -- -- -- -- -- -- -- -- -- -->
 					<div id="ajax_result">
+<div class="col-xl-3 col-md-6 mb-4">
+<ul>
 
+</ul>
+
+</div>
 <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
@@ -269,14 +290,6 @@
                 </div>
               </div>
             </div>
-          <button id="btn_con" onclick="connect();">點我連線WebSocket</button>
-          <button id="btn_close" onclick="disconnect();">點我關閉WebSocket連線</button>
-          <input type="text" id="announce" value="">
-          <button id="btn_send" onclick="sendMessage();">點我發送訊息</button>
-          
-          <h1 id="h1">Chat Room</h1>
-	<h3 id="statusOutput" class="statusOutput"></h3>
-	<div class="panel input-area">
 	</div>
           </div>
 					</div>
@@ -287,21 +300,32 @@
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 			<script>
 			 $(function(){
-				 var ajax_select;
+			     var ajax_select;
 				 var ajax_url="";
 			      $(".collapse-item").click(function() {
 			    	  console.log(this.innerText);
 			    	  ajax_select = this.innerText;
 			    	  if(ajax_select=="全體員工"){
-			    		  ajax_url = "listAllEmp.jsp";
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp";
 			    	   }
-			    	  else if(ajax_select=="查詢員工"){
-			    		  ajax_url = "select_page.jsp";
+			    	  else if(ajax_select=="後台公告"){
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/emp/announce.jsp";
 			    	  }
 			    	  else if(ajax_select=="新增員工"){
-			    		  ajax_url = "addEmp.jsp";
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/emp/addEmp.jsp";
 			    	  }
-			    	  console.log(ajax_url);
+			    	  else if(ajax_select=="房客"){
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/member/member_main_page.jsp";
+			    	  }
+			    	  else if(ajax_select=="房客檢舉"){
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/rptt/main_page.jsp";
+			    	  }
+			    	  else if(ajax_select=="驗證"){
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/vrf/vrf_main_page.jsp";
+			    	  }
+			    	  else if(ajax_select=="房屋管理"){
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/house_manage/all_house.jsp";
+			    	  }
 			        $.ajax({
 			          type: "GET",
 			          url: ajax_url,
@@ -350,13 +374,14 @@
 			
 			<script>
 			
-	var MyPoint = "/TogetherWS/melon";
+	var now =new Date();
+	var MyPoint = "/TogetherWS/${empVO.emp_no}";
 	var host = window.location.host;
 	var path = window.location.pathname;
 	var webCtx = path.substring(0, path.indexOf('/', 1));
 	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
 
-	var statusOutput = document.getElementById("statusOutput");
+// 	var statusOutput = document.getElementById("statusOutput");
 	var webSocket;
 	
 	function connect() {
@@ -364,31 +389,23 @@
 		webSocket = new WebSocket(endPointURL);
 
 		webSocket.onopen = function(event) {
-			updateStatus("WebSocket Connected");
-			document.getElementById('btn_con').disabled = true;
-			document.getElementById('btn_close').disabled = false;
-			document.getElementById('btn_send').disabled = false;
+// 			updateStatus("WebSocket Connected");
+// 			document.getElementById('btn_con').disabled = true;
+// 			document.getElementById('btn_close').disabled = false;
+// 			document.getElementById('btn_send').disabled = false;
 		};
 		
 		webSocket.onmessage = function(event) {
 			var jsonObj = JSON.parse(event.data);
 			var new_content = jsonObj.new_content;
-			var bell='<a class="dropdown-item d-flex align-items-center" href="#">';
-				bell+='<div class="mr-3">';
-				bell+='<div class="icon-circle bg-primary">';
-				bell+='<i class="fas fa-file-alt text-white"></i>';
-				bell+='</div>';
-				bell+='</div>';
-				bell+='<div>';
-				bell+='<div class="small text-gray-500">2020年10月25日</div>';
-				bell+= '<span id="alert" class="font-weight-bold">'+new_content+'</span>';
-				bell+= '</div>';
-				bell+='</a>';
-			$('#bell').after(bell);
+// 			console.log(new_content);
+// 			var table='<tr><td>'+new_content+'</td>';
+// 			tbody+='<td>今天</td></tr>';
+// 			$('#tbody').after(tbody);
 		};
 
 		webSocket.onclose = function(event) {
-			updateStatus("WebSocket Disconnected");
+// 			updateStatus("WebSocket Disconnected");
 		};
 	}
 
@@ -396,30 +413,26 @@
 	function sendMessage() {
 		var inputMessage = document.getElementById("announce");
 		var new_content = inputMessage.value.trim();
+		
 		if (new_content === "") {
 			alert("Input a message");
 			inputMessage.focus();
 		} else {
 			var jsonObj = {
-			    "new_no" : ${newsSvc.all.size()},
+			    "emp_name" : "${empVO.emp_name}",
+			    "emp_title" : "${empVO.emp_title}",
 				"new_content" : new_content,
-				"new_date" : "2020年10月26日"
+				"new_date" : (now.getMonth()+1)+"月"+now.getDate()+"日"
 			};
 			webSocket.send(JSON.stringify(jsonObj));
 		}
 	}
 
 	function disconnect() {
-		document.getElementById('btn_con').disabled = false;
-		document.getElementById('btn_close').disabled = true;
-		document.getElementById('btn_send').disabled = true;
 		webSocket.close();
 
 	}
 
-	function updateStatus(newStatus) {
-		statusOutput.innerHTML = newStatus;
-	}
 </script>
 
 	
