@@ -122,6 +122,7 @@ public class TntDAO implements TenantDAO_interface {
 	}
 
 	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_STATUS,TNT_JOINTIME,TNT_BALANCE,TNT_BANK,TNT_BANKBRANCH, TNT_BANKACC,TNT_CARD,TNT_CARDDUE,TNT_CMT_STARSUM,TNT_CMT_COUNT, EMP_NO,TNT_ID_UPLOADTIME,TNT_ID_ISUPLOAD,TNT_ID_RESULT,TNT_ID_VRFTIME,TNT_ID_DISAPPROVE,TNT_REPORTED_COUNT,TNT_AUTH_CHAT,TNT_AUTH_RES,TNT_AUTH_CMT,TNT_AUTH_RPT FROM TENANT where TNT_NO =? or TNT_ID=?";
+	private static final String GET_LANDLORD_ONE_PROFILE_STMT = "SELECT LLD_NO AS TNT_NO, LLD_EMAIL AS TNT_EMAIL, LLD_ACC AS TNT_ACC, LLD_ID AS TNT_ID, LLD_NAME AS TNT_NAME, LLD_BIRTH AS TNT_BIRTH, LLD_SEX AS TNT_SEX, LLD_MOBILE AS TNT_MOBILE, LLD_CITY AS TNT_CITY, LLD_DIST AS TNT_DIST, LLD_ADD AS TNT_ADD, LLD_STATUS AS TNT_STATUS,LLD_JOINTIME AS  TNT_JOINTIME,LLD_BALANCE AS TNT_BALANCE,LLD_BANK AS TNT_BANK,LLD_BANKBRANCH AS TNT_BANKBRANCH, LLD_BANKACC AS TNT_BANKACC,LLD_CARD AS TNT_CARD,LLD_CARDDUE AS TNT_CARDDUE,LLD_CMT_STARSUM AS TNT_CMT_STARSUM ,LLD_CMT_COUNT AS TNT_CMT_COUNT, EMP_NO,LLD_ID_UPLOADTIME AS TNT_ID_UPLOADTIME,LLD_ID_ISUPLOAD AS TNT_ID_ISUPLOAD,LLD_ID_RESULT AS TNT_ID_RESULT,LLD_ID_VRFTIME AS TNT_ID_VRFTIME,LLD_ID_DISAPPROVE AS TNT_ID_DISAPPROVE,LLD_REPORTED_COUNT AS TNT_REPORTED_COUNT,LLD_AUTH_CHAT AS TNT_AUTH_CHAT,LLD_AUTH_RES AS TNT_AUTH_RES,LLD_AUTH_CMT AS TNT_AUTH_CMT,LLD_AUTH_RPT AS TNT_AUTH_RPT FROM LANDLORD where LLD_NO =? or LLD_ID=?";
 
 	@Override
 	public TntVO findByPK_profile(String tnt_no) {
@@ -134,6 +135,96 @@ public class TntDAO implements TenantDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_PROFILE_STMT);
+
+			pstmt.setString(1, tnt_no);
+			pstmt.setString(2, tnt_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				tntVO = new TntVO();
+				// -------profile-------
+				tntVO.setTnt_no(rs.getString("tnt_no"));
+				tntVO.setTnt_email(rs.getString("tnt_email"));
+				tntVO.setTnt_acc(rs.getString("tnt_acc"));
+				tntVO.setTnt_id(rs.getString("tnt_id"));
+				tntVO.setTnt_name(rs.getString("tnt_name"));
+				tntVO.setTnt_birth(rs.getDate("tnt_birth"));
+				tntVO.setTnt_sex(rs.getBoolean("tnt_sex"));
+				tntVO.setTnt_mobile(rs.getString("tnt_mobile"));
+				tntVO.setTnt_city(rs.getString("tnt_city"));
+				tntVO.setTnt_dist(rs.getString("tnt_dist"));
+				tntVO.setTnt_add(rs.getString("tnt_add"));
+				tntVO.setTnt_status(rs.getInt("tnt_status"));
+				tntVO.setTnt_jointime(rs.getTimestamp("tnt_jointime"));
+				// -------pocket-------
+				tntVO.setTnt_balance(rs.getInt("tnt_balance"));
+				// -------card/bank-------
+				tntVO.setTnt_bank(rs.getInt("tnt_bank"));
+				tntVO.setTnt_bankbranch(rs.getString("tnt_bankbranch"));
+				tntVO.setTnt_bankacc(rs.getString("tnt_bankacc"));
+				tntVO.setTnt_card(rs.getLong("tnt_card"));
+				tntVO.setTnt_carddue(rs.getDate("tnt_carddue"));
+				// -------CMT-------
+				tntVO.setTnt_cmt_starsum(rs.getInt("tnt_cmt_starsum"));
+				tntVO.setTnt_cmt_count(rs.getInt("tnt_cmt_count"));
+				// -------VRF-------
+				tntVO.setEmp_no(rs.getString("emp_no"));
+				tntVO.setTnt_id_uploadtime(rs.getTimestamp("tnt_id_uploadtime"));
+				tntVO.setTnt_id_isupload(rs.getInt("tnt_id_isupload"));
+				tntVO.setTnt_id_result(rs.getInt("tnt_id_result"));
+				tntVO.setTnt_id_vrftime(rs.getTimestamp("tnt_id_vrftime"));
+				tntVO.setTnt_id_disapprove(rs.getString("tnt_id_disapprove"));
+				// -------RPT&AUTH-------
+				tntVO.setTnt_reported_count(rs.getInt("tnt_reported_count"));
+				tntVO.setTnt_auth_chat(rs.getInt("tnt_auth_chat"));
+				tntVO.setTnt_auth_res(rs.getInt("tnt_auth_res"));
+				tntVO.setTnt_auth_cmt(rs.getInt("tnt_auth_cmt"));
+				tntVO.setTnt_auth_rpt(rs.getInt("tnt_auth_rpt"));
+
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return tntVO;
+	}
+
+	@Override
+	public TntVO findByPK_profile1(String tnt_no) {
+		TntVO tntVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_LANDLORD_ONE_PROFILE_STMT);
 
 			pstmt.setString(1, tnt_no);
 			pstmt.setString(2, tnt_no);
@@ -854,7 +945,7 @@ public class TntDAO implements TenantDAO_interface {
 
 	// --------以下為member--------------------------------------------------------------------------------------------
 	private static final String UPDATE_AUTH_STMT = "UPDATE TENANT set tnt_auth_chat=?, tnt_auth_res=?, tnt_auth_cmt=?, tnt_auth_rpt=?, tnt_reported_count=? where tnt_no=?";
-	
+
 	@Override
 	public void update_auth(TntVO tntVO) {
 		Connection con = null;
