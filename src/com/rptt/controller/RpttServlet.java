@@ -404,13 +404,14 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("result有更新了");
 				TntService tntSvc = new TntService();
 				TntVO tntVO1 = tntSvc.getEmail(tnt_no);
-				String TntEmail = "ea103g2gmail.com";
+				String TntEmail = "xiyuan345@gmail.com";
 				String TntName = tntVO1.getTnt_name();
 				String TntAcc = tntVO1.getTnt_acc();
 				String TntDissaprove = tntVO1.getTnt_id_disapprove();
 				Integer type = 1;
 				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
 				MailService mailservice = new MailService();
+				System.out.println("準備藥檢舉成功了");
 				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
@@ -494,7 +495,6 @@ public class RpttServlet extends HttpServlet {
 				String TntAcc = tntVO2.getTnt_acc();
 				String TntDissaprove = tntVO2.getTnt_id_disapprove();
 				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
-
 				Integer type = 2;
 				MailService mailservice = new MailService();
 				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);

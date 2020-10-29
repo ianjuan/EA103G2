@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.tnt.model.*;
+import com.cash.model.*;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutOneTime;
@@ -521,12 +522,12 @@ public class TntServlet2 extends HttpServlet {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				out = res.getWriter();
 				int tnt_pocket_deposit = Integer.valueOf(req.getParameter("pocket_deposit"));
-				System.out.println(tnt_pocket_deposit);
+//				System.out.println(tnt_pocket_deposit);
 
 				HttpSession session = req.getSession();
 				String tnt_no = (String) session.getAttribute("tnt_no");
 				//
-				System.out.println(tnt_no);
+//				System.out.println(tnt_no);
 				//
 				TntService tntSvc = new TntService();
 				TntVO tntVO = tntSvc.getOneTntPocket(tnt_no);
@@ -536,43 +537,51 @@ public class TntServlet2 extends HttpServlet {
 					return;
 				}
 				/*************************** 2.開始修改資料 ***************************************/
-				if (tnt_pocket_deposit > 0) {
-					tnt_balance = tnt_balance + tnt_pocket_deposit;
-					tntSvc.updateTntPocket(tnt_no, tnt_balance);
-					out = res.getWriter();
-					out.print("true");
-					return;
-				}
-//				//產生綠界訂單
-//				AioCheckOutOneTime checkoutonetime = new AioCheckOutOneTime();
-//				checkoutonetime.setMerchantTradeNo(); // 訂單編號
-//
-//				
-//				checkoutonetime.setItemName(itemname.toString()); // 商品名稱
-//				checkoutonetime.setTotalAmount(orderamt.toString()); // 總金額
-//					
-//				java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
-//				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//				checkoutonetime.setMerchantTradeDate(sdf.format(time));
-//				checkoutonetime.setReturnURL("http://localhost:8081/EA103G2G5/Order_Master/Order_Master.do");
-//				checkoutonetime.setClientBackURL("http://localhost:8081/EA103G5/index/front-index/index.jsp");
-//				checkoutonetime.setTradeDesc("123"); // 商品詳情
-//				
-//				
-//				AllInOne all = new AllInOne("");
-//				String form = all.aioCheckOut(checkoutonetime, null);
-//				
-//				//轉送綠界訂單
-//				out.print("<!DOCTYPE html>\r\n" + 
-//						"<html lang=\"en\">\r\n" + 
-//						"<head>\r\n" + 
-//						"	<meta charset=\"UTF-8\">\r\n" + 
-//						"	<title>Document</title>\r\n" + 
-//						"</head>\r\n" + 
-//						"<body>");
-//				out.print(form);
-//				out.print("</body>" +
-//				"</html>");
+//				if (tnt_pocket_deposit > 0) {
+//					tnt_balance = tnt_balance + tnt_pocket_deposit;
+//					tntSvc.updateTntPocket(tnt_no, tnt_balance);
+//					out.print("true");
+//					return;
+//				}
+				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+				CashService cashSvc = new CashService();
+				String cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit, tnt_pocket_deposit);
+				System.out.println(cash_no);
+
+				String itemname = "deposit";
+				
+				//產生綠界訂單
+				AioCheckOutOneTime checkoutonetime = new AioCheckOutOneTime();
+				checkoutonetime.setMerchantTradeNo(cash_no); // 訂單編號
+
+				
+				checkoutonetime.setItemName("deposit"); // 商品名稱
+				checkoutonetime.setTotalAmount(Integer.toString(tnt_pocket_deposit)); // 總金額
+					
+				java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				checkoutonetime.setMerchantTradeDate(sdf.format(time));
+				checkoutonetime.setReturnURL("http://localhost:8081/EA103G2/tnt/TntServlet2");
+//				checkoutonetime.setReturnURL("http://localhost:8081/EA103G2//front-end/tnt/pocket.jsp");
+//						+ "http://localhost:8081/EA103G2G5/Order_Master/Order_Master.do"
+				checkoutonetime.setClientBackURL("http://localhost:8081/EA103G2/front-end/index/index.jsp");
+				checkoutonetime.setTradeDesc("ProductDetailDeposit"); // 商品詳情
+				
+				
+				AllInOne all = new AllInOne("");
+				String form = all.aioCheckOut(checkoutonetime, null);
+				
+				//轉送綠界訂單
+				out.print("<!DOCTYPE html>\r\n" + 
+						"<html lang=\"en\">\r\n" + 
+						"<head>\r\n" + 
+						"	<meta charset=\"UTF-8\">\r\n" + 
+						"	<title>Document</title>\r\n" + 
+						"</head>\r\n" + 
+						"<body>");
+				out.print(form);
+				out.print("</body>" +
+				"</html>");
 				
 				
 				

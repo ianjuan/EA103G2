@@ -11,14 +11,46 @@ public class CashService {
 	public CashService() {
 		dao = new CashDAO();
 	}
-	
-	//全部
-	public CashVO addCash(Date cash_date, Integer mem_identity, String mem_no, Integer cash_inout, String cash_type,
-			Integer cash_amout, String con_no, String rec_no) {
+
+//	//沒有合約編號、沒有帳單編號
+//	public CashVO addCash(Date cash_date, String mem_no, String cash_inout, String cash_type,
+//			Integer cash_amout) {
+//		//
+//		CashVO cashVO = new CashVO();
+//		cashVO.setCash_date(cash_date);
+////		cashVO.setMem_identity(mem_identity);
+//		cashVO.setMem_no(mem_no);
+//		cashVO.setCash_inout(cash_inout);
+//		cashVO.setCash_type(cash_type);
+//		cashVO.setCash_amout(cash_amout);
+//
+//		dao.insert_cash(cashVO);
+//
+//		return cashVO;
+//	}
+
+	// 沒有合約編號、沒有帳單編號 -- 自增主鍵值
+	public String addCash(Date cash_date, String mem_no, String cash_inout, String cash_type, Integer cash_amout) {
 		
 		CashVO cashVO = new CashVO();
 		cashVO.setCash_date(cash_date);
-		cashVO.setMem_identity(mem_identity);
+		cashVO.setMem_no(mem_no);
+		cashVO.setCash_inout(cash_inout);
+		cashVO.setCash_type(cash_type);
+		cashVO.setCash_amout(cash_amout);
+
+		String cash_no = dao.insert_cash(cashVO);
+
+		return cash_no;
+	}
+
+	// 全部
+	public CashVO addCash(Date cash_date, String mem_no, String cash_inout, String cash_type, Integer cash_amout,
+			String con_no, String rec_no) {
+
+		CashVO cashVO = new CashVO();
+		cashVO.setCash_date(cash_date);
+//			cashVO.setMem_identity(mem_identity);
 		cashVO.setMem_no(mem_no);
 		cashVO.setCash_inout(cash_inout);
 		cashVO.setCash_type(cash_type);
@@ -30,31 +62,14 @@ public class CashService {
 
 		return cashVO;
 	}
-	
-	//沒有合約編號、沒有帳單編號
-	public CashVO addCash(Date cash_date, Integer mem_identity, String mem_no, Integer cash_inout, String cash_type,
-			Integer cash_amout) {
-		//
+
+	// 沒有帳單編號
+	public CashVO addCash(Date cash_date, String mem_no, String cash_inout, String cash_type, Integer cash_amout,
+			String con_no) {
+
 		CashVO cashVO = new CashVO();
 		cashVO.setCash_date(cash_date);
-		cashVO.setMem_identity(mem_identity);
-		cashVO.setMem_no(mem_no);
-		cashVO.setCash_inout(cash_inout);
-		cashVO.setCash_type(cash_type);
-		cashVO.setCash_amout(cash_amout);
-
-		dao.insert_cash(cashVO);
-
-		return cashVO;
-	}
-
-	//沒有帳單編號
-	public CashVO addCash(Date cash_date, Integer mem_identity, String mem_no, Integer cash_inout, String cash_type,
-			Integer cash_amout, String con_no) {
-		
-		CashVO cashVO = new CashVO();
-		cashVO.setCash_date(cash_date);
-		cashVO.setMem_identity(mem_identity);
+//		cashVO.setMem_identity(mem_identity);
 		cashVO.setMem_no(mem_no);
 		cashVO.setCash_inout(cash_inout);
 		cashVO.setCash_type(cash_type);
@@ -65,6 +80,5 @@ public class CashService {
 
 		return cashVO;
 	}
-	
 
 }

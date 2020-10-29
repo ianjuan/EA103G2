@@ -19,7 +19,7 @@ public class MailService {
 	public boolean sendMail(String TntEmail, String TntName, String TntAcc, String TntDissaprove, String emailVrfLink,
 			Integer type) {
 
-		String color = "#3A8C68";
+		String color = "#0f868c";
 		String subject = null;
 		String messageText = null;
 		String messageText1 = null;
@@ -30,7 +30,7 @@ public class MailService {
 			subject = "通知 :帳號:" + TntAcc + " 身分驗證通過";
 			// 設定信中的內容
 			messageText = "感謝您使用愛租的會員身分驗證，而驗證的主要目的是為了確保愛租平台上能提供更有保障的安全使用範圍。";
-			messageText1 = "這裡也開心地告訴您，您的身分驗證已通過！ 這裡可由點擊下方的連結，馬上開始體驗美好的愛租生活喔!";
+			messageText1 = "我們也開心地告訴您，您的身分驗證已通過！ 這裡可由點擊下方的連結，馬上開始體驗美好的愛租生活喔!";
 			btnword = "開始使用愛租";
 
 		} else if (type == 1) {
