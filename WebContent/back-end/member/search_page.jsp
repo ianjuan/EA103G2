@@ -11,8 +11,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script
-	src="${pageContext.request.contextPath}/back-end/member/js/member.js"></script>
-<script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
 	
 </script>
@@ -21,10 +19,11 @@
 	
 </script>
 <script src="https://use.fontawesome.com/16da862410.js"></script>
+<script
+	src="${pageContext.request.contextPath}/back-end/member/js/member.js"></script>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/back-end/member/css/tenant_search.css"
+	href="${pageContext.request.contextPath}/back-end/member/css/search.css"
 	type="text/css">
-
 
 </head>
 
@@ -39,7 +38,7 @@
 				<form action="RpttServlet" method="post" class="search-form">
 					<input type="text" placeholder="&nbsp&nbsp房客編號/ 身分證字號" id="search"
 						autocomplete="off" name="Number"> <input type="hidden"
-						name="action" value="get_want_tenant">
+						name="action" value="get_want_member">
 				</form>
 				<svg class="search-border" version="1.1"
 					xmlns="http://www.w3.org/2000/svg"

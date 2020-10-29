@@ -18,7 +18,7 @@ textarea, select {
 	transition: all .2s ease;
 }
 
-button.pass, button.fail {
+button.fail {
 	margin-top: 15px;
 	font-size: 16px;
 	font-weight: 600;
@@ -28,6 +28,20 @@ button.pass, button.fail {
 	background-color: #0f868c;
 	border-radius: 4px;
 	border: 1px solid #0f868c;
+	text-align: center;
+	width: 100%;
+}
+
+button.pass {
+	margin-top: 15px;
+	font-size: 16px;
+	font-weight: 600;
+	text-transform: uppercase;
+	padding: 15px 26px;
+	color: #FFF;
+	background-color: #FB6565;
+	border-radius: 4px;
+	border: 1px solid #FB6565;
 	text-align: center;
 	width: 100%;
 }

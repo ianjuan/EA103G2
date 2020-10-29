@@ -34,10 +34,26 @@
 <link
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/back-end/member/css/main_member_back.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/back-end/member/css/main_member_back.css"
+	type="text/css">
 
 
 <style>
+button.save {
+	margin-top: 15px;
+	font-size: 16px;
+	font-weight: 600;
+	text-transform: uppercase;
+	padding: 15px 26px;
+	color: #FFF;
+	background-color: #0f868c;
+	border-radius: 4px;
+	border: 1px solid #0f868c;
+	text-align: center;
+	width: 100%;
+}
+
 .table-responsive {
 	overflow-x: visible;
 }
@@ -465,10 +481,10 @@ input:checked+.slider:before {
 										</label>
 									</div>
 								</div>
-								<br>													
+								<br>
 								<div>
 									<input type="hidden" name="tnt_no" value="${tntVO.tnt_no}">
-									<button type="submit" class="pass" name="action"
+									<button type="submit" class="save" name="action"
 										value="changeAuth">儲存</button>
 								</div>
 							</form>
@@ -485,7 +501,7 @@ input:checked+.slider:before {
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/back-end/member/member.js"></script>
+		src="${pageContext.request.contextPath}/back-end/member/js/member.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
