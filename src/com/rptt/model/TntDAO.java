@@ -945,6 +945,7 @@ public class TntDAO implements TenantDAO_interface {
 
 	// --------以下為member--------------------------------------------------------------------------------------------
 	private static final String UPDATE_AUTH_STMT = "UPDATE TENANT set tnt_auth_chat=?, tnt_auth_res=?, tnt_auth_cmt=?, tnt_auth_rpt=?, tnt_reported_count=? where tnt_no=?";
+	private static final String UPDATE_LLDAUTH_STMT = "UPDATE LANDLORD set lld_auth_chat=?, lld_auth_res=?, lld_auth_cmt=?, lld_auth_rpt=?, lld_reported_count=? where lld_no=?";
 
 	@Override
 	public void update_auth(TntVO tntVO) {
@@ -953,7 +954,11 @@ public class TntDAO implements TenantDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_AUTH_STMT);
+			if (tntVO.getTnt_no().startsWith("T")) {
+				pstmt = con.prepareStatement(UPDATE_AUTH_STMT);
+			} else {
+				pstmt = con.prepareStatement(UPDATE_LLDAUTH_STMT);
+			}
 			pstmt.setInt(1, tntVO.getTnt_auth_chat());
 			pstmt.setInt(2, tntVO.getTnt_auth_res());
 			pstmt.setInt(3, tntVO.getTnt_auth_cmt());
