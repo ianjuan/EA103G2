@@ -58,6 +58,16 @@ body {
 	align-items:center;
 	justify-content:center;
 }
+#typping{
+	border: 1px solid #e6e6e6;
+    border-radius: 50px;
+}
+select{
+  border: 1px solid #e6e6e6;
+  border-radius: 100px;
+  cursor:pointer;
+  outline:none;
+}
 #right {
 	width: 20%;
 	height: 700px;
@@ -534,7 +544,7 @@ body {
 		height: 0px;
 	}
 	#cbody {
-		height: 700px;
+		height: 400px;
 	}
 	#cfoot {
 		display: none;

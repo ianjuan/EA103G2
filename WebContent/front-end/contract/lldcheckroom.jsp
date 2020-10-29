@@ -43,6 +43,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/checkroom.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/checkroom.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
@@ -64,37 +65,44 @@
 						<input type="hidden" name="action" value="getLldAllHouse">
 						<button type="submit" class="link">首頁</button>
 					</FORM>
-                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldUnRentHouse">
-						<button type="submit" class="link">待租房屋</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldRentHouse">
-						<button type="submit" class="link">已租房屋</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldOffHouse">
-						<button type="submit" class="link">下架房屋</button>
-					</FORM>
 					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRentHouse">
+						<button type="submit" class="link">已租房屋</button>
+						
+					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldUnRentHouse">
+						<button type="submit" class="link">待租房屋</button>
+					</FORM>					
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldOffHouse">
+						<button type="submit" class="link">下架房屋</button>
 					</FORM>					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
-						<button type="submit" class="link">租屋申請</button><br>
+						<button type="submit" class="link">租屋申請</button>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
-						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
+						<button type="submit" class="link" style="color: #D37707;">合約管理</button>
 					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
+					<button type="button" class="link">評價管理</button>
                 </div>
             </nav>
 		</div>
@@ -123,33 +131,31 @@
 							<tr>
 								<th>是否有損毀:</th>
 								<td>
-									<label class="item_name">
-												<select name="XD">
-												  <option value="1" selected>否</option>
-												  <option value="2">是</option>
-												</select>
-									</label>
+									<select name="XD">
+										<option value="1" selected>否</option>
+										<option value="2">是</option>
+									</select>
 								</td>
 							</tr>
 							
 							<tr>
 								<th>損毀物品:</th>
 								<td>
-									<input type="TEXT" placeholder="無" name="con_chr_itm_name" />
+									<input id="typping" type="TEXT" placeholder="無" name="con_chr_itm_name"/>
 								</td>
 							</tr>
 							
 							<tr>
 								<th>損毀描述:</th>
 								<td>
-									<input type="TEXT" placeholder="無" name="con_chr_itm" />
+									<input id="typping" type="TEXT" placeholder="無" name="con_chr_itm" />
 								</td>
 							</tr>
 							
 							<tr>
 								<th>毀損費用:</th>
 								<td>
-									<input type="number" id="parkfee1" class="num1" min="0" placeholder="0" step="100" name="con_chr_fee" />
+									<input type="number" id="typping" class="num1" min="0" placeholder="0" step="100" name="con_chr_fee" />元
 								</td>
 							</tr>
 							
@@ -164,15 +170,11 @@
 					<button class="btn" type="button" onclick="notice1()">送出結果</button>					
 				</div>				
 			</div>
-			<div id="right">
-				<div id="rhead">
-				</div>
-				<div id="rfoot">
+				  <div id="rfoot">
 					<button class="btn" type="button" onclick="notice2()">全部重填</button>
 					<input type="hidden" name="action" value="lldcheckroom">
 					<button class="btn" type="button" onclick="notice1()">送出結果</button>
-				</div>
-			</div>
+				  </div>
 		</form>
 	</div>
 	<div id="foot"></div>		
