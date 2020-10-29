@@ -58,32 +58,26 @@
 
         $(document).ready(function() {
             
-            //借放這裡 幫身分資料focus and blur
-            var inputs = $('form:eq(0) .validate-input .register100');
-            var selects = $('form:eq(0) select.wrap-register100');
-            for (var i = 0; i < inputs.length; i++) {
-                    $(inputs[i]).focus();
-                    $(inputs[i]).blur();
-            }
-            for (var i = 0; i < selects.length; i++) {
-                $(selects[i]).focus();
-                $(selects[i]).blur();
-            }
-
-            $('.text-primary:eq(1)').click(function(){
-//    	        $('html,body').animate({}, 500);});  
-//            	$('.shrink').animate({display:'none'}, 'slow');
-//            	$('.shrink').slideToggle('50000');
-        
-				$('.shrink').css('display','none');
-				$('#basicinfolist').removeAttr('style');
-				$('.basicInfo__list-backIcon').css('text-align','left');
-			})
+        	/*
+             * ================================================================== 
+             * [ Shrink]
+             */
+            $('.text-primary:eq(1)').click(function(){  
+//        		$('#basicinfolist').show();
+            	$('.shrink').animate({left:'-72px'},'fast',function(){
+            		$('.basicInfo__list-backIcon').css('text-align','right');
+            	});
+            	$('.shrink').fadeOut('fast');
+            	$('#basicinfolist').animate({left:'0px'},'normal');
+			});
 			$('.text-primary:eq(0)').click(function(){
-				$('.shrink').removeAttr('style');
-				$('#basicinfolist').css('display','none');
-				$('.basicInfo__list-backIcon').css('text-align','center');	
-			})
+				$('#basicinfolist').animate({left:'-320px'},'fast',function(){
+            		$('.basicInfo__list-backIcon').css('text-align','center');
+            	});
+            	$('.shrink').fadeIn('fast');
+            	$('.shrink').animate({left:'0px'},'fast');
+//            	$('#basicinfolist').hide();
+			});
         });
         
      
