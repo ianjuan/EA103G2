@@ -18,11 +18,13 @@ public class CashVO implements java.io.Serializable {
 	public static final String lldIn_Checkout = "lldIn_Checkout";
 	public static final String lldIn_Deposit = "lldIn_Deposit";
 	
+	public static final String cashIn = "in";
+	public static final String cashOut = "out";
+	
 	private String cash_no;
 	private Date cash_date;
-	private Integer mem_identity;
 	private String mem_no;
-	private Integer cash_inout;
+	private String cash_inout;
 	private String cash_type;
 	private Integer cash_amout;
 	private String con_no;
@@ -46,14 +48,6 @@ public class CashVO implements java.io.Serializable {
 		this.cash_date = cash_date;
 	}
 
-	public Integer getMem_identity() {
-		return mem_identity;
-	}
-
-	public void setMem_identity(Integer mem_identity) {
-		this.mem_identity = mem_identity;
-	}
-
 	public String getMem_no() {
 		return mem_no;
 	}
@@ -62,11 +56,11 @@ public class CashVO implements java.io.Serializable {
 		this.mem_no = mem_no;
 	}
 
-	public Integer getCash_inout() {
+	public String getCash_inout() {
 		return cash_inout;
 	}
 
-	public void setCash_inout(Integer cash_inout) {
+	public void setCash_inout(String cash_inout) {
 		this.cash_inout = cash_inout;
 	}
 
@@ -154,5 +148,12 @@ public class CashVO implements java.io.Serializable {
 		return lldIn_Deposit;
 	}
 
-	
+	public static String getCashin() {
+		return cashIn;
+	}
+
+	public static String getCashout() {
+		return cashOut;
+	}
+
 }
