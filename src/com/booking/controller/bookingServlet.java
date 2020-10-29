@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.booking.model.BookingDAO;
 import com.booking.model.BookingService;
+import com.booking.model.BookingVO;
 import com.google.gson.Gson;
 
 /**
@@ -38,12 +40,13 @@ public class bookingServlet extends HttpServlet {
 		String action=request.getParameter("action");
 		String data =request.getParameter("data");
 		String lld_no=request.getParameter("lld_no");
+		String time=request.getParameter("time");
+		String tntno=request.getParameter("tntno");
 		if ("insert".equals(action)) {
-			BookingDAO dao = new BookingDAO();
 			// 進行轉換
 			try {
 			    BookingService bks= new BookingService();
-				ArrayList<String> thow =dao.insert(bks.change(data),lld_no);
+			    String thow =bks.insert(data, lld_no);
 				PrintWriter out = response.getWriter();
 				out.println(thow);
 
@@ -54,14 +57,23 @@ public class bookingServlet extends HttpServlet {
 			}
 			
 		} 
-//		else if ("getByHoid".equals(action)) {
-//			BookingDAO dao = new BookingDAO();
-//			dao.getBookingInfoListBylldno(request.getParameter("hoId"));
-//	} 
-		else if ("delete".equals(action)) {
+		else if ("findTheDayBytnt".equals(action)) {
+			BookingDAO dao = new BookingDAO();
+			Boolean answer=dao.findTheDayBytnt(tntno,time);
+			PrintWriter out = response.getWriter();
+			out.println(answer);
+
+			out.close();
+	} 
+		else if ("deletelld".equals(action)) {
 			BookingDAO dao =new BookingDAO();
 			
-				dao.delet(data);
+				dao.deletelld(data);
+		}
+		else if ("deletetnt".equals(action)) {
+			BookingDAO dao =new BookingDAO();
+			
+				dao.deletetnt(data,time);
 		}
 		else if ("update".equals(action)) {
 				  BookingService bks= new BookingService();

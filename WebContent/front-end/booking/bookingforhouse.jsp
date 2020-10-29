@@ -172,7 +172,7 @@ $('#save').click(function(){//確認新增預約
 	   		arrayfortime.push(theday)
 	   	}
 	   	console.log(arrayfortime);
-	  $.ajax({//存入資料庫階段
+	   $.ajax({//存入資料庫階段
 		  url:"<%=request.getContextPath()%>/booking/bookingServlet",
 	 	  type:"POST",
 	 	  data:{
@@ -180,32 +180,21 @@ $('#save').click(function(){//確認新增預約
 	 		  data:JSON.stringify(arrayfortime),	
 	 	 	  lld_no:list[0].lld_no
 	 	  },
-		success:function(id){//以上成功才執行
+	 	 success:function(id){//以上成功才執行
 	 		  console.log(id+"HEN棒");
-			 var i=0;
-			 if(Itallday){
-					for (let value of allowtime){
+			 var data=JSON.parse(id);
+				 data.forEach(function(obj){
 					  	 calendar.addEvent({
-					       start:theday+"T"+value,//加入該日期
-					       resdno:id//給他ID
-					     });
-					  	 }
-				 
-			 }else{
-				for (let value of arrayfortime){
-					console.log("有沒有進迴圈啦"+value);
-				  	 calendar.addEvent({
-				       start:value,//加入該日期
-				       resdno:id//給他ID
-				     });
-				  	 }}
-				   }	
-	 	 	 ,error:function(data)
-		 	  {
+					       start:obj.resd_date,
+					       resdno:obj.resd_no//給他ID
+					      });
+				  });			 
+		
+		},error:function(data){
 		 		  console.log("真的不棒")
-		 	  }	 		    
-	 		});	  			
-	 	  });
+		 	  }	 	    
+	 	});	  			
+  });
 	 	 	
   document.addEventListener('DOMContentLoaded', function() {
 	  var open=false;
@@ -276,11 +265,9 @@ $('#save').click(function(){//確認新增預約
     			   $.ajax({//存入資料庫階段
     					  url:"<%=request.getContextPath()%>/booking/bookingServlet",
     				 	  type:"POST",
-    				 	  data:{ action:"delete",
+    				 	  data:{ action:"deletelld",
     				 		  data:arg.event.extendedProps.resdno
-<%--     				 		  "<%=tntno %>" --%>
-    				 			  
-    				 		   //JSON.stringify({})
+
     				 	  },
     				 	  success:function(data){//以上成功才執行
     				 		  console.log(data);
@@ -298,43 +285,63 @@ $('#save').click(function(){//確認新增預約
        				}}
        else if(booking) {//房客
     	   if (confirm('確定要預約該時段嗎?')) {//按鈕確認是否 回傳相對應ture false
-        	 
-        	   $.ajax({//存入資料庫階段
-        			  url:"<%=request.getContextPath()%>/booking/bookingServlet",
+    		   $.ajax({//查詢房客是否該時段已有預約
+     			  url:"<%=request.getContextPath()%>/booking/bookingServlet",
 				 	  type:"POST",
 				 	  data:{
-				 		  action:"update",
-				 		 resdno: arg.event.extendedProps.resdno,
-				 		  date:arg.event.extendedProps.timemoment,
-				 		  house:"<%= hosno%>",
+				 		  action:"findTheDayBytnt",
+				 		  time:arg.event.extendedProps.timemoment,
 				 		  tntno:"<%= tntno %>",
-				 		  type:"look",
-				 		  resstatus:0
 				 	  },
 				 	  success:function(data){//以上成功才執行
-				 		 arg.el.style.backgroundColor="pink";
-			        	   arg.el.style.pointerEvents = "none";
-			        	   arg.event.title="WW";
+				 		  console.log(data);
+				 		  if(data.trim()=="true"){
+				 		 $.ajax({//存入資料庫階段
+		        			  url:"<%=request.getContextPath()%>/booking/bookingServlet",
+						 	  type:"POST",
+						 	  data:{
+						 		  action:"update",
+						 		 resdno: arg.event.extendedProps.resdno,
+						 		  date:arg.event.extendedProps.timemoment,
+						 		  house:"<%= hosno%>",
+						 		  tntno:"<%= tntno %>",
+						 		  type:"look",
+						 		  resstatus:0
+						 	  },
+						 	  success:function(data){//以上成功才執行
+						 		 arg.el.style.backgroundColor="pink";
+					        	   arg.el.style.pointerEvents = "none";
+					        	   arg.event.title="WW";
 
-				 		  	console.log("res棒");
+						 		  	console.log("res棒第二層");
+						 	  },
+						 	  error:function(data)
+						 	  {
+						 		  console.log("真的不棒")
+						 	  }
+						  
+						  });
+				 		 }
+				 		  else{
+				 			  alert("該時段你已經有預約行程囉!");
+				 		  }
+				 		  	console.log("res棒第一層");
 				 	  },
 				 	  error:function(data)
 				 	  {
 				 		  console.log("真的不棒")
 				 	  }
-				  
-				  });
+    		   });
 				  
         	        	   }}
        else{
-    	   alert("無法預約其他房東");
+    	   alert("請先註冊並登入房客帳號");
        }
     	
        
        },
      editable: false,
-      dayMaxEvents: true, // allow "more" link when too many events
-//      events: ${list}
+      dayMaxEvents: true,
        events: [
          {'title':123,'start':'2020-07-02','color':'green'}, 
         	 {'title': '預約',
@@ -356,14 +363,14 @@ $('#save').click(function(){//確認新增預約
  			resdno:catc.resd_no,
              status:catc.resd_status,
              backgroundColor:"yellow",
-             timemoment:catc.resd_date
+             timemoment:catc.timefordel
           }))
      }
      else{calendar.addEvent({
     			title:"可預約",
                 start:catc.resd_date,
                 resdno:catc.resd_no,
-                timemoment:catc.resd_date
+                timemoment:catc.timefordel
              }); }
      })
     calendar.render();

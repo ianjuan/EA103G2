@@ -5,13 +5,16 @@ import java.util.List;
 
 public interface BookingDAO_interface {
 	
-	public ArrayList<String> insert(ArrayList<String> arrayList,String lld_no);
+	public List<BookingVO> insert(ArrayList<String> arrayList,String lld_no);
     public void update(String sta);
-    public void delet(String bid);
+    public void deletelld(String bid);
+    public void deletetnt(String hosno,String time);
 	public List<BookingVO> getBookingInfoListByhosno(String houseno);
 	public void insertorder(BookingVO vo);
 	public List<BookingVO> getBookingInfoListBylldno(String lldno);
 	public List<BookingVO> getResOrderbylldno(String lldno);
-	public List<BookingVO> getBookingInfoListBytntno(String tnt);
 	public List<BookingVO> getResOrderbytntno(String tntno);
+	public Boolean findTheDayBytnt(String lld_no,String time);
+	public Boolean findTheDayBylld(String lld_no,String time);
+
 }

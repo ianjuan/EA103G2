@@ -21,6 +21,16 @@ String lld_name;
 String lld_sex;
 String lld_mobile;
 byte[] lld_pic;
+String timefordel;
+public String getTimefordel() {
+	return timefordel;
+}
+
+
+public void setTimefordel(String timefordel) {
+	this.timefordel = timefordel;
+}
+
 
 public String getLld_name() {
 	return lld_name;

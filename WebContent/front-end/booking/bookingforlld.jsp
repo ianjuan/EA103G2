@@ -195,26 +195,15 @@ $('#save').click(function(){//確認新增預約
 	 	  },
 		success:function(id){//以上成功才執行
 	 		  console.log(id+"HEN棒");
-			 var i=0;
-			 if(Itallday){
-					for (let value of allowtime){
+			 var data=JSON.parse(id);
+				 data.forEach(function(obj){
 					  	 calendar.addEvent({
-					       start:theday+"T"+value,//加入該日期
-					       resdno:id//給他ID
+					       start:obj.resd_date,
+					       resdno:obj.resd_no//給他ID
 					     });
-					  	 }
-				 
-			 }else{
-				for (let value of arrayfortime){
-					console.log("有沒有進迴圈啦"+value);
-				  	 calendar.addEvent({
-				       start:value,//加入該日期
-				       resdno:id//給他ID
-				     });
-				  	 }}
-				   }	
-	 	 	 ,error:function(data)
-		 	  {
+				});			 
+		
+		},error:function(data){
 		 		  console.log("真的不棒")
 		 	  }	 		    
 	 		});	  			
@@ -264,7 +253,6 @@ $('#save').click(function(){//確認新增預約
            calendar.unselect()
         },
        eventClick: function(arg) {//點選日曆上已成立的
-    	
     	   console.log(arg);
     	   console.log(arg.event.extendedProps.timemoment);
    		console.log(arg.event.extendedProps.status);
@@ -280,7 +268,7 @@ $('#save').click(function(){//確認新增預約
     			   $.ajax({//存入資料庫階段
     					  url:"<%=request.getContextPath()%>/booking/bookingServlet",
     				 	  type:"POST",
-    				 	  data:{ action:"delete",
+    				 	  data:{ action:"deletelld",
     				 		  data:arg.event.extendedProps.resdno
     				 	  },
     				 	  success:function(data){//以上成功才執行
