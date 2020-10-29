@@ -47,6 +47,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_rent.css">
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_evaluation.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_evaluation.js" charset="UTF-8"></script>
@@ -59,19 +60,7 @@
 </head>
 <body>
 	<div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_rent.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-</head>
-<body>
-	<div><jsp:include page="/front-end/navbar/navbar.jsp"/></div>
 	<div id="body">
 		<div id="left">
 			<nav id="housenav">
@@ -232,7 +221,7 @@
 						<div class="modal-content">
 							<form id="evaluation" name="evaluation">
 								<div class="modal-header">
-								    <marquee scrollamount="10" class="evatitle">來對房屋作評價吧~~</marquee>
+								    <marquee scrollamount="10" class="evatitle">來對房客作評價吧~~</marquee>
 								</div>
 								<div class="modal-body">
 									<ul>
@@ -246,7 +235,7 @@
 													<li><button type="button" value="1" onclick="eqpmtPoint(event)"><div class="star" value="1" onclick="eqpmtPoint(event)"></div></button></li>
 													<span class="logo">
 														<img src="https://www.flaticon.com/svg/static/icons/svg/169/169302.svg">
-														<span class="itemtitle">設備齊全 :</span>
+														<span class="itemtitle">整潔度 :</span>
 													</span>
 												</ul>
 									       	</div>
@@ -261,7 +250,7 @@
 													<li><button type="button" value="1" onclick="convmtPoint(event)"><div class="star" value="1" onclick="convmtPoint(event)"></div></button></li>
 													<span class="logo">
 														<img src="https://www.flaticon.com/svg/static/icons/svg/168/168466.svg">
-														<span class="itemtitle">周遭機能 :</span>
+														<span class="itemtitle">溝通度 :</span>
 													</span>
 												</ul>
 									       	</div>
@@ -276,7 +265,7 @@
 													<li><button type="button" value="1" onclick="neiborPoint(event)"><div class="star" value="1" onclick="neiborPoint(event)"></div></button></li>									    
 													<span class="logo">
 														<img src="https://www.flaticon.com/svg/static/icons/svg/263/263058.svg">
-														<span class="itemtitle">友善鄰居 :</span>
+														<span class="itemtitle">滿意度 :</span>
 													</span>
 												</ul>
 									       	</div>

@@ -25,20 +25,57 @@
 
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>資料新增 - addRepair.jsp</title>
+<title>新增修繕申請 </title>
+<style>
+.input{
+	border:5px lightblue solid;
+	border-radius:30px;
+	backgroundcolor:lightblue;
+	padding:100px;
+	margin:120px;
+	color:grey;
+	
+}
 
+.text{
+	font-size:2em;
+	text-align:left;
+	color:black;
+	
+}
+.title {
+text-align:center;
+
+}
+
+.btn btn-primary{
+	width:125px;
+    margin-left:auto;
+    margin-right:auto;
+}
+img{
+	margin:50px;
+	border-radius:20px;
+	border:5px lightblue solid;
+}
+
+</style>
 
 </head>
-<body bgcolor='white'>
-<div class='row'>
+<body bgcolor='lightgrey'>
+
+ <div class='row'>
   <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
 </div>
-<div class="jumbotron jumbotron-fluid">
-<div class="container">
-		 <h1 class="display-4">新增修繕申請 </h1>
-		 <p class="lead">- addRepair.jsp</p>
-	</div>
-</div>
+
+	<div class="container">
+  <div class="row justify-content-md-center">
+<!-- 	    <div class="col col-lg-2"></div> -->
+	    <div class="col-md-auto">
+	    <div class="input">
+		 <h1 class="title">新增修繕申請 </h1><br><br>
+	
+	
 
 
 <%-- 錯誤表列 --%>
@@ -53,36 +90,43 @@
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1" >
  <div class="form-group">
-		<label for="exampleFormControlInput1">合約編號:</label>
+		<label for="exampleFormControlInput1"><h3>合約編號:</h3></label>
 		<input type="TEXT" readonly name="con_no" class="form-control" id="exampleFormControlInput1"
 			 value="<%= (repairVO==null)? session.getAttribute("con_no") :repairVO.getCon_no()%>" />
 	 </div>
 <div class="form-group">
-		<label for="exampleFormControlSelect1">待修物品:</label>
+		<label for="exampleFormControlSelect1"><h3>待修物品:</h3></label>
 		<input type="text" name="rep_dam_obj" class="form-control" id="exampleFormControlSelect1" 
 			 value="<%= (repairVO==null)? "" : repairVO.getRep_dam_obj()%>" />
 </div>			
 	
 <div class="form-group">	
-		<label for="exampleFormControlInput1">損壞狀況:</label>
+		<label for="exampleFormControlInput1"><h3>損壞狀況:</h3></label>
 		<input type="TEXT" name="rep_dam_obj_des" size="45" class="form-control" id="exampleFormControlSelect1" 
 			 value="<%= (repairVO==null)? "" : repairVO.getRep_dam_obj_des()%>" />
 </div>	
 
  <div class="form-group">
-		<label for="exampleFormControlSelect1">損壞日期:</label>
+		<label for="exampleFormControlSelect1"><h3>損壞日期:</h3></label>
 		<input name="rep_case_str" id="f_date1" type="text" >
 </div>
 
 <br>
 <input type="hidden" name="action" value="tnt_insert">
-<!-- <input class="btn btn-primary" type="submit" value="送出新增"></FORM> -->
+<a href="${pageContext.request.contextPath }/front-end/repair/lldListAllRepair.jsp?lld_no=${lld_no}"><button class="btn btn-primary">取消</button></a>	
 <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">送出新增</button>
 </FORM>
 
 
 
+ </div>
+   </div>
+<!--     <div class="col col-lg-2"> -->
+      	 
+    </div>
 
+</div>
+</div>
 </body>
 
 

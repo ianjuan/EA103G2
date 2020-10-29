@@ -4,7 +4,7 @@
 <%@ page import="com.repair.controller.*"%>
 
 <%
-  RepairVO repairVO = (RepairVO) request.getAttribute("repairVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+  RepairVO repairVO = (RepairVO) request.getAttribute("repairVO"); 
 %>
 
 <html>
@@ -18,77 +18,69 @@
 <link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>修繕申請資料修改 - update_repair_input.jsp</title>
+<title>修繕申請資料修改 </title>
+
+
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+.input{
+	border:5px grey solid;
+	border-radius:30px;
+	backgroundcolor:lightblue;
+	padding:100px;
+	margin:120px;
+	color:grey;
+	
+}
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
+.text{
+	font-size:2em;
+	text-align:left;
+	color:black;
+	
+}
+.title {
+text-align:center;
+
+}
+
+.btn btn-primary{
+	width:125px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
 </style>
 
 </head>
-<body bgcolor='white'>
+<body bgcolor='lightgrey'>
 <div class='row'>
   <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
 </div>
 
-<div class="jumbotron jumbotron-fluid">
+
+
 <div class="container">
-		 <h1 class="display-4">修繕申請資料修改 </h1>
-		  <p class="lead">- update_repair_input.jsp</p>
-	</div>
-</div>
-
-
-
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
+  <div class="row justify-content-md-center">
+	    <div class="col col-lg-2"></div>
+     
+   <div class="col-md-auto">
+      <div class="input">
+      	<h1 class="title">編輯損壞狀況描述</h1><br>
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1">
+
  <div class="form-group">
-		<label for="exampleFormControlInput1">修繕申請編號:</label>
-		<%=repairVO.getRep_no()%>
+		<label for="exampleFormControlInput1"><h3>修繕申請編號</h3></label>
+		<span class="text"><%=repairVO.getRep_no()%></span>
 </div>
 <div class="form-group">
 		
-		<label for="exampleFormControlInput1">待修物品:</label>
-		<%=repairVO.getRep_dam_obj()%>
+		<label for="exampleFormControlInput1"><h3>待修物品</h3></label>
+		<span class="text">  <%=repairVO.getRep_dam_obj()%></span>
+		
 </div>
 <div class="form-group">
-		<label for="exampleFormControlInput1">損壞狀況:</label>
+		<label for="exampleFormControlInput1"><h3>損壞狀況</h3></label>
 		<c:choose>
 		<c:when test="${empty repairVO.getRep_dam_obj_des()}">
 		<input type="TEXT" name="rep_dam_obj_des" size="45"	value="   " />
@@ -99,24 +91,31 @@
 		</c:choose>
 </div>
 <div class="form-group">
-		<label for="exampleFormControlInput1">損壞日期:</label>
-		<%=repairVO.getRep_case_str()%>
+		<label for="exampleFormControlInput1"><h3>損壞日期<h3></label>
+		<span class="text"><%=repairVO.getRep_case_str()%></span>
 </div>
-<%-- 	<jsp:useBean id="RepairSvc" scope="page" class="izu.repair.controller.model.RepairService" /> --%>
-<!-- 	<tr> -->
-<!-- 		<td>家具:<font color=red><b>*</b></font></td> -->
-<!-- 		<td><select size="1" name="deptno"> -->
-<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
-<%-- 				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)?'selected':'' } >${deptVO.dname} --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</select></td> -->
-<!-- 	</tr> -->
+
 
 
 
 <input type="hidden" name="action" value="tnt_update">
 <input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>">
-<input class="btn btn-primary" type="submit" value="送出修改"></FORM>
+	
+<a href="${pageContext.request.contextPath }/front-end/repair/lldListAllRepair.jsp?lld_no=${lld_no}"><button class="btn btn-primary">取消</button></a>	
+<input style="text-align:center" class="btn btn-primary" type="submit" value="送出修改"></FORM>
+
+</div>
+    </div>
+    <div class="col col-lg-2">
+      
+    </div>
+
+
+
+
+
+</div>
+</div>
 </body>
 
 

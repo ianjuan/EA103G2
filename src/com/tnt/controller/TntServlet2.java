@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -24,6 +26,8 @@ import javax.servlet.http.Part;
 
 import com.tnt.model.*;
 
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutOneTime;
 import tools.MailService;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -539,6 +543,40 @@ public class TntServlet2 extends HttpServlet {
 					out.print("true");
 					return;
 				}
+//				//產生綠界訂單
+//				AioCheckOutOneTime checkoutonetime = new AioCheckOutOneTime();
+//				checkoutonetime.setMerchantTradeNo(); // 訂單編號
+//
+//				
+//				checkoutonetime.setItemName(itemname.toString()); // 商品名稱
+//				checkoutonetime.setTotalAmount(orderamt.toString()); // 總金額
+//					
+//				java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+//				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//				checkoutonetime.setMerchantTradeDate(sdf.format(time));
+//				checkoutonetime.setReturnURL("http://localhost:8081/EA103G2G5/Order_Master/Order_Master.do");
+//				checkoutonetime.setClientBackURL("http://localhost:8081/EA103G5/index/front-index/index.jsp");
+//				checkoutonetime.setTradeDesc("123"); // 商品詳情
+//				
+//				
+//				AllInOne all = new AllInOne("");
+//				String form = all.aioCheckOut(checkoutonetime, null);
+//				
+//				//轉送綠界訂單
+//				out.print("<!DOCTYPE html>\r\n" + 
+//						"<html lang=\"en\">\r\n" + 
+//						"<head>\r\n" + 
+//						"	<meta charset=\"UTF-8\">\r\n" + 
+//						"	<title>Document</title>\r\n" + 
+//						"</head>\r\n" + 
+//						"<body>");
+//				out.print(form);
+//				out.print("</body>" +
+//				"</html>");
+				
+				
+				
+				
 			} catch (Exception e) {
 //				errorMsgs.add("pocket 儲值失敗:" + e.getMessage());
 				System.out.println("pocket 儲值失敗:" + e.getMessage());
