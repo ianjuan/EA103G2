@@ -740,7 +740,7 @@ pagechange();
 
 		});
         $(document).on("click", ".btn-md", function() {
-        	window.location.href='<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos='+$(this).val();
+        	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).val();
 		});
         
         

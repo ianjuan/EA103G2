@@ -191,7 +191,29 @@ var ob;
     	    start: new Date()
     	  },
        eventClick: function(arg) {//點選日曆上已成立的 	   
- 		   alert("已被預約無法直接刪除時段，請與房客聯繫");
+    	   console.log(arg.event.extendedProps.timemoment);
+    	   if (confirm('確定要刪除該時段嗎?')) {//按鈕確認是否 回傳相對應ture false
+			   $.ajax({//存入資料庫階段
+					  url:"<%=request.getContextPath()%>/booking/bookingServlet",
+				 	  type:"POST",
+				 	  data:{ action:"deletetnt",
+				 		  data:arg.event.extendedProps.hosno,
+				 		  time:arg.event.extendedProps.timemoment
+				 	  },
+				 	  success:function(data){//以上成功才執行
+				 		  console.log(data);
+		        			 arg.event.remove();
+
+				 		  	console.log("res棒");
+				 	  },
+				 	  error:function(data)
+				 	  {
+				 		  console.log("真的不棒")
+				 	  }
+				  
+				  })
+    			 
+   				}
 
        },
      editable: false,
@@ -247,6 +269,7 @@ var ob;
     	 calendar.addEvent({
  			start:data.resd_date,
  			hosno:data.hos_no,
+ 			timemoment:data.timefordel,
              backgroundColor:"yellow",
           })
      })
