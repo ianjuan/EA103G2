@@ -19,6 +19,7 @@ import com.apl.model.Con_aplDAO;
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
 import com.cont.model.ConService;
+import com.cont.model.ConVO;
 import com.housemanage.model.HouseService;
 import com.housemanage.model.HouseVO;
 
@@ -543,15 +544,32 @@ public class Con_aplServlet extends HttpServlet {
 					}
 
 					con_aplService.lldUpdateCon_apl(apl_no, apl_status);
-					List<Con_aplVO> list = con_aplService.lldgetAll(lld_no);
-
+					
+					System.out.println(apl_status);
 					HttpSession session = req.getSession();
-					session.setAttribute("lld_no", lld_no);
-					session.setAttribute("list", list);
-					String url = "/front-end/house_manage/house_unrent.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url);
-					successView.forward(req, res);
-					return;
+
+					//once lld accepts it, forward to con page 
+					if (apl_status == 1) {
+						ConService conService = new ConService();
+						List<ConVO> list = conService.lldgetcon(lld_no);
+						session.setAttribute("lld_no", lld_no);
+						session.setAttribute("list", list);
+						
+						String url = "/front-end/contract/lldlistcontract.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url);
+						successView.forward(req, res);
+						return;
+						
+					}else {
+						//or keep checking 
+						List<Con_aplVO> list = con_aplService.hosgetall(hos_no);
+						session.setAttribute("list", list);
+						session.setAttribute("lld_no", lld_no);
+						
+						String url = "/front-end/apl/hoslistapl.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url);
+						successView.forward(req, res);
+					}
 				}
 
 				/*************************** 其他可能的錯誤處理 *************************************/

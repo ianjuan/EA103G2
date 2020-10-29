@@ -21,7 +21,12 @@
 	}
 	
 	List<ConVO> list = (List<ConVO>)session.getAttribute("list");
-	pageContext.setAttribute("list",list);
+	if(list == null || list.isEmpty()){
+		ConService conService = new ConService();
+		list = conService.lldgetcon(lld_no);
+	}
+
+	session.setAttribute("list",list);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -135,9 +140,8 @@
 							<li><span class="infotitle">合約編號 : </span><span>${conVO.con_no}</span></li>
 							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(conVO.hos_no).hos_name}</span></li>
 							<li><span class="infotitle">房客姓名 : </span><span>${tntSvc.getOneTntProfile(conVO.tnt_no).tnt_name}</span></li>
-<%-- 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li> --%>
-<%-- 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li> --%>
-<%-- 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li> --%>
+							<li><span class="infotitle">租屋開始時間 : </span><span>${aplSvc.getOneCon_apl(conVO.apl_no).apl_str}</span></li>
+							<li><span class="infotitle">租屋結束時間 : </span><span>${aplSvc.getOneCon_apl(conVO.apl_no).apl_end}</span></li>
 							<li><span class="infotitle">合約狀態 : </span><span>${conSvc.getConstatusText(conVO.con_sta)}</span></li>
 						</ul>
 					</div>					
@@ -149,6 +153,7 @@
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="hos_no"  value="${conVO.hos_no}">
+			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 			     				<input type="hidden" name="action"	value="checklldcontract">
 			     				</FORM>
 			     				

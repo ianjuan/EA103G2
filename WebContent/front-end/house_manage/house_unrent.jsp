@@ -126,7 +126,7 @@
 								<input type="hidden" name="lld_no" value="<%=lld_no%>">
 								<input type="hidden" name="action" value="hosgetall">
 								<c:if test="${aplSvc.hosgetall(houseVO.hos_no).size() != 0}">
-								<li><button id="btn2" type="submit">租屋申請</button></li>
+								<li><button id="btn4" type="submit">租屋申請</button></li>
 								</c:if>
 							</FORM>
 						</ul>

@@ -128,14 +128,14 @@ public class ConServlet extends HttpServlet {
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				String lld_no = new String(req.getParameter("lld_no"));
-				
+				String hos_no = new String(req.getParameter("hos_no"));
+				String con_no = new String(req.getParameter("con_no"));
+				System.out.println(lld_no);
+				System.out.println(hos_no);
+				System.out.println(con_no);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				HouseService houseSvc = new HouseService();
-				String hos_no = houseSvc.gethosno(lld_no).getHos_no();
-				
 				ConService conSvc = new ConService();
-				String con_no = conSvc.getConbyhos(hos_no).getCon_no();
 				
 				Con_aplService con_aplService = new Con_aplService();
 				String apl_no = conSvc.getOneCon(con_no).getApl_no();
@@ -148,6 +148,7 @@ public class ConServlet extends HttpServlet {
 
 				ConVO conVO = conSvc.getOneCon(con_no);
 				
+				HouseService houseSvc = new HouseService();
 				HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
 				HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
 				HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);

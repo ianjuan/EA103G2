@@ -1,7 +1,6 @@
 var i = 1;
 
 window.onload = function(){
-	show();
 		
 	var menuBtn = document.querySelector('.menu-btn');
 	var nav = document.querySelector('#housenav');
@@ -24,7 +23,7 @@ function notice1(event) {
 	var list = document.getElementsByClassName("cinfo").length;
 
 	swal({
-		title : "如果接受此申請, 愛租將幫您自動拒絕其他" + (list - 1) + "個申請",text:"",
+		title : "確定接受申請？",text:"如果接受, 愛租將幫您拒絕其他" + (list - 1) + "個申請",
 		buttons : {
 			Btn : false,
 			confirm : {
@@ -38,7 +37,7 @@ function notice1(event) {
 		}
 	}).then(function(isConfirm) {
 		if (isConfirm) {
-			swal("恭喜", "已接受此申請", "success", {
+			swal("已接受此申請", "請開始填寫合約", "success", {
 				button : "確認"
 			}).then(function() {
 				a.submit();
@@ -72,4 +71,37 @@ function notice2(event) {
 		    swal("還有機會跟他結緣!");
 		  }
 		});
+}
+
+function checkmoney(){
+	var money = document.getElementById("lld_balance");
+	if(money.value < 1000){
+		swal("您的電子錢包餘額為 : " + money.value + "元").then(function(){
+			swal({title:"請問是否要儲值?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
+			      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+			    }}).then(function(isConfirm){
+				if(isConfirm){
+					swal("爸爸辛苦了, 等您回來!", {button: "確認"}).then(function(){
+						document.pub.submit();
+					});
+				} else {
+					return false;
+				}	    				
+			})
+		});
+	} else {
+		swal("目前電子錢包金額為" + money.value + "元").then(function(){
+			swal({title:"是否上架房屋?", text:"上架費一次為 1000 元" , icon:"info", buttons: {
+			      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+			    }}).then(function(isConfirm){
+				if(isConfirm){
+					swal("開始上架房屋!!", {button: "確認"}).then(function(){
+						document.pub.submit();
+					});
+				} else {
+					return false;
+				}	    				
+			})
+		});
+	}
 }
