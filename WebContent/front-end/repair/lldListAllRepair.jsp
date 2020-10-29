@@ -8,7 +8,7 @@
 <%@ page import="com.tnt.model.*"%>
 <%@ page import="com.cont.model.*"%>
 <%@ page import="com.lld.model.*"%>
-<%-- <% session.setAttribute("lld_no", "LLD000224");%> --%>
+<% session.setAttribute("lld_no", "LLD000224");%> 
 <% String lld_no = (String)request.getAttribute("lld_no"); %>
 
 <html>
