@@ -151,7 +151,7 @@
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-			     				<input type="hidden" name="action"	value="gettntrepair">
+			     				<input type="hidden" name="action"	value="getTntRepair">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
@@ -162,9 +162,6 @@
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="action"	value="tntcheckout">
 			     				</FORM>
-			     				
-			     				
-								<li><button id="btn3">聊天</button></li>
 																					
 							</ul>
 						</div>					
