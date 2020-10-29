@@ -55,7 +55,7 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String GET_LLDOFFHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '已下架' order by hos_no DESC";
 	private static final String DELETE_HOUSEPIC = "DELETE FROM HOUSE_PICTURE where pic_no=?";
 	private static final String DELETE_HOUSEINFO = "DELETE FROM HOUSE where hos_no=?";
-	private static final String GET_ALLHOUSE = "SELECT hos_no,h.lld_no,lld_name,hos_add,hos_status,hos_type,hos_room FROM HOUSE h JOIN LANDLORD l on h.lld_no = l.lld_no";
+	private static final String GET_ALLHOUSE = "SELECT hos_no,h.lld_no,lld_name,hos_name,hos_add,hos_status,hos_type,hos_room FROM HOUSE h JOIN LANDLORD l on h.lld_no = l.lld_no";
 	private static final String UPDATE_STATUS = "UPDATE HOUSE SET HOS_STATUS = ? WHERE HOS_NO = ?";
 	private static final String GET_HOSNO = "SELECT HOS_NO FROM HOUSE WHERE LLD_NO = ?";
 	
@@ -994,12 +994,12 @@ public class HouseDAO implements HouseDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVO �]�٬� Domain objects
 				houseVO = new HouseVO();
 				houseVO = new HouseVO();
 				houseVO.setHos_no(rs.getString("hos_no"));
 				houseVO.setLld_no(rs.getString("lld_no"));
 				houseVO.setLld_name(rs.getString("lld_name"));
+				houseVO.setHos_name(rs.getString("hos_name"));
 				houseVO.setHos_add(rs.getString("hos_add"));
 				houseVO.setHos_status(rs.getString("hos_status"));
 				houseVO.setHos_type(rs.getString("hos_type"));
