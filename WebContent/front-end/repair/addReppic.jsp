@@ -26,43 +26,85 @@ RepairVO repairVO = (RepairVO) session.getAttribute("repairVO");
 
 
 <title>申請成功!</title>
+<style>
+.input{
+	border:5px grey solid;
+	border-radius:30px;
+	backgroundcolor:lightblue;
+	padding:100px;
+	margin:120px;
+	color:grey;
+	
+}
 
+.text{
+	font-size:2em;
+	text-align:left;
+	color:black;
+	
+}
+.title {
+text-align:center;
+
+}
+
+.btn btn-primary{
+	width:125px;
+    margin-left:auto;
+    margin-right:auto;
+}
+img{
+	margin:50px;
+	border-radius:20px;
+	border:5px lightblue solid;
+}
+
+</style>
 </head>
-<body bgcolor='lightblue'>
+<body bgcolor='lightgrey'>
 <div class='row'>
   <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
 </div>
 
-<div class="jumbotron jumbotron-fluid">
 <div class="container">
-		 <h1 class="display-4">申請已完成 </h1>
-		 
-</div>
-</div>
+  <div class="row justify-content-md-center">
+	    <div class="col col-lg-2"></div>
+	    
+	<div class="col-md-auto">
+      <div class="input">
+		 <h1 class="title">申請已完成 </h1><br>
+		 <span class="text">修繕申請成功!請等候房東通知預計修畢日期與修繕結果</span><br>
+		<span class="text">想要給房東看家具損壞的照片嗎? 這裡可以上傳損壞物品的照片(可多張)
+		<a href="${pageContext.request.contextPath }/front-end/repair/lldListAllRepair.jsp?lld_no=${lld_no}"><button class="btn btn-primary">取消</button></a>	
+		</span>
 
-<div class="container">
-  <div class="row">
-    <div class="col">
+
  		<div class="upload">
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1" enctype="multipart/form-data">
-			    <input type="file" id="myPic" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
-			  	<br><input type="reset" id="delete" value="清除全部"> 
+			    <br><input type="file" id="myPic" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
+			  	<br><br><input class="btn btn-primary" type="reset" id="delete" value="清除全部"> 
 			  	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 				<input type="hidden" name="action" value="pic_insert">
 				<input class="btn btn-primary" type="submit" value="送出圖片">
+				
 			</FORM>
     	</div>
-    <div class="col-6">
-	      <h3>修繕申請成功!請等候房東通知預計修畢日期與修繕結果</h3>
-		<h4>想要給房東看家具損壞的照片嗎? 這裡可以上傳損壞物品的照片(可多張):</h4>
-    </div>
-    <div class="col">
-	     <div id="view">
+    	<div id="view">
 	 	</div>
     </div>
-  </div>
-</div>
+   </div>
+    <div class="col col-lg-2">
+      	 
+    </div>
+	      
+    
+    
+	    
+  
 
+</div>
+</div>
+</body>
 
 
 
@@ -79,7 +121,7 @@ RepairVO repairVO = (RepairVO) session.getAttribute("repairVO");
 <!-- </div> -->
 <script>
 var myPic = document.getElementById("myPic");
-// var filename = document.getElementById("filename");
+var view = document.getElementById("view");
 
 myPic.addEventListener('change', function(e) {
     var pics = myPic.files;
@@ -88,11 +130,12 @@ myPic.addEventListener('change', function(e) {
     //選擇的檔案型別必為image，可選一個以上
     //pics.type.indexOf('image')?
     if (pics !== null) {
-
+    	view.setAttribute('border', '5px lightblue solid');
+    	view.setAttribute('border-radius', '30px');
         for (var i = 0; i < pics.length; i++) {
             // 取出pics物件的第i個
             var pic = pics[i];
-
+			
             console.log(pic.name);
             console.log('圖片第 ' + (i + 1) + ' 個');
 
@@ -108,7 +151,10 @@ myPic.addEventListener('change', function(e) {
                 //設定圖片路徑給img  
                 //reader.result?                        
                 img.setAttribute('src', this.result);
-                //將img放到preview區塊
+                img.setAttribute('width', '400px');
+                img.setAttribute('height', '300px');
+                
+                //將img放到view區塊
                 view.append(img);
                 e.stopPropagation() //停止向上冒泡
                 console.log('reader註冊結束');
@@ -134,5 +180,4 @@ delete1.addEventListener('click', function(e) {
 </script>
 
 
-</body>
 </html>

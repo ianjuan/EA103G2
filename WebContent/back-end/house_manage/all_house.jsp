@@ -74,7 +74,6 @@
 							<th>房屋類型</th>
 							<th>房間類型</th>
 							<th>房屋狀態</th>
-							<th class="fun">房屋資訊</th>
 							<th class="fun">資訊修改</th>
 						</tr>
 					</thead>
@@ -89,7 +88,6 @@
 							<td>${houseVO.hos_type}</td>
 							<td>${houseVO.hos_room}</td>
 							<td id="status">${houseVO.hos_status}</td>
-							<td><button class="btn">查看</button></td>
 							<td>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet_BE">
 									<input type="hidden" name="hos_no" value="${houseVO.hos_no}">
