@@ -95,8 +95,9 @@ h1, h2, h3, h4, h5, h6, table{
 
 <body bgcolor='white'>
 
-<% session.setAttribute("tnt_no", "TNT000008");%>
-<% String tnt_no = (String)session.getAttribute("tnt_no"); %>
+<%-- <% session.setAttribute("tnt_no", "TNT000008");%> --%>
+<%-- <% String tnt_no = (String)session.getAttribute("tnt_no"); %> --%>
+<% String tnt_no = (String)request.getParameter("tnt_no");%>
 
 
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
