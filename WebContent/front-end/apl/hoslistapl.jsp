@@ -42,6 +42,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/apl/js/lldapl.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
@@ -140,7 +141,7 @@
 							<ul>
 								<FORM name="aplForm" METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 								<c:if test="${con_aplVO.apl_status == 0}">
-								<li><button class="btn" id="btn1 "type="button" onclick="notice1(event)">接受申請</button></li>
+								<li><button id="btn1" "type="button" onclick="notice1(event)">接受申請</button></li>
 								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=1>
@@ -151,7 +152,7 @@
 			     				
 			     				<FORM name="cancel" METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 			     				<c:if test="${con_aplVO.apl_status == 0}">
-								<li><button class="btn" id="btn2 "type="button" onclick="notice2(event)">拒絕申請</button></li>
+								<li><button id="btn2" "type="button" onclick="notice2(event)">拒絕申請</button></li>
 								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=2>

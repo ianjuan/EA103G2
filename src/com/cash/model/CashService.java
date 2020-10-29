@@ -6,35 +6,65 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class CashService {
-	TenantDAO_interface dao;
+	CashDAO_interface dao;
 
 	public CashService() {
-		dao = new TntDAO();
-	}
-
-	public TntVO addTnt(String tnt_email, String tnt_acc, String tnt_pwd, String tnt_id, String tnt_name,
-			Date tnt_birth, Boolean tnt_sex, String tnt_mobile, String tnt_city, String tnt_dist, String tnt_add, byte[] tnt_pic) {
-		//
-		TntVO tntVO = new TntVO();
-//		tntVO.setTnt_no(tnt_no);
-		tntVO.setTnt_email(tnt_email);
-		tntVO.setTnt_acc(tnt_acc);
-		tntVO.setTnt_pwd(tnt_pwd);
-		tntVO.setTnt_id(tnt_id);
-		tntVO.setTnt_name(tnt_name);
-		tntVO.setTnt_birth(tnt_birth);
-		tntVO.setTnt_sex(tnt_sex);
-		tntVO.setTnt_mobile(tnt_mobile);
-		tntVO.setTnt_city(tnt_city);
-		tntVO.setTnt_dist(tnt_dist);
-		tntVO.setTnt_add(tnt_add);
-		tntVO.setTnt_pic(tnt_pic);
-		dao.insert_profile(tntVO);
-
-		return tntVO;
+		dao = new CashDAO();
 	}
 	
+	//全部
+	public CashVO addCash(Date cash_date, Integer mem_identity, String mem_no, Integer cash_inout, String cash_type,
+			Integer cash_amout, String con_no, String rec_no) {
+		
+		CashVO cashVO = new CashVO();
+		cashVO.setCash_date(cash_date);
+		cashVO.setMem_identity(mem_identity);
+		cashVO.setMem_no(mem_no);
+		cashVO.setCash_inout(cash_inout);
+		cashVO.setCash_type(cash_type);
+		cashVO.setCash_amout(cash_amout);
+		cashVO.setCon_no(con_no);
+		cashVO.setRec_no(rec_no);
+
+		dao.insert_cashAll(cashVO);
+
+		return cashVO;
+	}
+	
+	//沒有合約編號、沒有帳單編號
+	public CashVO addCash(Date cash_date, Integer mem_identity, String mem_no, Integer cash_inout, String cash_type,
+			Integer cash_amout) {
+		//
+		CashVO cashVO = new CashVO();
+		cashVO.setCash_date(cash_date);
+		cashVO.setMem_identity(mem_identity);
+		cashVO.setMem_no(mem_no);
+		cashVO.setCash_inout(cash_inout);
+		cashVO.setCash_type(cash_type);
+		cashVO.setCash_amout(cash_amout);
+
+		dao.insert_cash(cashVO);
+
+		return cashVO;
+	}
+
+	//沒有帳單編號
+	public CashVO addCash(Date cash_date, Integer mem_identity, String mem_no, Integer cash_inout, String cash_type,
+			Integer cash_amout, String con_no) {
+		
+		CashVO cashVO = new CashVO();
+		cashVO.setCash_date(cash_date);
+		cashVO.setMem_identity(mem_identity);
+		cashVO.setMem_no(mem_no);
+		cashVO.setCash_inout(cash_inout);
+		cashVO.setCash_type(cash_type);
+		cashVO.setCash_amout(cash_amout);
+		cashVO.setCon_no(con_no);
+
+		dao.insert_cash_Con(cashVO);
+
+		return cashVO;
+	}
 	
 
 }
-
