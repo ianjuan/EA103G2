@@ -22,49 +22,52 @@
 <title>房東更新修繕進度 </title>
 
 <style>
-  table#table-1 {
-	background-color: orange;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+  .input{
+	border:10px #FFBD45		 solid;
+	border-radius:30px;
+/* 	background-color:#D4FFFF; */
+	padding:100px;
+	margin:120px;
+	color:grey;
+	
+}
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
+.text{
+	font-size:2em;
+	text-align:left;
+	color:black;
+	
+}
+.title {
+text-align:center;
+
+}
+
+.btn btn-primary{
+	width:125px;
+    margin-left:auto;
+    margin-right:auto;
+}
+img{
+	margin:50px;
+	border-radius:20px;
+	border:5px lightblue solid;
+}
 </style>
 
 </head>
-<body bgcolor='white'>
+<body bgcolor='lightgrey'>
 <div class='row'>
   <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
 </div>
-<div class="jumbotron jumbotron-fluid">
-<div class="container">
-		 <h1 class="display-4">修繕進度修改  </h1>
-		 <p class="lead">- update_emp_input_progress.jsp</p>
-	</div>
-</div>
 
+<div class="container">
+  <div class="row justify-content-md-center">
+<!-- 	    <div class="col col-lg-2"></div> -->
+			<div class="col-md-auto">
+				<div class="input">
+
+		 <h1 class="title">修繕進度修改  </h1><br>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -77,41 +80,56 @@
 </c:if>
 
 <FORM METHOD="post" ACTION="repair.servlet" name="form1">
-<table>
-	<tr>
-		<td>修繕申請編號:</td>
-		<td><%=repairVO.getRep_no()%></td>
-	</tr>
-	<tr>
-		<td>待修物品:</td>
-		<td><%=repairVO.getRep_dam_obj()%></td>
-	</tr>
-	<tr>
-		<td>損壞狀況:</td>
-		<td><%=repairVO.getRep_dam_obj_des()%></td>
-	</tr>
-	<tr>
-		<td>損壞日期:</td>
-		<td><%=repairVO.getRep_case_str()%></td>
-	</tr>
-	<tr>
-		<td>預計修畢日期:</td>
-		<td><%=repairVO.getRep_est_enddate()%></td>
-	</tr>
-	<tr>
-		<td>修繕進度:${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</td>
-		<td>
-			<input type="radio" name="rep_pro" value="1" checked> 更改為已修畢<br>
-			<input type="radio" name="rep_pro" value="0"> 處理中<br>
-		</td>
-	</tr>
+	
+	<div class="form-group">
+		<label for="exampleFormControlInput1"><h3>修繕申請編號</h3></label>
+		<span class="text"><%=repairVO.getRep_no()%></span>
+	</div>
+	
+	<div class="form-group">
+		
+		<label for="exampleFormControlInput1"><h3>待修物品</h3></label>
+		<span class="text">  <%=repairVO.getRep_dam_obj()%></span>
+		
+	</div>
+	<div class="form-group">
+		<label for="exampleFormControlInput1"><h3>損壞狀況</h3></label>
+		<span class="text"><%=repairVO.getRep_dam_obj_des()%></span>
+		
+	</div>
+	
+	<div class="form-group">
+		<label for="exampleFormControlInput1"><h3>損壞日期<h3></label>
+		<span class="text"><%=repairVO.getRep_case_str()%></span>
+	</div>
+	
+	<div class="form-group">
+		<label for="exampleFormControlInput1"><h3>預計修畢日期<h3></label>
+		<span class="text"><%=repairVO.getRep_est_enddate()%></span>
+	</div>
+	
+	<div class="form-group">
+		<label for="exampleFormControlInput1"><h3>修繕進度:${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}<h3></label>
+		<span class="text"><input type="radio" name="rep_pro" value="0" checked> 處理中</span><br>
+		<span class="text"><input type="radio" name="rep_pro" value="1" > 更改為已修畢</span><br>
+	</div>
+	
 
 
-</table>
 <br>
+<a href="${pageContext.request.contextPath }/front-end/repair/lldListAllRepair.jsp?lld_no=${lld_no}"><button class="btn btn-primary">取消</button></a>	
 <input type="hidden" name="action" value="updatePro">
 <input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>">
-<input type="submit" value="送出修改"></FORM>
+<input type="submit" class="btn btn-primary" value="送出修改"></FORM>
+
+
+</div>
+    </div>
+<!--     <div class="col col-lg-2"> </div> -->
+
+
+</div>
+</div>
 </body>
 
 

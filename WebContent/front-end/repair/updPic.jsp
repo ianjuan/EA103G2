@@ -169,9 +169,9 @@
 </script>
 </head>
 <body>
-<div class='row'>
+<!-- <div class='row'> -->
 <%--   <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div> --%>
-</div>
+<!-- </div> -->
 
 <%-- 錯誤表列 --%>
 
