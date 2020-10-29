@@ -58,6 +58,20 @@ button.checkall {
 	border: 1px solid #8a97a0;
 	text-align: center;
 }
+
+button.pass {
+	margin-top: 15px;
+	font-size: 16px;
+	font-weight: 600;
+	text-transform: uppercase;
+	padding: 15px 26px;
+	color: #FFF;
+	background-color: #FB6565;
+	border-radius: 4px;
+	border: 1px solid #FB6565;
+	text-align: center;
+	width: 100%;
+}
 </style>
 
 
@@ -185,6 +199,7 @@ button.checkall {
 														<label for="note">結果註記:</label>
 														<textarea id="note" name="rptt_note"><%=rpttvo.getRptt_note()%></textarea>
 													</div>
+													
 													<button type="submit" class="pass" name="action"
 														value="pass">通過</button>
 													<button type="submit" class="fail" name="action"

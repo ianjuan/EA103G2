@@ -50,9 +50,9 @@
 }
 
 .pic {
-	width: 500px;
+	width: 400px;
 	height: 300px;
-	margin: 10px;
+	margin: 8px;
 }
 </style>
 

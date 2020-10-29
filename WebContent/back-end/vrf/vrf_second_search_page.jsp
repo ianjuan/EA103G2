@@ -136,10 +136,12 @@
 									<td>${tntVO.tnt_id_uploadtime}</td>
 									<c:choose>
 										<c:when test="${tntVO.tnt_id_result==1}">
-											<td>通過</td>
+											<td><span class="badge badge-pill badge-success"
+												style="font-size: 15px; padding: 4px;">通過</span></td>
 										</c:when>
 										<c:when test="${tntVO.tnt_id_result==2}">
-											<td>不通過</td>
+											<td><span class="badge badge-pill badge-danger"
+												style="font-size: 15px; padding: 4x;">不通過</span></td>
 										</c:when>
 										<c:otherwise>
 											<td>審核中</td>

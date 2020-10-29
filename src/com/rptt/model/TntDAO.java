@@ -671,7 +671,7 @@ public class TntDAO implements TenantDAO_interface {
 			} else if (tnt_no.startsWith("L")) {
 				pstmt = con.prepareStatement(GET_LVRF_PICF_STMT);
 			} else {
-				System.out.println("wrong sql");
+				System.out.println("照片:wrong sql");
 			}
 			pstmt.setString(1, tnt_no);
 
@@ -732,9 +732,8 @@ public class TntDAO implements TenantDAO_interface {
 			} else if (tntVO.getTnt_no().startsWith("L")) {
 				pstmt = con.prepareStatement(UPDATE_PASS_LVRF);
 			} else {
-				System.out.println("wrong sql");
+				System.out.println("失敗wrong sql");
 			}
-
 			pstmt.setInt(1, tntVO.getTnt_id_result());
 			pstmt.setString(2, tntVO.getEmp_no());
 			pstmt.setString(3, tntVO.getTnt_no());
@@ -772,7 +771,7 @@ public class TntDAO implements TenantDAO_interface {
 			} else if (tntVO.getTnt_no().startsWith("L")) {
 				pstmt = con.prepareStatement(UPDATE_FAIL_LVRF);
 			} else {
-				System.out.println("wrong sql");
+				System.out.println("失敗wrong sql");
 			}
 
 			pstmt.setInt(1, tntVO.getTnt_id_result());
@@ -885,7 +884,8 @@ public class TntDAO implements TenantDAO_interface {
 		return list;
 	}
 
-	private static final String GET_EMAIL = "select TNT_NAME,TNT_EMAIL,TNT_ACC, TNT_ID_DISAPPROVE from TENANT where TNT_NO=?";
+	private static final String TENANT_GET_EMAIL = "select TNT_NAME,TNT_EMAIL,TNT_ACC, TNT_ID_DISAPPROVE from TENANT where TNT_NO=?";
+	private static final String LANDLORD_GET_EMAIL = "select LLD_NAME AS TNT_NAME,LLD_EMAIL AS TNT_EMAIL,LLD_ACC AS TNT_ACC , LLD_ID_DISAPPROVE AS TNT_ID_DISAPPROVE from LANDLORD where LLD_NO=?";
 
 	public TntVO findEmail(String tnt_no) {
 		TntVO tntVO = null;
@@ -895,11 +895,13 @@ public class TntDAO implements TenantDAO_interface {
 
 		try {
 			con = ds.getConnection();
-
+			System.out.println("來到dao email");
 			if (tnt_no.startsWith("T")) {
-				pstmt = con.prepareStatement(GET_EMAIL);
+				pstmt = con.prepareStatement(TENANT_GET_EMAIL);
+			} else if (tnt_no.startsWith("L")) {
+				pstmt = con.prepareStatement(LANDLORD_GET_EMAIL);
 			} else {
-				System.out.println("wrong sql");
+				System.out.println("email:wrong sql");
 			}
 			pstmt.setString(1, tnt_no);
 
