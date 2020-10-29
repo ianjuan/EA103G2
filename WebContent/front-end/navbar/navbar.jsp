@@ -13,7 +13,7 @@
 	String	lldno=(String)session.getAttribute("lld_no");	
 	boolean lldvolive=true;
 	boolean tntvolive=true;
-	
+	String user=null;
 		if(tntVO==null){
 			tntvolive=false;
 		}
@@ -21,6 +21,13 @@
 		if(lldVO==null){
 			lldvolive=false;
 		}
+		if(tntVO!=null){
+			user=tntno;
+		}
+		if(lldVO!=null){
+			user=lldno;
+		}
+		pageContext.setAttribute("user",user);
 		%>
 		<div id="div-nav"></div>
 		
@@ -116,5 +123,39 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	            "</nav>"
 		)
 	}
+	
+	
+	
+	var NotifyMyPoint = "/NotifyServlet/${user}";
+	var notifyHost = window.location.host;
+	var notifyPath = window.location.pathname;
+	var notifyWebCtx = notifyPath.substring(0, notifyPath.indexOf('/', 1));
+	var notifyEndPointURL = "ws://" + window.location.host + notifyWebCtx + NotifyMyPoint;
+	var webSocketForNotify;
+
+	$(document).ready(function (){
+		webSocketForNotify = new WebSocket(notifyEndPointURL);
+		
+		webSocketForNotify.onopen = function(event){
+			console.log("Connect Success!");
+			
+		}
+		
+		
+		webSocketForNotify.onmessage = function(event) {			
+			var jsonObj = JSON.parse(event.data);
+			var dateForNow=new Date().getTime();
+			console.log(jsonObj);
+			console.log(event);			
+		}
+	});				
+		
+
+	window.unonload=function() {	
+		webSocketForNotify.onclose = function(event) {
+			webSocket.close();
+		}
+	}
+	
 </script>
 </html>

@@ -52,45 +52,6 @@ public class ImgReader extends HttpServlet {
 			in.close();
 			out.close();
 		}
-		
-
-		
-		
-		
-//		if (mem_no.substring(0, 3).equalsIgnoreCase("tnt")) {
-//			String tnt_no = mem_no;
-//			TntVO tntVO = tntSvc.getOneTntPic(tnt_no);
-//			byteArray = tntVO.getTnt_pic();
-//			if (byteArray != null) {
-//				out.write(byteArray);
-//				out.close();
-//			} else {  //還沒有大頭貼
-//				String resourceString = "";
-//				Boolean tnt_sex = tntSvc.getOneTntProfile(tnt_no).getTnt_sex();
-//				if (tnt_sex) {
-//					resourceString = "/resource/Mycol/images/person_man.png";
-//				} else {
-//					resourceString = "/resource/Mycol/images/person_women.png";					
-//				}
-//				InputStream in = getServletContext().getResourceAsStream(resourceString);
-////				InputStream in = getServletContext().getResourceAsStream("/images/NoData/null2.jpg");
-//				byte[] b = new byte[in.available()];
-//				in.read(b);
-//				out.write(b);
-//				in.close();
-//				out.close();
-//			}
-//
-//		}
-//		if (mem_no.substring(0, 3).equalsIgnoreCase("lld")) {
-//			String lld_no = mem_no;
-//			TntVO tntVO = tntSvc.getOneTntPic(lld_no);
-//			byteArray = tntVO.getTnt_pic();
-//			out.write(byteArray);
-//			out.close();
-//		}
 	}
-	
-	
 
 }
