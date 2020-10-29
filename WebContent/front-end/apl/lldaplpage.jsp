@@ -180,7 +180,7 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-						    	<span class="allhousetitle">房屋所有評價</span>
+						    	<span class="allhousetitle">房客評價</span>
 						    </div>
 							<div class="modal-body">
 								<div id="accordion">
@@ -204,7 +204,7 @@
 											       		<ul class="rating">								   										
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/169/169302.svg">
-																<span class="itemtitle">設備齊全 :</span>
+																<span class="itemtitle"> :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
@@ -219,7 +219,7 @@
 											       		<ul class="rating">								   
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/168/168466.svg">
-																<span class="itemtitle">周遭機能 :</span>
+																<span class="itemtitle">溝通度 :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
@@ -233,7 +233,7 @@
 											       		<ul class="rating">								   								    
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/263/263058.svg">
-																<span class="itemtitle">友善鄰居 :</span>
+																<span class="itemtitle">滿意度 :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
@@ -247,7 +247,7 @@
 											       	<div class="item">
 												       	<span class="logo" style="float:left;margin-top:5px;">
 															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
-															<span class="itemtitle">房客評論 :</span>
+															<span class="itemtitle">房東評論 :</span>
 														</span>
 												       	<textarea rows="2" wrap="hard" name="hcm_commnt" readonly>我要住這裡一輩子</textarea>			       		
 											       	</div>
@@ -256,7 +256,7 @@
 											       	<div class="item">
 												       	<span class="logo" style="float:left;margin-top:5px;">
 															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263101.svg">
-															<span class="itemtitle">房東回覆 :</span>
+															<span class="itemtitle">我的回覆 :</span>
 														</span>
 												       	<textarea rows="2" wrap="hard" name="hcm_respon" readonly>很高興您喜歡</textarea>			       		
 											       	</div>
@@ -286,7 +286,7 @@
 											       		<ul class="rating">								   										
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/169/169302.svg">
-																<span class="itemtitle">設備齊全 :</span>
+																<span class="itemtitle">整潔度 :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
@@ -299,7 +299,7 @@
 											       		<ul class="rating">								   
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/168/168466.svg">
-																<span class="itemtitle">周遭機能 :</span>
+																<span class="itemtitle">溝通度 :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
@@ -312,7 +312,7 @@
 											       		<ul class="rating">								   								    
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/263/263058.svg">
-																<span class="itemtitle">友善鄰居 :</span>
+																<span class="itemtitle">滿意度 :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
@@ -324,7 +324,7 @@
 											       	<div class="item">
 												       	<span class="logo" style="float:left;margin-top:5px;">
 															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
-															<span class="itemtitle">房客評論 :</span>
+															<span class="itemtitle">房東評論 :</span>
 														</span>
 												       	<textarea rows="2" wrap="hard" name="hcm_commnt" readonly>還好啦 覺得普普</textarea>			       		
 											       	</div>
@@ -333,7 +333,7 @@
 											       	<div class="item">
 												       	<span class="logo" style="float:left;margin-top:5px;">
 															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263101.svg">
-															<span class="itemtitle">房東回覆 :</span>
+															<span class="itemtitle">我的回覆 :</span>
 														</span>
 												       	<textarea rows="2" wrap="hard" name="hcm_respon" readonly>喔</textarea>			       		
 											       	</div>
@@ -363,7 +363,7 @@
 											       		<ul class="rating">								   										
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/169/169302.svg">
-																<span class="itemtitle">設備齊全 :</span>
+																<span class="itemtitle">整潔度 :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 															</span>
 														</ul>
@@ -374,7 +374,7 @@
 											       		<ul class="rating">								   
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/168/168466.svg">
-																<span class="itemtitle">周遭機能 :</span>
+																<span class="itemtitle">溝通度 :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 															</span>
 														</ul>
@@ -385,7 +385,7 @@
 											       		<ul class="rating">								   								    
 															<span class="logo">
 																<img src="https://www.flaticon.com/svg/static/icons/svg/263/263058.svg">
-																<span class="itemtitle">友善鄰居 :</span>
+																<span class="itemtitle">滿意度 :</span>
 																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
 															</span>
 														</ul>
@@ -395,7 +395,7 @@
 											       	<div class="item">
 												       	<span class="logo" style="float:left;margin-top:5px;">
 															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
-															<span class="itemtitle">房客評論 :</span>
+															<span class="itemtitle">房東評論 :</span>
 														</span>
 												       	<textarea rows="2" wrap="hard" name="hcm_commnt" readonly>爛透了 我要回雲林啦</textarea>			       		
 											       	</div>
@@ -404,7 +404,7 @@
 											       	<div class="item">
 												       	<span class="logo" style="float:left;margin-top:5px;">
 															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263101.svg">
-															<span class="itemtitle">房東回覆 :</span>
+															<span class="itemtitle">我的回覆 :</span>
 														</span>
 												       	<textarea rows="2" wrap="hard" name="hcm_respon" readonly>慢走不送</textarea>			       		
 											       	</div>
