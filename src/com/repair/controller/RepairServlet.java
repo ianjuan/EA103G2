@@ -387,9 +387,21 @@ public class RepairServlet extends HttpServlet{
 			RepairVO repairVO = repairSvc.getOneRepair(rep_no);
 			/***************************3.查詢完成,準備轉交(Send the Success view)************/	
 			req.setAttribute("repairVO", repairVO);
+			
 			String url = "/front-end/repair/lld_update_repair_progress.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
+			
+//			//Bootstrap_modal
+//			boolean openModal=true;
+//			req.setAttribute("openModal",openModal );
+//			
+//			// ���X��empVO�e��listOneEmp.jsp
+//			RequestDispatcher successView = req
+//					.getRequestDispatcher("/front-end/repair/kkkk.jsp");
+//			successView.forward(req, res);
+//			return;
+
 		} catch (Exception e) {
 			errorMsgs.add("無法更新此筆修繕紀錄:" + e.getMessage());
 			RequestDispatcher failureView = req
@@ -426,7 +438,7 @@ public class RepairServlet extends HttpServlet{
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("repairVO", repair_oldVO); 
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/repair/lld_update_repair_progress.jsp");
+						.getRequestDispatcher("/front-end/repair/lldListAllRepair.jsp");
 				failureView.forward(req, res);
 				return; //程式中斷
 			}
@@ -454,7 +466,7 @@ public class RepairServlet extends HttpServlet{
 		} catch (Exception e) {
 			errorMsgs.add("無法讀取/修改此筆修繕紀錄:" + e.getMessage());
 			RequestDispatcher failureView = req
-					.getRequestDispatcher("/front-end/repair/lld_update_repair_progress.jsp");
+					.getRequestDispatcher("/front-end/repair/lldListAllRepair.jsp");
 			failureView.forward(req, res);
 			
 		}	

@@ -24,6 +24,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/lightslider.css"">
 <script src="<%=request.getContextPath()%>/front-end/repair/js/lightslider.js"></script> 
+<!-- 元 nav bar= -->
+<link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+
 <style>
 	
 	.demo .item .clearfix .image-gallery {
@@ -111,10 +114,7 @@
       border-radius: 20px;
       
     }
-     body {
-      margin-top: 90px;
-/*       background-color:lightgrey; */
-    }
+
      img:hover {
       box-shadow: 0 5px 30px rgba(0, 0, 0, 0.8);
     }
@@ -159,16 +159,10 @@
 </script>
 </head>
 <body>
+<div class='row'>
+  <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
+</div>
 
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
 
 <!-- top/left bar -->

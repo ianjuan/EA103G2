@@ -23,9 +23,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <!-- boostrape -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 <!-- 元 nav bar= -->
 <link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 
@@ -170,70 +168,72 @@ h1, h2, h3, h4, h5, h6, table{
                 <div class='col-md-2'>
                   <div class='allbtn'>
 <!-- 					編輯(狀態為處理中可編輯) -->
-                      <button class='btn'  data-toggle="modal" data-target="#detail"  ${(repairVO.rep_pro eq 0)?'':"disabled"}>編輯</button><br>
+                      <button class='btn'  data-toggle="modal" data-target="#detail"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                      	<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">編輯</a></button><br>
 <!--                       		Modal -->
-							<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalLongTitle">損壞細節</h5>
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body">
+<!-- 							<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> -->
+<!-- 								  <div class="modal-dialog" role="document"> -->
+<!-- 								    <div class="modal-content"> -->
+<!-- 								      <div class="modal-header"> -->
+<!-- 								        <h5 class="modal-title" id="exampleModalLongTitle">損壞細節</h5> -->
+<!-- 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+<!-- 								          <span aria-hidden="true">&times;</span> -->
+<!-- 								        </button> -->
+<!-- 								      </div> -->
+								      
+<%-- 									<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;"> --%>
+<!-- 								      <div class="modal-body"> -->
 								      	
-								        ${repairVO.rep_dam_obj_des}
-								        
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			
-								        	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
-			     							<button type="submit" class="btn btn-primary" >前往編輯</button>
-			     							<input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
-			     							<input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			     						
-								      </div>
-								    </div>
-								  </div>
-								</div>
+<%-- 								        <h4>${repairVO.rep_dam_obj}</h4> --%>
+<%-- 										    <textarea name="rep_dam_obj_des" placeholder="${repairVO.rep_dam_obj_des}">${repairVO.rep_dam_obj_des}</textarea> --%>
+<%-- 					     					<input type="hidden" name="rep_no"  value="${repairVO.rep_no}"> --%>
+<!-- 					     					<input type="hidden" name="action"	value="tnt_update"> -->
+<!-- 								      </div> -->
+<!-- 								      <div class="modal-footer"> -->
+<!-- 								      	<button type="submit" class="btn btn-secondary" >送出修改</button></FORM> -->
+<!-- 								        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button> -->
+<!-- 								      </div> -->
+<!-- 								    </div> -->
+<!-- 								  </div> -->
+<!-- 								</div> -->
                     
                     
                     
                     
-                    <button class='btn'  data-toggle="modal" data-target="#report" ${(repairVO.rep_pro eq 1)?'':"disabled"} >回報結果</button><br>
-<!--                       		Modal -->
-							<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalLongTitle">回報修繕結果</h5>
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body">
+                    <button class='btn'  data-toggle="modal" data-target="#report" ${repairVO.rep_pro eq 0? "":' style="display:none" '} >
+                    <A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">回報結果</a></button><br>
+<!-- <!--                       		Modal --> 
+<!-- 							<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true"> -->
+<!-- 								  <div class="modal-dialog" role="document"> -->
+<!-- 								    <div class="modal-content"> -->
+<!-- 								      <div class="modal-header"> -->
+<!-- 								        <h5 class="modal-title" id="exampleModalLongTitle">回報修繕結果</h5> -->
+<!-- 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+<!-- 								          <span aria-hidden="true">&times;</span> -->
+<!-- 								        </button> -->
+<!-- 								      </div> -->
+<!-- 								      <div class="modal-body"> -->
 								      	
-								        ${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")}
+<%-- 								        ${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")} --%>
 								        
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<!-- 								      </div> -->
+<!-- 								      <div class="modal-footer"> -->
+<!-- 								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
 								       	
-								       	<c:if test="${repairVO.rep_tnt_rpt eq 0}">
-								        	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
-			     							<button type="submit" class="btn btn-primary" onClick="window.alert('成功送出');">滿意</button>
-			     							<input type="hidden" name="rep_tnt_rpt"  value="1">
-			     							<input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
-			     							<input type="hidden" name="action"	value="updateRpt"></FORM>
+<%-- 								       	<c:if test="${repairVO.rep_tnt_rpt eq 0}"> --%>
+<%-- 								        	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;"> --%>
+<!-- <!-- 			     							<button type="submit" class="btn btn-primary" onClick="window.alert('成功送出');">滿意</button> --> 
+<!-- <!-- 			     							<input type="hidden" name="rep_tnt_rpt"  value="1"> --> 
+<%-- 			     							<input type="hidden" name="rep_no"  value="${repairVO.rep_no}"> --%>
+<!-- 			     							<input type="hidden" name="action"	value="getOne_For_Report"> -->
+<!-- 			     							</FORM> -->
 			     							
-			     							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
-			     							<button type="submit" class="btn btn-primary" onClick="window.alert('成功送出');">不滿意</button>
-			     							<input type="hidden" name="rep_tnt_rpt"  value="2">
-			     							<input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
-			     							<input type="hidden" name="action"	value="updateRpt"></FORM>
-			     						</c:if>
+<%-- 			     							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;"> --%>
+<!-- 			     							<button type="submit" class="btn btn-primary" onClick="window.alert('成功送出');">不滿意</button> -->
+<!-- 			     							<input type="hidden" name="rep_tnt_rpt"  value="2"> -->
+<%-- 			     							<input type="hidden" name="rep_no"  value="${repairVO.rep_no}"> --%>
+<!-- 			     							<input type="hidden" name="action"	value="updateRpt"></FORM> -->
+<%-- 			     						</c:if> --%>
 			     						
 			     						</div>
 								      </div>

@@ -4,12 +4,14 @@
 <%@ page import="com.repair.controller.*"%>
 
 <%
+
   RepairVO repairVO = (RepairVO) request.getAttribute("repairVO");
+	String con_no = (String)request.getAttribute("con_no");
 %>
 
 <%-- <% session.setAttribute("con_no", "CON000204");%> --%>
 
-<%-- <% session.getAttribute("con_no");%> --%>
+<% request.getAttribute("con_no");%>
 
 
 <html>
@@ -18,40 +20,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<div class="container">
-​
-  <a class="navbar-brand" href="#">愛租I-ZU</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ml-auto">
- <a class="nav-item nav-link active" href="https://codepen.io/">尋找房源<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">地圖找房</a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">我的收藏</a>
-      <li class="nav-item dropdown">
-        <span data-toggle="dropdown">
-        <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" style="width:40px" />
-          我是房客
-</span>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">最新通知</a>
-          <a class="dropdown-item" href="#">個人資訊</a>
-          <a class="dropdown-item" href="#">我的錢包</a>
-          <a class="dropdown-item" href="#">登出</a>
-        </div>
-      </li>
-    </div>
-  </div></div>
-</nav>
+<!-- 元 nav bar= -->
+<link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addRepair.jsp</title>
+<title>資料新增 - addRepair.jsp</title>
 
 
 </head>
 <body bgcolor='white'>
-
+<div class='row'>
+  <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
+</div>
 <div class="jumbotron jumbotron-fluid">
 <div class="container">
 		 <h1 class="display-4">新增修繕申請 </h1>
@@ -95,7 +76,11 @@
 
 <br>
 <input type="hidden" name="action" value="tnt_insert">
-<input class="btn btn-primary" type="submit" value="送出新增"></FORM>
+<!-- <input class="btn btn-primary" type="submit" value="送出新增"></FORM> -->
+<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">送出新增</button>
+</FORM>
+
+
 
 
 </body>

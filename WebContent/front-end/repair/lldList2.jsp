@@ -18,26 +18,16 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-<!-- 元 nav bar= -->
-<link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
-
 <style>
-
 </style>
 </head>
 <body bgcolor='white'>
-
+${lld_no}
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 <jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
-
-<!-- 	top nav bar -->
-	<div class='row'>
-  <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
-	</div>
-
 <section id='second'>
 <div class='.container-md'>
 <!-- join -->
@@ -105,11 +95,11 @@
 										<!--btn1 -->
 										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")}</button><br>
 										<!--btn2 -->
-										<button class='btn' ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
-										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										<button class='btn'>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro" >更新日期</a></button><br>
 										
 								      	<!--btn3 -->			
-										<button class='btn' ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+										<button class='btn'>
 										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
 										
 								</div>

@@ -8,7 +8,10 @@
 <%@ page import="com.tnt.model.*"%>
 <%@ page import="com.cont.model.*"%>
 <%@ page import="com.lld.model.*"%>
+
+
 <% session.setAttribute("lld_no", "LLD000224");%>
+
 <html>
 <head>
 <title>房東修繕紀錄 - lldListAllRepair.jsp</title>
@@ -18,28 +21,26 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-<!-- 元 nav bar= -->
-<link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
-
+    
+​
 <style>
 
 </style>
+
 </head>
 <body bgcolor='white'>
 
+${lld_no}
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 <jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 
-<!-- 	top nav bar -->
-	<div class='row'>
-  <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
-	</div>
 
 <section id='second'>
 <div class='.container-md'>
+
 <!-- join -->
 <%-- 	<c:forEach var="HouseVO" items="${hosSvc.allHouse}">  --%>
 <%-- 		<c:if test="${lld_no==HouseVO.lld_no}">  --%>
@@ -55,25 +56,18 @@
 	<div class='col-md-8  text-center'>						
 		<h3 class='subtitle'>修繕申請紀錄</h3>				
 			<!-- join -->
-	<c:forEach var="HouseVO" items="${hosSvc.allHouse}">
-		<c:if test="${lld_no==HouseVO.lld_no}">
+	<c:forEach var="HouseVO" items="${hosSvc.allHouse}"> 
+		<c:if test="${lld_no==HouseVO.lld_no}"> 
 			<!-- conSvc.getConbyhos(HouseVO.hos_no)===ConVO -->
 					<c:forEach var="repairVO" items="${repSvc.tntGetAll(conSvc.getConbyhos(HouseVO.hos_no).con_no)}">
 						<c:if test="${repairVO.con_no==conSvc.getConbyhos(HouseVO.hos_no).con_no}">	
 							<div class='row' >
 								<!--修繕圖片 -->
-								<c:choose>
-								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
-									<button type="submit" class="btn btn-primary" >暫無圖片</button>
-								</c:when>
-								<c:otherwise>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							        <input type="hidden" name="action" value="getOne_For_seePic">
 							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
 								</FORM>
-								</c:otherwise>
-								</c:choose>
 								<!--房屋訊息 -->
                 				<div class='col-md-4  text-center'>
                   					<div class='text'>
@@ -81,8 +75,8 @@
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
                     					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
-                    				</div>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>   
+                    				</div>       
                	 				</div>
 								<!--修繕起訖 -->
                	 				<div class='col-md-4 '>
@@ -103,20 +97,71 @@
 								<div class='col-md-2'>
 									<div class='allbtn'>
 										<!--btn1 -->
-										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")}</button><br>
+										 <button class='btn'  data-toggle="modal" data-target="#report" >${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")}</button><br>
 										<!--btn2 -->
-										<button class='btn' ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
-										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										<button class='btn'  data-toggle="modal" data-target="#estEnd" ${(repairVO.rep_pro eq 0)?'':"disabled"} >編輯日期</button><br>
+										<!-- Modal -->
+										<div class="modal fade" id="estEnd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+								  			<div class="modal-dialog" role="document">
+								    			<div class="modal-content">
+								      				<div class="modal-header">
+								       					 <h5 class="modal-title" id="exampleModalLongTitle">預計修繕結束日期</h5>
+								        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          						<span aria-hidden="true">&times;</span>
+								        					</button>
+								      				</div>
+								      				
+								      			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
+								      				<div class="modal-body">
+								
+								        				${repairVO.rep_est_enddate}<br>
+								        				<input name="rep_est_enddate" id="f_date1" type="text" value="${repairVO.rep_est_enddate}">
+														<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+								      					<input type="hidden" name="action" value="updateEnddate">
+								      				</div>
+								      				<div class="modal-footer">
+								      					<button type="submit" class="btn btn-secondary">送出修改</button></FORM>
+								      					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								      				</div>
+								      			  </div>
+								      			</div>
+											  </div>	
+								      	
 										
-								      	<!--btn3 -->			
-										<button class='btn' ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
-										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
-										
-								</div>
-							</div>
-						</div>
-					</c:if>
-				</c:forEach>							
+									<button class='btn'  data-toggle="modal" data-target="#progress" ${(repairVO.rep_pro eq 1)?'':"disabled"}>更新進度</button><br>												
+									<!-- Modal -->
+									<div class="modal fade" id="progress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										  <div class="modal-dialog" role="document">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <h5 class="modal-title" id="exampleModalLabel">目前修繕進度</h5>
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										          <span aria-hidden="true">&times;</span>
+										        </button>
+										      </div>
+										      
+										      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
+										      <div class="modal-body">
+										        	<h5>目前進度 :  ${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h5>
+										        	${repairVO.rep_no}
+										        	<input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
+										      		<input type="hidden" name="rep_pro"  value="1">
+			     									<input type="hidden" name="action"	value="updatePro">
+										      
+										      </div>
+										      <div class="modal-footer"> 	
+			     								<button type="submit" class="btn btn-primary" ${(repairVO.rep_pro eq 0)?'':'disabled'} onClick="window.alert('更新成功');">已修繕完畢</button></FORM> 
+										        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>   
+										      </div>
+										    </div>
+										  </div>
+										</div> <!-- modal -->
+									</div>	<!-- col2 -->
+								</div>   <!-- col8 -->
+							</c:if>  <!--if-->
+<!-- 							<div> -->
+<%-- 							</c:if> --%>
+						</c:forEach>							
 			</c:if>
 <%-- 		</c:set> --%>
 <%-- 	</c:if> --%>
@@ -126,8 +171,10 @@
 <!-- join -->						
 	</div>						
 </div>
+
 </div>
 </section>
+
 
 </body>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
@@ -152,11 +199,11 @@
  	       timepicker:false,       //timepicker:true,
  	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '${repairVO.rep_est_enddate}', // value:   new Date(),
+ 		   value: '${repairVO.rep_est_enddate}',  // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
            minDate:               '-1970-01-01', // 去除今日(不含)之前
-//            maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
         
         
@@ -209,4 +256,5 @@
         //              return [true, ""];
         //      }});
         
+</script>
 </html>

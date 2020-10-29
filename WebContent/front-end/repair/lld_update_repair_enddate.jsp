@@ -13,35 +13,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-​
-  <a class="navbar-brand" href="#">愛租I-ZU</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav ml-auto">
- <a class="nav-item nav-link active" href="https://codepen.io/">尋找房源<span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">地圖找房</a>
-      <a class="nav-item nav-link" href="https://www.gamer.com.tw/">我的收藏</a>
-      <li class="nav-item dropdown">
-        <span data-toggle="dropdown">
-        <input type="image" src="https://www.flaticon.com/svg/static/icons/svg/236/236831.svg" style="width:40px" />
-          我是房東
-</span>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">最新通知</a>
-          <a class="dropdown-item" href="#">個人資訊</a>
-          <a class="dropdown-item" href="#">我的錢包</a>
-          <a class="dropdown-item" href="#">登出</a>
-        </div>
-      </li>
-    </div>
-  </div></div>
-</nav>
+
+<!-- 元 nav bar= -->
+<link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>房東回報預計修畢日期 - lld_update_repair_enddate.jsp</title>
+<title>房東回報預計修畢日期</title>
 
 <style>
   table#table-1 {
@@ -78,10 +56,14 @@
 </head>
 <body bgcolor='white'>
 
+	<div class='row'>
+  <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
+	</div>
+	
 <div class="jumbotron jumbotron-fluid">
 <div class="container">
 		 <h1 class="display-4">更新預計修畢日期 </h1>
-		 <p class="lead">- lld_update_repair_input_enddate.jsp</p>
+		
 	</div>
 </div>
 
@@ -96,9 +78,25 @@
 	</ul>
 </c:if>
 
+
+<jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
+<jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
+<jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
+<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
+
 <FORM METHOD="post" ACTION="repair.servlet" name="form1">
 <table>
-	<tr>
+
+	<h3>合約編號</h3>
+	${repairVO.con_no}
+<!--    	<h3>房屋名稱</h3>  -->
+<!--    	<a href='#'>    -->
+<%--    	<h5 class='hos_name' id="${conSvc.getOneCon(repairVO.con_no).hos_no}" > ${hosSvc.getHouseInfo(conSvc.getOneCon(repairVO.con_no).hos_no).hos_name} </h5> --%>
+<!-- 	</a> -->
+	
+<!--     <br>居住日期<br> -->
+<%--     <h6>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h6>    --%>
+<!-- 	<tr> -->
 		<td>修繕申請編號:</td>
 		<td><%=repairVO.getRep_no()%></td>
 	</tr>
@@ -119,15 +117,7 @@
 		<td>預計修畢日期:</td>
 		<td><input name="rep_est_enddate" id="f_date1" type="text" value="<%=repairVO.getRep_est_enddate()%>"></td>
 	</tr>
-<%-- 	<jsp:useBean id="RepairSvc" scope="page" class="izu.repair.controller.model.RepairService" /> --%>
-<!-- 	<tr> -->
-<!-- 		<td>家具:<font color=red><b>*</b></font></td> -->
-<!-- 		<td><select size="1" name="deptno"> -->
-<%-- 			<c:forEach var="deptVO" items="${deptSvc.all}"> --%>
-<%-- 				<option value="${deptVO.deptno}" ${(empVO.deptno==deptVO.deptno)?'selected':'' } >${deptVO.dname} --%>
-<%-- 			</c:forEach> --%>
-<!-- 		</select></td> -->
-<!-- 	</tr> -->
+
 
 </table>
 <br>
@@ -163,7 +153,7 @@
  		   value: '<%=repairVO.getRep_est_enddate()%>', // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
+           minDate:               '-1970-01-01', // 去除今日(不含)之前
            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
         
