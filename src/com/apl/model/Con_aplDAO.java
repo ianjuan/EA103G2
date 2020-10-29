@@ -612,7 +612,7 @@ public class Con_aplDAO implements Con_aplDAO_interface {
 			con = ds.getConnection();
 			String finalSQL = "select * from house "
 		          + CompositeQuery.get_WhereCondition(map)
-		          + " and rownum <= 4";
+		          + " and rownum <= 3";
 			pstmt = con.prepareStatement(finalSQL);
 			rs = pstmt.executeQuery();
 	

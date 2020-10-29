@@ -390,7 +390,7 @@ footer {
 			<div class="row ">
 				<div class="col-xl-3 col-lg-4">
 					<div id="city">
-						<input type="text" id="citych" value="選擇城市" autocomplete="off"><br>
+						<input type="text" id="citych" value="桃園市" autocomplete="off"><br>
 						<div class="allcity">
 							<label id="citylabel"> <input type="radio" name="city"
 								class="cityinput" value="台北市"> 台北市
@@ -488,7 +488,7 @@ footer {
 						</div>
 					</div>
 					<div id="town">
-						<input type="text" id="townch" value="選擇鄉鎮" autocomplete="off"><br>
+						<input type="text" id="townch" value="中壢區" autocomplete="off"><br>
 					</div>
 				</div>
 				<div class="col-xl-9 col-lg-8" id="searchbar">
@@ -623,11 +623,15 @@ footer {
 	pagebtn=1;
 	 obj= JSON.parse('${list}');
 	function ajax(){
-		$.ajax({//存入資料庫階段
+		var town=$("#townch").val();
+		if(town=="選擇鄉鎮"){
+			town="";
+		}
+		$.ajax({//資料庫階段
 			  url:"<%=request.getContextPath()%>/Housearch/GMapServlet",
 		 	  type:"GET",
 		 	  data:{action:"search",
-		 		  data:$("#citych").val()+$("#townch").val()+$("#searchbox").val(),
+		 		  data:$("#citych").val()+town+$("#searchbox").val(),
 		 		  sort:$("#selectbox").val(),
 		 		  money:moneybtn,
 		 		  house:housebtn,
@@ -712,7 +716,7 @@ pagechange();
             $(".towns").remove();
             for (let i of studentMap) {
                 if (i[0] == $(this).val()) {
-                    $("#townch").val("");
+                    $("#townch").val("選擇鄉鎮");
                     for (let o of i[1]) { 
                         $("#town").append(
                             "<div class='towns'><label id='townlabel'>" +
@@ -880,7 +884,7 @@ pagechange();
 			$(".housebtn").css("color","white");
 			$(this).css("color","#CD4A2D");
 		})
-// 			loading();
+			ajax();
 	</script>
 
 </body>

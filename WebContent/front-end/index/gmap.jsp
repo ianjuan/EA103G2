@@ -18,6 +18,383 @@
 
 <head>
 <title></title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+<style type="text/css" media="screen">
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.house-img {
+	width: 100%;
+	height: 100%;
+}
+
+.house-row {
+	margin: 20px -15px;
+}
+
+.map-row {
+	width: 100%;
+	height: 600px;
+	margin-top: 37px;
+}
+
+.price {
+	margin: 0px;
+}
+
+#map {
+	height: 100%;
+	width: 100%;
+	float: left;
+}
+
+#sidebar {
+	width: 100%;
+	height: 50%;
+	float: left;
+}
+
+.side {
+	overflow: scroll;
+	height: 600px;
+	padding-left: 15px;
+}
+
+#sidebar::after {
+	clear: left
+}
+
+#spans {
+	width: 100%;
+	height: 100px;
+}
+
+#spans div {
+	display: inline-block;
+}
+
+.gm-style-iw-c {
+	max-width: 300px !important;
+}
+
+.card-text {
+	margin-bottom: 0px !important
+}
+/*
+以下搜索列表
+*/
+.someoption {
+	width: 100%%;
+	padding-top: 2.5%;
+	padding-bottom: 1%;
+}
+
+.map-con {
+	max-width: 1480px;
+}
+
+footer {
+	bottom: 0;
+	background-color: green;
+	height: 100px;
+	width: 100%
+}
+
+.btn-group button {
+	height: 38px;
+	border-radius: 20px;
+}
+
+.btn-group {
+	display: flex;
+}
+
+@media ( max-width :550px) {
+	.moneybtn {
+		padding: 0px 0px;
+		margin-right: 14px;
+	}
+}
+.btn-secondary{
+	background-color: #AACFBF;
+	border-color:transparent;
+	
+}
+.btn-secondary:hover{
+	background-color: #779085;
+border-color:transparent;
+}
+.moneyside, .houseside {
+	width: 50%;
+}
+
+@media ( min-width :551px) and (max-width:767px) {
+	#selectforwhat {
+		margin-bottom: 8px;
+	}
+}
+
+@media ( min-width :999px) {
+	.houseside {
+		border-left-color: white;
+		border-left-width: 7px;
+		border-left-style: outset;
+	}
+}
+/* .moneyside{ */
+/* border-right-color:white; */
+/* border-right-width:7px; */
+/* border-right-style:inset;} */
+@media ( min-width :1200px) {
+	#money {
+		margin-left: 55px;
+	}
+}
+
+#selectforwhat {
+	margin-top: 6px;
+	text-align: center;
+}
+
+@media ( min-width :768px) and (max-width:996px) {
+	#selectforwhat {
+		margin-top: 20px;
+	}
+}
+
+#sort {
+	margin-top: 10px;
+}
+
+#btn-choice {
+	margin-top: 25px;
+	margin-bottom: 7px;
+}
+
+.head {
+	/*background-color: green;*/
+	height: 10%;
+}
+
+.body {
+	/*background-color: navy;*/
+	
+}
+
+.foot {
+	/*background-color: orange;*/
+	height: 10%;
+}
+
+.sharchbox {
+	/*background-color: orange;*/
+	
+}
+
+.btn-cho {
+	background-color: #AACFBF;
+	border-radius: 60px;
+}
+
+.turn {
+	background-color: lightblue;
+	border-radius: 2.25rem;
+}
+
+.card {
+	/*background-color: cyan;*/
+	
+}
+
+/*城市*/
+@media screen and(max-width:1200px) {
+}
+
+#searchbar {
+	margin-top: 6px;
+}
+
+.my-0 {
+	background-color: pink;
+	/*搜索按鈕*/
+}
+
+.mr-auto {
+	margin-top: 33px;
+}
+
+.form-control {
+	border-radius: 2.25rem;
+}
+
+#btn-search {
+	width: 80px;
+	border-radius: 25px;
+}
+
+#town {
+	/*外層DIV*/
+	height: 20px;
+	display: inline;
+	float: left;
+	float: left;
+	margin-top: 38px;
+	margin-left: 20px;
+	width: 110px;
+}
+
+.form-inline .form-control {
+	width: 70%;
+}
+
+#townch {
+	/*搜索框*/
+	text-align: center;
+	width: 110px;
+	height: 40px;
+	border-radius: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: Microsoft JhengHei;
+	outline: none;
+}
+
+#city {
+	/*外層DIV*/
+	height: 20px;
+	display: inline;
+	float: left;
+	border-radius: 50px;
+	margin-top: 38px;
+	width: 110px;
+}
+
+#citych {
+	/*搜索框*/
+	text-align: center;
+	width: 110px;
+	height: 40px;
+	border-radius: 50px;
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: "黑體-繁", "微軟正黑體", sans-serif;
+	font-size: 20px;
+	outline: none;
+}
+
+.allcity {
+	/*城市列表選單*/
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: "黑體-繁", "微軟正黑體", sans-serif;
+	text-align: center;
+	font-size: 20px;
+	border: 2px #D4E7DF ridge;
+	width: 150px;
+	height: 40px;
+	border-radius: 5px;
+	z-index: 5;
+	position: relative;
+	display: none;
+	background-color: #D4E7DF;
+}
+
+.allcity:hover {
+	background-color: green;
+}
+
+.towns {
+	/*鄉鎮列表選單*/
+	font-weight: bold;
+	letter-spacing: 3px;
+	font-family: "黑體-繁", "微軟正黑體", sans-serif;
+	text-align: center;
+	font-size: 20px;
+	border: 2px #D4E7DF ridge;
+	width: 150px;
+	height: 40px;
+	border-radius: 5px;
+	z-index: 5;
+	position: relative;
+	display: none;
+	background-color: #D4E7DF;
+}
+
+.towns:hover {
+	background-color: green;
+}
+
+/*城市--------------------------------*/
+/*開關*/
+.onoffswitch {
+	position: relative;
+	width: 50px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	float: right;
+}
+
+.onoffswitch-checkbox {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.onoffswitch-label {
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+	height: 21px;
+	width: 50px;
+	padding: 0;
+	line-height: 21px;
+	border: 2px solid #E3E3E3;
+	border-radius: 21px;
+	background-color: #FFFFFF;
+	transition: background-color 0.3s ease-in;
+	margin-bottom: 0px;
+}
+
+.onoffswitch-label:before {
+	content: "";
+	display: block;
+	width: 21px;
+	margin: 0px;
+	background: #FFFFFF;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 27px;
+	border: 2px solid #E3E3E3;
+	border-radius: 21px;
+	transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label {
+	background-color: #49E845;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label, .onoffswitch-checkbox:checked+.onoffswitch-label:before
+	{
+	border-color: #49E845;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label:before {
+	right: 0px;
+}
+
+.hos-name {
+	margin-top: 5px;
+}
+</style>
+
 <div><jsp:include page="/front-end/navbar/navbar.jsp" /> </div>
   
             <div class="col-12 body">
@@ -27,7 +404,7 @@
                     <div class="row ">
                     <div class="col-xl-3 col-lg-4">
                         <div id="city">
-                            <input type="text" id="citych" value="選擇城市"
+                            <input type="text" id="citych" value="台北市"
 						autocomplete="off"><br>
                             <div class="allcity">
                                 <label id="citylabel"> <input
@@ -126,7 +503,7 @@
                             </div>
                         </div>
                         <div id="town">
-                            <input type="text" id="townch" value="選擇鄉鎮"
+                            <input type="text" id="townch" value="信義區"
 						autocomplete="off"><br>
                         </div>
                         </div>
@@ -257,380 +634,11 @@
 </div>
 </div>
 
-<link rel="stylesheet"
-		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-		<link rel="stylesheet"
-		href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+
 	
 <script src="https://kit.fontawesome.com/c8d34ce05b.js"
 		crossorigin="anonymous"></script>
 </head>
-<style type="text/css" media="screen">
-html, body {
-	height: 100%;
-	width: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-.house-img {
-	width: 100%;
-	height: 100%;
-}
-
-.house-row {
-	margin: 20px -15px;
-}
-
-.map-row {
-	width: 100%;
-	height: 600px;
-	margin-top: 37px;
-}
-
-.price {
-	margin: 0px;
-}
-
-#map {
-	height: 100%;
-	width: 100%;
-	float: left;
-}
-
-#sidebar {
-	width: 100%;
-	height: 50%;
-	float: left;
-}
-
-.side {
-	overflow: scroll;
-	height: 600px;
-	padding-left: 15px;
-}
-
-#sidebar::after {
-	clear: left
-}
-
-#spans {
-	width: 100%;
-	height: 100px;
-}
-
-#spans div {
-	display: inline-block;
-}
-
-.gm-style-iw-c {
-	max-width: 300px !important;
-}
-
-.card-text {
-	margin-bottom: 0px !important
-}
-/*
-以下搜索列表
-*/
-.someoption {
-	width: 100%%;
-	padding-top: 2.5%;
-	padding-bottom: 1%;
-}
-
-.map-con {
-	max-width: 1480px;
-}
-
-footer {
-	bottom: 0;
-	background-color: green;
-	height: 100px;
-	width: 100%
-}
-
-.btn-group button {
-	height: 38px;
-	border-radius: 20px;
-}
-
-.btn-group {
-	display: flex;
-}
-
-@media ( max-width :550px) {
-	.moneybtn {
-		padding: 0px 0px;
-		margin-right: 14px;
-	}
-}
-
-.moneyside, .houseside {
-	width: 50%;
-}
-
-@media ( min-width :551px) and (max-width:767px) {
-	#selectforwhat {
-		margin-bottom: 8px;
-	}
-}
-
-@media ( min-width :999px) {
-	.houseside {
-		border-left-color: white;
-		border-left-width: 7px;
-		border-left-style: outset;
-	}
-}
-/* .moneyside{ */
-/* border-right-color:white; */
-/* border-right-width:7px; */
-/* border-right-style:inset;} */
-@media ( min-width :1200px) {
-	#money {
-		margin-left: 55px;
-	}
-}
-
-#selectforwhat {
-	margin-top: 6px;
-	text-align: center;
-}
-
-@media ( min-width :768px) and (max-width:996px) {
-	#selectforwhat {
-		margin-top: 20px;
-	}
-}
-
-#sort {
-	margin-top: 10px;
-}
-
-#btn-choice {
-	margin-top: 25px;
-	margin-bottom: 7px;
-}
-
-.head {
-	/*background-color: green;*/
-	height: 10%;
-}
-
-.body {
-	/*background-color: navy;*/
-	
-}
-
-.foot {
-	/*background-color: orange;*/
-	height: 10%;
-}
-
-.sharchbox {
-	/*background-color: orange;*/
-	
-}
-
-.btn-cho {
-	background-color: #6c757d;
-	border-radius: 60px;
-}
-
-.turn {
-	background-color: lightblue;
-	border-radius: 2.25rem;
-}
-
-.card {
-	/*background-color: cyan;*/
-	
-}
-
-/*城市*/
-@media screen and(max-width:1200px) {
-}
-
-#searchbar {
-	margin-top: 6px;
-}
-
-.my-0 {
-	background-color: pink;
-	/*搜索按鈕*/
-}
-
-.mr-auto {
-	margin-top: 33px;
-}
-
-.form-control {
-	border-radius: 2.25rem;
-}
-
-#btn-search {
-	width: 80px;
-	border-radius: 25px;
-}
-
-#town {
-	/*外層DIV*/
-	height: 20px;
-	display: inline;
-	float: left;
-	float: left;
-	margin-top: 38px;
-	margin-left: 20px;
-	width: 110px;
-}
-
-.form-inline .form-control {
-	width: 70%;
-}
-
-#townch {
-	/*搜索框*/
-	text-align: center;
-	width: 110px;
-	height: 40px;
-	border-radius: 20px;
-	font-size: 20px;
-	font-weight: bold;
-	letter-spacing: 3px;
-	font-family: Microsoft JhengHei;
-	outline: none;
-}
-
-#city {
-	/*外層DIV*/
-	height: 20px;
-	display: inline;
-	float: left;
-	border-radius: 50px;
-	margin-top: 38px;
-	width: 110px;
-}
-
-#citych {
-	/*搜索框*/
-	text-align: center;
-	width: 110px;
-	height: 40px;
-	border-radius: 50px;
-	font-weight: bold;
-	letter-spacing: 3px;
-	font-family: "黑體-繁", "微軟正黑體", sans-serif;
-	font-size: 20px;
-	outline: none;
-}
-
-.allcity {
-	/*城市列表選單*/
-	font-weight: bold;
-	letter-spacing: 3px;
-	font-family: "黑體-繁", "微軟正黑體", sans-serif;
-	text-align: center;
-	font-size: 20px;
-	border: 2px #A67F78 ridge;
-	width: 150px;
-	height: 40px;
-	border-radius: 5px;
-	z-index: 5;
-	position: relative;
-	display: none;
-	background-color: #E1DCD9;
-}
-
-.allcity:hover {
-	background-color: green;
-}
-
-.towns {
-	/*鄉鎮列表選單*/
-	font-weight: bold;
-	letter-spacing: 3px;
-	font-family: Microsoft JhengHei;
-	text-align: center;
-	border: 2px #FFAC55 ridge;
-	font-size: 20px;
-	width: 150px;
-	height: 40px;
-	border-radius: 50px;
-	z-index: 5;
-	position: relative;
-	display: none;
-	background-color: #FBE1FA;
-}
-
-.towns:hover {
-	background-color: green;
-}
-
-/*城市--------------------------------*/
-/*開關*/
-.onoffswitch {
-	position: relative;
-	width: 50px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	float: right;
-}
-
-.onoffswitch-checkbox {
-	position: absolute;
-	opacity: 0;
-	pointer-events: none;
-}
-
-.onoffswitch-label {
-	display: block;
-	overflow: hidden;
-	cursor: pointer;
-	height: 21px;
-	width: 50px;
-	padding: 0;
-	line-height: 21px;
-	border: 2px solid #E3E3E3;
-	border-radius: 21px;
-	background-color: #FFFFFF;
-	transition: background-color 0.3s ease-in;
-	margin-bottom: 0px;
-}
-
-.onoffswitch-label:before {
-	content: "";
-	display: block;
-	width: 21px;
-	margin: 0px;
-	background: #FFFFFF;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 27px;
-	border: 2px solid #E3E3E3;
-	border-radius: 21px;
-	transition: all 0.3s ease-in 0s;
-}
-
-.onoffswitch-checkbox:checked+.onoffswitch-label {
-	background-color: #49E845;
-}
-
-.onoffswitch-checkbox:checked+.onoffswitch-label, .onoffswitch-checkbox:checked+.onoffswitch-label:before
-	{
-	border-color: #49E845;
-}
-
-.onoffswitch-checkbox:checked+.onoffswitch-label:before {
-	right: 0px;
-}
-
-.hos-name {
-	margin-top: 5px;
-}
-</style>
 
 <body>
 	<script
@@ -681,11 +689,15 @@ footer {
             
         }
        function ajax(){
+    	   var town=$("#townch").val();
+   		   	if(town=="選擇鄉鎮"){
+   			 	 town="";
+   			};
       		$.ajax({//存入資料庫階段
       			  url:"<%=request.getContextPath()%>/Housearch/GMapServlet",
       		 	  type:"GET",
       		 	  data:{action:"gmapsearch",
-      		 		  data:$("#citych").val()+$("#townch").val()+$("#searchbox").val(),
+      		 		  data:$("#citych").val()+town+$("#searchbox").val(),
       		 		  sort:$("#selectbox").val(),
       		 		  money:moneybtn,
       		 		  house:housebtn
@@ -706,11 +718,10 @@ footer {
       		  } )
       		
       	}
-        
        function initMap() {
             geocoder = new google.maps.Geocoder();
             map = new google.maps.Map(document.getElementById('map'), { //產生地圖
-                center: { lat: 25.04, lng: 121.512 }, //經緯度初始化
+                center: { lat: 25.035721, lng: 121.565928 }, //經緯度初始化
                 zoom: 15,
                 mapTypeControl: false
             });
@@ -895,7 +906,7 @@ footer {
             $(".towns").remove();
             for (let i of studentMap) {
                 if (i[0] == $(this).val()) {
-                    $("#townch").val("");
+                    $("#townch").val("選擇鄉鎮");
                     for (let o of i[1]) { 
                         $("#town").append(
                             "<div class='towns'><label id='townlabel'>" +
