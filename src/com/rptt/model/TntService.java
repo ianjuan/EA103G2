@@ -146,5 +146,9 @@ public class TntService {
 	public TntVO getOneTntProfile(String tnt_no) {
 		return dao.findByPK_profile(tnt_no);
 	}
+	//以下只是懶得再對房東的vo編輯的偷吃步
+	public TntVO getOneLandlordProfile(String tnt_no) {
+		return dao.findByPK_profile1(tnt_no);
+	}
 
 }

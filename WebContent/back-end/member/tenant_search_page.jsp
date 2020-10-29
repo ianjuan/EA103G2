@@ -20,7 +20,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>會員查詢</title>
+<title>房客查詢</title>
 
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css"
@@ -34,9 +34,7 @@
 <link
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/back-end/member/main_member_back.css"
-	type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/back-end/member/css/main_member_back.css" type="text/css">
 
 
 <style>
@@ -112,7 +110,6 @@ input:checked+.slider:before {
 </head>
 
 <body id="page-top">
-
 	<div class="container-fluid">
 		<!-- Page Heading -->
 		<!-- DataTales Example -->
@@ -120,7 +117,7 @@ input:checked+.slider:before {
 			<div class="card-header py-3">
 				<div class="row justify-content-between">
 					<div class="col-10">
-						<h4 class="m-0 font-weight-bold text-primary">會員查詢</h4>
+						<h4 class="m-0 font-weight-bold text-primary">房客查詢</h4>
 					</div>
 					<div class="col-2">
 						<form METHOD="post" ACTION="RpttServlet">
@@ -468,7 +465,7 @@ input:checked+.slider:before {
 										</label>
 									</div>
 								</div>
-								<br>
+								<br>													
 								<div>
 									<input type="hidden" name="tnt_no" value="${tntVO.tnt_no}">
 									<button type="submit" class="pass" name="action"
@@ -479,16 +476,22 @@ input:checked+.slider:before {
 					</div>
 				</div>
 			</div>
-			<!-- Bootstrap core JavaScript-->
+		</div>
+	</div>
 
-			<script
-				src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-			<script
-				src="${pageContext.request.contextPath}/back-end/member/member.js"></script>
-			<script
-				src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-			<script
-				src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+	<!-- Bootstrap core JavaScript-->
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/back-end/member/member.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script
+		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
 </body>
 
 </html>
