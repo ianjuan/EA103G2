@@ -172,7 +172,14 @@ public class HousearchDAO implements HousearchDAO_interface{
 	      String i=  "select hp.PIC_NO,h.HOS_NO, rownum r, h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee"
     	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_NO =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? "
     	   +"AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) ";
-    	
+	      System.out.println("city="+vo.getCity());
+	      System.out.println("serachbox="+vo.getSerachbox());
+	      if(vo.getTown()!="") {
+    		  i=i+" AND h.hos_add LIKE '%"+vo.getTown()+"%'";
+	      }
+	      if(vo.getSerachbox()!="") {
+    		  i=i+" AND h.hos_add LIKE '%"+vo.getSerachbox()+"%'";
+	      }
     	  if(houseList.contains(vo.getHos_type())) {
     		  i=i+" AND h.hos_room LIKE '%"+vo.getHos_type()+"%'";
     	  }
@@ -188,7 +195,7 @@ public class HousearchDAO implements HousearchDAO_interface{
 	    	  System.out.println(i);
 			pstmt = con.prepareStatement(i);
 			
-			pstmt.setString(1,"%"+vo.getHos_add()+"%");
+			pstmt.setString(1,"%"+vo.getCity()+"%");
 			pstmt.setInt(2, rownum-15);
 			pstmt.setInt(3, rownum);
 
@@ -305,6 +312,12 @@ public class HousearchDAO implements HousearchDAO_interface{
     	      String i=  "select hp.PIC_NO,h.HOS_NO, h.hos_add ,h.hos_name,h.hos_room,h.hos_floor, h.hos_pnum,h.hos_rentfee,h.hos_lng,h.hos_lat"
         	   +" from HOUSE_PICTURE hp INNER JOIN HOUSE h on h.HOS_NO =hp.hos_no  AND h.hos_status ='待出租' WHERE HOS_ADD LIKE ? AND hp.pic_no in(select min(PIC_NO) from HOUSE_PICTURE group by HOS_NO ) ";
         	
+    	      if(vo.getTown()!="") {
+        		  i=i+" AND h.hos_add LIKE '%"+vo.getTown()+"%'";
+    	      }
+    	      if(vo.getSerachbox()!="") {
+        		  i=i+" AND h.hos_add LIKE '%"+vo.getSerachbox()+"%'";
+    	      }
         	  if(houseList.contains(vo.getHos_type())) {
         		  i=i+" AND h.hos_room LIKE '%"+vo.getHos_type()+"%'";
         	  }
@@ -318,7 +331,7 @@ public class HousearchDAO implements HousearchDAO_interface{
     	    	  System.out.println(i);
     			pstmt = con.prepareStatement(i);
     			
-    			pstmt.setString(1,"%"+vo.getHos_add()+"%");
+    			pstmt.setString(1,"%"+vo.getCity()+"%");
     			rs = pstmt.executeQuery();
     			System.out.println("空部空"+rs);
     			  while (rs.next()) {

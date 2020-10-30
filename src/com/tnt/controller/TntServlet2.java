@@ -228,6 +228,7 @@ public class TntServlet2 extends HttpServlet {
 				if (successSendMail) {
 					out = res.getWriter();
 					out.print("true");
+					out.close();
 				}
 
 				/*************************** 其他可能的錯誤處理 **********************************/
@@ -235,7 +236,7 @@ public class TntServlet2 extends HttpServlet {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
 				System.out.println("註冊失敗:" + e.getMessage());
 				out.print("false");
-
+				out.close();
 			}
 		}
 
@@ -282,7 +283,6 @@ public class TntServlet2 extends HttpServlet {
 //				out.print("false");
 
 			}
-
 		}
 
 		// 來自forgetPwd.jsp的請求 - ajax_forgetPwd
@@ -371,17 +371,11 @@ public class TntServlet2 extends HttpServlet {
 				HttpSession session = req.getSession();
 				String tnt_no = (String) session.getAttribute("tnt_no");
 
-//				System.out.println(tnt_no);
-
 				TntService tntSvc = new TntService();
 				TntVO tntVO_origin = tntSvc.getOneTntProfile(tnt_no);
 
-//				System.out.println(0);
-
 				String tnt_pwd = tntVO_origin.getTnt_pwd();
 				Integer tnt_status = tntVO_origin.getTnt_status();
-//				System.out.println(tnt_pwd);
-//				System.out.println(tnt_status);
 
 				tntSvc.updateTntProfile(tnt_no, tnt_email, tnt_acc, tnt_pwd, tnt_id, tnt_name, tnt_birth, tnt_sex,
 						tnt_mobile, tnt_city, tnt_dist, tnt_add, tnt_status);
@@ -407,26 +401,18 @@ public class TntServlet2 extends HttpServlet {
 					InputStream in = part.getInputStream();
 					byte[] tnt_pic = getPictureByteArray(in);
 
-//					System.out.println("1");
-
 					TntVO tntVO = new TntVO();
 					tntVO.setTnt_pic(tnt_pic);
-
-//					System.out.println("2");
 
 					HttpSession session = req.getSession();
 					String tnt_no = (String) session.getAttribute("tnt_no");
 
-//					System.out.println(tnt_no);
-
 					TntService tntSvc = new TntService();
 					tntSvc.updateTntPic(tnt_no, tnt_pic);
 
-//					System.out.println("3");
-
 					out = res.getWriter();
 					out.print("true");
-//					out.close();
+					out.close();
 				}
 
 			} catch (Exception e) {
@@ -447,17 +433,11 @@ public class TntServlet2 extends HttpServlet {
 				String tnt_pwd = req.getParameter("tnt_pwd");
 				String tnt_pwd_new = req.getParameter("tnt_pwd_new");
 
-//				System.out.println(tnt_pwd_new);
-
 				/*************************** 2.開始比對登入資料 ***************************************/
 				// 【檢查該帳號 , 密碼是否有效】
 				TntService tntSvc = new TntService();
-//				System.out.println("1");
-//				TntVO tntVO_origin = tntSvc.getOneTntAccount(tnt_no);
 				TntVO tntVO_origin = tntSvc.getOneTntProfile(tnt_no);
-//				System.out.println("2");
 				String tnt_pwd_origin = tntVO_origin.getTnt_pwd();
-//				System.out.println("3");
 				out = res.getWriter();
 				if (tnt_pwd_origin.equals(tnt_pwd)) {
 					System.out.println("忘記密碼比對成功");
@@ -548,23 +528,29 @@ public class TntServlet2 extends HttpServlet {
 				String cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit, tnt_pocket_deposit);
 				System.out.println(cash_no);
 
-				String itemname = "deposit";
+				
+				String returnURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
+				+ req.getContextPath() + req.getServletPath();
+				System.out.println(returnURL);
+				String clientBackURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
+				+ req.getContextPath() + "/front-end/tnt/pocket.jsp";
+				System.out.println(clientBackURL);
 				
 				//產生綠界訂單
 				AioCheckOutOneTime checkoutonetime = new AioCheckOutOneTime();
 				checkoutonetime.setMerchantTradeNo(cash_no); // 訂單編號
 
 				
-				checkoutonetime.setItemName("deposit"); // 商品名稱
+				checkoutonetime.setItemName("iZu Landlord Deposit"); // 商品名稱
 				checkoutonetime.setTotalAmount(Integer.toString(tnt_pocket_deposit)); // 總金額
 					
 				java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
 				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 				checkoutonetime.setMerchantTradeDate(sdf.format(time));
-				checkoutonetime.setReturnURL("http://localhost:8081/EA103G2/tnt/TntServlet2");
-//				checkoutonetime.setReturnURL("http://localhost:8081/EA103G2//front-end/tnt/pocket.jsp");
-//						+ "http://localhost:8081/EA103G2G5/Order_Master/Order_Master.do"
-				checkoutonetime.setClientBackURL("http://localhost:8081/EA103G2/front-end/index/index.jsp");
+//				checkoutonetime.setReturnURL("http://localhost:8081/EA103G2/tnt/TntServlet2");
+				checkoutonetime.setReturnURL(returnURL);
+//				checkoutonetime.setClientBackURL("http://localhost:8081/EA103G2/front-end/index/index.jsp");
+				checkoutonetime.setClientBackURL(clientBackURL);
 				checkoutonetime.setTradeDesc("ProductDetailDeposit"); // 商品詳情
 				
 				
@@ -591,6 +577,7 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("pocket 儲值失敗:" + e.getMessage());
 				out = res.getWriter();
 				out.print("false");
+				out.close();
 			}
 		}
 

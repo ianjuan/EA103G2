@@ -627,11 +627,14 @@ footer {
 		if(town=="選擇鄉鎮"){
 			town="";
 		}
+
 		$.ajax({//資料庫階段
 			  url:"<%=request.getContextPath()%>/Housearch/GMapServlet",
 		 	  type:"GET",
 		 	  data:{action:"search",
-		 		  data:$("#citych").val()+town+$("#searchbox").val(),
+		 		  city:$("#citych").val(),
+		 		  town:town,
+		 		  searchbox:$("#searchbox").val(),
 		 		  sort:$("#selectbox").val(),
 		 		  money:moneybtn,
 		 		  house:housebtn,
