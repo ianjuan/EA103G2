@@ -19,7 +19,7 @@
 	}
 
    List<Con_aplVO> list = (List<Con_aplVO>)session.getAttribute("list");
-   pageContext.setAttribute("list",list);
+   session.setAttribute("list",list);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -103,6 +103,7 @@
 			</nav>
 		</div>
 		<div id="center">
+		<h3 class="houselisttitle">租屋申請</h3><hr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="con_aplVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="con_apl">
 				<div class="houseinfo">
@@ -271,7 +272,7 @@
 					</div>
 				</div>	
 			</c:forEach>
-			
+			<%@ include file="page2.file"%>
 				
 			<div id="right"></div>
 		</div>
