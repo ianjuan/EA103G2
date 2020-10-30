@@ -502,20 +502,16 @@ public class TntServlet2 extends HttpServlet {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				out = res.getWriter();
 				int tnt_pocket_deposit = Integer.valueOf(req.getParameter("pocket_deposit"));
-//				System.out.println(tnt_pocket_deposit);
 
 				HttpSession session = req.getSession();
 				String tnt_no = (String) session.getAttribute("tnt_no");
-				//
-//				System.out.println(tnt_no);
-				//
 				TntService tntSvc = new TntService();
 				TntVO tntVO = tntSvc.getOneTntPocket(tnt_no);
 				int tnt_balance = tntVO.getTnt_balance();
-				if (tnt_pocket_deposit < 0) { // 暫時多寫的
-					out.print("false");
-					return;
-				}
+//				if (tnt_pocket_deposit < 0) { // 暫時多寫的
+//					out.print("false");
+//					return;
+//				}
 				/*************************** 2.開始修改資料 ***************************************/
 //				if (tnt_pocket_deposit > 0) {
 //					tnt_balance = tnt_balance + tnt_pocket_deposit;
@@ -527,7 +523,8 @@ public class TntServlet2 extends HttpServlet {
 				CashService cashSvc = new CashService();
 				String cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit, tnt_pocket_deposit);
 				System.out.println(cash_no);
-
+				tnt_balance = tnt_balance + tnt_pocket_deposit;
+				tntSvc.updateTntPocket(tnt_no, tnt_balance);
 				
 				String returnURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
 				+ req.getContextPath() + req.getServletPath();
@@ -568,8 +565,6 @@ public class TntServlet2 extends HttpServlet {
 				out.print(form);
 				out.print("</body>" +
 				"</html>");
-				
-				
 				
 				
 			} catch (Exception e) {

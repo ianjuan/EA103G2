@@ -204,20 +204,6 @@
         $('.angleUpDown').each(function(index, element) {
             $(this).click(function() {
                 var infoformwrap = $(this).closest('div');
-                //              infoformwrap.children('form').toggle();  //form toggle
-                ////                 $(this).closest('div').children('form').toggle();  
-                //                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
-                //                 var angleUp = '.angleUp:eq(' + index + ')';
-                //                 $(angleDown).toggle();
-                //                 $(angleUp).toggle();
-                //                 
-                //                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
-                //                  pbtmp = '10px';
-                //                 }else{
-                //                    pbtmp = '48px';
-                //                 }
-                //                 infoformwrap.css('padding-bottom',pbtmp);
-                //                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
                 togglethefrom(infoformwrap, index);
             });
         });
@@ -352,7 +338,38 @@
             }
         });
         
-//     // 2.信用卡儲值按鈕
+     // 2.信用卡儲值按鈕  ---form---
+        $('#btnbalanceDeposit').click(function(e) {
+         e.preventDefault();
+         console.log('btn - balance Deposit');
+         inputDeposit = $('#pocket_deposit');
+         if (!hasCardinfoJS){
+         	Swal.fire({
+         		icon: 'warning',
+         		title: '請更新付款卡號',
+         	    showDenyButton: true,
+         	    animation: false
+         	});
+         } else if (/^\d+$/.test(inputDeposit.val().trim()) === false || inputDeposit.val()==="0") {
+         	inputDeposit.parent().addClass('alert-validate');
+         } else {  // 前端驗證成功(儲值金額為正整數) 
+         	inputDeposit.parent().removeClass('alert-validate');
+         	var depositValue = parseInt(inputDeposit.val().trim()).toLocaleString('en-US');
+         	Swal.fire({
+        		title: '儲值金額為&nbspNTD&nbsp' + depositValue,
+        		showConfirmButton: true,
+        		confirmButtonText: '前往儲值',
+        		showDenyButton: true,
+        		animation:false
+        	}).then((result) => {
+        		if (result.isConfirmed) {
+        			$('#depositform').submit();
+          		} 
+          	});  
+         }
+        });
+        
+//     // 2.信用卡儲值按鈕  ---ajax---
 //        $('#btnbalanceDeposit').click(function(e) {
 //            e.preventDefault();
 //            console.log('btn - balance Deposit');

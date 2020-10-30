@@ -84,17 +84,6 @@
 
 
     <style>
-        body.landing #header nav a {
-            color: #4E6258;
-        }
-
-        #header h1 a {
-            font-size: 1em;
-        }
-
-        #header h1 a:hover {
-            color: #4E6258;
-        }
 
         [data-v-9403d44c] .v-switch-label {
             color: #fff !important
@@ -117,6 +106,29 @@
             height: 25px;
             transform: translate(-50%, -50%)
         }
+        
+        .swal2-styled.swal2-confirm{
+        	background-color: #d1dfe8 !important;
+		    color: #367196 !important;
+		    border-color: #d1dfe8 !important;
+		    font-size: 20px !important;
+		    font-weight: bold !important;
+		    padding: 10px 25px !important;
+		    border-radius: 10px !important;
+        }
+        .swal2-actions:not(.swal2-loading) .swal2-styled:hover{
+        	background-color: #367196 !important;
+		    color: #fff !important;
+		    border-color: #d1dfe8 !important;
+		    font-size: 20px !important;
+		    font-weight: bold !important;
+		    padding: 10px 25px !important;
+		    border-radius: 10px !important;
+        }
+        .swal2-title{
+        	padding-top: 20px;
+        }
+
     </style>
 
 </head>
@@ -290,28 +302,6 @@
 				                    </div>
                             </div>
                             <!--End form1 Pocket -->
-
-
-							<!-- Modal -->
-<!-- 							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> -->
-<!-- 							  <div class="modal-dialog modal-dialog-centered" role="document"> -->
-<!-- 							    <div class="modal-content"> -->
-<!-- 							      <div class="modal-header justify-content-center"> -->
-<!-- 							        <div class="modal-title" id="exampleModalLongTitle">儲值金額為</div> -->
-<!-- <!-- 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> --> -->
-<!-- <!-- 							          <span aria-hidden="true">&times;</span> --> -->
-<!-- <!-- 							        </button> --> -->
-<!-- 							      </div> -->
-<!-- <!-- 							      <div class="modal-body"> --> -->
-<!-- <!-- 							                    您將儲值: NT10,000元 --> -->
-<!-- <!-- 							      </div> --> -->
-<!-- 							      <div class="modal-footer justify-content-around"> -->
-<!-- 							      	<button type="button" class="btn btn-primary m-l-50">信用卡儲值</button> -->
-<!-- 							        <button type="button" class="btn btn-secondary m-r-50" data-dismiss="modal">取消</button> -->
-<!-- 							      </div> -->
-<!-- 							    </div> -->
-<!-- 							  </div> -->
-<!-- 							</div> -->
 
                             <!--Start form4 BankCard-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
@@ -546,34 +536,7 @@
 	var hasCardinfoJS = <%=hasCardinfoJS%>;
 </script>
 <script>
-// 2.信用卡儲值按鈕
-$('#btnbalanceDeposit').click(function(e) {
- e.preventDefault();
- console.log('btn - balance Deposit');
- inputDeposit = $('#pocket_deposit');
- if (!hasCardinfoJS){
- 	Swal.fire({
- 		icon: 'warning',
- 		title: '請更新付款卡號',
- 	    showDenyButton: true,
- 	    animation: false
- 	});
- } else if (/^\d+$/.test(inputDeposit.val().trim()) === false || inputDeposit.val()==="0") {
- 	inputDeposit.parent().addClass('alert-validate');
- } else {  // 前端驗證成功(儲值金額為正整數) 
- 	inputDeposit.parent().removeClass('alert-validate');
- 	Swal.fire({
-// 		icon: 'success',
-		title: '儲值金額為' + inputDeposit.val().trim(),
-		showConfirmButton: true,
-	}).then((result) => {
-		if (result.isConfirmed) {
-			$('#depositform').submit();
-  		} 
-  	});  
- 	
- }
-});
+
 </script>
 
 </body>
