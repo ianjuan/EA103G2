@@ -687,6 +687,7 @@ public class RpttServlet extends HttpServlet {
 				Integer tnt_auth_res;
 				Integer tnt_auth_cmt;
 				Integer tnt_auth_rpt;
+				Integer tnt_auth_live;
 				String url = null;
 
 				String tnt_no = req.getParameter("tnt_no");
@@ -695,6 +696,7 @@ public class RpttServlet extends HttpServlet {
 				String b = req.getParameter("tnt_auth_res");
 				String c = req.getParameter("tnt_auth_cmt");
 				String d = req.getParameter("tnt_auth_rpt");
+				String e = req.getParameter("tnt_auth_live");
 
 				if (a != null) {
 					tnt_auth_chat = 1;
@@ -717,13 +719,17 @@ public class RpttServlet extends HttpServlet {
 				} else {
 					tnt_auth_rpt = 0;
 				}
+				if (e != null) {
+					tnt_auth_live = 1;
+				} else {
+					tnt_auth_live = 0;
+				}
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				TntVO tntVO = new TntVO();
 				TntService tntSvc = new TntService();
 				tntVO = tntSvc.updateTntAuth(tnt_no, tnt_reported_count, tnt_auth_chat, tnt_auth_res, tnt_auth_cmt,
-						tnt_auth_rpt);
-				System.out.println("tntpass有更新了");
+						tnt_auth_rpt,tnt_auth_live);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				TntVO tntVO1 = new TntVO();

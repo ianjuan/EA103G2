@@ -54,7 +54,7 @@ public class TntService {
 	}
 
 	public TntVO updateTntAuth(String tnt_no, Integer tnt_reported_count, Integer tnt_auth_chat, Integer tnt_auth_res,
-			Integer tnt_auth_cmt, Integer tnt_auth_rpt) {
+			Integer tnt_auth_cmt, Integer tnt_auth_rpt, Integer tnt_auth_live) {
 
 		TntVO tntVO = new TntVO();
 		tntVO.setTnt_no(tnt_no);
@@ -63,6 +63,7 @@ public class TntService {
 		tntVO.setTnt_auth_res(tnt_auth_res);
 		tntVO.setTnt_auth_cmt(tnt_auth_cmt);
 		tntVO.setTnt_auth_rpt(tnt_auth_rpt);
+		tntVO.setTnt_auth_live(tnt_auth_live);
 		dao.update_auth(tntVO);
 
 		return tntVO;

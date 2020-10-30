@@ -131,21 +131,23 @@ input:checked+.slider:before {
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<div class="row justify-content-between">
-					<div class="col-10">
+				<div class="row ">
+					<div class="col">
 						<h4 class="m-0 font-weight-bold text-primary">房東查詢</h4>
 					</div>
-					<div class="col-2">
-						<form METHOD="post" ACTION="RpttServlet">
-							<h4>
-								搜尋: <input type="text" size="20" name="Number"
-									placeholder="輸入會員編號/身份證字號"> <input type="hidden"
-									name="action" value="get_want_landlord"> <input
-									type="submit"
-									style="position: absolute; left: -9999px; width: 1px; height: 1px;"
-									tabindex="-1" />
-							</h4>
-						</form>
+					<div class="col">
+						<div class="float-right">
+							<form METHOD="post" ACTION="RpttServlet">
+								<h4>
+									搜尋: <input type="text" size="20" name="Number"
+										placeholder="輸入房東編號/身份證字號"> <input type="hidden"
+										name="action" value="get_want_landlord"> <input
+										type="submit"
+										style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+										tabindex="-1" />
+								</h4>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -264,65 +266,6 @@ input:checked+.slider:before {
 						<tbody>
 						<thead>
 							<tr>
-								<th>評價與驗證</th>
-								<td style="border: 0"><button class="alter">修改</button></td>
-
-							</tr>
-						</thead>
-						<tr>
-							<th class="colum1" width="5%">評論星數總和</th>
-							<td width="15%">${tntVO.tnt_cmt_starsum}</td>
-							<th class="colum1" width="5%">總評論數</th>
-							<td width="15%">${tntVO.tnt_cmt_count}</td>
-							<th class="colum1" width="5%">上傳狀態</th>
-							<c:choose>
-								<c:when test="${tntVO.tnt_id_isupload==0}">
-									<td>未上傳</td>
-								</c:when>
-								<c:when test="${tntVO.tnt_id_isupload==1}">
-									<td>已上傳</td>
-								</c:when>
-								<c:otherwise>
-									<td>錯誤，請檢查資料庫</td>
-								</c:otherwise>
-							</c:choose>
-							<th class="colum1" width="5%">證件上傳時間</th>
-							<td width="15%">${tntVO.tnt_id_uploadtime}</td>
-						</tr>
-						<tr>
-							<th class="colum1" width="5%">驗證員工編號</th>
-							<td width="15%">${tntVO.emp_no}</td>
-							<th class="colum1" width="5%">驗證結果</th>
-							<c:choose>
-								<c:when test="${tntVO.tnt_id_result==0}">
-									<td><span class="badge badge-pill badge-secondary"
-										style="font-size: 15px; padding: 4px;">未審核</span></td>
-								</c:when>
-								<c:when test="${tntVO.tnt_id_result==1}">
-									<td><span class="badge badge-pill badge-success"
-										style="font-size: 15px; padding: 4px;">通過</span></td>
-								</c:when>
-								<c:when test="${tntVO.tnt_id_result==2}">
-									<td><span class="badge badge-pill badge-danger"
-										style="font-size: 15px; padding: 4x;">不通過</span></td>
-								</c:when>
-								<c:otherwise>
-									<td>錯誤，請檢查資料庫</td>
-								</c:otherwise>
-							</c:choose>
-							<th class="colum1" width="5%">退件原因</th>
-							<td width="15%">${tntVO.tnt_id_disapprove}</td>
-							<th class="colum1" width="5%">驗證完成時間</th>
-							<td width="15%">${tntVO.tnt_id_vrftime}</td>
-						</tr>
-						</tbody>
-					</table>
-					<br>
-					<table class="table table-bordered" id="dataTable">
-
-						<tbody>
-						<thead>
-							<tr>
 								<th>檢舉與權限</th>
 								<td style="border: 0" data-toggle="modal" data-target="#myModal"><button
 										class="alter">修改</button></td>
@@ -330,63 +273,77 @@ input:checked+.slider:before {
 
 						</thead>
 						<tr>
+
 							<th class="colum1" width="5%">被檢舉次數</th>
-							<td width="14%">${tntVO.tnt_reported_count}</td>
+							<td width="10%">${tntVO.tnt_reported_count}</td>
+							<th class="colum1" width="5%">上架權限</th>
+							<c:choose>
+								<c:when test="${tntVO.tnt_auth_live==0}">
+									<td width="10%">關閉</td>
+								</c:when>
+								<c:when test="${tntVO.tnt_auth_live==1}">
+									<td width="10%">開啟</td>
+								</c:when>
+								<c:otherwise>
+									<td width="10%">錯誤，請檢查資料庫</td>
+								</c:otherwise>
+							</c:choose>
+							
 							<th class="colum1" width="5%">聊天權限</th>
 							<c:choose>
 								<c:when test="${tntVO.tnt_auth_chat==0}">
-									<td width="12%">關閉</td>
+									<td width="10%">關閉</td>
 								</c:when>
 								<c:when test="${tntVO.tnt_auth_chat==1}">
-									<td width="12%">開啟</td>
+									<td width="10%">開啟</td>
 								</c:when>
 								<c:otherwise>
-									<td width="12%">錯誤，請檢查資料庫</td>
+									<td width="10%">錯誤，請檢查資料庫</td>
 								</c:otherwise>
 							</c:choose>
 
 							<th class="colum1" width="5%">預約權限</th>
 							<c:choose>
 								<c:when test="${tntVO.tnt_auth_res==0}">
-									<td width="12%">關閉</td>
+									<td width="10%">關閉</td>
 								</c:when>
 								<c:when test="${tntVO.tnt_auth_res==1}">
-									<td width="12%">開啟</td>
+									<td width="10%">開啟</td>
 								</c:when>
 								<c:otherwise>
-									<td width="12%">錯誤，請檢查資料庫</td>
+									<td width="10%">錯誤，請檢查資料庫</td>
 								</c:otherwise>
 							</c:choose>
 
 							<th class="colum1" width="5%">評價權限</th>
 							<c:choose>
 								<c:when test="${tntVO.tnt_auth_cmt==0}">
-									<td width="12%">關閉</td>
+									<td width="10%">關閉</td>
 								</c:when>
 								<c:when test="${tntVO.tnt_auth_cmt==1}">
-									<td width="12%">開啟</td>
+									<td width="10%">開啟</td>
 								</c:when>
 								<c:otherwise>
-									<td width="12%">錯誤，請檢查資料庫</td>
+									<td width="10%">錯誤，請檢查資料庫</td>
 								</c:otherwise>
 							</c:choose>
 
 							<th class="colum1" width="5%">檢舉權限</th>
 							<c:choose>
 								<c:when test="${tntVO.tnt_auth_rpt==0}">
-									<td width="12%">關閉</td>
+									<td width="10%">關閉</td>
 								</c:when>
 								<c:when test="${tntVO.tnt_auth_rpt==1}">
-									<td width="12%">開啟</td>
+									<td width="10%">開啟</td>
 								</c:when>
 								<c:otherwise>
-									<td width="12%">錯誤，請檢查資料庫</td>
+									<td width="10%">錯誤，請檢查資料庫</td>
 								</c:otherwise>
 							</c:choose>
 
 						</tr>
-
 						</tbody>
+						
 					</table>
 				</div>
 			</div>
@@ -407,15 +364,15 @@ input:checked+.slider:before {
 											value=${tntVO.tnt_reported_count}></label>
 									</div>
 									<div class="col">
-										<span style="margin-right: 10px">入住權限</span> <label
+										<span style="margin-right: 10px">上架權限</span> <label
 											class="switch"> <c:choose>
-												<c:when test="${tntVO.tnt_auth_chat==0}">
-													<input type="checkbox" id="checkbox1"
-														name="11tnt_auth_chat" value="0" id="checkbox5">
+												<c:when test="${tntVO.tnt_auth_live==0}">
+													<input type="checkbox" id="checkbox5"
+														name="tnt_auth_live" value="0" id="checkbox5">
 												</c:when>
-												<c:when test="${tntVO.tnt_auth_chat==1}">
-													<input type="checkbox" id="checkbox1"
-														name="11tnt_auth_chat" value="1" checked id="checkbox5">
+												<c:when test="${tntVO.tnt_auth_live==1}">
+													<input type="checkbox" id="checkbox5"
+														name="tnt_auth_live" value="1" checked id="checkbox5">
 												</c:when>
 											</c:choose> <span class="slider round"></span>
 										</label>
