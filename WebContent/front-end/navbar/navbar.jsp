@@ -145,7 +145,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 		webSocketForNotify.onmessage = function(event) {			
 			var jsonObj = JSON.parse(event.data);
 			var dateForNow=new Date().getTime();
-			console.log(jsonObj);
+			console.log(jsonObj.title);
 			console.log(event);			
 		}
 	});				

@@ -35,7 +35,6 @@ public class NotifyServlet {
 		if (historyStr != null) {
 			if (session.isOpen()) {
 				session.getAsyncRemote().sendText(historyStr);
-
 			}
 		}
 		//測試用的code

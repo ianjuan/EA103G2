@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.houserch.model.HousearchService;
+import com.notify.controller.NotifyServlet;
 
 /**
  * Servlet implementation class mapServlet
@@ -42,7 +43,7 @@ public class GMapServlet extends HttpServlet {
 		String house=request.getParameter("house");
 		if ("search".equals(request.getParameter("action"))) {
 			System.out.println("igotu"+request.getParameter("sort"));
-			
+			new NotifyServlet().broadcast("TNT000002", "源源好可愛", "002", "url");
 			HousearchService gs= new HousearchService();
 
 			String data =gs.getMapfromSearchKey(city,town,searchbox,sort,money,house,request.getParameter("page")
