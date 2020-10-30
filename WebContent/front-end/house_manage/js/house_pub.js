@@ -436,7 +436,7 @@ function map(){
 	var geocoder = new google.maps.Geocoder();
 	address = document.getElementById("hos_add").value;
 	geocoder.geocode({ 'address': address }, function(results, status) { //地址轉換經緯度 results取得該地區所有資訊 status回傳成功與否 以'OK'表示
-		if (status == 'OK') {
+		if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
 			var lat = results[0].geometry.location.lat();
 			var lng = results[0].geometry.location.lng();
 			document.getElementById("lat").setAttribute("value", lat);
