@@ -144,6 +144,11 @@ body {
     display: block;
     text-align: center;
 }
+.houselisttitle{
+	text-align: center;
+	margin-top: 15px;
+	font-weight: bold;
+}
 .houseinfo {   
     width: 60%;
     height: 200px;

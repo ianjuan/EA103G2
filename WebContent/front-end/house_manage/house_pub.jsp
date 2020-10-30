@@ -100,7 +100,7 @@
 							<tr>
 								<th>*房屋名稱:</th>
 								<td>
-									<input type="text" class="text1" name="hos_name" value="<%=(houseVO==null) ? "" : houseVO.getHos_name()%>" required>
+									<input type="text" class="text1" id="hos_name" name="hos_name" value="<%=(houseVO==null) ? "" : houseVO.getHos_name()%>">
 								</td>
 							</tr>
 							<tr>
@@ -120,27 +120,27 @@
 							<tr>
 								<th>*地址:</th>
 								<td>
-									<input type="text" class="text1" name="hos_add" value="<%=(houseVO==null) ? "" : houseVO.getHos_add()%>" id="hos_add" required>									
-									<input type="hidden" name="hos_lng" value="121.194406" id="lng">
-									<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
+									<input type="text" class="text1" id="hos_add" name="hos_add" value="<%=(houseVO==null) ? "" : houseVO.getHos_add()%>">									
+									<input type="hidden" name="hos_lng" value="" id="lng">
+									<input type="hidden" name="hos_lat" value="" id="lat">
 								</td>
 							</tr>
 							<tr>
 								<th>*房屋類型:</th>
 								<td>									
-									<label><input type="radio" name="hos_type" value="透天厝" required>透天厝</label>
-									<label><input type="radio" name="hos_type" value="公寓" required>公寓</label>
-									<label><input type="radio" name="hos_type" value="電梯大樓" required>電梯大樓</label>
-									<label><input type="radio" name="hos_type" value="別墅" required>別墅</label>
+									<label><input type="radio" class="hos_type" name="hos_type" value="透天厝">透天厝</label>
+									<label><input type="radio" class="hos_type" name="hos_type" value="公寓">公寓</label>
+									<label><input type="radio" class="hos_type" name="hos_type" value="電梯大樓">電梯大樓</label>
+									<label><input type="radio" class="hos_type" name="hos_type" value="別墅">別墅</label>
 								</td>
 							</tr>
 							<tr>
 								<th>*房間類型:</th>
 								<td>									
-									<label><input type="radio" name="hos_room" value="雅房" required>雅房</label>
-									<label><input type="radio" name="hos_room" value="獨立套房" required>獨立套房</label>
-									<label><input type="radio" name="hos_room" value="分租套房" required>分租套房</label>
-									<label><input type="radio" name="hos_room" value="整層住家" required>整層住家</label>
+									<label><input type="radio" class="hos_room" name="hos_room" value="雅房">雅房</label>
+									<label><input type="radio" class="hos_room" name="hos_room" value="獨立套房">獨立套房</label>
+									<label><input type="radio" class="hos_room" name="hos_room" value="分租套房">分租套房</label>
+									<label><input type="radio" class="hos_room" name="hos_room" value="整層住家">整層住家</label>
 								</td>
 							</tr>
 							<tr>
@@ -152,15 +152,15 @@
 							<tr>
 								<th>*樓層:</th>
 								<td>
-									<input type="text" class="text1" name="hos_floor"
-									value="<%=(houseVO==null) ? "" : houseVO.getHos_floor()%>" required>
+									<input type="text" class="text1" id="hos_floor" name="hos_floor"
+									value="<%=(houseVO==null) ? "" : houseVO.getHos_floor()%>">
 								</td>
 							</tr>
 							<tr>
 								<th>*坪數:</th>
 								<td>
-									<input type="number" class="num1" min="1" step="0.01" name="hos_pnum"
-									value="<%=(houseVO==null) ? "" : houseVO.getHos_pnum()%>" required>
+									<input type="number" class="num1" min="1" step="0.01" id="hos_pnum" name="hos_pnum"
+									value="<%=(houseVO==null) ? "" : houseVO.getHos_pnum()%>">
 									<font size="2">坪</font>
 								</td>
 							</tr>
@@ -172,7 +172,7 @@
 								<th rowspan="2">*房屋圖片:</th>
 								<td>
 									<label>
-										<input type="file" id="loadPic" multiple onchange="load()" name="hos_pic" required>
+										<input type="file" id="loadPic" multiple onchange="load()" name="hos_pic">
 										<img src="https://www.flaticon.com/svg/static/icons/svg/3378/3378213.svg" class="uploadpic"/>
 										<span class="uploadfont" for="loadPic">&nbsp;&nbsp;上傳圖片&nbsp;&nbsp;</span>									
 									</label>
@@ -335,21 +335,21 @@
 							<tr>
 								<th rowspan="9">出租費用:</th>
 								<td>
-									<label>*租金: 每月<input type="number" class="num1" min="0" placeholder="0" step="100" name="hos_rentfee" value="<%=(houseVO==null) ? "" : houseVO.getHos_rentfee()%>" required>元</label>
+									<label>*租金: 每月<input type="number" class="num1" min="0" placeholder="0" step="100" id="hos_rentfee" name="hos_rentfee" value="<%=(houseVO==null) ? "" : houseVO.getHos_rentfee()%>">元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									*水費: <label><input type="radio" id="watertype1" name="hos_waterfeetype" value="1" onclick="floatfee1()" required>&nbsp;每度<input type="number" id="water1" class="num1" min="0" placeholder="0" step="0.1" name="hos_waterfee1" value="<%=(houseVO==null) ? "" : houseVO.getHos_waterfee()%>" disabled>元</label>
-									<label><input type="radio" id="watertype2" name="hos_waterfeetype" value="2" onclick="floatfee1()" required>&nbsp;每月<input type="number" id="water2" class="num1" min="0" min="0" placeholder="0" name="hos_waterfee2" value="<%=(houseVO==null) ? "" : houseVO.getHos_waterfee()%>" disabled>元</label>
-									<label><input type="radio" id="watertype0" name="hos_waterfeetype" value="0" onclick="floatfee1()" required>&nbsp;房東付費</label>
+									水費: <label><input type="radio" id="watertype1" name="hos_waterfeetype" value="1" onclick="floatfee1()">&nbsp;每度<input type="number" id="water1" class="num1" min="0" placeholder="0" step="0.1" name="hos_waterfee1" value="<%=(houseVO==null) ? "" : houseVO.getHos_waterfee()%>" disabled>元</label>
+									<label><input type="radio" id="watertype2" name="hos_waterfeetype" value="2" onclick="floatfee1()">&nbsp;每月<input type="number" id="water2" class="num1" min="0" min="0" placeholder="0" name="hos_waterfee2" value="<%=(houseVO==null) ? "" : houseVO.getHos_waterfee()%>" disabled>元</label>
+									<label><input type="radio" id="watertype0" name="hos_waterfeetype" value="0" onclick="floatfee1()">&nbsp;房東付費</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									*電費: <label><input type="radio" id="electtype1" name="hos_electfeetype" value="1" onclick="floatfee2()" required>&nbsp;每度<input type="number" id="elect1" class="num1" placeholder="0" step="0.1" name="hos_electfee1" value="<%=(houseVO==null) ? "" : houseVO.getHos_electfee()%>" disabled>元</label>
-									<label><input type="radio" id="electtype2" name="hos_electfeetype" value="2" onclick="floatfee2()" required>&nbsp;每月<input type="number" id="elect2" class="num1" min="0" placeholder="0" name="hos_electfee2" value="<%=(houseVO==null) ? "" : houseVO.getHos_electfee()%>" disabled>元</label>
-									<label><input type="radio" id="electtype0" name="hos_electfeetype" value="0" onclick="floatfee2()" required>&nbsp;房東付費</label>
+									電費: <label><input type="radio" id="electtype1" name="hos_electfeetype" value="1" onclick="floatfee2()">&nbsp;每度<input type="number" id="elect1" class="num1" placeholder="0" step="0.1" name="hos_electfee1" value="<%=(houseVO==null) ? "" : houseVO.getHos_electfee()%>" disabled>元</label>
+									<label><input type="radio" id="electtype2" name="hos_electfeetype" value="2" onclick="floatfee2()">&nbsp;每月<input type="number" id="elect2" class="num1" min="0" placeholder="0" name="hos_electfee2" value="<%=(houseVO==null) ? "" : houseVO.getHos_electfee()%>" disabled>元</label>
+									<label><input type="radio" id="electtype0" name="hos_electfeetype" value="0" onclick="floatfee2()">&nbsp;房東付費</label>
 								</td>
 							</tr>
 							<tr>
@@ -388,72 +388,72 @@
 					<div id="cbody5">
 						<table>
 							<tr>
-								<th>*可遷入日:</th>
+								<th>可遷入日:</th>
 								<td>
-									<input type="text" class="text1" placeholder="隨時" name="hos_mdate" value="<%=(houseVO==null) ? "" : houseVO.getHos_mdate()%>" required>
+									<input type="text" class="text1" placeholder="隨時" name="hos_mdate" value="<%=(houseVO==null) ? "" : houseVO.getHos_mdate()%>">
 								</td>
 							</tr>
 							<tr>
-								<th>*最短租期:</th>
+								<th>最短租期:</th>
 								<td>									
-									<label><input type="radio" name="hos_mindate" value="兩年" required>兩年</label>
-									<label><input type="radio" name="hos_mindate" value="一年" required>一年</label>
-									<label><input type="radio" name="hos_mindate" value="半年" required>半年</label>
-									<label><input type="radio" name="hos_mindate" value="三個月" required>三個月</label>
-									<label><input type="radio" name="hos_mindate" value="不限" required>不限</label>
+									<label><input type="radio" name="hos_mindate" value="兩年">兩年</label>
+									<label><input type="radio" name="hos_mindate" value="一年">一年</label>
+									<label><input type="radio" name="hos_mindate" value="半年">半年</label>
+									<label><input type="radio" name="hos_mindate" value="三個月">三個月</label>
+									<label><input type="radio" name="hos_mindate" value="不限">不限</label>
 								</td>
 							</tr>
 							<tr>
-								<th>*車位:</th>
+								<th>車位:</th>
 								<td>
-									<label><input type="radio" id="park1" name="hos_park" value="無" onclick="parkfee()" required>無</label>
-									<label><input type="radio" name="hos_park" value="平面式" onclick="parkfee()" required>平面式</label>
-									<label><input type="radio" name="hos_park" value="機械式" onclick="parkfee()" required>機械式</label>
+									<label><input type="radio" id="park1" name="hos_park" value="無" onclick="parkfee()">無</label>
+									<label><input type="radio" name="hos_park" value="平面式" onclick="parkfee()">平面式</label>
+									<label><input type="radio" name="hos_park" value="機械式" onclick="parkfee()">機械式</label>
 								</td>
 							</tr>
 							<tr>
-								<th>*性別:</th>
+								<th>性別:</th>
 								<td>
-									<label><input type="radio" name="hos_sex" value="無" required>無</label>
-									<label><input type="radio" name="hos_sex" value="女生" required>女生</label>
-									<label><input type="radio" name="hos_sex" value="男生" required>男生</label>
+									<label><input type="radio" name="hos_sex" value="無">無</label>
+									<label><input type="radio" name="hos_sex" value="女生">女生</label>
+									<label><input type="radio" name="hos_sex" value="男生">男生</label>
 								</td>
 							</tr>
 							<tr>
 								<th>*身份:</th>
 								<td>
-									<label><input type="radio" name="hos_iden" value="無" required>無</label>
-									<label><input type="radio" name="hos_iden" value="學生" required>學生</label>
-									<label><input type="radio" name="hos_iden" value="上班族" required>上班族</label>
-									<label><input type="radio" name="hos_iden" value="家庭" required>家庭</label>
+									<label><input type="radio" name="hos_iden" value="無">無</label>
+									<label><input type="radio" name="hos_iden" value="學生">學生</label>
+									<label><input type="radio" name="hos_iden" value="上班族">上班族</label>
+									<label><input type="radio" name="hos_iden" value="家庭">家庭</label>
 								</td>
 							</tr>
 							<tr>
-								<th>*開伙:</th>
+								<th>開伙:</th>
 								<td>
-									<label><input type="radio" name="hos_cook" value="可以" required>可以</label>
-									<label><input type="radio" name="hos_cook" value="不可以" required>不可以</label>
+									<label><input type="radio" name="hos_cook" value="可以">可以</label>
+									<label><input type="radio" name="hos_cook" value="不可以">不可以</label>
 								</td>
 							</tr>
 							<tr>
-								<th>*寵物:</th>
+								<th>寵物:</th>
 								<td>
-									<label><input type="radio" name="hos_pet" value="可以" required>可以</label>
-									<label><input type="radio" name="hos_pet" value="不可以" required>不可以</label>
+									<label><input type="radio" name="hos_pet" value="可以">可以</label>
+									<label><input type="radio" name="hos_pet" value="不可以">不可以</label>
 								</td>
 							</tr>
 							<tr>
-								<th>*吸菸:</th>
+								<th>吸菸:</th>
 								<td>
-									<label><input type="radio" name="hos_smoke" value="可以" required>可以</label>
-									<label><input type="radio" name="hos_smoke" value="不可以" required>不可以</label>
+									<label><input type="radio" name="hos_smoke" value="可以">可以</label>
+									<label><input type="radio" name="hos_smoke" value="不可以">不可以</label>
 								</td>
 							</tr>
 							<tr>
 								<th>*出租狀態:</th>
 								<td>
-									<label><input type="radio" name="hos_status" value="待出租" required>待出租</label>
-									<label><input type="radio" name="hos_status" value="已下架" required>下架</label>
+									<label><input type="radio" name="hos_status" value="待出租">待出租</label>
+									<label><input type="radio" name="hos_status" value="已下架">下架</label>
 								</td>
 							</tr>
 						</table>
