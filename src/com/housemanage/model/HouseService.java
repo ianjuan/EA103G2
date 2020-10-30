@@ -68,7 +68,7 @@ public class HouseService {
 		houseVO.setHos_waterfee(hos_waterfee);
 		houseVO.setHos_electfeetype(hos_electfeetype);
 		houseVO.setHos_electfee(hos_electfee);
-		houseVO.setLld_balance(lld_balance);
+		houseVO.setLld_balance(lld_balance - 1000);
 		dao.insertHouseInfo(houseVO, hos_picArr);
 
 		return houseVO;

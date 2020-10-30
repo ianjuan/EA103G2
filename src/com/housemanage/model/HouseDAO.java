@@ -140,7 +140,7 @@ public class HouseDAO implements HouseDAO_interface {
 			
 			pstmt = con.prepareStatement(UPDATE_LLDBALANCE);
 
-			pstmt.setInt(1, houseVO.getLld_balance()-1000);
+			pstmt.setInt(1, houseVO.getLld_balance());
 			pstmt.setString(2, houseVO.getLld_no());
 
 			pstmt.executeUpdate();
