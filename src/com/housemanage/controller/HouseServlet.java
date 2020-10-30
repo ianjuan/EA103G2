@@ -6,6 +6,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
+import com.cash.model.CashService;
+import com.cash.model.CashVO;
 import com.housemanage.model.*;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 10 * 10 * 1024 * 1024)
@@ -236,6 +238,10 @@ public class HouseServlet extends HttpServlet {
 					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
 					hos_bro, hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, lld_balance);
 			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
+			
+			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+			CashService cashSvc = new CashService();
+			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
 														
 			req.setAttribute("lld_no", lld_no);
 			req.setAttribute("lldInfo", lldInfo);

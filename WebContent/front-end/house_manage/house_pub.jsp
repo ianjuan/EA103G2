@@ -81,6 +81,7 @@
 		</div>
 		<form class="table" name="houseForm" METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet" enctype="multipart/form-data">
 			<div id="center">
+				<h4 class="houselisttitle">上架房屋</h4><hr>
 				<div id="chead">
 					<ul>
 						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="titleshow(event)" value="1">基本資訊</button></li>

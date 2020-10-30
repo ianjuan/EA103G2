@@ -279,16 +279,21 @@ body {
         height: 480px;
     }
     .linfo {
-        width: 70%;
+        width: 100%;
+        height: 200px;
         float: none;
         margin: 0 auto;
     }
+    .pic {
+	    width: 75%;
+	}
     .cinfo {
         width: 100%;
+        height: 185px;
     }
     .rinfo {
         width: 100%;
-        height: 80px;
+        height: 95px;
     }
     .rinfo ul li {
         float: left;
@@ -296,7 +301,7 @@ body {
     }
     .rinfo ul li button{        
         margin: 3% auto;
-        height: 25px;
+        height: 30px;
         line-height: 15px;
     }
     #housenav {
