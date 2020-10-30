@@ -17,7 +17,7 @@
 		Con_aplService con_aplService = new Con_aplService();
 		list = con_aplService.tntgetAll(tnt_no);
 	}
-	pageContext.setAttribute("list",list);
+	session.setAttribute("list",list);
 	session.setAttribute("tnt_no", tnt_no);
 	 
 	TntService tntService = new TntService();
@@ -79,28 +79,29 @@
 			</nav>
 		</div>
 		<div id="center">
+		<h3 class="houselisttitle">租屋申請</h3><hr>
 			<%@ include file="tntpage1"%>
 			<c:forEach var="con_aplVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${con_aplVO.apl_status == 0}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/apl/images/aplimage.jpg"
+							src="<%=request.getContextPath()%>/front-end/apl/images/tntapl.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${con_aplVO.apl_status == 1}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/apl/images/accept.jpg"
+							src="<%=request.getContextPath()%>/front-end/apl/images/lldace.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${con_aplVO.apl_status == 2}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/apl/images/reject.png"
+							src="<%=request.getContextPath()%>/front-end/apl/images/lldrej.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${con_aplVO.apl_status == 3}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/apl/images/cancel.jpg"
+							src="<%=request.getContextPath()%>/front-end/apl/images/tntcancel.png"
 							class="pic" />
 						</c:if>
 					</div>
@@ -158,6 +159,7 @@
 						</div>					
 					</div>
 			</c:forEach>
+			<%@ include file="tntpage2.file"%>
 			<div id="right"></div>
 		</div>
 		<div id="foot"></div>

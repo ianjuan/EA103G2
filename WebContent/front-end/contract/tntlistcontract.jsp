@@ -15,7 +15,7 @@
 	}
 	
 	List<ConVO> list = (List<ConVO>)session.getAttribute("list");
-	pageContext.setAttribute("list",list);
+	session.setAttribute("list",list);
 	
 	TntService tntService = new TntService();
 	TntVO tntVO = tntService.getOneTntProfile(tnt_no);
@@ -79,28 +79,29 @@
 			</nav>
 		</div>
 		<div id="center">
+		<h3 class="houselisttitle">合約管理</h3><hr>
 			<%@ include file="tntpage1"%>
 			<c:forEach var="conVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${conVO.con_sta == 0}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/lldsign.png"
+							src="<%=request.getContextPath()%>/front-end/contract/images/lldunsign.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${conVO.con_sta == 1}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/tntsign.jpg"
+							src="<%=request.getContextPath()%>/front-end/contract/images/tntunsign.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${conVO.con_sta == 2}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/un_check.png"
+							src="<%=request.getContextPath()%>/front-end/contract/images/signed.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${conVO.con_sta == 3}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/live.png"
+							src="<%=request.getContextPath()%>/front-end/contract/images/checked.png"
 							class="pic" />
 						</c:if>
 					</div>
@@ -167,6 +168,7 @@
 						</div>					
 					</div>
 			</c:forEach>
+			<%@ include file="tntpage2.file"%>
 			<div id="right"></div>
 		</div>
 		<div id="foot"></div>

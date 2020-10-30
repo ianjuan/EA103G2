@@ -57,6 +57,7 @@
 			</nav>
 		</div>
 		<div id="center">
+		<h3 class="houselisttitle">租房推薦</h3><hr>
 			<c:forEach var="houseVO" items="${list}">
 				<div class="houseinfo">
 					<div class="linfo">

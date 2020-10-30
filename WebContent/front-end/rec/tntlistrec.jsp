@@ -16,7 +16,7 @@
 	}
 	
 	List<RecVO> list = (List<RecVO>)session.getAttribute("list");
-	pageContext.setAttribute("list",list);
+	session.setAttribute("list",list);
 
 %>
 
@@ -31,7 +31,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>House_Off</title>
+<title>定期費用</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/contlist_tnt.css">
@@ -74,23 +74,29 @@
 			</nav>
 		</div>
 		<div id="center">
+		<h3 class="houselisttitle">定期帳單</h3><hr>
 			<%@ include file="tntpage1"%>
 			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${recVO.rec_sta == 0}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/rec/images/unfill.png"
+							src="<%=request.getContextPath()%>/front-end/rec/images/lldunfill.png"
 							class="pic" />
 					</c:if>
 					<c:if test="${recVO.rec_sta == 1}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/rec/images/unpaid.png"
+							src="<%=request.getContextPath()%>/front-end/rec/images/tntunpaid.png"
 							class="pic" />
 					</c:if>
 					<c:if test="${recVO.rec_sta == 2}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/rec/images/paid.jpg"
+							src="<%=request.getContextPath()%>/front-end/rec/images/tntpaid.png"
+							class="pic" />
+					</c:if>
+					<c:if test="${recVO.rec_sta == 3}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/rec/images/tntexp.png"
 							class="pic" />
 					</c:if>
 					</div>
@@ -101,7 +107,7 @@
 							<c:if test="${recVO.rec_sta != 0}">
 							<li><span class="infotitle">本月使用水量 : </span><span>${recVO.rec_water}度</span></li>
 							<li><span class="infotitle">本月使用電量 : </span><span>${recVO.rec_elec}度</span></li>
-							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}</span></li>
+							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}元</span></li>
 							</c:if>
 							<li><span class="infotitle">帳單狀態 : </span><span>${recSvc.getRecStatusText(recVO.rec_sta)}</span></li>
 						</ul>
@@ -237,6 +243,7 @@
 					</div>
 				</div>
 			</c:forEach>
+			<%@ include file="tntpage2.file"%>
 			<div id="right"></div>
 		</div>
 		<div id="foot"></div>

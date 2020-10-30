@@ -118,23 +118,29 @@
 			</nav>
 		</div>
 		<div id="center">
+		<h3 class="houselisttitle">定期帳單</h3><hr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 					<c:if test="${recVO.rec_sta == 0}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/rec/images/unfill.png"
+							src="<%=request.getContextPath()%>/front-end/rec/images/lldunfill.png"
 							class="pic" />
 					</c:if>
 					<c:if test="${recVO.rec_sta == 1}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/rec/images/unpaid.png"
+							src="<%=request.getContextPath()%>/front-end/rec/images/tntunpaid.png"
 							class="pic" />
 					</c:if>
 					<c:if test="${recVO.rec_sta == 2}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/rec/images/paid.jpg"
+							src="<%=request.getContextPath()%>/front-end/rec/images/tntpaid.png"
+							class="pic" />
+					</c:if>
+					<c:if test="${recVO.rec_sta == 3}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/rec/images/tntexp.png"
 							class="pic" />
 					</c:if>
 					</div>
@@ -298,6 +304,7 @@
 					</div>
 				</div>
 			</c:forEach>
+			<%@ include file="page2.file"%>
 			<div id="right"></div>
 		</div>
 		<div id="foot"></div>

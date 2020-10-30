@@ -117,22 +117,22 @@
 					<div class="linfo">
 						<c:if test="${conVO.con_sta == 0}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/lldsign.png"
+							src="<%=request.getContextPath()%>/front-end/contract/images/lldunsign.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${conVO.con_sta == 1}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/tntsign.jpg"
+							src="<%=request.getContextPath()%>/front-end/contract/images/tntunsign.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${conVO.con_sta == 2}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/un_check.png"
+							src="<%=request.getContextPath()%>/front-end/contract/images/signed.png"
 							class="pic" />
 						</c:if>
 						<c:if test="${conVO.con_sta == 3}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/contract/images/live.png"
+							src="<%=request.getContextPath()%>/front-end/contract/images/checked.png"
 							class="pic" />
 						</c:if>
 					</div>
