@@ -93,7 +93,7 @@
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
-                            <p class="text-gray text-center mb-3">房客</p>
+                            <p class="text-gray text-center mb-3 fs-18">房客</p>
                             <h4 class="text-center">${tntVO.tnt_name} 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">

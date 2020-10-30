@@ -9,10 +9,10 @@
         @media (max-width:1199.98px) {
             .basicInfo__list {
                 position: fixed;
-                top: 0;
+                top: 53px;
                 left: 0;
                 background: #fff;
-                box-shadow: 0 2px 4px 0 rgba(145, 106, 60, .4);
+                box-shadow: 0 2px 4px 0 rgba(45, 45, 45, .2);
                 z-index: 2;
                 width: 320px;
                 height: 100vh
@@ -21,7 +21,7 @@
             .basicInfo__list__content {
                 position: absolute;
                 left: 0;
-                top: 82px;
+                top: 0px;
                 width: 100%
             }
 
@@ -41,7 +41,7 @@
             height: 110px;
             border: 5px solid #fff;
             border-radius: 100%;
-            box-shadow: 0 2px 4px 0 rgba(145, 106, 60, .4);
+            box-shadow: 0 3px 6px rgba(58, 140, 104, .4);
             position: relative;
             overflow: hidden
         }
@@ -917,6 +917,7 @@
 
         }
 
+
         #fileInput {
             display: block;
             color: #D7C8B6;
@@ -941,7 +942,7 @@
 
         .delclass {            /* #del */
 /*             margin-top: 9%; */
-            margin-left: -3px;
+/*             margin-left: -3px;    */
             text-decoration: none;
             color: #C76363;
             border: solid #C76363;
@@ -971,7 +972,7 @@
             margin: auto;
         }
 
-        .lld_pic {
+        .tnt_pic {
             padding: 10px;
             border-radius: 10px;
             border: #1d1d52 dashed 2px;
@@ -983,13 +984,13 @@
      
 
         /*------------------------------------------------------------------
-[ info_lld ]*/
+[ info_tnt ]*/
         .landing {
             background-color: #f7f7f7;
         }
 
         #infocontainer.container {
-            margin-top: 5%;/*120px*/
+            margin-top: 3%;/*120px*/
         }
 
         .basicInfo__list__content {
@@ -1017,7 +1018,7 @@
         }
 
         a.basicInfo__menu__link {
-            font-size: 18px;
+            font-size: 20px;
         }
 
         a.upload {
@@ -1040,7 +1041,7 @@
         
         .txt-vrfPics-hint {
             text-align: center;
-            color: #916a3c;
+            color: #916a3c; /*#367196*/
             font-weight: bold;
             font-size: 17px;
         }
@@ -1108,10 +1109,10 @@
             left: 10px;
         }
 
-        /*------------------------------------------------------------------
-[ shrink Ωb¿Y  ]*/
-        .svg-inline--fa,
-        svg:not(:root).svg-inline--fa {
+       /*------------------------------------------------------------------
+[ shrink ]*/
+		/*Ωb¿Y */
+        .svg-inline--fa,svg:not(:root).svg-inline--fa {
             overflow: visible;
         }
 
@@ -1124,3 +1125,46 @@
             font-size: inherit;
             height: 1em;
             vertical-align: -.125em;
+        }
+        /*shrink */
+        .shrink {
+            position: fixed;
+            left: 0;
+            top: 53px;
+            width: 72px;
+            height: 100vh;
+            box-shadow: 0 0 1px rgba(0, 0, 0, .5);
+            z-index: 1
+        }
+         .shrink__img {
+            width: 40px;
+            height: 40px
+        }
+
+        .shrink__list {
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        .shrink__list-icon {
+            width: 100%;
+            display: flex;
+            justify-content: center
+        }
+        
+        .text-primary {
+   			color: #916a3c!important;
+		}
+		.basicInfo__list__content-backIcon {
+                text-align: right;
+            }
+        /*------------------------------------------------------------------
+[ container ]*/
+        
+        @media (min-width: 1200px){
+			#infocontainer {
+			    max-width: 1400px !important;
+			}
+		}
+        

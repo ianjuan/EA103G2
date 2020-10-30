@@ -111,6 +111,11 @@
 
 <body class="landing">
 	<jsp:include page="/front-end/navbar/navbar.jsp"/>
+	<div data-v-291437b2="" class="summaryDetail__progressBar bg-gray-light-2 col-md-12 col-11 px-0 progress">
+		<div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" class="progress-bar" style="width: 50%;">
+		<!---->
+		</div>
+	</div>
     <section>
         <section class="content">
             <div class="" id="infocontainer">

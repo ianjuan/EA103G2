@@ -21,7 +21,7 @@
             .basicInfo__list__content {
                 position: absolute;
                 left: 0;
-                top: 82px;
+                top: 0px;
                 width: 100%
             }
 
@@ -1018,7 +1018,7 @@
         }
 
         a.basicInfo__menu__link {
-            font-size: 18px;
+            font-size: 20px;
         }
 
         a.upload {

@@ -342,6 +342,28 @@
             $('#f_date1').blur();
             console.log($('.xdsoft_datetimepicker').css('display'));
 //            $('.xdsoft_datetimepicker').css('display','none');
+            
+            /*
+             * ================================================================== 
+             * [ Shrink]
+             */
+            $('.text-primary:eq(1)').click(function(){  
+        		$('#basicinfolist').show();
+            	$('.shrink').animate({left:'-72px'},'fast',function(){
+            		$('.basicInfo__list-backIcon').css('text-align','right');
+            	});
+            	$('.shrink').fadeOut('fast');
+            	$('#basicinfolist').animate({left:'0px'},'normal');
+			});
+			$('.text-primary:eq(0)').click(function(){
+				$('#basicinfolist').animate({left:'-320px'},'fast',function(){
+            		$('.basicInfo__list-backIcon').css('text-align','center');
+            		$('#basicinfolist').hide();
+            	});
+            	$('.shrink').fadeIn('fast');
+            	$('.shrink').animate({left:'0px'},'fast');
+			});
+     
         });
         
         /*

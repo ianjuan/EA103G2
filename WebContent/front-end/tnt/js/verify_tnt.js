@@ -40,10 +40,10 @@
 			$('.text-primary:eq(0)').click(function(){
 				$('#basicinfolist').animate({left:'-320px'},'fast',function(){
             		$('.basicInfo__list-backIcon').css('text-align','center');
+            		$('#basicinfolist').hide();
             	});
             	$('.shrink').fadeIn('fast');
             	$('.shrink').animate({left:'0px'},'fast');
-            	$('#basicinfolist').hide();
 			});
         });
 

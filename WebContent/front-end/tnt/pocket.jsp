@@ -535,10 +535,6 @@
 	var hasBankinfoJS = <%=hasBankinfoJS%>;
 	var hasCardinfoJS = <%=hasCardinfoJS%>;
 </script>
-<script>
-
-</script>
-
 </body>
 
 </html>
