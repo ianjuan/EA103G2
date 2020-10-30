@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import com.cash.model.CashService;
 import com.cash.model.CashVO;
 import com.housemanage.model.*;
+import com.notify.controller.NotifyServlet;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 10 * 1024 * 1024, maxRequestSize = 10 * 10 * 1024 * 1024)
 
@@ -126,12 +127,12 @@ public class HouseServlet extends HttpServlet {
 
 			String lld_no = req.getParameter("lld_no");
 			String hos_name = req.getParameter("hos_name").trim();
-			String hos_liffun = req.getParameter("hos_liffun").trim();
-			String hos_trans = req.getParameter("hos_trans").trim();
+			String hos_liffun = getReqString(req, "hos_liffun", "待屋主提供資訊");
+			String hos_trans = getReqString(req, "hos_trans", "待屋主提供資訊");
 			String hos_add = req.getParameter("hos_add").trim();
 			String hos_type = req.getParameter("hos_type");
 			String hos_room = req.getParameter("hos_room");
-			String hos_pat = req.getParameter("hos_pat").trim();
+			String hos_pat = getReqString(req, "hos_pat", "待屋主提供資訊");
 			String hos_floor = req.getParameter("hos_floor").trim();
 			Double hos_pnum = new Double(req.getParameter("hos_pnum").trim());
 			Double hos_lng = new Double(req.getParameter("hos_lng").trim());
@@ -158,7 +159,7 @@ public class HouseServlet extends HttpServlet {
 
 			/*************************** 新增房屋限制 **********************/
 			
-			String hos_mdate = getReqString(req, "hos_mdate", "隨時");
+			String hos_mdate = getReqString(req, "hos_mdate", "待屋主提供資訊");
 			String hos_mindate = getReqString(req, "hos_mindate", "不限");
 			String hos_park = getReqString(req, "hos_park", "無");
 			String hos_sex = getReqString(req, "sex", "無");
@@ -239,9 +240,15 @@ public class HouseServlet extends HttpServlet {
 					hos_bro, hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, lld_balance);
 			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 			
-			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
-			CashService cashSvc = new CashService();
-			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
+//			/*************************** 電子錢包紀錄 **********************/
+//			
+//			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+//			CashService cashSvc = new CashService();
+//			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
+//			
+//			/*************************** 上架房屋成功通知 **********************/
+//			
+//			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "/front-end/house_manage/house_index.jsp");
 														
 			req.setAttribute("lld_no", lld_no);
 			req.setAttribute("lldInfo", lldInfo);
@@ -267,12 +274,12 @@ public class HouseServlet extends HttpServlet {
 			/*************************** 更新房屋資訊 **********************/
 
 			String hos_name = req.getParameter("hos_name").trim();
-			String hos_liffun = req.getParameter("hos_liffun").trim();
-			String hos_trans = req.getParameter("hos_trans").trim();
+			String hos_liffun = getReqString(req, "hos_liffun", "待屋主提供資訊");
+			String hos_trans = getReqString(req, "hos_trans", "待屋主提供資訊");
 			String hos_add = req.getParameter("hos_add").trim();
 			String hos_type = req.getParameter("hos_type");
 			String hos_room = req.getParameter("hos_room");
-			String hos_pat = req.getParameter("hos_pat").trim();
+			String hos_pat = getReqString(req, "hos_pat", "待屋主提供資訊");
 			String hos_floor = req.getParameter("hos_floor").trim();
 			Double hos_pnum = new Double(req.getParameter("hos_pnum").trim());
 			Double hos_lng = new Double(req.getParameter("hos_lng").trim());
@@ -300,7 +307,7 @@ public class HouseServlet extends HttpServlet {
 
 			/*************************** 更新房屋限制 **********************/
 
-			String hos_mdate = req.getParameter("hos_mdate").trim();
+			String hos_mdate = getReqString(req, "hos_mdate", "待屋主提供資訊");
 			String hos_mindate = req.getParameter("hos_mindate");
 			String hos_park = req.getParameter("hos_park");
 			String hos_sex = req.getParameter("hos_sex");
