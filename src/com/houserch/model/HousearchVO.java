@@ -27,9 +27,29 @@ public class HousearchVO implements java.io.Serializable {
 	private String house;
 	private String sort;
 	private String hos_pic;
-	
+	private String city;
+	private String town;
+	private String serachbox;
 	private Integer page;
 	
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getTown() {
+		return town;
+	}
+	public void setTown(String town) {
+		this.town = town;
+	}
+	public String getSerachbox() {
+		return serachbox;
+	}
+	public void setSerachbox(String serachbox) {
+		this.serachbox = serachbox;
+	}
 	public Integer getPage() {
 		return page;
 	}

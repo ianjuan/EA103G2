@@ -18,38 +18,53 @@ window.onload = function(){
 	})			
 }
 
-function notice1(){		
+function notice1(){
 	var pic = document.getElementsByClassName("pic").length;
-
-	 if(pic < 5){
-		 swal("目前才" + pic + "張圖片而已欸...", "請上傳 5~10 張圖片", "error", {button: "確認"});
-	 } else {
-		 swal({title:"確定要送出房屋資訊了嗎?", text:"" , icon:"info", buttons: {
-		      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
-		    }}).then(function(isConfirm){
-			if(isConfirm){	
-				var geocoder = new google.maps.Geocoder();
-				address = document.getElementById("hos_add").value;
-				geocoder.geocode({ 'address': address }, function(results, status) {
-					if (status == 'OK') {
-						var lat = results[0].geometry.location.lat();
-						var lng = results[0].geometry.location.lng();
-						document.getElementById("lat").setAttribute("value", lat);
-						document.getElementById("lng").setAttribute("value", lng);
-					} else {
-						console.log(status);
-					}
-				});
-				
-				var bank = document.getElementById("lld_balance").value;
-				swal("上架房屋成功!!", "電子錢包扣款1000元, 目前還剩"+(bank-1000)+"元" , "success", {button: "確認"}).then(function(){
-					document.houseForm.submit();
-				});
+	
+	if(document.getElementById("hos_name").value.trim().length === 0){
+		swal("房屋名稱還沒填哦...", "快去填!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_add").value.trim().length === 0){
+		swal("地址還沒填哦...", "快去填!!!", "error", {button: "確認"});
+	} else if(document.querySelectorAll(".hos_type:checked").length === 0){
+		swal("房屋類型還沒選哦...", "快去選!!!", "error", {button: "確認"});
+	} else if(document.querySelectorAll(".hos_room:checked").length === 0){
+		swal("房間類型還沒選哦...", "快去選!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_floor").value.trim().length === 0){
+		swal("樓層還沒填哦...", "快去填!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_pnum").value.trim().length === 0){
+		swal("坪數還沒填哦...", "快去填!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_rentfee").value.trim().length === 0){
+		swal("租金還沒填哦...", "快去填!!!", "error", {button: "確認"});
+	} else if(pic < 5){
+		swal("目前才" + pic + "張圖片而已欸...", "請上傳 5~10 張圖片", "error", {button: "確認"});
+	} else {
+		swal({title:"確定要送出房屋資訊了嗎?", text:"" , icon:"info", buttons: {
+		     Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+		   }}).then(function(isConfirm){
+		if(isConfirm){
+			var geocoder = new google.maps.Geocoder();
+			address = document.getElementById("hos_add").value;
+			geocoder.geocode({ 'address': address }, function(results, status) {
+				if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+					var lat = results[0].geometry.location.lat();
+					var lng = results[0].geometry.location.lng();
+					document.getElementById("lat").setAttribute("value", lat);
+					document.getElementById("lng").setAttribute("value", lng);
+						
+					var bank = document.getElementById("lld_balance").value;
+					swal("上架房屋成功!!", "電子錢包扣款1000元, 目前還剩"+(bank-1000)+"元" , "success", {button: "確認"}).then(function(){
+						document.houseForm.submit();
+					});
+				} else {
+					swal("這個地址不行哦...", "請重新輸入地址", "error", {button: "確認"});
+					return false;
+				}
+				});								
 			} else {
 				return false;
 			}
 		});
-	 }	
+	}	
 }
 
 function notice2(){
@@ -69,12 +84,21 @@ function notice2(){
 function notice3(){		
 	var pic = document.getElementsByClassName("pic").length;
 	var pic1 = document.getElementsByClassName("pic1").length;
-	 if(pic + pic1 < 5){
-		 swal("目前才" + (pic + pic1) + "圖片欸...", "請再上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "確認"});
-	 } else {
-		 swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
-		      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
-		    }}).then(function(isConfirm){
+	
+	if(document.getElementById("hos_name").value.trim().length === 0){
+		swal("房屋名稱別亂改阿...都沒了", "快去改好!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_floor").value.trim().length === 0){
+		swal("樓層別亂改阿...都沒了", "快去改好!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_pnum").value.trim().length === 0){
+		swal("坪數別亂改阿...都沒了", "快去改好!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_rentfee").value.trim().length === 0){
+		swal("租金別亂改阿...都沒了", "快去改好!!!", "error", {button: "確認"});
+	} else if(pic + pic1 < 5){
+		swal("目前才" + (pic + pic1) + "圖片欸...", "請再上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "確認"});
+	} else {
+		swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
+		     Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+		   }}).then(function(isConfirm){
 			if(isConfirm){
 				swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
 					document.houseForm.submit();
@@ -83,7 +107,7 @@ function notice3(){
 				return false;
 			}	    				
 		});
-	 }	
+	}
 }
 
 function checkmoney(){
@@ -418,7 +442,7 @@ function map(){
 			document.getElementById("lat").setAttribute("value", lat);
 			document.getElementById("lng").setAttribute("value", lng);
 		} else {
-			console.log(status);
+			swal("這個地址不行哦...", "請重新輸入地址", "error", {button: "確認"});
 		}
 	});
 }

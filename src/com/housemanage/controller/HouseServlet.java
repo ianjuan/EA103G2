@@ -96,6 +96,7 @@ public class HouseServlet extends HttpServlet {
 		}
 
 		if ("getHouseInfo".equals(action)) {
+//			String requestURL = req.getParameter("requestURL");
 			String hos_no = new String(req.getParameter("hos_no"));
 			String lld_no = new String(req.getParameter("lld_no"));
 
@@ -133,7 +134,7 @@ public class HouseServlet extends HttpServlet {
 			Double hos_pnum = new Double(req.getParameter("hos_pnum").trim());
 			Double hos_lng = new Double(req.getParameter("hos_lng").trim());
 			Double hos_lat = new Double(req.getParameter("hos_lat").trim());
-			String hos_status = req.getParameter("hos_status");
+			String hos_status = getReqString(req, "hos_status", "已下架");
 			Integer hos_bro = getReqNum(req, "hos_bro");
 
 			/*************************** 新增房屋家具 **********************/
@@ -154,15 +155,15 @@ public class HouseServlet extends HttpServlet {
 			Integer hos_gas = getReqNum(req, "hos_gas");
 
 			/*************************** 新增房屋限制 **********************/
-
-			String hos_mdate = req.getParameter("hos_mdate").trim();
-			String hos_mindate = req.getParameter("hos_mindate");
-			String hos_park = req.getParameter("hos_park");
-			String hos_sex = req.getParameter("hos_sex");
-			String hos_iden = req.getParameter("hos_iden");
-			String hos_pet = req.getParameter("hos_pet");
-			String hos_cook = req.getParameter("hos_cook");
-			String hos_smoke = req.getParameter("hos_smoke");
+			
+			String hos_mdate = getReqString(req, "hos_mdate", "隨時");
+			String hos_mindate = getReqString(req, "hos_mindate", "不限");
+			String hos_park = getReqString(req, "hos_park", "無");
+			String hos_sex = getReqString(req, "sex", "無");
+			String hos_iden = getReqString(req, "hos_iden", "無");
+			String hos_pet = getReqString(req, "hos_pet", "不可以");
+			String hos_cook = getReqString(req, "hos_cook", "不可以");
+			String hos_smoke = getReqString(req, "hos_smoke", "不可以");
 
 			/*************************** 新增房屋固定費用 **********************/
 
@@ -255,6 +256,8 @@ public class HouseServlet extends HttpServlet {
 
 		if ("updateHouseInfo".equals(action)) {
 
+			String requestURL = req.getParameter("requestURL");
+			
 			/*************************** 更新房屋資訊 **********************/
 
 			String hos_name = req.getParameter("hos_name").trim();
@@ -376,19 +379,16 @@ public class HouseServlet extends HttpServlet {
 			req.setAttribute("lld_no", lld_no);
 			req.setAttribute("lldInfo", lldInfo);
 
-			String url;
+			String url = requestURL;
 			if (hos_status.equals("出租中")) {
 				List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
 				req.setAttribute("houseVOrent", houseVOrent);
-				url = "/front-end/house_manage/house_rent.jsp";
 			} else if (hos_status.equals("待出租")) {
 				List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
 				req.setAttribute("houseVOunrent", houseVOunrent);
-				url = "/front-end/house_manage/house_unrent.jsp";
 			} else {
 				List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
 				req.setAttribute("houseVOoff", houseVOoff);
-				url = "/front-end/house_manage/house_off.jsp";
 			}
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -420,6 +420,18 @@ public class HouseServlet extends HttpServlet {
 			result = 0;
 		} else {
 			result = new Integer(reqValue);
+		}		
+		return result;
+	}
+	
+	public String getReqString(HttpServletRequest req, String reqKey, String reqDefault) {
+		String reqValue = req.getParameter(reqKey);
+		String result;
+		
+		if(reqValue == null || (reqValue.trim()).length() == 0) {
+			result = reqDefault;
+		} else {
+			result = reqValue;
 		}		
 		return result;
 	}

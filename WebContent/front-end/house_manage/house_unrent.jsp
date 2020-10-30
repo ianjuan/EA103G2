@@ -1,6 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	language="java"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.housemanage.model.*"%>
 
@@ -90,11 +90,12 @@
 						<button type="submit" class="link">合約管理</button>
 					</FORM>
 					<button type="button" class="link">修繕管理</button>
-					<button type="button" class="link">評價管理</button>
+					<button type="button" class="link">評價管理</button>					
 				</div>
 			</nav>
 		</div>
 		<div id="center">
+			<h3 class="houselisttitle">待租房屋</h3><hr>
 			<%@ include file="page1.file"%>
 			<c:forEach var="houseVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
@@ -117,10 +118,11 @@
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
 								<input type="hidden" name="hos_no" value="${houseVO.hos_no}">
 								<input type="hidden" name="lld_no" value="<%=lld_no%>">
+								<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
+			     				<input type="hidden" name="whichPage"	value="<%=whichPage%>">
 								<input type="hidden" name="action" value="getHouseInfo">
 								<li><button id="btn2" type="submit">資訊修改</button></li>
 							</FORM>
-							
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 								<input type="hidden" name="hos_no" value="${houseVO.hos_no}">
 								<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -133,59 +135,59 @@
 					</div>
 				</div>
 			</c:forEach>
+			<%@ include file="page2.file"%>
+		</div>
 		<div id="right">
-			
 			<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="unrentHouse">
-			  <div class="modal-dialog modal-lg">
-			    <div class="modal-content">
-			      	<div id="search">
-			      		<span class="count1">關鍵字搜尋：</span><input type="search" class="light-table-filter" data-table="order-table" placeholder="請輸入關鍵字">
-				  		<span class="count1">共</span><span id="count1" class="count2"></span><span class="count1">筆</span>
-			      		<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right; margin-top: 8px;margin-right: 8px;">
-				        	<span aria-hidden="true">&times;</span>
-				        </button>			      	
-			      	</div> 			      	
-				  	<table id="list" class="order-table">
-					<thead>
-						<tr>
-							<th class="hos">編號</th>
-							<th class="hos">房屋編號</th>
-							<th>名稱</th>
-							<th>地址</th>
-							<th>房屋</th>
-							<th>房間</th>
-							<th>租金</th>
-							<th class="fun">狀態</th>
-						</tr>
-					</thead>
-					<tbody>
-					<c:forEach var="houseVO" items="${list}" varStatus="house">					
-						<tr>
-							<td width="5%">${house.count}</td>
-							<td width="11%">${houseVO.hos_no}</td>
-							<td width="24%">${houseVO.hos_name}</td>
-							<td width="24%">${houseVO.hos_add}</td>
-							<td width="10%">${houseVO.hos_type}</td>						
-							<td width="10%">${houseVO.hos_room}</td>
-							<td width="8%">${houseVO.hos_rentfee}</td>
-							<td class="status" width="8%">${houseVO.hos_status}</td>							
-						</tr>					
-					</c:forEach>
-					</tbody>
-				</table>
-			    </div>
-			  </div>
-			</div>
-						
+				<div class="modal-dialog modal-lg">
+			    	<div class="modal-content">
+				      	<div id="search">
+				      		<span class="count1">關鍵字搜尋：</span><input type="search" class="light-table-filter" data-table="order-table" placeholder="請輸入關鍵字">
+					  		<span class="count1">共</span><span id="count1" class="count2"></span><span class="count1">筆</span>
+				      		<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:right; margin-top: 8px;margin-right: 8px;">
+					        	<span aria-hidden="true">&times;</span>
+					        </button>
+				      	</div>
+				  		<table id="list" class="order-table">
+							<thead>
+								<tr>
+									<th class="fun">頁數</th>
+									<th class="hos">編號</th>
+									<th class="hos">房屋編號</th>
+									<th>名稱</th>
+									<th>地址</th>
+									<th>房屋</th>
+									<th>房間</th>
+									<th>租金</th>
+									<th class="fun">狀態</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="houseVO" items="${list}" varStatus="house">
+									<tr>
+										<td width="5%">${fn:substring((house.index/3)+1,0,fn:indexOf((house.count/3)+1, '.'))}</td>
+										<td width="5%">${house.count}</td>
+										<td width="11%">${houseVO.hos_no}</td>
+										<td width="22%">${houseVO.hos_name}</td>
+										<td width="21%">${houseVO.hos_add}</td>
+										<td width="10%">${houseVO.hos_type}</td>
+										<td width="10%">${houseVO.hos_room}</td>
+										<td width="8%">${houseVO.hos_rentfee}</td>
+										<td class="status" width="8%">${houseVO.hos_status}</td>
+									</tr>
+								</c:forEach>
+								</tbody>
+						</table>
+			 		</div>
+			 	</div>
+			</div>						
 			<label>
 				<button type="button" class="picbtn" data-toggle="modal" data-target="#unrentHouse">查看房屋清單</button>
 				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFTQNrcbfc-1RezQZWT6dYWJcLIiUPNnpL4Q&usqp=CAU" id="logo">
 			</label>
 		</div>
-	</div>
-	<div id="foot"></div>
-		<div id="outerdiv"
-			style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;">
+		<div id="foot"></div>
+		<div id="outerdiv" style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;">
 			<div id="innerdiv" style="position: absolute;">
 				<img id="bigimg" style="border: 5px solid #fff;" src="" />
 			</div>
