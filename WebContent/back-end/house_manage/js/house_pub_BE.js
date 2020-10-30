@@ -4,6 +4,30 @@ window.onload = function(){
 	show();			
 }
 
+function notice1(){		
+	if(document.getElementById("hos_name").value.trim().length === 0){
+		swal("房屋名稱不能沒有哦", "快去改好!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_floor").value.trim().length === 0){
+		swal("樓層不能沒有哦", "快去改好!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_pnum").value.trim().length === 0){
+		swal("坪數不能沒有哦", "快去改好!!!", "error", {button: "確認"});
+	} else if(document.getElementById("hos_rentfee").value.trim().length === 0){
+		swal("租金不能沒有哦", "快去改好!!!", "error", {button: "確認"});
+	} else {	
+		swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
+			Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
+			}}).then(function(isConfirm){
+			if(isConfirm){
+				swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
+					document.houseForm.submit();
+				});
+			} else {
+				return false;
+			}
+		});
+	}	
+}
+
 function notice2(){
 	swal({title:"確定要重新填寫嗎?", text:"" , icon:"info", buttons: {
 	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
@@ -16,23 +40,6 @@ function notice2(){
 			return false;
 		}
 	});
-}
-
-function notice3(){		
-	var pic = document.getElementsByClassName("pic").length;
-	var pic1 = document.getElementsByClassName("pic1").length;
-
-	swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
-		Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
-		}}).then(function(isConfirm){
-		if(isConfirm){
-			swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
-				document.houseForm.submit();
-			});
-		} else {
-			return false;
-		}
-	}); 
 }
 
 function show(){
@@ -95,35 +102,6 @@ function controlbtn(){
 	}
 }
 
-function load1(){
-	var files = document.getElementById("loadPic").files;
-	var pic1 = document.querySelectorAll(".pic1").length;
-	
-	if(files.length + pic1 > 10){
-		swal("您上傳了" + files.length + "張圖片，已超過上限！", "只能上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "重新上傳"});
-		document.getElementById("loadPic").value = "";
-	} else if(files.length + pic1 < 5){
-		swal("您上傳了" + files.length + "張圖片哪夠啊！", "至少要上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "重新上傳"});
-		document.getElementById("loadPic").value = "";
-	} else {						
-		var optobj = document.querySelectorAll(".pic");
-		for (var i = 0; i < optobj.length; i++) {
-			optobj[i].remove();		
-		}
-		swal("上傳了" + files.length + "張圖片", "目前共" + (files.length+pic1) + "張", "success", {button: "棒棒"});
-		for(var i = 0; i < files.length; i++){							
-			if(files[i].type.indexOf('image') > -1){				
-				var reader = new FileReader();
-				reader.addEventListener('load', openfile);
-				reader.readAsDataURL(files[i]);
-			} else {
-				swal("您上傳的不是圖片檔哦", "請上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "warning", {button: "重新上傳"});
-				document.getElementById("loadPic").value = "";
-			}			
-		}		
-	}
-}
-
 function openfile(e) {
 	var preview = document.getElementById('preview');
 	var img = document.createElement('img');
@@ -139,14 +117,6 @@ function openfile(e) {
         });  
     });
 }        
-
-function del() {
-	var optobj = document.querySelectorAll(".pic");
-	document.getElementById("loadPic").value = "";
-	for (var i = 0; i < optobj.length; i++) {
-		optobj[i].remove();		
-	}
-}
 
 function delpic(){
 	var optpic = document.querySelectorAll(".checkpic:checked");
@@ -300,13 +270,13 @@ function map(){
 	var geocoder = new google.maps.Geocoder();
 	address = document.getElementById("hos_add").value;
 	geocoder.geocode({ 'address': address }, function(results, status) { //地址轉換經緯度 results取得該地區所有資訊 status回傳成功與否 以'OK'表示
-		if (status == 'OK') {
+		if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
 			var lat = results[0].geometry.location.lat();
 			var lng = results[0].geometry.location.lng();
 			document.getElementById("lat").setAttribute("value", lat);
 			document.getElementById("lng").setAttribute("value", lng);
 		} else {
-			console.log(status);
+			swal("這個地址不行哦...", "請重新輸入地址", "error", {button: "確認"});
 		}
 	});
 }

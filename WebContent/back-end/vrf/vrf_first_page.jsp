@@ -49,9 +49,9 @@
 }
 
 .pic {
-	width: 500px;
+	width: 400px;
 	height: 300px;
-	margin: 10px;
+	margin: 8px;
 }
 </style>
 </head>
@@ -62,26 +62,29 @@
 	<div class="container-fluid">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<div class="row justify-content-between">
-					<div class="col-8">
+				<div class="row">
+					<div class="col">
 						<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 					</div>
-					<div class="col-1">
-						<a href="vrf_second_page.jsp">
-							<button class="checkall">查看全部</button>
-						</a>
-					</div>
-					<div class="col-3">
-						<form METHOD="post" ACTION="RpttServlet">
-							<h4>
-								搜尋: <input type="text" size="32" name="Number"
-									placeholder="輸入會員編號/姓名/電話/信箱/身份證字號"> <input
-									type="hidden" name="action" value="get_want_vrf_display">
-								<input type="submit"
-									style="position: absolute; left: -9999px; width: 1px; height: 1px;"
-									tabindex="-1" />
-							</h4>
-						</form>
+
+					<div class="col">
+						<div class="float-right">
+							<form METHOD="post" ACTION="RpttServlet">
+								<h4>
+									搜尋: <input type="text" size="32" name="Number"
+										placeholder="輸入會員編號/姓名/電話/信箱/身份證字號"> <input
+										type="hidden" name="action" value="get_want_vrf_display">
+									<input type="submit"
+										style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+										tabindex="-1" />
+								</h4>
+							</form>
+						</div>
+						<div class="float-right">
+							<a href="vrf_second_page.jsp">
+								<button class="checkall" style="margin-right: 15px;">查看全部</button>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

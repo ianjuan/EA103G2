@@ -81,12 +81,13 @@
 					<button type="button" class="link">修繕管理</button>
 					<button type="button" class="link">評價管理</button>
 					<span class="link" style="color: #D37707;">資訊修改</span>
-					<span class="link" style="color: #265895;font-size:85%"><%=houseVO.getHos_no()%></span>					
+<%-- 					<span class="link" style="color: #265895;font-size:85%"><%=houseVO.getHos_no()%></span>					 --%>
 				</div>
 			</nav>
 		</div>
 		<form class="table" name="houseForm" METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet" enctype="multipart/form-data">
 			<div id="center">
+				<h4 class="houselisttitle">修改房屋資訊</h4><hr>
 				<div id="chead">
 					<ul>
 						<li class="title1"><button type="button" class="titlebtn" id="btn1" onclick="titleshow(event)" value="1">基本資訊</button></li>

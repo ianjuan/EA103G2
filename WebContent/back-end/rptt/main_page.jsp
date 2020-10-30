@@ -22,7 +22,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>檢舉</title>
+<title>檢舉房客</title>
 
 
 <!-- Custom fonts for this template -->
@@ -57,6 +57,7 @@ button.checkall {
 	border-radius: 2px;
 	border: 1px solid #8a97a0;
 	text-align: center;
+	margin-right: 15px;
 }
 
 button.pass {
@@ -84,25 +85,27 @@ button.pass {
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<div class="row">
-					<div class="col-md-8">
+					<div class="col-md">
 						<h4 class="m-0 font-weight-bold text-primary">檢舉房客</h4>
 					</div>
-					<div class="col-md-1">
-						<a href="second_page.jsp">
-							<button class="checkall">查看全部</button>
-						</a>
-					</div>
-					<div class="col-md-3">
-						<form METHOD="post" ACTION="RpttServlet">
-							<h4>
-								搜尋: <input type="text" size="27" name="Number"
-									placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input type="hidden"
-									name="action" value="get_want_display"> <input
-									type="submit"
-									style="position: absolute; left: -9999px; width: 1px; height: 1px;"
-									tabindex="-1" />
-							</h4>
-						</form>
+					<div class="col-md">
+						<div class="float-right">
+							<form METHOD="post" ACTION="RpttServlet">
+								<h4>
+									搜尋: <input type="text" size="27" name="Number"
+										placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input type="hidden"
+										name="action" value="get_want_display"> <input
+										type="submit"
+										style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+										tabindex="-1" />
+								</h4>
+							</form>
+						</div>
+						<div class="float-right">
+							<a href="second_page.jsp">
+								<button class="checkall">查看全部</button>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -125,7 +128,7 @@ button.pass {
 								<th>檢舉編號</th>
 								<th>房客編號</th>
 								<th>房東編號</th>
-								<th width="10%">檢舉時間</th>
+								<th>檢舉時間</th>
 								<th>檢舉內容</th>
 								<th>員工編號</th>
 								<th>處理結果</th>
@@ -136,7 +139,7 @@ button.pass {
 								<th>檢舉編號</th>
 								<th>房客編號</th>
 								<th>房東編號</th>
-								<th width="10%">檢舉時間</th>
+								<th>檢舉時間</th>
 								<th>檢舉內容</th>
 								<th>員工編號</th>
 								<th>處理結果</th>
@@ -150,7 +153,7 @@ button.pass {
 								<td><%=rpttvo.getRptt_no()%></td>
 								<td><%=rpttvo.getTnt_no()%></td>
 								<td><%=rpttvo.getLld_no()%></td>
-								<td width="10%"><%=rpttvo.getRptt_time()%></td>
+								<td><%=rpttvo.getRptt_time()%></td>
 								<td><%=rpttvo.getRptt_content()%></td>
 								<%
 									if (rpttvo.getEmp_no() != null) {
@@ -187,6 +190,9 @@ button.pass {
 									<div class="modal-content">
 										<div class="modal-header">
 											<div class="modal-body1">
+												<%
+													if (pageContext.getAttribute("emp_no").equals(rpttvo.getEmp_no())) {
+												%>
 												<form action="RpttServlet" method="post" name="detail"
 													id="detail">
 													<input type="hidden" name="rptt_no"
@@ -199,7 +205,7 @@ button.pass {
 														<label for="note">結果註記:</label>
 														<textarea id="note" name="rptt_note"><%=rpttvo.getRptt_note()%></textarea>
 													</div>
-													
+
 													<button type="submit" class="pass" name="action"
 														value="pass">通過</button>
 													<button type="submit" class="fail" name="action"
@@ -216,7 +222,28 @@ button.pass {
 														<option value="EMP000024">EMP000024</option>
 														<option value="EMP000025">EMP000025</option>
 													</select>
+
 												</form>
+												<%
+													} else {
+												%><form action="RpttServlet" method="post" name="detail"
+													id="detail">
+													<input type="hidden" name="rptt_no"
+														value="<%=rpttvo.getRptt_no()%>"> <input
+														type="hidden" name="tnt_no"
+														value="<%=rpttvo.getTnt_no()%>"><label
+														for="reason1">檢舉原因:</label>
+													<textarea class="reason1" name="rptt_content" readonly
+														style="width: 460px;"><%=rpttvo.getRptt_content()%></textarea>
+													<div class="form-group">
+														<label for="note">結果註記:</label>
+														<textarea id="note" name="rptt_note" readonly
+															style="width: 460px;"><%=rpttvo.getRptt_note()%></textarea>
+													</div>
+												</form>
+												<%
+													}
+												%>
 											</div>
 										</div>
 									</div>
@@ -261,8 +288,6 @@ button.pass {
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-
-
 
 </body>
 

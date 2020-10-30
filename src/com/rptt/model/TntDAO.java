@@ -121,8 +121,8 @@ public class TntDAO implements TenantDAO_interface {
 		}
 	}
 
-	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_STATUS,TNT_JOINTIME,TNT_BALANCE,TNT_BANK,TNT_BANKBRANCH, TNT_BANKACC,TNT_CARD,TNT_CARDDUE,TNT_CMT_STARSUM,TNT_CMT_COUNT, EMP_NO,TNT_ID_UPLOADTIME,TNT_ID_ISUPLOAD,TNT_ID_RESULT,TNT_ID_VRFTIME,TNT_ID_DISAPPROVE,TNT_REPORTED_COUNT,TNT_AUTH_CHAT,TNT_AUTH_RES,TNT_AUTH_CMT,TNT_AUTH_RPT FROM TENANT where TNT_NO =? or TNT_ID=?";
-	private static final String GET_LANDLORD_ONE_PROFILE_STMT = "SELECT LLD_NO AS TNT_NO, LLD_EMAIL AS TNT_EMAIL, LLD_ACC AS TNT_ACC, LLD_ID AS TNT_ID, LLD_NAME AS TNT_NAME, LLD_BIRTH AS TNT_BIRTH, LLD_SEX AS TNT_SEX, LLD_MOBILE AS TNT_MOBILE, LLD_CITY AS TNT_CITY, LLD_DIST AS TNT_DIST, LLD_ADD AS TNT_ADD, LLD_STATUS AS TNT_STATUS,LLD_JOINTIME AS  TNT_JOINTIME,LLD_BALANCE AS TNT_BALANCE,LLD_BANK AS TNT_BANK,LLD_BANKBRANCH AS TNT_BANKBRANCH, LLD_BANKACC AS TNT_BANKACC,LLD_CARD AS TNT_CARD,LLD_CARDDUE AS TNT_CARDDUE,LLD_CMT_STARSUM AS TNT_CMT_STARSUM ,LLD_CMT_COUNT AS TNT_CMT_COUNT, EMP_NO,LLD_ID_UPLOADTIME AS TNT_ID_UPLOADTIME,LLD_ID_ISUPLOAD AS TNT_ID_ISUPLOAD,LLD_ID_RESULT AS TNT_ID_RESULT,LLD_ID_VRFTIME AS TNT_ID_VRFTIME,LLD_ID_DISAPPROVE AS TNT_ID_DISAPPROVE,LLD_REPORTED_COUNT AS TNT_REPORTED_COUNT,LLD_AUTH_CHAT AS TNT_AUTH_CHAT,LLD_AUTH_RES AS TNT_AUTH_RES,LLD_AUTH_CMT AS TNT_AUTH_CMT,LLD_AUTH_RPT AS TNT_AUTH_RPT FROM LANDLORD where LLD_NO =? or LLD_ID=?";
+	private static final String GET_ONE_PROFILE_STMT = "SELECT TNT_NO, TNT_EMAIL, TNT_ACC, TNT_ID, TNT_NAME, TNT_BIRTH, TNT_SEX, TNT_MOBILE, TNT_CITY, TNT_DIST, TNT_ADD, TNT_STATUS,TNT_JOINTIME,TNT_BALANCE,TNT_BANK,TNT_BANKBRANCH, TNT_BANKACC,TNT_CARD,TNT_CARDDUE,TNT_CMT_STARSUM,TNT_CMT_COUNT, EMP_NO,TNT_ID_UPLOADTIME,TNT_ID_ISUPLOAD,TNT_ID_RESULT,TNT_ID_VRFTIME,TNT_ID_DISAPPROVE,TNT_REPORTED_COUNT,TNT_AUTH_CHAT,TNT_AUTH_RES,TNT_AUTH_CMT,TNT_AUTH_RPT,TNT_AUTH_LIVE FROM TENANT where TNT_NO =? or TNT_ID=?";
+	private static final String GET_LANDLORD_ONE_PROFILE_STMT = "SELECT LLD_NO AS TNT_NO, LLD_EMAIL AS TNT_EMAIL, LLD_ACC AS TNT_ACC, LLD_ID AS TNT_ID, LLD_NAME AS TNT_NAME, LLD_BIRTH AS TNT_BIRTH, LLD_SEX AS TNT_SEX, LLD_MOBILE AS TNT_MOBILE, LLD_CITY AS TNT_CITY, LLD_DIST AS TNT_DIST, LLD_ADD AS TNT_ADD, LLD_STATUS AS TNT_STATUS,LLD_JOINTIME AS  TNT_JOINTIME,LLD_BALANCE AS TNT_BALANCE,LLD_BANK AS TNT_BANK,LLD_BANKBRANCH AS TNT_BANKBRANCH, LLD_BANKACC AS TNT_BANKACC,LLD_CARD AS TNT_CARD,LLD_CARDDUE AS TNT_CARDDUE,LLD_CMT_STARSUM AS TNT_CMT_STARSUM ,LLD_CMT_COUNT AS TNT_CMT_COUNT, EMP_NO,LLD_ID_UPLOADTIME AS TNT_ID_UPLOADTIME,LLD_ID_ISUPLOAD AS TNT_ID_ISUPLOAD,LLD_ID_RESULT AS TNT_ID_RESULT,LLD_ID_VRFTIME AS TNT_ID_VRFTIME,LLD_ID_DISAPPROVE AS TNT_ID_DISAPPROVE,LLD_REPORTED_COUNT AS TNT_REPORTED_COUNT,LLD_AUTH_CHAT AS TNT_AUTH_CHAT,LLD_AUTH_RES AS TNT_AUTH_RES,LLD_AUTH_CMT AS TNT_AUTH_CMT,LLD_AUTH_RPT AS TNT_AUTH_RPT,LLD_AUTH_HOS AS TNT_AUTH_LIVE FROM LANDLORD where LLD_NO =? or LLD_ID=?";
 
 	@Override
 	public TntVO findByPK_profile(String tnt_no) {
@@ -160,10 +160,10 @@ public class TntDAO implements TenantDAO_interface {
 				// -------pocket-------
 				tntVO.setTnt_balance(rs.getInt("tnt_balance"));
 				// -------card/bank-------
-				tntVO.setTnt_bank(rs.getInt("tnt_bank"));
+				tntVO.setTnt_bank(rs.getString("tnt_bank"));
 				tntVO.setTnt_bankbranch(rs.getString("tnt_bankbranch"));
 				tntVO.setTnt_bankacc(rs.getString("tnt_bankacc"));
-				tntVO.setTnt_card(rs.getLong("tnt_card"));
+				tntVO.setTnt_card(rs.getString("tnt_card"));
 				tntVO.setTnt_carddue(rs.getDate("tnt_carddue"));
 				// -------CMT-------
 				tntVO.setTnt_cmt_starsum(rs.getInt("tnt_cmt_starsum"));
@@ -181,6 +181,7 @@ public class TntDAO implements TenantDAO_interface {
 				tntVO.setTnt_auth_res(rs.getInt("tnt_auth_res"));
 				tntVO.setTnt_auth_cmt(rs.getInt("tnt_auth_cmt"));
 				tntVO.setTnt_auth_rpt(rs.getInt("tnt_auth_rpt"));
+				tntVO.setTnt_auth_live(rs.getInt("tnt_auth_live"));
 
 			}
 
@@ -250,10 +251,10 @@ public class TntDAO implements TenantDAO_interface {
 				// -------pocket-------
 				tntVO.setTnt_balance(rs.getInt("tnt_balance"));
 				// -------card/bank-------
-				tntVO.setTnt_bank(rs.getInt("tnt_bank"));
+				tntVO.setTnt_bank(rs.getString("tnt_bank"));
 				tntVO.setTnt_bankbranch(rs.getString("tnt_bankbranch"));
 				tntVO.setTnt_bankacc(rs.getString("tnt_bankacc"));
-				tntVO.setTnt_card(rs.getLong("tnt_card"));
+				tntVO.setTnt_card(rs.getString("tnt_card"));
 				tntVO.setTnt_carddue(rs.getDate("tnt_carddue"));
 				// -------CMT-------
 				tntVO.setTnt_cmt_starsum(rs.getInt("tnt_cmt_starsum"));
@@ -271,6 +272,7 @@ public class TntDAO implements TenantDAO_interface {
 				tntVO.setTnt_auth_res(rs.getInt("tnt_auth_res"));
 				tntVO.setTnt_auth_cmt(rs.getInt("tnt_auth_cmt"));
 				tntVO.setTnt_auth_rpt(rs.getInt("tnt_auth_rpt"));
+				tntVO.setTnt_auth_live(rs.getInt("tnt_auth_live"));
 
 			}
 
@@ -946,8 +948,8 @@ public class TntDAO implements TenantDAO_interface {
 	}
 
 	// --------以下為member--------------------------------------------------------------------------------------------
-	private static final String UPDATE_AUTH_STMT = "UPDATE TENANT set tnt_auth_chat=?, tnt_auth_res=?, tnt_auth_cmt=?, tnt_auth_rpt=?, tnt_reported_count=? where tnt_no=?";
-	private static final String UPDATE_LLDAUTH_STMT = "UPDATE LANDLORD set lld_auth_chat=?, lld_auth_res=?, lld_auth_cmt=?, lld_auth_rpt=?, lld_reported_count=? where lld_no=?";
+	private static final String UPDATE_AUTH_STMT = "UPDATE TENANT set tnt_auth_chat=?, tnt_auth_res=?, tnt_auth_cmt=?, tnt_auth_rpt=?, tnt_reported_count=?,tnt_auth_live=? where tnt_no=?";
+	private static final String UPDATE_LLDAUTH_STMT = "UPDATE LANDLORD set lld_auth_chat=?, lld_auth_res=?, lld_auth_cmt=?, lld_auth_rpt=?, lld_reported_count=?,lld_auth_hos=? where lld_no=?";
 
 	@Override
 	public void update_auth(TntVO tntVO) {
@@ -966,7 +968,8 @@ public class TntDAO implements TenantDAO_interface {
 			pstmt.setInt(3, tntVO.getTnt_auth_cmt());
 			pstmt.setInt(4, tntVO.getTnt_auth_rpt());
 			pstmt.setInt(5, tntVO.getTnt_reported_count());
-			pstmt.setString(6, tntVO.getTnt_no());
+			pstmt.setInt(6, tntVO.getTnt_auth_live());
+			pstmt.setString(7, tntVO.getTnt_no());
 
 			pstmt.executeUpdate();
 
