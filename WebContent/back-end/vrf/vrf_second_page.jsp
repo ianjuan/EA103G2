@@ -65,20 +65,22 @@
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<div class="row">
-					<div class="col-md-9">
+					<div class="col">
 						<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 					</div>
-					<div class="col-md-3">
-						<form METHOD="post" ACTION="RpttServlet">
-							<h4>
-								搜尋: <input type="text" size="36" name="Number"
-									placeholder="會員編號/姓名/信箱/手機/身分證字號/員工編號 "> <input
-									type="hidden" name="action" value="get_want_vrf"> <input
-									type="submit"
-									style="position: absolute; left: -9999px; width: 1px; height: 1px;"
-									tabindex="-1" />
-							</h4>
-						</form>
+					<div class="col-md">
+						<div class="float-right">
+							<form METHOD="post" ACTION="RpttServlet">
+								<h4>
+									搜尋: <input type="text" size="36" name="Number"
+										placeholder="會員編號/姓名/信箱/手機/身分證字號/員工編號 "> <input
+										type="hidden" name="action" value="get_want_vrf"> <input
+										type="submit"
+										style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+										tabindex="-1" />
+								</h4>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -133,11 +135,11 @@
 									<c:choose>
 										<c:when test="${tntVO.tnt_id_result==1}">
 											<td><span class="badge badge-pill badge-success"
-										style="font-size: 15px; padding: 4px;">通過</span></td>
+												style="font-size: 15px; padding: 4px;">通過</span></td>
 										</c:when>
 										<c:when test="${tntVO.tnt_id_result==2}">
 											<td><span class="badge badge-pill badge-danger"
-										style="font-size: 15px; padding: 4x;">不通過</span></td>
+												style="font-size: 15px; padding: 4x;">不通過</span></td>
 										</c:when>
 										<c:otherwise>
 											<td>審核中</td>

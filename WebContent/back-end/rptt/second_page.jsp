@@ -19,7 +19,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>檢舉</title>
+<title>檢舉房客</title>
 
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css"
@@ -47,20 +47,22 @@
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<div class="row">
-					<div class="col-md-9">
+					<div class="col-md">
 						<h4 class="m-0 font-weight-bold text-primary">檢舉房客</h4>
 					</div>
-					<div class="col-md-3">
-						<form METHOD="post" ACTION="RpttServlet">
-							<h4>
-								搜尋: <input type="text" size="27" name="Number"
-									placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input type="hidden"
-									name="action" value="get_want_all_display"> <input
-									type="submit"
-									style="position: absolute; left: -9999px; width: 1px; height: 1px;"
-									tabindex="-1" />
-							</h4>
-						</form>
+					<div class="col-md">
+						<div class="float-right">
+							<form METHOD="post" ACTION="RpttServlet">
+								<h4>
+									搜尋: <input type="text" size="27" name="Number"
+										placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input type="hidden"
+										name="action" value="get_want_all_display"> <input
+										type="submit"
+										style="position: absolute; left: -9999px; width: 1px; height: 1px;"
+										tabindex="-1" />
+								</h4>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -113,13 +115,15 @@
 									</c:choose>
 									<c:choose>
 										<c:when test="${rpttVO.rptt_result==1}">
-											<td>通過</td>
+											<td><span class="badge badge-pill badge-success"
+												style="font-size: 15px; padding: 4px;"> 通過</span></td>
 										</c:when>
 										<c:when test="${rpttVO.rptt_result==2}">
-											<td>未通過</td>
+											<td><span class="badge badge-pill badge-danger"
+												style="font-size: 15px; padding: 4x;">未通過</span></td>
 										</c:when>
 										<c:otherwise>
-											<td></td>
+											<td>審核中</td>
 										</c:otherwise>
 									</c:choose>
 									<td width="10%">${rpttVO.rptt_done_time}</td>
