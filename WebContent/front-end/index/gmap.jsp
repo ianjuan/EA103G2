@@ -679,9 +679,7 @@ border-color:transparent;
           $("#sidebar").remove();
         　　	var div = document.createElement("div");
             div.setAttribute("id","sidebar");
-            $(".side").append(div);
-            
-     
+            $(".side").append(div);  
             	$.each(lastobj, function(key, value) {
                 	if(value.marker!=undefined){
                     value.marker.setMap(null);}
@@ -697,8 +695,10 @@ border-color:transparent;
       			  url:"<%=request.getContextPath()%>/Housearch/GMapServlet",
       		 	  type:"GET",
       		 	  data:{action:"gmapsearch",
-      		 		  data:$("#citych").val()+town+$("#searchbox").val(),
-      		 		  sort:$("#selectbox").val(),
+    		 		  city:$("#citych").val(),
+    		 		  town:town,
+    		 		  searchbox:$("#searchbox").val(),
+    		 		  sort:$("#selectbox").val(),
       		 		  money:moneybtn,
       		 		  house:housebtn
       		 		  },
@@ -730,15 +730,15 @@ border-color:transparent;
 
        
      function loading(){
-        	if(Object.keys(obj).length==0){
-        		alert("找不到相符的房屋商品,您搜索的地址區域為"+$("#citych").val()+$("#townch").val()+$("#searchbox").val());
-        	}
+ 		 console.log("跑?");
+		var isloading=false;
 				if(action=="ajax"){
 	 		 	 clear();
+	 		 	isloading=true
 	 		  	};
 
 	 		lastround=range;
-
+	
      	 $.each(obj, function(key, value) {
 		　　 if($("[id='"+key+"']").length==1){
 				 $("[id='"+key+"']").remove();
@@ -780,15 +780,16 @@ border-color:transparent;
     		attachSecretMessage(value.marker, content);
     	}
 		});    
-        
+     	
  			google.maps.event.removeListener(listener);
-		listener=map.addListener("idle", () => {action="";
-		if(infowin==false){
-  	 	 loading()};
+ 			listener=map.addListener("dragend", function() {action="";
+ 				if(infowin==false){
+		 			console.log("讚");
+	  	 		 loading()
+	  	 		 };
   	  });
-         
-
 }
+    
         
         function geo_coder() { //點擊查詢輸入框地點
             	console.log('跑到轉換');
@@ -919,11 +920,11 @@ border-color:transparent;
         $(document).on("change", ".towninput", function() {
             $("#townch").val($(this).val());
             $(".towns").toggle();
-
         });
         $(document).on("click", ".moneybtn", function() {
 			moneybtn=$(this).val();
 			   geo_coder();
+
 		}
 		);
         $(document).on("click", ".housebtn", function() {

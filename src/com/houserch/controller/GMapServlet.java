@@ -34,15 +34,18 @@ public class GMapServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+		String city = request.getParameter("city");
+		String town = request.getParameter("town");
+		String searchbox = request.getParameter("searchbox");
+		String sort =request.getParameter("sort");
+		String money=request.getParameter("money");
+		String house=request.getParameter("house");
 		if ("search".equals(request.getParameter("action"))) {
 			System.out.println("igotu"+request.getParameter("sort"));
 			
 			HousearchService gs= new HousearchService();
 
-			String data =gs.getMapfromSearchKey(request.getParameter("data"),
-					request.getParameter("sort"),request.getParameter("money"),request.getParameter("house"),
-					request.getParameter("page")
+			String data =gs.getMapfromSearchKey(city,town,searchbox,sort,money,house,request.getParameter("page")
 					);
 
 			PrintWriter out = response.getWriter();
@@ -55,8 +58,7 @@ public class GMapServlet extends HttpServlet {
 			
 			HousearchService gs= new HousearchService();
 
-			String data =gs.getGMapfromSearchKey(request.getParameter("data"),
-					request.getParameter("sort"),request.getParameter("money"),request.getParameter("house"));
+			String data =gs.getGMapfromSearchKey(city,town,searchbox,sort,money,house);
 
 			PrintWriter out = response.getWriter();
 			out.print(data);
