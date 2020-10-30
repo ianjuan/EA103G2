@@ -26,7 +26,7 @@ public class CashVO implements java.io.Serializable {
 	private String mem_no;
 	private String cash_inout;
 	private String cash_type;
-	private Integer cash_amout;
+	private Integer cash_amount;
 	private String con_no;
 	private String rec_no;
 	
@@ -72,12 +72,12 @@ public class CashVO implements java.io.Serializable {
 		this.cash_type = cash_type;
 	}
 
-	public Integer getCash_amout() {
-		return cash_amout;
+	public Integer getCash_amount() {
+		return cash_amount;
 	}
 
-	public void setCash_amout(Integer cash_amout) {
-		this.cash_amout = cash_amout;
+	public void setCash_amount(Integer cash_amount) {
+		this.cash_amount = cash_amount;
 	}
 
 	public String getCon_no() {

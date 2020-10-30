@@ -9,6 +9,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.cash.model.CashVO;
+
 public class CashDAO implements CashDAO_interface {
 
 	private static DataSource ds = null;
@@ -52,7 +54,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setString(2, cashVO.getMem_no());
 			pstmt.setString(3, cashVO.getCash_inout());
 			pstmt.setString(4, cashVO.getCash_type());
-			pstmt.setInt(5, cashVO.getCash_amout());
+			pstmt.setInt(5, cashVO.getCash_amount());
 
 			pstmt.executeUpdate();
 
@@ -125,7 +127,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setString(2, cashVO.getMem_no());
 			pstmt.setString(3, cashVO.getCash_inout());
 			pstmt.setString(4, cashVO.getCash_type());
-			pstmt.setInt(5, cashVO.getCash_amout());
+			pstmt.setInt(5, cashVO.getCash_amount());
 			pstmt.setString(6, cashVO.getCon_no());
 			pstmt.setString(7, cashVO.getRec_no());
 
@@ -199,7 +201,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setString(2, cashVO.getMem_no());
 			pstmt.setString(3, cashVO.getCash_inout());
 			pstmt.setString(4, cashVO.getCash_type());
-			pstmt.setInt(5, cashVO.getCash_amout());
+			pstmt.setInt(5, cashVO.getCash_amount());
 			pstmt.setString(6, cashVO.getCon_no());
 
 			pstmt.executeUpdate();
@@ -247,6 +249,79 @@ public class CashDAO implements CashDAO_interface {
 			}
 		}
 //		return next_cash_no;
+	}
+	
+	// ===================================================================
+	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no FROM CASH where mem_no = ? order by cash_date";
+
+	
+
+	@Override
+	public List<CashVO> findByMemNo_Cashlogs(String mem_no) {
+		List<CashVO> list = new ArrayList<CashVO>();
+		CashVO cashVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			
+			pstmt = con.prepareStatement(GET_ONE_CASHLogs_STMT);
+			pstmt.setString(1, mem_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// cashVO 也稱為 Domain objects
+				cashVO = new CashVO();
+				cashVO.setCash_inout(rs.getString("cash_no"));
+				cashVO.setCash_date(rs.getDate("cash_date"));
+				cashVO.setMem_no(rs.getString("mem_no"));
+				cashVO.setCash_inout(rs.getString("cash_inout"));
+				cashVO.setCash_type(rs.getString("cash_type"));
+				cashVO.setCash_amount(rs.getInt("cash_amount"));
+				cashVO.setCon_no(rs.getString("con_no"));
+				cashVO.setRec_no(rs.getString("rec_no"));
+				list.add(cashVO);
+			}
+			con.commit();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 
 }

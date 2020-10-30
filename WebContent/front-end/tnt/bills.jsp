@@ -1,14 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tnt.model.*"%>
+<%@ page import="com.cash.model.*"%>
+<%@ page import="java.util.*"%>
 
 <% session.removeAttribute("lld_no"); %>
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
-<jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
+<jsp:useBean id="cashSvc" scope="page" class="com.cash.model.CashService" />
+<%-- <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" /> --%>
 
 <%
-	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
-	request.setAttribute("tntVO", tntVO);
+	List<CashVO> listCashLog = cashSvc.getOneCashlogs(tnt_no);
+ 	request.setAttribute("listCashLog", listCashLog);
 %>
 
 <head>
@@ -37,7 +40,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/util.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/booking_tnt.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/bills_tnt.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 	
@@ -104,7 +107,55 @@
              display: block !important; 
              text-align: center; 
          } 
-
+         /*現在頁面*/ 
+         .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+			color: #3a8c68!important; 
+		    background-color: #AACFBF !important;
+		    font-weight: bold !important;
+			border: transparent !important;
+		    background: transparent !important;
+		    border-bottom: 1px solid #3a8c68 !important;
+    		border-radius: 0px;
+		}
+		/*其他頁面按鈕*/
+		.dataTables_wrapper .dataTables_paginate .paginate_button {
+  			border-radius: 10px !important;
+		}
+		.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+  			color: #fff!important;
+   			border: 1px solid #AACFBF !important; 
+ 		    background: transparent !important;
+  		    background-color: #AACFBF !important;
+  		    border-radius: 10px;
+		}
+		/*不能按的下一頁*/
+		.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{
+ 			color: #777 !important;  
+ 			border: transparent !important; 
+ 		    background: transparent !important; 
+ 		    font-weight: normal !important; 
+		}
+		/*現在頁面*/ 
+         .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+			color: #3a8c68!important; 
+		    background-color: #AACFBF !important;
+		    font-weight: bold !important;
+			border: transparent !important;
+		    background: transparent !important;
+		    border-bottom: 1px solid #3a8c68 !important;
+    		border-radius: 0px !important;
+		}
+		/*Serch bar*/
+		.dataTables_wrapper .dataTables_filter input {
+			border: 1px solid #AACFBF !important;
+			border-radius: 25px !important;
+			padding: 0 13px !important;
+		}
+		.dataTables_wrapper .dataTables_filter input:focus {
+			border: 1px solid #3a8c68 !important;
+			border-radius: 25px !important;
+			padding: 0 13px !important;
+		}
     </style>
 
 </head>
@@ -223,7 +274,7 @@
                             <!--Start form Profile-->
 <!--                             <div  class="bg-white info-form-wrap"> -->
 								<div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
-                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">基本資訊
+                                <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">交易紀錄
                                     <a data-v-9403d44c="" class="pr-md-3 float-right angleUpDown">
                                         <svg data-v-9403d44c="" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 angleDown" style="display: none;">
                                             <path data-v-9403d44c="" fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path>
@@ -236,122 +287,42 @@
                                 <hr class="login100-form-title p-b-10">
                                 <table id="myDataTalbe"  class="display"  >
 							        <thead>
-							            <!--必填-->
-							
 							            <tr>
-							                <th>#</th>
-							                <th>MyTitle</th>
-							                <th>MyMoney</th>
-							                <th>ActionButton</th>
+							                <th>日期</th>
+							                <th>交易種類</th>
+							                <th>交易金額</th>
+							                <th>交易狀態</th>
+							                <th>查看明細</th>
 							            </tr>
 							        </thead>
 							        <tbody>
-							            <tr>
-							                <td>1</td>
-							                <td>Apple</td>
-							                <td>2000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>2</td>
-							                <td>Banana</td>
-							                <td>3000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
+							        
+							        <c:forEach var="cashVO" items="<%=request.getAttribute(\"listCashLog\")%>">
+											<tr>
+												<td>${cashVO.cash_no}</td>
+												<td></td>
+												<td>2</td>
+												<td>3</td>
+												<td>4</td>
+											</tr>
+										</c:forEach>
+							        
+							        
+							        
 							            <tr>
 							                <td>3</td>
 							                <td>Cherry</td>
 							                <td>4000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>3</td>
-							                <td>Cherry</td>
 							                <td>4000</td>
 							                <td>
 							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>3</td>
-							                <td>Cherry</td>
-							                <td>4000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>3</td>
-							                <td>Cherry</td>
-							                <td>4000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>3</td>
-							                <td>Cherry</td>
-							                <td>4000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>3</td>
-							                <td>Cherry</td>
-							                <td>4000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>3</td>
-							                <td>Cherry</td>
-							                <td>4000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>3</td>
-							                <td>Cherry</td>
-							                <td>4000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
-							                </td>
-							            </tr>
-							            <tr>
-							                <td>3</td>
-							                <td>Cherry</td>
-							                <td>4000</td>
-							                <td>
-							                    <button type="button">Edit</button>
-							                    <button type="button">Delete</button>
 							                </td>
 							            </tr>
 							        </tbody>
 							    </table>
-<!--                                 <div class="container-login100-form-btn"> -->
-<!--                                     <button class="login100-form-btn m-t-10 infoBtn" id="btninfoProfile">儲存資訊</button> -->
-<!--                                 </div> -->
+
                             </div>
-                            <!--End form Profile -->
+                            <!--End form data -->
                     <!--outer -->
 <!--                 </div> -->
             </div>
@@ -383,7 +354,7 @@
     <!--===============================================================================================-->
     
  <!--引用jQuery-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<!--     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
     <!--引用dataTables.js-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
      

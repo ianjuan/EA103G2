@@ -522,16 +522,24 @@ public class TntServlet2 extends HttpServlet {
 				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 				CashService cashSvc = new CashService();
 				String cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit, tnt_pocket_deposit);
-				System.out.println(cash_no);
+//				System.out.println(cash_no);
 				tnt_balance = tnt_balance + tnt_pocket_deposit;
 				tntSvc.updateTntPocket(tnt_no, tnt_balance);
 				
+				List<CashVO> list = cashSvc.getOneCashlogs(tnt_no);
+				for(CashVO cashVO : list) {
+					String cash_no1 = cashVO.getCash_no();
+					System.out.println(cash_no1);
+				}
+				
+				
+				
 				String returnURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
 				+ req.getContextPath() + req.getServletPath();
-				System.out.println(returnURL);
+//				System.out.println(returnURL);
 				String clientBackURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
 				+ req.getContextPath() + "/front-end/tnt/pocket.jsp";
-				System.out.println(clientBackURL);
+//				System.out.println(clientBackURL);
 				
 				//產生綠界訂單
 				AioCheckOutOneTime checkoutonetime = new AioCheckOutOneTime();
