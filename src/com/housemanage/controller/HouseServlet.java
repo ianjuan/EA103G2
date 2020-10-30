@@ -240,13 +240,13 @@ public class HouseServlet extends HttpServlet {
 					hos_bro, hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, lld_balance);
 			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 			
-//			/*************************** 電子錢包紀錄 **********************/
-//			
-//			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
-//			CashService cashSvc = new CashService();
-//			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
-//			
-//			/*************************** 上架房屋成功通知 **********************/
+			/*************************** 電子錢包紀錄 **********************/
+			
+			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+			CashService cashSvc = new CashService();
+			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
+			
+			/*************************** 上架房屋成功通知 **********************/
 //			
 //			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "/front-end/house_manage/house_index.jsp");
 														

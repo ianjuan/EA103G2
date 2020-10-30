@@ -107,7 +107,7 @@
 							<tr>
 								<th>*房屋名稱:</th>
 								<td>
-									<input type="text" class="text1" id="hos_name" name="hos_name" value="<%=houseVO.getHos_name()%>" required>
+									<input type="text" class="text1" id="hos_name" name="hos_name" value="<%=houseVO.getHos_name()%>" maxlength="150">
 								</td>
 							</tr>
 							<tr>
@@ -127,7 +127,7 @@
 							<tr>
 								<th>*地址:</th>
 								<td>
-									<input type="text" class="text1" id="hos_add" name="hos_add" value="<%=houseVO.getHos_add()%>" onchange="map()" required>
+									<input type="text" class="text1" id="hos_add" name="hos_add" value="<%=houseVO.getHos_add()%>" onchange="map()" maxlength="150">
 									<input type="hidden" name="hos_lng" value="121.194406" id="lng">
 									<input type="hidden" name="hos_lat" value="24.9656967" id="lat">
 								</td>
@@ -154,19 +154,19 @@
 								<th>格局:</th>
 								<td>
 									<input type="text" class="text1" name="hos_pat"
-									value="<%=houseVO.getHos_pat()==null ? "" : houseVO.getHos_pat()%>">
+									value="<%=houseVO.getHos_pat()==null ? "" : houseVO.getHos_pat()%>" maxlength="100">
 								</td>
 							</tr>
 							<tr>
 								<th>*樓層:</th>
 								<td>
-									<input type="text" class="text1" id="hos_floor" name="hos_floor" value="<%=houseVO.getHos_floor()%>">
+									<input type="text" class="text1" id="hos_floor" name="hos_floor" value="<%=houseVO.getHos_floor()%>" maxlength="50">
 								</td>
 							</tr>
 							<tr>
 								<th>*坪數:</th>
 								<td>
-									<input type="number" class="num1" min="1" step="0.01" id="hos_pnum" name="hos_pnum" value="<%=houseVO.getHos_pnum()%>">
+									<input type="number" class="num1" min="1" max="9999" step="0.01" onkeyup="checkLen5(this)" id="hos_pnum" name="hos_pnum" value="<%=houseVO.getHos_pnum()%>">
 									<font size="2">坪</font>
 								</td>
 							</tr>
@@ -366,51 +366,51 @@
 							<tr>
 								<th rowspan="9">出租費用:</th>
 								<td>
-									<label>*租金: 每月<input type="number" class="num1" min="0" placeholder="0" step="1" id="hos_rentfee" name="hos_rentfee" value="<%=houseVO.getHos_rentfee()%>">元</label>
+									<label>*租金: 每月<input type="number" class="num1" min="0" max="99999999" onkeyup="checkLen4(this)" step="1" id="hos_rentfee" name="hos_rentfee" value="<%=houseVO.getHos_rentfee()%>">元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									水費: <label><input type="radio" id="watertype1" name="hos_waterfeetype" value="1" onclick="floatfee1()" <%=(houseVOwaterfee.getHos_waterfeetype() == 1) ? "checked" : ""%>>&nbsp;每度<input type="number" id="water1" class="num1" min="0" placeholder="0" step="0.1" name="hos_waterfee1" value="<%=(houseVOwaterfee.getHos_waterfeetype() == 1) ? houseVOwaterfee.getHos_waterfee() : ""%>" <%=(houseVOwaterfee.getHos_waterfeetype() == 1) ? "" : "disabled"%>>元</label>
-									<label><input type="radio" id="watertype2" name="hos_waterfeetype" value="2" onclick="floatfee1()" <%=(houseVOwaterfee.getHos_waterfeetype() == 2) ? "checked" : ""%>>&nbsp;每月<input type="number" id="water2" class="num1" min="0" min="0" placeholder="0" name="hos_waterfee2" value="<%=(houseVOwaterfee.getHos_waterfeetype() == 2) ? houseVOwaterfee.getHos_waterfee() : ""%>" <%=(houseVOwaterfee.getHos_waterfeetype() == 2) ? "" : "disabled"%>>元</label>
+									水費: <label><input type="radio" id="watertype1" name="hos_waterfeetype" value="1" onclick="floatfee1()" <%=(houseVOwaterfee.getHos_waterfeetype() == 1) ? "checked" : ""%>>&nbsp;每度<input type="number" id="water1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" step="0.1" name="hos_waterfee1" value="<%=(houseVOwaterfee.getHos_waterfeetype() == 1) ? houseVOwaterfee.getHos_waterfee() : ""%>" <%=(houseVOwaterfee.getHos_waterfeetype() == 1) ? "" : "disabled"%>>元</label>
+									<label><input type="radio" id="watertype2" name="hos_waterfeetype" value="2" onclick="floatfee1()" <%=(houseVOwaterfee.getHos_waterfeetype() == 2) ? "checked" : ""%>>&nbsp;每月<input type="number" id="water2" class="num1" min="0" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_waterfee2" value="<%=(houseVOwaterfee.getHos_waterfeetype() == 2) ? houseVOwaterfee.getHos_waterfee() : ""%>" <%=(houseVOwaterfee.getHos_waterfeetype() == 2) ? "" : "disabled"%>>元</label>
 									<label><input type="radio" id="watertype0" name="hos_waterfeetype" value="0" onclick="floatfee1()" <%=(houseVOwaterfee.getHos_waterfeetype() == 0) ? "checked" : ""%>>&nbsp;房東付費</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									電費: <label><input type="radio" id="electtype1" name="hos_electfeetype" value="1" onclick="floatfee2()" <%=(houseVOelectfee.getHos_electfeetype() == 1) ? "checked" : ""%>>&nbsp;每度<input type="number" id="elect1" class="num1" placeholder="0" step="0.1" name="hos_electfee1" value="<%=(houseVOelectfee.getHos_electfeetype() == 1) ? houseVOelectfee.getHos_electfee() : ""%>" <%=(houseVOelectfee.getHos_electfeetype() == 1) ? "" : "disabled"%>>元</label>
-									<label><input type="radio" id="electtype2" name="hos_electfeetype" value="2" onclick="floatfee2()" <%=(houseVOelectfee.getHos_electfeetype() == 2) ? "checked" : ""%>>&nbsp;每月<input type="number" id="elect2" class="num1" min="0" placeholder="0" name="hos_electfee2" value="<%=(houseVOelectfee.getHos_electfeetype() == 2) ? houseVOelectfee.getHos_electfee() : ""%>" <%=(houseVOelectfee.getHos_electfeetype() == 2) ? "" : "disabled"%>>元</label>
+									電費: <label><input type="radio" id="electtype1" name="hos_electfeetype" value="1" onclick="floatfee2()" <%=(houseVOelectfee.getHos_electfeetype() == 1) ? "checked" : ""%>>&nbsp;每度<input type="number" id="elect1" class="num1" max="999999" onkeyup="checkLen3(this)" step="0.1" name="hos_electfee1" value="<%=(houseVOelectfee.getHos_electfeetype() == 1) ? houseVOelectfee.getHos_electfee() : ""%>" <%=(houseVOelectfee.getHos_electfeetype() == 1) ? "" : "disabled"%>>元</label>
+									<label><input type="radio" id="electtype2" name="hos_electfeetype" value="2" onclick="floatfee2()" <%=(houseVOelectfee.getHos_electfeetype() == 2) ? "checked" : ""%>>&nbsp;每月<input type="number" id="elect2" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_electfee2" value="<%=(houseVOelectfee.getHos_electfeetype() == 2) ? houseVOelectfee.getHos_electfee() : ""%>" <%=(houseVOelectfee.getHos_electfeetype() == 2) ? "" : "disabled"%>>元</label>
 									<label><input type="radio" id="electtype0" name="hos_electfeetype" value="0" onclick="floatfee2()" <%=(houseVOelectfee.getHos_electfeetype() == 0) ? "checked" : ""%>>&nbsp;房東付費</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>瓦斯費:&nbsp;<input type="number" id="gasfee1" class="num1" min="0" placeholder="0" name="hos_gasfee" value="<%=houseVO.getHos_gas()==0?"":houseVO.getHos_gasfee()%>" <%=houseVO.getHos_gas()==0?"disabled":""%>>元</label>
+									<label>瓦斯費:&nbsp;<input type="number" id="gasfee1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_gasfee" value="<%=houseVO.getHos_gas()==0?"":houseVO.getHos_gasfee()%>" <%=houseVO.getHos_gas()==0?"disabled":""%>>元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>管理費:&nbsp;<input type="number" class="num1" min="0" placeholder="0" name="hos_manafee" value="<%=houseVO.getHos_manafee()%>">元</label>
+									<label>管理費:&nbsp;<input type="number" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_manafee" value="<%=houseVO.getHos_manafee()%>">元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>網路費:&nbsp;<input type="number" id="netfee1" class="num1" min="0" placeholder="0" name="hos_netfee" value="<%=houseVO.getHos_net()==0?"":houseVO.getHos_netfee()%>" <%=houseVO.getHos_net()==0?"disabled":""%>>元</label>
+									<label>網路費:&nbsp;<input type="number" id="netfee1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_netfee" value="<%=houseVO.getHos_net()==0?"":houseVO.getHos_netfee()%>" <%=houseVO.getHos_net()==0?"disabled":""%>>元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>公共水費:&nbsp;<input type="number" class="num1" min="0" placeholder="0" name="hos_puwaterfee" value="<%=houseVO.getHos_puwaterfee()%>">元</label>
+									<label>公共水費:&nbsp;<input type="number" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_puwaterfee" value="<%=houseVO.getHos_puwaterfee()%>">元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>公共電費:&nbsp;<input type="number" class="num1" min="0" placeholder="0" name="hos_puelefee" value="<%=houseVO.getHos_puelefee()%>">元</label>
+									<label>公共電費:&nbsp;<input type="number" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_puelefee" value="<%=houseVO.getHos_puelefee()%>">元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>停車位費:&nbsp;<input type="number" id="parkfee1" class="num1" min="0" placeholder="0" step="1" name="hos_parkfee" value="<%=(houseVO.getHos_park().equals("無")) ? "" : houseVO.getHos_parkfee()%>" <%=(houseVO.getHos_park().equals("無")) ? "disabled" : ""%>>元</label>
+									<label>停車位費:&nbsp;<input type="number" id="parkfee1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" step="1" name="hos_parkfee" value="<%=(houseVO.getHos_park().equals("無")) ? "" : houseVO.getHos_parkfee()%>" <%=(houseVO.getHos_park().equals("無")) ? "disabled" : ""%>>元</label>
 								</td>
 							</tr>
 						</table>
@@ -420,7 +420,7 @@
 							<tr>
 								<th>可遷入日:</th>
 								<td>
-									<input type="text" class="text1" placeholder="隨時" name="hos_mdate" value="<%=houseVO.getHos_mdate()%>">
+									<input type="text" class="text1" placeholder="隨時" name="hos_mdate" value="<%=houseVO.getHos_mdate()%>" maxlength="60">
 								</td>
 							</tr>
 							<tr>

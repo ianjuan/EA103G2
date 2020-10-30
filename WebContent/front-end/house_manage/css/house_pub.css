@@ -49,7 +49,10 @@ body {
 	padding: 5px;
 }
 #cbody4 .num1{
-	width: 40%;
+	width: 45%;
+}
+#cbody4 label{
+	width: 30%;
 }
 #cfoot {
 	width: 100%;
@@ -510,6 +513,13 @@ body {
 	.pic, #preview1 .pic1div {
 		width: 32%;
 	}
+	#cbody4 .num1{
+		width: 55%;
+	}
+	#cbody4 label{
+		width: 60%;
+		margin-bottom: 5px;
+	}
 }
 @media (max-width: 900px){
 	body{
@@ -521,6 +531,13 @@ body {
 	}
 	#cbody {
 		height: 700px;
+	}
+	#cbody4 .num1{
+		width: 60%;
+	}
+	#cbody4 label{
+		width: 100%;
+		margin-bottom: 5px;
 	}
 	#cfoot {
 		display: none;
