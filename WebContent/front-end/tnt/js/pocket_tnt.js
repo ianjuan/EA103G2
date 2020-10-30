@@ -352,94 +352,94 @@
             }
         });
         
-     // 2.信用卡儲值按鈕
-        $('#btnbalanceDeposit').click(function(e) {
-            e.preventDefault();
-            console.log('btn - balance Deposit');
-            inputDeposit = $('#pocket_deposit');
-            if (!hasCardinfoJS){
-            	Swal.fire({
-            		icon: 'warning',
-            		title: '請更新付款卡號',
-            	    showDenyButton: true,
-            	    animation: false
-            	});
-            } else if (/^\d+$/.test(inputDeposit.val().trim()) === false || inputDeposit.val()==="0") {
-            	inputDeposit.parent().addClass('alert-validate');
-            } else {  // 前端驗證成功(儲值金額為正整數) 
-            	inputDeposit.parent().removeClass('alert-validate');
-            	var formData = new FormData($('#depositform')[0]);
-            	formData.append('action', 'balanceDeposit');
-            	
-            	$.ajax({ // 存入資料庫階段
-            		beforeSend: function() {
-            			$('#btnbalanceDeposit').attr('disabled',true);
-            		},
-                    url: "/EA103G2/tnt/TntServlet2",
-                    type: "POST",
-                    data: formData,  
-                    processData: false,   // 告訴jQuery不要去處理髮送的資料
-                    contentType: false,   // 告訴jQuery不要去設定Content-Type請求頭
-                    success: function(data) { // 以上成功才執行
-                        console.log("res棒");
-                        if (data === 'true') {
-                        	console.log(inputDeposit.val());
-                        	Swal.fire({
-                        	    title: 'Now loading',
-                        	    allowEscapeKey: false,
-                        	    allowOutsideClick: false,
-                        	    timer: 600,                    	   
-                        	    onOpen: () => {
-                        	      swal.showLoading();
-                        	    }
-                        	  }).then(() => {
-                        		  Swal.fire({
-                              		icon: 'success',
-                              		title: '成功儲值新台幣&nbsp'+inputDeposit.val()+'&nbsp元',
-                              		animation: false,
-                              		showConfirmButton: true,
-                              	}).then((result) => {
-                              		if (result.isConfirmed) {
-                              			location.reload(true);
-                              		} 
-                              	});      
-                        	  });              	
-                       }
-                       if (data === 'false') {
-                    	   Swal.fire({
-                       	    title: 'Now loading',
-                       	    allowEscapeKey: false,
-                       	    allowOutsideClick: false,
-                       	    timer: 500,
-                       	    onOpen: () => {
-                       	      swal.showLoading();
-                       	    }
-                       	  }).then(() => {
-                       		  Swal.fire({
-    	                   			icon: 'error',
-    	                    		title: '儲值錯誤',
-    	                    		text: "儲值錯誤!",
-    	                    		showConfirmButton: true,
-    	                    		animation: false,
-                             	});      
-                       	  });
-                      }
-                    },
-                    error: function() {
-                        console.log("真的不棒");
-                        Swal.fire({
-                    		icon: 'warning',
-                    		title: '發生錯誤',
-                    		text: "請稍後重新點選送出",
-                    	    showDenyButton: true,
-                    	});
-                    },
-                    complete: function() {
-                    	$('#btnbalanceDeposit').attr('disabled',false);
-            		},
-                });
-            }
-        });
+//     // 2.信用卡儲值按鈕
+//        $('#btnbalanceDeposit').click(function(e) {
+//            e.preventDefault();
+//            console.log('btn - balance Deposit');
+//            inputDeposit = $('#pocket_deposit');
+//            if (!hasCardinfoJS){
+//            	Swal.fire({
+//            		icon: 'warning',
+//            		title: '請更新付款卡號',
+//            	    showDenyButton: true,
+//            	    animation: false
+//            	});
+//            } else if (/^\d+$/.test(inputDeposit.val().trim()) === false || inputDeposit.val()==="0") {
+//            	inputDeposit.parent().addClass('alert-validate');
+//            } else {  // 前端驗證成功(儲值金額為正整數) 
+//            	inputDeposit.parent().removeClass('alert-validate');
+//            	var formData = new FormData($('#depositform')[0]);
+//            	formData.append('action', 'balanceDeposit');
+//            	
+//            	$.ajax({ // 存入資料庫階段
+//            		beforeSend: function() {
+//            			$('#btnbalanceDeposit').attr('disabled',true);
+//            		},
+//                    url: "/EA103G2/tnt/TntServlet2",
+//                    type: "POST",
+//                    data: formData,  
+//                    processData: false,   // 告訴jQuery不要去處理髮送的資料
+//                    contentType: false,   // 告訴jQuery不要去設定Content-Type請求頭
+//                    success: function(data) { // 以上成功才執行
+//                        console.log("res棒");
+//                        if (data === 'true') {
+//                        	console.log(inputDeposit.val());
+//                        	Swal.fire({
+//                        	    title: 'Now loading',
+//                        	    allowEscapeKey: false,
+//                        	    allowOutsideClick: false,
+//                        	    timer: 600,                    	   
+//                        	    onOpen: () => {
+//                        	      swal.showLoading();
+//                        	    }
+//                        	  }).then(() => {
+//                        		  Swal.fire({
+//                              		icon: 'success',
+//                              		title: '成功儲值新台幣&nbsp'+inputDeposit.val()+'&nbsp元',
+//                              		animation: false,
+//                              		showConfirmButton: true,
+//                              	}).then((result) => {
+//                              		if (result.isConfirmed) {
+//                              			location.reload(true);
+//                              		} 
+//                              	});      
+//                        	  });              	
+//                       }
+//                       if (data === 'false') {
+//                    	   Swal.fire({
+//                       	    title: 'Now loading',
+//                       	    allowEscapeKey: false,
+//                       	    allowOutsideClick: false,
+//                       	    timer: 500,
+//                       	    onOpen: () => {
+//                       	      swal.showLoading();
+//                       	    }
+//                       	  }).then(() => {
+//                       		  Swal.fire({
+//    	                   			icon: 'error',
+//    	                    		title: '儲值錯誤',
+//    	                    		text: "儲值錯誤!",
+//    	                    		showConfirmButton: true,
+//    	                    		animation: false,
+//                             	});      
+//                       	  });
+//                      }
+//                    },
+//                    error: function() {
+//                        console.log("真的不棒");
+//                        Swal.fire({
+//                    		icon: 'warning',
+//                    		title: '發生錯誤',
+//                    		text: "請稍後重新點選送出",
+//                    	    showDenyButton: true,
+//                    	});
+//                    },
+//                    complete: function() {
+//                    	$('#btnbalanceDeposit').attr('disabled',false);
+//            		},
+//                });
+//            }
+//        });
 
         
         // 3.收付款設定 按鈕

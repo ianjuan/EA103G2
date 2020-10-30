@@ -1113,6 +1113,7 @@
             font-size: 16px;
             font-weight: bold;
             color: #777;
+            margin-left: 10px;
         }
         
         #btnbalanceWithdraw {
@@ -1138,6 +1139,60 @@
         .balanceInputform {
         	padding: 10px 100px 0px 50px;
         }
+/*------------------------------------------------------------------
+[ Modal ]*/        
+        .modal-footer {
+   			justify-content: center;
+        }
+        .btn-primary {
+    		background-color: #d1dfe8;
+		    color: #367196;
+		    border-color: #d1dfe8;
+		    font-size: 20px;
+		    font-weight: bold;
+		    padding: 10px 25px;
+		    border-radius: 10px;
+        }
+        .btn-primary:hover {
+    		background-color: #367196;
+		    color: #d1dfe8;
+		    border-color: #d1dfe8;
+		    font-size: 20px;
+		    font-weight: bold;
+		    padding: 10px 25px;
+		    border-radius: 10px;
+        }
+        .btn-secondary {
+    		background-color: #999;
+		    color: #fff;
+		    border-color: #999;
+		    font-size: 20px;
+		    font-weight: bold;
+		    padding: 10px 25px;
+		    border-radius: 10px;
+        }
+        .btn-secondary:hover {
+    		background-color: #555;
+		    color: #fff;
+		    border-color: #555;
+		    font-size: 20px;
+		    font-weight: bold;
+		    padding: 10px 25px;
+		    border-radius: 10px;
+        }
+        #exampleModalLongTitle {
+       	   font-size: 30px;
+   		   font-weight: bold;
+        }
+        #exampleModalCenter {
+           border-radius: .625rem;
+           box-shadow: 0 6px 6px 0 rgba(0, 0, 0, .1);
+           
+        }
+        .modal-content{
+           border: none !important;
+        }
+           
 
         /*------------------------------------------------------------------
 [ shrink ]*/
