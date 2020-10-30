@@ -74,8 +74,8 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">查詢</h6>
-						<a class="collapse-item" href="javascript:void(0)">房東</a> 
-						<a	class="collapse-item" href="javascript:void(0)">房客</a> 
+						<a class="collapse-item" href="javascript:void(0)">查詢房東</a> 
+						<a	class="collapse-item" href="javascript:void(0)">查詢房客</a> 
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -88,8 +88,8 @@
 				<div id="collapseTwooo" class="collapse" aria-labelledby="headingTwooo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">驗證</h6>
-						<a class="collapse-item" href="javascript:void(0)">驗證</a> 
+						<h6 class="collapse-header">身分驗證</h6>
+						<a class="collapse-item" href="javascript:void(0)">身分驗證</a> 
 
 					</div>
 				</div>
@@ -103,13 +103,13 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">檢舉</h6>
-						<a class="collapse-item" href="javascript:void(0)">房客檢舉</a> 
-						<a class="collapse-item" href="javascript:void(0)">房東檢舉</a>
-						<a class="collapse-item" href="javascript:void(0)">房屋檢舉</a>
-						<a class="collapse-item" href="javascript:void(0)">房客評價檢舉</a>
-						<a class="collapse-item" href="javascript:void(0)">房東評價檢舉</a>
-						<a class="collapse-item" href="javascript:void(0)">房屋評價檢舉</a>
-						<a class="collapse-item" href="javascript:void(0)">修繕檢舉</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房客</a> 
+						<a class="collapse-item" href="javascript:void(0)">檢舉房東</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房屋</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房客</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房東評價</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房屋評價</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉修繕</a>
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -314,13 +314,13 @@
 			    	  else if(ajax_select=="新增員工"){
 			    		  ajax_url = "<%=request.getContextPath()%>/back-end/emp/addEmp.jsp";
 			    	  }
-			    	  else if(ajax_select=="房客"){
-			    		  ajax_url = "<%=request.getContextPath()%>/back-end/member/member_main_page.jsp";
+			    	  else if(ajax_select=="查詢房客"){
+			    		  ajax_url = "<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp";
 			    	  }
-			    	  else if(ajax_select=="房客檢舉"){
+			    	  else if(ajax_select=="檢舉房客"){
 			    		  ajax_url = "<%=request.getContextPath()%>/back-end/rptt/main_page.jsp";
 			    	  }
-			    	  else if(ajax_select=="驗證"){
+			    	  else if(ajax_select=="身分驗證"){
 			    		  ajax_url = "<%=request.getContextPath()%>/back-end/vrf/vrf_main_page.jsp";
 			    	  }
 			    	  else if(ajax_select=="房屋管理"){

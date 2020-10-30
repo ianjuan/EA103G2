@@ -16,6 +16,7 @@ import com.rpth.model.RpthDAO_interface;
 import com.rpth.model.RpthVO;
 
 public class RpthJNDIDAO implements RpthDAO_interface {
+
 	private static DataSource ds = null;
 	static {
 
@@ -36,7 +37,11 @@ public class RpthJNDIDAO implements RpthDAO_interface {
 	private static final String GET_HOS_STMT = "SELECT RPTH_NO,HOS_NO,TNT_NO,RPTH_TIME,RPTH_CONTENT,EMP_NO,RPTH_DONE_TIME,RPTH_STATUS,RPTH_RESULT,RPTH_NOTE FROM REPORT_HOUSE WHERE HOS_NO=? ";
 	private static final String GET_TNT_STMT = "SELECT RPTH_NO,HOS_NO,TNT_NO,RPTH_TIME,RPTH_CONTENT,EMP_NO,RPTH_DONE_TIME,RPTH_STATUS,RPTH_RESULT,RPTH_NOTE FROM REPORT_HOUSE WHERE TNT_NO=? ";
 	private static final String GET_EMP_STMT = "SELECT RPTH_NO,HOS_NO,TNT_NO,RPTH_TIME,RPTH_CONTENT,EMP_NO,RPTH_DONE_TIME,RPTH_STATUS,RPTH_RESULT,RPTH_NOTE FROM REPORT_HOUSE WHERE EMP_NO=? ";
-	private static final String GET_STATUS_STMT = "SELECT RPTH_NO,HOS_NO,TNT_NO,RPTH_TIME,RPTH_CONTENT,EMP_NO,RPTH_DONE_TIME,RPTH_STATUS,RPTH_RESULT,RPTH_NOTE FROM REPORT_HOUSE WHERE RPTH_STATUS=? ";
+	private static final String GET_RESULT_STMT = "SELECT RPTH_NO,HOS_NO,TNT_NO,RPTH_TIME,RPTH_CONTENT,EMP_NO,RPTH_DONE_TIME,RPTH_STATUS,RPTH_RESULT,RPTH_NOTE FROM REPORT_HOUSE WHERE RPTH_RESULT=? ";
+	private static final String UPDATE_EMP = "UPDATE REPORT_HOUSE SET EMP_NO=?,RPTH_STATUS=? WHERE RPTH_NO=? ";
+	private static final String ASSIGN_EMP = "UPDATE REPORT_HOUSE SET EMP_NO=?,RPTH_NOTE=? WHERE RPTH_NO=? ";
+	private static final String SAVE_NOTE = "UPDATE REPORT_HOUSE SET RPTH_NOTE=? WHERE RPTH_NO=? ";
+	private static final String FAIL_STMT = "UPDATE REPORT_HOUSE SET RPTH_RESULT=?,RPTH_NOTE=? WHERE RPTH_NO=? ";
 
 	@Override
 	public void insert(RpthVO rpthVO) {
@@ -124,6 +129,161 @@ public class RpthJNDIDAO implements RpthDAO_interface {
 
 	}
 
+	public void updateEmp(RpthVO rpthVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_EMP);
+
+			pstmt.setString(1, rpthVO.getEmp_no());
+			pstmt.setInt(2, rpthVO.getRpth_status());
+			pstmt.setString(3, rpthVO.getRpth_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void assignEmp(RpthVO rpthVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(ASSIGN_EMP);
+
+			pstmt.setString(1, rpthVO.getEmp_no());
+			pstmt.setString(2, rpthVO.getRpth_note());
+			pstmt.setString(3, rpthVO.getRpth_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void fail(RpthVO rpthVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FAIL_STMT);
+
+			pstmt.setInt(1, rpthVO.getRpth_result());
+			pstmt.setString(2, rpthVO.getRpth_note());
+			pstmt.setString(3, rpthVO.getRpth_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+
+	public void saveNote(RpthVO rpthVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SAVE_NOTE);
+
+		
+			pstmt.setString(1, rpthVO.getRpth_note());
+			pstmt.setString(2, rpthVO.getRpth_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
 	@Override
 	public void delete(String rpth_no) {
 
@@ -303,14 +463,16 @@ public class RpthJNDIDAO implements RpthDAO_interface {
 		try {
 			con = ds.getConnection();
 
-			if (Number.startsWith("H")) {
+			if (Number.startsWith("T")) {
 				pstmt = con.prepareStatement(GET_HOS_STMT);
-			} else if (Number.startsWith("T")) {
+			} else if (Number.startsWith("L")) {
 				pstmt = con.prepareStatement(GET_TNT_STMT);
+			} else if (Number.startsWith("R")) {
+				pstmt = con.prepareStatement(GET_RPTH_STMT);
 			} else if (Number.startsWith("E")) {
 				pstmt = con.prepareStatement(GET_EMP_STMT);
-			} else if (Number.equals("0")||Number.equals("1")) {
-				pstmt = con.prepareStatement(GET_STATUS_STMT);
+			} else if (Number.equals("0") || Number.equals("1")) {
+				pstmt = con.prepareStatement(GET_RESULT_STMT);
 			} else {
 				System.out.println("wrong sql");
 			}
@@ -368,4 +530,5 @@ public class RpthJNDIDAO implements RpthDAO_interface {
 
 		return list;
 	}
+
 }
