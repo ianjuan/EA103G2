@@ -432,6 +432,24 @@ function checkLen2(e) {
 	document.getElementById("count2").innerHTML = maxChars - e.value.length;
 }
 
+function checkLen3(e) {
+	var maxChars = 6;//最多字符数
+	if (e.value.length > maxChars)
+		e.value = e.value.substring(0,maxChars);
+}
+
+function checkLen4(e) {
+	var maxChars = 8;//最多字符数
+	if (e.value.length > maxChars)
+		e.value = e.value.substring(0,maxChars);
+}
+
+function checkLen5(e) {
+	var maxChars = 4;//最多字符数
+	if (e.value.length > maxChars)
+		e.value = e.value.substring(0,maxChars);
+}
+
 function map(){
 	var geocoder = new google.maps.Geocoder();
 	address = document.getElementById("hos_add").value;
