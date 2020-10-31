@@ -285,6 +285,7 @@ public class CashDAO implements CashDAO_interface {
 				cashVO.setCash_amount(rs.getInt("cash_amount"));
 				cashVO.setCon_no(rs.getString("con_no"));
 				cashVO.setRec_no(rs.getString("rec_no"));
+				System.out.println("dao"+cashVO);
 				list.add(cashVO);
 			}
 			con.commit();

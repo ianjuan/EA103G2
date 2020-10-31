@@ -302,36 +302,44 @@ var lld_id_disapprove = '<%=lld_id_disapprove%>';
 console.log('lld_id_isupload'+lld_id_isupload);
 console.log('lld_id_result'+lld_id_result );
 
-if (lld_id_isupload == 0){
-	$('#vrfstate0').show();
-	$('#vrfstate1').hide();
-	$('#vrfstate2').hide();
-	$('#vrfstate3').hide();
-	$('#form-wrap-vrfpics').show();
-}
-if (lld_id_isupload == 1){
-	if (lld_id_result == 0){
-		$('#form-wrap-vrfpics').hide();
-		$('#vrfstate0').hide();
-		$('#vrfstate1').show();
+if (tnt_id_isupload == 0){
+	if (tnt_id_result != 2){
+		$('#vrfstate0').show();
+		$('#vrfstate1').hide();
 		$('#vrfstate2').hide();
 		$('#vrfstate3').hide();
+		$('#form-wrap-vrfpics').show();
 	}
-	if (lld_id_result == 1){
-		$('#form-wrap-vrfpics').hide();
-		$('#vrfstate0').hide();
-		$('#vrfstate1').hide();
-		$('#vrfstate2').show();
-		$('#vrfstate3').hide();
-	}
-	if (lld_id_result == 2){
+	if (tnt_id_result == 2){
 		$('#form-wrap-vrfpics').show();
 		$('#vrfstate0').hide();
 		$('#vrfstate1').hide();
 		$('#vrfstate2').hide();
 		$('#vrfstate3').show();
 	}
-	
+}
+if (tnt_id_isupload == 1){
+	if (tnt_id_result == 0){
+		$('#form-wrap-vrfpics').hide();
+		$('#vrfstate0').hide();
+		$('#vrfstate1').show();
+		$('#vrfstate2').hide();
+		$('#vrfstate3').hide();
+	}
+	if (tnt_id_result == 1){
+		$('#form-wrap-vrfpics').hide();
+		$('#vrfstate0').hide();
+		$('#vrfstate1').hide();
+		$('#vrfstate2').show();
+		$('#vrfstate3').hide();
+	}
+	if (tnt_id_result == 2){
+		$('#form-wrap-vrfpics').show();
+		$('#vrfstate0').hide();
+		$('#vrfstate1').hide();
+		$('#vrfstate2').hide();
+		$('#vrfstate3').show();
+	}
 }
 
 </script>

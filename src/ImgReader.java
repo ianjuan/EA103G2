@@ -20,6 +20,7 @@ public class ImgReader extends HttpServlet {
 		String mem_no = req.getParameter("id").trim();
 		byte[] byteArray = null;
 		Boolean mem_sex = false;
+		System.out.println(mem_no.length());
 		if (mem_no.substring(0, 3).equalsIgnoreCase("tnt")) {
 			TntService tntSvc = new TntService();
 			TntVO tntVO = tntSvc.getOneTntPic(mem_no);

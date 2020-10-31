@@ -303,11 +303,20 @@ console.log('tnt_id_isupload'+tnt_id_isupload);
 console.log('tnt_id_result'+tnt_id_result );
 
 if (tnt_id_isupload == 0){
-	$('#vrfstate0').show();
-	$('#vrfstate1').hide();
-	$('#vrfstate2').hide();
-	$('#vrfstate3').hide();
-	$('#form-wrap-vrfpics').show();
+	if (tnt_id_result != 2){
+		$('#vrfstate0').show();
+		$('#vrfstate1').hide();
+		$('#vrfstate2').hide();
+		$('#vrfstate3').hide();
+		$('#form-wrap-vrfpics').show();
+	}
+	if (tnt_id_result == 2){
+		$('#form-wrap-vrfpics').show();
+		$('#vrfstate0').hide();
+		$('#vrfstate1').hide();
+		$('#vrfstate2').hide();
+		$('#vrfstate3').show();
+	}
 }
 if (tnt_id_isupload == 1){
 	if (tnt_id_result == 0){
@@ -331,7 +340,6 @@ if (tnt_id_isupload == 1){
 		$('#vrfstate2').hide();
 		$('#vrfstate3').show();
 	}
-	
 }
 
 </script>
