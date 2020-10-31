@@ -177,59 +177,53 @@
 					<!-- Topbar Navbar -->
 					<!-- auto置右 -->
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> 
-<!-- 							通知小鈴鐺可配合後台推播系統 -->
-						</a> 
+                                <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                                <li class="nav-item dropdown no-arrow d-sm-none">
+                                    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-search fa-fw"></i>
+                                    </a>
+                                    <!-- Dropdown - Messages -->
+                                    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                        <form class="form-inline mr-auto w-100 navbar-search">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button">
+                                                        <i class="fas fa-search fa-sm"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <!-- Nav Item - Alerts -->
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-bell fa-fw"></i>
+                                        <!-- Counter - Alerts -->
+                                        <span id="alert_count" class="badge badge-danger badge-counter"></span>
+                                    </a>
+                                    <!-- Dropdown - Alerts  fas fa-file-alt text-white fas fa-donate text-white  fas fa-exclamation-triangle text-white--> 
+                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                        <h6 id="bell_alert" class="dropdown-header">
+                                           		 通知中心
+                                        </h6>
+<!--                                         <a class="dropdown-item d-flex align-items-center" href="#"> -->
+<!--                                             <div class="mr-3"> -->
+<!--                                                 <div class="icon-circle bg-primary"> -->
+<!--                                                     <i class="fas fa-file-alt text-white"></i> -->
+<!--                                                 </div> -->
+<!--                                             </div> -->
+<!--                                             <div> -->
+<!--                                                 <div class="small text-gray-500">December 12, 2019</div> -->
+<!--                                                 <span class="font-weight-bold">A new monthly report is ready to download!</span> -->
+<!--                                             </div> -->
+<!--                                         </a> -->
+                                        <a class="dropdown-item text-center small text-gray-500" href="#">展現全部通知</a>
+                                    </div>
+                                </li>
 <!-- 						Dropdown - Alerts -->
-							<div 
-								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="alertsDropdown">
-
-<!-- 								Nav Item - Messages -->
-								<li class="nav-item dropdown no-arrow mx-1"><a
-									class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
-									role="button" data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i>
-<!-- 										Counter - Messages  -->
-										<span
-										class="badge badge-danger badge-counter">1</span>
-								</a>
-<!-- 								 Dropdown - Messages -->
-									<div
-										class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-										aria-labelledby="messagesDropdown">
-										<h6 class="dropdown-header">訊息</h6>
-<!-- 										第一個展開訊息 -->
-										<a class="dropdown-item d-flex align-items-center" href="#">
-											<div class="dropdown-list-image mr-3">
-												<img class="rounded-circle"
-													src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRVmpzAF6CZLuTuOp8aC6-Xru-scdCLz4MXZA&usqp=CAU"
-													alt="">
-												<div class="status-indicator bg-success"></div>
-											</div>
-											<div class="font-weight-bold">
-												<div class="text-truncate">0.0</div>
-												<div class="small text-gray-500">Lucian · 58m</div>
-											</div>
-										</a>
-<!-- 										第二個展開訊息 -->
-										<a class="dropdown-item d-flex align-items-center" href="#">
-											<div class="dropdown-list-image mr-3">
-												<img class="rounded-circle"
-													src="https://hk.portal-pokemon.com/play/resources/pokedex/img/pm/5794f0251b1180998d72d1f8568239620ff5279c.png"
-													alt="">
-												<div class="status-indicator bg-success"></div>
-											</div>
-											<div class="font-weight-bold">
-												<div class="text-truncate">0.0</div>
-												<div class="small text-gray-500">jinigui · 102m</div>
-											</div>
-										</a>
-									</div>
-									</li>
+							
 								<div class="topbar-divider d-none d-sm-block"></div>
 								<!-- Nav Item - User Information -->
 								<li class="nav-item dropdown no-arrow">
@@ -375,33 +369,72 @@
 			<script>
 			
 	var now =new Date();
-	var MyPoint = "/TogetherWS/${empVO.emp_no}";
+	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
 	var host = window.location.host;
 	var path = window.location.pathname;
 	var webCtx = path.substring(0, path.indexOf('/', 1));
 	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-
-// 	var statusOutput = document.getElementById("statusOutput");
 	var webSocket;
-	
-	function connect() {
-		// create a websocket
-		webSocket = new WebSocket(endPointURL);
+	var alert_content;
+	var bell_html;
 
+
+	function connect() {
+		webSocket = new WebSocket(endPointURL);
 		webSocket.onopen = function(event) {
-// 			updateStatus("WebSocket Connected");
-// 			document.getElementById('btn_con').disabled = true;
-// 			document.getElementById('btn_close').disabled = false;
-// 			document.getElementById('btn_send').disabled = false;
 		};
 		
 		webSocket.onmessage = function(event) {
+			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
-			var new_content = jsonObj.new_content;
-// 			console.log(new_content);
-// 			var table='<tr><td>'+new_content+'</td>';
-// 			tbody+='<td>今天</td></tr>';
-// 			$('#tbody').after(tbody);
+			if(jsonObj.length>1){
+				$('#alert_count').text(jsonObj.length);
+				alert_count==jsonObj.length;
+// 				console.log(typeof (alert_count));
+			for(var i=0;i<jsonObj.length ;i++){
+				alert_content = JSON.parse(jsonObj[i]).content;
+				alert_title =JSON.parse(jsonObj[i]).title;
+				alert_time =new Date(JSON.parse(jsonObj[i]).time);
+				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				    <div class="mr-3">
+				    <div class="icon-circle bg-primary">
+				        <i class="fas fa-file-alt text-white"></i>
+				    </div>
+					</div>
+					<div>
+				    <div class="small text-gray-500">${"${alert_day}"}</div>
+				    <span class="font-weight-bold">${"${alert_content}"}</span>
+				</div></a>`;
+
+				$('#bell_alert').after(bell_html);
+			}
+			}
+			else{
+				var alert_count =$('#alert_count').text();
+				alert_count++;
+				$('#alert_count').text(alert_count);
+				console.log(alert_count);
+				alert_content = jsonObj.content;
+				alert_title =jsonObj.title;
+				alert_time =new Date(jsonObj.time);
+				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				    <div class="mr-3">
+				    <div class="icon-circle bg-primary">
+				        <i class="fas fa-file-alt text-white"></i>
+				    </div>
+					</div>
+					<div>
+				    <div class="small text-gray-500">${"${alert_day}"}</div>
+				    <span class="font-weight-bold">${"${alert_content}"}</span>
+				</div></a>`;
+				$('#bell_alert').after(bell_html);
+			}
+			
+				
+
+
 		};
 
 		webSocket.onclose = function(event) {
@@ -410,31 +443,13 @@
 	}
 
 
-	function sendMessage() {
-		var inputMessage = document.getElementById("announce");
-		var new_content = inputMessage.value.trim();
-		
-		if (new_content === "") {
-			alert("Input a message");
-			inputMessage.focus();
-		} else {
-			var jsonObj = {
-			    "emp_name" : "${empVO.emp_name}",
-			    "emp_title" : "${empVO.emp_title}",
-				"new_content" : new_content,
-				"new_date" : (now.getMonth()+1)+"月"+now.getDate()+"日"
-			};
-			webSocket.send(JSON.stringify(jsonObj));
-		}
-	}
-
 	function disconnect() {
 		webSocket.close();
 
 	}
 
 </script>
-
+			
 	
 </body>
 
