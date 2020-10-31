@@ -272,7 +272,7 @@
 					</div>
 				</div>	
 			</c:forEach>
-			<%@ include file="tntpage2.file"%>
+			<%@ include file="page2.file"%>
 				
 			<div id="right"></div>
 		</div>
