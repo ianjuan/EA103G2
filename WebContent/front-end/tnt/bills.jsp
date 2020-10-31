@@ -6,9 +6,12 @@
 
 <% session.removeAttribute("lld_no"); %>
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
+<jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
+<%
+	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
+	request.setAttribute("tntVO", tntVO);
+%>
 <jsp:useBean id="cashSvc" scope="page" class="com.cash.model.CashService" />
-<%-- <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" /> --%>
-
 <%
 	List<CashVO> listCashLog = cashSvc.getOneCashlogs(tnt_no);
  	request.setAttribute("listCashLog", listCashLog);
@@ -297,10 +300,11 @@
 							        </thead>
 							        <tbody>
 							        
-							        <c:forEach var="cashVO" items="<%=request.getAttribute(\"listCashLog\")%>">
+							        <c:forEach var="cashVO" items="<%= listCashLog %>">
+<%-- 							        <c:forEach var="cashVO" items="<%=request.getAttribute(\"listCashLog\")%>"> --%>
 											<tr>
 												<td>${cashVO.cash_no}</td>
-												<td></td>
+												<td>1</td>
 												<td>2</td>
 												<td>3</td>
 												<td>4</td>
