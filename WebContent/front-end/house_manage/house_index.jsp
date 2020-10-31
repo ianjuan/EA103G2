@@ -83,7 +83,11 @@
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link">合約管理</button>
 					</FORM>
-					<button type="button" class="link">修繕管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					<button type="button" class="link">評價管理</button>					
 				</div>
 			</nav>
@@ -101,7 +105,7 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
-						<button type="button" class="link" onclick="checkmoney1()">點我進入</button>
+						<button type="button" class="link" onclick="checkmoney1()">我要進來囉</button>
 					</FORM>
 				</div>
 			</div>
@@ -203,7 +207,11 @@
 					<span class="fontstyle">看看又有那些東西壞掉啦~</span>
 				</div>
 				<div class="rinfo">
-					<button type="submit" class="link">點我進入</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">點我進入</button><br>
+					</FORM>
 				</div>
 			</div>
 			<div class="houseinfo">

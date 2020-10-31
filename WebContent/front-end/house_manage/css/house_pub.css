@@ -625,4 +625,25 @@ body {
 		transform: translateX(0px);
 		opacity: 1;
 	}
-}	
+}
+
+.picbtn {
+	display: none;
+}
+#logo {
+	width: 70px;
+	height: auto;
+	position: fixed;
+	right: 10px;
+	bottom: 10px;
+	cursor: pointer;
+	border-radius: 20px;
+	opacity: 0.8;
+}
+#logo:hover {
+	width: 75px;
+	opacity: 1;
+}
+#logo:active {
+	transform: translateY(3px);
+}

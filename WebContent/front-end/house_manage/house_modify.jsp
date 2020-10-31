@@ -78,7 +78,11 @@
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link">合約管理</button>
 					</FORM>
-					<button type="button" class="link">修繕管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					<button type="button" class="link">評價管理</button>
 					<span class="link" style="color: #D37707;">資訊修改</span>
 <%-- 					<span class="link" style="color: #265895;font-size:85%"><%=houseVO.getHos_no()%></span>					 --%>
@@ -420,7 +424,7 @@
 							<tr>
 								<th>可遷入日:</th>
 								<td>
-									<input type="text" class="text1" placeholder="隨時" name="hos_mdate" value="<%=houseVO.getHos_mdate()%>" maxlength="60">
+									<input type="text" class="text1" name="hos_mdate" value="<%=houseVO.getHos_mdate()%>" maxlength="60">
 								</td>
 							</tr>
 							<tr>
@@ -436,9 +440,9 @@
 							<tr>
 								<th>車位:</th>
 								<td>
-									<label><input type="radio" id="park1" name="hos_park" value="無" <%=(houseVO.getHos_park().equals("無")) ? "checked" : ""%> onclick="parkfee()" required>無</label>
-									<label><input type="radio" name="hos_park" value="平面式" <%=(houseVO.getHos_park().equals("平面式")) ? "checked" : ""%> onclick="parkfee()" required>平面式</label>
-									<label><input type="radio" name="hos_park" value="機械式" <%=(houseVO.getHos_park().equals("機械式")) ? "checked" : ""%> onclick="parkfee()" required>機械式</label>
+									<label><input type="radio" name="hos_park" value="無" <%=(houseVO.getHos_park().equals("無")) ? "checked" : ""%> onclick="parkfee()" required>無</label>
+									<label><input type="radio" id="park1" name="hos_park" value="平面式" <%=(houseVO.getHos_park().equals("平面式")) ? "checked" : ""%> onclick="parkfee()" required>平面式</label>
+									<label><input type="radio" id="park2" name="hos_park" value="機械式" <%=(houseVO.getHos_park().equals("機械式")) ? "checked" : ""%> onclick="parkfee()" required>機械式</label>
 								</td>
 							</tr>
 							<tr>

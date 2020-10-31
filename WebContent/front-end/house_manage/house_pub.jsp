@@ -74,7 +74,11 @@
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link">合約管理</button>
 					</FORM>
-					<button type="button" class="link">修繕管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					<button type="button" class="link">評價管理</button>
                 </div>
             </nav>
@@ -107,14 +111,14 @@
 							<tr>
 								<th>生活機能:</th>
 								<td>									
-									<textarea rows="2" wrap="hard" onkeyup="checkLen1(this)" name="hos_liffun"><%=(houseVO==null) ? "" : houseVO.getHos_liffun()%></textarea>
+									<textarea rows="2" wrap="hard" onkeyup="checkLen1(this)" id="hos_liffun" name="hos_liffun"><%=(houseVO==null) ? "" : houseVO.getHos_liffun()%></textarea>
 									<div class="fontstyle">您還可以輸入 <span id="count1">200</span> 個文字</div>
 								</td>
 							</tr>
 							<tr>
 								<th>附近交通:</th>
-								<td>									
-									<textarea rows="2" wrap="hard" onkeyup="checkLen2(this)" name="hos_trans"><%=(houseVO==null) ? "" : houseVO.getHos_trans()%></textarea>
+								<td>
+									<textarea rows="2" wrap="hard" onkeyup="checkLen2(this)" id="hos_trans" name="hos_trans"><%=(houseVO==null) ? "" : houseVO.getHos_trans()%></textarea>
 									<div class="fontstyle">您還可以輸入 <span id="count2">200</span> 個文字</div>
 								</td>
 							</tr>
@@ -147,7 +151,7 @@
 							<tr>
 								<th>格局:</th>
 								<td>
-									<input type="text" class="text1" name="hos_pat" value="<%=(houseVO==null) ? "" : houseVO.getHos_pat()%>" maxlength="100">
+									<input type="text" class="text1" id="hos_pat" name="hos_pat" value="<%=(houseVO==null) ? "" : houseVO.getHos_pat()%>" maxlength="100">
 								</td>
 							</tr>
 							<tr>
@@ -339,16 +343,16 @@
 							</tr>
 							<tr>
 								<td>
-									水費: <label><input type="radio" id="watertype1" name="hos_waterfeetype" value="1" onclick="floatfee1()">&nbsp;每度<input type="number" id="water1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" step="0.1" name="hos_waterfee1" value="<%=(houseVO==null) ? "" : houseVO.getHos_waterfee()%>" disabled>元</label>
-									<label><input type="radio" id="watertype2" name="hos_waterfeetype" value="2" onclick="floatfee1()">&nbsp;每月<input type="number" id="water2" class="num1" min="0" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_waterfee2" value="<%=(houseVO==null) ? "" : houseVO.getHos_waterfee()%>" disabled>元</label>
-									<label><input type="radio" id="watertype0" name="hos_waterfeetype" value="0" onclick="floatfee1()">&nbsp;房東付費</label>
+									水費: <label><input type="radio" id="watertype1" class="hos_waterfeetype" name="hos_waterfeetype" value="1" onclick="floatfee1()">&nbsp;每度<input type="number" id="water1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" step="0.1" name="hos_waterfee1" value="<%=(houseVO==null) ? "" : houseVO.getHos_waterfee()%>" disabled>元</label>
+									<label><input type="radio" id="watertype2" class="hos_waterfeetype" name="hos_waterfeetype" value="2" onclick="floatfee1()">&nbsp;每月<input type="number" id="water2" class="num1" min="0" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_waterfee2" value="<%=(houseVO==null) ? "" : houseVO.getHos_waterfee()%>" disabled>元</label>
+									<label><input type="radio" id="watertype0" class="hos_waterfeetype" name="hos_waterfeetype" value="0" onclick="floatfee1()">&nbsp;房東付費</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									電費: <label><input type="radio" id="electtype1" name="hos_electfeetype" value="1" onclick="floatfee2()">&nbsp;每度<input type="number" id="elect1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" step="0.1" name="hos_electfee1" value="<%=(houseVO==null) ? "" : houseVO.getHos_electfee()%>" disabled>元</label>
-									<label><input type="radio" id="electtype2" name="hos_electfeetype" value="2" onclick="floatfee2()">&nbsp;每月<input type="number" id="elect2" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_electfee2" value="<%=(houseVO==null) ? "" : houseVO.getHos_electfee()%>" disabled>元</label>
-									<label><input type="radio" id="electtype0" name="hos_electfeetype" value="0" onclick="floatfee2()">&nbsp;房東付費</label>
+									電費: <label><input type="radio" id="electtype1" class="hos_electfeetype" name="hos_electfeetype" value="1" onclick="floatfee2()">&nbsp;每度<input type="number" id="elect1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" step="0.1" name="hos_electfee1" value="<%=(houseVO==null) ? "" : houseVO.getHos_electfee()%>" disabled>元</label>
+									<label><input type="radio" id="electtype2" class="hos_electfeetype" name="hos_electfeetype" value="2" onclick="floatfee2()">&nbsp;每月<input type="number" id="elect2" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_electfee2" value="<%=(houseVO==null) ? "" : houseVO.getHos_electfee()%>" disabled>元</label>
+									<label><input type="radio" id="electtype0" class="hos_electfeetype" name="hos_electfeetype" value="0" onclick="floatfee2()">&nbsp;房東付費</label>
 								</td>
 							</tr>
 							<tr>
@@ -359,7 +363,7 @@
 							</tr>
 							<tr>
 								<td>
-									<label>管理費:&nbsp;<input type="number" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_manafee" value="<%=(houseVO==null) ? "" : houseVO.getHos_manafee()%>">元</label>
+									<label>管理費:&nbsp;<input type="number" id="hos_manafee1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_manafee" value="<%=(houseVO==null) ? "" : houseVO.getHos_manafee()%>">元</label>
 								</td>
 							</tr>
 							<tr>
@@ -369,17 +373,17 @@
 							</tr>
 							<tr>
 								<td>
-									<label>公共水費:&nbsp;<input type="number" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_puwaterfee" value="<%=(houseVO==null) ? "" : houseVO.getHos_puwaterfee()%>">元</label>
+									<label>公共水費:&nbsp;<input type="number" id="hos_puwaterfee1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_puwaterfee" value="<%=(houseVO==null) ? "" : houseVO.getHos_puwaterfee()%>">元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>公共電費:&nbsp;<input type="number" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_puelefee" value="<%=(houseVO==null) ? "" : houseVO.getHos_puelefee()%>">元</label>
+									<label>公共電費:&nbsp;<input type="number" id="hos_puelefee1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" name="hos_puelefee" value="<%=(houseVO==null) ? "" : houseVO.getHos_puelefee()%>">元</label>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<label>停車位費:&nbsp;<input type="number" id="parkfee1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" step="100" name="hos_parkfee" value="<%=(houseVO==null) ? "" : houseVO.getHos_parkfee()%>">元</label>
+									<label>停車位費:&nbsp;<input type="number" id="parkfee1" class="num1" min="0" max="999999" onkeyup="checkLen3(this)" step="100" name="hos_parkfee" value="<%=(houseVO==null) ? "" : houseVO.getHos_parkfee()%>" disabled>元</label>
 								</td>
 							</tr>
 						</table>
@@ -389,70 +393,70 @@
 							<tr>
 								<th>可遷入日:</th>
 								<td>
-									<input type="text" class="text1" placeholder="隨時" name="hos_mdate" value="<%=(houseVO==null) ? "" : houseVO.getHos_mdate()%>" maxlength="60">
+									<input type="text" class="text1" id="hos_mdate" name="hos_mdate" value="<%=(houseVO==null) ? "" : houseVO.getHos_mdate()%>" maxlength="60">
 								</td>
 							</tr>
 							<tr>
 								<th>最短租期:</th>
 								<td>									
-									<label><input type="radio" name="hos_mindate" value="兩年">兩年</label>
-									<label><input type="radio" name="hos_mindate" value="一年">一年</label>
-									<label><input type="radio" name="hos_mindate" value="半年">半年</label>
-									<label><input type="radio" name="hos_mindate" value="三個月">三個月</label>
-									<label><input type="radio" name="hos_mindate" value="不限">不限</label>
+									<label><input type="radio" class="hos_mindate" name="hos_mindate" value="兩年">兩年</label>
+									<label><input type="radio" class="hos_mindate" name="hos_mindate" value="一年">一年</label>
+									<label><input type="radio" class="hos_mindate" name="hos_mindate" value="半年">半年</label>
+									<label><input type="radio" class="hos_mindate" name="hos_mindate" value="三個月">三個月</label>
+									<label><input type="radio" class="hos_mindate" name="hos_mindate" value="不限">不限</label>
 								</td>
 							</tr>
 							<tr>
 								<th>車位:</th>
 								<td>
-									<label><input type="radio" id="park1" name="hos_park" value="無" onclick="parkfee()">無</label>
-									<label><input type="radio" name="hos_park" value="平面式" onclick="parkfee()">平面式</label>
-									<label><input type="radio" name="hos_park" value="機械式" onclick="parkfee()">機械式</label>
+									<label><input type="radio" class="hos_park" name="hos_park" value="無" onclick="parkfee()">無</label>
+									<label><input type="radio" id="park1" class="hos_park" name="hos_park" value="平面式" onclick="parkfee()">平面式</label>
+									<label><input type="radio" id="park2" class="hos_park" name="hos_park" value="機械式" onclick="parkfee()">機械式</label>
 								</td>
 							</tr>
 							<tr>
 								<th>性別:</th>
 								<td>
-									<label><input type="radio" name="hos_sex" value="無">無</label>
-									<label><input type="radio" name="hos_sex" value="女生">女生</label>
-									<label><input type="radio" name="hos_sex" value="男生">男生</label>
+									<label><input type="radio" class="hos_sex" name="hos_sex" value="無">無</label>
+									<label><input type="radio" class="hos_sex" name="hos_sex" value="女生">女生</label>
+									<label><input type="radio" class="hos_sex" name="hos_sex" value="男生">男生</label>
 								</td>
 							</tr>
 							<tr>
-								<th>*身份:</th>
+								<th>身份:</th>
 								<td>
-									<label><input type="radio" name="hos_iden" value="無">無</label>
-									<label><input type="radio" name="hos_iden" value="學生">學生</label>
-									<label><input type="radio" name="hos_iden" value="上班族">上班族</label>
-									<label><input type="radio" name="hos_iden" value="家庭">家庭</label>
+									<label><input type="radio" class="hos_iden" name="hos_iden" value="無">無</label>
+									<label><input type="radio" class="hos_iden" name="hos_iden" value="學生">學生</label>
+									<label><input type="radio" class="hos_iden" name="hos_iden" value="上班族">上班族</label>
+									<label><input type="radio" class="hos_iden" name="hos_iden" value="家庭">家庭</label>
 								</td>
 							</tr>
 							<tr>
 								<th>開伙:</th>
 								<td>
-									<label><input type="radio" name="hos_cook" value="可以">可以</label>
-									<label><input type="radio" name="hos_cook" value="不可以">不可以</label>
+									<label><input type="radio" class="hos_cook" name="hos_cook" value="可以">可以</label>
+									<label><input type="radio" class="hos_cook" name="hos_cook" value="不可以">不可以</label>
 								</td>
 							</tr>
 							<tr>
 								<th>寵物:</th>
 								<td>
-									<label><input type="radio" name="hos_pet" value="可以">可以</label>
-									<label><input type="radio" name="hos_pet" value="不可以">不可以</label>
+									<label><input type="radio" class="hos_pet" name="hos_pet" value="可以">可以</label>
+									<label><input type="radio" class="hos_pet" name="hos_pet" value="不可以">不可以</label>
 								</td>
 							</tr>
 							<tr>
 								<th>吸菸:</th>
 								<td>
-									<label><input type="radio" name="hos_smoke" value="可以">可以</label>
-									<label><input type="radio" name="hos_smoke" value="不可以">不可以</label>
+									<label><input type="radio" class="hos_smoke" name="hos_smoke" value="可以">可以</label>
+									<label><input type="radio" class="hos_smoke" name="hos_smoke" value="不可以">不可以</label>
 								</td>
 							</tr>
 							<tr>
 								<th>*出租狀態:</th>
 								<td>
-									<label><input type="radio" name="hos_status" value="待出租">待出租</label>
-									<label><input type="radio" name="hos_status" value="已下架">下架</label>
+									<label><input type="radio" class="hos_status" name="hos_status" value="待出租">待出租</label>
+									<label><input type="radio" class="hos_status" name="hos_status" value="已下架">下架</label>
 								</td>
 							</tr>
 						</table>
@@ -488,6 +492,11 @@
 				</div>
 			</div>
 		</form>
+		
+		<label>
+			<button type="button" class="picbtn" id="quickvalue" onclick="quickvalue()">神奇小按鈕</button>
+			<img src="https://www.flaticon.com/svg/static/icons/svg/122/122927.svg" id="logo">
+		</label>
 	</div>
 	<div id="foot"></div>		
 </body>
