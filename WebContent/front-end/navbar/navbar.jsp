@@ -183,6 +183,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 		webSocketForNotify.onmessage = function(event) {			
 			var jsonObj = JSON.parse(event.data);
 			var dateForNow=new Date().getTime();
+			
 			if(Array.isArray(jsonObj)){//歷史訊息為二維陣列 此處抓住歷史訊息並處理
 				var count=0;
 				$.each(jsonObj, function(key, value) {
@@ -217,12 +218,14 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 								"<div class='notify-body'>"+jsonObj.content+"</div>"+
 							"</div>"+
 						"</a>"
-					)
+				)
 				$(".new-message").remove();
+				
 				$("#div-nav").after(
 						"<a class='new-message-a-lebel' "+herfs+">"+
 						"</a>"
-						);
+				);
+				
 				$(".new-message-a-lebel").append(
 						"<div class='new-message'>"+
 							"<div class='message-title' style='background-color:yellow;'>"+
@@ -231,10 +234,10 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 						"<a>"+jsonObj.content+"</a>"+
 						"</div>"
 				);
+				
 				$(".new-message").fadeIn(1000);
-				setTimeout(function(){
-					$(".new-message").fadeOut(1000)
-					},3000);
+				
+				setTimeout(function(){$(".new-message").fadeOut(1000)},3000);
 
 			};
 			console.log(jsonObj.title);
