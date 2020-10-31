@@ -97,7 +97,7 @@
             }
         }
         
-         .basicInfo__list-backIcon { 
+        .basicInfo__list-backIcon { 
              font-size: 30px; 
              display: block !important; 
              text-align: center; 
@@ -219,8 +219,6 @@
                        </div>
                     </div>
                     <!--end shrink bar -->
-                    
-
                             <!--Start form Profile-->
 <!--                             <div  class="bg-white info-form-wrap"> -->
 								<div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4 booking-outside">

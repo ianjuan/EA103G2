@@ -97,11 +97,26 @@
             }
         }
         
-         .basicInfo__list-backIcon { 
+        .basicInfo__list-backIcon { 
              font-size: 30px; 
              display: block !important; 
-             text-align: left; 
+             text-align: center; 
          } 
+		.booking-iframe{
+			    width: 100%;
+    			height: 100%;
+		}
+		.booking-outside{
+			    height: 850px;
+		}
+         
+		.booking-iframe{
+			    width: 100%;
+    			height: 100%;
+		}
+		.booking-outside{
+			    height: 850px;
+		}
 		.booking-iframe{
 			    width: 100%;
     			height: 100%;
@@ -145,8 +160,7 @@
             <div class="" id="infocontainer">
 <!--                 <div class="row no-gutters justify-content-center"> -->
                     <!--start info list -->
-                    <div class="basicInfo__list"  id="basicinfolist"  > 
-<!--                     <div class="basicInfo__list col-lg-3" style="display: none;" id="basicinfolist">  -->
+                    <div class="basicInfo__list"  id="basicinfolist" style="left:-320px;"> 
                         <div class="basicInfo__list__content bg-white px-4 pt-lg-7 pt-md-5 pt-2 sticky-top">
                             <a class="basicInfo__list-backIcon text-primary basicInfo__list__content-backIcon d-xl-none">
                                 <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="arrow-alt-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-arrow-alt-circle-left fa-w-16">
@@ -158,42 +172,44 @@
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${lldVO.lld_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
-                            <p class="text-gray text-center mb-3">房東</p>
-                            <h4 class="text-center">${lldVO.lld_name} 個人資訊</h4>
+                            <p class="text-gray text-center mb-3">房客</p>
+                            <h4 class="text-center">${tntVO.tnt_name} 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
                                     <a href="<%=request.getContextPath()%>/front-end/lld/info.jsp" class="basicInfo__menu__link">
-                                        <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" class="mr-2">基本資訊
-                                    </a>
-                                </li>
-                                <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/lld/verify.jsp" class="basicInfo__menu__link">
-                                        <img src="<%=request.getContextPath()%>/images/infoIcon_vrf.png" width="30" class="mr-2">身分驗證
-<!--                                         https://www.dd-room.com/_nuxt/img/1d5e617.png -->
-                                    </a>
-                                </li>
-                                <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/lld/pocket.jsp" class="basicInfo__menu__link">
-                                        <img src="<%=request.getContextPath()%>/images/infoIcon_pocket.png" width="30" class="mr-2">我的錢包
-<!--                                         https://www.dd-room.com/_nuxt/img/2dc32e9.png -->
+                                        <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" class="mr-3">基本資訊
                                     </a>
                                 </li>
                                 <li class="mb-3">
                                     
-                                    <a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
-                                        <img src="<%=request.getContextPath()%>/images/infoIcon_rsv.png" width="30" class="mr-2">我的預約
-<!--                                         https://www.dd-room.com/_nuxt/img/3d03113.png -->
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/verify.jsp" class="basicInfo__menu__link">
+                                        <img src="<%=request.getContextPath()%>/images/infoIcon_vrf.png" width="30" class="mr-3">身分驗證
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=getlldcontract" class="basicInfo__menu__link">
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" class="mr-2">我的合約</a>
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/pocket.jsp" class="basicInfo__menu__link">
+                                        <img src="<%=request.getContextPath()%>/images/infoIcon_pocket.png" width="30" class="mr-3">我的錢包
+                                    </a>
+                                </li>
+                                <li class="mb-3">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/bills.jsp" class="basicInfo__menu__link">
+                                        <img src="data:image/svg+xml;base64,PHN2ZyBpZD0i5ZyW5bGkXzEiIGRhdGEtbmFtZT0i5ZyW5bGkIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxkZWZzPjxzdHlsZT4uY2xzLTF7ZmlsbDojMmQyZDJkO308L3N0eWxlPjwvZGVmcz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04Mi42Myw0My4yOWEzMi42OCwzMi42OCwwLDAsMC02NS4yNiwwLDIuMzMsMi4zMywwLDAsMC0uMDYuNTNWNTdDMTcuMzEsNzQuMzcsMzEuMzcsODcuNSw1MCw4Ny41UzgyLjY5LDc0LjM3LDgyLjY5LDU3VjQzLjgyQTIuMzMsMi4zMywwLDAsMCw4Mi42Myw0My4yOVpNNTAsMTcuNUEyNy42OSwyNy42OSwwLDEsMSwyMi4zMSw0NS4xOSwyNy43MiwyNy43MiwwLDAsMSw1MCwxNy41Wm0wLDY1QzM2LjYxLDgyLjUsMjYuMjksNzUsMjMuMjQsNjMuOTJhMzIuNjQsMzIuNjQsMCwwLDAsNTMuNTIsMEM3My43MSw3NSw2My4zOSw4Mi41LDUwLDgyLjVaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTAsNTMuNzFhMy4xNywzLjE3LDAsMCwxLTMuMTYtMy4xNmgtNWE4LjE2LDguMTYsMCwwLDAsNS42Niw3Ljc2VjYzaDVWNTguMzFBOC4xNiw4LjE2LDAsMCwwLDUwLDQyLjM5YTMuMTYsMy4xNiwwLDEsMSwzLjE2LTMuMTVoNWE4LjE4LDguMTgsMCwwLDAtNS42Ni03Ljc3VjI2LjgzaC01djQuNjRBOC4xNiw4LjE2LDAsMCwwLDUwLDQ3LjM5YTMuMTYsMy4xNiwwLDAsMSwwLDYuMzJaIi8+PC9zdmc+" width="30" class="mr-3">我的帳務</a>
+                                </li>
+                                <li class="mb-3">
+                               		<a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
+<%--                                     <a href="<%=request.getContextPath()%>/front-end/lld/booking.jsp" class="basicInfo__menu__link"> --%>
+                                        <img src="<%=request.getContextPath()%>/images/infoIcon_rsv.png" width="30" class="mr-3">我的預約
+                                    </a>
+                                </li>
+                                <li class="mb-3">
+                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=gettntcontract" class="basicInfo__menu__link">
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" class="mr-3">我的合約</a>
+                                </li>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <!--end info list -->
-                    
                     <!--start shrink bar -->
                     <div class="shrink">
                         <div class="bg-white pt-5 pb-0 sticky-top h-100">
@@ -206,7 +222,7 @@
                             <div class="border-top w-50 mx-auto"></div>
                             <ul class="basicInfo__menu mt-4 shrink__list mb-0 pl-0">
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/front-end/lld/info.jsp" class="basicInfo__menu__link shrink__list-icon">
+                              		<a href="<%=request.getContextPath()%>/front-end/lld/info.jsp" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" height="30">
                                     </a>
                                 </li>
@@ -221,15 +237,21 @@
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_pocket.png" width="30" height="30">
                                     </a>
                                 </li>
+                                <li class="mb-3 w-100">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/bills.jsp" class="basicInfo__menu__link shrink__list-icon">
+                                        <img src="data:image/svg+xml;base64,PHN2ZyBpZD0i5ZyW5bGkXzEiIGRhdGEtbmFtZT0i5ZyW5bGkIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxkZWZzPjxzdHlsZT4uY2xzLTF7ZmlsbDojMmQyZDJkO308L3N0eWxlPjwvZGVmcz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04Mi42Myw0My4yOWEzMi42OCwzMi42OCwwLDAsMC02NS4yNiwwLDIuMzMsMi4zMywwLDAsMC0uMDYuNTNWNTdDMTcuMzEsNzQuMzcsMzEuMzcsODcuNSw1MCw4Ny41UzgyLjY5LDc0LjM3LDgyLjY5LDU3VjQzLjgyQTIuMzMsMi4zMywwLDAsMCw4Mi42Myw0My4yOVpNNTAsMTcuNUEyNy42OSwyNy42OSwwLDEsMSwyMi4zMSw0NS4xOSwyNy43MiwyNy43MiwwLDAsMSw1MCwxNy41Wm0wLDY1QzM2LjYxLDgyLjUsMjYuMjksNzUsMjMuMjQsNjMuOTJhMzIuNjQsMzIuNjQsMCwwLDAsNTMuNTIsMEM3My43MSw3NSw2My4zOSw4Mi41LDUwLDgyLjVaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTAsNTMuNzFhMy4xNywzLjE3LDAsMCwxLTMuMTYtMy4xNmgtNWE4LjE2LDguMTYsMCwwLDAsNS42Niw3Ljc2VjYzaDVWNTguMzFBOC4xNiw4LjE2LDAsMCwwLDUwLDQyLjM5YTMuMTYsMy4xNiwwLDEsMSwzLjE2LTMuMTVoNWE4LjE4LDguMTgsMCwwLDAtNS42Ni03Ljc3VjI2LjgzaC01djQuNjRBOC4xNiw4LjE2LDAsMCwwLDUwLDQ3LjM5YTMuMTYsMy4xNiwwLDAsMSwwLDYuMzJaIi8+PC9zdmc+" width="30" height="30">
+                                    </a>
+                                </li>
                                 
                                 <li class="mb-3 w-100">
-                                    <a href="" class="basicInfo__menu__link shrink__list-icon nuxt-link-exact-active nuxt-link-active">
+                               		<a href="" class="basicInfo__menu__link shrink__list-icon nuxt-link-exact-active nuxt-link-active">
+<%--                                     <a href="<%=request.getContextPath()%>/front-end/lld/booking.jsp" class="basicInfo__menu__link shrink__list-icon"> --%>
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_rsv.png" width="30" height="30">
                                     </a>
                                 </li>
                                 
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=getlldcontract" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=gettntcontract" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" height="30">
                                     </a>
                                 </li>
@@ -237,7 +259,6 @@
                        </div>
                     </div>
                     <!--end shrink bar -->
-                    
 
                             <!--Start form Profile-->
 <!--                             <div  class="bg-white info-form-wrap"> -->

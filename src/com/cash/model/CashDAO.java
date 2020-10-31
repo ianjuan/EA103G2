@@ -195,7 +195,7 @@ public class CashDAO implements CashDAO_interface {
 
 			// 指定自增主鍵
 			String cols[] = { "cash_no" };
-			pstmt = con.prepareStatement(INSERT_CASH_ALL_STMT);
+			pstmt = con.prepareStatement(INSERT_CASH_CON_STMT);
 
 			pstmt.setDate(1, cashVO.getCash_date());
 			pstmt.setString(2, cashVO.getMem_no());
@@ -252,12 +252,12 @@ public class CashDAO implements CashDAO_interface {
 	}
 	
 	// ===================================================================
-	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no FROM CASH where mem_no = ? order by cash_date";
-
-	
+	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no FROM CASH where mem_no = ? order by cash_date";
 
 	@Override
 	public List<CashVO> findByMemNo_Cashlogs(String mem_no) {
+		System.out.println(mem_no);
+		
 		List<CashVO> list = new ArrayList<CashVO>();
 		CashVO cashVO = null;
 
@@ -277,7 +277,7 @@ public class CashDAO implements CashDAO_interface {
 			while (rs.next()) {
 				// cashVO 也稱為 Domain objects
 				cashVO = new CashVO();
-				cashVO.setCash_inout(rs.getString("cash_no"));
+
 				cashVO.setCash_date(rs.getDate("cash_date"));
 				cashVO.setMem_no(rs.getString("mem_no"));
 				cashVO.setCash_inout(rs.getString("cash_inout"));
@@ -285,7 +285,6 @@ public class CashDAO implements CashDAO_interface {
 				cashVO.setCash_amount(rs.getInt("cash_amount"));
 				cashVO.setCon_no(rs.getString("con_no"));
 				cashVO.setRec_no(rs.getString("rec_no"));
-				System.out.println("dao"+cashVO);
 				list.add(cashVO);
 			}
 			con.commit();

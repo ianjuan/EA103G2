@@ -15,7 +15,7 @@
 	TntVO tntVO_vrf = tntSvc.getOneTntVrf(tnt_no, false);
 	int tnt_id_isupload = tntVO_vrf.getTnt_id_isupload();
 	int tnt_id_result = tntVO_vrf.getTnt_id_result();
-	String tnt_id_disapprove = (tnt_id_result==2)?tntVO_vrf.getTnt_id_disapprove():"not yet";
+	String tnt_id_disapprove = (tnt_id_result==2 && tntVO_vrf.getTnt_id_disapprove()!=null)?("原因為："+tntVO_vrf.getTnt_id_disapprove()):"";
 	request.setAttribute("tntVO_vrf", tntVO_vrf);
 %>
 
@@ -216,7 +216,7 @@
                                     <div class="txt-vrfPics-hint vrfstate" id="vrfstate0" >請上傳個人證件<br>通過審核後，您將可以簽訂合約。</div>
                                     <div class="txt-vrfPics-hint vrfstate" id="vrfstate1" >您的身分認證將於24小時內完成<br>通過審核後，您將可以簽訂合約。</div>
                                     <div class="txt-vrfPics-hint vrfstate" id="vrfstate2" >恭喜您已完成身分認證<br>您可以簽訂合約、線上繳費。</div>
-                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate3">您前次提交身分認證資訊，未能通過審核，<br>原因為：<%=tnt_id_disapprove%>。<br>請重新上傳證件以完成身分驗證。</div>
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate3">您前次提交身分認證資訊，未能通過審核，<br><%=tnt_id_disapprove%><br>請重新上傳證件以完成身分驗證。</div>
 				                    <hr style="margin: 25px 40px;">
                             </div>
                             <!--End form1 vrf hint- -->
@@ -299,11 +299,9 @@
 var tnt_id_isupload = <%=tnt_id_isupload%>;
 var tnt_id_result = <%=tnt_id_result%>;
 var tnt_id_disapprove = '<%=tnt_id_disapprove%>';
-console.log('tnt_id_isupload'+tnt_id_isupload);
-console.log('tnt_id_result'+tnt_id_result );
 
 if (tnt_id_isupload == 0){
-	if (tnt_id_result != 2){
+	if (tnt_id_result == 0){
 		$('#vrfstate0').show();
 		$('#vrfstate1').hide();
 		$('#vrfstate2').hide();
