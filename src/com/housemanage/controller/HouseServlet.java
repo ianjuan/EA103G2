@@ -247,8 +247,8 @@ public class HouseServlet extends HttpServlet {
 			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
 			
 			/*************************** 上架房屋成功通知 **********************/
-//			
-//			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "/front-end/house_manage/house_index.jsp");
+			
+			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "/front-end/house_manage/house_index.jsp");
 														
 			req.setAttribute("lld_no", lld_no);
 			req.setAttribute("lldInfo", lldInfo);
