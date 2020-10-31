@@ -1,8 +1,12 @@
- .btn-img {
-            background-image: "https://www.flaticon.com/svg/static/icons/svg/236/236831.svg";
-        }
-
-
+	.new-message{
+	z-index: 999;
+    bottom: 2px;
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background-color: red;	
+	
+	}
         .navbar-light .navbar-nav .nav-link {
             color: #393939 !important;
             font-weight: bold;

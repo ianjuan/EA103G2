@@ -14,7 +14,8 @@ private static JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = null;
 		jedis = pool.getResource();
 		jedis.auth("123456");
-		List<String> historyData = jedis.lrange(userNO, 0, -1);
+		List<String> historyData = jedis.lrange(userNO+":Notice", 0, -1);
+		System.out.println("Notice="+historyData);
 		jedis.close();
 		return historyData;
 	}
@@ -23,7 +24,7 @@ private static JedisPool pool = JedisPoolUtil.getJedisPool();
 		Jedis jedis = pool.getResource();
 		jedis.auth("123456");
 		
-		jedis.rpush(userNo, notify); //rpush新進來的資料就放在右邊(表示最新)
+		jedis.rpush(userNo+":Notice", notify); //rpush新進來的資料就放在右邊(表示最新)
 		
 		jedis.close();
 	}

@@ -30,7 +30,6 @@ public class NotifyServlet {
 	public void onOpen(@PathParam("userNo") String userNo, Session session) throws IOException {
 		sessionsMap.put(userNo, session);
 		List<String> historyData = NotifyDAO.getHistoryNotify(userNo);
-		System.out.println(historyData);
 		String historyStr = gson.toJson(historyData);
 		if (historyStr != null) {
 			if (session.isOpen()) {

@@ -19,7 +19,7 @@ import com.notify.controller.NotifyServlet;
  */
 public class GMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+       int i=0;//測試用
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,7 +43,9 @@ public class GMapServlet extends HttpServlet {
 		String house=request.getParameter("house");
 		if ("search".equals(request.getParameter("action"))) {
 			System.out.println("igotu"+request.getParameter("sort"));
-			new NotifyServlet().broadcast("TNT000002", "源源好可愛", "002", "url");
+			i++;//測試用
+			String word="這是第"+i+"個訊息";//測試用
+			new NotifyServlet().broadcast("TNT000001", word, "002", "url");//測試用
 			HousearchService gs= new HousearchService();
 
 			String data =gs.getMapfromSearchKey(city,town,searchbox,sort,money,house,request.getParameter("page")
