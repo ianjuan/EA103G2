@@ -128,7 +128,7 @@
 	  else if(ajax_select=="н╫зя"){
 		  ajax_url = "<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no="+ emp_no;
   		}
-  
+  		console.log(ajax_url);
     $.ajax({
       type: "GET",
       url: ajax_url,

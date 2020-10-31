@@ -29,6 +29,7 @@ import javax.websocket.server.ServerEndpoint;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.news.model.NewsVO;
+import com.notify.controller.NotifyServlet;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
@@ -277,12 +278,16 @@ public class EmployeeServlet extends HttpServlet {
 				//權限
 				String[] fun_no = req.getParameterValues("fun_no");
 				RightService rigSvc = new RightService();
+				List<RightVO> rig_default = rigSvc.getAll(emp_no);
 				rigSvc.delRig(emp_no);
 				if(fun_no!=null) {
 					for(int i =0;i<fun_no.length;i++) {
 						rigSvc.addRig(emp_no, fun_no[i]);
 					}
+					///第一個參數寫要推送的人 第二個寫標題 第三個寫內容 第四個寫URL
+					
 				}
+				new NotifyServlet().broadcast(emp_no,"權限變更","你的權限已經被管理員更改，某些功能可能無法使用！","backend");
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("employeeVO", empVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				//權限
