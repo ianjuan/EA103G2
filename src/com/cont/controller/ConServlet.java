@@ -706,6 +706,7 @@ public class ConServlet extends HttpServlet {
 				SimpleDateFormat formatWithDays = new SimpleDateFormat("yyyy-MM-dd");
 				Date con_chkdate = java.sql.Date.valueOf(formatWithDays.format(con_chkdatelong));
 
+				con_sta = 4; // 準備驗房
 				Integer con_comchkdate = 1; // 房東確認驗房時間
 				Integer con_chk_sta = 0;
 				Integer con_chr_fee = 0;
@@ -714,7 +715,7 @@ public class ConServlet extends HttpServlet {
 				Integer con_is_chr = 0;
 				Timer checkouttimer = new Timer();
 				checkouttimer.schedule(new CheckoutSchedule(hos_dep, con_dep_sta, con_chkdate, con_comchkdate,
-						con_chk_sta, con_chr_fee, con_chr_itm, con_chr_itm_name, con_no, con_is_chr), 100000);
+						con_chk_sta, con_chr_fee, con_chr_itm, con_chr_itm_name, con_no, con_sta, con_is_chr), 100000);
 				/***************************
 				 * 準備跳轉房東閱覽合約
 				 ****************************************/
@@ -857,6 +858,7 @@ public class ConServlet extends HttpServlet {
 					hos_dep = houseService.getHouseInfo(conVO.getHos_no()).getHos_rentfee();
 				}
 				Integer con_dep_sta = conVO.getCon_dep_sta();
+				Integer con_sta = 5;
 
 				Integer con_chr_fee = getReqNum(req, "con_chr_fee");
 
@@ -868,7 +870,7 @@ public class ConServlet extends HttpServlet {
 				}
 
 				conSvc.updatebeforecheckout(hos_dep, con_dep_sta, con_chkdate, con_comchkdate, con_chk_sta, con_chr_fee,
-						con_chr_itm, con_chr_itm_name, con_is_chr, con_no);
+						con_chr_itm, con_chr_itm_name, con_is_chr, con_sta, con_no);
 
 				List<ConVO> list = conSvc.lldgetcon(lld_no);
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/

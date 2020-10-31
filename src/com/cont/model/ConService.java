@@ -73,7 +73,7 @@ public class ConService {
 	}
 
 	public ConVO updatebeforecheckout(Integer hos_dep, Integer con_dep_sta, Date con_chkdate, Integer con_comchkdate, Integer con_chk_sta, Integer con_chr_fee,
-			String con_chr_itm, String con_chr_itm_name, Integer con_is_chr, String con_no) {
+			String con_chr_itm, String con_chr_itm_name, Integer con_is_chr, Integer con_sta, String con_no) {
 
 		ConVO conVO = new ConVO();
 
@@ -86,6 +86,7 @@ public class ConService {
 		conVO.setCon_chr_itm_name(con_chr_itm_name);
 		conVO.setCon_chr_itm(con_chr_itm);
 		conVO.setCon_is_chr(con_is_chr);
+		conVO.setCon_sta(con_sta);
 		conVO.setCon_no(con_no);
 		dao.beforecheckoutupdate(conVO);
 

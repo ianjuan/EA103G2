@@ -104,6 +104,16 @@
 							src="<%=request.getContextPath()%>/front-end/contract/images/checked.png"
 							class="pic" />
 						</c:if>
+						<c:if test="${conVO.con_sta == 4 || conVO.con_sta == 5}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/contract/images/lldcheckroom.png"
+							class="pic" />
+						</c:if>
+						<c:if test="${conVO.con_sta == 6}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/contract/images/tntleft.png"
+							class="pic" />
+						</c:if>
 					</div>
 					<div class="cinfo">
 						<ul>
@@ -128,7 +138,7 @@
 			     				</FORM>
 			     				
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
-								<c:if test="${conVO.con_sta == 0 || conVO.con_sta == 1}">
+								<c:if test="${conVO.con_sta == 1}">
 								<li><button id="btn1">簽署合約</button></li>
 								</c:if>
 								<input type="hidden" name="con_no"  value="${conVO.con_no}">
