@@ -78,7 +78,11 @@
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link">合約管理</button>
 					</FORM>
-					<button type="button" class="link">修繕管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					<button type="button" class="link">評價管理</button>
 					<span class="link" style="color: #D37707;">資訊修改</span>
 <%-- 					<span class="link" style="color: #265895;font-size:85%"><%=houseVO.getHos_no()%></span>					 --%>
@@ -231,6 +235,7 @@
 									<input type="button" value="全選" class="funbtn" onclick="checkfurAll()"><hr>
 									<ul class="item_outer">
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123346.svg">
 											<label class="item_name">桌子&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_table" value="1" id="desk" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_table() > 0) ? "checked" : ""%>>
@@ -239,6 +244,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123345.svg">
 											<label class="item_name">椅子&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_chair" value="1" id="chair" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_chair() > 0) ? "checked" : ""%>>
@@ -247,6 +253,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/premium-icon/icons/svg/3182/3182839.svg">
 											<label class="item_name">床&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_bed" value="1" id="bed" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_bed() > 0) ? "checked" : ""%>>
@@ -255,6 +262,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123363.svg">
 											<label class="item_name">衣櫃&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_closet" value="1" id="cabinet" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_closet() > 0) ? "checked" : ""%>>
@@ -263,6 +271,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123332.svg">
 											<label class="item_name">沙發&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_sofa" value="1" id="sofa" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_sofa() > 0) ? "checked" : ""%>>
@@ -278,6 +287,7 @@
 								<td>
 									<ul class="item_outer">
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/3004/3004029.svg">
 											<label class="item_name">冰箱&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_refrig" value="1" id="refri" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_refrig() > 0) ? "checked" : ""%>>
@@ -286,6 +296,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123326.svg">
 											<label class="item_name">電視&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_tv" value="1" id="TV" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_tv() > 0) ? "checked" : ""%>>
@@ -294,6 +305,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/premium-icon/icons/svg/2523/2523427.svg">
 											<label class="item_name">飲水機&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_drink" value="1" id="drink" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_drink() > 0) ? "checked" : ""%>>
@@ -302,6 +314,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/3004/3004706.svg">
 											<label class="item_name">冷氣&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_aircon" value="1" id="air" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_aircon() > 0) ? "checked" : ""%>>
@@ -310,6 +323,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123318.svg">
 											<label class="item_name">洗衣機&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_wash" value="1" id="wash" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_wash() > 0) ? "checked" : ""%>>
@@ -318,6 +332,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/premium-icon/icons/svg/2564/2564660.svg">
 											<label class="item_name">熱水器&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_hoter" value="1" id="hotwater" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_hoter() > 0) ? "checked" : ""%>>
@@ -333,6 +348,7 @@
 								<td>
 									<ul class="item_outer">
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123356.svg">
 											<label class="item_name">第四台&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_forth" value="1" id="fourth" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_forth() > 0) ? "checked" : ""%>>
@@ -341,6 +357,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/3094/3094464.svg">
 											<label class="item_name">網路&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_net" value="1" id="IE" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_net() > 0) ? "checked" : ""%> onclick="netfee()">
@@ -349,6 +366,7 @@
 											</label>
 										</li>
 										<li>
+											<img src="https://www.flaticon.com/svg/static/icons/svg/3144/3144733.svg">
 											<label class="item_name">天然瓦斯&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_gas" value="1" id="gas" class="onoffswitch-checkbox" tabindex="0" <%=(houseVO.getHos_gas() > 0) ? "checked" : ""%> onclick="gasfee()">
@@ -420,7 +438,7 @@
 							<tr>
 								<th>可遷入日:</th>
 								<td>
-									<input type="text" class="text1" placeholder="隨時" name="hos_mdate" value="<%=houseVO.getHos_mdate()%>" maxlength="60">
+									<input type="text" class="text1" name="hos_mdate" value="<%=houseVO.getHos_mdate()%>" maxlength="60">
 								</td>
 							</tr>
 							<tr>
@@ -436,9 +454,9 @@
 							<tr>
 								<th>車位:</th>
 								<td>
-									<label><input type="radio" id="park1" name="hos_park" value="無" <%=(houseVO.getHos_park().equals("無")) ? "checked" : ""%> onclick="parkfee()" required>無</label>
-									<label><input type="radio" name="hos_park" value="平面式" <%=(houseVO.getHos_park().equals("平面式")) ? "checked" : ""%> onclick="parkfee()" required>平面式</label>
-									<label><input type="radio" name="hos_park" value="機械式" <%=(houseVO.getHos_park().equals("機械式")) ? "checked" : ""%> onclick="parkfee()" required>機械式</label>
+									<label><input type="radio" name="hos_park" value="無" <%=(houseVO.getHos_park().equals("無")) ? "checked" : ""%> onclick="parkfee()" required>無</label>
+									<label><input type="radio" id="park1" name="hos_park" value="平面式" <%=(houseVO.getHos_park().equals("平面式")) ? "checked" : ""%> onclick="parkfee()" required>平面式</label>
+									<label><input type="radio" id="park2" name="hos_park" value="機械式" <%=(houseVO.getHos_park().equals("機械式")) ? "checked" : ""%> onclick="parkfee()" required>機械式</label>
 								</td>
 							</tr>
 							<tr>

@@ -89,7 +89,11 @@
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link">合約管理</button>
 					</FORM>
-					<button type="button" class="link">修繕管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					<button type="button" class="link">評價管理</button>					
 				</div>
 			</nav>

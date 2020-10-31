@@ -74,6 +74,12 @@ function notice2(){
 		if(isConfirm){
 			swal("已重置欄位!", "" , "success", {button: "確認"}).then(function(){
 				document.houseForm.reset();
+				del();
+				floatfee1();
+				floatfee2();
+				gasfee();
+				netfee();
+				parkfee();
 			});
 		} else {
 			return false;
@@ -105,7 +111,7 @@ function notice3(){
 				});
 			} else {
 				return false;
-			}	    				
+			}
 		});
 	}
 }
@@ -354,12 +360,16 @@ function floatfee1(){
 	if(watertype1.checked == true){
 		water1.disabled = false;
 		water2.disabled = true;
+		water2.value = "";
 	} else if(watertype2.checked == true){
 		water1.disabled = true;
 		water2.disabled = false;
-	} else if(watertype0.checked == true){
+		water1.value = "";
+	} else {
 		water1.disabled = true;
 		water2.disabled = true;
+		water1.value = "";
+		water2.value = "";
 	}
 }
 
@@ -373,12 +383,16 @@ function floatfee2(){
 	if(electtype1.checked == true){
 		elect1.disabled = false;
 		elect2.disabled = true;
+		elect2.value = "";
 	} else if(electtype2.checked == true){
 		elect1.disabled = true;
 		elect2.disabled = false;
-	} else if(electtype0.checked == true){
+		elect1.value = "";
+	} else {
 		elect1.disabled = true;
 		elect2.disabled = true;
+		elect1.value = "";
+		elect2.value = "";
 	}
 }
 
@@ -408,13 +422,14 @@ function netfee(){
 
 function parkfee(){
 	var park1 = document.getElementById("park1");
+	var park2 = document.getElementById("park2");
 	var parkfee = document.getElementById("parkfee1");
 	
-	if(park1.checked == true){
+	if(park1.checked == true || park2.checked == true){
+		parkfee.disabled = false;
+	} else {
 		parkfee.disabled = true;
 		parkfee.value = "";
-	} else {
-		parkfee.disabled = false;
 	}
 }
 
@@ -502,4 +517,51 @@ function imgShow(outerdiv, innerdiv, bigimg, _this){
     $(outerdiv).click(function(){//再次點選淡出消失彈出層  
         $(this).fadeOut("fast");  
     });  
+}
+
+function quickvalue(){
+	document.getElementById("hos_name").value = "中央大學資策會204教室";
+	document.getElementById("hos_liffun").value = "環境優美, 生活機能便利, 離'全家','漢堡王','露易莎'都很近!!";
+	document.getElementById("hos_trans").value = "公車班次多, 很方便! 可惜附近沒捷運, 可憐哪!";
+	document.getElementById("hos_add").value = "桃園市中壢區中大路300號工程二館(資策會大樓)";
+	document.getElementById("hos_pat").value = "一房一廳 衛浴二樓在整修 沒陽台";
+	document.getElementById("hos_floor").value = "2F";
+	document.getElementById("hos_pnum").value = 30;
+	document.getElementsByClassName("hos_type")[2].checked = true;
+	document.getElementsByClassName("hos_room")[1].checked = true;
+	
+	var fur = document.getElementsByClassName("onoffswitch-checkbox");
+	fur[0].checked = true;
+	fur[1].checked = true;
+	fur[5].checked = true;
+	fur[6].checked = true;
+	fur[7].checked = true;
+	fur[8].checked = true;
+	fur[11].checked = true;
+	fur[12].checked = true;
+	
+	document.getElementById("hos_rentfee").value = 12000;
+	document.getElementsByClassName("hos_waterfeetype")[1].checked = true;
+	document.getElementById("water2").disabled = false;
+	document.getElementById("water2").value = 500;
+	document.getElementsByClassName("hos_electfeetype")[0].checked = true;
+	document.getElementById("elect1").disabled = false;
+	document.getElementById("elect1").value = 5;
+	document.getElementById("hos_manafee1").value = 2000;
+	document.getElementById("netfee1").disabled = false;
+	document.getElementById("netfee1").value = 500;
+	document.getElementById("hos_puwaterfee1").value = 0;
+	document.getElementById("hos_puelefee1").value = 0;
+	document.getElementById("parkfee1").disabled = false;
+	document.getElementById("parkfee1").value = 2000;
+	
+	document.getElementById("hos_mdate").value = "隨時都行~ 要搶要快唷!";
+	document.getElementsByClassName("hos_mindate")[1].checked = true;
+	document.getElementsByClassName("hos_park")[1].checked = true;
+	document.getElementsByClassName("hos_sex")[0].checked = true;
+	document.getElementsByClassName("hos_iden")[1].checked = true;
+	document.getElementsByClassName("hos_cook")[0].checked = true;
+	document.getElementsByClassName("hos_pet")[1].checked = true;
+	document.getElementsByClassName("hos_smoke")[1].checked = true;
+	document.getElementsByClassName("hos_status")[0].checked = true;
 }

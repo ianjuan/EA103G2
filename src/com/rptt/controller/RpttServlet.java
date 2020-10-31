@@ -52,7 +52,7 @@ public class RpttServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/first_page.jsp";
+				String url = "/back-end/rptt/rptt_first_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				System.out.println("成功轉過去囉");
@@ -102,10 +102,10 @@ public class RpttServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("rpttVO", rpttVO);
-				String url = "/back-end/rptt/second_search_page.jsp";
+				String url = "/back-end/rptt/rptt_second_search_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("成功轉過去囉second_search_page");
+				System.out.println("成功轉過去囉rptt_second_search_page");
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 
@@ -229,10 +229,10 @@ public class RpttServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
-				String url = "/back-end/rptt/main_page.jsp";
+				String url = "/back-end/rptt/rptt_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rptt_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -261,7 +261,7 @@ public class RpttServlet extends HttpServlet {
 					RpttService rpttSvc = new RpttService();
 					List<RpttVO> rpttVO = rpttSvc.getRptt("0");
 					req.setAttribute("rpttVO", rpttVO);
-					String url = "/back-end/rptt/first_page.jsp";
+					String url = "/back-end/rptt/rptt_first_page.jsp";
 					RequestDispatcher FailView = req.getRequestDispatcher(url);
 					FailView.forward(req, res);
 					return;
@@ -281,10 +281,10 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("emp有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rptt/main_page.jsp";
+				String url = "/back-end/rptt/rptt_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rptt_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -320,10 +320,10 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("note有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rptt/main_page.jsp";
+				String url = "/back-end/rptt/rptt_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rptt_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -361,10 +361,10 @@ public class RpttServlet extends HttpServlet {
 				System.out.println("result有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rptt/main_page.jsp";
+				String url = "/back-end/rptt/rptt_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rptt_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -422,7 +422,7 @@ public class RpttServlet extends HttpServlet {
 				String url = "/back-end/member/tenant_search_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rptt_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -461,6 +461,7 @@ public class RpttServlet extends HttpServlet {
 		}
 
 // ------------------------------以下是驗證的control---------------------------------------------------------------------------------------------------------
+
 		if ("passVrf".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -729,7 +730,7 @@ public class RpttServlet extends HttpServlet {
 				TntVO tntVO = new TntVO();
 				TntService tntSvc = new TntService();
 				tntVO = tntSvc.updateTntAuth(tnt_no, tnt_reported_count, tnt_auth_chat, tnt_auth_res, tnt_auth_cmt,
-						tnt_auth_rpt,tnt_auth_live);
+						tnt_auth_rpt, tnt_auth_live);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				TntVO tntVO1 = new TntVO();
@@ -840,7 +841,6 @@ public class RpttServlet extends HttpServlet {
 			}
 
 		}
-
 	}
 
 }

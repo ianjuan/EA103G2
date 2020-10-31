@@ -463,9 +463,9 @@ public class RpthJNDIDAO implements RpthDAO_interface {
 		try {
 			con = ds.getConnection();
 
-			if (Number.startsWith("T")) {
+			if (Number.startsWith("H")) {
 				pstmt = con.prepareStatement(GET_HOS_STMT);
-			} else if (Number.startsWith("L")) {
+			} else if (Number.startsWith("T")) {
 				pstmt = con.prepareStatement(GET_TNT_STMT);
 			} else if (Number.startsWith("R")) {
 				pstmt = con.prepareStatement(GET_RPTH_STMT);
