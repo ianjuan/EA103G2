@@ -69,7 +69,7 @@
 						<span id="count">共<%=list.size()%>個合約</span>
 					</FORM>
 					
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="getTntRepair">
 						<button type="submit" class="link">修繕管理</button><br>
