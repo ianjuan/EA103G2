@@ -22,8 +22,8 @@
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-	
-<!-- 	Ian -->
+
+	<!-- Ian -->
 	<servlet>
 		<servlet-name>Con_aplServlet</servlet-name>
 		<servlet-class>com.apl.controller.Con_aplServlet</servlet-class>
@@ -32,7 +32,7 @@
 		<servlet-name>Con_aplServlet</servlet-name>
 		<url-pattern>/apl/Con_aplServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ConServlet</servlet-name>
 		<servlet-class>com.cont.controller.ConServlet</servlet-class>
@@ -41,7 +41,7 @@
 		<servlet-name>ConServlet</servlet-name>
 		<url-pattern>/cont/ConServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>RecServlet</servlet-name>
 		<servlet-class>com.rec.controller.RecServlet</servlet-class>
@@ -50,19 +50,19 @@
 		<servlet-name>RecServlet</servlet-name>
 		<url-pattern>/rec/RecServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ContractSingleImgReader</servlet-name>
 		<servlet-class>com.cont.controller.ContractSingleImgReader</servlet-class>
-	</servlet>	
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ContractSingleImgReader</servlet-name>
 		<url-pattern>/ContractSingleImgReader</url-pattern>
 	</servlet-mapping>
-	
-	
-<!-- 	YiJing -->
-		<servlet>
+
+
+	<!-- YiJing -->
+	<servlet>
 		<servlet-name>TntServlet</servlet-name>
 		<servlet-class>com.tnt.controller.TntServlet</servlet-class>
 	</servlet>
@@ -70,7 +70,7 @@
 		<servlet-name>TntServlet</servlet-name>
 		<url-pattern>/tnt/TntServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>TntServlet2</servlet-name>
 		<servlet-class>com.tnt.controller.TntServlet2</servlet-class>
@@ -79,8 +79,8 @@
 		<servlet-name>TntServlet2</servlet-name>
 		<url-pattern>/tnt/TntServlet2</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 	<servlet>
 		<servlet-name>LldServlet</servlet-name>
 		<servlet-class>com.lld.controller.LldServlet</servlet-class>
@@ -89,7 +89,7 @@
 		<servlet-name>LldServlet</servlet-name>
 		<url-pattern>/lld/LldServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>LldServlet2</servlet-name>
 		<servlet-class>com.lld.controller.LldServlet2</servlet-class>
@@ -103,22 +103,22 @@
 		<servlet-name>ImgReader</servlet-name>
 		<servlet-class>ImgReader</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>ImgReader</servlet-name>
 		<url-pattern>/ImgReader</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ImgReader_vrf</servlet-name>
 		<servlet-class>ImgReader_vrf</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>ImgReader_vrf</servlet-name>
 		<url-pattern>/ImgReader_vrf</url-pattern>
 	</servlet-mapping>
-	
+
 	<filter>
 		<filter-name>setCharacterEncoding</filter-name>
 		<filter-class>filters.SetCharacterEncodingFilter</filter-class>
@@ -145,9 +145,9 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-	
 
-<!-- 	Big Snake -->
+
+	<!-- Big Snake -->
 	<servlet>
 		<servlet-name>HouseServlet</servlet-name>
 		<servlet-class>com.housemanage.controller.HouseServlet</servlet-class>
@@ -156,7 +156,7 @@
 		<servlet-name>HouseServlet</servlet-name>
 		<url-pattern>/house_manage/HouseServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>HouseServlet_BE</servlet-name>
 		<servlet-class>com.housemanage.controller.HouseServlet_BE</servlet-class>
@@ -165,26 +165,26 @@
 		<servlet-name>HouseServlet_BE</servlet-name>
 		<url-pattern>/house_manage/HouseServlet_BE</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>HouseSingleImgReader</servlet-name>
 		<servlet-class>com.housemanage.controller.HouseSingleImgReader</servlet-class>
-	</servlet>	
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>HouseSingleImgReader</servlet-name>
 		<url-pattern>/HouseSingleImgReader</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>HouseImgReader</servlet-name>
 		<servlet-class>com.housemanage.controller.HouseImgReader</servlet-class>
-	</servlet>	
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>HouseImgReader</servlet-name>
 		<url-pattern>/HouseImgReader</url-pattern>
 	</servlet-mapping>
 
-<!-- 	Terry -->
+	<!-- Terry -->
 	<servlet>
 		<servlet-name>bookingServlet</servlet-name>
 		<servlet-class>com.booking.controller.bookingServlet</servlet-class>
@@ -231,59 +231,59 @@
 		<servlet-name>HouseDetServlet</servlet-name>
 		<url-pattern>/HouseDet/HouseDetServlet</url-pattern>
 	</servlet-mapping>
-	
-	<!-- 	<servlet-mapping> -->
-<!--        <servlet-name>default</servlet-name> -->
-<!--        <url-pattern>/resource/*</url-pattern> -->
-<!--    </servlet-mapping> -->
 
-<!-- chi -->
- 	<servlet>
-  		<servlet-name>RepairServlet</servlet-name>
-  		<servlet-class>com.repair.controller.RepairServlet</servlet-class>
- 	</servlet>
- 	<servlet-mapping>
+	<!-- <servlet-mapping> -->
+	<!-- <servlet-name>default</servlet-name> -->
+	<!-- <url-pattern>/resource/*</url-pattern> -->
+	<!-- </servlet-mapping> -->
+
+	<!-- chi -->
+	<servlet>
+		<servlet-name>RepairServlet</servlet-name>
+		<servlet-class>com.repair.controller.RepairServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
 		<servlet-name>RepairServlet</servlet-name>
 		<url-pattern>/repair/repair.servlet</url-pattern>
 	</servlet-mapping>
-	
-    <servlet>
-  		<servlet-name>Repair_pictureServlet</servlet-name>
-  		<servlet-class>com.repair.controller.Repair_pictureServlet</servlet-class>
- 	 </servlet>
-  	<servlet-mapping>
+
+	<servlet>
+		<servlet-name>Repair_pictureServlet</servlet-name>
+		<servlet-class>com.repair.controller.Repair_pictureServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
 		<servlet-name>Repair_pictureServlet</servlet-name>
 		<url-pattern>/repair/repair_picture.servlet</url-pattern>
 	</servlet-mapping>
-	
-   	<servlet>
-  		<servlet-name>HcmServlet</servlet-name>
-  		<servlet-class>com.house_comments.controller.House_commentsServlet</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
+
+	<servlet>
+		<servlet-name>HcmServlet</servlet-name>
+		<servlet-class>com.house_comments.controller.House_commentsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
 		<servlet-name>HcmServlet</servlet-name>
 		<url-pattern>/house_comments/house_comments.servlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
-  		<servlet-name>LcmServlet</servlet-name>
-  		<servlet-class>com.landlord_comments.controller.Landlord_commentsServlet</servlet-class>
-  	</servlet>
-  	<servlet-mapping>
+		<servlet-name>LcmServlet</servlet-name>
+		<servlet-class>com.landlord_comments.controller.Landlord_commentsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
 		<servlet-name>LcmServlet</servlet-name>
 		<url-pattern>/landlord_comments/landlord_comments.servlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
-  		<servlet-name>TcmServlet</servlet-name>
-  		<servlet-class>com.tenant_comments.controller.Tenant_commentsServlet</servlet-class>
-  	</servlet>
- 	<servlet-mapping>
+		<servlet-name>TcmServlet</servlet-name>
+		<servlet-class>com.tenant_comments.controller.Tenant_commentsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
 		<servlet-name>TcmServlet</servlet-name>
 		<url-pattern>/tenant_comments/tenant_comments.servlet</url-pattern>
 	</servlet-mapping>
-	
-<!-- 	Wayne -->
+
+	<!-- Wayne -->
 	<servlet>
 		<servlet-name>RpttServlet</servlet-name>
 		<servlet-class>com.rptt.controller.RpttServlet</servlet-class>
@@ -293,11 +293,20 @@
 		<url-pattern>/back-end/rptt/RpttServlet</url-pattern>
 		<url-pattern>/front-end/rptt/RpttServlet</url-pattern>
 		<url-pattern>/back-end/vrf/RpttServlet</url-pattern>
-			<url-pattern>/back-end/member/RpttServlet</url-pattern>
+		<url-pattern>/back-end/member/RpttServlet</url-pattern>
 	</servlet-mapping>
-	
-<!-- 	Melon -->
-<servlet>
+	<servlet>
+		<servlet-name>RpthServlet</servlet-name>
+		<servlet-class>com.rpth.controller.RpthServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RpthServlet</servlet-name>
+		<url-pattern>/back-end/rpth/RpthServlet</url-pattern>
+		<url-pattern>/front-end/rpth/RpthServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- Melon -->
+	<servlet>
 		<servlet-name>MailServiceBackEnd</servlet-name>
 		<servlet-class>tools.MailServiceBackEnd</servlet-class>
 	</servlet>
@@ -313,17 +322,17 @@
 		<servlet-name>EmployeeServlet</servlet-name>
 		<url-pattern>/back-end/emp/emp.do</url-pattern>
 	</servlet-mapping>
-<filter>
-    <filter-name>LoginFilterBackEnd</filter-name>
-    <filter-class>filters.LoginFilterBackEnd</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>LoginFilterBackEnd</filter-name>
-    <url-pattern>/back-end/emp/index.jsp</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
+	<filter>
+		<filter-name>LoginFilterBackEnd</filter-name>
+		<filter-class>filters.LoginFilterBackEnd</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilterBackEnd</filter-name>
+		<url-pattern>/back-end/emp/index.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 </web-app>

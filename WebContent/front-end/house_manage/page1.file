@@ -12,9 +12,9 @@
     rowNumber=list.size();
     if (rowNumber%rowsPerPage !=0)
          pageNumber=rowNumber/rowsPerPage + 1;
-    else pageNumber=rowNumber/rowsPerPage;    
+    else pageNumber=rowNumber/rowsPerPage;
 
-    pageIndexArray=new int[pageNumber]; 
+    pageIndexArray=new int[pageNumber];
     for (int i=1 ; i<=pageIndexArray.length ; i++)
          pageIndexArray[i-1]=i*rowsPerPage-rowsPerPage;
 %>
@@ -31,5 +31,5 @@
               whichPage=pageNumber;
               pageIndex=pageIndexArray[pageNumber-1];
          }
-    } 
-%>  
+    }
+%>

@@ -325,9 +325,14 @@ body {
 .item_name {
 	display: block;
 	float: left;
-	margin: 2px 20px;
+	margin: 2px 5px;
 	font-weight: bold;
 	line-height: normal;
+}
+.item_outer img {
+	width: 25px;
+	float: left;
+	margin-left: 5px;
 }
 .item_outer {
 	list-style: none;

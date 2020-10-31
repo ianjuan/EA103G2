@@ -283,6 +283,11 @@ body {
 	font-weight: bold;
 	line-height: normal;
 }
+.item_outer img {
+	width: 25px;
+	float: left;
+	margin-left: 5px;
+}
 .item_outer {
 	list-style: none;
 	padding-left: 0px;

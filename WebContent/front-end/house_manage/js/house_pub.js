@@ -520,30 +520,17 @@ function imgShow(outerdiv, innerdiv, bigimg, _this){
 }
 
 function quickvalue(){
-	var hos_type = document.getElementsByClassName("hos_type");
-	var hos_room = document.getElementsByClassName("hos_room");
-	var hos_waterfeetype = document.getElementsByClassName("hos_waterfeetype");
-	var hos_electfeetype = document.getElementsByClassName("hos_electfeetype");
-	var fur = document.getElementsByClassName("onoffswitch-checkbox");
-	var hos_mindate = document.getElementsByClassName("hos_mindate");
-	var hos_park = document.getElementsByClassName("hos_park");
-	var hos_sex = document.getElementsByClassName("hos_sex");
-	var hos_iden = document.getElementsByClassName("hos_iden");
-	var hos_cook = document.getElementsByClassName("hos_cook");
-	var hos_pet = document.getElementsByClassName("hos_pet");
-	var hos_smoke = document.getElementsByClassName("hos_smoke");
-	var hos_status = document.getElementsByClassName("hos_status");
-		
 	document.getElementById("hos_name").value = "中央大學資策會204教室";
 	document.getElementById("hos_liffun").value = "環境優美, 生活機能便利, 離'全家','漢堡王','露易莎'都很近!!";
-	document.getElementById("hos_trans").value = "公車班次多, 很方便! 可惜附記沒捷運, 可憐哪!";
+	document.getElementById("hos_trans").value = "公車班次多, 很方便! 可惜附近沒捷運, 可憐哪!";
 	document.getElementById("hos_add").value = "桃園市中壢區中大路300號工程二館(資策會大樓)";
 	document.getElementById("hos_pat").value = "一房一廳 衛浴二樓在整修 沒陽台";
 	document.getElementById("hos_floor").value = "2F";
 	document.getElementById("hos_pnum").value = 30;
-	hos_type[2].checked = true;
-	hos_room[1].checked = true;
+	document.getElementsByClassName("hos_type")[2].checked = true;
+	document.getElementsByClassName("hos_room")[1].checked = true;
 	
+	var fur = document.getElementsByClassName("onoffswitch-checkbox");
 	fur[0].checked = true;
 	fur[1].checked = true;
 	fur[5].checked = true;
@@ -553,11 +540,11 @@ function quickvalue(){
 	fur[11].checked = true;
 	fur[12].checked = true;
 	
-	document.getElementById("hos_rentfee").value = 120000;
-	hos_waterfeetype[1].checked = true;
+	document.getElementById("hos_rentfee").value = 12000;
+	document.getElementsByClassName("hos_waterfeetype")[1].checked = true;
 	document.getElementById("water2").disabled = false;
 	document.getElementById("water2").value = 500;
-	hos_electfeetype[0].checked = true;
+	document.getElementsByClassName("hos_electfeetype")[0].checked = true;
 	document.getElementById("elect1").disabled = false;
 	document.getElementById("elect1").value = 5;
 	document.getElementById("hos_manafee1").value = 2000;
@@ -569,12 +556,12 @@ function quickvalue(){
 	document.getElementById("parkfee1").value = 2000;
 	
 	document.getElementById("hos_mdate").value = "隨時都行~ 要搶要快唷!";
-	hos_mindate[1].checked = true;
-	hos_park[1].checked = true;
-	hos_sex[0].checked = true;
-	hos_iden[1].checked = true;
-	hos_cook[0].checked = true;
-	hos_pet[1].checked = true;
-	hos_smoke[1].checked = true;
-	hos_status[0].checked = true;
+	document.getElementsByClassName("hos_mindate")[1].checked = true;
+	document.getElementsByClassName("hos_park")[1].checked = true;
+	document.getElementsByClassName("hos_sex")[0].checked = true;
+	document.getElementsByClassName("hos_iden")[1].checked = true;
+	document.getElementsByClassName("hos_cook")[0].checked = true;
+	document.getElementsByClassName("hos_pet")[1].checked = true;
+	document.getElementsByClassName("hos_smoke")[1].checked = true;
+	document.getElementsByClassName("hos_status")[0].checked = true;
 }
