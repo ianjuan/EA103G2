@@ -159,8 +159,6 @@
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="action"	value="getOne_For_Update">
 			     				</FORM>
-			     				
-								<li><button id="btn4">聊天</button></li>
 								
 														
 							</ul>

@@ -157,7 +157,7 @@
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
-								<c:if test="${conVO.con_sta != 0 && conVO.con_sta != 1 && conVO.con_sta != 2}">
+								<c:if test="${conVO.con_sta == 3 || conVO.con_sta == 4}">
 								<li><button id="btn3">修繕申請</button></li>
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
@@ -166,7 +166,7 @@
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
-			     				<c:if test="${conSvc.getOneCon(conVO.con_no).con_comchkdate == 2}">
+			     				<c:if test="${conVO.con_sta == 5}">
 								<li><button id="btn4">準備退房</button></li>
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
