@@ -939,6 +939,89 @@ public class ConServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("tntcheckroom".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+
+				/*************************** 1.接收請求參數 ****************************************/
+				String con_no = new String(req.getParameter("con_no"));
+				String tnt_no = new String(req.getParameter("tnt_no"));
+				System.out.println(tnt_no);
+				System.out.println(con_no);
+				System.out.println("good");
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				ConService conSvc = new ConService();
+
+				RecService recService = new RecService();
+				List<RecVO> reclist = recService.getAllUpaidByCon(con_no);
+				for (RecVO recVO : reclist) {
+					Integer rec_water = recVO.getRec_water();
+					Integer rec_elec = recVO.getRec_elec();
+					String rec_no = recVO.getRec_no();
+					Integer rec_total = recVO.getRec_total();
+					Integer rec_sta = 2;
+					recService.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
+				}
+
+				HouseService houseService = new HouseService();
+				String hos_status = "已下架";
+				String hos_no = conSvc.getOneCon(con_no).getHos_no();
+				houseService.updateStatus(hos_status, hos_no);
+				
+				Integer con_sta = 6;
+				conSvc.updatesta(con_sta, con_no);
+				List<ConVO> list = conSvc.tntgetcon(tnt_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				HttpSession session = req.getSession();
+				req.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("list", list);
+				String url = "/front-end/contract/tntlistcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+
+		}
+		
+		if ("tntcheckback".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String con_no = new String(req.getParameter("con_no"));
+				String tnt_no = new String(req.getParameter("tnt_no"));
+				System.out.println(tnt_no);
+				System.out.println(con_no);
+				System.out.println("back");
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				ConService conSvc = new ConService();		
+				List<ConVO> list = conSvc.tntgetcon(tnt_no);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				HttpSession session = req.getSession();
+				req.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("list", list);
+				String url = "/front-end/contract/tntlistcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 		if ("createcontract".equals(action)) {
 

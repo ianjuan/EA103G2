@@ -35,7 +35,7 @@ public class RecDAO implements RecDAO_interface{
 	private static final String LLDUPDATE = "UPDATE RECURRING_ORDER SET REC_WATER = ?, REC_ELEC = ?, REC_STA = ?, REC_TOTAL = ? WHERE REC_NO = ?";
 	private static final String GET_ONE_REC_FRON_CON = "SELECT REC_NO, C.CON_NO, C.HOS_NO, REC_MON, REC_WATER, REC_ELEC, to_char(REC_TIME,'yyyy-mm-dd hh:mm:ss') REC_TIME, REC_STA, REC_TOTAL "
 			+ "FROM recurring_order R JOIN CONTRACT C ON R.CON_NO = C.CON_NO WHERE C.CON_NO = ? ORDER BY REC_NO DESC";
-	private static final String CHECKOUT_PAID = "SELECT REC_NO, REC_MON, REC_TOTAL FROM recurring_order WHERE REC_STA = 1 AND CON_NO = ?";
+	private static final String CHECKOUT_PAID = "SELECT REC_NO, REC_MON, REC_WATER, REC_ELEC, REC_STA, REC_TOTAL FROM recurring_order WHERE REC_STA = 1 AND CON_NO = ?";
 	
 	@Override
 	public void insert(RecVO recVO) {
@@ -443,6 +443,9 @@ public class RecDAO implements RecDAO_interface{
 				recVO = new RecVO();
 				recVO.setRec_no(rs.getString("REC_NO"));
 				recVO.setRec_mon(rs.getInt("REC_MON"));
+				recVO.setRec_elec(rs.getInt("REC_ELEC"));
+				recVO.setRec_water(rs.getInt("REC_WATER"));
+				recVO.setRec_sta(rs.getInt("REC_STA"));
 				recVO.setRec_total(rs.getInt("REC_TOTAL"));
 				list.add(recVO);
 			}

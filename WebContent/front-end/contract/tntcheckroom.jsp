@@ -42,11 +42,12 @@
 <title>驗房結果</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/checkroom.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/tntcheckout.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/checkroom.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -74,7 +75,7 @@
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
 					</FORM>
 					
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="getTntRepair">
 						<button type="submit" class="link">修繕管理</button><br>
@@ -173,22 +174,21 @@
 							
 						</table>
 					</div>
-				<input type="hidden" name="lld_no" value="<%=houseVO.getLld_no()%>">
+				<input type="hidden" name="tnt_no" value="<%=conVO.getTnt_no()%>">
 				<input type="hidden" name="con_no" value="<%=conVO.getCon_no()%>">
-				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
+				<input type="hidden" id="tnt_total" name="tnt_total" value="<%=checkouttotal%>">
+				<input type="hidden" id="tnt_balance" name="tnt_balance" value="<%=tntSvc.getOneTntPocket(tnt_no).getTnt_balance()%>">
 				<div id="cfoot">
-					<button class="btn" type="button" onclick="notice2()">全部重填</button>
-					<input type="hidden" name="action" value="lldcheckroom">
-					<button class="btn" type="button" onclick="notice1()">送出結果</button>					
+					<input type="hidden" name="action" value="tntcheckroom">
+					<button class="btn" type="button" onclick="checkmoney()">確定退房</button>					
 				</div>				
 			</div>
 			<div id="right">
 				<div id="rhead">
 				</div>
 				<div id="rfoot">
-					<button class="btn" type="button" onclick="notice2()">全部重填</button>
-					<input type="hidden" name="action" value="lldcheckroom">
-					<button class="btn" type="button" onclick="notice1()">送出結果</button>
+					<input type="hidden" name="action" value="tntcheckroom">
+					<button class="btn" type="button" onclick="checkmoney()">確定退房</button>
 				</div>
 			</div>
 		</form>
