@@ -15,7 +15,7 @@
 	LldVO lldVO_vrf = lldSvc.getOneLldVrf(lld_no, false);
 	int lld_id_isupload = lldVO_vrf.getLld_id_isupload();
 	int lld_id_result = lldVO_vrf.getLld_id_result();
-	String lld_id_disapprove = (lld_id_result==2)?lldVO_vrf.getLld_id_disapprove():"not yet";
+	String lld_id_disapprove = (lld_id_result==2 && lldVO_vrf.getLld_id_disapprove()!=null)?("原因為："+lldVO_vrf.getLld_id_disapprove()):"";
 	request.setAttribute("lldVO_vrf", lldVO_vrf);
 %>
 
@@ -216,7 +216,7 @@
                                     <div class="txt-vrfPics-hint vrfstate" id="vrfstate0" >請上傳個人證件<br>通過審核後，您將可以簽訂合約。</div>
                                     <div class="txt-vrfPics-hint vrfstate" id="vrfstate1" >您的身分認證將於24小時內完成<br>通過審核後，您將可以簽訂合約。</div>
                                     <div class="txt-vrfPics-hint vrfstate" id="vrfstate2" >恭喜您已完成身分認證<br>您可以簽訂合約、線上繳費。</div>
-                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate3">您前次提交身分認證資訊，未能通過審核，<br>原因為：<%=lld_id_disapprove%>。<br>請重新上傳證件以完成身分驗證。</div>
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate3">您前次提交身分認證資訊，未能通過審核，<br><%=lld_id_disapprove%><br>請重新上傳證件以完成身分驗證。</div>
 				                    <hr style="margin: 25px 40px;">
                             </div>
                             <!--End form1 vrf hint- -->
@@ -302,15 +302,15 @@ var lld_id_disapprove = '<%=lld_id_disapprove%>';
 console.log('lld_id_isupload'+lld_id_isupload);
 console.log('lld_id_result'+lld_id_result );
 
-if (tnt_id_isupload == 0){
-	if (tnt_id_result != 2){
+if (lld_id_isupload == 0){
+	if (lld_id_result == 0){
 		$('#vrfstate0').show();
 		$('#vrfstate1').hide();
 		$('#vrfstate2').hide();
 		$('#vrfstate3').hide();
 		$('#form-wrap-vrfpics').show();
 	}
-	if (tnt_id_result == 2){
+	if (lld_id_result == 2){
 		$('#form-wrap-vrfpics').show();
 		$('#vrfstate0').hide();
 		$('#vrfstate1').hide();
@@ -318,22 +318,22 @@ if (tnt_id_isupload == 0){
 		$('#vrfstate3').show();
 	}
 }
-if (tnt_id_isupload == 1){
-	if (tnt_id_result == 0){
+if (lld_id_isupload == 1){
+	if (lld_id_result == 0){
 		$('#form-wrap-vrfpics').hide();
 		$('#vrfstate0').hide();
 		$('#vrfstate1').show();
 		$('#vrfstate2').hide();
 		$('#vrfstate3').hide();
 	}
-	if (tnt_id_result == 1){
+	if (lld_id_result == 1){
 		$('#form-wrap-vrfpics').hide();
 		$('#vrfstate0').hide();
 		$('#vrfstate1').hide();
 		$('#vrfstate2').show();
 		$('#vrfstate3').hide();
 	}
-	if (tnt_id_result == 2){
+	if (lld_id_result == 2){
 		$('#form-wrap-vrfpics').show();
 		$('#vrfstate0').hide();
 		$('#vrfstate1').hide();

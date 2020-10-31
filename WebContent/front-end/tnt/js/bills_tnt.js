@@ -28,13 +28,6 @@
                     showValidate($(this));
                 }
             })
-            /*
-             * ================================================================== 
-             * [ Shrink Bar ]
-             */
-            
-            
-
 
         })(jQuery);
 
@@ -57,19 +50,7 @@
 
 
         $(document).ready(function() {
-            
-            //借放這裡 幫身分資料focus and blur
-            var inputs = $('form:eq(0) .validate-input .register100');
-            var selects = $('form:eq(0) select.wrap-register100');
-            for (var i = 0; i < inputs.length; i++) {
-                    $(inputs[i]).focus();
-                    $(inputs[i]).blur();
-            }
-            for (var i = 0; i < selects.length; i++) {
-                $(selects[i]).focus();
-                $(selects[i]).blur();
-            }
-            
+        	
             /*
              * ================================================================== 
              * [ Shrink]
@@ -90,7 +71,6 @@
             	$('.shrink').animate({left:'0px'},'fast');
 //            	$('#basicinfolist').hide();
 			});
-			
         });
  
      

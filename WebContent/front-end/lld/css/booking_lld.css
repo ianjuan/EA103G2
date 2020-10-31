@@ -7,14 +7,14 @@
         }
 
 /*         @media (max-width:1199.98px) { */
-        @media (max-width:2000px) {
+        @media (max-width:3000px) {
 /* 			@media { */
             .basicInfo__list {
                 position: fixed;
-                top: 54px;
+                top: 53px;
                 left: 0;
-                background: #fff;             
-                box-shadow: 0 2px 4px 0 rgba(145, 106, 60, .4);
+                background: #fff;
+                box-shadow: 0 2px 4px 0 rgba(45, 45, 45, .2);
                 z-index: 2;
                 width: 320px;
                 height: 100vh
@@ -814,8 +814,6 @@
                 opacity: 1;
             }
         }
-        
-
 
         /*===============select========================================
 [ select ]*/
@@ -859,8 +857,6 @@
         select.select-has-val {
             border: 1px solid #D7C8B6;
         }
-
-       
 
         /*------------------------------------------------------------------
 [ info_lld ]*/
