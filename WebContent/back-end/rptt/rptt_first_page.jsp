@@ -94,11 +94,11 @@ button.checkall {
 				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable">
 						<thead>
-							<tr>
+						<tr>
 								<th>檢舉編號</th>
 								<th>房客編號</th>
 								<th>房東編號</th>
-								<th width="10%">檢舉時間</th>
+								<th>檢舉時間</th>
 								<th>檢舉內容</th>
 								<th>員工編號</th>
 								<th>處理結果</th>
@@ -109,7 +109,7 @@ button.checkall {
 								<th>檢舉編號</th>
 								<th>房客編號</th>
 								<th>房東編號</th>
-								<th width="10%">檢舉時間</th>
+								<th>檢舉時間</th>
 								<th>檢舉內容</th>
 								<th>員工編號</th>
 								<th>處理結果</th>
@@ -126,7 +126,7 @@ button.checkall {
 								<td><%=rpttvo.getRptt_no()%></td>
 								<td><%=rpttvo.getTnt_no()%></td>
 								<td><%=rpttvo.getLld_no()%></td>
-								<td width="10%"><%=rpttvo.getRptt_time()%></td>
+								<td ><%=rpttvo.getRptt_time()%></td>
 								<td><%=rpttvo.getRptt_content()%></td>
 
 								<%

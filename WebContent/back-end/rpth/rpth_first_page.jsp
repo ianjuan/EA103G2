@@ -5,10 +5,7 @@
 <%@ page import="java.util.*"%>
 
 <%
-	RpthService rpthSvc = new RpthService();
-	List<RpthVO> rpthVO1 = rpthSvc.getRpth("0");
-	pageContext.setAttribute("rpthVO", rpthVO1);
-	List<RpthVO> rpthVO = (List<RpthVO>) pageContext.getAttribute("rpthVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
+	List<RpthVO> rpthVO = (List<RpthVO>) request.getAttribute("rpthVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
@@ -23,18 +20,6 @@
 <meta name="author" content="">
 
 <title>檢舉房屋</title>
-
-
-<!-- Custom fonts for this template -->
-
-
-<link
-	href="${pageContext.request.contextPath}/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css"
@@ -59,28 +44,13 @@ button.checkall {
 	text-align: center;
 	margin-right: 15px;
 }
-
-button.pass {
-	margin-top: 15px;
-	font-size: 16px;
-	font-weight: 600;
-	text-transform: uppercase;
-	padding: 15px 26px;
-	color: #FFF;
-	background-color: #FB6565;
-	border-radius: 4px;
-	border: 1px solid #FB6565;
-	text-align: center;
-	width: 100%;
-}
 </style>
-
 
 </head>
 
 <body id="page-top">
 
-	<!-- Begin Page Content -->
+	<!-- DataTales Example -->
 	<div class="container-fluid">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
@@ -102,7 +72,7 @@ button.pass {
 							</form>
 						</div>
 						<div class="float-right">
-							<a href="second_page.jsp">
+							<a href="rpth_second_page.jsp">
 								<button class="checkall">查看全部</button>
 							</a>
 						</div>
@@ -149,12 +119,16 @@ button.pass {
 							<%
 								for (RpthVO rpthvo : rpthVO) {
 							%>
+							<%
+								if (rpthvo.getRpth_result()==0) {
+							%>
 							<tr>
 								<td><%=rpthvo.getRpth_no()%></td>
 								<td><%=rpthvo.getHos_no()%></td>
 								<td><%=rpthvo.getTnt_no()%></td>
 								<td><%=rpthvo.getRpth_time()%></td>
 								<td><%=rpthvo.getRpth_content()%></td>
+
 								<%
 									if (rpthvo.getEmp_no() != null) {
 								%>
@@ -172,6 +146,7 @@ button.pass {
 								<%
 									}
 								%>
+
 								<%
 									if (rpthvo.getRpth_result() == 0) {
 								%>
@@ -183,6 +158,9 @@ button.pass {
 									}
 								%>
 							</tr>
+							<%
+								}
+							%>
 							<!-- Modal HTML -->
 							<div class="modal fade" id="<%=rpthvo.getRpth_no()%>"
 								tabindex="-1" role="dialog">
