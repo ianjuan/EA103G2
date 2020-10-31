@@ -540,7 +540,7 @@ function quickvalue(){
 	fur[11].checked = true;
 	fur[12].checked = true;
 	
-	document.getElementById("hos_rentfee").value = 120000;
+	document.getElementById("hos_rentfee").value = 12000;
 	document.getElementsByClassName("hos_waterfeetype")[1].checked = true;
 	document.getElementById("water2").disabled = false;
 	document.getElementById("water2").value = 500;
