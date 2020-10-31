@@ -37,7 +37,7 @@
 <!-- 			<a>您有新訊息</a> -->
 <!-- 			</div> -->
 <!-- 			<a>可愛的元元向您申請了預約看房</a> -->
-		</div>
+<!-- 		</div> -->
 		
 
 		
@@ -50,12 +50,18 @@
     width: 300px;
     height: 201px;
     background-color: #f4f4f4;
-	
+	color:black;
 	}
 .message-title{	    
-	background-color: yellow;
+/* 	background-color: yellow; */
     width: 100%;
     height: 100px;
+       border-style: groove;
+    margin-bottom: 5px;
+    }
+    .notify-title{
+        border-bottom: navy;
+    border-bottom-style: inherit;
     }
     .notify-group{   
      top: -1px;
@@ -107,7 +113,8 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                        "<span class='membername'><%= lldvolive ? lldVO.getLld_name():" " %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
-	                        "<a class='dropdown-item' href='#'>最新通知</a>"+
+	                    "<a class='dropdown-item'  role='button' id='Notify' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>最新通知</a>"+
+                		"<div class='dropdown-menu  notify-group' aria-labelledby='Notify'></div>"+
 	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/lld/info.jsp'>個人資訊</a>"+
 	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/lld/pocket.jsp'>我的錢包</a>"+
 	                        "<a class='dropdown-item' href='<%=request.getContextPath()%>/lld/LldServlet2?action=logout'>登出</a>"+       
@@ -143,9 +150,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
 	                    //btn btn-secondary  dropdown-toggle dropleft
 	                    "<a class='dropdown-item'  role='button' id='Notify' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>最新通知</a>"+
-	                    		"<div class='dropdown-menu  notify-group' aria-labelledby='Notify'>"+
-
-	                    		"</div>"+
+	                    		"<div class='dropdown-menu  notify-group' aria-labelledby='Notify'></div>"+
 	                    "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/info.jsp'>個人資訊</a>"+
 	                    "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/pocket.jsp'>我的錢包</a>"+
 	                    "<a class='dropdown-item' href='<%=request.getContextPath()%>/tnt/TntServlet2?action=logout'>登出</a>"+  
@@ -157,9 +162,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	            "</nav>"
 		)
 	}
-	$(".message-title").click(function(){
-	}
-	);
+
 	
 	var NotifyMyPoint = "/NotifyServlet/${user}";
 	var notifyHost = window.location.host;
@@ -186,9 +189,12 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 					count++
 					if(jsonObj.length-count<5){
 						var newtify=JSON.parse(value);
+						var herfs="href="+"https://www.judicial.gov.tw/tw/mp-1.html";
+						if (newtify.url!="")
+							 herfs="href="+newtify.url
 						$(".notify-group").prepend(
-    						"<a href='/EA103G2/front-end/tnt/info.jsp'style='color:#904E0E;text-decoration: none'>"+	//Style取消底線跟藍色底色
-    							"<div class='message-title' style='background-color:yellow;'>"+
+    						"<a class='notify-a-lebel' "+herfs+" style='color:#904E0E;text-decoration: none'>"+	//Style取消底線跟藍色底色
+    							"<div class='message-title'>"+
     								"<div class='notify-title'>"+newtify.title+"</div>"+
     								"<div class='notify-body'>"+newtify.content+"</div>"+
     							"</div>"+
@@ -199,15 +205,32 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 				});
 			}
 			if(jsonObj.title!=undefined){
+				var herfs="href="+"https://www.judicial.gov.tw/tw/mp-1.html";
+				if (jsonObj.url!="")
+					 herfs="href="+jsonObj.url
+					 
+				$('.notify-a-lebel:last').remove() 
+				$(".notify-group").prepend(
+						"<a class='notify-a-lebel'"+herfs+" style='color:#904E0E;text-decoration: none'>"+	//Style取消底線跟藍色底色
+							"<div class='message-title' >"+
+								"<div class='notify-title'>"+jsonObj.title+"</div>"+
+								"<div class='notify-body'>"+jsonObj.content+"</div>"+
+							"</div>"+
+						"</a>"
+					)
 				$(".new-message").remove();
 				$("#div-nav").after(
+						"<a class='new-message-a-lebel' "+herfs+">"+
+						"</a>"
+						);
+				$(".new-message-a-lebel").append(
 						"<div class='new-message'>"+
-						"<div class='message-title' style='background-color:yellow; '>"+
-						"<a>"+jsonObj.title+"</a>"+
-						"</div>"+
+							"<div class='message-title' style='background-color:yellow;'>"+
+									"<a>"+jsonObj.title+"</a>"+
+							"</div>"+
 						"<a>"+jsonObj.content+"</a>"+
 						"</div>"
-						)
+				);
 				$(".new-message").fadeIn(1000);
 				setTimeout(function(){
 					$(".new-message").fadeOut(1000)
