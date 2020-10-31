@@ -52,7 +52,7 @@ public class RpthServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("rpthVO", rpthVO);
-				String url = "/back-end/rpth/first_page.jsp";
+				String url = "/back-end/rpth/rpth_first_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				System.out.println("成功轉過去囉");
@@ -102,10 +102,10 @@ public class RpthServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("rpthVO", rpthVO);
-				String url = "/back-end/rpth/second_search_page.jsp";
+				String url = "/back-end/rpth/rpth_second_search_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("成功轉過去囉second_search_page");
+				System.out.println("成功轉過去囉rpth_second_search_page");
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 
@@ -229,10 +229,10 @@ public class RpthServlet extends HttpServlet {
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
-				String url = "/back-end/rpth/main_page.jsp";
+				String url = "/back-end/rpth/rpth_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rpth_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -261,7 +261,7 @@ public class RpthServlet extends HttpServlet {
 					RpthService rpthSvc = new RpthService();
 					List<RpthVO> rpthVO = rpthSvc.getRpth("0");
 					req.setAttribute("rpthVO", rpthVO);
-					String url = "/back-end/rpth/first_page.jsp";
+					String url = "/back-end/rpth/rpth_first_page.jsp";
 					RequestDispatcher FailView = req.getRequestDispatcher(url);
 					FailView.forward(req, res);
 					return;
@@ -281,10 +281,10 @@ public class RpthServlet extends HttpServlet {
 				System.out.println("emp有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rpth/main_page.jsp";
+				String url = "/back-end/rpth/rpth_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rpth_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -320,10 +320,10 @@ public class RpthServlet extends HttpServlet {
 				System.out.println("note有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rpth/main_page.jsp";
+				String url = "/back-end/rpth/rpth_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rpth_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -361,10 +361,10 @@ public class RpthServlet extends HttpServlet {
 				System.out.println("result有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rpth/main_page.jsp";
+				String url = "/back-end/rpth/rpth_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到main_page");
+				System.out.println("轉到rpth_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -377,8 +377,7 @@ public class RpthServlet extends HttpServlet {
 //		if ("pass".equals(action)) { // 來自addEmp.jsp的請求
 //
 //			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
+//		
 //			req.setAttribute("errorMsgs", errorMsgs);
 //
 //			try {
@@ -422,7 +421,7 @@ public class RpthServlet extends HttpServlet {
 //				String url = "/back-end/member/tenant_search_page.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url);
 //				successView.forward(req, res);
-//				System.out.println("轉到main_page");
+//				System.out.println("轉到rpth_main_page");
 //
 //				/*************************** 其他可能的錯誤處理 **********************************/
 //			} catch (Exception e) {
