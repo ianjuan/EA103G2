@@ -330,12 +330,20 @@
 											<tr>
 												<td>1</td>
 												<td>${cashVO.cash_date}</td>
-												<td>${cashVO.cash_type}<br><img src="<%=request.getContextPath()%>/images/cash_in_.png" width="50"></td>
+												<td>${cashVO.cash_type}<img src="<%=request.getContextPath()%>/images/cash_in_.png" width="50"></td>
 												<td>${cashVO.cash_amount}</td>
 												<td>完成</td>
 												<td>${cashVO.con_no}</td>
 											</tr>
 										</c:forEach>
+										<tr>
+												<td>1</td>
+												<td>${cashVO.cash_date}</td>
+												<td>${cashVO.cash_type}<img src="<%=request.getContextPath()%>/images/cash_in_.png" width="50"></td>
+												<td>-500</td>
+												<td>完成</td>
+												<td>${cashVO.con_no}</td>
+											</tr>
 							        </tbody>
 							    </table>
 
@@ -386,7 +394,14 @@
                     orderable: false,
                 }]
             });
+            
+            
+//             if ($('tr td:eq(3)').text()>0) {
+//     			$(this).css('color','#9e3e3e');
+//     		}
         });
+        
+        
     </script>
 </body>
 
