@@ -3,13 +3,12 @@
 <%@ page import="com.news.model.*"%>
 <%@ page import="com.emp.model.*"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.emp.model.*"%>
 <%
   EmployeeVO empVO = (EmployeeVO) request.getAttribute("employeeVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 <jsp:useBean id="funSvc" scope="page" class="com.fun.model.FunctionService" />
 <jsp:useBean id="empSvc1" scope="page" class="com.emp.model.EmployeeService" />
-
+<jsp:useBean id="rigSvc1" scope="page" class="com.rig.model.RightService" />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -249,9 +248,9 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="javascript:void(0)"> <i
+										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
-										</a> <a class="dropdown-item" href="#"> <i
+										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
 										</a> <a class="dropdown-item" href="#"> <i
 											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
@@ -311,10 +310,10 @@
 		<td>密碼:</td>
 		<td><input type="TEXT" name="emp_pwd" size="10" value="<%=empVO.getEmp_pwd()%>" /></td>
 	</tr>
-	<tr>
-		<td>職位:</td>
-		<td><input type="TEXT" name="emp_title" size="10"	value="<%=empVO.getEmp_title()%>" /></td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>職位:</td> -->
+		<input type="hidden" name="emp_title" size="10"	value="<%=empVO.getEmp_title()%>" />
+<!-- 	</tr> -->
 	<tr>
 		<td>姓名:</td>
 		<td><input type="TEXT" name="emp_name" size="10"	value="<%=empVO.getEmp_name()%>" /></td>
@@ -341,6 +340,10 @@
 		</td>
 	</tr>
 	<tr>
+
+<%-- 	<c:if test="${rigVO.fun_no =='A'}"> --%>
+	<c:forEach var="rigVO1" items="${rigSvc1.getAll(empVO.emp_no)}">
+	<c:if test="${rigVO1.fun_no == 'A' && empVO.emp_no!=employeeVO.emp_no}">
 	<td>權限：</td>
 	<td>
 	<c:forEach var="fun_list" items="${funSvc.all}">
@@ -353,7 +356,9 @@
 	</c:if>
 	</c:forEach>
 	</c:forEach>
-	</td>
+	</c:if>
+	</c:forEach>
+<!-- 	</td> -->
 	</tr>
 
 

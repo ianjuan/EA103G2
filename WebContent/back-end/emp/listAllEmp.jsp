@@ -251,9 +251,9 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="javascript:void(0)"> <i
+										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
-										</a> <a class="dropdown-item" href="#"> <i
+										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
 										</a> <a class="dropdown-item" href="#"> <i
 											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
@@ -334,13 +334,15 @@
 							src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMF9nq4kTIfW-uuGD9R0-wyLcPACsO3CHbag&usqp=CAU"
 							width="100px">
 					</c:if></td>
-				<td>
+					
+				<td><c:if test="${employeeVO.emp_title <= empVO.emp_title}">
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do">
 						<input type="submit" value="修改" class="btn btn-outline-primary">
 						<input type="hidden" name="emp_no" value="${employeeVO.emp_no}">
 						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
+					</c:if>
 				</td>
 				<td>
 					<FORM METHOD="post"

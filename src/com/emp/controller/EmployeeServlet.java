@@ -277,9 +277,12 @@ public class EmployeeServlet extends HttpServlet {
 				empVO = empSvc.updateEmp(emp_no, emp_acc, emp_pwd, emp_title, emp_name, emp_is_delete, emp_pic);
 				// 權限
 				String[] fun_no = req.getParameterValues("fun_no");
+//				System.out.println(fun_no);
 				StringBuilder sb = new StringBuilder();
 				RightService rigSvc = new RightService();
+				if(fun_no!=null) {
 				rigSvc.delRig(emp_no);
+				}
 				if (fun_no != null) {
 					for (int i = 0; i < fun_no.length; i++) {
 						rigSvc.addRig(emp_no, fun_no[i]);

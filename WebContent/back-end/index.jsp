@@ -240,9 +240,9 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="javascript:void(0)"> <i
+										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
-										</a> <a class="dropdown-item" href="#"> <i
+										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
 										</a> <a class="dropdown-item" href="#"> <i
 											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
@@ -320,9 +320,7 @@
 					</c:choose></div>
                         </div>
                         <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
+                         
                         </div>
                       </div>
                     </div>
