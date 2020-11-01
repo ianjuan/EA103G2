@@ -7,6 +7,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.rpth.model.*;
+import com.rptt.model.TntService;
+import com.rptt.model.TntVO;
 
 public class RpthServlet extends HttpServlet {
 
@@ -374,62 +376,61 @@ public class RpthServlet extends HttpServlet {
 			}
 		}
 
-//		if ("pass".equals(action)) { // 來自addEmp.jsp的請求
-//
-//			List<String> errorMsgs = new LinkedList<String>();
-//		
-//			req.setAttribute("errorMsgs", errorMsgs);
-//
-//			try {
-//				/*************************** 1.接收請求參數 ****************************************/
-//				String rpth_no = req.getParameter("rpth_no");
-//				System.out.println(rpth_no);
-//				Integer rpth_result = 1;
-//				System.out.println(rpth_result);
-//				String rpth_note = req.getParameter("rpth_note");
-//				System.out.println(rpth_note);
-//				String hos_no = req.getParameter("hos_no");
-//				System.out.println(hos_no);
-//
-//				/*************************** 2.開始查詢資料 ****************************************/
-//				RpthVO rpthVO1 = new RpthVO();
-////				rpthVO1.setRpth_no(rpth_no);
-////				rpthVO1.setRpth_result(rpth_result);
-////				rpthVO1.setRpth_note(rpth_note);
-////				System.out.println("裝入完畢");
-//
-//				RpthService rpthSvc = new RpthService();
-//				rpthVO1 = rpthSvc.fail(rpth_no, rpth_result, rpth_note);
-//				System.out.println("result有更新了");
-//				HosService hosSvc = new HosService();
-//				HosVO hosVO1 = hosSvc.getEmail(hos_no);
-//				String HosEmail = "xiyuan345@gmail.com";
-//				String HosName = hosVO1.getHos_name();
-//				String HosAcc = hosVO1.getHos_acc();
-//				String HosDissaprove = hosVO1.getHos_id_disapprove();
-//				Integer type = 1;
-//				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
-//				MailService mailservice = new MailService();
-//				System.out.println("準備藥檢舉成功了");
-//				mailservice.sendMail(HosEmail, HosName, HosAcc, HosDissaprove, EmailLink, type);
-//
-//				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-//				HosVO hosVO = new HosVO();
-//				HosService hosSvc1 = new HosService();
-//				hosVO = hosSvc1.getOneHosProfile(hos_no);
-//				req.setAttribute("HosVO", hosVO);
-//				String url = "/back-end/member/tenant_search_page.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);
-//				successView.forward(req, res);
-//				System.out.println("轉到rpth_main_page");
-//
-//				/*************************** 其他可能的錯誤處理 **********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-//				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
-//				failureView.forward(req, res);
-//			}
-//		}
+		if ("pass".equals(action)) { // 來自addEmp.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+		
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rpth_no = req.getParameter("rpth_no");
+				System.out.println(rpth_no);
+				Integer rpth_result = 1;
+				System.out.println(rpth_result);
+				String rpth_note = req.getParameter("rpth_note");
+				System.out.println(rpth_note);
+				String hos_no = req.getParameter("hos_no");
+				System.out.println(hos_no);
+
+				/*************************** 2.開始查詢資料 ****************************************/
+				RpthVO rpthVO1 = new RpthVO();
+//				rpthVO1.setRpth_no(rpth_no);
+//				rpthVO1.setRpth_result(rpth_result);
+//				rpthVO1.setRpth_note(rpth_note);
+//				System.out.println("裝入完畢");
+
+				RpthService rpthSvc = new RpthService();
+				rpthVO1 = rpthSvc.fail(rpth_no, rpth_result, rpth_note);
+				System.out.println("result有更新了");
+				
+				LldService lldSvc = new LldService();
+				LldVO lldVO1 = lldSvc.getEmail(hos_no);
+				String HosEmail = "xiyuan345@gmail.com";
+				String LldName = lldVO1.getLld_name();
+				String HosName = lldVO1.getLld_acc();
+				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
+				String lld_no= lldVO1.getLld_no();
+				MailService mailservice = new MailService();
+				mailservice.sendMail(HosEmail, LldName, HosName, EmailLink);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				TntVO tntVO1 = new TntVO();
+				TntService tntSvc1 = new TntService();
+				tntVO1 = tntSvc1.getOneLandlordProfile(lld_no);				
+				req.setAttribute("TntVO", tntVO1);
+				String url = "/back-end/member/landlord_search_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("轉到landlord_search_page");
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 

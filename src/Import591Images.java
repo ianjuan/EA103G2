@@ -33,7 +33,7 @@ public class Import591Images {
 		ArrayList<hospic> list = new ArrayList<hospic>();
 		try {
 			// 走訪所有資料夾下的所有檔案
-			Files.walk(Paths.get("C:/Users/user/Desktop/591"))
+			Files.walk(Paths.get("C:/Users/Big data/Desktop/591"))
 					// 只抓.jpg檔
 					.filter(p -> p.getFileName().toString().endsWith(".jpg")).forEach(f -> {
 						// 取得檔案路徑

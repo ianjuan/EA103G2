@@ -2,6 +2,7 @@ package com.rpth.model;
 
 import java.util.List;
 
+
 public interface RpthDAO_interface {
 
 	public void insert(RpthVO rpthVo);
@@ -14,5 +15,6 @@ public interface RpthDAO_interface {
     public RpthVO findByPrimaryKey(String rpth_no);
     public List<RpthVO> findByNo(String Number);
     public List<RpthVO> getAll();
+
 	 
 }

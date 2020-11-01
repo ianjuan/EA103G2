@@ -16,8 +16,7 @@ import javax.mail.internet.MimeUtility;
 public class MailService {
 
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
-	public boolean sendMail(String LldEmail, String LldName, String LldAcc, String LldDissaprove, String emailVrfLink,
-			Integer type) {
+	public boolean sendMail(String LldEmail, String LldName, String HosName,  String emailVrfLink) {
 
 		String color = "#0f868c";
 		String subject = null;
@@ -27,10 +26,10 @@ public class MailService {
 
 		// 設定信中的主旨
 		
-			subject = "通知 :帳號:" + LldAcc + " 檢舉成立";
+			subject = "通知 :您的房屋-『" + HosName + "』 的檢舉成立";
 			// 設定信中的內容
-			messageText = "因為您違反了愛租相關規定，以致被其他會員檢舉，並由調查後審核通過，確認檢舉成立。";
-			messageText1 = "因此將為您限縮在愛租網站上的部分權利，詳請可透過愛租線上客服了解並查詢，祝您一切平安!";
+			messageText = "因為您違反了愛租相關規定，以致被其他會員檢舉該房屋，並由愛租團隊調查後審核通過，確認檢舉成立。";
+			messageText1 = "因此將為您限縮在愛租網站上該房屋下架，詳請可透過愛租線上客服了解並查詢，祝您一切平安!";
 			btnword = "回到愛租首頁";
 
 		try {
