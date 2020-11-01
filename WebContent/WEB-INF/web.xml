@@ -347,7 +347,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilterBackEnd</filter-name>
-		<url-pattern>/back-end/emp/index.jsp</url-pattern>
+		<url-pattern>/back-end/index.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
