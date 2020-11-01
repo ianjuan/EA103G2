@@ -215,8 +215,6 @@ public class LldDAO implements LandlordDAO_interface {
 		return lldVO;
 	}
 
-	
-
 	@Override
 	public List<LldVO> getAll_profile() {
 		List<LldVO> list = new ArrayList<LldVO>();
@@ -295,7 +293,7 @@ public class LldDAO implements LandlordDAO_interface {
 		return null;
 	}
 
-	private static final String LANDLORD_GET_EMAIL ="SELECT R.RPTH_NO,L.LLD_NAME,L.LLD_EMAIL,H.LLD_NO,H.HOS_NAME FROM REPORT_HOUSE R JOIN HOUSE H ON ( H.HOS_NO=R.HOS_NO)JOIN LANDLORD L ON H.LLD_NO=L.LLD_NO WHERE R.HOS_NO=?";
+	private static final String LANDLORD_GET_EMAIL = "SELECT R.RPTH_NO,L.LLD_NAME,L.LLD_EMAIL,H.LLD_NO,H.HOS_NAME FROM REPORT_HOUSE R JOIN HOUSE H ON ( H.HOS_NO=R.HOS_NO)JOIN LANDLORD L ON H.LLD_NO=L.LLD_NO WHERE R.HOS_NO=?";
 
 	@Override
 	public LldVO findEmail(String hos_no) {
@@ -319,15 +317,15 @@ public class LldDAO implements LandlordDAO_interface {
 				lldVO.setLld_no(rs.getString("lld_no"));
 
 			}
-		    System.out.println("dao結束傳回去");
+			System.out.println("dao結束傳回去");
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
-			
+
 		} catch (Exception se) {
 			se.getMessage();
-			
-		}  finally {
+
+		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
@@ -352,11 +350,69 @@ public class LldDAO implements LandlordDAO_interface {
 		}
 
 		return lldVO;
-	
 
 	}
 	
-	
+	private static final String LANDLORD_GET_EMAIL_NORMAL = "SELECT LLD_NAME,LLD_EMAIL,LLD_NO,LLD_ACC FROM LANDLORD WHERE LLD_NO=?";
+
+	@Override
+	public LldVO findEmail_normal(String lld_no) {
+		LldVO lldVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			System.out.println("來到normal_dao email");
+
+			pstmt = con.prepareStatement(LANDLORD_GET_EMAIL_NORMAL);
+			pstmt.setString(1, lld_no);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				lldVO = new LldVO();
+				lldVO.setLld_name(rs.getString("lld_name"));
+				lldVO.setLld_email(rs.getString("lld_email"));
+				lldVO.setLld_acc(rs.getString("lld_acc"));
+				lldVO.setLld_no(rs.getString("lld_no"));
+
+			}
+			System.out.println("dao結束傳回去");
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
+		} catch (Exception se) {
+			se.getMessage();
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return lldVO;
+
+	}
+
 	@Override
 	public void update_auth(LldVO lldvo) {
 		// TODO Auto-generated method stub

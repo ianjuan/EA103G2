@@ -103,7 +103,7 @@
 									<td>${rpthVO.rpth_no}</td>
 									<td>${rpthVO.hos_no}</td>
 									<td>${rpthVO.tnt_no}</td>
-									<td >${rpthVO.rpth_time}</td>
+									<td>${rpthVO.rpth_time}</td>
 									<td>${rpthVO.emp_no}</td>
 									<c:choose>
 										<c:when test="${rpthVO.rpth_status==0}">
@@ -123,10 +123,11 @@
 												style="font-size: 15px; padding: 4x;">未通過</span></td>
 										</c:when>
 										<c:otherwise>
-											<td>審核中</td>
+											<td><span class="badge badge-pill badge-secondary"
+												style="font-size: 15px; padding: 4px;">審核中</span></td>
 										</c:otherwise>
 									</c:choose>
-									<td >${rpthVO.rpth_done_time}</td>
+									<td>${rpthVO.rpth_done_time}</td>
 									<td>
 										<button class="check" data-toggle="modal"
 											data-target="#${rpthVO.rpth_no}">查看詳情</button>

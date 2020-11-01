@@ -1,12 +1,11 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.rptt.model.*"%>
+<%@ page import="com.rpttc.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
-	TntService tntSvc = new TntService();
-	List<TntVO> list = tntSvc.getAllVrf(1, 2);
+	List<RpttcVO> list = (List<RpttcVO>) request.getAttribute("rpttcVO");
 	pageContext.setAttribute("list", list);
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
@@ -21,7 +20,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>驗證</title>
+<title>檢舉房客評價</title>
 
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css"
@@ -37,21 +36,18 @@
 	rel="stylesheet">
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/back-end/vrf/css//main_vrf_back.css"
+	href="${pageContext.request.contextPath}/back-end/rpttc/css/main_back.css"
 	type="text/css">
 <style>
-.toggle.ios, .toggle-on.ios, .toggle-off.ios {
-	border-radius: 20px;
-}
-
-.toggle.ios .toggle-handle {
-	border-radius: 20px;
-}
-
-.pic {
-	width: 420px;
-	height: 250px;
-	margin: 10px;
+button.checkall {
+	font-size: 15px;
+	font-weight: 600;
+	color: #8a97a0;
+	background-color: #fff;
+	border-radius: 2px;
+	border: 1px solid #8a97a0;
+	text-align: center;
+	margin-right:15px;
 }
 </style>
 
@@ -59,27 +55,32 @@
 </head>
 
 <body id="page-top">
-
 	<!-- DataTales Example -->
 	<div class="container-fluid">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<div class="row">
-					<div class="col">
-						<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
+					<div class="col-md">
+						<h4 class="m-0 font-weight-bold text-primary">檢舉房客評價</h4>
 					</div>
+
 					<div class="col-md">
 						<div class="float-right">
-							<form METHOD="post" ACTION="RpttServlet">
+							<form METHOD="post" ACTION="RpttcServlet">
 								<h4>
-									搜尋: <input type="text" size="39" name="Number"
-										placeholder="會員編號/姓名/信箱/手機/身分證字號/員工編號 "> <input
-										type="hidden" name="action" value="get_want_vrf"> <input
+									搜尋: <input type="text" size="27" name="Number"
+										placeholder="輸入檢舉/ 評價/ 房客/ 員工編號"> <input type="hidden"
+										name="action" value="get_want_all_display"> <input
 										type="submit"
 										style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 										tabindex="-1" />
 								</h4>
 							</form>
+						</div>
+						<div class="float-right">
+							<a href="rpttc_second_page.jsp">
+								<button class="checkall">查看全部</button>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -99,76 +100,82 @@
 					<table class="table table-bordered" id="dataTable">
 						<thead>
 							<tr>
-								<th>會員編號</th>
-								<th>會員姓名</th>
-								<th>會員生日</th>
-								<th>會員手機</th>
-								<th>會員信箱</th>
-								<th>上傳時間</th>
-								<th>驗證結果</th>
-								<th>詳情瀏覽</th>
+								<th>檢舉編號</th>
+								<th>房客評價編號</th>
+								<th>房客編號</th>
+								<th>檢舉時間</th>
+								<th>員工編號</th>
+								<th>處理狀態</th>
+								<th>處理結果</th>
+								<th>檢舉完成時間</th>
+								<th>內容註記</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>會員編號</th>
-								<th>會員姓名</th>
-								<th>會員生日</th>
-								<th>會員手機</th>
-								<th>會員信箱</th>
-								<th>上傳時間</th>
-								<th>驗證結果</th>
-								<th>詳情瀏覽</th>
+								<th>檢舉編號</th>
+								<th>房客評價編號</th>
+								<th>房客編號</th>
+								<th>檢舉時間</th>
+								<th>員工編號</th>
+								<th>處理狀態</th>
+								<th>處理結果</th>
+								<th>檢舉完成時間</th>
+								<th>內容註記</th>
 							</tr>
 						</tfoot>
 						<tbody>
 							<%@ include file="page1.file"%>
-							<c:forEach var="tntVO" items="${list}" begin="<%=pageIndex%>"
+							<c:forEach var="rpttcVO" items="${list}" begin="<%=pageIndex%>"
 								end="<%=pageIndex+rowsPerPage-1%>">
 								<tr>
-									<td>${tntVO.tnt_no}</td>
-									<td>${tntVO.tnt_name}</td>
-									<td>${tntVO.tnt_birth}</td>
-									<td>${tntVO.tnt_mobile}</td>
-									<td>${tntVO.tnt_email}</td>
-									<td>${tntVO.tnt_id_uploadtime}</td>
+									<td>${rpttcVO.rpttc_no}</td>
+									<td>${rpttcVO.tcm_no}</td>
+									<td>${rpttcVO.tnt_no}</td>
+									<td >${rpttcVO.rpttc_time}</td>
+									<td>${rpttcVO.emp_no}</td>
 									<c:choose>
-										<c:when test="${tntVO.tnt_id_result==1}">
-											<td><span class="badge badge-pill badge-success"
-												style="font-size: 15px; padding: 4px;">通過</span></td>
-										</c:when>
-										<c:when test="${tntVO.tnt_id_result==2}">
-											<td><span class="badge badge-pill badge-danger"
-												style="font-size: 15px; padding: 4x;">不通過</span></td>
+										<c:when test="${rpttcVO.rpttc_status==0}">
+											<td>未處理</td>
 										</c:when>
 										<c:otherwise>
-											<td>審核中</td>
+											<td>已處理</td>
 										</c:otherwise>
 									</c:choose>
+									<c:choose>
+										<c:when test="${rpttcVO.rpttc_result==1}">
+											<td><span class="badge badge-pill badge-success"
+												style="font-size: 15px; padding: 4px;"> 通過</span></td>
+										</c:when>
+										<c:when test="${rpttcVO.rpttc_result==2}">
+											<td><span class="badge badge-pill badge-danger"
+												style="font-size: 15px; padding: 4x;">未通過</span></td>
+										</c:when>
+										<c:otherwise>
+											<td><span class="badge badge-pill badge-secondary"
+										style="font-size: 15px; padding: 4px;">審核中</span></td>
+										</c:otherwise>
+									</c:choose>
+									<td >${rpttcVO.rpttc_done_time}</td>
 									<td>
 										<button class="check" data-toggle="modal"
-											data-target="#${tntVO.tnt_no}">查看詳情</button>
+											data-target="#${rpttcVO.rpttc_no}">查看詳情</button>
 									</td>
 								</tr>
-								<div class="modal fade" id="${tntVO.tnt_no}" tabindex="-1"
+								<div class="modal fade" id="${rpttcVO.rpttc_no}" tabindex="-1"
 									role="dialog">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
 												<div class="modal-body">
-													<img
-														src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=front"
-														class="pic" /> <img
-														src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=back"
-														class="pic" /> <img
-														src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=second"
-														class="pic" /><br> <br>
-													<div style="margin: 0; outline: 0; color: #8a97a0;">
-														<label for="name">驗證員工:</label> ${tntVO.emp_no} <br>
-														<label for="name">驗證時間:</label> ${tntVO.tnt_id_vrftime} <br>
-														<label for="name">退件原因:</label> ${tntVO.tnt_id_disapprove}
-														<br>
-													</div>
+													<form action="RpttcServlet" method="post">
+														<label for="reason">檢舉原因:</label>
+														<textarea class="reason" name="rpttc_content" readonly>${rpttcVO.rpttc_content}</textarea>
+														<div class="form-group">
+															<label for="note">結果註記:</label>
+															<textarea id="note" name="rpttc_note" readonly>${rpttcVO.rpttc_note}</textarea>
+														</div>
+													</form>
 												</div>
 											</div>
 										</div>
@@ -182,6 +189,8 @@
 			</div>
 		</div>
 	</div>
+
+
 
 	<!-- Bootstrap core JavaScript-->
 	<script

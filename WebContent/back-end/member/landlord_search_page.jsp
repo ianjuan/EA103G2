@@ -260,6 +260,65 @@ input:checked+.slider:before {
 						</tr>
 						</tbody>
 					</table>
+                    <br>
+                    <table class="table table-bordered" id="dataTable">
+
+						<tbody>
+						<thead>
+							<tr>
+								<th>評價與驗證</th>
+								<td style="border: 0"><button class="alter">修改</button></td>
+
+							</tr>
+						</thead>
+						<tr>
+							<th class="colum1" width="5%">評論星數總和</th>
+							<td width="15%">${tntVO.tnt_cmt_starsum}</td>
+							<th class="colum1" width="5%">總評論數</th>
+							<td width="15%">${tntVO.tnt_cmt_count}</td>
+							<th class="colum1" width="5%">上傳狀態</th>
+							<c:choose>
+								<c:when test="${tntVO.tnt_id_isupload==0}">
+									<td>未上傳</td>
+								</c:when>
+								<c:when test="${tntVO.tnt_id_isupload==1}">
+									<td>已上傳</td>
+								</c:when>
+								<c:otherwise>
+									<td>錯誤，請檢查資料庫</td>
+								</c:otherwise>
+							</c:choose>
+							<th class="colum1" width="5%">證件上傳時間</th>
+							<td width="15%">${tntVO.tnt_id_uploadtime}</td>
+						</tr>
+						<tr>
+							<th class="colum1" width="5%">驗證員工編號</th>
+							<td width="15%">${tntVO.emp_no}</td>
+							<th class="colum1" width="5%">驗證結果</th>
+							<c:choose>
+								<c:when test="${tntVO.tnt_id_result==0}">
+									<td><span class="badge badge-pill badge-secondary"
+										style="font-size: 15px; padding: 4px;">未審核</span></td>
+								</c:when>
+								<c:when test="${tntVO.tnt_id_result==1}">
+									<td><span class="badge badge-pill badge-success"
+										style="font-size: 15px; padding: 4px;">通過</span></td>
+								</c:when>
+								<c:when test="${tntVO.tnt_id_result==2}">
+									<td><span class="badge badge-pill badge-danger"
+										style="font-size: 15px; padding: 4x;">不通過</span></td>
+								</c:when>
+								<c:otherwise>
+									<td>錯誤，請檢查資料庫</td>
+								</c:otherwise>
+							</c:choose>
+							<th class="colum1" width="5%">退件原因</th>
+							<td width="15%">${tntVO.tnt_id_disapprove}</td>
+							<th class="colum1" width="5%">驗證完成時間</th>
+							<td width="15%">${tntVO.tnt_id_vrftime}</td>
+						</tr>
+						</tbody>
+					</table>
 					<br>
 					<table class="table table-bordered" id="dataTable">
 

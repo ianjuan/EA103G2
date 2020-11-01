@@ -68,10 +68,7 @@ public class Tenant_commentsService {
 	public List<Tenant_commentsVO> getAllbyLld_tnt(String tnt_no, String lld_no) {
 		return dao.lld_getAllTntTcm(tnt_no, lld_no);
 	}
-	
-	
-	
-	
+		
 
 	
 }

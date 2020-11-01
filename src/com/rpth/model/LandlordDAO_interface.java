@@ -12,6 +12,7 @@ public interface LandlordDAO_interface {
 	public LldVO findByPK_pic(String lld_no);
 	public List<LldVO> findByNo(String number);
 	public LldVO findEmail(String lld_no);
+	public LldVO findEmail_normal(String lld_no);
     public void update_auth(LldVO lldvo);
 
 
