@@ -47,32 +47,15 @@
 					<div class="line line--3"></div>
 				</div>
 				<div class="nav-links">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldAllHouse">
-						<button type="submit" class="link" style="color: #D37707;">首頁</button>
-					</FORM>					
+					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp" class="link" style="color: #D37707;">首頁</a>
 					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
 					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldRentHouse">
-						<button type="submit" class="link">已租房屋</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldUnRentHouse">
-						<button type="submit" class="link">待租房屋</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldOffHouse">
-						<button type="submit" class="link">下架房屋</button>
-					</FORM>
+					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_rent.jsp" class="link">已租房屋</a>
+					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_unrent.jsp" class="link">待租房屋</a>
+					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_off.jsp" class="link">下架房屋</a>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
@@ -122,11 +105,7 @@
 					</label>										
 				</div>
 				<div class="rinfo">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldRentHouse">
-						<button type="submit" class="link">查看清單</button>
-					</FORM>
+					<button type="button" class="link"><a href="<%=request.getContextPath()%>/front-end/house_manage/house_rent.jsp">查看清單</a></button>
 				</div>
 			</div>
 			<div class="houseinfo">
@@ -142,11 +121,7 @@
 					</label>
 				</div>
 				<div class="rinfo">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldUnRentHouse">
-						<button type="submit" class="link">查看清單</button>
-					</FORM>
+					<button type="button" class="link"><a href="<%=request.getContextPath()%>/front-end/house_manage/house_unrent.jsp">查看清單</a></button>
 				</div>
 			</div>
 			<div class="houseinfo">
@@ -162,11 +137,7 @@
 					</label>				
 				</div>
 				<div class="rinfo">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldOffHouse">
-						<button type="submit" class="link">查看清單</button>
-					</FORM>
+					<button type="button" class="link"><a href="<%=request.getContextPath()%>/front-end/house_manage/house_off.jsp">查看清單</a></button>
 				</div>
 			</div>
 			<div class="houseinfo">
