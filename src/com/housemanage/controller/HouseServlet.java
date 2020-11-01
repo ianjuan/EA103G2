@@ -23,69 +23,8 @@ public class HouseServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		if ("getLldAllHouse".equals(action)) {
-			String lld_no = new String(req.getParameter("lld_no"));
-			HttpSession session = req.getSession();
-			session.setAttribute("lld_no", lld_no);
-			String url = "/front-end/house_manage/house_index.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
-		
-		if ("getLldRentHouse".equals(action)) {
-			String lld_no = new String(req.getParameter("lld_no"));
-
-			HouseService houseSvc = new HouseService();
-			List<HouseVO> houseVOrent = houseSvc.getLldRentHouse(lld_no);
-			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
-
-			req.setAttribute("houseVOrent", houseVOrent);
-			req.setAttribute("lld_no", lld_no);
-			req.setAttribute("lldInfo", lldInfo);
-			String url = "/front-end/house_manage/house_rent.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
-
-		if ("getLldUnRentHouse".equals(action)) {
-			String lld_no = new String(req.getParameter("lld_no"));
-
-			HouseService houseSvc = new HouseService();
-			List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
-			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
-			
-			req.setAttribute("houseVOunrent", houseVOunrent);
-			req.setAttribute("lld_no", lld_no);
-			req.setAttribute("lldInfo", lldInfo);
-			String url = "/front-end/house_manage/house_unrent.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
-		
-		if ("getLldOffHouse".equals(action)) {
-			String lld_no = new String(req.getParameter("lld_no"));
-
-			HouseService houseSvc = new HouseService();
-			List<HouseVO> houseVOoff = houseSvc.getLldOffHouse(lld_no);
-			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
-			
-			req.setAttribute("houseVOoff", houseVOoff);
-			req.setAttribute("lld_no", lld_no);
-			req.setAttribute("lldInfo", lldInfo);
-			String url = "/front-end/house_manage/house_off.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
-
 		if ("getLldPub".equals(action)) {
-			String lld_no = new String(req.getParameter("lld_no"));
 			Integer lld_balance = new Integer(req.getParameter("lld_balance"));
-			
-			HouseService houseSvc = new HouseService();
-			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
-			
-			req.setAttribute("lld_no", lld_no);
-			req.setAttribute("lldInfo", lldInfo);
 			
 			String url = null;
 			if(lld_balance < 1000) {
@@ -99,23 +38,18 @@ public class HouseServlet extends HttpServlet {
 		}
 
 		if ("getHouseInfo".equals(action)) {
-//			String requestURL = req.getParameter("requestURL");
 			String hos_no = new String(req.getParameter("hos_no"));
-			String lld_no = new String(req.getParameter("lld_no"));
 
 			HouseService houseSvc = new HouseService();
 			HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
 			HouseVO houseVOwaterfee = houseSvc.getHouseWaterfee(hos_no);
 			HouseVO houseVOelectfee = houseSvc.getHouseElectfee(hos_no);
 			List<HouseVO> houseVOpicno = houseSvc.getLldHousePic(hos_no);
-			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 
 			req.setAttribute("houseVO", houseVO);
 			req.setAttribute("houseVOwaterfee", houseVOwaterfee);
 			req.setAttribute("houseVOelectfee", houseVOelectfee);
 			req.setAttribute("houseVOpicno", houseVOpicno);
-			req.setAttribute("lld_no", lld_no);
-			req.setAttribute("lldInfo", lldInfo);
 			String url = "/front-end/house_manage/house_modify.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
@@ -227,7 +161,7 @@ public class HouseServlet extends HttpServlet {
 			
 			/*************************** 電子錢包金額 **********************/
 			
-			Integer lld_balance = getReqNum(req, "lld_balance");
+			Integer lld_balance = getReqNum(req, "lld_balance") - 1000;
 
 			/*************************** 傳入參數 **********************/
 
@@ -238,7 +172,6 @@ public class HouseServlet extends HttpServlet {
 					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
 					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
 					hos_bro, hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, lld_balance);
-			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 			
 			/*************************** 電子錢包紀錄 **********************/
 			
@@ -249,9 +182,6 @@ public class HouseServlet extends HttpServlet {
 			/*************************** 上架房屋成功通知 **********************/
 			
 			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "/front-end/house_manage/house_index.jsp");
-														
-			req.setAttribute("lld_no", lld_no);
-			req.setAttribute("lldInfo", lldInfo);
 
 			String url;
 			if (hos_status.equals("待出租")) {
@@ -376,6 +306,19 @@ public class HouseServlet extends HttpServlet {
 			/*************************** 要刪除的照片編號 **********************/
 			
 			String[] pic_no = req.getParameterValues("pic_no");
+			
+			/*************************** 判斷是否重新上架 **********************/
+			
+			Integer differday = getReqNum(req, "differday");
+			Integer lld_balance;
+			
+			if(differday > 3 && hos_status.equals("待出租")) {
+				lld_balance = getReqNum(req, "lld_balance") - 800;
+			} else {
+				lld_balance = getReqNum(req, "lld_balance");
+			}
+			
+			System.out.println(lld_balance);
 
 			/*************************** 傳入參數 **********************/
 
@@ -386,11 +329,8 @@ public class HouseServlet extends HttpServlet {
 					hos_closet, hos_sofa, hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth,
 					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
 					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
-					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no, hos_no);
-			HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
-			
-			req.setAttribute("lld_no", lld_no);
-			req.setAttribute("lldInfo", lldInfo);
+					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no,
+					lld_balance, lld_no, hos_no);
 
 			String url = requestURL;
 			if (hos_status.equals("出租中")) {

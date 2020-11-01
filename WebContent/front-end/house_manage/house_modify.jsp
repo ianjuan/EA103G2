@@ -9,8 +9,10 @@
 	HouseVO houseVOelectfee = (HouseVO) request.getAttribute("houseVOelectfee");
 	List<HouseVO> piclist = (List<HouseVO>) request.getAttribute("houseVOpicno");
 	pageContext.setAttribute("piclist", piclist);	
-	String lld_no = (String) request.getAttribute("lld_no");
-	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
+	
+	String lld_no = (String) session.getAttribute("lld_no");
+	HouseService houseSvc = new HouseService();
+	HouseVO lldInfo = houseSvc.getLldInfo(lld_no);
 %>
 
 <!DOCTYPE html>
@@ -42,32 +44,15 @@
 					<div class="line line--3"></div>
 				</div>
 				<div class="nav-links">
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldAllHouse">
-						<button type="submit" class="link">首頁</button>
-					</FORM>
+					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp" class="link">首頁</a>
 					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
 					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldRentHouse">
-						<button type="submit" class="link">已租房屋</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldUnRentHouse">
-						<button type="submit" class="link">待租房屋</button>
-					</FORM>					
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldOffHouse">
-						<button type="submit" class="link">下架房屋</button>
-					</FORM>					
+					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_rent.jsp" class="link">已租房屋</a>
+					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_unrent.jsp" class="link">待租房屋</a>
+					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_off.jsp" class="link">下架房屋</a>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
@@ -500,15 +485,18 @@
 							<tr>
 								<th>*出租狀態:</th>
 								<td>
-									<label><input type="radio" name="hos_status" value="待出租" <%=(houseVO.getHos_status().equals("待出租")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>待出租</label>
-									<label><input type="radio" name="hos_status" value="已下架" <%=(houseVO.getHos_status().equals("已下架")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>下架</label>
-									<label><input type="hidden" name="hos_status" value="出租中" <%=(houseVO.getHos_status().equals("出租中")) ? "checked" : ""%> required></label>
+									<label><input type="radio" class="hos_status" name="hos_status" value="待出租" <%=(houseVO.getHos_status().equals("待出租")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>待出租</label>
+									<label><input type="radio" class="hos_status" name="hos_status" value="已下架" <%=(houseVO.getHos_status().equals("已下架")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>下架</label>
+									<label><input type="hidden" class="hos_status" name="hos_status" value="出租中" <%=(houseVO.getHos_status().equals("出租中")) ? "checked" : ""%> required></label>
 								</td>
 							</tr>
 						</table>
 					</div>			        				
 				</div>
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
+				<input type="hidden" id="hos_date" name="hos_date" value="<%=houseVO.getHos_date()%>">
+				<input type="hidden" id="differday" name="differday" value="">
+				<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 				<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>">
 				<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">

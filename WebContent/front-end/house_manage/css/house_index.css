@@ -172,7 +172,7 @@ body {
     box-sizing: border-box;
 }
 
-.rinfo button{
+.rinfo .link{
     background-color: #F0E145;
     width: 60%;
     height: auto;           
@@ -185,12 +185,16 @@ body {
     outline: none;
     box-shadow: 2px 2px 6px silver;
 }
-.rinfo button:hover {
+.rinfo .link:hover {
     background-color: #F1FAB0;
 }
-.rinfo button:active {
+.rinfo .link:active {
     background-color: #E2D120;
     transform: translateY(5px);
+}
+.rinfo .link a{
+    text-decoration: none;
+    color: black;
 }
 .pic {
     width: 95%;

@@ -80,6 +80,7 @@ function notice2(){
 				gasfee();
 				netfee();
 				parkfee();
+				document.getElementById("logo").style.display = "none";
 			});
 		} else {
 			return false;
@@ -102,17 +103,35 @@ function notice3(){
 	} else if(pic + pic1 < 5){
 		swal("目前才" + (pic + pic1) + "圖片欸...", "請再上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "確認"});
 	} else {
-		swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
-		     Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
-		   }}).then(function(isConfirm){
-			if(isConfirm){
-				swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
-					document.houseForm.submit();
+		document.getElementById("differday").setAttribute("value", differday());
+		if(differday() > 3 && document.getElementsByClassName("hos_status")[0].checked == true){
+			swal("上架時間已過期, 重新上架要800元!", "距離上次上架已經過了"+differday()+"天", "warning", {button: "確認"}).then(function(){
+				swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
+				     Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+				   }}).then(function(isConfirm){
+					if(isConfirm){
+						swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
+							document.houseForm.submit();
+						});
+					} else {
+						return false;
+					}
 				});
-			} else {
-				return false;
-			}
-		});
+			});
+		} else{
+			document.getElementById("differday").setAttribute("value", 0);
+			swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
+			     Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+			   }}).then(function(isConfirm){
+				if(isConfirm){
+					swal("更新成功!!", "", "success", {button: "確認"}).then(function(){
+						document.houseForm.submit();
+					});
+				} else {
+					return false;
+				}
+			});
+		}
 	}
 }
 
@@ -564,4 +583,73 @@ function quickvalue(){
 	document.getElementsByClassName("hos_pet")[1].checked = true;
 	document.getElementsByClassName("hos_smoke")[1].checked = true;
 	document.getElementsByClassName("hos_status")[0].checked = true;
+}
+
+function magic(){
+	if(document.getElementById("hos_name").value == "izu"){
+		document.getElementById("logo").style.display = "block";
+	} else {
+		document.getElementById("logo").style.display = "none";
+	}
+}
+
+function differday(){
+	var date = new Date();
+	var now = [date.getFullYear(),date.getMonth()+1,date.getDate()];
+    var flag1 = now[0]%4==0 && now[0]%100!=0 || now[0]%400==0;
+    var day_count1 = [31, flag1?29:28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    
+    var hos_date = document.getElementById("hos_date").value.split("-");
+    var flag2 = hos_date[0]%4==0 && hos_date[0]%100!=0 || hos_date[0]%400==0;
+    var day_count2 = [31, flag2?29:28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    
+    var sum1 = 0;
+    var sum2 = 0;
+    var sum3 = 0;
+    
+    if(now[0] == hos_date[0]){
+    	if(now[1] == 1) sum1 = now[2];
+    	else{
+    		for(var i=0; i<now[1]-1; i++) sum1 += day_count1[i];
+    		sum1 = sum1 + now[2];
+    	}
+    	if(hos_date[1] == 1)sum2 = hos_date[2];
+    	else{
+    		for(var i=0; i<hos_date[1]-1; i++) sum2 += parseInt(day_count2[i]);
+    		sum2 = sum2 + parseInt(hos_date[2]);
+    	}
+    	console.log(sum1);
+    	console.log(sum2);
+    	return sum1 - sum2;
+    } else if(now[0] > hos_date[0]){
+    	if(now[0] - hos_date[0] > 1){
+    		if(now[1] == 1) sum1 = now[2];
+        	else{
+        		for(var i=0; i<now[1]-1; i++) sum1 += day_count1[i];
+        		sum1 = sum1 + now[2];
+        	}
+    		if(hos_date[1] == 1)sum2 = hos_date[2];
+        	else{
+        		for(var i=0; i<hos_date[1]-1; i++) sum2 += parseInt(day_count2[i]);
+        		sum2 = sum2 + parseInt(hos_date[2]);
+        	}
+    		for(var i=parseInt(hos_date[0])+1; i<now[0]; i++){
+    			var flag3 = i%4==0 && i%100!=0 || i%400==0;
+    			sum3 += flag3?366:365;
+    		}
+    		return (flag2?366:365 - sum2) + sum3 + sum1;
+    	} else {
+    		if(now[1] == 1) sum1 = now[2];
+        	else{
+        		for(var i=0; i<now[1]-1; i++) sum1 += day_count1[i];
+        		sum1 = sum1 + now[2];
+        	}
+        	if(hos_date[1] == 1)sum2 = hos_date[2];
+        	else{
+        		for(var i=0; i<hos_date[1]-1; i++) sum2 += parseInt(day_count2[i]);
+        		sum2 = sum2 + parseInt(hos_date[2]);
+        	}
+        	return (flag2?366:365 - sum2) + sum1;
+    	}
+    } else return 0;	
 }

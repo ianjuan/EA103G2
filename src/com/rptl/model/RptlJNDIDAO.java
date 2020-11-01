@@ -16,6 +16,7 @@ import com.rptl.model.RptlDAO_interface;
 import com.rptl.model.RptlVO;
 
 public class RptlJNDIDAO implements RptlDAO_interface {
+
 	private static DataSource ds = null;
 	static {
 
@@ -33,10 +34,14 @@ public class RptlJNDIDAO implements RptlDAO_interface {
 	private static final String DELETE = "DELETE FROM REPORT_LANDLORD WHERE RPTL_NO=?";
 	private static final String GET_RPTL_STMT = "SELECT RPTL_NO,LLD_NO,TNT_NO,RPTL_TIME,RPTL_CONTENT,EMP_NO,RPTL_DONE_TIME,RPTL_STATUS,RPTL_RESULT,RPTL_NOTE FROM REPORT_LANDLORD WHERE RPTL_NO=? ";
 	private static final String GET_ALL_STMT = "SELECT RPTL_NO,LLD_NO,TNT_NO,RPTL_TIME,RPTL_CONTENT,EMP_NO,RPTL_DONE_TIME,RPTL_STATUS,RPTL_RESULT,RPTL_NOTE FROM REPORT_LANDLORD ORDER BY RPTL_NO";
-	private static final String GET_TNT_STMT = "SELECT RPTL_NO,LLD_NO,TNT_NO,RPTL_TIME,RPTL_CONTENT,EMP_NO,RPTL_DONE_TIME,RPTL_STATUS,RPTL_RESULT,RPTL_NOTE FROM REPORT_LANDLORD WHERE TNT_NO=? ";
 	private static final String GET_LLD_STMT = "SELECT RPTL_NO,LLD_NO,TNT_NO,RPTL_TIME,RPTL_CONTENT,EMP_NO,RPTL_DONE_TIME,RPTL_STATUS,RPTL_RESULT,RPTL_NOTE FROM REPORT_LANDLORD WHERE LLD_NO=? ";
+	private static final String GET_TNT_STMT = "SELECT RPTL_NO,LLD_NO,TNT_NO,RPTL_TIME,RPTL_CONTENT,EMP_NO,RPTL_DONE_TIME,RPTL_STATUS,RPTL_RESULT,RPTL_NOTE FROM REPORT_LANDLORD WHERE TNT_NO=? ";
 	private static final String GET_EMP_STMT = "SELECT RPTL_NO,LLD_NO,TNT_NO,RPTL_TIME,RPTL_CONTENT,EMP_NO,RPTL_DONE_TIME,RPTL_STATUS,RPTL_RESULT,RPTL_NOTE FROM REPORT_LANDLORD WHERE EMP_NO=? ";
-	private static final String GET_STATUS_STMT = "SELECT RPTL_NO,LLD_NO,TNT_NO,RPTL_TIME,RPTL_CONTENT,EMP_NO,RPTL_DONE_TIME,RPTL_STATUS,RPTL_RESULT,RPTL_NOTE FROM REPORT_LANDLORD WHERE RPTL_STATUS=? ";
+	private static final String GET_RESULT_STMT = "SELECT RPTL_NO,LLD_NO,TNT_NO,RPTL_TIME,RPTL_CONTENT,EMP_NO,RPTL_DONE_TIME,RPTL_STATUS,RPTL_RESULT,RPTL_NOTE FROM REPORT_LANDLORD WHERE RPTL_RESULT=? ";
+	private static final String UPDATE_EMP = "UPDATE REPORT_LANDLORD SET EMP_NO=?,RPTL_STATUS=? WHERE RPTL_NO=? ";
+	private static final String ASSIGN_EMP = "UPDATE REPORT_LANDLORD SET EMP_NO=?,RPTL_NOTE=? WHERE RPTL_NO=? ";
+	private static final String SAVE_NOTE = "UPDATE REPORT_LANDLORD SET RPTL_NOTE=? WHERE RPTL_NO=? ";
+	private static final String FAIL_STMT = "UPDATE REPORT_LANDLORD SET RPTL_RESULT=?,RPTL_NOTE=? WHERE RPTL_NO=? ";
 
 	@Override
 	public void insert(RptlVO rptlVO) {
@@ -124,6 +129,161 @@ public class RptlJNDIDAO implements RptlDAO_interface {
 
 	}
 
+	public void updateEmp(RptlVO rptlVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_EMP);
+
+			pstmt.setString(1, rptlVO.getEmp_no());
+			pstmt.setInt(2, rptlVO.getRptl_status());
+			pstmt.setString(3, rptlVO.getRptl_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void assignEmp(RptlVO rptlVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(ASSIGN_EMP);
+
+			pstmt.setString(1, rptlVO.getEmp_no());
+			pstmt.setString(2, rptlVO.getRptl_note());
+			pstmt.setString(3, rptlVO.getRptl_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void fail(RptlVO rptlVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FAIL_STMT);
+
+			pstmt.setInt(1, rptlVO.getRptl_result());
+			pstmt.setString(2, rptlVO.getRptl_note());
+			pstmt.setString(3, rptlVO.getRptl_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+
+	public void saveNote(RptlVO rptlVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SAVE_NOTE);
+
+		
+			pstmt.setString(1, rptlVO.getRptl_note());
+			pstmt.setString(2, rptlVO.getRptl_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
 	@Override
 	public void delete(String rptl_no) {
 
@@ -302,15 +462,18 @@ public class RptlJNDIDAO implements RptlDAO_interface {
 
 		try {
 			con = ds.getConnection();
-
-			if (Number.startsWith("T")) {
-				pstmt = con.prepareStatement(GET_TNT_STMT);
-			} else if (Number.startsWith("L")) {
+            System.out.println("近來多筆查詢");
+            System.out.println(Number);
+			if (Number.startsWith("L")) {
 				pstmt = con.prepareStatement(GET_LLD_STMT);
+			} else if (Number.startsWith("T")) {
+				pstmt = con.prepareStatement(GET_TNT_STMT);
+			} else if (Number.startsWith("R")) {
+				pstmt = con.prepareStatement(GET_RPTL_STMT);
 			} else if (Number.startsWith("E")) {
 				pstmt = con.prepareStatement(GET_EMP_STMT);
-			} else if (Number.equals("0")||Number.equals("1")) {
-				pstmt = con.prepareStatement(GET_STATUS_STMT);
+			} else if (Number.equals("0") || Number.equals("1")) {
+				pstmt = con.prepareStatement(GET_RESULT_STMT);
 			} else {
 				System.out.println("wrong sql");
 			}
@@ -368,4 +531,5 @@ public class RptlJNDIDAO implements RptlDAO_interface {
 
 		return list;
 	}
+
 }

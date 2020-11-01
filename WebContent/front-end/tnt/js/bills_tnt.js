@@ -56,7 +56,6 @@
              * [ Shrink]
              */
             $('.text-primary:eq(1)').click(function(){  
-//        		$('#basicinfolist').show();
             	$('.shrink').animate({left:'-72px'},'fast',function(){
             		$('.basicInfo__list-backIcon').css('text-align','right');
             	});
@@ -69,8 +68,10 @@
             	});
             	$('.shrink').fadeIn('fast');
             	$('.shrink').animate({left:'0px'},'fast');
-//            	$('#basicinfolist').hide();
 			});
+			
+			
+			
         });
  
      
@@ -117,20 +118,6 @@
         $('.angleUpDown').each(function(index, element) {
             $(this).click(function() {
                 var infoformwrap = $(this).closest('div');
-                //              infoformwrap.children('form').toggle();  //form toggle
-                ////                 $(this).closest('div').children('form').toggle();  
-                //                 var angleDown = '.angleDown:eq(' + index + ')';  //angleDownUP toggle
-                //                 var angleUp = '.angleUp:eq(' + index + ')';
-                //                 $(angleDown).toggle();
-                //                 $(angleUp).toggle();
-                //                 
-                //                 if(infoformwrap.css('padding-bottom')==='48px'){ //padding-bottom toggle
-                //                  pbtmp = '10px';
-                //                 }else{
-                //                    pbtmp = '48px';
-                //                 }
-                //                 infoformwrap.css('padding-bottom',pbtmp);
-                //                 infoformwrap.children('div.container-login100-form-btn').toggle(); //btn toggle
                 togglethefrom(infoformwrap, index);
             });
         });
@@ -169,10 +156,3 @@
 
         });
 
-
-        /*
-         * ================================================================== 
-         *    [ 按鈕Ajax infoProfile ]
-         */
-
-      

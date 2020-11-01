@@ -72,7 +72,7 @@
 						<div class="float-right">
 							<form METHOD="post" ACTION="RpttServlet">
 								<h4>
-									搜尋: <input type="text" size="36" name="Number"
+									搜尋: <input type="text" size="39" name="Number"
 										placeholder="會員編號/姓名/信箱/手機/身分證字號/員工編號 "> <input
 										type="hidden" name="action" value="get_want_vrf"> <input
 										type="submit"

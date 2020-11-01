@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.cash.model.CashVO;
+import com.tnt.model.TntVO;
 
 public class CashDAO implements CashDAO_interface {
 
@@ -23,12 +24,12 @@ public class CashDAO implements CashDAO_interface {
 		}
 	}
 	// ===================================================================
-	private static final String INSERT_CASH_ALL_STMT = "INSERT INTO CASH (CASH_NO, CASH_DATE, MEM_NO, CASH_INOUT, CASH_TYPE, CASH_AMOUNT, CON_NO, REC_NO)"
-			+ "VALUES ('CASH' || lpad(SEQ_CASH_NO.NEXTVAL, 6, '0'),?,?,?,?,?,?,?)";
-	private static final String INSERT_CASH_STMT = "INSERT INTO CASH (CASH_NO, CASH_DATE, MEM_NO, CASH_INOUT, CASH_TYPE, CASH_AMOUNT)"
-			+ "VALUES ('CASH' || lpad(SEQ_CASH_NO.NEXTVAL, 6, '0'),?,?,?,?,?)";
-	private static final String INSERT_CASH_CON_STMT = "INSERT INTO CASH (CASH_NO, CASH_DATE, MEM_NO, CASH_INOUT, CASH_TYPE, CASH_AMOUNT, CON_NO)"
+	private static final String INSERT_CASH_ALL_STMT = "INSERT INTO CASH (CASH_NO, CASH_DATE, MEM_NO, CASH_INOUT, CASH_TYPE, CASH_AMOUNT, CON_NO, REC_NO, CASH_STATUS)"
+			+ "VALUES ('CASH' || lpad(SEQ_CASH_NO.NEXTVAL, 6, '0'),?,?,?,?,?,?,?,?)";
+	private static final String INSERT_CASH_STMT = "INSERT INTO CASH (CASH_NO, CASH_DATE, MEM_NO, CASH_INOUT, CASH_TYPE, CASH_AMOUNT, CASH_STATUS)"
 			+ "VALUES ('CASH' || lpad(SEQ_CASH_NO.NEXTVAL, 6, '0'),?,?,?,?,?,?)";
+	private static final String INSERT_CASH_CON_STMT = "INSERT INTO CASH (CASH_NO, CASH_DATE, MEM_NO, CASH_INOUT, CASH_TYPE, CASH_AMOUNT, CON_NO, CASH_STATUS)"
+			+ "VALUES ('CASH' || lpad(SEQ_CASH_NO.NEXTVAL, 6, '0'),?,?,?,?,?,?,?)";
 
 	@Override
 	public String insert_cash(CashVO cashVO) {
@@ -55,7 +56,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setString(3, cashVO.getCash_inout());
 			pstmt.setString(4, cashVO.getCash_type());
 			pstmt.setInt(5, cashVO.getCash_amount());
-
+			pstmt.setString(6, cashVO.getCash_status());
 			pstmt.executeUpdate();
 
 			// 掘取對應的自增主鍵值
@@ -130,7 +131,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setInt(5, cashVO.getCash_amount());
 			pstmt.setString(6, cashVO.getCon_no());
 			pstmt.setString(7, cashVO.getRec_no());
-
+			pstmt.setString(8, cashVO.getCash_status());
 			pstmt.executeUpdate();
 
 			// 掘取對應的自增主鍵值
@@ -203,7 +204,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setString(4, cashVO.getCash_type());
 			pstmt.setInt(5, cashVO.getCash_amount());
 			pstmt.setString(6, cashVO.getCon_no());
-
+			pstmt.setString(7, cashVO.getCash_status());
 			pstmt.executeUpdate();
 
 			// 掘取對應的自增主鍵值
@@ -253,7 +254,8 @@ public class CashDAO implements CashDAO_interface {
 	
 	// ===================================================================
 	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no FROM CASH where mem_no = ? order by cash_date";
-
+	private static final String GET_ONE_CASHno_STMT = "SELECT cash_no FROM CASH where rec_no = ?";
+	private static final String UPDATE_CASH_STATUS_STMT = "UPDATE CASH set cash_status=? where rec_no=?";
 	@Override
 	public List<CashVO> findByMemNo_Cashlogs(String mem_no) {
 		System.out.println(mem_no);
@@ -322,6 +324,94 @@ public class CashDAO implements CashDAO_interface {
 			}
 		}
 		return list;
+	}
+	
+	
+	
+	@Override
+	public String findByRec_no(String rec_no) {
+		String cash_no = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_CASHno_STMT);
+
+			pstmt.setString(1, rec_no);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				cash_no = rs.getString("cash_no");
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return cash_no;
+	}
+
+
+	@Override
+	public void update_status(CashVO cashVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_CASH_STATUS_STMT);
+
+			pstmt.setString(1, cashVO.getCash_status());
+			pstmt.setString(2, cashVO.getRec_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
 	}
 
 }

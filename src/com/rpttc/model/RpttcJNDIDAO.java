@@ -15,7 +15,8 @@ import javax.sql.DataSource;
 import com.rpttc.model.RpttcDAO_interface;
 import com.rpttc.model.RpttcVO;
 
-public class RpttcJNDIDAO implements RpttcDAO_interface{
+public class RpttcJNDIDAO implements RpttcDAO_interface {
+
 	private static DataSource ds = null;
 	static {
 
@@ -36,7 +37,11 @@ public class RpttcJNDIDAO implements RpttcDAO_interface{
 	private static final String GET_TCM_STMT = "SELECT RPTTC_NO,TCM_NO,TNT_NO,RPTTC_TIME,RPTTC_CONTENT,EMP_NO,RPTTC_DONE_TIME,RPTTC_STATUS,RPTTC_RESULT,RPTTC_NOTE FROM REPORT_TENANT_COMMENTS WHERE TCM_NO=? ";
 	private static final String GET_TNT_STMT = "SELECT RPTTC_NO,TCM_NO,TNT_NO,RPTTC_TIME,RPTTC_CONTENT,EMP_NO,RPTTC_DONE_TIME,RPTTC_STATUS,RPTTC_RESULT,RPTTC_NOTE FROM REPORT_TENANT_COMMENTS WHERE TNT_NO=? ";
 	private static final String GET_EMP_STMT = "SELECT RPTTC_NO,TCM_NO,TNT_NO,RPTTC_TIME,RPTTC_CONTENT,EMP_NO,RPTTC_DONE_TIME,RPTTC_STATUS,RPTTC_RESULT,RPTTC_NOTE FROM REPORT_TENANT_COMMENTS WHERE EMP_NO=? ";
-	private static final String GET_STATUS_STMT = "SELECT RPTTC_NO,TCM_NO,TNT_NO,RPTTC_TIME,RPTTC_CONTENT,EMP_NO,RPTTC_DONE_TIME,RPTTC_STATUS,RPTTC_RESULT,RPTTC_NOTE FROM REPORT_TENANT_COMMENTS WHERE RPTTC_STATUS=? ";
+	private static final String GET_RESULT_STMT = "SELECT RPTTC_NO,TCM_NO,TNT_NO,RPTTC_TIME,RPTTC_CONTENT,EMP_NO,RPTTC_DONE_TIME,RPTTC_STATUS,RPTTC_RESULT,RPTTC_NOTE FROM REPORT_TENANT_COMMENTS WHERE RPTTC_RESULT=? ";
+	private static final String UPDATE_EMP = "UPDATE REPORT_TENANT_COMMENTS SET EMP_NO=?,RPTTC_STATUS=? WHERE RPTTC_NO=? ";
+	private static final String ASSIGN_EMP = "UPDATE REPORT_TENANT_COMMENTS SET EMP_NO=?,RPTTC_NOTE=? WHERE RPTTC_NO=? ";
+	private static final String SAVE_NOTE = "UPDATE REPORT_TENANT_COMMENTS SET RPTTC_NOTE=? WHERE RPTTC_NO=? ";
+	private static final String FAIL_STMT = "UPDATE REPORT_TENANT_COMMENTS SET RPTTC_RESULT=?,RPTTC_NOTE=? WHERE RPTTC_NO=? ";
 
 	@Override
 	public void insert(RpttcVO rpttcVO) {
@@ -124,6 +129,161 @@ public class RpttcJNDIDAO implements RpttcDAO_interface{
 
 	}
 
+	public void updateEmp(RpttcVO rpttcVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_EMP);
+
+			pstmt.setString(1, rpttcVO.getEmp_no());
+			pstmt.setInt(2, rpttcVO.getRpttc_status());
+			pstmt.setString(3, rpttcVO.getRpttc_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void assignEmp(RpttcVO rpttcVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(ASSIGN_EMP);
+
+			pstmt.setString(1, rpttcVO.getEmp_no());
+			pstmt.setString(2, rpttcVO.getRpttc_note());
+			pstmt.setString(3, rpttcVO.getRpttc_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void fail(RpttcVO rpttcVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FAIL_STMT);
+
+			pstmt.setInt(1, rpttcVO.getRpttc_result());
+			pstmt.setString(2, rpttcVO.getRpttc_note());
+			pstmt.setString(3, rpttcVO.getRpttc_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+
+	public void saveNote(RpttcVO rpttcVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SAVE_NOTE);
+
+		
+			pstmt.setString(1, rpttcVO.getRpttc_note());
+			pstmt.setString(2, rpttcVO.getRpttc_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
 	@Override
 	public void delete(String rpttc_no) {
 
@@ -302,15 +462,18 @@ public class RpttcJNDIDAO implements RpttcDAO_interface{
 
 		try {
 			con = ds.getConnection();
-
+            System.out.println("近來多筆查詢");
+            System.out.println(Number);
 			if (Number.startsWith("TC")) {
 				pstmt = con.prepareStatement(GET_TCM_STMT);
-			} else if (Number.startsWith("TN")) {
+			} else if (Number.startsWith("T")) {
 				pstmt = con.prepareStatement(GET_TNT_STMT);
+			} else if (Number.startsWith("R")) {
+				pstmt = con.prepareStatement(GET_RPTTC_STMT);
 			} else if (Number.startsWith("E")) {
 				pstmt = con.prepareStatement(GET_EMP_STMT);
-			} else if (Number.equals("0")||Number.equals("1")) {
-				pstmt = con.prepareStatement(GET_STATUS_STMT);
+			} else if (Number.equals("0") || Number.equals("1")) {
+				pstmt = con.prepareStatement(GET_RESULT_STMT);
 			} else {
 				System.out.println("wrong sql");
 			}
@@ -368,4 +531,5 @@ public class RpttcJNDIDAO implements RpttcDAO_interface{
 
 		return list;
 	}
+
 }

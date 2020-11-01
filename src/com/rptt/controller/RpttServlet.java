@@ -126,20 +126,8 @@ public class RpttServlet extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_no = req.getParameter("tnt_no");
-				String tnt_no_Reg = "^TNT[0-9]{6}$";
-				if (tnt_no == null || tnt_no.trim().length() == 0) {
-					errorMsgs.add("房客編號: 請勿空白");
-				} else if (!tnt_no.trim().matches(tnt_no_Reg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("房客編號: 只能是TNT後面接上6位數 ");
-				}
 
 				String lld_no = req.getParameter("lld_no");
-				String lld_no_Reg = "^LLD[0-9]{6}$";
-				if (lld_no == null || lld_no.trim().length() == 0) {
-					errorMsgs.add("房東編號: 請勿空白");
-				} else if (!lld_no.trim().matches(lld_no_Reg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("房東編號: 只能是LLD後面接上6位數");
-				}
 
 				String rptt_content = req.getParameter("rptt_content").trim();
 				System.out.println(rptt_content);
@@ -550,7 +538,12 @@ public class RpttServlet extends HttpServlet {
 				String TntAcc = tntVO2.getTnt_acc();
 				String TntDissaprove = tntVO2.getTnt_id_disapprove();
 				Integer type = 3;
-				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
+				String EmailLink;
+				if (tnt_no.startsWith("L")) {
+					EmailLink = "http://localhost:8081/EA103G2/front-end/lld/verify.jsp";
+				} else {
+					EmailLink = "http://localhost:8081/EA103G2/front-end/tnt/verify.jsp";
+				}
 				MailService mailservice = new MailService();
 				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
 				System.out.println("驗證失敗信寄出去了");

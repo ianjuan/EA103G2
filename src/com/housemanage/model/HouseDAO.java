@@ -30,10 +30,10 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String INSERT_WATERFEE = "INSERT INTO VARFEE_LIST (varf_no,hos_no,var_no,pay_type,pay_amount) VALUES ('VARF' || lpad(SEQ_VARF_NO.NEXTVAL, 6, '0'), 'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0'), 'VAR000001', ?, ?)";
 	private static final String INSERT_ELECTFEE = "INSERT INTO VARFEE_LIST (varf_no,hos_no,var_no,pay_type,pay_amount) VALUES ('VARF' || lpad(SEQ_VARF_NO.NEXTVAL, 6, '0'), 'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0'), 'VAR000002', ?, ?)";
 	private static final String INSERT_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), 'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0'), ?)";
-	private static final String UPDATE_HOUSEINFO = "UPDATE HOUSE set hos_name=?,hos_liffun=?,hos_trans=?,hos_add=?,hos_type=?,hos_room=?,hos_pat=?,hos_floor=?,hos_pnum=?,hos_lng=?,hos_lat=?,hos_date=SYSDATE,hos_status=?, "
+	private static final String UPDATE_HOUSEINFO = "UPDATE HOUSE set hos_name=?,hos_liffun=?,hos_trans=?,hos_add=?,hos_type=?,hos_room=?,hos_pat=?,hos_floor=?,hos_pnum=?,hos_lng=?,hos_lat=?,hos_status=?, "
 			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=?,hos_forth=?,hos_net=?,hos_gas=?, "
 			+ "hos_mdate=?,hos_mindate=?,hos_park=?,hos_sex=?,hos_iden=?,hos_cook=?,hos_pet=?,hos_smoke=?, "
-			+ "hos_rentfee=?,hos_gasfee=?,hos_manafee=?,hos_netfee=?,hos_puwaterfee=?,hos_puelefee=?,hos_parkfee=? where hos_no=?";
+			+ "hos_rentfee=?,hos_gasfee=?,hos_manafee=?,hos_netfee=?,hos_puwaterfee=?,hos_puelefee=?,hos_parkfee=?,hos_date=SYSDATE where hos_no=?";
 	private static final String UPDATE_HOUSEFurniture = "UPDATE HOUSE set "
 			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=? "
 			+ "where hos_no=?";
@@ -42,17 +42,17 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
 	private static final String UPDATE_LLDBALANCE = "UPDATE LANDLORD set lld_balance=? where lld_no=?";
 	private static final String GET_LLDINFO = "SELECT lld_name,lld_balance FROM LANDLORD where lld_no=?";
-	private static final String GET_HOUSEINFO = "SELECT lld_no,hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,"
+	private static final String GET_HOUSEINFO = "SELECT lld_no,hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,hos_date,"
 			+ "hos_table,hos_chair,hos_bed,hos_closet,hos_sofa,hos_tv,hos_drink,hos_aircon,hos_refrig,hos_wash,hos_hoter,hos_forth,hos_net,hos_gas,"
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
 			+ "hos_rentfee,hos_gasfee,hos_manafee,hos_netfee,hos_puwaterfee,hos_puelefee,hos_parkfee FROM HOUSE where hos_no=?";
 	private static final String GET_WATERFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000001'";
 	private static final String GET_ELECTFEE = "SELECT pay_type,pay_amount FROM VARFEE_LIST where hos_no=? AND　var_no='VAR000002'";
 	private static final String GET_LLDHOUSEPIC = "SELECT pic_no FROM HOUSE_PICTURE where hos_no=?";
-	private static final String GET_LLDALLHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=?";
-	private static final String GET_LLDUNRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '待出租' order by hos_no DESC";
-	private static final String GET_LLDRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '出租中' order by hos_no DESC";
-	private static final String GET_LLDOFFHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee FROM HOUSE where lld_no=? AND hos_status LIKE '已下架' order by hos_no DESC";
+	private static final String GET_LLDALLHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee,hos_date FROM HOUSE where lld_no=?";
+	private static final String GET_LLDUNRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee,hos_date FROM HOUSE where lld_no=? AND hos_status LIKE '待出租' order by hos_no DESC";
+	private static final String GET_LLDRENTHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee,hos_date FROM HOUSE where lld_no=? AND hos_status LIKE '出租中' order by hos_no DESC";
+	private static final String GET_LLDOFFHOUSE = "SELECT hos_no,hos_name,hos_add,hos_status,hos_type,hos_room,hos_rentfee,hos_date FROM HOUSE where lld_no=? AND hos_status LIKE '已下架' order by hos_no DESC";
 	private static final String DELETE_HOUSEPIC = "DELETE FROM HOUSE_PICTURE where pic_no=?";
 	private static final String DELETE_HOUSEINFO = "DELETE FROM HOUSE where hos_no=?";
 	private static final String GET_ALLHOUSE = "SELECT hos_no,h.lld_no,lld_name,hos_name,hos_add,hos_status,hos_type,hos_room FROM HOUSE h JOIN LANDLORD l on h.lld_no = l.lld_no";
@@ -256,6 +256,13 @@ public class HouseDAO implements HouseDAO_interface {
 					pstmt.clearParameters();
 				}
 			}
+			
+			pstmt = con.prepareStatement(UPDATE_LLDBALANCE);
+
+			pstmt.setInt(1, houseVO.getLld_balance());
+			pstmt.setString(2, houseVO.getLld_no());
+
+			pstmt.executeUpdate();
 
 			// Handle any driver errors
 		} catch (SQLException se) {
@@ -443,6 +450,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO.setHos_lng(rs.getDouble("hos_lng"));
 				houseVO.setHos_lat(rs.getDouble("hos_lat"));
 				houseVO.setHos_status(rs.getString("hos_status"));
+				houseVO.setHos_date(rs.getDate("hos_date"));
 				houseVO.setHos_table(rs.getInt("hos_table"));
 				houseVO.setHos_chair(rs.getInt("hos_chair"));
 				houseVO.setHos_bed(rs.getInt("hos_bed"));
@@ -734,6 +742,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO.setHos_type(rs.getString("hos_type"));
 				houseVO.setHos_room(rs.getString("hos_room"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
+				houseVO.setHos_date(rs.getDate("hos_date"));
 				list.add(houseVO); // Store the row in the list
 			}
 
@@ -793,6 +802,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO.setHos_type(rs.getString("hos_type"));
 				houseVO.setHos_room(rs.getString("hos_room"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
+				houseVO.setHos_date(rs.getDate("hos_date"));
 				list.add(houseVO); // Store the row in the list
 			}
 
@@ -852,6 +862,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO.setHos_type(rs.getString("hos_type"));
 				houseVO.setHos_room(rs.getString("hos_room"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
+				houseVO.setHos_date(rs.getDate("hos_date"));
 				list.add(houseVO); // Store the row in the list
 			}
 
@@ -911,6 +922,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO.setHos_type(rs.getString("hos_type"));
 				houseVO.setHos_room(rs.getString("hos_room"));
 				houseVO.setHos_rentfee(rs.getInt("hos_rentfee"));
+				houseVO.setHos_date(rs.getDate("hos_date"));
 				list.add(houseVO); // Store the row in the list
 			}
 
