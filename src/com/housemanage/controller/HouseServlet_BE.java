@@ -149,12 +149,12 @@ public class HouseServlet_BE extends HttpServlet {
 
 			HouseService houseSvc = new HouseService();
 
-			houseSvc.updateHouseInfo(hos_name, hos_liffun, hos_trans, hos_add, hos_type, hos_room,
-					hos_pat, hos_floor, hos_pnum, hos_lng, hos_lat, hos_status, hos_table, hos_chair, hos_bed,
-					hos_closet, hos_sofa, hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth,
-					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
-					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
-					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no, hos_no);
+//			houseSvc.updateHouseInfo(hos_name, hos_liffun, hos_trans, hos_add, hos_type, hos_room,
+//					hos_pat, hos_floor, hos_pnum, hos_lng, hos_lat, hos_status, hos_table, hos_chair, hos_bed,
+//					hos_closet, hos_sofa, hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth,
+//					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
+//					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
+//					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no, hos_no);
 
 			String url = "/back-end/house_manage/all_house.jsp";;
 			RequestDispatcher successView = req.getRequestDispatcher(url);
