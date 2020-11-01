@@ -1,6 +1,5 @@
 package com.websocket.jedis;
 
-import java.util.Collections;
 import java.util.List;
 
 import redis.clients.jedis.Jedis;
@@ -11,26 +10,24 @@ public class JedisHandleMessage {
 
 	private static JedisPool pool = JedisPoolUtil.getJedisPool();
 
-	public static List<String> getHistoryMsg() {
-		String key = "後台公告";
+	public static List<String> getHistoryMsg(String sender, String receiver) {
+		String key = new StringBuilder(sender).append(":").append(receiver).toString();
 		Jedis jedis = null;
 		jedis = pool.getResource();
 		jedis.auth("123456");
-		//再取出所有資料jedis.lrange是按範圍取出， 
-		// 第一個是key，第二個是起始位置，第三個是結束位置，jedis.llen獲取長度 -1表示取得所有 
 		List<String> historyData = jedis.lrange(key, 0, -1);
-		System.out.println("historyData"+historyData);
-		Collections.reverse(historyData);//把List元素倒轉
 		jedis.close();
 		return historyData;
 	}
 
-	public static void saveNews(String announce, String message) {
+	public static void saveChatMessage(String sender, String receiver, String message) {
 		// 對雙方來說，都要各存著歷史聊天記錄
-		String news = new StringBuilder("後台公告").toString();
+		String senderKey = new StringBuilder(sender).append(":").append(receiver).toString();
+		String receiverKey = new StringBuilder(receiver).append(":").append(sender).toString();
 		Jedis jedis = pool.getResource();
 		jedis.auth("123456");
-		jedis.rpush(news, message);
+		jedis.rpush(senderKey, message);
+		jedis.rpush(receiverKey, message);
 
 		jedis.close();
 	}

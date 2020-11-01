@@ -23,7 +23,7 @@
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
-<body onload="connect();" onunload="disconnect();">
+<body onload="connect(); connect_chat();" onunload="disconnect();disconnect_chat();">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- Sidebar -->
@@ -221,6 +221,27 @@
                                         <a class="dropdown-item text-center small text-gray-500" href="#">展現全部通知</a>
                                     </div>
                                 </li>
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-envelope fa-fw"></i>
+                                        <!-- Counter - Messages -->
+                                        <span class="badge badge-danger badge-counter">7</span>
+                                    </a>
+                                    <!-- Dropdown - Messages -->
+                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                        <h6 class="dropdown-header">聊天室</h6>
+                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image mr-3">
+                                                <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                                                <div class="status-indicator bg-success"></div>
+                                            </div>
+                                            <div class="font-weight-bold">
+                                                <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                                                <div id="row" class="small text-gray-500"></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
 <!-- 						Dropdown - Alerts -->
 							
 								<div class="topbar-divider d-none d-sm-block"></div>
@@ -261,7 +282,6 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800"></h1>
 					<!-- -- -- -- -- -- -- -- --Content-- -- -- -- -- -- -- -- -- -- -->
-					<div id="ajax_result">
 <div class="col-xl-3 col-md-6 mb-4">
 <ul>
 
@@ -269,152 +289,24 @@
 
 </div>
 <div class="row">
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">員工編號</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${empVO.emp_no}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Earnings (Annual) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">員工姓名</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">${empVO.emp_name}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tasks Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">職位</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><c:choose>
-						<c:when test="${empVO.emp_title eq 0}"> 員工</c:when>
-						<c:when test="${empVO.emp_title eq 1}"> 主管</c:when>
-						<c:when test="${empVO.emp_title eq 2}"> 經理</c:when>
-					</c:choose></div>
-                        </div>
-                        <div class="col">
-                         
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">待處理檢舉</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Donut Chart -->
-            <div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <hr>
-               	0.0
-                </div>
-              </div>
-            </div>
-
-<!-- 			地二藍 -->
-            <div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="myPieChart" style="display: block; height: 216px; width: 551px;" width="1102" height="432" class="chartjs-render-monitor"></canvas>
-                  </div>
-                  <hr>
-               	0.0
-                </div>
-              </div>
-            </div>
-<!-- 			第三 -->
-<div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <hr>
-               	0.0
-                </div>
-              </div>
-            </div>
-            </div>
-          </div>
-            
-          </div>
+	<h3 id="statusOutput_chat" class="statusOutput"></h3>
+	<div id="row"></div>
+	<div id="messagesArea" class="panel message-area" ></div>
+	<div class="panel input-area">
+		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage_chat();" /> 
+		<input type="submit" id="sendMessage" class="button" value="Send" onclick="sendMessage_chat();" /> 
+		<input type="button" id="connect" class="button" value="Connect" onclick="connect_chat();" /> 
+		<input type="button" id="disconnect" class="button" value="Disconnect" onclick="disconnect_chat();" />
 	</div>
-          </div>
-					</div>
+            </div>
+                        </div>
+
+
 				
 			
 			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
-			<script src="<%=request.getContextPath()%>/back-end/vendor/chart.js/Chart.min.js"></script>
-			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
 				<script>
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
@@ -441,10 +333,9 @@
 			for(var i=0;i<jsonObj.length ;i++){
 				alert_content = JSON.parse(jsonObj[i]).content;
 				alert_title =JSON.parse(jsonObj[i]).title;
-				alert_url=JSON.parse(jsonObj[i]).url;
 				alert_time =new Date(JSON.parse(jsonObj[i]).time);
 				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
 				    <div class="mr-3">
 				    <div class="icon-circle bg-primary">
 				        <i class="fas fa-file-alt text-white"></i>
@@ -498,7 +389,126 @@
 
 	}
 	</script>
+			<script id="chat">
+	var MyPoint_chat = "/FriendWS/${empVO.emp_no}";
+	var host_chat = window.location.host;
+	var path_chat = window.location.pathname;
+	var webCtx_chat = path_chat.substring(0, path.indexOf('/', 1));
+	var endPointURL_chat = "ws://" + window.location.host + webCtx_chat + MyPoint_chat;
+	var self_chat = '${empVO.emp_no}';
+	var webSocket_chat;
+
+	function connect_chat() {
+		// create a websocket
+		webSocket_chat = new WebSocket(endPointURL_chat);
+
+		webSocket_chat.onopen = function(event) {
+			console.log("Connect Success!");
+			document.getElementById('sendMessage').disabled = false;
+			document.getElementById('connect').disabled = true;
+			document.getElementById('disconnect').disabled = false;
+		};
+
+		webSocket_chat.onmessage = function(event) {
+			var jsonObj_chat = JSON.parse(event.data);
+			if ("open" === jsonObj_chat.type) {
+				refreshFriendList_chat(jsonObj_chat);
+			} else if ("history" === jsonObj_chat.type) {
+				messagesArea.innerHTML = '';
+				var ul = document.createElement('ul');
+				ul.id = "area";
+				messagesArea.appendChild(ul);
+				// 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
+				var messages = JSON.parse(jsonObj_chat.message);
+				for (var i = 0; i < messages.length; i++) {
+					var historyData = JSON.parse(messages[i]);
+					var showMsg = historyData.message;
+					var li = document.createElement('li');
+					// 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
+					historyData.sender === self ? li.className += 'me' : li.className += 'friend';
+					li.innerHTML = showMsg;
+					ul.appendChild(li);
+				}
+				messagesArea.scrollTop = messagesArea.scrollHeight;
+			} else if ("chat" === jsonObj_chat.type) {
+				var li = document.createElement('li');
+				jsonObj_chat.sender === self ? li.className += 'me' : li.className += 'friend';
+				li.innerHTML = jsonObj_chat.message;
+				console.log(li);
+				document.getElementById("area").appendChild(li);
+				messagesArea.scrollTop = messagesArea.scrollHeight;
+			} else if ("close" === jsonObj_chat.type) {
+				refreshFriendList(jsonObj_chat);
+			}
 			
+		};
+
+		webSocket_chat.onclose = function(event) {
+			console.log("Disconnected!");
+		};
+	}
+	
+	function sendMessage_chat() {
+		var inputMessage_chat = document.getElementById("message");
+		var friend_chat = statusOutput_chat.textContent;
+		var message_chat = inputMessage_chat.value.trim();
+
+		if (message_chat === "") {
+			alert("Input a message");
+			inputMessage_chat.focus();
+		} else if (friend_chat === "") {
+			alert("Choose a friend");
+		} else {
+			var jsonObj_chat = {
+				"type" : "chat",
+				"sender" : self_chat,
+				"receiver" : friend_chat,
+				"message" : message_chat
+			};
+			webSocket_chat.send(JSON.stringify(jsonObj_chat));
+			inputMessage_chat.value = "";
+			inputMessage_chat.focus();
+		}
+	}
+	
+	// 有好友上線或離線就更新列表
+	function refreshFriendList_chat(jsonObj_chat) {
+		var friends_chat = jsonObj_chat.users;
+		var row_chat = document.getElementById("row");
+		row_chat.innerHTML = '';
+		for (var i = 0; i < friends_chat.length; i++) {
+			if (friends_chat[i] === self_chat) { continue; }
+			row_chat.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends_chat[i] + ' ><h2>' + friends_chat[i] + '</h2></div>';
+		}
+		addListener();
+	}
+	// 註冊列表點擊事件並抓取好友名字以取得歷史訊息
+	function addListener() {
+		var container = document.getElementById("row");
+		container.addEventListener("click", function(e) {
+			var friend_chat = e.srcElement.textContent;
+			updateFriendName_chat(friend_chat);
+			var jsonObj_chat = {
+					"type" : "history",
+					"sender" : self_chat,
+					"receiver" : friend_chat,
+					"message" : ""
+				};
+			webSocket_chat.send(JSON.stringify(jsonObj_chat));
+		});
+	}
+	
+	function disconnect_chat() {
+		webSocket_chat.close();
+		document.getElementById('sendMessage').disabled = true;
+		document.getElementById('connect').disabled = false;
+		document.getElementById('disconnect').disabled = true;
+	}
+	
+	function updateFriendName_chat(name) {
+		statusOutput_chat.innerHTML = name;
+	}
+</script>
 	
 </body>
 
