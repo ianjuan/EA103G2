@@ -3,7 +3,6 @@ package com.rpth.model;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.rptt.model.TntVO;
 
 public class RpthService {
 

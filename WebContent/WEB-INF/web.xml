@@ -304,6 +304,25 @@
 		<url-pattern>/back-end/rpth/RpthServlet</url-pattern>
 		<url-pattern>/front-end/rpth/RpthServlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>RptlServlet</servlet-name>
+		<servlet-class>com.rptl.controller.RptlServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RptlServlet</servlet-name>
+		<url-pattern>/back-end/rptl/RptlServlet</url-pattern>
+		<url-pattern>/front-end/rptl/RptlServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>RpttcServlet</servlet-name>
+		<servlet-class>com.rpttc.controller.RpttcServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RpttcServlet</servlet-name>
+		<url-pattern>/back-end/rpttc/RpttcServlet</url-pattern>
+		<url-pattern>/front-end/rpttc/RpttcServlet</url-pattern>
+	</servlet-mapping>
+	
 
 	<!-- Melon -->
 	<servlet>

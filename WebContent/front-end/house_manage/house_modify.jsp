@@ -485,15 +485,18 @@
 							<tr>
 								<th>*出租狀態:</th>
 								<td>
-									<label><input type="radio" name="hos_status" value="待出租" <%=(houseVO.getHos_status().equals("待出租")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>待出租</label>
-									<label><input type="radio" name="hos_status" value="已下架" <%=(houseVO.getHos_status().equals("已下架")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>下架</label>
-									<label><input type="hidden" name="hos_status" value="出租中" <%=(houseVO.getHos_status().equals("出租中")) ? "checked" : ""%> required></label>
+									<label><input type="radio" class="hos_status" name="hos_status" value="待出租" <%=(houseVO.getHos_status().equals("待出租")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>待出租</label>
+									<label><input type="radio" class="hos_status" name="hos_status" value="已下架" <%=(houseVO.getHos_status().equals("已下架")) ? "checked" : ""%> <%=(houseVO.getHos_status().equals("出租中")) ? "disabled" : ""%> required>下架</label>
+									<label><input type="hidden" class="hos_status" name="hos_status" value="出租中" <%=(houseVO.getHos_status().equals("出租中")) ? "checked" : ""%> required></label>
 								</td>
 							</tr>
 						</table>
 					</div>			        				
 				</div>
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
+				<input type="hidden" id="hos_date" name="hos_date" value="<%=houseVO.getHos_date()%>">
+				<input type="hidden" id="differday" name="differday" value="">
+				<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 				<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>">
 				<input type="hidden" name="whichPage"  value="<%=request.getParameter("whichPage")%>">

@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import com.rpth.model.*;
 import com.rptt.model.TntService;
 import com.rptt.model.TntVO;
+import com.housemanage.model.*;
 
 public class RpthServlet extends HttpServlet {
 
@@ -128,21 +129,10 @@ public class RpthServlet extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String hos_no = req.getParameter("hos_no");
-				String hos_no_Reg = "^HOS[0-9]{6}$";
-				if (hos_no == null || hos_no.trim().length() == 0) {
-					errorMsgs.add("房客編號: 請勿空白");
-				} else if (!hos_no.trim().matches(hos_no_Reg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("房客編號: 只能是HOS後面接上6位數 ");
-				}
+				
 
 				String tnt_no = req.getParameter("tnt_no");
-				String tnt_no_Reg = "^TNT[0-9]{6}$";
-				if (tnt_no == null || tnt_no.trim().length() == 0) {
-					errorMsgs.add("房東編號: 請勿空白");
-				} else if (!tnt_no.trim().matches(tnt_no_Reg)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("房東編號: 只能是TNT後面接上6位數");
-				}
-
+				
 				String rpth_content = req.getParameter("rpth_content").trim();
 				System.out.println(rpth_content);
 				if (rpth_content == null || rpth_content.trim().length() == 0) {
@@ -403,6 +393,9 @@ public class RpthServlet extends HttpServlet {
 				RpthService rpthSvc = new RpthService();
 				rpthVO1 = rpthSvc.fail(rpth_no, rpth_result, rpth_note);
 				System.out.println("result有更新了");
+				HouseService hosSvc =new HouseService();
+				hosSvc.updateStatus("已下架", hos_no);
+				System.out.println("house已下架了");
 				
 				LldService lldSvc = new LldService();
 				LldVO lldVO1 = lldSvc.getEmail(hos_no);
@@ -415,14 +408,10 @@ public class RpthServlet extends HttpServlet {
 				mailservice.sendMail(HosEmail, LldName, HosName, EmailLink);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				TntVO tntVO1 = new TntVO();
-				TntService tntSvc1 = new TntService();
-				tntVO1 = tntSvc1.getOneLandlordProfile(lld_no);				
-				req.setAttribute("TntVO", tntVO1);
-				String url = "/back-end/member/landlord_search_page.jsp";
+				String url = "/back-end/rpth/rpth_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到landlord_search_page");
+				System.out.println("轉到rpth_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
@@ -458,6 +447,48 @@ public class RpthServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 				failureView.forward(req, res);
 			}
+		}
+		if ("get_want_landlord".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+
+				String Number = req.getParameter("Number").toUpperCase(); // Number可轉大寫且為身份證字號或編號
+				if (Number == null || (Number.trim()).length() == 0) {
+					errorMsgs.add("請正確輸入欲搜尋編號");
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
+					failureView.forward(req, res);
+					System.out.println("編號輸入錯誤");
+					return;
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				TntService tntSvc = new TntService();
+				TntVO tntVO = tntSvc.getOneLandlordProfile(Number);
+				System.out.println("成功進入service");
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("TntVO", tntVO);
+				String url = "/back-end/member/landlord_search_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("成功轉過去囉");
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+
+			} catch (Exception e) {
+				System.out.println("無法取得555" + e.getMessage());
+				errorMsgs.add("搜尋不到或是未填寫要查詢的編號! 麻煩重新輸入一次");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_main_page.jsp");
+				failureView.forward(req, res);
+			}
+
 		}
 	}
 }

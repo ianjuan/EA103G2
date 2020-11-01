@@ -21,5 +21,7 @@ public interface Tenant_commentsDAO_interface {
 	public Set<String> lld_getAllTnt(String lld_no);
 
 	public List<Tenant_commentsVO> lld_getAllTntTcm(String tnt_no, String lld_no);
+	
+	
    
 }

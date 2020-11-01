@@ -161,7 +161,7 @@ public class HouseServlet extends HttpServlet {
 			
 			/*************************** 電子錢包金額 **********************/
 			
-			Integer lld_balance = getReqNum(req, "lld_balance");
+			Integer lld_balance = getReqNum(req, "lld_balance") - 1000;
 
 			/*************************** 傳入參數 **********************/
 
@@ -306,6 +306,19 @@ public class HouseServlet extends HttpServlet {
 			/*************************** 要刪除的照片編號 **********************/
 			
 			String[] pic_no = req.getParameterValues("pic_no");
+			
+			/*************************** 判斷是否重新上架 **********************/
+			
+			Integer differday = getReqNum(req, "differday");
+			Integer lld_balance;
+			
+			if(differday > 3 && hos_status.equals("待出租")) {
+				lld_balance = getReqNum(req, "lld_balance") - 800;
+			} else {
+				lld_balance = getReqNum(req, "lld_balance");
+			}
+			
+			System.out.println(lld_balance);
 
 			/*************************** 傳入參數 **********************/
 
@@ -316,7 +329,8 @@ public class HouseServlet extends HttpServlet {
 					hos_closet, hos_sofa, hos_tv, hos_drink, hos_aircon, hos_refrig, hos_wash, hos_hoter, hos_forth,
 					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
 					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
-					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no, hos_no);
+					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no,
+					lld_balance, lld_no, hos_no);
 
 			String url = requestURL;
 			if (hos_status.equals("出租中")) {

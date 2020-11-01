@@ -47,7 +47,7 @@ button.checkall {
 	border-radius: 2px;
 	border: 1px solid #8a97a0;
 	text-align: center;
-	margin-right:15px;
+	margin-right: 15px;
 }
 </style>
 
@@ -70,7 +70,7 @@ button.checkall {
 								<h4>
 									搜尋: <input type="text" size="27" name="Number"
 										placeholder="輸入檢舉/ 房客/ 房東/ 員工編號"> <input type="hidden"
-										name="action" value="get_want_display"> <input
+										name="action" value="get_want_all_display"> <input
 										type="submit"
 										style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 										tabindex="-1" />
@@ -152,7 +152,8 @@ button.checkall {
 												style="font-size: 15px; padding: 4x;">未通過</span></td>
 										</c:when>
 										<c:otherwise>
-											<td>審核中</td>
+											<td><span class="badge badge-pill badge-secondary"
+												style="font-size: 15px; padding: 4px;">審核中</span></td>
 										</c:otherwise>
 									</c:choose>
 									<td width="10%">${rpttVO.rptt_done_time}</td>

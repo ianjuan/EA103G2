@@ -26,10 +26,10 @@ public class MailService {
 
 		// 設定信中的主旨
 		
-			subject = "通知 :您的房屋-『" + HosName + "』 的檢舉成立";
+			subject = "【通知】您的房屋-『" + HosName + "』 的檢舉成立";
 			// 設定信中的內容
 			messageText = "因為您違反了愛租相關規定，以致被其他會員檢舉該房屋，並由愛租團隊調查後審核通過，確認檢舉成立。";
-			messageText1 = "因此將為您限縮在愛租網站上該房屋下架，詳請可透過愛租線上客服了解並查詢，祝您一切平安!";
+			messageText1 = "因此將您在愛租網站上的該房屋下架，詳請可透過愛租線上客服了解並查詢，祝您一切平安!";
 			btnword = "回到愛租首頁";
 
 		try {
@@ -212,19 +212,5 @@ public class MailService {
 		}
 	}
 
-//	public static void main(String args[]) {
-//
-//		 String to = "xiyuan345@gmail.com";
-//	      
-//	      String subject = "密碼通知";
-//	      
-//	      String ch_name = "peter1";
-//	      String passRandom = "111";
-//	      String messageText = "(test)Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
-//	       
-//	      MailService mailService = new MailService();
-//	      mailService.sendMail(to, subject, messageText);
-//
-//	}
 
 }

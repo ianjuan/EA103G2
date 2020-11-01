@@ -131,53 +131,54 @@ img{
 		
 <div class="form-group">
 		<label for="exampleFormControlSelect1"><h3>待修物品:</h3></label>
+		----${repairVO.rep_dam_obj}----
 		<select id="rep_dam_obj" name="rep_dam_obj" >
-			<option ${(repairVO.rep_dam_obj==null)? selected :'' }>請選擇修繕物品</option>
-			
+			<option value="" ${(repairVO.rep_dam_obj==null) or (empty repairVO.rep_dam_obj)? selected :''}>請選擇修繕物品</option>
 			<c:if test="${hosVO.hos_chair > 0}">
-				　<option value="椅子" ${(repairVO.rep_dam_obj=="椅子")? selected :'' }>椅子 共${hosVO.hos_chair} 把</option>
+				　<option value="椅子" ${repairVO.rep_dam_obj=='椅子'? 'selected' :'' }>椅子 共${hosVO.hos_chair} 把</option>
 			</c:if>
 			<c:if test="${hosVO.hos_bed > 0}">
-				　<option value="床鋪" ${(repairVO.rep_dam_obj=="床鋪")? selected :'' }>床鋪  共${hosVO.hos_bed} 張</option>
+				　<option value="床鋪" ${(repairVO.rep_dam_obj=="床鋪")? 'selected' :'' }>床鋪  共${hosVO.hos_bed} 張</option>
 			</c:if>
 			<c:if test="${hosVO.hos_closet > 0}"> 
-				　<option value="衣櫥" ${(repairVO.rep_dam_obj=="衣櫥")? selected :'' }>衣櫥  共${hosVO.hos_closet} 組</option>
+				　<option value="衣櫥" ${(repairVO.rep_dam_obj=="衣櫥")? 'selected' :'' }>衣櫥  共${hosVO.hos_closet} 組</option>
 			</c:if>
 			<c:if test="${hosVO.hos_sofa > 0}"> 
-				  <option value="沙發" ${(repairVO.rep_dam_obj=="沙發")? selected :'' }>沙發  共${hosVO.hos_sofa} 組</option>
+				  <option value="沙發" ${(repairVO.rep_dam_obj=="沙發")? 'selected' :'' }>沙發  共${hosVO.hos_sofa} 組</option>
 			</c:if>
 			<c:if test="${hosVO.hos_tv > 0}"> 
-				　 <option value="電視" ${(repairVO.rep_dam_obj=="電視")? selected :'' }>電視  共${hosVO.hos_tv} 台</option>
+				　 <option value="電視" ${(repairVO.rep_dam_obj=="電視")? 'selected' :'' }>電視  共${hosVO.hos_tv} 台</option>
 			</c:if>
 			<c:if test="${hosVO.hos_drink > 0}"> 
-				　<option value="飲水機" ${(repairVO.rep_dam_obj=="飲水機")? selected :'' }>飲水機  共${hosVO.hos_drink} 台</option>
+				　<option value="飲水機" ${(repairVO.rep_dam_obj=="飲水機")? 'selected' :'' }>飲水機  共${hosVO.hos_drink} 台</option>
 			</c:if>
 			<c:if test="${hosVO.hos_aircon > 0}"> 
-				 <option value="冷氣" ${(repairVO.rep_dam_obj=="冷氣")? selected :'' }>冷氣  共${hosVO.hos_aircon} 台</option>
+				 <option value="冷氣" ${(repairVO.rep_dam_obj=="冷氣")? 'selected' :'' }>冷氣  共${hosVO.hos_aircon} 台</option>
 			</c:if>
 			<c:if test="${hosVO.hos_refrig > 0}">
-				　<option value="冰箱 " ${(repairVO.rep_dam_obj=="冰箱")? selected :'' }>冰箱 共${hosVO.hos_refrig} 台</option>
+				　<option value="冰箱" ${(repairVO.rep_dam_obj=="冰箱")? 'selected' :'' }>冰箱 共${hosVO.hos_refrig} 台</option>
 			</c:if>
 			<c:if test="${hosVO.hos_wash > 0}"> 
-				　<option value="洗衣機" ${(repairVO.rep_dam_obj=="洗衣機")? selected :'' }>洗衣機 共 ${hosVO.hos_wash} 台</option>
+				　<option value="洗衣機" ${(repairVO.rep_dam_obj=="洗衣機")? 'selected' :'' }>洗衣機 共 ${hosVO.hos_wash} 台</option>
 			</c:if>
 			<c:if test="${hosVO.hos_hoter > 0}"> 
-				 <option value="熱水器" ${(repairVO.rep_dam_obj=="熱水器")? selected :'' }>熱水器  共${hosVO.hos_hoter} 組</option>
+				 <option value="熱水器" ${(repairVO.rep_dam_obj=="熱水器")? 'selected' :'' }>熱水器  共${hosVO.hos_hoter} 組</option>
 			</c:if>
 			<c:if test="${hosVO.hos_forth > 0}"> 
-				　<option value="第四台" ${(repairVO.rep_dam_obj=="第四台")? selected :'' }>第四台  共${hosVO.hos_forth} 條</option>
+				　<option value="第四台" ${(repairVO.rep_dam_obj=="第四台")? 'selected' :'' }>第四台  共${hosVO.hos_forth} 條</option>
 			</c:if>
 			<c:if test="${hosVO.hos_net > 0}">
-				　<option value="網路" ${(repairVO.rep_dam_obj=="網路")? selected :'' }>網路  共${hosVO.hos_net} 條</option>
+				　<option value="網路" ${(repairVO.rep_dam_obj=="網路")? 'selected' :'' }>網路  共${hosVO.hos_net} 條</option>
 			</c:if>
 			<c:if test="${hosVO.hos_gas > 0}">
-				　<option value="天然瓦斯" ${(repairVO.rep_dam_obj=="天然瓦斯")? selected :'' }>天然瓦斯</option>
+				　<option value="天然瓦斯" ${(repairVO.rep_dam_obj=="天然瓦斯")? 'selected' :'' }>天然瓦斯</option>
 			</c:if>
 			
 		</select>
 		
 		<!-- 	js放數量name="fQty"輸入框 -->
 		<span id="qtyList"></span>
+		
 <!-- 		<input type="text" name="rep_dam_obj" class="form-control" id="exampleFormControlSelect1"  -->
 <%-- 			 value="<%= (repairVO==null)? "" : repairVO.getRep_dam_obj()%>" /> --%>
 </div>			
@@ -219,68 +220,68 @@ img{
 <script type="text/javascript">
 // $("#rep_dam_obj").on("change", changelist());
 
-$(document).on('change', '#rep_dam_obj',function(){
-	changelist();
-	console.log("有近來change");
-	});
-function changelist(e){
-	console.log("有近來");
-	var rep_dam_obj = document.getElementById("rep_dam_obj");
-	var index=rep_dam_obj.selectedIndex; //序號，取當前選中選項的序號
-	console.log(index);
-	var val = rep_dam_obj.options[index].value;
+// $(document).on('change', '#rep_dam_obj',function(){
+// 	changelist();
+// 	console.log("有近來change");
+// 	});
+// function changelist(e){
+// 	console.log("有近來");
+// 	var rep_dam_obj = document.getElementById("rep_dam_obj");
+// 	var index=rep_dam_obj.selectedIndex; //序號，取當前選中選項的序號
+// 	console.log(index);
+// 	var val = rep_dam_obj.options[index].value;
 	
-	console.log(val);
+// 	console.log(val);
 	
-	var qtyList = document.getElementById("qtyList");
-	qtyList.innerText
-switch(val)
-{
-// 13種數量控制(14項家具)
-case "桌子":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_table}' name='fQty'>"
-break;
-case "椅子":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_chair}' name='fQty'>"
-break;
-case "床鋪":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_bed}' name='fQty'>"
-break;
-case "衣櫥":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_closet}' name='fQty'>"
-break;
-case "沙發":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_sofa}' name='fQty'>"
-break;
-case "電視":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max=' ${hosVO.hos_tv}' name='fQty'>"
-break;
-case "飲水機":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_drink}' name='fQty'>"
-break;
-case "冷氣":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max=' ${hosVO.hos_aircon}' name='fQty'>"
-break;
-case "冰箱":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_refrig}' name='fQty'>"
-break;
-case "洗衣機":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_wash}' name='fQty'>"
-break;
-case "熱水器":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_hoter}' name='fQty'>"
-break;
-case "網路":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_net}' name='fQty'>"
-break;
-case "第四台":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_forth}' name='fQty'>"
-break;
-case "椅子":
-qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_chair}' name='fQty'>"
-break;
-}
-}                                                                                
+// 	var qtyList = document.getElementById("qtyList");
+// 	qtyList.innerText
+// switch(val)
+// {
+// // 13種數量控制(14項家具)
+// case "桌子":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_table}' name='fQty'>"
+// break;
+// case "椅子":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_chair}' name='fQty'>"
+// break;
+// case "床鋪":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_bed}' name='fQty'>"
+// break;
+// case "衣櫥":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_closet}' name='fQty'>"
+// break;
+// case "沙發":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_sofa}' name='fQty'>"
+// break;
+// case "電視":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max=' ${hosVO.hos_tv}' name='fQty'>"
+// break;
+// case "飲水機":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_drink}' name='fQty'>"
+// break;
+// case "冷氣":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max=' ${hosVO.hos_aircon}' name='fQty'>"
+// break;
+// case "冰箱":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_refrig}' name='fQty'>"
+// break;
+// case "洗衣機":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_wash}' name='fQty'>"
+// break;
+// case "熱水器":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_hoter}' name='fQty'>"
+// break;
+// case "網路":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_net}' name='fQty'>"
+// break;
+// case "第四台":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_forth}' name='fQty'>"
+// break;
+// case "椅子":
+// qtyList.innerHTML="<input type='number' value='1' step='1' min='1' max='${hosVO.hos_chair}' name='fQty'>"
+// break;
+// }
+// }                                                                                
 </script>  
 </body>
 
