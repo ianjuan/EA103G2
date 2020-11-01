@@ -11,4 +11,7 @@ public interface CashDAO_interface {
 	public void insert_cash_Con(CashVO cashVO);
 	
 	public List<CashVO> findByMemNo_Cashlogs(String mem_no);
+	
+	public String findByRec_no(String rec_no);
+	public void update_status(CashVO cashVO);
 }
