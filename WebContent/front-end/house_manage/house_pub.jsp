@@ -105,7 +105,7 @@
 							<tr>
 								<th>*房屋名稱:</th>
 								<td>
-									<input type="text" class="text1" id="hos_name" name="hos_name" value="<%=(houseVO==null) ? "" : houseVO.getHos_name()%>" maxlength="150">
+									<input type="text" class="text1" id="hos_name" name="hos_name" value="<%=(houseVO==null) ? "" : houseVO.getHos_name()%>" maxlength="150" onchange="magic()">
 								</td>
 							</tr>
 							<tr>

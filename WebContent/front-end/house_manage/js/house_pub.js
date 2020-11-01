@@ -80,6 +80,7 @@ function notice2(){
 				gasfee();
 				netfee();
 				parkfee();
+				document.getElementById("logo").style.display = "none";
 			});
 		} else {
 			return false;
@@ -564,4 +565,12 @@ function quickvalue(){
 	document.getElementsByClassName("hos_pet")[1].checked = true;
 	document.getElementsByClassName("hos_smoke")[1].checked = true;
 	document.getElementsByClassName("hos_status")[0].checked = true;
+}
+
+function magic(){
+	if(document.getElementById("hos_name").value == "izu"){
+		document.getElementById("logo").style.display = "block";
+	} else {
+		document.getElementById("logo").style.display = "none";
+	}
 }

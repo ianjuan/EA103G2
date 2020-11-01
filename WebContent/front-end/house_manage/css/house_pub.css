@@ -644,6 +644,7 @@ body {
 	cursor: pointer;
 	border-radius: 20px;
 	opacity: 0.8;
+	display: none;
 }
 #logo:hover {
 	width: 75px;
