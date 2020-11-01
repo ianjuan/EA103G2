@@ -718,8 +718,8 @@ public class TntDAO implements TenantDAO_interface {
 
 	// ---------------------------------------------------------------------------------
 
-	private static final String UPDATE_PASS_VRF = "UPDATE TENANT SET TNT_ID_RESULT=?, EMP_NO=? where TNT_NO=?";
-	private static final String UPDATE_PASS_LVRF = "UPDATE LANDLORD SET LLD_ID_RESULT=?, EMP_NO=? where LLD_NO=?";
+	private static final String UPDATE_PASS_VRF = "UPDATE TENANT SET TNT_ID_RESULT=?, EMP_NO=?, TNT_AUTH_LIVE=? where TNT_NO=?";
+	private static final String UPDATE_PASS_LVRF = "UPDATE LANDLORD SET LLD_ID_RESULT=?, EMP_NO=?, LLD_AUTH_HOS=? where LLD_NO=?";
 	private static final String UPDATE_FAIL_VRF = "UPDATE TENANT SET TNT_ID_RESULT=?, EMP_NO=?,TNT_ID_DISAPPROVE=?,TNT_ID_ISUPLOAD=? where TNT_NO=?";
 	private static final String UPDATE_FAIL_LVRF = "UPDATE LANDLORD SET LLD_ID_RESULT=?, EMP_NO=?,LLD_ID_DISAPPROVE=?,LLD_ID_ISUPLOAD=? where LLD_NO=?";
 
@@ -738,7 +738,8 @@ public class TntDAO implements TenantDAO_interface {
 			}
 			pstmt.setInt(1, tntVO.getTnt_id_result());
 			pstmt.setString(2, tntVO.getEmp_no());
-			pstmt.setString(3, tntVO.getTnt_no());
+			pstmt.setInt(3,1);
+			pstmt.setString(4, tntVO.getTnt_no());
 
 			pstmt.executeUpdate();
 

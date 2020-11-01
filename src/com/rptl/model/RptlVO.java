@@ -17,8 +17,6 @@ public RptlVO() {
 	private Integer rptl_status;
 	private Integer rptl_result;
 	private String rptl_note;
-	
-	
 	public String getRptl_no() {
 		return rptl_no;
 	}
@@ -37,7 +35,7 @@ public RptlVO() {
 	public void setTnt_no(String tnt_no) {
 		this.tnt_no = tnt_no;
 	}
-	public Timestamp getrptl_time() {
+	public Timestamp getRptl_time() {
 		return rptl_time;
 	}
 	public void setRptl_time(Timestamp rptl_time) {
@@ -79,6 +77,5 @@ public RptlVO() {
 	public void setRptl_note(String rptl_note) {
 		this.rptl_note = rptl_note;
 	}
-	
 	
 }

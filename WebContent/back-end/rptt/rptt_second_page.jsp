@@ -123,7 +123,8 @@
 												style="font-size: 15px; padding: 4x;">未通過</span></td>
 										</c:when>
 										<c:otherwise>
-											<td>審核中</td>
+											<td><span class="badge badge-pill badge-secondary"
+												style="font-size: 15px; padding: 4px;">審核中</span></td>
 										</c:otherwise>
 									</c:choose>
 									<td width="10%">${rpttVO.rptt_done_time}</td>

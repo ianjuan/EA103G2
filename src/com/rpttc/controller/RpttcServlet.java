@@ -1,17 +1,15 @@
-package com.rpth.controller;
+package com.rpttc.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.rpth.model.*;
-import com.rptt.model.TntService;
-import com.rptt.model.TntVO;
-import com.housemanage.model.*;
+import com.rpttc.model.*;
+import com.tenant_comments.model.Tenant_commentsService;
+import com.rptt.model.*;
 
-public class RpthServlet extends HttpServlet {
+public class RpttcServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -37,25 +35,25 @@ public class RpthServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/select_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("編號輸入錯誤");
 					return;
 				}
 
 				/*************************** 2.開始查詢資料 *****************************************/
-				RpthService rpthSvc = new RpthService();
-				List<RpthVO> rpthVO = rpthSvc.getRpth(Number);
-				if (rpthVO.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+				RpttcService rpttcSvc = new RpttcService();
+				List<RpttcVO> rpttcVO = rpttcSvc.getRpttc(Number);
+				if (rpttcVO.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/select_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("此編號找不到");
 					return;
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("rpthVO", rpthVO);
-				String url = "/back-end/rpth/rpth_first_page.jsp";
+				req.setAttribute("rpttcVO", rpttcVO);
+				String url = "/back-end/rpttc/rpttc_first_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				System.out.println("成功轉過去囉");
@@ -65,7 +63,7 @@ public class RpthServlet extends HttpServlet {
 			} catch (Exception e) {
 				System.out.println("無法取得555");
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/select_page.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -86,36 +84,36 @@ public class RpthServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/select_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("編號輸入錯誤");
 					return;
 				}
 
 				/*************************** 2.開始查詢資料 *****************************************/
-				RpthService rpthSvc = new RpthService();
+				RpttcService rpttcSvc = new RpttcService();
 				System.out.println("有來到Service的方法");
-				List<RpthVO> rpthVO = rpthSvc.getRpth(Number);
-				if (rpthVO.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+				List<RpttcVO> rpttcVO = rpttcSvc.getRpttc(Number);
+				if (rpttcVO.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/select_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("此編號找不到");
 					return;
 				}
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("rpthVO", rpthVO);
-				String url = "/back-end/rpth/rpth_second_search_page.jsp";
+				req.setAttribute("rpttcVO", rpttcVO);
+				String url = "/back-end/rpttc/rpttc_second_search_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("成功轉過去囉rpth_second_search_page");
+				System.out.println("成功轉過去囉rpttc_second_search_page");
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 
 			} catch (Exception e) {
 				System.out.println("無法取得555");
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/select_page.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -128,28 +126,27 @@ public class RpthServlet extends HttpServlet {
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-				String hos_no = req.getParameter("hos_no");
-				
+				String tcm_no = req.getParameter("tcm_no");
 
 				String tnt_no = req.getParameter("tnt_no");
-				
-				String rpth_content = req.getParameter("rpth_content").trim();
-				System.out.println(rpth_content);
-				if (rpth_content == null || rpth_content.trim().length() == 0) {
+
+				String rpttc_content = req.getParameter("rpttc_content").trim();
+				System.out.println(rpttc_content);
+				if (rpttc_content == null || rpttc_content.trim().length() == 0) {
 					errorMsgs.add("寶寶檢舉內容空白!寶寶不說");
 				}
 
-				RpthVO rpthVO = new RpthVO();
-				rpthVO.setHos_no(hos_no);
-				rpthVO.setTnt_no(tnt_no);
-				rpthVO.setRpth_content(rpth_content);
+				RpttcVO rpttcVO = new RpttcVO();
+				rpttcVO.setTcm_no(tcm_no);
+				rpttcVO.setTnt_no(tnt_no);
+				rpttcVO.setRpttc_content(rpttc_content);
 
 				/*************************** 2.開始新增資料 ***************************************/
-				RpthService rpthSvc = new RpthService();
-				rpthVO = rpthSvc.addRpth(hos_no, tnt_no, rpth_content);
+				RpttcService rpttcSvc = new RpttcService();
+				rpttcVO = rpttcSvc.addRpttc(tcm_no, tnt_no, rpttc_content);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/back-end/rpth/listAllRpth.jsp";
+				String url = "/back-end/rpttc/listAllRpttc.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				System.out.println("新增完成");
 				successView.forward(req, res);
@@ -158,7 +155,7 @@ public class RpthServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rpth/rpth_form.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rpttc/rpttc_form.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -172,21 +169,21 @@ public class RpthServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
-				String rpth_no = req.getParameter("rpth_no");
+				String rpttc_no = req.getParameter("rpttc_no");
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpthService rpthSvc = new RpthService();
-				RpthVO rpthVO = rpthSvc.getOneRpth(rpth_no);
+				RpttcService rpttcSvc = new RpttcService();
+				RpttcVO rpttcVO = rpttcSvc.getOneRpttc(rpttc_no);
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				req.setAttribute("rpthVO", rpthVO); // 資料庫取出的empVO物件,存入req
-				String url = "/back-end/rpth/update_rpth.jsp";
+				req.setAttribute("rpttcVO", rpttcVO); // 資料庫取出的empVO物件,存入req
+				String url = "/back-end/rpttc/update_rpttc.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/listAllRpttc.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -198,38 +195,38 @@ public class RpthServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
-				String rpth_no = req.getParameter("rpth_no");
-				System.out.println(rpth_no);
+				String rpttc_no = req.getParameter("rpttc_no");
+				System.out.println(rpttc_no);
 				String emp_no = req.getParameter("emp_no");
 				System.out.println(emp_no);
 				if (emp_no == null) {
 					System.out.println("找不到員工編號");
 				}
-				Integer rpth_status = new Integer(req.getParameter("rpth_status").trim());
-				System.out.println(rpth_status);
+				Integer rpttc_status = new Integer(req.getParameter("rpttc_status").trim());
+				System.out.println(rpttc_status);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpthVO rpthVO1 = new RpthVO();
-//				rpthVO1.setRpth_no(rpth_no);
-//				rpthVO1.setEmp_no(emp_no);
-//				rpthVO1.setRpth_status(rpth_status);
+				RpttcVO rpttcVO1 = new RpttcVO();
+//				rpttcVO1.setRpttc_no(rpttc_no);
+//				rpttcVO1.setEmp_no(emp_no);
+//				rpttcVO1.setRpttc_status(rpttc_status);
 //				System.out.println("裝入完畢");
 
-				RpthService rpthSvc = new RpthService();
-				rpthVO1 = rpthSvc.updateEmp(rpth_no, emp_no, rpth_status);
+				RpttcService rpttcSvc = new RpttcService();
+				rpttcVO1 = rpttcSvc.updateEmp(rpttc_no, emp_no, rpttc_status);
 				System.out.println("emp有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
-				String url = "/back-end/rpth/rpth_main_page.jsp";
+				String url = "/back-end/rpttc/rpttc_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到rpth_main_page");
+				System.out.println("轉到rpttc_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/listAllRpttc.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -243,46 +240,46 @@ public class RpthServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
-				String rpth_no = req.getParameter("rpth_no");
-				System.out.println(rpth_no);
+				String rpttc_no = req.getParameter("rpttc_no");
+				System.out.println(rpttc_no);
 				String emp_no = req.getParameter("emp_no");
 				System.out.println(emp_no);
 				if (emp_no == null) {
 					System.out.println("空直跑到例外");
 					errorMsgs.add("未填寫要指派的員工編號! 麻煩重新操作一次");
-					RpthService rpthSvc = new RpthService();
-					List<RpthVO> rpthVO = rpthSvc.getRpth("0");
-					req.setAttribute("rpthVO", rpthVO);
-					String url = "/back-end/rpth/rpth_first_page.jsp";
+					RpttcService rpttcSvc = new RpttcService();
+					List<RpttcVO> rpttcVO = rpttcSvc.getRpttc("0");
+					req.setAttribute("rpttcVO", rpttcVO);
+					String url = "/back-end/rpttc/rpttc_first_page.jsp";
 					RequestDispatcher FailView = req.getRequestDispatcher(url);
 					FailView.forward(req, res);
 					return;
 				}
-				String rpth_note = req.getParameter("rpth_note");
-				System.out.println(rpth_note);
+				String rpttc_note = req.getParameter("rpttc_note");
+				System.out.println(rpttc_note);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpthVO rpthVO1 = new RpthVO();
-//				rpthVO1.setRpth_no(rpth_no);
-//				rpthVO1.setEmp_no(emp_no);
-//				rpthVO1.setRpth_note(rpth_note);
+				RpttcVO rpttcVO1 = new RpttcVO();
+//				rpttcVO1.setRpttc_no(rpttc_no);
+//				rpttcVO1.setEmp_no(emp_no);
+//				rpttcVO1.setRpttc_note(rpttc_note);
 //				System.out.println("裝入完畢");
 
-				RpthService rpthSvc = new RpthService();
-				rpthVO1 = rpthSvc.assignEmp(rpth_no, emp_no, rpth_note);
+				RpttcService rpttcSvc = new RpttcService();
+				rpttcVO1 = rpttcSvc.assignEmp(rpttc_no, emp_no, rpttc_note);
 				System.out.println("emp有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rpth/rpth_main_page.jsp";
+				String url = "/back-end/rpttc/rpttc_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到rpth_main_page");
+				System.out.println("轉到rpttc_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				System.out.println("跑到例外");
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/listAllRpttc.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -296,31 +293,31 @@ public class RpthServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
-				String rpth_no = req.getParameter("rpth_no");
-				System.out.println(rpth_no);
-				String rpth_note = req.getParameter("rpth_note");
-				System.out.println(rpth_note);
+				String rpttc_no = req.getParameter("rpttc_no");
+				System.out.println(rpttc_no);
+				String rpttc_note = req.getParameter("rpttc_note");
+				System.out.println(rpttc_note);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpthVO rpthVO1 = new RpthVO();
-//				rpthVO1.setRpth_no(rpth_no);
-//				rpthVO1.setRpth_note(rpth_note);
+				RpttcVO rpttcVO1 = new RpttcVO();
+//				rpttcVO1.setRpttc_no(rpttc_no);
+//				rpttcVO1.setRpttc_note(rpttc_note);
 //				System.out.println("裝入完畢");
 
-				RpthService rpthSvc = new RpthService();
-				rpthVO1 = rpthSvc.saveNote(rpth_no, rpth_note);
+				RpttcService rpttcSvc = new RpttcService();
+				rpttcVO1 = rpttcSvc.saveNote(rpttc_no, rpttc_note);
 				System.out.println("note有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rpth/rpth_main_page.jsp";
+				String url = "/back-end/rpttc/rpttc_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到rpth_main_page");
+				System.out.println("轉到rpttc_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/listAllRpttc.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -334,34 +331,29 @@ public class RpthServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
-				String rpth_no = req.getParameter("rpth_no");
-				System.out.println(rpth_no);
-				Integer rpth_result = 2;
-				System.out.println(rpth_result);
-				String rpth_note = req.getParameter("rpth_note");
-				System.out.println(rpth_note);
+				String rpttc_no = req.getParameter("rpttc_no");
+				System.out.println(rpttc_no);
+				Integer rpttc_result = 2;
+				System.out.println(rpttc_result);
+				String rpttc_note = req.getParameter("rpttc_note");
+				System.out.println(rpttc_note);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpthVO rpthVO1 = new RpthVO();
-//				rpthVO1.setRpth_no(rpth_no);
-//				rpthVO1.setRpth_result(rpth_result);
-//				rpthVO1.setRpth_note(rpth_note);
-//				System.out.println("裝入完畢");
-
-				RpthService rpthSvc = new RpthService();
-				rpthVO1 = rpthSvc.fail(rpth_no, rpth_result, rpth_note);
+				RpttcVO rpttcVO1 = new RpttcVO();
+				RpttcService rpttcSvc = new RpttcService();
+				rpttcVO1 = rpttcSvc.fail(rpttc_no, rpttc_result, rpttc_note);
 				System.out.println("result有更新了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rpth/rpth_main_page.jsp";
+				String url = "/back-end/rpttc/rpttc_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到rpth_main_page");
+				System.out.println("轉到rpttc_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/listAllRpttc.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -369,54 +361,50 @@ public class RpthServlet extends HttpServlet {
 		if ("pass".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
-		
+
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
-				String rpth_no = req.getParameter("rpth_no");
-				System.out.println(rpth_no);
-				Integer rpth_result = 1;
-				System.out.println(rpth_result);
-				String rpth_note = req.getParameter("rpth_note");
-				System.out.println(rpth_note);
-				String hos_no = req.getParameter("hos_no");
-				System.out.println(hos_no);
+				String rpttc_no = req.getParameter("rpttc_no");
+				System.out.println(rpttc_no);
+				Integer rpttc_result = 1;
+				System.out.println(rpttc_result);
+				String rpttc_note = req.getParameter("rpttc_note");
+				System.out.println(rpttc_note);
+				String tnt_no = req.getParameter("tnt_no");
+				System.out.println(tnt_no);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpthVO rpthVO1 = new RpthVO();
-//				rpthVO1.setRpth_no(rpth_no);
-//				rpthVO1.setRpth_result(rpth_result);
-//				rpthVO1.setRpth_note(rpth_note);
-//				System.out.println("裝入完畢");
-
-				RpthService rpthSvc = new RpthService();
-				rpthVO1 = rpthSvc.fail(rpth_no, rpth_result, rpth_note);
+				RpttcVO rpttcVO1 = new RpttcVO();
+				RpttcService rpttcSvc = new RpttcService();
+				rpttcVO1 = rpttcSvc.fail(rpttc_no, rpttc_result, rpttc_note);
 				System.out.println("result有更新了");
-				HouseService hosSvc =new HouseService();
-				hosSvc.updateStatus("已下架", hos_no);
-				System.out.println("house已下架了");
-				
-				LldService lldSvc = new LldService();
-				LldVO lldVO1 = lldSvc.getEmail(hos_no);
-				String HosEmail = "xiyuan345@gmail.com";
-				String LldName = lldVO1.getLld_name();
-				String HosName = lldVO1.getLld_acc();
-				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
-				String lld_no= lldVO1.getLld_no();
+
+				TntService tntSvc = new TntService();
+				TntVO tntVO1 = tntSvc.getEmail(tnt_no);
+				String TntEmail = "xiyuan345@gmail.com";
+				String TntName = tntVO1.getTnt_name();
+				String TntAcc = tntVO1.getTnt_acc();
+				String EmailLink = "http://localtcmt:8081/EA103G2/front-end/index/index.jsp";
+				System.out.println("rpttc準備Call寄信方法");
 				MailService mailservice = new MailService();
-				mailservice.sendMail(HosEmail, LldName, HosName, EmailLink);
+				mailservice.sendMail(TntEmail, TntName, TntAcc, EmailLink);
+				
+				//刪除該筆評價
+//				Tenant_commentsService tcmSvc= new Tenant_commentsService();
+//				tcmSvc.delete(tcm_no);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				String url = "/back-end/rpth/rpth_main_page.jsp";
+				String url = "/back-end/rpttc/rpttc_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
-				System.out.println("轉到rpth_main_page");
+				System.out.println("轉到rpttc_main_page");
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpttc/listAllRpttc.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -430,14 +418,14 @@ public class RpthServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
-				String rpth_no = req.getParameter("rpth_no");
+				String rpttc_no = req.getParameter("rpttc_no");
 
 				/*************************** 2.開始刪除資料 ***************************************/
-				RpthService rpthSvc = new RpthService();
-				rpthSvc.deleteRpth(rpth_no);
+				RpttcService rpttcSvc = new RpttcService();
+				rpttcSvc.deleteRpttc(rpttc_no);
 
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				String url = "/back-end/rpth/listAllRpth.jsp";
+				String url = "/back-end/rpttc/listAllRpttc.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 
@@ -447,48 +435,6 @@ public class RpthServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 				failureView.forward(req, res);
 			}
-		}
-		if ("get_want_landlord".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-
-				String Number = req.getParameter("Number").toUpperCase(); // Number可轉大寫且為身份證字號或編號
-				if (Number == null || (Number.trim()).length() == 0) {
-					errorMsgs.add("請正確輸入欲搜尋編號");
-				}
-
-				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
-					failureView.forward(req, res);
-					System.out.println("編號輸入錯誤");
-					return;
-				}
-
-				/*************************** 2.開始查詢資料 *****************************************/
-				TntService tntSvc = new TntService();
-				TntVO tntVO = tntSvc.getOneLandlordProfile(Number);
-				System.out.println("成功進入service");
-
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				req.setAttribute("TntVO", tntVO);
-				String url = "/back-end/member/landlord_search_page.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				System.out.println("成功轉過去囉");
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-
-			} catch (Exception e) {
-				System.out.println("無法取得555" + e.getMessage());
-				errorMsgs.add("搜尋不到或是未填寫要查詢的編號! 麻煩重新輸入一次");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_main_page.jsp");
-				failureView.forward(req, res);
-			}
-
 		}
 	}
 }

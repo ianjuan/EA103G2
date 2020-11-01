@@ -24,6 +24,10 @@ public class LldService {
 	public LldVO getEmail(String hos_no) {
 		return dao.findEmail(hos_no);
 	}
+	
+	public LldVO getEmail_normal(String lld_no) {
+		return dao.findEmail_normal(lld_no);
+	}
 
 	public LldVO updateLldAuth(String lld_no, Integer lld_reported_count, Integer lld_auth_chat, Integer lld_auth_res,
 			Integer lld_auth_cmt, Integer lld_auth_rpt, Integer lld_auth_hos) {

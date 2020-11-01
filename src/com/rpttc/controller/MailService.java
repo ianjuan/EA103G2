@@ -1,4 +1,4 @@
-package com.rptt.controller;
+package com.rpttc.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
@@ -16,9 +16,8 @@ import javax.mail.internet.MimeUtility;
 public class MailService {
 
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
-	public boolean sendMail(String TntEmail, String TntName, String TntAcc, String TntDissaprove, String emailVrfLink,
-			Integer type) {
-			
+	public boolean sendMail(String TntEmail, String TntName, String TntAcc, String emailVrfLink) {
+
 		String color = "#0f868c";
 		String subject = null;
 		String messageText = null;
@@ -26,27 +25,12 @@ public class MailService {
 		String btnword = null;
 
 		// 設定信中的主旨
-		if (type == 2) {
-			subject = "【通知】帳號:" + TntAcc + " 身分驗證通過";
-			// 設定信中的內容
-			messageText = "感謝您使用愛租的會員身分驗證，而驗證的主要目的是為了確保愛租平台上能提供更有保障的安全使用範圍。";
-			messageText1 = "我們也開心地告訴您，您的身分驗證已通過！ 這裡可由點擊下方的連結，馬上開始體驗美好的愛租生活喔!";
-			btnword = "開始使用愛租";
 
-		} else if (type == 1) {
-			subject = "【通知】帳號:" + TntAcc + " 檢舉成立";
-			// 設定信中的內容
-			messageText = "因為您違反了愛租相關規定，以致被其他會員檢舉，並由調查後審核通過，確認檢舉成立。";
-			messageText1 = "因此將為您限縮在愛租網站上的部分權利，詳請可透過愛租線上客服了解並查詢，祝您一切平安!";
-			btnword = "回到愛租首頁";
-
-		} else if (type == 3) {
-			subject = "【通知】帳號:" + TntAcc + " 身分驗證失敗";
-			messageText = "感謝您使用愛租的會員身分驗證，而驗證的主要目的是為了確保愛租平台上能提供更有保障的安全使用範圍。但這裡也遺憾地告訴您 ，您的身分驗證未通過!";
-			messageText1 = "失敗原因為:" + "<b><h2>" + TntDissaprove + "</h2></b>" + "<br>\r\n"
-					+ "不過沒關係，這裡可由點擊下方的連結，重新上傳您的證件照片。" + "<br>\r\n" + "愛租還是迫不及待的歡迎您的加入，一同來分享美好的愛租生活喔！";
-			btnword = "重新上傳驗證照片";
-		}
+		subject = "【通知】您提報的評價檢舉成立";
+		// 設定信中的內容
+		messageText = "日前，您所提交的評價檢舉，經由調查後，給予通過，確認該筆檢舉成立。";
+		messageText1 = "因此將在您的個人頁面中，移除該筆評價，若有問題，歡迎與愛租的客服人員聯繫，祝您一切平安!";
+		btnword = "回到愛租首頁";
 
 		try {
 			// 設定使用SSL連線至 Gmail smtp Server
@@ -227,20 +211,5 @@ public class MailService {
 			return false;
 		}
 	}
-
-//	public static void main(String args[]) {
-//
-//		 String to = "xiyuan345@gmail.com";
-//	      
-//	      String subject = "密碼通知";
-//	      
-//	      String ch_name = "peter1";
-//	      String passRandom = "111";
-//	      String messageText = "(test)Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
-//	       
-//	      MailService mailService = new MailService();
-//	      mailService.sendMail(to, subject, messageText);
-//
-//	}
 
 }
