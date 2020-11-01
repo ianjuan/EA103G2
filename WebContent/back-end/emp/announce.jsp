@@ -71,7 +71,7 @@
   <script src="<%=request.getContextPath()%>/back-end/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.min.js"></script>
   <script src="<%=request.getContextPath()%>/back-end/js/demo/datatables-demo.js"></script>
-
+			
 </body>
 
 </html>
