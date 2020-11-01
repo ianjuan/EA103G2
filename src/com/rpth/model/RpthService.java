@@ -3,6 +3,8 @@ package com.rpth.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.rptt.model.TntVO;
+
 public class RpthService {
 
 	private RpthDAO_interface dao;
@@ -92,5 +94,6 @@ public class RpthService {
 	public List<RpthVO> getRpth(String Number) {
 		return dao.findByNo(Number);
 	}
+	
 	
 }
