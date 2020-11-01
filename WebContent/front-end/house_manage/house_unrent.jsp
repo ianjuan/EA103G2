@@ -84,7 +84,7 @@
 							<li><span class="infotitle">房屋名稱 : </span><span>${houseVO.hos_name}</span></li>
 							<li><span class="infotitle">地址 : </span><span>${houseVO.hos_add}</span></li>
 							<li><span class="infotitle">房間類型 : </span><span>${houseVO.hos_room}</span></li>
-							<li><span class="infotitle">每月租金 : </span><span>${houseVO.hos_rentfee}</span></li>
+							<li><span class="infotitle">上架日期 : </span><span>${houseVO.hos_date}</span></li>
 							<li><span class="infotitle">房屋狀態/申請數量 : </span><span>${houseVO.hos_status}/ ${aplSvc.hosgetall(houseVO.hos_no).size()}個申請</span></li>
 						</ul>
 					</div>
@@ -130,11 +130,11 @@
 									<th class="fun">頁數</th>
 									<th class="hos">編號</th>
 									<th class="hos">房屋編號</th>
-									<th>名稱</th>
 									<th>地址</th>
 									<th>房屋</th>
 									<th>房間</th>
 									<th>租金</th>
+									<th>上架日期</th>
 									<th class="fun">狀態</th>
 								</tr>
 							</thead>
@@ -143,12 +143,12 @@
 									<tr>
 										<td width="5%">${fn:substring((house.index/3)+1,0,fn:indexOf((house.count/3)+1, '.'))}</td>
 										<td width="5%">${house.count}</td>
-										<td width="11%">${houseVO.hos_no}</td>
-										<td width="22%">${houseVO.hos_name}</td>
-										<td width="21%">${houseVO.hos_add}</td>
+										<td width="12%">${houseVO.hos_no}</td>
+										<td width="28%">${houseVO.hos_add}</td>
 										<td width="10%">${houseVO.hos_type}</td>
 										<td width="10%">${houseVO.hos_room}</td>
 										<td width="8%">${houseVO.hos_rentfee}</td>
+										<td width="14%">${houseVO.hos_date}</td>
 										<td class="status" width="8%">${houseVO.hos_status}</td>
 									</tr>
 								</c:forEach>
