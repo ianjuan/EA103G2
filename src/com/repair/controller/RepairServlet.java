@@ -97,8 +97,6 @@ public class RepairServlet extends HttpServlet{
 		/***************************1.接收請求參數，錯誤處理**********************/
 		try {
 			
-			
-			
 			Collection<Part> parts = req.getParts();
 			for (Part part : parts) {
 				String filename = getFileNameFromPart(part);
@@ -219,7 +217,10 @@ public class RepairServlet extends HttpServlet{
 		
 		try {
 			/***************************1.接收請求參數，錯誤處理**********************/
+		
 			String tnt_no = req.getParameter("tnt_no");
+	
+			System.out.println(tnt_no);
 			/***************************2.新增完成,準備轉交(Send the Success view)***********/
 			req.setAttribute("tnt_no", tnt_no);
 			String url = "/front-end/repair/listAllRepair.jsp";
@@ -320,13 +321,31 @@ public class RepairServlet extends HttpServlet{
 			String rep_dam_objReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
 			String	rep_dam_obj = req.getParameter("rep_dam_obj");
 		
-			if (rep_dam_obj == null || rep_dam_obj.trim().length() == 0) {
-				errorMsgs.add("待修物品: 請勿空白，只能是中、英文字母、數字和_ , 且長度必需在1到250之間");
+			if (rep_dam_obj == null || rep_dam_obj.trim().length() == 0||rep_dam_obj.trim().equals("")) {
+				errorMsgs.add("待修物品: 請勿空白");
 			} else if(!rep_dam_obj.trim().matches(rep_dam_objReg)) { //以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("待修物品: 只能是中、英文字母、數字和_ , 且長度必需在1到250之間");
+				errorMsgs.add("待修物品: 請勿空白");
             }
 			
+			String fQty = req.getParameter("fQty");
+			System.out.println(fQty);
+			
+//			if (fQty == null || fQty.trim().length() == 0) {
+//				errorMsgs.add("物品數量: 請勿空白");
+//			} else if(Integer.valueOf(fQty)==0){ 
+//				errorMsgs.add("待修物品: 請填入大於0的數字");
+//            }else {
+//            	errorMsgs.add("待修物品:請填入數字");
+//            }
+			
+			
 			String rep_dam_obj_des = req.getParameter("rep_dam_obj_des");
+			if (rep_dam_obj_des == null || rep_dam_obj_des.trim().length() == 0) {
+				errorMsgs.add("損壞狀況: 請勿空白，只能是中、英文字母、數字和_ , 且長度必需在1到250之間");
+			} else if(!rep_dam_obj_des.trim().matches(rep_dam_objReg)) { //以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("損壞狀況: 只能是中、英文字母、數字和_ , 且長度必需在1到250之間");
+            }
+			
 			java.sql.Date rep_case_str =null;
 			try {
 			rep_case_str = java.sql.Date.valueOf(req.getParameter("rep_case_str").trim());
@@ -338,6 +357,7 @@ public class RepairServlet extends HttpServlet{
 			RepairVO repairVO = new RepairVO();
 			repairVO.setCon_no(con_no);
 			repairVO.setRep_dam_obj(rep_dam_obj);
+//			repairVO.setRep_dam_obj(fQty);
 			repairVO.setRep_dam_obj_des(rep_dam_obj_des);
 			repairVO.setRep_case_str(rep_case_str);
 			
@@ -348,7 +368,8 @@ public class RepairServlet extends HttpServlet{
 				failureView.forward(req, res);
 				return;
 			}
-			
+//			System.out.println(rep_dam_obj+fQty);
+//			repairVO.setRep_dam_obj(rep_dam_obj+fQty);
 			/***************************2.開始新增資料***************************************/
 			RepairService repairSvc = new RepairService();
 			RepairVO repairVO2 = repairSvc.addRepair(con_no, rep_dam_obj, rep_dam_obj_des, rep_case_str);

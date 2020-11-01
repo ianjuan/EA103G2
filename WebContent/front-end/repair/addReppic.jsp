@@ -18,6 +18,8 @@ RepairVO repairVO = (RepairVO) session.getAttribute("repairVO");
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- 元 nav bar= -->
 <link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -34,6 +36,7 @@ RepairVO repairVO = (RepairVO) session.getAttribute("repairVO");
 	padding:100px;
 	margin:120px;
 	color:grey;
+	max-width:1200px;
 	
 }
 
@@ -48,13 +51,25 @@ text-align:center;
 
 }
 
-.btn btn-primary{
+.btn {
 	width:125px;
     margin-left:auto;
     margin-right:auto;
+    margin:20px;
+}
+
+.btn:hover {
+  background: white;
+  border-style:dashed;
+  border-color:#e55743;
+  font-size:x-large; 
+color: #e55743;
+}
+#view{
+	max-width="500px"
 }
 img{
-	margin:50px;
+	margin:40px;
 	border-radius:20px;
 	border:5px lightblue solid;
 }
@@ -72,24 +87,29 @@ img{
 	    
 	<div class="col-md-auto">
       <div class="input">
-		 <h1 class="title">申請已完成 </h1><br>
-		 <span class="text">修繕申請成功!請等候房東通知預計修畢日期與修繕結果</span><br>
-		<span class="text">想要給房東看家具損壞的照片嗎? 這裡可以上傳損壞物品的照片(可多張)
-		<a href="${pageContext.request.contextPath }/front-end/repair/lldListAllRepair.jsp?lld_no=${lld_no}"><button class="btn btn-primary">取消</button></a>	
+		 <h1 class="title">Almost done 還差一步  ! </h1><br>
+		<span class="text">想給房東看家具損壞的照片嗎? 這裡可以上傳損壞物品的照片(最多4張) 
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" >
+			<input type="hidden" name="tnt_no" value="${tnt_no}">
+			<input type="hidden" name="action" value="getTntRepair">
+			<div align="center"><br><button type="submit" id="cancel" class="btn btn-secondary"> 取 消  </button><span><font color="grey" size="4">(修繕申請依然會送出)</font></span></div>
+			</FORM>
 		</span>
 
-
- 		<div class="upload">
+		<div align="center"><font color="darkgrey" size="7">or</font></div>
+ 		<div class="upload" align="center" >
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1" enctype="multipart/form-data">
-			    <br><input type="file" id="myPic" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
-			  	<br><br><input class="btn btn-primary" type="reset" id="delete" value="清除全部"> 
+			    <br><label class="btn btn-info"><input id="upload_img" style="display:none;" type="file" id="myPic" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
+			  	<i class="fa fa-photo"></i>上傳圖片</label>
+			  	<br><input class="btn btn-danger" type="reset" id="delete" value="清除全部"> 
 			  	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 				<input type="hidden" name="action" value="pic_insert">
-				<input class="btn btn-primary" type="submit" value="送出圖片">
-				
+				<div id="subBtn" style="display:none;">
+				<input class="btn btn-primary" id="insert" type="submit" value="送出圖片" >
+				</div>
 			</FORM>
     	</div>
-    	<div id="view">
+    	<div id="view" align="center" >
 	 	</div>
     </div>
    </div>
@@ -98,10 +118,6 @@ img{
     </div>
 	      
     
-    
-	    
-  
-
 </div>
 </div>
 </body>
@@ -120,16 +136,45 @@ img{
 <!--  </div> -->
 <!-- </div> -->
 <script>
-var myPic = document.getElementById("myPic");
-var view = document.getElementById("view");
 
+//sweet alert
+document.getElementById("insert").addEventListener("click",function(){
+	  swal({
+	        title: "申請成功!",
+	        text: "請留意房東更新修繕狀態:D",
+	        type: "success",
+	        timer: 6000,
+	        showConfirmButton: false
+	    })
+	});
+	
+// document.getElementById("cancel").addEventListener("click",function(){
+// 	  swal({
+// 	        title: "之後也可新增照片!",
+// 	        text: "請留意房東更新修繕狀態:D",
+// 	        type: "success",
+// 	        timer: 6000,
+// 	        showConfirmButton: false
+// 	    })
+// 	});
+	
+//圖片上傳	
+
+
+ var myPic = document.getElementById("upload_img");
+ var view = document.getElementById("view");
+ var subBtn = document.getElementById("subBtn");
 myPic.addEventListener('change', function(e) {
     var pics = myPic.files;
     console.log('pics');
 
     //選擇的檔案型別必為image，可選一個以上
     //pics.type.indexOf('image')?
-    if (pics !== null) {
+	if(pics.length>6){
+		alert("ooops!只能上傳最多4張照片:(");
+	}	
+    if (pics !== null && pics.length<5) {
+    	subBtn.setAttribute('style', 'display:block');
     	view.setAttribute('border', '5px lightblue solid');
     	view.setAttribute('border-radius', '30px');
         for (var i = 0; i < pics.length; i++) {
@@ -173,6 +218,7 @@ myPic.addEventListener('change', function(e) {
 var delete1 = document.getElementById("delete");
 delete1.addEventListener('click', function(e) {
     view.innerHTML = "";
+    subBtn.setAttribute('style', 'display:none');
 });
 
 
