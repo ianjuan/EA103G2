@@ -36,7 +36,7 @@
 
 
 <!-- 針對某房東的所有房子查詢結果，以LLD000008為例，合併時會動態抓lld_no -->
-<% session.setAttribute("tnt_no", "TNT000020"); %>
+<%-- <% session.setAttribute("tnt_no", "TNT000020"); %> --%>
 <!-- (String)session.getAttribute("lld_no") -->
 <%
  	Tenant_commentsService tcmSvc = new Tenant_commentsService(); 

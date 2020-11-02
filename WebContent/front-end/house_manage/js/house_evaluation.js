@@ -62,53 +62,68 @@ window.onload = function(){
 	})
 }
 
-function eqpmtPoint(e){
-	var evaluation = document.getElementById("evaluation");
+function cleanPoint(e){
 	var input = document.createElement("input");
-	var hcm_eqpmt = document.getElementsByName("hcm_eqpmt");
+	var tcm_clean = document.getElementsByName("tcm_clean");
 	
 	input.setAttribute("type", "hidden");
-	input.setAttribute("name", "hcm_eqpmt");
-	input.setAttribute("value", e.target.getAttribute("value"));
-	evaluation.append(input);
+	input.setAttribute("name", "tcm_clean");
 	
-	if(hcm_eqpmt.length > 0){
-		for(var i=0; i<hcm_eqpmt.length-1; i++){
-			hcm_eqpmt[i].remove();
+	if(e.target.getAttribute("value") > 5){
+		input.setAttribute("value", e.target.getAttribute("value")-5);
+		e.target.parentElement.parentElement.parentElement.append(input);
+	} else{
+		input.setAttribute("value", e.target.getAttribute("value"));
+		e.target.parentElement.parentElement.append(input);
+	}
+		
+	if(tcm_clean.length > 0){
+		for(var i=0; i<tcm_clean.length-1; i++){
+			tcm_clean[i].remove();
 		}
 	}
 }
 
-function convmtPoint(e){
-	var evaluation = document.getElementById("evaluation");
+function commutPoint(e){
 	var input = document.createElement("input");
-	var hcm_convmt = document.getElementsByName("hcm_convmt");
+	var tcm_commut = document.getElementsByName("tcm_commut");
 	
 	input.setAttribute("type", "hidden");
-	input.setAttribute("name", "hcm_convmt");
-	input.setAttribute("value", e.target.getAttribute("value"));
-	evaluation.append(input);
+	input.setAttribute("name", "tcm_commut");
 	
-	if(hcm_convmt.length > 0){
-		for(var i=0; i<hcm_convmt.length-1; i++){
-			hcm_convmt[i].remove();
+	if(e.target.getAttribute("value") > 5){
+		input.setAttribute("value", e.target.getAttribute("value")-5);
+		e.target.parentElement.parentElement.parentElement.append(input);
+	} else{
+		input.setAttribute("value", e.target.getAttribute("value"));
+		e.target.parentElement.parentElement.append(input);
+	}
+		
+	if(tcm_commut.length > 0){
+		for(var i=0; i<tcm_commut.length-1; i++){
+			tcm_commut[i].remove();
 		}
 	}
 }
 
-function neiborPoint(e){
-	var evaluation = document.getElementById("evaluation");
+function satisfyPoint(e){
 	var input = document.createElement("input");
-	var hcm_neibor = document.getElementsByName("hcm_neibor");
+	var tcm_satisfy = document.getElementsByName("tcm_satisfy");
 	
 	input.setAttribute("type", "hidden");
-	input.setAttribute("name", "hcm_neibor");
-	input.setAttribute("value", e.target.getAttribute("value"));
-	evaluation.append(input);
+	input.setAttribute("name", "tcm_satisfy");
 	
-	if(hcm_neibor.length > 0){
-		for(var i=0; i<hcm_neibor.length-1; i++){
-			hcm_neibor[i].remove();
+	if(e.target.getAttribute("value") > 5){
+		input.setAttribute("value", e.target.getAttribute("value")-5);
+		e.target.parentElement.parentElement.parentElement.append(input);
+	} else{
+		input.setAttribute("value", e.target.getAttribute("value"));
+		e.target.parentElement.parentElement.append(input);
+	}
+		
+	if(tcm_satisfy.length > 0){
+		for(var i=0; i<tcm_satisfy.length-1; i++){
+			tcm_satisfy[i].remove();
 		}
 	}
 }
@@ -120,13 +135,27 @@ function checkLen(e) {
 	document.getElementById("evacount").innerHTML = maxChars - e.value.length;
 }
 
-function notice(){
+function notice(e){
 	 swal({title:"確定要送出評價了嗎?", text:"" , icon:"info", buttons: {
 	      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 	    }}).then(function(isConfirm){
 		if(isConfirm){
 			swal("成功送出!!", "", "success", {button: "確認"}).then(function(){
-				document.evaluation.submit();
+				document.getElementById("evaluation" + e.target.getAttribute("value")).submit();
+			});
+		} else {
+			return false;
+		}
+	});
+}
+
+function fillnotice(e){
+	 swal({title:"確定要送出帳單了嗎?", text:"" , icon:"info", buttons: {
+	      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
+	    }}).then(function(isConfirm){
+		if(isConfirm){
+			swal("成功送出!!", "", "success", {button: "確認"}).then(function(){
+				document.getElementById("fullin" + e.target.getAttribute("value")).submit();
 			});
 		} else {
 			return false;
