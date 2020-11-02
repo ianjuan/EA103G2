@@ -61,7 +61,7 @@ text-align:center;
      
    <div class="col-md-auto">
       <div class="input">
-      	<h1 class="title">回報修繕結果</h1><br>
+      	<h1 class="title">取消修繕申請</h1><br>
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1">
 
  <div class="form-group">
@@ -86,12 +86,11 @@ text-align:center;
 
 
 <div class="form-group">
-<input type="radio" name="rep_tnt_rpt" value="0" checked> <span class="text">對修繕結果滿意，結案!</span><br>
-<input type="radio" name="rep_tnt_rpt" value="1"> <span class="text">對修繕結果不滿意，再修一次!</span><br>
-<input type="hidden" name="action" value="updateRpt">
+<input type="radio" name="rep_pro" value="3" checked> <span class="text">取消修繕申請!</span><br>
+<input type="hidden" name="action" value="delRepair">
 <input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>"> <br>
-<a href="${pageContext.request.contextPath }/front-end/repair/listAllRepair.jsp?tnt_no=${tnt_no}"><button class="btn btn-secondary">取消</button></a>	
-<input style="text-align:center" class="btn btn-primary" type="submit" value="送出修改">
+<a href="${pageContext.request.contextPath }/front-end/repair/listAllRepair.jsp?tnt_no=${tnt_no}"><button class="btn btn-secondary">返回</button></a>	
+<input style="text-align:center" class="btn btn-primary" type="submit" value="取消修繕申請">
 <button class="btn btn-dark">檢舉</button>
 
 </div>
