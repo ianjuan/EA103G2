@@ -573,10 +573,8 @@
          * ================================================================== 
          *    [ Quick Input ]
          */
-        var quickInputData = ['yjwuws@gmail.com', '吳永志', 'N221219585', '0917597127', '12345678', '12345678', '', '中大路300號'];
+        var quickInputData = ['ea103g2@gmail.com', '阮奕安', 'N221219585', '0988755083', '123456789', '123456789', '', '中大路300號'];
         var quickInputDataSelects = ['1', '桃園市', '中壢區'];
-
-
 
         $('#quickpick').click(function() {
             var inputs = $('.validate-input .register100');
@@ -608,18 +606,48 @@
             e.preventDefault();
             console.log('btn - next page');
             validateAllProfile();
-            if ($('.alert-validate').length === 0) {
-                $('#divProfile').toggle();
-                $('#divPic').toggle();
-                $('#divbtnRegister').toggle();
+            if ($('.alert-validate').length === 0 && $('.alert-validate-selects').length === 0) {
+            	var tnt_email = $('#tnt_email').val();
+            	ajax_isEmailRepeat(tnt_email);
             }
         });
+        
+        function ajax_isEmailRepeat(tnt_email) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/tnt/TntServlet2",
+                type: "POST",
+                data: {
+                	"action": "isEmailRepeat",
+                	 "tnt_email": tnt_email
+                },
+                success: function(data) { // 以上成功才執行
+                	console.log("data:" + data);
+                    console.log("res棒");
+                    if (data === 'false') { //密碼錯誤
+                        $('.wrap-validate-login').addClass('validate-input alert-validate-login');
+                    } 
+                    if (data === 'true') {
+                      $('#divProfile').toggle();
+                      $('#divPic').toggle();
+                      $('#divbtnRegister').toggle();
+                   }
+                },
+                error: function() {
+                    console.log("真的不棒");
+                	Swal.fire({
+                		icon: 'warning',
+                		title: '發生錯誤',
+                		text: "請稍後重新點選送出",
+                	    showDenyButton: true,
+                		});
+                }
+            });
+        }
+        
         //submit
         $('#btnRegister.login100-form-btn').click(function(e) {
             e.preventDefault();
             console.log('btn - submit');
-            // ajax_register();
-            //   var formData = new FormData();
             var formData = new FormData($('#registerform')[0]);
             formData.append('action', 'register');
             Swal.fire({
@@ -663,13 +691,14 @@
                     		});
                     }
                     if (data === 'false') {
-                    	swal.hideLoading();
-                    	Swal.fire({
-                    		icon: 'warning',
-                    		title: '發生錯誤',
-                    		text: "請稍後重新點選送出",
-                    		showConfirmButton: true,
-                    		});
+                    	$('.wrap-validate-login').addClass('validate-input alert-validate-login');
+//                    	swal.hideLoading();
+//                    	Swal.fire({
+//                    		icon: 'warning',
+//                    		title: '發生錯誤',
+//                    		text: "請稍後重新點選送出",
+//                    		showConfirmButton: true,
+//                    		});
                     }
                 },
                 error: function() {

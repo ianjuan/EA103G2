@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -23,14 +25,15 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.lld.model.*;
+import com.cash.model.*;
 
+import ecpay.payment.integration.AllInOne;
+import ecpay.payment.integration.domain.AioCheckOutOneTime;
 import tools.MailService;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class LldServlet2 extends HttpServlet {
-
-	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -113,7 +116,7 @@ public class LldServlet2 extends HttpServlet {
 					}
 				}
 				if (lld_no.substring(0, 3).equalsIgnoreCase("lld")) { // 登入成功
-					int lld_status = lldSvc.getOneLldProfile(lld_no).getLld_status();  // 檢查帳號是否啟用
+					int lld_status = lldSvc.getOneLldProfile(lld_no).getLld_status(); // 檢查帳號是否啟用
 					if (lld_status == 0) {
 						errorMsgs.add("帳號未啟用，請前往信箱完成驗證");
 						System.out.println(lld_no + ": 帳號未啟用，請前往信箱完成驗證");
@@ -123,7 +126,6 @@ public class LldServlet2 extends HttpServlet {
 						return; // 程式中斷
 					}
 					System.out.println(lld_no + ": 登入成功");
-//					lldVO.setLld_no(lld_no);
 					req.removeAttribute("lldVO_req"); // 移除錯誤轉交用的req scope的"lldVO"
 
 					String lld_name = lldSvc.getOneLldProfile(lld_no).getLld_name().trim(); // 幫泓元存session
@@ -149,12 +151,32 @@ public class LldServlet2 extends HttpServlet {
 						return;
 					}
 					// *工作3: (-->如無來源網頁:則重導至login_success.jsp)
-					res.sendRedirect(req.getContextPath() + "/front-end/house_manage/house_index.jsp");
+					res.sendRedirect(req.getContextPath() + "/front-end/index/index.jsp");
 				}
 
 			} catch (Exception e) {
 				System.out.println("登入Exception: " + e.getMessage());
 			}
+		}
+		
+		if ("isEmailRepeat".equals(action)) { // 來自Register.jsp的請求 - ajax_isEmailRepeat(lld_email)
+			System.out.println("action: " + action);
+			out = res.getWriter();
+			String lld_email = req.getParameter("lld_email");
+			LldService lldSvc = new LldService();
+			List<LldVO> list = lldSvc.getAllAccount();
+			System.out.println(lld_email);
+			String isEmailRepeat = "true";
+			for (LldVO lldVO : list) {
+				System.out.println(lldVO.getLld_email());
+				if (lld_email.equals(lldVO.getLld_email())) { 
+					System.out.println(lld_email.equals(lldVO.getLld_email()));
+					isEmailRepeat = "false";
+				} 
+			}
+			out.print(isEmailRepeat);
+			out.close();
+			return;
 		}
 
 		if ("register".equals(action)) { // 來自Register.jsp的請求 - ajax_register(formData)
@@ -226,6 +248,7 @@ public class LldServlet2 extends HttpServlet {
 				if (successSendMail) {
 					out = res.getWriter();
 					out.print("true");
+					out.close();
 				}
 
 				/*************************** 其他可能的錯誤處理 **********************************/
@@ -233,7 +256,7 @@ public class LldServlet2 extends HttpServlet {
 //				errorMsgs.add("註冊失敗:" + e.getMessage());
 				System.out.println("註冊失敗:" + e.getMessage());
 				out.print("false");
-
+				out.close();
 			}
 		}
 
@@ -267,20 +290,14 @@ public class LldServlet2 extends HttpServlet {
 				req.setAttribute("emailVrfMsgs", emailVrfMsgs); // 重導無法取得req的參數 forward或include才可以喔
 
 				/*************************** 3.驗證完成,準備轉交(Send the Success view) ***********/
-				System.out.println("信箱驗證完成: 轉交login.jsp");
-//				res.sendRedirect(req.getContextPath() + "/front-end/index/lld/login.jsp");
-
+				System.out.println("信箱驗證完成: 重導login.jsp");
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/index/lld/login.jsp");
 				successView.forward(req, res);
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-//				errorMsgs.add("註冊失敗:" + e.getMessage());
 				System.out.println("信箱驗證失敗:" + e.getMessage());
-//				out.print("false");
-
 			}
-
 		}
 
 		// 來自forgetPwd.jsp的請求 - ajax_forgetPwd
@@ -302,7 +319,6 @@ public class LldServlet2 extends HttpServlet {
 				String lld_no = "";
 				for (LldVO lldVO : list) {
 					if (lld_email.equals(lldVO.getLld_email())) {
-//						resString = "true";
 						validateEmail = true;
 						lld_no = lldVO.getLld_no();
 					}
@@ -350,8 +366,6 @@ public class LldServlet2 extends HttpServlet {
 		// 來自info.jsp的請求 - ajax_infoUpdateProfile(formData)
 		if ("infoUpdateProfile".equals(action)) {
 			System.out.println("action: " + action);
-			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String lld_email = req.getParameter("lld_email");
@@ -382,7 +396,6 @@ public class LldServlet2 extends HttpServlet {
 				out.print("true");
 
 			} catch (Exception e) {
-//				errorMsgs.add("註冊失敗:" + e.getMessage());
 				System.out.println("info profile 修改失敗:" + e.getMessage());
 			}
 		}
@@ -397,10 +410,13 @@ public class LldServlet2 extends HttpServlet {
 				if (part.getSize() != 0) {
 					InputStream in = part.getInputStream();
 					byte[] lld_pic = getPictureByteArray(in);
+
 					LldVO lldVO = new LldVO();
 					lldVO.setLld_pic(lld_pic);
+
 					HttpSession session = req.getSession();
 					String lld_no = (String) session.getAttribute("lld_no");
+
 					LldService lldSvc = new LldService();
 					lldSvc.updateLldPic(lld_no, lld_pic);
 
@@ -410,7 +426,6 @@ public class LldServlet2 extends HttpServlet {
 					out.print("false");
 					out.close();
 				}
-
 			} catch (Exception e) {
 				System.out.println("info profile 修改失敗:" + e.getMessage());
 			}
@@ -428,24 +443,20 @@ public class LldServlet2 extends HttpServlet {
 				String lld_pwd = req.getParameter("lld_pwd");
 				String lld_pwd_new = req.getParameter("lld_pwd_new");
 
-//				System.out.println(lld_pwd_new);
-
 				/*************************** 2.開始比對登入資料 ***************************************/
 				// 【檢查該帳號 , 密碼是否有效】
 				LldService lldSvc = new LldService();
-//				System.out.println("1");
-//				LldVO lldVO_origin = lldSvc.getOneLldAccount(lld_no);
 				LldVO lldVO_origin = lldSvc.getOneLldProfile(lld_no);
-//				System.out.println("2");
 				String lld_pwd_origin = lldVO_origin.getLld_pwd();
-//				System.out.println("3");
 				out = res.getWriter();
 				if (lld_pwd_origin.equals(lld_pwd)) {
 					System.out.println("忘記密碼比對成功");
 					lldSvc.updateLldPwd(lld_no, lld_pwd_new);
 					out.print("true");
+					out.close();
 				} else {
 					out.print("false");
+					out.close();
 				}
 			} catch (Exception e) {
 				System.out.println("infoChgPwd Exception: " + e.getMessage());
@@ -457,17 +468,12 @@ public class LldServlet2 extends HttpServlet {
 		// 來自pocket.jsp的請求 - ajax_balanceWithdraw(formData)
 		if ("balanceWithdraw".equals(action)) {
 			System.out.println("action: " + action);
-			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
+			out = res.getWriter();
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-				out = res.getWriter();
 				int lld_pocket_withdraw = Integer.valueOf(req.getParameter("pocket_withdraw"));
-				System.out.println(lld_pocket_withdraw);
-
 				HttpSession session = req.getSession();
 				String lld_no = (String) session.getAttribute("lld_no");
-				
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldPocket(lld_no);
 				int lld_balance = lldVO.getLld_balance();
@@ -480,20 +486,21 @@ public class LldServlet2 extends HttpServlet {
 				if (lld_balance > lld_pocket_withdraw) {
 					lld_balance = lld_balance - lld_pocket_withdraw;
 					lldSvc.updateLldPocket(lld_no, lld_balance);
+					CashService cashSvc = new CashService();
+					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+					cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_Withdraw, -lld_pocket_withdraw, 1);
 					out.print("true");
 					out.close();
 					return;
 				}
-
 			} catch (Exception e) {
-//								errorMsgs.add("pocket提領失敗:" + e.getMessage());
 				System.out.println("pocket 提領 失敗:" + e.getMessage());
-				out = res.getWriter();
 				out.print("false");
+				out.close();
 			}
 		}
 
-		// 來自pocket.jsp的請求 - ajax_balanceDeposit(formData)
+		// 來自pocket.jsp的請求 - form.submit()
 		if ("balanceDeposit".equals(action)) {
 			System.out.println("action: " + action);
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -505,29 +512,71 @@ public class LldServlet2 extends HttpServlet {
 
 				HttpSession session = req.getSession();
 				String lld_no = (String) session.getAttribute("lld_no");
-
-				System.out.println(lld_no+"儲值金額+"+lld_pocket_deposit);
-				
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldPocket(lld_no);
 				int lld_balance = lldVO.getLld_balance();
-				if (lld_pocket_deposit < 0) { // 暫時多寫的
-					out.print("false");
-					return;
-				}
 				/*************************** 2.開始修改資料 ***************************************/
-				if (lld_pocket_deposit > 0) {
-					lld_balance = lld_balance + lld_pocket_deposit;
-					lldSvc.updateLldPocket(lld_no, lld_balance);
-					out = res.getWriter();
-					out.print("true");
-					return;
+				CashService cashSvc = new CashService();
+				String cash_no = "";
+				for (int i = 0; i < 5; i++) {
+					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+					cash_no = cashSvc.addCash(cash_date, lld_no, CashVO.cashIn, CashVO.lldIn_Deposit,
+							lld_pocket_deposit, 1);
 				}
+				
+				//@ian
+//				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+//				CashService cashSvc = new CashService();
+//				String mem_no = "LLD000001";
+//				String cash_inout = CashVO.cashOut;
+//				String cash_type = CashVO.lldOut_YaJin;
+//				Integer cash_amount = -10000;
+//				Integer cash_status = 1;
+//				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, "CON000001", cash_status);
+				//@ian
+
+				lld_balance = lld_balance + lld_pocket_deposit;
+				lldSvc.updateLldPocket(lld_no, lld_balance);
+
+				List<CashVO> list = cashSvc.getOneCashlogs(lld_no);
+				for (CashVO cashVO : list) {
+//					String cash_no1 = cashVO.getMem_no();
+//					System.out.println("lldservlet2-cashVO list" + cash_no1);
+				}
+
+				String returnURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
+						+ req.getContextPath() + req.getServletPath();
+//				System.out.println(returnURL);
+				String clientBackURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
+						+ req.getContextPath() + "/front-end/lld/pocket.jsp?ecpayDeposit="+lld_pocket_deposit;
+//				System.out.println(clientBackURL);
+
+				// 產生綠界訂單
+				AioCheckOutOneTime checkoutonetime = new AioCheckOutOneTime();
+				checkoutonetime.setMerchantTradeNo(cash_no); // 訂單編號
+
+				checkoutonetime.setItemName("iZu Landlord Deposit"); // 商品名稱
+				checkoutonetime.setTotalAmount(Integer.toString(lld_pocket_deposit)); // 總金額
+
+				java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+				DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				checkoutonetime.setMerchantTradeDate(sdf.format(time));
+				checkoutonetime.setReturnURL(returnURL);
+				checkoutonetime.setClientBackURL(clientBackURL);
+				checkoutonetime.setTradeDesc("ProductDetailDeposit"); // 商品詳情
+
+				AllInOne all = new AllInOne("");
+				String form = all.aioCheckOut(checkoutonetime, null);
+
+				// 轉送綠界訂單
+				out.print("<!DOCTYPE html>\r\n" + "<html lang=\"en\">\r\n" + "<head>\r\n"
+						+ "	<meta charset=\"UTF-8\">\r\n" + "	<title>Document</title>\r\n" + "</head>\r\n"
+						+ "<body>");
+				out.print(form);
+				out.print("</body>" + "</html>");
+
 			} catch (Exception e) {
-//				errorMsgs.add("pocket 儲值失敗:" + e.getMessage());
 				System.out.println("pocket 儲值失敗:" + e.getMessage());
-				out = res.getWriter();
-				out.print("false");
 			}
 		}
 
@@ -547,7 +596,6 @@ public class LldServlet2 extends HttpServlet {
 				System.out.println(lld_bankacc);
 				String lld_card = req.getParameter("lld_card");
 				System.out.println(lld_card);
-//				Integer lld_cardsvc = Integer.valueOf(req.getParameter("lld_cardsvc"));
 				String lld_cardsvc = req.getParameter("lld_cardsvc");
 				System.out.println(lld_cardsvc);
 				String lld_carddueStr = req.getParameter("lld_carddue");
@@ -585,12 +633,12 @@ public class LldServlet2 extends HttpServlet {
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 //					req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			ArrayList<byte[]> byteArray = new ArrayList<byte[]>();
 			try {
 				ArrayList<Part> parts = new ArrayList<Part>(req.getParts());
 //				System.out.println(parts.size());
-				for (int i=0; i<parts.size()-1; i++) {
+				for (int i = 0; i < parts.size() - 1; i++) {
 //					System.out.println(i);
 					Part part = parts.get(i);
 					InputStream in = part.getInputStream();
@@ -606,18 +654,17 @@ public class LldServlet2 extends HttpServlet {
 //				System.out.println(lld_id_pic2);
 
 //
-					HttpSession session = req.getSession();
-					String lld_no = (String) session.getAttribute("lld_no");
+				HttpSession session = req.getSession();
+				String lld_no = (String) session.getAttribute("lld_no");
 
-//							System.out.println(lld_no);
+//				System.out.println(lld_no);
 
-					LldService lldSvc = new LldService();
-					lldSvc.updateLldVrfPics(lld_no, lld_id_picf, lld_id_picb, lld_id_pic2, 1 );
+				LldService lldSvc = new LldService();
+				lldSvc.updateLldVrfPics(lld_no, lld_id_picf, lld_id_picb, lld_id_pic2, 1);
 
-					out = res.getWriter();
-					out.print("true");
-					out.close();
-
+				out = res.getWriter();
+				out.print("true");
+				out.close();
 
 			} catch (Exception e) {
 //						errorMsgs.add("註冊失敗:" + e.getMessage());
@@ -635,6 +682,9 @@ public class LldServlet2 extends HttpServlet {
 		for (LldVO lldVO : list) {
 			if (lld_email.equals(lldVO.getLld_email())) { // 有該信箱帳號, 進一步比對密碼
 				lld_no = "Pwdfalse";
+				System.out.println(lld_pwd);
+				System.out.println(lldVO.getLld_pwd());
+				System.out.println(lld_pwd.equals(lldVO.getLld_pwd().trim()));
 				if (lld_pwd.equals(lldVO.getLld_pwd())) { // 帳密驗證成功
 					lld_no = lldVO.getLld_no();
 					return lld_no;

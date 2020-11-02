@@ -46,6 +46,7 @@
 
 <body class="landing">
   <jsp:include page="/front-end/navbar/navbar.jsp"/>
+  <div id="quickpick">Quick Input</div>
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-form validate-form">
