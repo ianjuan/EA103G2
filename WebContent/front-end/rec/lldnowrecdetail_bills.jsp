@@ -10,12 +10,13 @@
 <%@ page import="com.rec.model.*"%>
 
 <%
-	String rec_no = (String)request.getAttribute("rec_no");
+	String rec_no = request.getParameter("rec_no");
 	RecService recService = new RecService();
 	RecVO recVO = recService.getOneRec(rec_no);
+	String con_no = recVO.getCon_no();
 	
 	ConService conService = new ConService();
-	String hos_no = conService.getOneCon((recVO.getCon_no())).getHos_no();
+	String hos_no = (conService.getOneCon(con_no)).getHos_no();
 	
 	HouseService houseService = new HouseService();
 	HouseVO houseVO = houseService.getHouseInfo(hos_no);
@@ -52,20 +53,9 @@
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js'></script>
 </head>
 <body>
-	<div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
 	<div id="body">
 		<div id="left">
-			<nav id="housenav">
-                <div class="menu-btn">
-                    <div class="line line--1"></div>
-                    <div class="line line--2"></div>
-                    <div class="line line--3"></div>
-                </div>                
-                <div class="nav-links">
-                 <a href="<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp" class="link">首頁</a>
-					
-                </div>
-            </nav>
+
 		</div>
 		<form class="table" name="recForm" METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 			<div id="center">
@@ -181,22 +171,7 @@
 						</table>
 					</div>		        				
 				</div>
-				<div id="cfoot">
-					<button class="btn" type="button" onclick="notice1">修改申請</button>
-					<input type="hidden" name="action" value="getlldrec">
-					<button class="btn">確定</button>					
-				</div>				
-			</div>
-			<div id="right">
-				<div id="rhead">
-					<ul>
-					</ul>
-				</div>
-				<div id="rfoot">
-					<button class="btn" type="button" onclick="notice1">修改申請</button>
-					<input type="hidden" name="action" value="getlldrec">
-					<button class="btn">確定</button>
-				</div>
+				
 			</div>
 		</FORM>			
 	</div>
