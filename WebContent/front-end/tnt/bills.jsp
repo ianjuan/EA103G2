@@ -358,8 +358,28 @@
 													<c:if test="${cashVO.cash_status==1}">完成</c:if>
 													<c:if test="${cashVO.cash_status==0}">未完成</c:if>
 												<td>
-													<c:if test="${cashVO.cash_type==\"提領\"}">
+													<c:if test="${cashVO.cash_type==\"每月帳單\"}">
 								                    	<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter">本月明細</button>
+								                    	<!-- Modal -->
+														<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+														  <div class="modal-dialog modal-dialog-centered" role="document">
+														    <div class="modal-content">
+														      <div class="modal-header">
+														        <h5 class="modal-title" id="exampleModalLongTitle">每月帳單明細</h5>
+														        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														          <span aria-hidden="true">&times;</span>
+														        </button>
+														      </div>
+														      <div class="modal-body">
+														      <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/>
+														      </div>
+														      <div class="modal-footer">
+														        <button type="button" class="btn btn-primary">關閉明細</button>
+														      </div>
+														    </div>
+														  </div>
+														</div>
+														<!-- Modal End-->
 								                    </c:if>
 													
 												</td>
@@ -370,25 +390,6 @@
 
                             </div>
                             <!--End bill logs -->
-                            <!-- Modal -->
-							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-							  <div class="modal-dialog modal-dialog-centered" role="document">
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <h5 class="modal-title" id="exampleModalLongTitle">每月帳單明細</h5>
-							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							          <span aria-hidden="true">&times;</span>
-							        </button>
-							      </div>
-							      <div class="modal-body">
-							        ...
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-primary">關閉明細</button>
-							      </div>
-							    </div>
-							  </div>
-							</div>
                     <!--outer -->
             </div>
         </section>

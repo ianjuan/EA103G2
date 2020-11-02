@@ -10,7 +10,6 @@
 <%@ page import="com.rec.model.*"%>
 
 <%
-
 	String rec_no = (String)request.getAttribute("rec_no");
 	RecService recService = new RecService();
 	RecVO recVO = recService.getOneRec(rec_no);
