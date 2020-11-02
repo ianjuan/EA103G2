@@ -30,6 +30,8 @@ import tools.MailService;
 
 public class LldServlet2 extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
@@ -626,7 +628,7 @@ public class LldServlet2 extends HttpServlet {
 					HttpSession session = req.getSession();
 					String lld_no = (String) session.getAttribute("lld_no");
 
-							System.out.println(lld_no);
+//							System.out.println(lld_no);
 
 					LldService lldSvc = new LldService();
 					lldSvc.updateLldVrfPics(lld_no, lld_id_picf, lld_id_picb, lld_id_pic2, 1 );

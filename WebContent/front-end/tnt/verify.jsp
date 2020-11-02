@@ -332,11 +332,11 @@ if (tnt_id_isupload == 1){
 		$('#vrfstate3').hide();
 	}
 	if (tnt_id_result == 2){
-		$('#form-wrap-vrfpics').show();
+		$('#form-wrap-vrfpics').hide();
 		$('#vrfstate0').hide();
-		$('#vrfstate1').hide();
+		$('#vrfstate1').show();
 		$('#vrfstate2').hide();
-		$('#vrfstate3').show();
+		$('#vrfstate3').hide();
 	}
 }
 
