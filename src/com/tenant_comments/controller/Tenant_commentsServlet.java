@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.landlord_comments.model.Landlord_commentsService;
 import com.landlord_comments.model.Landlord_commentsVO;
+import com.rec.model.RecService;
+import com.rec.model.RecVO;
 import com.tenant_comments.model.Tenant_commentsService;
 import com.tenant_comments.model.Tenant_commentsVO;
 
@@ -39,6 +41,7 @@ public class Tenant_commentsServlet extends HttpServlet {
 				//從評價管理列表取得(不需錯誤處理)
 				String tnt_no = req.getParameter("tnt_no");
 				String lld_no = req.getParameter("lld_no");
+				String con_no = req.getParameter("con_no");
 				System.out.println("tnt_no = " + tnt_no);
 				System.out.println("lld_no = " + lld_no);
 				
@@ -114,9 +117,12 @@ public class Tenant_commentsServlet extends HttpServlet {
 				Tenant_commentsService tcmSvc = new Tenant_commentsService();
 				tenant_commentsVO = tcmSvc.addTcm(tnt_no, lld_no, tcm_clean, tcm_commut, tcm_satisfy, tcm_commet, tcm_time);
 				//成功新增一筆房客評價，回傳該房東所有的房客評論
-				List<Tenant_commentsVO> list = tcmSvc.getAllbyLld(lld_no);
+				RecService recService = new RecService();
+				List<RecVO> list = recService.getLddAllByCon(con_no);
+				
+				
 				req.setAttribute("list", list);
-				String url = "/front-end/tenant_comments/lldListAllTcm.jsp";
+				String url = "/front-end/rec/lldlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);	
 				
