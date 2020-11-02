@@ -1,10 +1,8 @@
 package com.rptr.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
-import com.rptr.model.RptrDAO_interface;
-import com.rptr.model.RptrJNDIDAO;
-import com.rptr.model.RptrVO;
 
 public class RptrService {
 
@@ -25,7 +23,7 @@ public class RptrService {
 		return rptrVO;
 	}
 
-	public RptrVO updateRptr(String rptr_no,String rep_no, String tnt_no, String rptr_content, String emp_no,
+	public RptrVO updaterptr(String rptr_no,String rep_no, String tnt_no, String rptr_content, String emp_no,
 			Integer rptr_status,Integer rptr_result,String rptr_note) {
 
 		RptrVO rptrVO = new RptrVO();
@@ -38,6 +36,45 @@ public class RptrService {
 		rptrVO.setRptr_result(rptr_result);
 		rptrVO.setRptr_note(rptr_note);
 		dao.update(rptrVO);
+		return rptrVO;
+	}
+	
+	public RptrVO updateEmp(String rptr_no, String emp_no, Integer rptr_status) {
+
+		RptrVO rptrVO = new RptrVO();
+		rptrVO.setRptr_no(rptr_no);
+		rptrVO.setEmp_no(emp_no);
+		rptrVO.setRptr_status(rptr_status);
+		dao.updateEmp(rptrVO);
+		return rptrVO;
+	}
+	
+	public RptrVO assignEmp(String rptr_no, String emp_no, String rptr_note) {
+
+		RptrVO rptrVO = new RptrVO();
+		rptrVO.setRptr_no(rptr_no);
+		rptrVO.setEmp_no(emp_no);
+		rptrVO.setRptr_note(rptr_note);
+		dao.assignEmp(rptrVO);
+		return rptrVO;
+	}
+	
+	public RptrVO saveNote(String rptr_no, String rptr_note) {
+
+		RptrVO rptrVO = new RptrVO();
+		rptrVO.setRptr_no(rptr_no);
+		rptrVO.setRptr_note(rptr_note);
+		dao.saveNote(rptrVO);
+		return rptrVO;
+	}
+	
+	public RptrVO fail(String rptr_no, Integer rptr_result, String rptr_note) {
+
+		RptrVO rptrVO = new RptrVO();
+		rptrVO.setRptr_no(rptr_no);
+		rptrVO.setRptr_result(rptr_result);
+		rptrVO.setRptr_note(rptr_note);
+		dao.fail(rptrVO);
 		return rptrVO;
 	}
 
@@ -56,4 +93,6 @@ public class RptrService {
 	public List<RptrVO> getRptr(String Number) {
 		return dao.findByNo(Number);
 	}
+	
+	
 }
