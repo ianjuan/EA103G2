@@ -30,6 +30,8 @@ import tools.MailService;
 
 public class LldServlet2 extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
 	}
@@ -367,17 +369,11 @@ public class LldServlet2 extends HttpServlet {
 				HttpSession session = req.getSession();
 				String lld_no = (String) session.getAttribute("lld_no");
 
-//				System.out.println(lld_no);
-
 				LldService lldSvc = new LldService();
 				LldVO lldVO_origin = lldSvc.getOneLldProfile(lld_no);
 
-//				System.out.println(0);
-
 				String lld_pwd = lldVO_origin.getLld_pwd();
 				Integer lld_status = lldVO_origin.getLld_status();
-//				System.out.println(lld_pwd);
-//				System.out.println(lld_status);
 
 				lldSvc.updateLldProfile(lld_no, lld_email, lld_acc, lld_pwd, lld_id, lld_name, lld_birth, lld_sex,
 						lld_mobile, lld_city, lld_dist, lld_add, lld_status);
@@ -394,39 +390,28 @@ public class LldServlet2 extends HttpServlet {
 		// 來自info.jsp的請求 - ajax_infoPicUpload(formData)
 		if ("infoPicUpload".equals(action)) {
 			System.out.println("action: " + action);
-			List<String> errorMsgs = new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
+			out = res.getWriter();
 			try {
 				Part part = req.getPart("lld_pic");
 				System.out.println("part.getSize():" + part.getSize());
 				if (part.getSize() != 0) {
 					InputStream in = part.getInputStream();
 					byte[] lld_pic = getPictureByteArray(in);
-
-//					System.out.println("1");
-
 					LldVO lldVO = new LldVO();
 					lldVO.setLld_pic(lld_pic);
-
-//					System.out.println("2");
-
 					HttpSession session = req.getSession();
 					String lld_no = (String) session.getAttribute("lld_no");
-
-//					System.out.println(lld_no);
-
 					LldService lldSvc = new LldService();
 					lldSvc.updateLldPic(lld_no, lld_pic);
 
-//					System.out.println("3");
-
-					out = res.getWriter();
 					out.print("true");
-//					out.close();
+					out.close();
+				} else {
+					out.print("false");
+					out.close();
 				}
 
 			} catch (Exception e) {
-//				errorMsgs.add("註冊失敗:" + e.getMessage());
 				System.out.println("info profile 修改失敗:" + e.getMessage());
 			}
 		}
@@ -482,22 +467,21 @@ public class LldServlet2 extends HttpServlet {
 
 				HttpSession session = req.getSession();
 				String lld_no = (String) session.getAttribute("lld_no");
-//
-				System.out.println(lld_no);
-//
+				
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldPocket(lld_no);
 				int lld_balance = lldVO.getLld_balance();
 				if (lld_balance < lld_pocket_withdraw) { // 提領金額大於餘額 退回
 					out.print("false");
+					out.close();
 					return;
 				}
 				/*************************** 2.開始修改資料 ***************************************/
 				if (lld_balance > lld_pocket_withdraw) {
 					lld_balance = lld_balance - lld_pocket_withdraw;
 					lldSvc.updateLldPocket(lld_no, lld_balance);
-					out = res.getWriter();
 					out.print("true");
+					out.close();
 					return;
 				}
 
@@ -512,19 +496,18 @@ public class LldServlet2 extends HttpServlet {
 		// 來自pocket.jsp的請求 - ajax_balanceDeposit(formData)
 		if ("balanceDeposit".equals(action)) {
 			System.out.println("action: " + action);
-			List<String> errorMsgs = new LinkedList<String>();
+//			List<String> errorMsgs = new LinkedList<String>();
 //					req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				out = res.getWriter();
 				int lld_pocket_deposit = Integer.valueOf(req.getParameter("pocket_deposit"));
-				System.out.println(lld_pocket_deposit);
 
 				HttpSession session = req.getSession();
 				String lld_no = (String) session.getAttribute("lld_no");
-				//
-				System.out.println(lld_no);
-				//
+
+				System.out.println(lld_no+"儲值金額+"+lld_pocket_deposit);
+				
 				LldService lldSvc = new LldService();
 				LldVO lldVO = lldSvc.getOneLldPocket(lld_no);
 				int lld_balance = lldVO.getLld_balance();
@@ -626,7 +609,7 @@ public class LldServlet2 extends HttpServlet {
 					HttpSession session = req.getSession();
 					String lld_no = (String) session.getAttribute("lld_no");
 
-							System.out.println(lld_no);
+//							System.out.println(lld_no);
 
 					LldService lldSvc = new LldService();
 					lldSvc.updateLldVrfPics(lld_no, lld_id_picf, lld_id_picb, lld_id_pic2, 1 );

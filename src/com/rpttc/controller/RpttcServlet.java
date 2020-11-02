@@ -389,12 +389,8 @@ public class RpttcServlet extends HttpServlet {
 				String EmailLink = "http://localtcmt:8081/EA103G2/front-end/index/index.jsp";
 				System.out.println("rpttc準備Call寄信方法");
 				MailService mailservice = new MailService();
-				mailservice.sendMail(TntEmail, TntName, TntAcc, EmailLink);
+				mailservice.sendMailRpttc(TntEmail, TntName, TntAcc, EmailLink);
 				
-				//刪除該筆評價
-//				Tenant_commentsService tcmSvc= new Tenant_commentsService();
-//				tcmSvc.delete(tcm_no);
-
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rpttc/rpttc_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

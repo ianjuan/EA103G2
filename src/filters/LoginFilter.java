@@ -33,6 +33,9 @@ public class LoginFilter implements Filter {
 		if (Arrays.binarySearch(paths, "navbar") > 0) {  //front-end navbar folder is free
 			ispathprotected = false;
 		}
+		if (Arrays.binarySearch(paths, "bookingforhouse.jsp") > 0) {  //front-end navbar folder is free
+			ispathprotected = false;
+		}
 		
 //		if (Arrays.binarySearch(paths, "back-end") > 0) {  //back-end不需前台登入
 //			ispathprotected = false;

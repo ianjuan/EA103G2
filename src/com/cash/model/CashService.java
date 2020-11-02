@@ -1,11 +1,8 @@
 package com.cash.model;
 
 import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.List;
 
-import com.tnt.model.TntVO;
 
 public class CashService {
 	CashDAO_interface dao;

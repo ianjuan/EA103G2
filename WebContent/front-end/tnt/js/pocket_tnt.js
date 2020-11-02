@@ -292,7 +292,7 @@
                         	  }).then(() => {
                         		  Swal.fire({
                               		icon: 'success',
-                              		title: '成功提領新台幣&nbsp'+inputWithdraw.val()+'&nbsp元',
+                              		title: '成功提領&nbspNTD&nbsp'+inputWithdraw.val()+'&nbsp元',
                               		animation: false,
                               		showConfirmButton: true,
                               	}).then((result) => {
@@ -494,11 +494,6 @@
                       			location.reload(true);
                       		} 
                       	});  
-//                        var inputs = theform.find('.validate-input .register100');
-//                        inputs.each(function() {
-//                            $(this).val('');
-//                        });
-//                        $('#tnt_bank').val('');
                    }
                 },
                 error: function() {

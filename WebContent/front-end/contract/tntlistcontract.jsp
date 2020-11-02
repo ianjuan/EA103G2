@@ -162,7 +162,7 @@
 								</c:if>
 			     				<input type="hidden" name="con_no" value="${conVO.con_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-			     				<input type="hidden" name="action"	value="getTntRepair">
+			     				<input type="hidden" name="action"	value="tnt_into_insert">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">

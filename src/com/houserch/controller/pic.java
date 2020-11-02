@@ -28,7 +28,7 @@ public class pic extends HttpServlet {
  HousearchDAO dao =new HousearchDAO();
   try {
 	  
-   out.write(dao.getpic(pic));
+   out.write(new ImageUtil().shrink(dao.getpic(pic),200));
    out.close();
   } catch (Exception e) {
    System.out.println(e);

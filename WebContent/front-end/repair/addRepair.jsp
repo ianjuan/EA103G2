@@ -12,7 +12,7 @@
  // 	String con_no = (String)request.getAttribute("con_no"); -->
  %> 
 
-<% session.setAttribute("con_no", "CON000204");%> 
+<%-- <% session.setAttribute("con_no", "CON000204");%>  --%>
 <% request.getAttribute("con_no");%>
 
 <% String con_no = (String) session.getAttribute("con_no");

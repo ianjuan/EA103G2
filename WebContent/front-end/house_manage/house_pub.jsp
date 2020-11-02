@@ -188,7 +188,7 @@
 									<input type="button" value="全選" class="funbtn" onclick="checkfurAll()"><hr>
 									<ul class="item_outer">
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123346.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/table.svg">
 											<label class="item_name">桌子&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_table" value="1" class="onoffswitch-checkbox" id="desk" tabindex="0">
@@ -197,7 +197,7 @@
 											</label>
 										</li>
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123345.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/chair.svg">
 											<label class="item_name">椅子&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_chair" value="1" class="onoffswitch-checkbox" id="chair" tabindex="0">
@@ -215,7 +215,7 @@
 											</label>
 										</li>
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123363.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/closet.svg">
 											<label class="item_name">衣櫃&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_closet" value="1" class="onoffswitch-checkbox" id="cabinet" tabindex="0">
@@ -224,7 +224,7 @@
 											</label>
 										</li>
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123332.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/sofa.svg">
 											<label class="item_name">沙發&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_sofa" value="1" class="onoffswitch-checkbox" id="sofa" tabindex="0">
@@ -240,7 +240,7 @@
 								<td>
 									<ul class="item_outer">
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/3004/3004029.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/refrig.svg">
 											<label class="item_name">冰箱&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_refrig" value="1" class="onoffswitch-checkbox" id="refri" tabindex="0">
@@ -249,7 +249,7 @@
 											</label>
 										</li>
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123326.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/tv.svg">
 											<label class="item_name">電視&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_tv" value="1" class="onoffswitch-checkbox" id="TV" tabindex="0">
@@ -267,7 +267,7 @@
 											</label>
 										</li>
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/3004/3004706.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/aircon.svg">
 											<label class="item_name">冷氣&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_aircon" value="1" class="onoffswitch-checkbox" id="air" tabindex="0">
@@ -276,7 +276,7 @@
 											</label>
 										</li>
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123318.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/wash.svg">
 											<label class="item_name">洗衣機&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_wash" value="1" class="onoffswitch-checkbox" id="wash" tabindex="0">
@@ -301,7 +301,7 @@
 								<td>
 									<ul class="item_outer">
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/123/123356.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/forth.svg">
 											<label class="item_name">第四台&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_forth" value="1" class="onoffswitch-checkbox" id="fourth" tabindex="0">
@@ -310,7 +310,7 @@
 											</label>
 										</li>
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/3094/3094464.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/net.svg">
 											<label class="item_name">網路&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_net" value="1" class="onoffswitch-checkbox" id="IE" tabindex="0" onclick="netfee()">
@@ -319,7 +319,7 @@
 											</label>
 										</li>
 										<li>
-											<img src="https://www.flaticon.com/svg/static/icons/svg/3144/3144733.svg">
+											<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/gas.svg">
 											<label class="item_name">天然瓦斯&nbsp;&nbsp;
 												<div class="onoffswitch">
 													<input type="checkbox" name="hos_gas" value="1" class="onoffswitch-checkbox" id="gas" tabindex="0" onclick="gasfee()">
