@@ -38,13 +38,13 @@ public class NewsDAO implements NewsDAO_interface{
 	@Override
 	public List<NewsVO> getAll() {
 		Gson gson= new Gson();
-		List<String> historyData = JedisHandleMessage.getHistoryMsg();
-		String jsonStr = "";
-		jsonStr = historyData.toString();
-		Type collectionType = new TypeToken<List<NewsVO>>() {
-		}.getType();
-		List<NewsVO> myNewsVOList = gson.fromJson(jsonStr, collectionType);
-		return myNewsVOList;
+//		List<String> historyData = JedisHandleMessage.getHistoryMsg();
+//		String jsonStr = "";
+//		jsonStr = historyData.toString();
+//		Type collectionType = new TypeToken<List<NewsVO>>() {
+//		}.getType();
+//		List<NewsVO> myNewsVOList = gson.fromJson(jsonStr, collectionType);
+		return null;
 	}
 
 	@Override
