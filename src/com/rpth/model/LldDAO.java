@@ -434,6 +434,7 @@ public class LldDAO implements LandlordDAO_interface {
 
 			pstmt = con.prepareStatement(LANDLORD_GET_REPAIR);
 			pstmt.setString(1, lld_no);
+			System.out.println("LLD_NO實際上為RPTR_NO"+lld_no);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				lldVO = new LldVO();

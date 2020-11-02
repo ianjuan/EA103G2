@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.booking.model.BookingVO;
 import com.cont.controller.Schedule;
 
 public class HouseDAO implements HouseDAO_interface {
@@ -28,7 +29,7 @@ public class HouseDAO implements HouseDAO_interface {
 			+ "hos_rentfee,hos_gasfee,hos_manafee,hos_netfee,hos_puwaterfee,hos_puelefee,hos_parkfee,hos_bro)"
 			+ " VALUES ('HOS' || lpad(SEQ_HOS_NO.NEXTVAL, 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?,"
 			+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,"
-			+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";	
+			+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_WATERFEE = "INSERT INTO VARFEE_LIST (varf_no,hos_no,var_no,pay_type,pay_amount) VALUES ('VARF' || lpad(SEQ_VARF_NO.NEXTVAL, 6, '0'), 'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0'), 'VAR000001', ?, ?)";
 	private static final String INSERT_ELECTFEE = "INSERT INTO VARFEE_LIST (varf_no,hos_no,var_no,pay_type,pay_amount) VALUES ('VARF' || lpad(SEQ_VARF_NO.NEXTVAL, 6, '0'), 'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0'), 'VAR000002', ?, ?)";
 	private static final String INSERT_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), 'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0'), ?)";
@@ -146,11 +147,22 @@ public class HouseDAO implements HouseDAO_interface {
 			pstmt.setString(2, houseVO.getLld_no());
 
 			pstmt.executeUpdate();
-			
+			pstmt.clearParameters();
+
 			/*************************** 一定時間後下架房屋 **********************/
+			String hos_no_sql="select SEQ_HOS_NO.CURRVAL from dual";
+			Statement stmt = con.createStatement();
+			ResultSet rs = null;
+			rs = stmt.executeQuery(hos_no_sql); 
+			
+			String hos_no = null;
+			while (rs.next()) {
+				hos_no = "HOS" + String.format("%0"+6+"d", rs.getInt(1));		 
+			}
+			
 			Timer timer = new Timer();
-			timer.schedule(new HouseSchdule("'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0')", "已下架"), 10000);
-						
+			timer.schedule(new HouseSchdule(hos_no, "已下架"), 10000);
+
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -269,12 +281,17 @@ public class HouseDAO implements HouseDAO_interface {
 			pstmt.setString(2, houseVO.getLld_no());
 
 			pstmt.executeUpdate();
+			pstmt.clearParameters();
 			
 			if(differday > 1 && houseVO.getHos_status().equals("待出租")) {
 				pstmt = con.prepareStatement("update house set hos_date=SYSDATE where hos_no=?");
 				pstmt.setString(1, houseVO.getHos_no());
 				pstmt.executeUpdate();
-			}			
+				pstmt.clearParameters();
+				
+				Timer timer = new Timer();
+				timer.schedule(new HouseSchdule(houseVO.getHos_no(), "已下架"), 1800000);
+			}
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -349,7 +366,7 @@ public class HouseDAO implements HouseDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
-		try {
+		try {			
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STATUS);
@@ -358,7 +375,6 @@ public class HouseDAO implements HouseDAO_interface {
 			pstmt.setString(2, houseVO.getHos_no());
 
 			pstmt.executeUpdate();
-
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

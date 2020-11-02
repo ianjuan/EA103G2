@@ -111,16 +111,11 @@ public class CashDAO implements CashDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		// 掘取對應的自增主鍵值
-		String next_cash_no = null;
-
 		try {
 
 			con = ds.getConnection();
 			con.setAutoCommit(false);
 
-			// 指定自增主鍵
-			String cols[] = { "cash_no" };
 			pstmt = con.prepareStatement(INSERT_CASH_ALL_STMT);
 
 			pstmt.setDate(1, cashVO.getCash_date());
@@ -133,15 +128,6 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setInt(8, cashVO.getCash_status());
 			pstmt.executeUpdate();
 
-			// 掘取對應的自增主鍵值
-			rs = pstmt.getGeneratedKeys();
-			if (rs.next()) {
-				next_cash_no = rs.getString(1);
-				System.out.println("自增主鍵值= " + next_cash_no + "(剛新增成功的金流編號)");
-			} else {
-				System.out.println("未取得自增主鍵值");
-			}
-
 			con.commit();
 
 		} catch (SQLException se) {
@@ -175,7 +161,6 @@ public class CashDAO implements CashDAO_interface {
 				}
 			}
 		}
-//		return next_cash_no;
 	}
 
 	@Override
@@ -185,16 +170,11 @@ public class CashDAO implements CashDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		// 掘取對應的自增主鍵值
-		String next_cash_no = null;
-
 		try {
 
 			con = ds.getConnection();
 			con.setAutoCommit(false);
 
-			// 指定自增主鍵
-			String cols[] = { "cash_no" };
 			pstmt = con.prepareStatement(INSERT_CASH_CON_STMT);
 
 			pstmt.setDate(1, cashVO.getCash_date());
@@ -206,15 +186,6 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setInt(7, cashVO.getCash_status());
 			pstmt.executeUpdate();
 
-			// 掘取對應的自增主鍵值
-			rs = pstmt.getGeneratedKeys();
-			if (rs.next()) {
-				next_cash_no = rs.getString(1);
-				System.out.println("自增主鍵值= " + next_cash_no + "(剛新增成功的金流編號)");
-			} else {
-				System.out.println("未取得自增主鍵值");
-			}
-
 			con.commit();
 
 		} catch (SQLException se) {
@@ -248,11 +219,10 @@ public class CashDAO implements CashDAO_interface {
 				}
 			}
 		}
-//		return next_cash_no;
 	}
 	
 	// ===================================================================
-	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ? order by cash_date";
+	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ? order by cash_no DESC";
 	private static final String GET_ONE_CASHno_STMT = "SELECT cash_no FROM CASH where rec_no = ?";
 	private static final String UPDATE_CASH_STATUS_STMT = "UPDATE CASH set cash_status=? where rec_no=?";
 	@Override
