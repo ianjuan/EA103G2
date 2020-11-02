@@ -484,7 +484,6 @@
                                         <span class="focus-register100"></span>
                                         <span class="label-register100 label-register100-carddue"></span>
                                     </div>
-
                                 </form>
                                 <div class="container-login100-form-btn">
                                     <button class="login100-form-btn m-t-10 infoBtn" id="btnBankCard">儲存資訊</button>
@@ -492,7 +491,6 @@
                                 </div>
                             </div>
                             <!--End form4 BankCard -->
-
                             <!--forms outer -->
                         </div>
                     </div>
