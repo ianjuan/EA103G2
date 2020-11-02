@@ -33,7 +33,7 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String UPDATE_HOUSEINFO = "UPDATE HOUSE set hos_name=?,hos_liffun=?,hos_trans=?,hos_add=?,hos_type=?,hos_room=?,hos_pat=?,hos_floor=?,hos_pnum=?,hos_lng=?,hos_lat=?,hos_status=?, "
 			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=?,hos_forth=?,hos_net=?,hos_gas=?, "
 			+ "hos_mdate=?,hos_mindate=?,hos_park=?,hos_sex=?,hos_iden=?,hos_cook=?,hos_pet=?,hos_smoke=?, "
-			+ "hos_rentfee=?,hos_gasfee=?,hos_manafee=?,hos_netfee=?,hos_puwaterfee=?,hos_puelefee=?,hos_parkfee=?,hos_date=SYSDATE where hos_no=?";
+			+ "hos_rentfee=?,hos_gasfee=?,hos_manafee=?,hos_netfee=?,hos_puwaterfee=?,hos_puelefee=?,hos_parkfee=? where hos_no=?";
 	private static final String UPDATE_HOUSEFurniture = "UPDATE HOUSE set "
 			+ "hos_table=?,hos_chair=?,hos_bed=?,hos_closet=?,hos_sofa=?,hos_tv=?,hos_drink=?,hos_aircon=?,hos_refrig=?,hos_wash=?,hos_hoter=? "
 			+ "where hos_no=?";
@@ -168,7 +168,7 @@ public class HouseDAO implements HouseDAO_interface {
 	}
 		
 	@Override
-	public void updateHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr, String[] pic_no) {
+	public void updateHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr, String[] pic_no, Integer differday) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -263,7 +263,12 @@ public class HouseDAO implements HouseDAO_interface {
 			pstmt.setString(2, houseVO.getLld_no());
 
 			pstmt.executeUpdate();
-
+			
+			if(differday > 1 && houseVO.getHos_status().equals("待出租")) {
+				pstmt = con.prepareStatement("update house set hos_date=SYSDATE where hos_no=?");
+				pstmt.setString(1, houseVO.getHos_no());
+				pstmt.executeUpdate();
+			}			
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

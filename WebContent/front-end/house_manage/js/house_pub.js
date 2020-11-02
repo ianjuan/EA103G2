@@ -104,7 +104,7 @@ function notice3(){
 		swal("目前才" + (pic + pic1) + "圖片欸...", "請再上傳"+(5-pic1)+"~"+(10-pic1)+"張圖片", "error", {button: "確認"});
 	} else {
 		document.getElementById("differday").setAttribute("value", differday());
-		if(differday() > 3 && document.getElementsByClassName("hos_status")[0].checked == true){
+		if(differday() > 1 && document.getElementsByClassName("hos_status")[0].checked == true){
 			swal("上架時間已過期, 重新上架要800元!", "距離上次上架已經過了"+differday()+"天", "warning", {button: "確認"}).then(function(){
 				swal({title:"確定要更新房屋資訊了嗎?", text:"" , icon:"info", buttons: {
 				     Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
@@ -618,8 +618,6 @@ function differday(){
     		for(var i=0; i<hos_date[1]-1; i++) sum2 += parseInt(day_count2[i]);
     		sum2 = sum2 + parseInt(hos_date[2]);
     	}
-    	console.log(sum1);
-    	console.log(sum2);
     	return sum1 - sum2;
     } else if(now[0] > hos_date[0]){
     	if(now[0] - hos_date[0] > 1){
@@ -651,5 +649,5 @@ function differday(){
         	}
         	return (flag2?366:365 - sum2) + sum1;
     	}
-    } else return 0;	
+    } else return 0;
 }
