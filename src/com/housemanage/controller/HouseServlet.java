@@ -40,6 +40,9 @@ public class HouseServlet extends HttpServlet {
 
 		if ("getHouseInfo".equals(action)) {
 			String hos_no = new String(req.getParameter("hos_no"));
+			/*************************** 一定時間後下架房屋 **********************/
+			Timer timer = new Timer();
+			timer.schedule(new HouseSchdule(hos_no, "已下架"), 10000);
 
 			HouseService houseSvc = new HouseService();
 			HouseVO houseVO = houseSvc.getHouseInfo(hos_no);
@@ -176,14 +179,14 @@ public class HouseServlet extends HttpServlet {
 			
 			/*************************** 電子錢包紀錄 **********************/
 			
-//			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
-//			CashService cashSvc = new CashService();
-//			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000, 1);
+			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+			CashService cashSvc = new CashService();
+			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000, 1);
 			
 			/*************************** 上架房屋成功通知 **********************/
 			
-			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp");
-		
+			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "");
+			
 			String url;
 			if (hos_status.equals("待出租")) {
 				List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
