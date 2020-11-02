@@ -44,7 +44,7 @@
                 <style>
             
             #header h1 a{
-                font-size: 2em;
+                font-size: 1em;
             }
             .nav-item .member{
     display: flex;
