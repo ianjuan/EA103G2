@@ -315,15 +315,15 @@ var picnum = JSON.parse('${picnum}');
 $(".gallery-top .swiper-wrapper").append(
 "<div class='swiper-slide'>"+
 
-"<a href='<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHos_pic().get(i) %>'" +
+"<a href='<%=request.getContextPath()%>/hos/hosPic?housedet=<%= vo.getHos_pic().get(i) %>'" +
 		
-"data-fancybox='data-fancybox'>"+"<img src='<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHos_pic().get(i) %>' "+
+"data-fancybox='data-fancybox'>"+"<img src='<%=request.getContextPath()%>/hos/hosPic?housedet=<%= vo.getHos_pic().get(i) %>' "+
 "alt='slide-1' /></a></div>"
 	)
 	
 $(".gallery-thumbs .swiper-wrapper").append(
 		"<div class='swiper-slide'>"+
-		"<img src='<%=request.getContextPath()%>/hos/hosPic?pic=<%= vo.getHos_pic().get(i) %>' alt='slide-1' />"+
+		"<img src='<%=request.getContextPath()%>/hos/hosPic?housedet=<%= vo.getHos_pic().get(i) %>' alt='slide-1' />"+
 		"</div>"
 	)	
 	<%}%>

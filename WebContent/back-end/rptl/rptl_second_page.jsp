@@ -1,8 +1,9 @@
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.rptl.model.*"%>
+<%@ page import="com.news.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.rptl.model.*"%>
+
 
 <%
 	RptlService rptlSvc = new RptlService();
@@ -11,51 +12,291 @@
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
+
 <head>
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>æª¢èˆ‰æˆ¿æ±</title>
-
-<!-- Custom styles for this template -->
-<link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css"
-	rel="stylesheet">
-
-<!-- Custom styles for this page -->
-<link
-	href="${pageContext.request.contextPath}/back-end/vendor/dataTables.bootstrap4.min.css"
-	rel="stylesheet">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link
-	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
-	rel="stylesheet">
-
+<title>I-ZU «á¥xºŞ²z</title>
+<!-- ºô­¶icon -->
+<link rel="icon" href="<%=request.getContextPath()%>/back-end/images/castle.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/images/castle.ico" type="image/x-icon" />
+<!-- ¥~³¡js¶×¤J -->
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
+<!-- wayne¶×¤J -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/back-end/rptl/css/main_back.css"
 	type="text/css">
 </head>
 
-<body id="page-top">
+<body onload="connect();" onunload="disconnect();">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion"
+			id="accordionSidebar">
+			<!-- Sidebar - Brand -->
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="<%=request.getContextPath()%>/back-end/index.jsp">
+				<div class="sidebar-brand-icon">
+					<i class="fas fa-igloo"></i>
+				</div>
+				<div class="sidebar-brand-text mx-3">I-ZU</div>
+			</a>
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index.jsp"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>»ö¿öªO</span>
+			</a></li>
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+			<!-- Heading -->
+			<div class="sidebar-heading">ºŞ²z</div>
+			<!--­û¤u-->
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwo"
+				aria-expanded="true" aria-controls="collapseTwo"> <i
+					class="fas fa-user"></i> <span>­û¤u</span>
+			</a>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">ºŞ²z</h6>
+						<a  class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">¥şÅé­û¤u</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">¬d¸ß­û¤u</a>  -->
+						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/addEmp.jsp">·s¼W­û¤u</a>
+					</div>
+				</div>
+			</li>
+			<!--­û¤u-->
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwoo"
+				aria-expanded="true" aria-controls="collapseTwoo"> <i
+					class="fas fa-user"></i> <span>·|­û¬d¸ß</span>
+			</a>
+				<div id="collapseTwoo" class="collapse" aria-labelledby="headingTwoo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">¬d¸ß</h6>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">¬d¸ß©ĞªF</a> 
+						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">¬d¸ß©Ğ«È</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">·s¼W­û¤u</a> -->
+					</div>
+				</div>
+			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwooo"
+				aria-expanded="true" aria-controls="collapseTwooo"> <i
+					class="fas fa-user"></i> <span>¨­¤ÀÅçÃÒ</span>
+			</a>
+				<div id="collapseTwooo" class="collapse" aria-labelledby="headingTwooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">¨­¤ÀÅçÃÒ</h6>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/vrf/vrf_main_page.jsp">¨­¤ÀÅçÃÒ</a> 
 
+					</div>
+				</div>
+			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwoooo"
+				aria-expanded="true" aria-controls="collapseTwoooo"> <i
+					class="fas fa-user"></i> <span>·|­ûÀËÁ|</span>
+			</a>
+				<div id="collapseTwoooo" class="collapse" aria-labelledby="headingTwoooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">ÀËÁ|</h6>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptl/rptl_main_page.jsp">ÀËÁ|©ĞªF</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptt/rptt_main_page.jsp">ÀËÁ|©Ğ«È</a> 
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rpth/rpth_main_page.jsp">ÀËÁ|©Ğ«Î</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptlc/rptlc_main_page.jsp">ÀËÁ|©ĞªFµû»ù</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rpttc/rpttc_main_page.jsp">ÀËÁ|©Ğ«Èµû»ù</a>
+					    <a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rpthc/rpthc_main_page.jsp">ÀËÁ|©Ğ«Îµû»ù</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptr/rptr_main_page.jsp">ÀËÁ|­×Âµ</a>
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">·s¼W­û¤u</a> -->
+					</div>
+				</div>
+			</li>
+				<!--«e¥x -->
+				<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseThree"
+				aria-expanded="true" aria-controls="collapseThree"> <i
+					class="fas fa-user"></i> <span>«á¥x</span>
+			</a>
+				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">ºŞ²z</h6>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">«á¥x¤½§i</a> 
+					</div>
+				</div>
+			</li>
+			
+			<!--·~°È¬yµ{ -->
+				<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseSix"
+				aria-expanded="true" aria-controls="collapseSix"> <i
+					class="fas fa-user"></i> <span>·~°È¬yµ{ </span>
+			</a>
+				<div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">ºŞ²z</h6>
+<!-- 						<a class="collapse-item" href="javascript:void(0)">±b°ÈºŞ²z</a>  -->
+						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/house_manage/all_house.jsp">©Ğ«ÎºŞ²z</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">¹w¬ùºŞ²z</a> -->
+<!-- 						<a class="collapse-item" href="javascript:void(0)">­q³æºŞ²z</a>  -->
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">­×ÂµºŞ²z</a>  -->
+<!-- 							<a	class="collapse-item" href="javascript:void(0)">ÀËÁ|ºŞ²z</a> 				 -->
+					</div>
+				</div>
+			</li>	
+			<!-- Divider -->
 
-	<!-- DataTales Example -->
-	<div class="container-fluid">
+			<!-- Heading -->
+			<div class="sidebar-heading">
+				<!-- «İ¸É -->
+			</div>
+			<!-- Divider -->
+			<hr class="sidebar-divider d-none d-md-block">
+			<!-- Sidebar Toggler (Sidebar) -->
+			<div class="text-center d-none d-md-inline">
+				<button class="rounded-circle border-0" id="sidebarToggle"></button>
+			</div>
+		</ul>
+		<!-- End of Sidebar -->
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+			<!-- Main Content -->
+			<div id="content">
+				<!-- Topbar -->
+				<nav
+					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+					<!-- Sidebar Toggle (Topbar) -->
+					<button id="sidebarToggleTop"
+						class="btn btn-link d-md-none rounded-circle mr-3">
+						<i class="fa fa-bars"></i>
+					</button>
+					<!-- Topbar Navbar -->
+					<!-- auto¸m¥k -->
+					<ul class="navbar-nav ml-auto">
+                                <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                                <li class="nav-item dropdown no-arrow d-sm-none">
+                                    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-search fa-fw"></i>
+                                    </a>
+                                    <!-- Dropdown - Messages -->
+                                    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                        <form class="form-inline mr-auto w-100 navbar-search">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="button">
+                                                        <i class="fas fa-search fa-sm"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <!-- Nav Item - Alerts -->
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-bell fa-fw"></i>
+                                        <!-- Counter - Alerts -->
+                                        <span id="alert_count" class="badge badge-danger badge-counter"></span>
+                                    </a>
+                                    <!-- Dropdown - Alerts  fas fa-file-alt text-white fas fa-donate text-white  fas fa-exclamation-triangle text-white--> 
+                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                        <h6 id="bell_alert" class="dropdown-header">
+                                           		 ³qª¾¤¤¤ß
+                                        </h6>
+<!--                                         <a class="dropdown-item d-flex align-items-center" href="#"> -->
+<!--                                             <div class="mr-3"> -->
+<!--                                                 <div class="icon-circle bg-primary"> -->
+<!--                                                     <i class="fas fa-file-alt text-white"></i> -->
+<!--                                                 </div> -->
+<!--                                             </div> -->
+<!--                                             <div> -->
+<!--                                                 <div class="small text-gray-500">December 12, 2019</div> -->
+<!--                                                 <span class="font-weight-bold">A new monthly report is ready to download!</span> -->
+<!--                                             </div> -->
+<!--                                         </a> -->
+                                        <a class="dropdown-item text-center small text-gray-500" href="#">®i²{¥ş³¡³qª¾</a>
+                                    </div>
+                                </li>
+<!-- 						Dropdown - Alerts -->
+							
+								<div class="topbar-divider d-none d-sm-block"></div>
+								<!-- Nav Item - User Information -->
+								<li class="nav-item dropdown no-arrow">
+								<a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+									role="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"> <span
+										class="mr-2v23PnY2C d-none d-lg-inline text-gray-600 small"><c:out value="${empVO.emp_name}" default="½Ğ­«·sµn¤J"></c:out></span>
+										<c:if test="${empVO.emp_pic != null}">
+										<img class="img-profile rounded-circle" src='data:image/png;base64,<c:forEach var="employeeVO" items="${empSvc.getAll()}">
+										<c:if test="${employeeVO.emp_no == empVO.emp_no }">${employeeVO.emp_pic }</c:if>
+										</c:forEach>'></c:if>
+										
+								</a>
+<!-- 								 Dropdown - User Information -->
+									<div
+										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+										aria-labelledby="userDropdown">
+										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no=${empVO.emp_no}"> <i
+											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> ­Ó¤H¸ê®Æ
+										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
+											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> ³]©w
+										</a> <a class="dropdown-item" href="#"> <i
+											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> ¬¡°Ê¬ö¿ı
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=logout"> 
+											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+											µn¥X
+										</a>
+									</div> 
+<!-- 									Dropdown - User Information -->
+				</nav>
+				<!-- End of Topbar -->
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+					<!-- Page Heading -->
+					<h1 class="h3 mb-4 text-gray-800"></h1>
+					<!-- -- -- -- -- -- -- -- --Content-- -- -- -- -- -- -- -- -- -- -->
+					<div id="ajax_result">
+<div class="col-xl-3 col-md-6 mb-4">
+<ul>
+
+</ul>
+
+</div>
+<div class="row">
+<div class="container-fluid">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<div class="row">
 					<div class="col-md">
-						<h4 class="m-0 font-weight-bold text-primary">æª¢èˆ‰æˆ¿æ±</h4>
+						<h4 class="m-0 font-weight-bold text-primary">ÀËÁ|©ĞªF</h4>
 					</div>
 					<div class="col-md">
 						<div class="float-right">
 							<form METHOD="post" ACTION="RptlServlet">
 								<h4>
-									æœå°‹: <input type="text" size="27" name="Number"
-										placeholder="è¼¸å…¥æª¢èˆ‰/ æˆ¿æ±/ æˆ¿å®¢/ å“¡å·¥ç·¨è™Ÿ"> <input type="hidden"
+									·j´M: <input type="text" size="27" name="Number"
+										placeholder="¿é¤JÀËÁ|/ ©ĞªF/ ©Ğ«È/ ­û¤u½s¸¹"> <input type="hidden"
 										name="action" value="get_want_all_display"> <input
 										type="submit"
 										style="position: absolute; left: -9999px; width: 1px; height: 1px;"
@@ -71,28 +312,28 @@
 					<table class="table table-bordered" id="dataTable">
 						<thead>
 							<tr>
-								<th>æª¢èˆ‰ç·¨è™Ÿ</th>
-								<th>æˆ¿æ±ç·¨è™Ÿ</th>
-								<th>æˆ¿å®¢ç·¨è™Ÿ</th>
-								<th>æª¢èˆ‰æ™‚é–“</th>
-								<th>å“¡å·¥ç·¨è™Ÿ</th>
-								<th>è™•ç†ç‹€æ…‹</th>
-								<th>è™•ç†çµæœ</th>
-								<th>æª¢èˆ‰å®Œæˆæ™‚é–“</th>
-								<th>å…§å®¹è¨»è¨˜</th>
+								<th>ÀËÁ|½s¸¹</th>
+								<th>©ĞªF½s¸¹</th>
+								<th>©Ğ«È½s¸¹</th>
+								<th width="10%">ÀËÁ|®É¶¡</th>
+								<th>­û¤u½s¸¹</th>
+								<th>³B²zª¬ºA</th>
+								<th>³B²zµ²ªG</th>
+								<th width="12%">ÀËÁ|§¹¦¨®É¶¡</th>
+								<th>¤º®eµù°O</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>æª¢èˆ‰ç·¨è™Ÿ</th>
-								<th>æˆ¿æ±ç·¨è™Ÿ</th>
-								<th>æˆ¿å®¢ç·¨è™Ÿ</th>
-								<th>æª¢èˆ‰æ™‚é–“</th>
-								<th>å“¡å·¥ç·¨è™Ÿ</th>
-								<th>è™•ç†ç‹€æ…‹</th>
-								<th>è™•ç†çµæœ</th>
-								<th>æª¢èˆ‰å®Œæˆæ™‚é–“</th>
-								<th>å…§å®¹è¨»è¨˜</th>
+								<th>ÀËÁ|½s¸¹</th>
+								<th>©ĞªF½s¸¹</th>
+								<th>©Ğ«È½s¸¹</th>
+								<th width="10%">ÀËÁ|®É¶¡</th>
+								<th>­û¤u½s¸¹</th>
+								<th>³B²zª¬ºA</th>
+								<th>³B²zµ²ªG</th>
+								<th width="12%">ÀËÁ|§¹¦¨®É¶¡</th>
+								<th>¤º®eµù°O</th>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -103,34 +344,34 @@
 									<td>${rptlVO.rptl_no}</td>
 									<td>${rptlVO.lld_no}</td>
 									<td>${rptlVO.tnt_no}</td>
-									<td>${rptlVO.rptl_time}</td>
+									<td width="10%">${rptlVO.rptl_time}</td>
 									<td>${rptlVO.emp_no}</td>
 									<c:choose>
 										<c:when test="${rptlVO.rptl_status==0}">
-											<td>æœªè™•ç†</td>
+											<td>¥¼³B²z</td>
 										</c:when>
 										<c:otherwise>
-											<td>å·²è™•ç†</td>
+											<td>¤w³B²z</td>
 										</c:otherwise>
 									</c:choose>
 									<c:choose>
 										<c:when test="${rptlVO.rptl_result==1}">
 											<td><span class="badge badge-pill badge-success"
-												style="font-size: 15px; padding: 4px;"> é€šé</span></td>
+												style="font-size: 15px; padding: 4px;"> ³q¹L</span></td>
 										</c:when>
 										<c:when test="${rptlVO.rptl_result==2}">
 											<td><span class="badge badge-pill badge-danger"
-												style="font-size: 15px; padding: 4x;">æœªé€šé</span></td>
+												style="font-size: 15px; padding: 4x;">¥¼³q¹L</span></td>
 										</c:when>
 										<c:otherwise>
 											<td><span class="badge badge-pill badge-secondary"
-												style="font-size: 15px; padding: 4px;">å¯©æ ¸ä¸­</span></td>
+												style="font-size: 15px; padding: 4px;">¼f®Ö¤¤</span></td>
 										</c:otherwise>
 									</c:choose>
-									<td>${rptlVO.rptl_done_time}</td>
+									<td width="13%">${rptlVO.rptl_done_time}</td>
 									<td>
 										<button class="check" data-toggle="modal"
-											data-target="#${rptlVO.rptl_no}">æŸ¥çœ‹è©³æƒ…</button>
+											data-target="#${rptlVO.rptl_no}">¬d¬İ¸Ô±¡</button>
 									</td>
 								</tr>
 								<div class="modal fade" id="${rptlVO.rptl_no}" tabindex="-1"
@@ -140,10 +381,10 @@
 											<div class="modal-header">
 												<div class="modal-body">
 													<form action="RptlServlet" method="post">
-														<label for="reason">æª¢èˆ‰åŸå› :</label>
+														<label for="reason">ÀËÁ|­ì¦]:</label>
 														<textarea class="reason" name="rptl_content" readonly>${rptlVO.rptl_content}</textarea>
 														<div class="form-group">
-															<label for="note">çµæœè¨»è¨˜:</label>
+															<label for="note">µ²ªGµù°O:</label>
 															<textarea id="note" name="rptl_note" readonly>${rptlVO.rptl_note}</textarea>
 														</div>
 													</form>
@@ -159,40 +400,93 @@
 				</div>
 			</div>
 		</div>
+	</div> 
+
+
+            </div>
+          </div>
+      
+          </div>
 	</div>
+          </div>
+					</div>
+				
+			
+			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
+			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
+			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
+			<script src="<%=request.getContextPath()%>/back-end/vendor/chart.js/Chart.min.js"></script>
+			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
+			
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			<script>
+			
+	var now =new Date();
+	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
+	var host = window.location.host;
+	var path = window.location.pathname;
+	var webCtx = path.substring(0, path.indexOf('/', 1));
+	var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+	var webSocket;
+	var alert_content;
+	var bell_html;
 
 
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/back-end/css/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/back-end/css/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	function connect() {
+		webSocket = new WebSocket(endPointURL);
+		webSocket.onopen = function(event) {
+		};
+		
+		webSocket.onmessage = function(event) {
+			var alert_count=0;
+			var jsonObj = JSON.parse(event.data);
+			if(jsonObj.length>=1){
+				$('#alert_count').text(jsonObj.length);
+				alert_count==jsonObj.length;
 
-	<!-- Core plugin JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/back-end/css/vendor/jquery-easing/jquery.easing.min.js"></script>
+			for(var i=0;i<jsonObj.length ;i++){
+				alert_content = JSON.parse(jsonObj[i]).content;
+				alert_title =JSON.parse(jsonObj[i]).title;
+				alert_time =new Date(JSON.parse(jsonObj[i]).time);
+				alert_day = (alert_time.getMonth()+1)+"¤ë"+alert_time.getDate()+"¤é";
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				    <div class="mr-3">
+				    <div class="icon-circle bg-primary">
+				        <i class="fas fa-file-alt text-white"></i>
+				    </div>
+					</div>
+					<div>
+				    <div class="small text-gray-500">${"${alert_day}"}</div>
+				    <span class="font-weight-bold">${"${alert_content}"}</span>
+				</div></a>`;
 
-	<!-- Custom scripts for all pages-->
-	<script
-		src="${pageContext.request.contextPath}/back-end/css/js/sb-admin-2.min.js"></script>
+				$('#bell_alert').after(bell_html);
+			}
+			}
+		
+			
+				
 
-	<!-- Page level plugins -->
-	<script
-		src="${pageContext.request.contextPath}/back-end/css/vendor/datatables/jquery.dataTables.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/back-end/css/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-	<!-- Page level custom scripts -->
-	<script
-		src="${pageContext.request.contextPath}/back-end/css/js/demo/datatables-demo.js"></script>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-	<script
-		src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+		};
+
+		webSocket.onclose = function(event) {
+		};
+	}
+
+
+	function disconnect() {
+		webSocket.close();
+
+	}
+
+</script>
+			
+	
 </body>
 
 </html>

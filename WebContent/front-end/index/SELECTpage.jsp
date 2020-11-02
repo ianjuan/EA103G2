@@ -610,7 +610,7 @@ footer {
 		<!-- Card deck -->
 
 	</div>
-	<footer> </footer>
+<%@ include file="/front-end/index/footer.html" %>
 	<script
 		src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
 	<script
@@ -672,7 +672,7 @@ footer {
 				"<div class='col-xs-12 col-sm-6 col-md-4' id='"+value.hos_no+"'>"+
                     "<div class='card'>"+                             
                        " <div class='view overlay'>"+
-                            "<img class='card-img-top'src='<%=request.getContextPath()%>/hos/hosPic?pic="+value.hos_pic+"'  alt='Card image cap'>"+
+                            "<img class='card-img-top'src='<%=request.getContextPath()%>/hos/hosPic?search="+value.hos_pic+"'  alt='Card image cap'>"+
                             "<a href='#!'>"+
                                 "<div class='mask rgba-white-slight'></div>"+
                             "</a>"+

@@ -23,15 +23,21 @@ public class pic extends HttpServlet {
        
  public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
   res.setContentType("image/*");
-  String pic = req.getParameter("pic");
+  String pic="";
   ServletOutputStream out = res.getOutputStream();
  HousearchDAO dao =new HousearchDAO();
-  try {
-	  
-   out.write(new ImageUtil().shrink(dao.getpic(pic),200));
-   out.close();
-  } catch (Exception e) {
-   System.out.println(e);
+  if(req.getParameter("housedet")!=null) {
+	  pic  = req.getParameter("housedet");
+	   out.write(new ImageUtil().shrink(dao.getpic(pic),600));
+	   out.close();
+
   }
+  else if(req.getParameter("search")!=null) {
+	  pic  = req.getParameter("search");
+
+	   out.write(new ImageUtil().shrink(dao.getpic(pic),200));
+	   out.close();
+  }
+
  }
 }
