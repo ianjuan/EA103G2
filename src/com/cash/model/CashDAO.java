@@ -10,7 +10,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.cash.model.CashVO;
-import com.tnt.model.TntVO;
 
 public class CashDAO implements CashDAO_interface {
 
