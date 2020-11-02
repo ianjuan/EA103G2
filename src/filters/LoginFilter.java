@@ -26,6 +26,24 @@ public class LoginFilter implements Filter {
 
 		String servletPath = (String) req.getServletPath();
 		String[] paths = servletPath.split("/");
+		
+		
+		
+		for(String s:paths) {
+			System.out.println(s);
+		}
+//		System.out.println(Arrays.binarySearch(paths, "bookingforhouse.jsp") > 0);
+		if (Arrays.binarySearch(paths, "booking") > 0) {  //front-end index folder is free
+			System.out.println(paths.length);
+			System.out.println(paths[paths.length-1]);
+//			for(String s:paths) {
+//				a=s.split(".");
+//			}
+		}
+		
+		
+		
+		
 		Boolean ispathprotected = true;
 		if (Arrays.binarySearch(paths, "index") > 0) {  //front-end index folder is free
 			ispathprotected = false;
@@ -33,7 +51,7 @@ public class LoginFilter implements Filter {
 		if (Arrays.binarySearch(paths, "navbar") > 0) {  //front-end navbar folder is free
 			ispathprotected = false;
 		}
-		if (Arrays.binarySearch(paths, "bookingforhouse.jsp") > 0) {  //front-end navbar folder is free
+		if (Arrays.binarySearch(paths, "bookingforhouse.jsp") > 0) { 
 			ispathprotected = false;
 		}
 		
