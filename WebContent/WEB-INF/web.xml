@@ -312,7 +312,6 @@
 		<servlet-name>RptlServlet</servlet-name>
 		<url-pattern>/back-end/rptl/RptlServlet</url-pattern>
 		<url-pattern>/front-end/rptl/RptlServlet</url-pattern>
-		<url-pattern>/back-end/member/RptlServlet</url-pattern>
 		
 	</servlet-mapping>
 	<servlet>

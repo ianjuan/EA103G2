@@ -299,13 +299,16 @@ public class EmployeeServlet extends HttpServlet {
 						} else if (fun_no[i].equals("F")) {
 							sb.append("管理最新消息 ");
 						} 
+						
+						
 					}
 					
 				}
-				String name1 = ((String) req.getAttribute("empVO")).substring(0,1);
 				String name =empVO.getEmp_name().substring(0,1);
-				new NotifyServlet().broadcast(emp_no, "權限變更", "<span style='color:green;'>"+name1+"經理	</span>"+"將你的權限變更為：<br>" + sb + "<br>其餘權限將無法繼續使用！", "emp/emp.do?action=getOne_For_Display&emp_no="+emp_no);
+				System.out.println("name"+name);
+				new NotifyServlet().broadcast(emp_no, "權限變更", "<span style='color:blue;'>"+name+"經理	</span>"+"將你的權限變更為：<br>" + sb + "<br>其餘權限將無法繼續使用！", "emp/emp.do?action=getOne_For_Display&emp_no="+emp_no);
 				
+
 				System.out.println(sb);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("employeeVO", empVO); // 資料庫update成功後,正確的的empVO物件,存入req

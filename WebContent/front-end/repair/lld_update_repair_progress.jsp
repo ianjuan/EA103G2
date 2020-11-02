@@ -114,7 +114,7 @@ img{
 		<label for="exampleFormControlInput1"><h3>修繕進度:
 		<span style="color:orange;">待回覆</span>
 		<h3></label>
-		<span class="text"><input type="radio" name="rep_pro" value="1" > 接受此筆修繕</span><br>
+		<span class="text"><input type="radio" name="rep_pro" value="1" checked> 接受此筆修繕</span><br>
 		<span class="text"><input type="radio" name="rep_pro" value="2" > 拒絕此筆修繕</span><br>
 		
 

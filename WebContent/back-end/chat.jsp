@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
-<jsp:useBean id="empSvc1" scope="page" class="com.emp.model.EmployeeService" />
+<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
 
 <head>
 <meta charset="utf-8">
@@ -21,9 +21,119 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
+<style>
+
+*, ::after, ::before {
+    box-sizing: unset;
+}
+.panel {
+	float: right;
+	border: 2px solid #0078ae;
+	border-radius: 5px;
+	width: 50%;
+}
+
+.message-area {
+	height: 70%;
+	resize: none;
+	box-sizing: border-box;
+	overflow: auto;
+	background-color: #ffffff;
+}
+
+.input-area {
+	background: #0078ae;
+	box-shadow: inset 0 0 10px #00568c;
+}
+
+.input-area input {
+	margin: 0.5em 0em 0.5em 0.5em;
+}
+
+.text-field {
+	border: 1px solid grey;
+	padding: 0.2em;
+	box-shadow: 0 0 5px #000000;
+}
+
+h1 {
+	font-size: 1.5em;
+	padding: 5px;
+	margin: 5px;
+}
+
+#message {
+	min-width: 50%;
+	max-width: 60%;
+}
+
+.statusOutput {
+	background: #0078ae;
+	text-align: center;
+	color: #ffffff;
+	border: 1px solid grey;
+	padding: 0.2em;
+	box-shadow: 0 0 5px #000000;
+	width: 30%;
+	margin-top: 10%;
+	margin-left: 60%;
+}
+
+#row {
+	float: left;
+	width: 50%;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5%;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+}
+
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li{
+  display:inline-block;
+  clear: both;
+/*   padding: 20px; */
+  border-radius: 30px;
+  margin-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.friend{
+  background: #eee;
+  float: left;
+}
+
+.me{
+  float: right;
+  background: #0084ff;
+  color: #fff;
+}
+
+.friend + .me{
+  border-bottom-right-radius: 5px;
+}
+
+.me + .me{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.me:last-of-type {
+  border-bottom-right-radius: 30px;
+}
+</style>
 </head>
 
-<body onload="connect(); connect_chat();" onunload="disconnect();disconnect_chat();">
+<body onload="connect();" onunload="disconnect();">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- Sidebar -->
@@ -221,27 +331,6 @@
                                         <a class="dropdown-item text-center small text-gray-500" href="#">展現全部通知</a>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown no-arrow mx-1">
-                                    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-envelope fa-fw"></i>
-                                        <!-- Counter - Messages -->
-                                        <span class="badge badge-danger badge-counter">7</span>
-                                    </a>
-                                    <!-- Dropdown - Messages -->
-                                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                                        <h6 class="dropdown-header">聊天室</h6>
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="dropdown-list-image mr-3">
-                                                <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                                                <div class="status-indicator bg-success"></div>
-                                            </div>
-                                            <div class="font-weight-bold">
-                                                <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                                                <div id="row" class="small text-gray-500"></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </li>
 <!-- 						Dropdown - Alerts -->
 							
 								<div class="topbar-divider d-none d-sm-block"></div>
@@ -252,7 +341,7 @@
 									aria-expanded="false"> <span
 										class="mr-2v23PnY2C d-none d-lg-inline text-gray-600 small"><c:out value="${empVO.emp_name}" default="請重新登入"></c:out></span>
 										<c:if test="${empVO.emp_pic != null}">
-										<img class="img-profile rounded-circle" src='data:image/png;base64,<c:forEach var="employeeVO" items="${empSvc1.getAll()}">
+										<img class="img-profile rounded-circle" src='data:image/png;base64,<c:forEach var="employeeVO" items="${empSvc.getAll()}">
 										<c:if test="${employeeVO.emp_no == empVO.emp_no }">${employeeVO.emp_pic }</c:if>
 										</c:forEach>'></c:if>
 										
@@ -282,6 +371,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800"></h1>
 					<!-- -- -- -- -- -- -- -- --Content-- -- -- -- -- -- -- -- -- -- -->
+					<div id="ajax_result">
 <div class="col-xl-3 col-md-6 mb-4">
 <ul>
 
@@ -289,25 +379,44 @@
 
 </div>
 <div class="row">
-	<h3 id="statusOutput_chat" class="statusOutput"></h3>
+<div class="container-fluid">
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">聊天室</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+<h3 id="statusOutput_chat" class="statusOutput"></h3>
 	<div id="row"></div>
 	<div id="messagesArea" class="panel message-area" ></div>
 	<div class="panel input-area">
 		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage_chat();" /> 
-		<input type="submit" id="sendMessage" class="button" value="Send" onclick="sendMessage_chat();" /> 
-		<input type="button" id="connect" class="button" value="Connect" onclick="connect_chat();" /> 
-		<input type="button" id="disconnect" class="button" value="Disconnect" onclick="disconnect_chat();" />
+		<input type="submit" id="sendMessage_chat" class="button" value="Send" onclick="sendMessage_chat();" /> 
+		<input type="button" id="connect_chat" class="button" value="Connect" onclick="connect_chat();" /> 
+		<input type="button" id="disconnect_chat" class="button" value="Disconnect" onclick="disconnect_chat();" />
 	</div>
+              </div>
             </div>
-                        </div>
+          </div>
+
+        </div> 
 
 
+            </div>
+          </div>
+      
+          </div>
+	</div>
+          </div>
+					</div>
 				
 			
 			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
-				<script>
+			<script>
+			
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
 	var host = window.location.host;
@@ -325,11 +434,12 @@
 		};
 		
 		webSocket.onmessage = function(event) {
+			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
-			console.log(jsonObj);
-			if(jsonObj.length>1){
+			if(jsonObj.length>=1){
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
+
 			for(var i=0;i<jsonObj.length ;i++){
 				alert_content = JSON.parse(jsonObj[i]).content;
 				alert_title =JSON.parse(jsonObj[i]).title;
@@ -349,30 +459,7 @@
 				$('#bell_alert').after(bell_html);
 			}
 			}
-			else if(jsonObj.length==0){
-			}
-			
-			else{
-				var alert_count =$('#alert_count').text();
-				alert_count++;
-				$('#alert_count').text(alert_count);
-				console.log(alert_count);
-				alert_content = jsonObj.content;
-				alert_title =jsonObj.title;
-				alert_time =new Date(jsonObj.time);
-				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
-				    <div class="mr-3">
-				    <div class="icon-circle bg-primary">
-				        <i class="fas fa-file-alt text-white"></i>
-				    </div>
-					</div>
-					<div>
-				    <div class="small text-gray-500">${"${alert_day}"}</div>
-				    <span class="font-weight-bold">${"${alert_content}"}</span>
-				</div></a>`;
-				$('#bell_alert').after(bell_html);
-			}
+		
 			
 				
 
@@ -388,7 +475,8 @@
 		webSocket.close();
 
 	}
-	</script>
+
+</script>
 			<script id="chat">
 	var MyPoint_chat = "/FriendWS/${empVO.emp_no}";
 	var host_chat = window.location.host;
@@ -404,9 +492,9 @@
 
 		webSocket_chat.onopen = function(event) {
 			console.log("Connect Success!");
-			document.getElementById('sendMessage').disabled = false;
-			document.getElementById('connect').disabled = true;
-			document.getElementById('disconnect').disabled = false;
+			document.getElementById('sendMessage_chat').disabled = false;
+			document.getElementById('connect_chat').disabled = true;
+			document.getElementById('disconnect_chat').disabled = false;
 		};
 
 		webSocket_chat.onmessage = function(event) {
@@ -425,14 +513,14 @@
 					var showMsg = historyData.message;
 					var li = document.createElement('li');
 					// 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
-					historyData.sender === self ? li.className += 'me' : li.className += 'friend';
+					historyData.sender === self_chat ? li.className += 'me' : li.className += 'friend';
 					li.innerHTML = showMsg;
 					ul.appendChild(li);
 				}
 				messagesArea.scrollTop = messagesArea.scrollHeight;
 			} else if ("chat" === jsonObj_chat.type) {
 				var li = document.createElement('li');
-				jsonObj_chat.sender === self ? li.className += 'me' : li.className += 'friend';
+				jsonObj_chat.sender === self_chat ? li.className += 'me' : li.className += 'friend';
 				li.innerHTML = jsonObj_chat.message;
 				console.log(li);
 				document.getElementById("area").appendChild(li);
@@ -475,10 +563,10 @@
 	function refreshFriendList_chat(jsonObj_chat) {
 		var friends_chat = jsonObj_chat.users;
 		var row_chat = document.getElementById("row");
-		row_chat.innerHTML = '';
+		row_chat.innerHTML = '<p>員工列表</p>';
 		for (var i = 0; i < friends_chat.length; i++) {
 			if (friends_chat[i] === self_chat) { continue; }
-			row_chat.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends_chat[i] + ' ><h2>' + friends_chat[i] + '</h2></div>';
+			row_chat.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends_chat[i] + ' ><p>' + friends_chat[i] + '</p></div>';
 		}
 		addListener();
 	}

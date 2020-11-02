@@ -159,7 +159,7 @@
 			</div>						
 			<label>
 				<button type="button" class="picbtn" data-toggle="modal" data-target="#unrentHouse">查看房屋清單</button>
-				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFTQNrcbfc-1RezQZWT6dYWJcLIiUPNnpL4Q&usqp=CAU" id="logo">
+				<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/house.jpg" id="logo">
 			</label>
 		</div>
 		<div id="foot"></div>

@@ -313,7 +313,7 @@
 <!-- 								  <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 <!-- 								</nav> -->
 								<!--TAB 有空再做-->
-                                <table id="myDataTalbe"  class="display"  >
+                                <table id="myDataTalbe"  class="display">
 							        <thead>
 							            <tr>
 							         		<th>項次</th>
@@ -326,24 +326,33 @@
 							        </thead>
 							        <tbody>
 							        
-							        <c:forEach var="cashVO" items="<%=listCashLog%>">
+							        <c:forEach var="cashVO" items="<%=listCashLog%>"  varStatus="varStatusName">
 											<tr>
-												<td>1</td>
+												<td>${varStatusName.count}</td>
 												<td>${cashVO.cash_date}</td>
-												<td>${cashVO.cash_type}<img src="<%=request.getContextPath()%>/images/cash_in_.png" width="50"></td>
+												<td>
+													<c:if test="${cashVO.cash_type==\"儲值\"}">
+							                            <img src="<%=request.getContextPath()%>/images/cash_deposit.png" width="50">
+							                        </c:if>
+							                        <c:if test="${cashVO.cash_type==\"提領\"}">
+							                            <img src="<%=request.getContextPath()%>/images/cash_withdraw.png" width="50">
+							                        </c:if>
+							                        <c:if test="${cashVO.cash_type==\"收入\"}">
+							                            <img src="<%=request.getContextPath()%>/images/cash_in.png" width="50">
+							                        </c:if>
+							                        <c:if test="${cashVO.cash_type==\"支出\"}">
+							                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+							                        </c:if>
+							                        <c:if test="${cashVO.cash_status==0}">
+							                            <img src="<%=request.getContextPath()%>/images/cash_topay.png" width="50">
+							                        </c:if>
+													&nbsp${cashVO.cash_type}
+												</td>
 												<td>${cashVO.cash_amount}</td>
-												<td>完成</td>
+												<td>${cashVO.cash_status}</td>
 												<td>${cashVO.con_no}</td>
 											</tr>
 										</c:forEach>
-										<tr>
-												<td>1</td>
-												<td>${cashVO.cash_date}</td>
-												<td>${cashVO.cash_type}<img src="<%=request.getContextPath()%>/images/cash_in_.png" width="50"></td>
-												<td>-500</td>
-												<td>完成</td>
-												<td>${cashVO.con_no}</td>
-											</tr>
 							        </tbody>
 							    </table>
 
@@ -353,7 +362,6 @@
 <!--                 </div> -->
             </div>
         </section>
-
     </section>
 
     <!--===============================================================================================-->
@@ -364,29 +372,16 @@
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/js/popper.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/select2/select2.min.js"></script> --%>
-    <!--===============================================================================================-->
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/daterangepicker/moment.min.js"></script> --%>
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/daterangepicker/daterangepicker.js"></script> --%>
-    <!--===============================================================================================-->
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/countdowntime/countdowntime.js"></script> --%>
-    <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.js"></script>
-<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.datetimepicker.full.js"></script> --%>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/bills_tnt.js"></script>
     <!--===============================================================================================-->
-    
- <!--引用jQuery-->
-<!--     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
-    <!--引用dataTables.js-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
      
     <script>
         $(function () {
-
             $("#myDataTalbe").DataTable({
                 searching: true, //關閉filter功能
                 columnDefs: [{
@@ -394,14 +389,7 @@
                     orderable: false,
                 }]
             });
-            
-            
-//             if ($('tr td:eq(3)').text()>0) {
-//     			$(this).css('color','#9e3e3e');
-//     		}
         });
-        
-        
     </script>
 </body>
 

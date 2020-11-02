@@ -158,7 +158,7 @@ text-align:center;
         <button class="nav-link"  id="b0" >待回覆</button>
       </li>
       <li class="nav-item">
-        <button class="nav-link"  id="b2" >已婉拒申請</button>
+        <button class="nav-link"  id="b2" >申請被婉拒</button>
       </li>
        <li class="nav-item">
         <button class="nav-link"  id="b3" >已取消申請</button>
@@ -256,8 +256,11 @@ text-align:center;
                 			</div>
                 			<div class='row' >
                 				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-<%--                     		<button class="btn btn-primary" ${repairVO.rep_tnt_rpt eq null && repairVO.rep_pro eq 1? "":' style="display:none" '} >回報結果</button></a></button><br> --%>
                 				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                			</div>
+                			<div class='row' >
+                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
                 	</div>
              </div>
@@ -332,7 +335,7 @@ text-align:center;
                   <div class='text'>
                     <h3 class='rep_status'>狀態
                     	
-                    	<c:if test="${repairVO.rep_pro eq 2}"><span style="color:green;">已婉拒申請</span></c:if>
+                    	<c:if test="${repairVO.rep_pro eq 2}"><span style="color:green;">申請被婉拒</span></c:if>
                     	
                     </h3>
                     <a href='#'>
@@ -396,7 +399,7 @@ text-align:center;
                     <h3 class='rep_status'>狀態
 <%--                     ${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"} --%>
                     	
-                    	<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    	<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">已取消申請</span></c:if>
                     	
                     </h3>
                     <a href='#'>
@@ -631,7 +634,7 @@ text-align:center;
                 			</div>
                 			<div class='row' >
                 				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 	</div>
              </div>
@@ -639,7 +642,7 @@ text-align:center;
              	              	
 <c:if test="${repairVO.rep_pro eq 7}">
         
-            <div class='row div-hide div6'>		
+            <div class='row div-hide div7'>		
 
                 <div class='col-md-6  text-center'>
                   <div class='text'>
@@ -838,59 +841,7 @@ $(document).ready(function(){
 	});
 });
 
-// b1.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
 
-// b2.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
-
-// b3.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
-
-// b4.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
-
-// b5.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
-
-// b6.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// });
 
 
 

@@ -32,7 +32,6 @@
 	String cardinfoStr = "";
 	Boolean hasCardinfoJS = false;
 	if (card != null){
-// 		String cardEnd = lldVO_bankcard.getLld_card();
 		int tmp = card.length();
 		card = card.substring(tmp-4);
 		cardinfoStr = "台新銀行&nbsp&nbsp****&nbsp" + card;
@@ -40,15 +39,12 @@
 	} else {
 		cardinfoStr = "尚未更新付款資訊";
 	}
-	
-	
 %> 
 
 <head>
     <title>myPocket</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans:ital,wght@1,600&family=Pacifico&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="css/style.css"> -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,8 +60,6 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animate/animate.css">
     <!--===============================================================================================-->
-    <!-- <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/haburgers.min.css"> -->
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/select2/select2.min.css">
@@ -74,14 +68,11 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/jquery.datetimepicker.css">
     <!--===============================================================================================-->
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/util.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/pocket_lld.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
-
-
 
     <style>
 
@@ -128,7 +119,6 @@
         .swal2-title{
         	padding-top: 20px;
         }
-
     </style>
 
 </head>
@@ -147,12 +137,6 @@
                                 </svg>
                             </a>
                             <div class="basicInfo__userImg mx-auto mb-3 divBigHeadPic">
-                                <!-- <input type="file" accept="image/jpg, image/jpeg, image/png" name="name" class="d-none"> -->
-<%--                                 <a class="awrapBigHeadPic" --%>
-<!--                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-camera fa-w-16"> -->
-<!--                                         <path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" class=""></path> -->
-<!--                                     </svg> -->
-<!--                                 </a> -->
                                 <a class="awrapBigHeadPic">
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${lldVO.lld_no}" width="110" class="imgBigHeadPic">
                                  </a>
@@ -302,7 +286,6 @@
 				                    </div>
                             </div>
                             <!--End form1 Pocket -->
-
                             <!--Start form4 BankCard-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">收付款設定
