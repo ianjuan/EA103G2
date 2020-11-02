@@ -83,7 +83,7 @@ public class HouseService {
 			String hos_pet, String hos_cook, String hos_smoke, Integer hos_rentfee, Integer hos_gasfee,
 			Integer hos_manafee, Integer hos_netfee, Integer hos_puwaterfee, Integer hos_puelefee, Integer hos_parkfee,
 			Integer hos_waterfeetype, Double hos_waterfee, Integer hos_electfeetype, Double hos_electfee,
-			List<HouseVO> hos_picArr, String[] pic_no, Integer lld_balance, String lld_no, String hos_no) {
+			List<HouseVO> hos_picArr, String[] pic_no, Integer lld_balance, Integer differday, String lld_no, String hos_no) {
 		HouseVO houseVO = new HouseVO();
 
 		houseVO.setHos_name(hos_name);
@@ -134,7 +134,7 @@ public class HouseService {
 		houseVO.setLld_balance(lld_balance);
 		houseVO.setLld_no(lld_no);
 		houseVO.setHos_no(hos_no);
-		dao.updateHouseInfo(houseVO, hos_picArr, pic_no);
+		dao.updateHouseInfo(houseVO, hos_picArr, pic_no, differday);
 
 		return houseVO;
 	}

@@ -175,13 +175,13 @@ public class HouseServlet extends HttpServlet {
 			
 			/*************************** 電子錢包紀錄 **********************/
 			
-			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
-			CashService cashSvc = new CashService();
-			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
+//			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+//			CashService cashSvc = new CashService();
+//			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
 			
 			/*************************** 上架房屋成功通知 **********************/
 			
-			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "/front-end/house_manage/house_index.jsp");
+			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp");
 
 			String url;
 			if (hos_status.equals("待出租")) {
@@ -312,7 +312,7 @@ public class HouseServlet extends HttpServlet {
 			Integer differday = getReqNum(req, "differday");
 			Integer lld_balance;
 			
-			if(differday > 3 && hos_status.equals("待出租")) {
+			if(differday > 1 && hos_status.equals("待出租")) {
 				lld_balance = getReqNum(req, "lld_balance") - 800;
 			} else {
 				lld_balance = getReqNum(req, "lld_balance");
@@ -330,7 +330,7 @@ public class HouseServlet extends HttpServlet {
 					hos_net, hos_gas, hos_mdate, hos_mindate, hos_park, hos_sex, hos_iden, hos_pet, hos_cook, hos_smoke,
 					hos_rentfee, hos_gasfee, hos_manafee, hos_netfee, hos_puwaterfee, hos_puelefee, hos_parkfee,
 					hos_waterfeetype, hos_waterfee, hos_electfeetype, hos_electfee, hos_picArr, pic_no,
-					lld_balance, lld_no, hos_no);
+					lld_balance, differday, lld_no, hos_no);
 
 			String url = requestURL;
 			if (hos_status.equals("出租中")) {

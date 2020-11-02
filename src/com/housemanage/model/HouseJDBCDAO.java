@@ -148,7 +148,7 @@ public class HouseJDBCDAO implements HouseDAO_interface {
 	}
 
 	@Override
-	public void updateHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr, String[] pic_no) {
+	public void updateHouseInfo(HouseVO houseVO, List<HouseVO> hos_picArr, String[] pic_no, Integer differday) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
