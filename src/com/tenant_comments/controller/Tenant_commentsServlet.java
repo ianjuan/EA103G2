@@ -50,8 +50,6 @@ public class Tenant_commentsServlet extends HttpServlet {
 					errorMsgs.add("請勿空白:您是否滿意房客維持房屋的整潔環境");
 				}
 				
-
-				
 				if (errorMsgs.isEmpty()) {
 				try {
 					tcm_clean=Integer.valueOf(str1.trim());

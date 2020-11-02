@@ -81,11 +81,12 @@ public class RepairService {
 		
 	}
 
-	public RepairVO updateRpt(String rep_no, Integer rep_tnt_rpt, Date rep_tnt_rpttime, Date rep_end_time) {
+	public RepairVO updateRpt(String rep_no, Integer rep_tnt_rpt, Integer rep_pro, Date rep_tnt_rpttime, Date rep_end_time) {
 		RepairVO repairVO = new RepairVO();
 		
 		repairVO.setRep_no(rep_no);
 		repairVO.setRep_tnt_rpt(rep_tnt_rpt);
+		repairVO.setRep_pro(rep_pro);
 		repairVO.setRep_tnt_rpttime(rep_tnt_rpttime);
 		repairVO.setRep_end_time(rep_end_time);
 		dao.tnt_update(repairVO);
