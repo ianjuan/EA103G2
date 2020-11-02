@@ -21,8 +21,6 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
-
-
 </head>
 
 <body onload="connect();" onunload="disconnect();">
@@ -271,39 +269,25 @@
 
 </div>
 <div class="row">
-<main>
-			<div class="container">
-				<h2>請輸入欲查詢的房東</h2>
-				<div class="search-box">
-					<div class="search-icon">
-						<i class="fa fa-search search-icon"></i>
-					</div>
-					<form action="RpttServlet" method="post" class="search-form">
-						<input type="text" placeholder="&nbsp&nbsp房東編號/ 身分證字號" id="search"
-							autocomplete="off" name="Number"> <input type="hidden"
-							name="action" value="get_want_landlord">
-					</form>
-					<svg class="search-border" version="1.1"
-						xmlns="http://www.w3.org/2000/svg"
-						xmlns:xlink="http://www.w3.org/1999/xlink"
-						xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-						x="0px" y="0px" viewBox="0 0 671 111"
-						style="enable-background: new 0 0 671 111;" xml:space="preserve">
-                    <path class="border_lld"
-							d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280" />
-                    <path class="border_lld"
-							d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280" />
-                </svg>
-					<div class="go-icon">
-						<i class="fa fa-arrow-right"></i>
-					</div>
-				</div>
-			</div>
-		</main>
+<div class="container-fluid">
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">你的網頁名稱</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+<!-- 				html放這 -->
+              </div>
+            </div>
+          </div>
+
+        </div> 
+
 
             </div>
           </div>
-            
+      
           </div>
 	</div>
           </div>
@@ -336,7 +320,7 @@
 		webSocket.onmessage = function(event) {
 			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
-			if(jsonObj.length>1){
+			if(jsonObj.length>=1){
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
 
@@ -359,27 +343,7 @@
 				$('#bell_alert').after(bell_html);
 			}
 			}
-			else{
-				var alert_count =$('#alert_count').text();
-				alert_count++;
-				$('#alert_count').text(alert_count);
-				console.log(alert_count);
-				alert_content = jsonObj.content;
-				alert_title =jsonObj.title;
-				alert_time =new Date(jsonObj.time);
-				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
-				    <div class="mr-3">
-				    <div class="icon-circle bg-primary">
-				        <i class="fas fa-file-alt text-white"></i>
-				    </div>
-					</div>
-					<div>
-				    <div class="small text-gray-500">${"${alert_day}"}</div>
-				    <span class="font-weight-bold">${"${alert_content}"}</span>
-				</div></a>`;
-				$('#bell_alert').after(bell_html);
-			}
+		
 			
 				
 
