@@ -66,7 +66,7 @@
 		
 	<!-- 針對某房客的所有評價查詢結果，以TNT000009為例，合併時會動態抓tnt_no -->
 	
-<% session.setAttribute("lld_no", "LLD000023");%>
+<%-- <% session.setAttribute("lld_no", "LLD000023");%> --%>
 <!-- (String)session.getAttribute("tnt_no") -->
 
 

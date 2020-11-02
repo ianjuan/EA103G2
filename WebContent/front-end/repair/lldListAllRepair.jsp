@@ -32,6 +32,7 @@
 </head>
 <body bgcolor='white'>
 
+	
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
@@ -48,15 +49,7 @@
 <section id='second'>
 <div class='.container-md'>
 <!-- join -->
-<%-- 	<c:forEach var="HouseVO" items="${hosSvc.allHouse}">  --%>
-<%-- 		<c:if test="${lld_no==HouseVO.lld_no}">  --%>
-<%-- 			<c:forEach var="ConVO" items="${conSvc.getConbyhos(HouseVO.hos_no)}">  --%>
-<%-- 				<c:if test="${HouseVO.hos_no==ConVO.hos_no}">  --%>
-<%-- 					<c:forEach var="repVO" items="${repSvc.tntGetAll(conVO.con_no)}"> --%>
-<%-- 						<c:if test="${repVO.con_no==conVO.con_no}">	 --%>
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
-<!-- join -->
+
 <div class='row'>
 	<div class='col-md-2' id="leftSpace"></div>						
 	<div class='col-md-8  text-center'>						
@@ -121,11 +114,12 @@
 		
 		
 			<!-- join -->
-	<c:forEach var="HouseVO" items="${hosSvc.allHouse}">
-		<c:if test="${lld_no==HouseVO.lld_no}">
-			<!-- conSvc.getConbyhos(HouseVO.hos_no)===ConVO -->
-					<c:forEach var="repairVO" items="${repSvc.tntGetAll(conSvc.getConbyhos(HouseVO.hos_no).con_no)}">
-						<c:if test="${repairVO.con_no==conSvc.getConbyhos(HouseVO.hos_no).con_no}">	
+
+	
+	
+		<c:forEach var="conVO" items="${conSvc.lldgetcon(lld_no)}">		
+	
+				<c:forEach var="repairVO" items="${repSvc.tntGetAll(conVO.con_no)}">
 							
 					 <c:if test="${repairVO.rep_pro eq 0}">
 							
@@ -715,9 +709,9 @@
 						</c:if><%-- 判斷狀態 --%>
 						
 						
-					</c:if>
+<%-- 					</c:if> --%>
 				</c:forEach>							
-			</c:if>
+<%-- 			</c:if> --%>
 <%-- 		</c:set> --%>
 <%-- 	</c:if> --%>
 </c:forEach>
