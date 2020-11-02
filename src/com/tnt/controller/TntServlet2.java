@@ -496,12 +496,6 @@ public class TntServlet2 extends HttpServlet {
 				TntVO tntVO = tntSvc.getOneTntPocket(tnt_no);
 				int tnt_balance = tntVO.getTnt_balance();
 				/*************************** 2.開始修改資料 ***************************************/
-//				if (tnt_pocket_deposit > 0) {
-//					tnt_balance = tnt_balance + tnt_pocket_deposit;
-//					tntSvc.updateTntPocket(tnt_no, tnt_balance);
-//					out.print("true");
-//					return;
-//				}
 				CashService cashSvc = new CashService();
 				String cash_no = "";
 				for (int i = 0; i < 5; i++) {
@@ -520,9 +514,7 @@ public class TntServlet2 extends HttpServlet {
 				Integer cash_status = 1;
 				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, "CON000001", cash_status);
 				//@ian
-				
-				
-//				System.out.println(cash_no);
+
 				tnt_balance = tnt_balance + tnt_pocket_deposit;
 				tntSvc.updateTntPocket(tnt_no, tnt_balance);
 

@@ -1,19 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.tnt.model.*"%>
+<%@ page import="com.lld.model.*"%>
 <%@ page import="com.cash.model.*"%>
 <%@ page import="java.util.*"%>
 
-<% session.removeAttribute("lld_no"); %>
-<% String tnt_no = (String) session.getAttribute("tnt_no");%>
-<jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
+<% session.removeAttribute("tnt_no"); %>
+<% String lld_no = (String) session.getAttribute("lld_no");%>
+<jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
 <%
-	TntVO tntVO = tntSvc.getOneTntProfile(tnt_no);
-	request.setAttribute("tntVO", tntVO);
+	LldVO lldVO = lldSvc.getOneLldProfile(lld_no);
+	request.setAttribute("lldVO", lldVO);
 %>
 <jsp:useBean id="cashSvc" scope="page" class="com.cash.model.CashService" />
 <%
-	List<CashVO> listCashLog = cashSvc.getOneCashlogs(tnt_no);
+	List<CashVO> listCashLog = cashSvc.getOneCashlogs(lld_no);
  	request.setAttribute("listCashLog", listCashLog);
 %>
 
@@ -27,23 +27,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/front-end/tnt/images/icons/favicon.ico" />
+    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/front-end/lld/images/icons/favicon.ico" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animate/animate.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
-<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/select2/select2.min.css"> --%>
+<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/select2/select2.min.css"> --%>
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/util.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/util.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/bills_tnt.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/bills_lld.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 	
@@ -71,7 +71,7 @@
 		 }
 		 
 		.text-primary {
-   			color: #3a8c68!important;
+   			color: #916A3C!important;
 		}
 		
 /* 		 @media (max-width:1199.98px) { */
@@ -112,12 +112,12 @@
          } 
          /*現在頁面*/ 
          .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-			color: #3a8c68!important; 
-		    background-color: #AACFBF !important;
+			color: #916A3C!important; 
+		    background-color: #D7C8B6 !important;
 		    font-weight: bold !important;
 			border: transparent !important;
 		    background: transparent !important;
-		    border-bottom: 1px solid #3a8c68 !important;
+		    border-bottom: 1px solid #916A3C !important;
     		border-radius: 0px;
 		}
 		/*其他頁面按鈕*/
@@ -126,9 +126,9 @@
 		}
 		.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
   			color: #fff!important;
-   			border: 1px solid #AACFBF !important; 
+   			border: 1px solid #D7C8B6 !important; 
  		    background: transparent !important;
-  		    background-color: #AACFBF !important;
+  		    background-color: #D7C8B6 !important;
   		    border-radius: 10px;
 		}
 		/*不能按的下一頁*/
@@ -140,22 +140,22 @@
 		}
 		/*現在頁面*/ 
          .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-			color: #3a8c68!important; 
-		    background-color: #AACFBF !important;
+			color: #916A3C!important; 
+		    background-color: #D7C8B6 !important;
 		    font-weight: bold !important;
 			border: transparent !important;
 		    background: transparent !important;
-		    border-bottom: 1px solid #3a8c68 !important;
+		    border-bottom: 1px solid #916A3C !important;
     		border-radius: 0px !important;
 		}
 		/*Serch bar*/
 		.dataTables_wrapper .dataTables_filter input {
-			border: 1px solid #AACFBF !important;
+			border: 1px solid #D7C8B6 !important;
 			border-radius: 25px !important;
 			padding: 0 13px !important;
 		}
 		.dataTables_wrapper .dataTables_filter input:focus {
-			border: 1px solid #3a8c68 !important;
+			border: 1px solid #916A3C !important;
 			border-radius: 25px !important;
 			padding: 0 13px !important;
 		}
@@ -164,7 +164,7 @@
  			background-color: #fff !important; 
  		} 
  		tr:nth-child(even){ 
-   			background: #F2F7F2 !important; 
+   			background: #F7F2F2 !important; 
  		} 
  		tr:nth-child(odd){ 
    			background: #fff !important; 
@@ -173,7 +173,7 @@
  /*   			background: #fff !important; */ 
  		} 
  		td.sorting_1:nth-child(odd){ 
-   			background: #F2F7F2 !important; 
+   			background: #F7F2F2 !important; 
  		} 
  		table.dataTable.display tbody tr.odd>.sorting_1, table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 { 
  			background: #fff !important; 
@@ -215,24 +215,24 @@
                             </a>
                             <div class="basicInfo__userImg mx-auto mb-3 divBigHeadPic">
                                 <a class="awrapBigHeadPic">
-                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
+                                     <img src="<%=request.getContextPath()%>/ImgReader?id=${lldVO.lld_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
                             <p class="text-gray text-center mb-3">房客</p>
-                            <h4 class="text-center">${tntVO.tnt_name} 個人資訊</h4>
+                            <h4 class="text-center">${lldVO.lld_name} 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/info.jsp" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/info.jsp" class="basicInfo__menu__link">
                                         <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" class="mr-2">基本資訊
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/verify.jsp" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/verify.jsp" class="basicInfo__menu__link">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_vrf.png" width="30" class="mr-2">身分驗證
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/pocket.jsp" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/pocket.jsp" class="basicInfo__menu__link">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_pocket.png" width="30" class="mr-2">我的錢包
                                     </a>
                                 </li>
@@ -241,12 +241,12 @@
                                         <img src="data:image/svg+xml;base64,PHN2ZyBpZD0i5ZyW5bGkXzEiIGRhdGEtbmFtZT0i5ZyW5bGkIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxkZWZzPjxzdHlsZT4uY2xzLTF7ZmlsbDojMmQyZDJkO308L3N0eWxlPjwvZGVmcz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04Mi42Myw0My4yOWEzMi42OCwzMi42OCwwLDAsMC02NS4yNiwwLDIuMzMsMi4zMywwLDAsMC0uMDYuNTNWNTdDMTcuMzEsNzQuMzcsMzEuMzcsODcuNSw1MCw4Ny41UzgyLjY5LDc0LjM3LDgyLjY5LDU3VjQzLjgyQTIuMzMsMi4zMywwLDAsMCw4Mi42Myw0My4yOVpNNTAsMTcuNUEyNy42OSwyNy42OSwwLDEsMSwyMi4zMSw0NS4xOSwyNy43MiwyNy43MiwwLDAsMSw1MCwxNy41Wm0wLDY1QzM2LjYxLDgyLjUsMjYuMjksNzUsMjMuMjQsNjMuOTJhMzIuNjQsMzIuNjQsMCwwLDAsNTMuNTIsMEM3My43MSw3NSw2My4zOSw4Mi41LDUwLDgyLjVaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTAsNTMuNzFhMy4xNywzLjE3LDAsMCwxLTMuMTYtMy4xNmgtNWE4LjE2LDguMTYsMCwwLDAsNS42Niw3Ljc2VjYzaDVWNTguMzFBOC4xNiw4LjE2LDAsMCwwLDUwLDQyLjM5YTMuMTYsMy4xNiwwLDEsMSwzLjE2LTMuMTVoNWE4LjE4LDguMTgsMCwwLDAtNS42Ni03Ljc3VjI2LjgzaC01djQuNjRBOC4xNiw4LjE2LDAsMCwwLDUwLDQ3LjM5YTMuMTYsMy4xNiwwLDAsMSwwLDYuMzJaIi8+PC9zdmc+" width="30" class="mr-2">我的帳務</a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/booking.jsp" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/booking.jsp" class="basicInfo__menu__link">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_rsv.png" width="30" class="mr-2">我的預約
                                     </a>
                                 </li>
                                 <li class="mb-3">
-                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=gettntcontract" class="basicInfo__menu__link">
+                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=getlldcontract" class="basicInfo__menu__link">
                                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" class="mr-2">我的合約</a>
                                 </li>
                             </ul>
@@ -265,18 +265,18 @@
                             <div class="border-top w-50 mx-auto"></div>
                             <ul class="basicInfo__menu mt-4 shrink__list mb-0 pl-0">
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/info.jsp" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/info.jsp" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="<%=request.getContextPath()%>/images/meminfoprofile.png" width="30" height="30">
                                     </a>
                                 </li>
                                 
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/verify.jsp" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/verify.jsp" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_vrf.png" width="30" height="30">
                                     </a>
                                 </li>
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/pocket.jsp" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/pocket.jsp" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_pocket.png" width="30" height="30">
                                     </a>
                                 </li>
@@ -287,13 +287,13 @@
                                 </li>
                                 
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/front-end/tnt/booking.jsp" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/front-end/lld/booking.jsp" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="<%=request.getContextPath()%>/images/infoIcon_rsv.png" width="30" height="30">
                                     </a>
                                 </li>
                                 
                                 <li class="mb-3 w-100">
-                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=gettntcontract" class="basicInfo__menu__link shrink__list-icon">
+                                    <a href="<%=request.getContextPath()%>/cont/ConServlet?action=getlldcontract" class="basicInfo__menu__link shrink__list-icon">
                                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsSAAALEgHS3X78AAACIElEQVR4nO3dwVGDQBhA4V/Hu5ZgBTt2EEpJJ8ZOUkrswNkKKCFWECcz60Vi1A1hH/K+I1wCb4DAJuzN4XAIcdzagsUgMAaBMQiMQWAMAmMQGIPA3F3ycVJKDxGxjoiHwcpl2kfENue8r9366jv1lNJTROwi4n6wctneI6LLOb9NFqQcGb0xvnWM8lhzpNReQ9bGOOu+7KM/qw3iNeNnVfvooov6F6/lmrJEXUSsxtjuMYPscs6bwdIFSCltxgrifQiMQWAMAmMQGIPAGATGIDAGgTEIjEFgDAJjEBiDwBgEZszH77+WUurKGALZcThh8vGdJkFKjOfBUp7Jg3jKgjEIjEFgWl1D5vBjiCafsUmQ8u1lqb9QOctTFoxBYAwCYxAYg8AYBMYgMAaBMQiMQWAMAmMQmFZDuJsZjBi+tPhHmEcIjEFgDAJjEJhWQ7jbGYwY9oMlE2g1hNu32mA6T1kwBoExCIxBYAwCYxAYg8AYBMYgMAaBMQhMqxHDx+N7bQcrLtOXZ2Sz1upp7/oKQ7gvETH7l3B6yoIxCIxBYAwC02rEcPMfLsDX4BECYxAYg8AYBMYgMAaBMQiMQWAMAmMQGIPAjPksqyv/HVyi0V55O2aQ1VhTxy1Z7SmrejbkBanaR7VBtmUCXp32XvbRNEHKLMidUU76nL676gipnk89nOD+lHYT3Os6vA+BMQiMQWAMAmMQGIPAGATGICQR8QGjXWHJ4UpOVwAAAABJRU5ErkJggg==" width="30" height="30">
                                     </a>
                                 </li>
@@ -396,18 +396,18 @@
     </section>
 
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/js/animsition.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/js/popper.js"></script>
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/js/popper.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/js/jquery.js"></script>
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/js/bills_tnt.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/lld/js/bills_lld.js"></script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
      

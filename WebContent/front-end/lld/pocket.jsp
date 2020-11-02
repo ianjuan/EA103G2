@@ -40,11 +40,18 @@
 		cardinfoStr = "尚未更新付款資訊";
 	}
 %> 
+<%
+	String ecpayDeposit = (String) request.getParameter("ecpayDeposit");
+	if (ecpayDeposit == null){
+		ecpayDeposit = "-1";
+	}
+%>
 
 <head>
     <title>myPocket</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Open+Sans:ital,wght@1,600&family=Pacifico&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,6 +67,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animate/animate.css">
     <!--===============================================================================================-->
+    <!-- <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/haburgers.min.css"> -->
+    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/css/animsition.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/select2/select2.min.css">
@@ -68,11 +77,14 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/jquery.datetimepicker.css">
     <!--===============================================================================================-->
+    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/util.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/pocket_lld.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
+
+
 
     <style>
 
@@ -119,6 +131,7 @@
         .swal2-title{
         	padding-top: 20px;
         }
+
     </style>
 
 </head>
@@ -285,7 +298,7 @@
 				                         </div>
 				                    </div>
                             </div>
-                            <!--End form1 Pocket -->
+                            <!--End form1 Pocket -->     
                             <!--Start form4 BankCard-->
                             <div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">收付款設定
@@ -487,9 +500,7 @@
                 </div>
             </div>
         </section>
-
     </section>
-
 
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -517,8 +528,17 @@
 <script>
 	var hasBankinfoJS = <%=hasBankinfoJS%>;
 	var hasCardinfoJS = <%=hasCardinfoJS%>;
-</script>
 
+	var ecpayDeposit = <%=ecpayDeposit%>;
+	if (ecpayDeposit !== -1){
+		Swal.fire({
+		icon: 'success',
+		title: '您已成功儲值&nbspNTD&nbsp'+ecpayDeposit+'&nbsp元',
+		animation: true,
+		showConfirmButton: true,
+		})
+	}
+</script>
 </body>
 
 </html>
