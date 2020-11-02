@@ -29,7 +29,7 @@ public class CashVO implements java.io.Serializable {
 	private Integer cash_amount;
 	private String con_no;
 	private String rec_no;
-	private String cash_status;
+	private Integer cash_status;
 	
 	public CashVO() {}
 
@@ -97,11 +97,11 @@ public class CashVO implements java.io.Serializable {
 		this.rec_no = rec_no;
 	}
 
-	public String getCash_status() {
+	public Integer getCash_status() {
 		return cash_status;
 	}
 
-	public void setCash_status(String cash_status) {
+	public void setCash_status(Integer cash_status) {
 		this.cash_status = cash_status;
 	}
 
@@ -164,5 +164,5 @@ public class CashVO implements java.io.Serializable {
 	public static String getCashout() {
 		return cashOut;
 	}
-
+	
 }

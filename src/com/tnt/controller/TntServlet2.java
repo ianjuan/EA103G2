@@ -524,7 +524,7 @@ public class TntServlet2 extends HttpServlet {
 				for(int i =0;i<25;i++) {
 					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 					
-					cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit, tnt_pocket_deposit);
+					cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit, tnt_pocket_deposit,1);
 				}
 				
 //				System.out.println(cash_no);
@@ -533,7 +533,7 @@ public class TntServlet2 extends HttpServlet {
 				
 				List<CashVO> list = cashSvc.getOneCashlogs(tnt_no);
 				for(CashVO cashVO : list) {
-					String cash_no1 = cashVO.getCash_no();
+					String cash_no1 = cashVO.getMem_no();
 					System.out.println("tntservlet2-cashVO list"+cash_no1);
 				}
 				
