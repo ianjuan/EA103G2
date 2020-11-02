@@ -720,13 +720,6 @@
                     			  redirect();
                     		  } 
                     	});
-                    	
-//                    	 //inputs
-//                        var inputs = theform.find('.validate-input .register100');
-//                    	console.log(inputs);
-//                        inputs.each(function() {
-//                            $(this).val('');
-//                        });
                    }
                 },
                 error: function() {

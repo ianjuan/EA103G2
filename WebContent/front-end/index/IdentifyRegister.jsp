@@ -26,24 +26,22 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/tnt/css/main_login.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
+	
+	<style>
+	#btnIdentifylld {
+		background: #D7C8B6;
+		color: #916A3C;
+	}
+	#btnIdentifylld:hover {
+		background: #916A3C;
+        color: #fff;
+        font-size: 17px;
+	}
+	</style>
 </head>
 
 <body class="landing">
 <jsp:include page="/front-end/navbar/navbar.jsp"/>
-<!--     Header -->
-<!--     <header id="header"> -->
-<!--         <h1> -->
-<!--             <a href="index.html">愛租I-ZU</a> -->
-<!--         </h1> -->
-<!--         <nav id="nav"> -->
-<!--             <ul> -->
-<!--                 <li><a href="index.html">尋找房源</a></li> -->
-<!--                 <li><a href="generic.html">地圖找房</a></li> -->
-<!--                 <li><a href="elements.html">會員登入</a></li> -->
-<!--                 <li><a href="#" class="special">註冊會員</a></li> -->
-<!--             </ul> -->
-<!--         </nav> -->
-<!--     </header> -->
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-form validate-form" id="login100-form-identify">
@@ -52,13 +50,15 @@
                     <hr class="login100-form-title p-b-10">
                     <div class="identity-wrap">
                         <div class="identity-img-wrap m-r-10 m-l-10">
-                            <img src="<%=request.getContextPath()%>/images/lld.png" width="300">
+<%--                             <img src="<%=request.getContextPath()%>/images/lld.png" width="300"> --%>
+							<img src="<%=request.getContextPath()%>/images/identify_lld.png" width="300">
                             <div class="container-login100-form-btn m-t-10">
-                               <a href="/EA103G2/front-end/index/lld/register.jsp" class="login100-form-btn btnIdentify">我是房東</a>
+                               <a href="/EA103G2/front-end/index/lld/register.jsp" class="login100-form-btn btnIdentify" id="btnIdentifylld">我是房東</a>
                             </div>
                         </div>
                         <div class="identity-img-wrap m-r-10 m-l-10">
-                        	<img src="<%=request.getContextPath()%>/images/tnt.png" width="300">
+<%--                         	<img src="<%=request.getContextPath()%>/images/tnt.png" width="300"> --%>
+							<img src="<%=request.getContextPath()%>/images/identify_tnt.png" width="300">
                             <div class="container-login100-form-btn m-t-10">
                                 <a href="/EA103G2/front-end/index/tnt/register.jsp" class="login100-form-btn btnIdentify">我是房客</a>
                             </div>

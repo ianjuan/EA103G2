@@ -292,7 +292,7 @@
         .login100-form {
             width: 800px;
             /* min-height: 100vh; */
-            height: 930px;
+            height: 960px;
             /*800px*/
             display: block;
             background-color: #f7f7f7;
@@ -667,8 +667,62 @@
                 opacity: 1;
             }
         }
+		/*------------------------------------------------------------------
+[ Backend validate ]*/
 
+        .alert-validate-login::before {
+            content: attr(data-validate);
+            position: absolute;
+            z-index: 100;
+            max-width: 70%;
+            background-color: #fff;
+            border: 1px solid #c80000;
+            border-radius: 2px;
+            padding: 4px 10px 4px 25px;
+            top: 50%;
+            pointer-events: none;
 
+            font-family: Poppins-Regular;
+            color: #c80000;
+            font-size: 13px;
+            line-height: 1.4;
+
+            visibility: visible;
+            opacity: 1;
+
+            -webkit-transition: opacity 0.4s;
+            -o-transition: opacity 0.4s;
+            -moz-transition: opacity 0.4s;
+            transition: opacity 0.4s;
+        }
+
+        .alert-validate-login::after {
+            content: "\f12a";
+            font-family: FontAwesome;
+            display: inline-block;
+            position: absolute;
+            z-index: 110;
+            color: #c80000;
+            font-size: 16px;
+            top: 50%;
+            left: 10px;
+            padding-top: 2px;
+        }
+
+        .wrap-validate-login {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            /*             width: 100%; */
+            height: 10px;
+            position: relative;
+            margin-bottom: 30px;
+            left: 10px;
+        }
 
         /*==================================================================
 [ Social ]*/
@@ -707,7 +761,7 @@
             /*background: url("images/icons/angle-down.png") no-repeat right center transparent;*/
             font-size: 18px;
             color: #777777;
-            line-height: 3.2;
+            line-height: 3;
             padding: 0 26px;
             font-family: Montserrat-Regular;
 
@@ -812,7 +866,8 @@
         }
         /*ÀY¶K¹wÄý*/
         #picWrapper {
-            height: 360px
+            height: 400px;
+            padding-top: 15px;
         }
         .picPreview {
             text-align: center;
@@ -829,6 +884,25 @@
             margin-top: 20px;
             height: 300px;
             width: auto;
+        }
+        /*===============Quick Input========================================
+[ Quick Input ]*/
+        #quickpick {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            border: 2px dashed;
+            background-color: #f2f2f2;
+            font-size: 14px;
+            font-weight: bold;
+            color: #0B8BD3;
+            text-align: center;
+            vertical-align: middle;
+            position: fixed;
+            left: 80%;
+            top: 80%;
+            /* margin-top: 0px; */
+            line-height: 95px;
         }
         /*===============Quick Input========================================
 [ Quick Input ]*/

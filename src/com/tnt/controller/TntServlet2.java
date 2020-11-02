@@ -158,11 +158,32 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("登入Exception: " + e.getMessage());
 			}
 		}
+		
+		if ("isEmailRepeat".equals(action)) { // 來自Register.jsp的請求 - ajax_isEmailRepeat(tnt_email)
+			System.out.println("action: " + action);
+			out = res.getWriter();
+			String tnt_email = req.getParameter("tnt_email");
+			TntService tntSvc = new TntService();
+			List<TntVO> list = tntSvc.getAllAccount();
+			System.out.println(tnt_email);
+			String isEmailRepeat = "true";
+			for (TntVO tntVO : list) {
+				System.out.println(tntVO.getTnt_email());
+				if (tnt_email.equals(tntVO.getTnt_email())) { 
+					System.out.println(tnt_email.equals(tntVO.getTnt_email()));
+					isEmailRepeat = "false";
+				} 
+			}
+			out.print(isEmailRepeat);
+			out.close();
+			return;
+		}
 
 		if ("register".equals(action)) { // 來自Register.jsp的請求 - ajax_register(formData)
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			out = res.getWriter();
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
@@ -226,7 +247,6 @@ public class TntServlet2 extends HttpServlet {
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				Boolean successSendMail = mailService.sendMail_vrf(tnt_email_to, "愛租會員信箱驗證", "tnt", emailVrfLink);
 				if (successSendMail) {
-					out = res.getWriter();
 					out.print("true");
 					out.close();
 				}

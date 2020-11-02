@@ -158,6 +158,26 @@ public class LldServlet2 extends HttpServlet {
 				System.out.println("登入Exception: " + e.getMessage());
 			}
 		}
+		
+		if ("isEmailRepeat".equals(action)) { // 來自Register.jsp的請求 - ajax_isEmailRepeat(lld_email)
+			System.out.println("action: " + action);
+			out = res.getWriter();
+			String lld_email = req.getParameter("lld_email");
+			LldService lldSvc = new LldService();
+			List<LldVO> list = lldSvc.getAllAccount();
+			System.out.println(lld_email);
+			String isEmailRepeat = "true";
+			for (LldVO lldVO : list) {
+				System.out.println(lldVO.getLld_email());
+				if (lld_email.equals(lldVO.getLld_email())) { 
+					System.out.println(lld_email.equals(lldVO.getLld_email()));
+					isEmailRepeat = "false";
+				} 
+			}
+			out.print(isEmailRepeat);
+			out.close();
+			return;
+		}
 
 		if ("register".equals(action)) { // 來自Register.jsp的請求 - ajax_register(formData)
 			System.out.println("action: " + action);
