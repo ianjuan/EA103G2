@@ -684,20 +684,26 @@ public class ConServlet extends HttpServlet {
 				Integer tnt_blance = tntSvc.getOneTntPocket(tnt_no).getTnt_balance() - hos_dep;
 				tntSvc.updateTntPocket(tnt_no, tnt_blance);
 				
-//				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
-//				CashService cashSvc = new CashService();
-//				String mem_no = "TNT000001";
-//				String cash_inout = CashVO.cashOut;
-//				String cash_type = CashVO.tntOut_YaJin;
-//				Integer cash_amount = -10000;
-//				Integer cash_status = 1;
-//				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
+				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+				CashService cashSvc = new CashService();
+				String mem_no = tnt_no;
+				String cash_inout = CashVO.cashOut;
+				String cash_type = CashVO.tntOut_YaJin;
+				Integer cash_amount = -hos_dep;
+				Integer cash_status = 1;
+				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
 				/*************************** 加房東錢錢 **********************/
 				String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
 				System.out.println(lld_no);
 				LldService lldService = new LldService();
 				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_balance() + hos_dep;
 				lldService.updateLldPocket(lld_no, lld_blance);
+				mem_no = lld_no;
+				cash_inout = CashVO.cashIn;
+				cash_type = CashVO.lldIn_YaJin;
+				cash_amount = hos_dep;
+				
+				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
 				/*************************** 改租屋狀態 **********************/
 				con_sta = 3;
 
@@ -968,7 +974,12 @@ public class ConServlet extends HttpServlet {
 				ConService conSvc = new ConService();
 
 				RecService recService = new RecService();
+				CashService cashSvc = new CashService();
+				HouseService hosSvc = new HouseService();
+				ConService conService = new ConService();
+				LldService lldService = new LldService();
 				List<RecVO> reclist = recService.getAllUpaidByCon(con_no);
+				//一次繳清
 				for (RecVO recVO : reclist) {
 					Integer rec_water = recVO.getRec_water();
 					Integer rec_elec = recVO.getRec_elec();
@@ -976,6 +987,28 @@ public class ConServlet extends HttpServlet {
 					Integer rec_total = recVO.getRec_total();
 					Integer rec_sta = 2;
 					recService.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
+					
+					/*************************** 扣房客錢錢 **********************/
+					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+					String mem_no = tnt_no;
+					String cash_inout = CashVO.cashOut;
+					String cash_type = CashVO.tntOut_RecBill;
+					Integer cash_amount = -rec_total;
+					Integer cash_status = 1;
+					cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status);
+					/*************************** 加房東錢錢 **********************/
+					String hos_no = conService.getOneCon(con_no).getHos_no();
+					String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
+					
+					Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_balance() + rec_total;
+					lldService.updateLldPocket(lld_no, lld_blance);
+					
+					mem_no = lld_no;
+					cash_inout = CashVO.cashIn;
+					cash_type = CashVO.lldIn_RecBill;
+					cash_amount = rec_total;
+					
+					cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
 				}
 
 				HouseService houseService = new HouseService();
@@ -986,6 +1019,11 @@ public class ConServlet extends HttpServlet {
 				Integer con_sta = 6;
 				conSvc.updatesta(con_sta, con_no);
 				List<ConVO> list = conSvc.tntgetcon(tnt_no);
+				
+				String mem_no = tnt_no;
+				Integer cash_amount = conSvc.getOneCon(con_no).getHos_dep();
+				Timer checkouttimer = new Timer();
+				checkouttimer.schedule(new CheckoutdepSchedule(con_no, mem_no, cash_amount),1000);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				HttpSession session = req.getSession();

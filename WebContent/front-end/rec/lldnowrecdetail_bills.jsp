@@ -7,29 +7,26 @@
 <%@ page import="com.cont.model.*"%>
 <%@ page import="com.lld.model.*"%>
 <%@ page import="com.tnt.model.*"%>
+<%@ page import="com.rec.model.*"%>
 
 <%
-	HouseVO houseVO = (HouseVO) request.getAttribute("houseVO");
-	HouseVO houseVOwaterfee = (HouseVO) request.getAttribute("housewatVO");
-	HouseVO houseVOelectfee = (HouseVO) request.getAttribute("houseeleVO");
+
+	String rec_no = (String)request.getAttribute("rec_no");
+	RecService recService = new RecService();
+	RecVO recVO = recService.getOneRec(rec_no);
 	
-	RecVO recVO = (RecVO) request.getAttribute("recVO");
-	TntVO tntVO = (TntVO) request.getAttribute("tntVO");
- 	
- 	String lld_no = (String) session.getAttribute("lld_no");
-	if (lld_no == null) {
-		lld_no = request.getParameter("lld_no");
-	}
+	ConService conService = new ConService();
+	String hos_no = conService.getOneCon((recVO.getCon_no())).getHos_no();
 	
-	String con_no = (String) request.getAttribute("con_no");
+	HouseService houseService = new HouseService();
+	HouseVO houseVO = houseService.getHouseInfo(hos_no);
+	HouseVO houseVOelectfee = houseService.getHouseElectfee(hos_no);
+	HouseVO houseVOwaterfee = houseService.getHouseWaterfee(hos_no);
 	
-	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
-	if (lldInfo == null) {
-		HouseService houseSvc = new HouseService();
-		lldInfo = houseSvc.getLldInfo(lld_no);
-	}
-	
+	pageContext.setAttribute("recVO", recVO);
 	pageContext.setAttribute("houseVO", houseVO);
+	pageContext.setAttribute("houseVOelectfee", houseVOelectfee);
+	pageContext.setAttribute("houseVOwaterfee", houseVOwaterfee);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -67,30 +64,7 @@
                 </div>                
                 <div class="nav-links">
                  <a href="<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp" class="link">首頁</a>
-					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
-						<input type="hidden" name="action" value="getLldPub">
-						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
-					</FORM>
-					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_rent.jsp" class="link">已租房屋</a>
-					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_unrent.jsp" class="link">待租房屋</a>
-					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_off.jsp" class="link">下架房屋</a>			
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="lldgetAll">
-						<button type="submit" class="link">租屋申請</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getlldcontract">
-						<button type="submit" class="link" style="color: #D37707;">合約管理</button>
-					</FORM>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
-						<input type="hidden" name="action" value="getLldRepair">
-						<button type="submit" class="link">修繕管理</button><br>
-					</FORM>
-					<button type="button" class="link">評價管理</button>
+					
                 </div>
             </nav>
 		</div>
@@ -104,13 +78,6 @@
 				<div id="cbody">				
 					<div id="cbody1">
 						<table cellpadding="11">
-							
-							<tr>
-								<th>房客姓名:</th>
-								<td>
-									<%=tntVO.getTnt_name()%>
-								</td>
-							</tr>
 							
 							<tr>
 								<th>房屋名稱:</th>
@@ -215,8 +182,6 @@
 						</table>
 					</div>		        				
 				</div>
-				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-				<input type="hidden" name="con_no" value="<%=con_no%>">
 				<div id="cfoot">
 					<button class="btn" type="button" onclick="notice1">修改申請</button>
 					<input type="hidden" name="action" value="getlldrec">
