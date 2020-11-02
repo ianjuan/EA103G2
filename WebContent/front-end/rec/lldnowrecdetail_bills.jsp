@@ -7,29 +7,26 @@
 <%@ page import="com.cont.model.*"%>
 <%@ page import="com.lld.model.*"%>
 <%@ page import="com.tnt.model.*"%>
+<%@ page import="com.rec.model.*"%>
 
 <%
-	HouseVO houseVO = (HouseVO) request.getAttribute("houseVO");
-	HouseVO houseVOwaterfee = (HouseVO) request.getAttribute("housewatVO");
-	HouseVO houseVOelectfee = (HouseVO) request.getAttribute("houseeleVO");
+
+	String rec_no = (String)request.getAttribute("rec_no");
+	RecService recService = new RecService();
+	RecVO recVO = recService.getOneRec(rec_no);
 	
-	RecVO recVO = (RecVO) request.getAttribute("recVO");
-	TntVO tntVO = (TntVO) request.getAttribute("tntVO");
- 	
- 	String lld_no = (String) session.getAttribute("lld_no");
-	if (lld_no == null) {
-		lld_no = request.getParameter("lld_no");
-	}
+	ConService conService = new ConService();
+	String hos_no = conService.getOneCon((recVO.getCon_no())).getHos_no();
 	
-	String con_no = (String) request.getAttribute("con_no");
+	HouseService houseService = new HouseService();
+	HouseVO houseVO = houseService.getHouseInfo(hos_no);
+	HouseVO houseVOelectfee = houseService.getHouseElectfee(hos_no);
+	HouseVO houseVOwaterfee = houseService.getHouseWaterfee(hos_no);
 	
-	HouseVO lldInfo = (HouseVO) request.getAttribute("lldInfo");
-	if (lldInfo == null) {
-		HouseService houseSvc = new HouseService();
-		lldInfo = houseSvc.getLldInfo(lld_no);
-	}
-	
+	pageContext.setAttribute("recVO", recVO);
 	pageContext.setAttribute("houseVO", houseVO);
+	pageContext.setAttribute("houseVOelectfee", houseVOelectfee);
+	pageContext.setAttribute("houseVOwaterfee", houseVOwaterfee);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -104,13 +101,6 @@
 				<div id="cbody">				
 					<div id="cbody1">
 						<table cellpadding="11">
-							
-							<tr>
-								<th>房客姓名:</th>
-								<td>
-									<%=tntVO.getTnt_name()%>
-								</td>
-							</tr>
 							
 							<tr>
 								<th>房屋名稱:</th>
