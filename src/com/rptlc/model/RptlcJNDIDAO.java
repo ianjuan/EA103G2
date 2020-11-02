@@ -15,7 +15,8 @@ import javax.sql.DataSource;
 import com.rptlc.model.RptlcDAO_interface;
 import com.rptlc.model.RptlcVO;
 
-public class RptlcJNDIDAO implements RptlcDAO_interface{
+public class RptlcJNDIDAO implements RptlcDAO_interface {
+
 	private static DataSource ds = null;
 	static {
 
@@ -36,7 +37,11 @@ public class RptlcJNDIDAO implements RptlcDAO_interface{
 	private static final String GET_LCM_STMT = "SELECT RPTLC_NO,LCM_NO,LLD_NO,RPTLC_TIME,RPTLC_CONTENT,EMP_NO,RPTLC_DONE_TIME,RPTLC_STATUS,RPTLC_RESULT,RPTLC_NOTE FROM REPORT_LANDLORD_COMMENTS WHERE LCM_NO=? ";
 	private static final String GET_LLD_STMT = "SELECT RPTLC_NO,LCM_NO,LLD_NO,RPTLC_TIME,RPTLC_CONTENT,EMP_NO,RPTLC_DONE_TIME,RPTLC_STATUS,RPTLC_RESULT,RPTLC_NOTE FROM REPORT_LANDLORD_COMMENTS WHERE LLD_NO=? ";
 	private static final String GET_EMP_STMT = "SELECT RPTLC_NO,LCM_NO,LLD_NO,RPTLC_TIME,RPTLC_CONTENT,EMP_NO,RPTLC_DONE_TIME,RPTLC_STATUS,RPTLC_RESULT,RPTLC_NOTE FROM REPORT_LANDLORD_COMMENTS WHERE EMP_NO=? ";
-	private static final String GET_STATUS_STMT = "SELECT RPTLC_NO,LCM_NO,LLD_NO,RPTLC_TIME,RPTLC_CONTENT,EMP_NO,RPTLC_DONE_TIME,RPTLC_STATUS,RPTLC_RESULT,RPTLC_NOTE FROM REPORT_LANDLORD_COMMENTS WHERE RPTLC_STATUS=? ";
+	private static final String GET_RESULT_STMT = "SELECT RPTLC_NO,LCM_NO,LLD_NO,RPTLC_TIME,RPTLC_CONTENT,EMP_NO,RPTLC_DONE_TIME,RPTLC_STATUS,RPTLC_RESULT,RPTLC_NOTE FROM REPORT_LANDLORD_COMMENTS WHERE RPTLC_RESULT=? ";
+	private static final String UPDATE_EMP = "UPDATE REPORT_LANDLORD_COMMENTS SET EMP_NO=?,RPTLC_STATUS=? WHERE RPTLC_NO=? ";
+	private static final String ASSIGN_EMP = "UPDATE REPORT_LANDLORD_COMMENTS SET EMP_NO=?,RPTLC_NOTE=? WHERE RPTLC_NO=? ";
+	private static final String SAVE_NOTE = "UPDATE REPORT_LANDLORD_COMMENTS SET RPTLC_NOTE=? WHERE RPTLC_NO=? ";
+	private static final String FAIL_STMT = "UPDATE REPORT_LANDLORD_COMMENTS SET RPTLC_RESULT=?,RPTLC_NOTE=? WHERE RPTLC_NO=? ";
 
 	@Override
 	public void insert(RptlcVO rptlcVO) {
@@ -124,6 +129,161 @@ public class RptlcJNDIDAO implements RptlcDAO_interface{
 
 	}
 
+	public void updateEmp(RptlcVO rptlcVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_EMP);
+
+			pstmt.setString(1, rptlcVO.getEmp_no());
+			pstmt.setInt(2, rptlcVO.getRptlc_status());
+			pstmt.setString(3, rptlcVO.getRptlc_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void assignEmp(RptlcVO rptlcVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(ASSIGN_EMP);
+
+			pstmt.setString(1, rptlcVO.getEmp_no());
+			pstmt.setString(2, rptlcVO.getRptlc_note());
+			pstmt.setString(3, rptlcVO.getRptlc_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+	
+	public void fail(RptlcVO rptlcVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FAIL_STMT);
+
+			pstmt.setInt(1, rptlcVO.getRptlc_result());
+			pstmt.setString(2, rptlcVO.getRptlc_note());
+			pstmt.setString(3, rptlcVO.getRptlc_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
+
+	public void saveNote(RptlcVO rptlcVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SAVE_NOTE);
+
+		
+			pstmt.setString(1, rptlcVO.getRptlc_note());
+			pstmt.setString(2, rptlcVO.getRptlc_no());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+
+			throw new RuntimeException("A DataBase error occured." + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+
+		}
+
+	}
 	@Override
 	public void delete(String rptlc_no) {
 
@@ -302,15 +462,18 @@ public class RptlcJNDIDAO implements RptlcDAO_interface{
 
 		try {
 			con = ds.getConnection();
-
+            System.out.println("近來多筆查詢");
+            System.out.println(Number);
 			if (Number.startsWith("LC")) {
 				pstmt = con.prepareStatement(GET_LCM_STMT);
-			} else if (Number.startsWith("LD")) {
+			} else if (Number.startsWith("L")) {
 				pstmt = con.prepareStatement(GET_LLD_STMT);
+			} else if (Number.startsWith("R")) {
+				pstmt = con.prepareStatement(GET_RPTLC_STMT);
 			} else if (Number.startsWith("E")) {
 				pstmt = con.prepareStatement(GET_EMP_STMT);
-			} else if (Number.equals("0")||Number.equals("1")) {
-				pstmt = con.prepareStatement(GET_STATUS_STMT);
+			} else if (Number.equals("0") || Number.equals("1")) {
+				pstmt = con.prepareStatement(GET_RESULT_STMT);
 			} else {
 				System.out.println("wrong sql");
 			}
@@ -368,4 +531,5 @@ public class RptlcJNDIDAO implements RptlcDAO_interface{
 
 		return list;
 	}
+
 }
