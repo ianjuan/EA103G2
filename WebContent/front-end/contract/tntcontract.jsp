@@ -269,7 +269,8 @@
 						 通訊地址：桃園區中壢市中央路300號 <br>
 						 聯絡電話：0988755012 <br>
 						 電子郵件信箱：ea103g2@gmail.com <br>
-						 西元<%=conVO.getCon_date()%><br>			        				
+						 西元<%=conVO.getCon_date()%><br>	
+						 <%=houseVO.getHos_rentfee()%>幹		        				
 				</div>
 				<div id="outerdiv" style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;">
 					<div id="innerdiv" style="position: absolute;">
@@ -280,6 +281,8 @@
 				<input type="hidden" name="con_no" value="<%=conVO.getCon_no()%>">
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
 				<input type="hidden" name="tnt_mobile" value="<%=tntVO.getTnt_mobile()%>">
+				<input type="hidden" id="hos_dep" name="hos_dep" value="<%=houseVO.getHos_rentfee()%>">
+				<input type="hidden" id="tnt_balance" name="tnt_balance" value="<%=tntSvc.getOneTntPocket(tnt_no).getTnt_balance()%>">
 				<div id="cfoot">
 					<button class="pagebtn" type="button" onclick="notice2()">重新填寫</button>
 					<input type="hidden" name="action" value="updateonetntcontract">
@@ -290,6 +293,6 @@
 		</form>
 	</div>
 	<div id="foot"></div>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont1.js" charset="UTF-8"></script>		
+	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont2.js" charset="UTF-8"></script>		
 </body>
 </html>

@@ -22,6 +22,8 @@ import javax.servlet.http.Part;
 
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
+import com.cash.model.CashService;
+import com.cash.model.CashVO;
 import com.cont.model.ConDAO;
 import com.cont.model.ConService;
 import com.cont.model.ConVO;
@@ -632,7 +634,7 @@ public class ConServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
-			try {
+//			try {
 				/*************************** 1.接收請求參數 ****************************************/
 				String con_no = new String(req.getParameter("con_no"));
 				String tnt_no = new String(req.getParameter("tnt_no"));
@@ -681,6 +683,15 @@ public class ConServlet extends HttpServlet {
 				/*************************** 扣房客押金 **********************/
 				Integer tnt_blance = tntSvc.getOneTntPocket(tnt_no).getTnt_balance() - hos_dep;
 				tntSvc.updateTntPocket(tnt_no, tnt_blance);
+				
+//				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+//				CashService cashSvc = new CashService();
+//				String mem_no = "TNT000001";
+//				String cash_inout = CashVO.cashOut;
+//				String cash_type = CashVO.tntOut_YaJin;
+//				Integer cash_amount = -10000;
+//				Integer cash_status = 1;
+//				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
 				/*************************** 加房東錢錢 **********************/
 				String lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
 				System.out.println(lld_no);
@@ -698,7 +709,7 @@ public class ConServlet extends HttpServlet {
 				Integer rec_mon = cal.get(Calendar.MONTH) + 1;
 				Integer rec_sta = 0;
 
-				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta), 5000, 100000);
+				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta), 5000, 10000);
 				/*************************** 準備退房 **********************/
 				Date apl_end = aplSvc.getOneCon_apl(apl_no).getApl_end();
 				long apl_end_long = apl_end.getTime();
@@ -760,11 +771,11 @@ public class ConServlet extends HttpServlet {
 				successView.forward(req, res);
 				return;
 				/*************************** 其他可能的錯誤處理 **********************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
-				failureView.forward(req, res);
-			}
+//			} catch (Exception e) {
+//				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+//				failureView.forward(req, res);
+//			}
 		}
 
 		if ("afterpreviewtntcontract".equals(action)) {
