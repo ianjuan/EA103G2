@@ -288,74 +288,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                 	    <th>員工編號</th>
-						<th>員工帳號</th>
-						<th>員工職稱</th>
-						<th>姓名</th>
-						<th>是否離職</th>
-						<th>照片</th>
-						<th>修改</th>
-						<th>查看</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                 	    <th>員工編號</th>
-						<th>員工帳號</th>
-						<th>員工職稱</th>
-						<th>姓名</th>
-						<th>是否離職</th>
-						<th>照片</th>
-						<th>修改</th>
-						<th>查看</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                  <c:forEach var="employeeVO" items="${list}">
-                    <tr>
-				<td>${employeeVO.emp_no}</td>
-				<td>${employeeVO.emp_acc}</td>
-				<td><c:choose>
-						<c:when test="${employeeVO.emp_title eq 0}"> 員工</c:when>
-						<c:when test="${employeeVO.emp_title eq 1}"> 主管</c:when>
-						<c:when test="${employeeVO.emp_title eq 2}"> 經理</c:when>
-					</c:choose></td>
-				<td>${employeeVO.emp_name}</td>
-				<td>${employeeVO.emp_is_delete eq 0? "在職":"離職"}</td>
-				<td><c:if test="${not empty employeeVO.emp_pic}">
-						<img src="data:image/png;base64,${employeeVO.emp_pic}"
-							width="100px">
-					</c:if> <c:if test="${empty employeeVO.emp_pic}">
-						<img
-							src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTMF9nq4kTIfW-uuGD9R0-wyLcPACsO3CHbag&usqp=CAU"
-							width="100px">
-					</c:if></td>
-					
-				<td><c:if test="${employeeVO.emp_title <= empVO.emp_title}">
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do">
-						<input type="submit" value="修改" class="btn btn-outline-primary">
-						<input type="hidden" name="emp_no" value="${employeeVO.emp_no}">
-						<input type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-					</c:if>
-				</td>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/back-end/emp/emp.do">
-						<input type="submit" value="查看" class="btn btn-outline-primary">
-						<input type="hidden" name="emp_no" value="${employeeVO.emp_no}">
-						<input type="hidden" name="action" value="getOne_For_Display">
-					</FORM>
-				</td>
-			</tr>
-                    		</c:forEach>
-                  </tbody>
-                </table>
+
               </div>
             </div>
           </div>
@@ -391,7 +324,7 @@
 		webSocket.onmessage = function(event) {
 			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
-			if(jsonObj.length>1){
+			if(jsonObj.length>=1){
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
 
@@ -414,30 +347,6 @@
 				$('#bell_alert').after(bell_html);
 			}
 			}
-			else{
-				var alert_count =$('#alert_count').text();
-				alert_count++;
-				$('#alert_count').text(alert_count);
-				console.log(alert_count);
-				alert_content = jsonObj.content;
-				alert_title =jsonObj.title;
-				alert_time =new Date(jsonObj.time);
-				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
-				    <div class="mr-3">
-				    <div class="icon-circle bg-primary">
-				        <i class="fas fa-file-alt text-white"></i>
-				    </div>
-					</div>
-					<div>
-				    <div class="small text-gray-500">${"${alert_day}"}</div>
-				    <span class="font-weight-bold">${"${alert_content}"}</span>
-				</div></a>`;
-				$('#bell_alert').after(bell_html);
-			}
-			
-				
-
 
 		};
 

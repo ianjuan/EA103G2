@@ -435,7 +435,7 @@
 		webSocket.onmessage = function(event) {
 			var jsonObj = JSON.parse(event.data);
 			console.log(jsonObj);
-			if(jsonObj.length>1){
+			if(jsonObj.length>=1){
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
 			for(var i=0;i<jsonObj.length ;i++){
@@ -458,34 +458,6 @@
 				$('#bell_alert').after(bell_html);
 			}
 			}
-			else if(jsonObj.length==0){
-			}
-			
-			else{
-				var alert_count =$('#alert_count').text();
-				alert_count++;
-				$('#alert_count').text(alert_count);
-				console.log(alert_count);
-				alert_content = jsonObj.content;
-				alert_title =jsonObj.title;
-				alert_time =new Date(jsonObj.time);
-				alert_day = (alert_time.getMonth()+1)+"ค๋"+alert_time.getDate()+"ค้";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
-				    <div class="mr-3">
-				    <div class="icon-circle bg-primary">
-				        <i class="fas fa-file-alt text-white"></i>
-				    </div>
-					</div>
-					<div>
-				    <div class="small text-gray-500">${"${alert_day}"}</div>
-				    <span class="font-weight-bold">${"${alert_content}"}</span>
-				</div></a>`;
-				$('#bell_alert').after(bell_html);
-			}
-			
-				
-
-
 		};
 
 		webSocket.onclose = function(event) {

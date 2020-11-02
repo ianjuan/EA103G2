@@ -21,116 +21,6 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
-<style>
-
-*, ::after, ::before {
-    box-sizing: unset;
-}
-.panel {
-	float: right;
-	border: 2px solid #0078ae;
-	border-radius: 5px;
-	width: 50%;
-}
-
-.message-area {
-	height: 70%;
-	resize: none;
-	box-sizing: border-box;
-	overflow: auto;
-	background-color: #ffffff;
-}
-
-.input-area {
-	background: #0078ae;
-	box-shadow: inset 0 0 10px #00568c;
-}
-
-.input-area input {
-	margin: 0.5em 0em 0.5em 0.5em;
-}
-
-.text-field {
-	border: 1px solid grey;
-	padding: 0.2em;
-	box-shadow: 0 0 5px #000000;
-}
-
-h1 {
-	font-size: 1.5em;
-	padding: 5px;
-	margin: 5px;
-}
-
-#message {
-	min-width: 50%;
-	max-width: 60%;
-}
-
-.statusOutput {
-	background: #0078ae;
-	text-align: center;
-	color: #ffffff;
-	border: 1px solid grey;
-	padding: 0.2em;
-	box-shadow: 0 0 5px #000000;
-	width: 30%;
-	margin-top: 10%;
-	margin-left: 60%;
-}
-
-#row {
-	float: left;
-	width: 50%;
-}
-
-.column {
-  float: left;
-  width: 50%;
-  padding: 5%;
-  margin-bottom: 5px;
-  background-color: #ffffff;
-}
-
-ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-ul li{
-  display:inline-block;
-  clear: both;
-/*   padding: 20px; */
-  border-radius: 30px;
-  margin-bottom: 2px;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.friend{
-  background: #eee;
-  float: left;
-}
-
-.me{
-  float: right;
-  background: #0084ff;
-  color: #fff;
-}
-
-.friend + .me{
-  border-bottom-right-radius: 5px;
-}
-
-.me + .me{
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.me:last-of-type {
-  border-bottom-right-radius: 30px;
-}
-</style>
 </head>
 
 <body onload="connect();" onunload="disconnect();">
@@ -371,7 +261,7 @@ ul li{
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800"></h1>
 					<!-- -- -- -- -- -- -- -- --Content-- -- -- -- -- -- -- -- -- -- -->
-					<div id="ajax_result">
+					
 <div class="col-xl-3 col-md-6 mb-4">
 <ul>
 
@@ -383,33 +273,34 @@ ul li{
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">聊天室</h6>
+              <h6 class="m-0 font-weight-bold text-primary">全體員工資料</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-<h3 id="statusOutput_chat" class="statusOutput"></h3>
-	<div id="row"></div>
-	<div id="messagesArea" class="panel message-area" ></div>
-	<div class="panel input-area">
-		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage_chat();" /> 
-		<input type="submit" id="sendMessage_chat" class="button" value="Send" onclick="sendMessage_chat();" /> 
-		<input type="button" id="connect_chat" class="button" value="Connect" onclick="connect_chat();" /> 
-		<input type="button" id="disconnect_chat" class="button" value="Disconnect" onclick="disconnect_chat();" />
-	</div>
+                
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+						<th>內容</th>
+						<th>內容2</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                 	    <th>內容</th>
+                 	    <th>內容2</th>
+                    </tr>
+                  </tfoot>
+                  <tbody id="tbody">
+
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
 
-        </div> 
-
-
-            </div>
-          </div>
-      
-          </div>
-	</div>
-          </div>
-					</div>
+        </div>
+</div>
 				
 			
 			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
@@ -426,7 +317,7 @@ ul li{
 	var webSocket;
 	var alert_content;
 	var bell_html;
-
+	var tbody_html;
 
 	function connect() {
 		webSocket = new WebSocket(endPointURL);
@@ -455,11 +346,15 @@ ul li{
 				    <div class="small text-gray-500">${"${alert_day}"}</div>
 				    <span class="font-weight-bold">${"${alert_content}"}</span>
 				</div></a>`;
-
+				tbody_html = `<tr>		
+					<td>123</td>
+					<td>123</td>
+					</tr>`;
 				$('#bell_alert').after(bell_html);
+				$('#tobdy').after(tbody_html);
 			}
 			}
-		
+			
 			
 				
 
@@ -477,126 +372,7 @@ ul li{
 	}
 
 </script>
-			<script id="chat">
-	var MyPoint_chat = "/FriendWS/${empVO.emp_no}";
-	var host_chat = window.location.host;
-	var path_chat = window.location.pathname;
-	var webCtx_chat = path_chat.substring(0, path.indexOf('/', 1));
-	var endPointURL_chat = "ws://" + window.location.host + webCtx_chat + MyPoint_chat;
-	var self_chat = '${empVO.emp_no}';
-	var webSocket_chat;
-
-	function connect_chat() {
-		// create a websocket
-		webSocket_chat = new WebSocket(endPointURL_chat);
-
-		webSocket_chat.onopen = function(event) {
-			console.log("Connect Success!");
-			document.getElementById('sendMessage_chat').disabled = false;
-			document.getElementById('connect_chat').disabled = true;
-			document.getElementById('disconnect_chat').disabled = false;
-		};
-
-		webSocket_chat.onmessage = function(event) {
-			var jsonObj_chat = JSON.parse(event.data);
-			if ("open" === jsonObj_chat.type) {
-				refreshFriendList_chat(jsonObj_chat);
-			} else if ("history" === jsonObj_chat.type) {
-				messagesArea.innerHTML = '';
-				var ul = document.createElement('ul');
-				ul.id = "area";
-				messagesArea.appendChild(ul);
-				// 這行的jsonObj.message是從redis撈出跟好友的歷史訊息，再parse成JSON格式處理
-				var messages = JSON.parse(jsonObj_chat.message);
-				for (var i = 0; i < messages.length; i++) {
-					var historyData = JSON.parse(messages[i]);
-					var showMsg = historyData.message;
-					var li = document.createElement('li');
-					// 根據發送者是自己還是對方來給予不同的class名, 以達到訊息左右區分
-					historyData.sender === self_chat ? li.className += 'me' : li.className += 'friend';
-					li.innerHTML = showMsg;
-					ul.appendChild(li);
-				}
-				messagesArea.scrollTop = messagesArea.scrollHeight;
-			} else if ("chat" === jsonObj_chat.type) {
-				var li = document.createElement('li');
-				jsonObj_chat.sender === self_chat ? li.className += 'me' : li.className += 'friend';
-				li.innerHTML = jsonObj_chat.message;
-				console.log(li);
-				document.getElementById("area").appendChild(li);
-				messagesArea.scrollTop = messagesArea.scrollHeight;
-			} else if ("close" === jsonObj_chat.type) {
-				refreshFriendList(jsonObj_chat);
-			}
 			
-		};
-
-		webSocket_chat.onclose = function(event) {
-			console.log("Disconnected!");
-		};
-	}
-	
-	function sendMessage_chat() {
-		var inputMessage_chat = document.getElementById("message");
-		var friend_chat = statusOutput_chat.textContent;
-		var message_chat = inputMessage_chat.value.trim();
-
-		if (message_chat === "") {
-			alert("Input a message");
-			inputMessage_chat.focus();
-		} else if (friend_chat === "") {
-			alert("Choose a friend");
-		} else {
-			var jsonObj_chat = {
-				"type" : "chat",
-				"sender" : self_chat,
-				"receiver" : friend_chat,
-				"message" : message_chat
-			};
-			webSocket_chat.send(JSON.stringify(jsonObj_chat));
-			inputMessage_chat.value = "";
-			inputMessage_chat.focus();
-		}
-	}
-	
-	// 有好友上線或離線就更新列表
-	function refreshFriendList_chat(jsonObj_chat) {
-		var friends_chat = jsonObj_chat.users;
-		var row_chat = document.getElementById("row");
-		row_chat.innerHTML = '<p>員工列表</p>';
-		for (var i = 0; i < friends_chat.length; i++) {
-			if (friends_chat[i] === self_chat) { continue; }
-			row_chat.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends_chat[i] + ' ><p>' + friends_chat[i] + '</p></div>';
-		}
-		addListener();
-	}
-	// 註冊列表點擊事件並抓取好友名字以取得歷史訊息
-	function addListener() {
-		var container = document.getElementById("row");
-		container.addEventListener("click", function(e) {
-			var friend_chat = e.srcElement.textContent;
-			updateFriendName_chat(friend_chat);
-			var jsonObj_chat = {
-					"type" : "history",
-					"sender" : self_chat,
-					"receiver" : friend_chat,
-					"message" : ""
-				};
-			webSocket_chat.send(JSON.stringify(jsonObj_chat));
-		});
-	}
-	
-	function disconnect_chat() {
-		webSocket_chat.close();
-		document.getElementById('sendMessage').disabled = true;
-		document.getElementById('connect').disabled = false;
-		document.getElementById('disconnect').disabled = true;
-	}
-	
-	function updateFriendName_chat(name) {
-		statusOutput_chat.innerHTML = name;
-	}
-</script>
 	
 </body>
 
