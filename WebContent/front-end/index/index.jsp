@@ -23,10 +23,11 @@
 
         <head>
 <script src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
-		            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/dist/css/bootstrap.min.css">
 <script src="<%=request.getContextPath()%>/resource/dist/js/bootstrap.min.js"></script> 
 		    <meta charset="UTF-8">
+		    <meta name="viewport" content="width=device-width, initial-scale=1.0 ">
             <title>Transit by TEMPLATED</title>
             <meta http-equiv="content-type" content="text/html; charset=utf-8" />
             <meta name="description" content="" />
@@ -36,9 +37,75 @@
             <script src="<%=request.getContextPath()%>/front-end/index/js/skel.min.js"></script>
             <script src="<%=request.getContextPath()%>/front-end/index/js/skel-layers.min.js"></script>
             <script src="<%=request.getContextPath()%>/front-end/index/js/init.js"></script>
-                <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/index/css/skel.css" />
+<%--                 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/index/css/skel.css" /> --%>
                 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/index/css/style.css" />
                 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/index/css/style-xlarge.css" />
+                
+                <style>
+            
+            #header h1 a{
+                font-size: 2em;
+            }
+            .nav-item .member{
+    display: flex;
+}
+.nav-item .member .memberpic{
+    width: 45px;
+    margin-right: 5px;
+    outline: none;
+ height: 45px;
+ margin-top: 2px;
+  border-radius: 30px;
+}
+.nav-item .member .membername{
+    float: right;
+    align-self:center;
+    display: block;
+    align-item:center;
+        color: #4E6258;
+}
+@media ( min-width :981px) {
+	.nav-item.dropdown{
+float:right;
+margin-top: 15px;
+}
+#header nav > ul > li  a{
+margin-top: 15px;
+}
+}
+@media ( max-width :980px) {
+.nav-item .member{
+/* border-top:none !important; */
+}
+.nav-item .member .memberpic{
+float:left;
+}
+.nav-item .member .membername{
+border-top:none !important;
+padding-top: 0px !important;
+float:left;
+}
+
+}
+
+
+#nav{
+    line-height: 3em;
+}        
+#header nav{
+    line-height: 50px;
+}
+            
+#header nav > ul > li{
+
+display: inline-flex;
+}
+
+#skel-layers-hiddenWrapper{
+	display: none;
+}
+
+            </style>
                 
         </head>
 
@@ -239,71 +306,7 @@
                     </div>
                 </div>
             </footer>
-            <style>
-            
-            #header h1 a{
-                font-size: 2em;
-            }
-            .nav-item .member{
-    display: flex;
-}
-.nav-item .member .memberpic{
-    width: 45px;
-    margin-right: 5px;
-    outline: none;
- height: 45px;
- margin-top: 2px;
-  border-radius: 30px;
-}
-.nav-item .member .membername{
-    float: right;
-    align-self:center;
-    display: block;
-    align-item:center;
-        color: #4E6258;
-}
-@media ( min-width :981px) {
-	.nav-item.dropdown{
-float:right;
-margin-top: 15px;
-}
-#header nav > ul > li  a{
-margin-top: 15px;
-}
-}
-@media ( max-width :980px) {
-.nav-item .member{
-/* border-top:none !important; */
-}
-.nav-item .member .memberpic{
-float:left;
-}
-.nav-item .member .membername{
-border-top:none !important;
-padding-top: 0px !important;
-float:left;
-}
-
-}
-
-
-#nav{
-    line-height: 3em;
-}        
-#header nav{
-    line-height: 50px;
-}
-            
-#header nav > ul > li{
-
-display: inline-flex;
-}
-
-#skel-layers-hiddenWrapper{
-	display: none;
-}
-
-            </style>
+ </body>
             <script>
         
         if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
@@ -378,5 +381,4 @@ display: inline-flex;
         	}
         	
             </script>
-        </body>
         </html>
