@@ -318,12 +318,21 @@ public class HouseServlet extends HttpServlet {
 			
 			if(differday > 1 && hos_status.equals("待出租")) {
 				lld_balance = getReqNum(req, "lld_balance") - 800;
+				
+				/*************************** 電子錢包紀錄 **********************/
+				
+				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+				CashService cashSvc = new CashService();
+				cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -800, 1);
+				
+				/*************************** 上架房屋成功通知 **********************/
+				
+				new NotifyServlet().broadcast(lld_no, "恭喜房屋重新上線啦~~~", "祝您早日租出去^^", "");
+				
 			} else {
 				lld_balance = getReqNum(req, "lld_balance");
 			}
 			
-			System.out.println(lld_balance);
-
 			/*************************** 傳入參數 **********************/
 
 			HouseService houseSvc = new HouseService();
