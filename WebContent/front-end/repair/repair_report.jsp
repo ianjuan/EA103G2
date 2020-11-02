@@ -87,11 +87,13 @@ text-align:center;
 
 <div class="form-group">
 <input type="radio" name="rep_tnt_rpt" value="1" checked> <span class="text">對修繕結果滿意</span><br>
-<input type="radio" name="rep_tnt_rpt" value="2"> <span class="text">對修繕結果不滿意</span><br>
+<input type="radio" name="rep_tnt_rpt" value="2"> <span class="text">對修繕結果不滿意，再修一次!</span><br>
 <input type="hidden" name="action" value="updateRpt">
 <input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>"> <br>
-<a href="${pageContext.request.contextPath }/front-end/repair/lldListAllRepair.jsp?lld_no=${lld_no}"><button class="btn btn-primary">取消</button></a>	
+<a href="${pageContext.request.contextPath }/front-end/repair/lldListAllRepair.jsp?lld_no=${lld_no}"><button class="btn btn-secondary">取消</button></a>	
 <input style="text-align:center" class="btn btn-primary" type="submit" value="送出修改">
+<button class="btn btn-dark">檢舉</button>
+
 </div>
 
 </FORM>

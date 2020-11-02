@@ -37,7 +37,7 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 	//�ЪF����µ�i�׺��w���� (tale Repair:Rep_pro=1, table Repair_picture:++)
 	private static final String LLD_UPDATE_PRO_STMT="UPDATE REPAIR SET REP_PRO=? WHERE REP_NO = ?";
 	//�ЫȽT�{��µ���G (table Repair: REP_TNT_RPT=1 or 2, REP_TNT_RPTTIME=date, REP_END_TIME=date) 
-	private static final String UPDATE_STMT=" UPDATE REPAIR SET REP_TNT_RPT=?, REP_TNT_RPTTIME=?, REP_END_TIME=? WHERE REP_NO=?";
+	private static final String UPDATE_STMT=" UPDATE REPAIR SET REP_TNT_RPT=?, REP_TNT_RPTTIME=?, REP_END_TIME=?, REP_PRO=? WHERE REP_NO=?";
 	//�d�߬Y����µ����(��x���|�B�ЫȩЪF:�d�ݭ�µ�Ӹ`)
 	private static final String GET_ONE_STMT="SELECT REP_NO, CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR WHERE REP_NO=?";
 	//�ЪF���o�Ҧ���µ����:INNER JOIN con_no--CONTRACT--hos_no--HOUSE--lld_no--LANLORD--lld_no
@@ -324,7 +324,10 @@ public class RepairJDBCDAO implements RepairDAO_interface{
 			pstmt.setInt(1, RepairVO.getRep_tnt_rpt());
 			pstmt.setDate(2, RepairVO.getRep_tnt_rpttime());
 			pstmt.setDate(3, RepairVO.getRep_end_time());
-			pstmt.setString(4, RepairVO.getRep_no());
+			pstmt.setInt(4, RepairVO.getRep_pro());
+			pstmt.setString(5, RepairVO.getRep_no());
+			
+			
 
 			pstmt.executeUpdate();
 

@@ -10,7 +10,6 @@ import com.rptl.model.*;
 import com.rptt.model.*;
 import com.rpth.model.*;
 
-
 public class RptlServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -129,10 +128,9 @@ public class RptlServlet extends HttpServlet {
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String lld_no = req.getParameter("lld_no");
-				
 
 				String tnt_no = req.getParameter("tnt_no");
-				
+
 				String rptl_content = req.getParameter("rptl_content").trim();
 				System.out.println(rptl_content);
 				if (rptl_content == null || rptl_content.trim().length() == 0) {
@@ -369,7 +367,7 @@ public class RptlServlet extends HttpServlet {
 		if ("pass".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
-		
+
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
@@ -393,8 +391,7 @@ public class RptlServlet extends HttpServlet {
 				RptlService rptlSvc = new RptlService();
 				rptlVO1 = rptlSvc.fail(rptl_no, rptl_result, rptl_note);
 				System.out.println("result有更新了");
-				
-				
+
 				LldService lldSvc = new LldService();
 				LldVO lldVO1 = lldSvc.getEmail_normal(lld_no);
 				String LldEmail = "xiyuan345@gmail.com";
@@ -403,7 +400,7 @@ public class RptlServlet extends HttpServlet {
 				String EmailLink = "http://locallldt:8081/EA103G2/front-end/index/index.jsp";
 				System.out.println("rptl準備Call寄信方法");
 				MailService mailservice = new MailService();
-				mailservice.sendMail(LldEmail, LldName, LldAcc, EmailLink);
+				mailservice.sendMailRptl(LldEmail, LldName, LldAcc, EmailLink);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rptl/rptl_main_page.jsp";
@@ -445,6 +442,52 @@ public class RptlServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/listAllEmp.jsp");
 				failureView.forward(req, res);
 			}
+		}
+
+//-----------------------以下為member的方法--------------------------
+		
+		if ("get_want_landlord".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				System.out.println("是用rptl控制器跑的");
+				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+
+				String Number = req.getParameter("Number").toUpperCase(); // Number可轉大寫且為身份證字號或編號
+				if (Number == null || (Number.trim()).length() == 0) {
+					errorMsgs.add("請正確輸入欲搜尋編號");
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
+					failureView.forward(req, res);
+					System.out.println("編號輸入錯誤");
+					return;
+				}
+
+				/*************************** 2.開始查詢資料 *****************************************/
+				TntService tntSvc = new TntService();
+				TntVO tntVO = tntSvc.getOneLandlordProfile(Number);
+				System.out.println("成功進入service");
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
+				req.setAttribute("TntVO", tntVO);
+				String url = "/back-end/member/landlord_search_page.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				System.out.println("成功轉過去囉");
+
+				/*************************** 其他可能的錯誤處理 *************************************/
+
+			} catch (Exception e) {
+				System.out.println("無法取得555" + e.getMessage());
+				errorMsgs.add("搜尋不到或是未填寫要查詢的編號! 麻煩重新輸入一次");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_main_page.jsp");
+				failureView.forward(req, res);
+			}
+
 		}
 	}
 }

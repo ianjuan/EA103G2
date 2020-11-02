@@ -6,9 +6,11 @@
 <%@ page import="com.repair.model.*"%>
 <%@ page import="com.repair_picture.model.*"%>
 
-<%
-	String tnt_no = (String) session.getAttribute("tnt_no");
-%>
+
+<% String tnt_no = (String) session.getAttribute("tnt_no");
+	if (tnt_no == null) {
+		tnt_no = request.getParameter("tnt_no");
+	} %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -307,7 +309,7 @@
 	  			<br><input type="reset" id="delete" value="清除全部"> 
 	  			<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 	   			<input type="hidden" name="action" value="pic_upd_insert" >
-				<button class="btn btn-outline-primary" type="submit" value="上傳" ${(repairVO.rep_pro eq 0)?'':'disabled'}>${(repairVO.rep_pro eq 0)?'上傳':'無法上傳'}</button>
+				<button class="btn btn-outline-primary" type="submit" value="上傳" ${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'':'disabled'}>${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳':'無法上傳'}</button>
 	<%-- 			<input type="button" value="reppic_pic" onclick="document.forms[0].reppic_pic.outerHTML='<input type=file name=reppic_pic>'"> --%>
 			</FORM> 
 			<div id="view">
@@ -318,7 +320,7 @@
     
     <div class="col-7" id="picShow"><h1>圖片區</h1><br>
       <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
-	    <button type="submit" class="btn btn-outline-warning" ${(repairVO.rep_pro eq 0)?'':'disabled'}>刪除</button>
+	    <button type="submit" class="btn btn-outline-warning" ${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'':'disabled'}>刪除</button>
 	    	<div class="row">
 	    		<c:forEach var="repair_pictureVO" items="${repSvc.getAllPicNo(repairVO.rep_no)}">
 		      			<c:if test="${(repair_pictureVO.reppic_no).indexOf('D')== -1}">

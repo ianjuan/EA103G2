@@ -16,7 +16,7 @@ import javax.mail.internet.MimeUtility;
 public class MailService {
 
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
-	public boolean sendMail(String LldEmail, String LldName, String HosName,  String emailVrfLink) {
+	public boolean sendMailRpth(String LldEmail, String LldName, String HosName,  String emailVrfLink) {
 
 		String color = "#0f868c";
 		String subject = null;

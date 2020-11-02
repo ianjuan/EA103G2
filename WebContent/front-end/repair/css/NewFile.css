@@ -12,11 +12,12 @@ second a:hover{
     text-decoration:none;
 }
 /* 廣告 */
-.btn{
+.btn {
     background-color: #F05F5C;
     color: white;
-    padding: 9px 30px;
-    border-radius:20px;
+    padding: 10px 20px;
+    height: 50;
+    border-radius: 20px;
 }
 #intro.jumbotron{
     height:70vh;

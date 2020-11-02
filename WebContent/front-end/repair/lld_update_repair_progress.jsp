@@ -108,20 +108,54 @@ img{
 		<span class="text"><%=repairVO.getRep_est_enddate()%></span>
 	</div>
 	
+<!-- 	若為待回覆 -->
+	<c:if test="${repairVO.rep_pro eq 0}">
 	<div class="form-group">
-		<label for="exampleFormControlInput1"><h3>修繕進度:${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}<h3></label>
-		<span class="text"><input type="radio" name="rep_pro" value="0" checked> 處理中</span><br>
-		<span class="text"><input type="radio" name="rep_pro" value="1" > 更改為已修畢</span><br>
+		<label for="exampleFormControlInput1"><h3>修繕進度:
+		<span style="color:orange;">待回覆</span>
+		<h3></label>
+		<span class="text"><input type="radio" name="rep_pro" value="1" > 接受此筆修繕</span><br>
+		<span class="text"><input type="radio" name="rep_pro" value="2" > 拒絕此筆修繕</span><br>
+		
+
+
 	</div>
+	</c:if>
 	
+<!-- 若為處理中 -->
+<c:if test="${repairVO.rep_pro eq 1}">
+<div class="form-group">
+	<label for="exampleFormControlInput1"><h3>修繕進度:
+		<span style="color:orange;">處理中</span>
+		<h3></label>
+	<span class="text"><input type="radio" name="rep_pro" value="4" >修繕已完成</span><br>
+</div>
+</c:if>
+
+<!-- 若為再修一次 -->
+<c:if test="${repairVO.rep_pro eq 5}">
+<div class="form-group">
+	<label for="exampleFormControlInput1"><h3>修繕進度:
+		<span style="color:red;">再修一次:處理中</span>
+		<h3></label>
+	<span class="text"><input type="radio" name="rep_pro" value="6" >再修一次:已完成</span><br>
+</div>
+</c:if>
+
 
 
 <br>
-<a href="${pageContext.request.contextPath }/front-end/repair/lldListAllRepair.jsp?lld_no=${lld_no}"><button class="btn btn-primary">取消</button></a>	
+
+
 <input type="hidden" name="action" value="updatePro">
 <input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>">
-<input type="submit" class="btn btn-primary" value="送出修改"></FORM>
+<div align="center"><input type="submit" class="btn btn-primary" value="送出修改"></div></FORM><br>
 
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" >
+<input type="hidden" name="lld_no" value="${lld_no}">
+<input type="hidden" name="action" value="getLldRepair">
+<div align="center"><button type="submit" id="cancel" class="btn btn-secondary"> 取 消  </button></div>
+</FORM>
 
 </div>
     </div>
