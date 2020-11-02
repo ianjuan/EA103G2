@@ -261,7 +261,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800"></h1>
 					<!-- -- -- -- -- -- -- -- --Content-- -- -- -- -- -- -- -- -- -- -->
-					<div id="ajax_result">
+					
 <div class="col-xl-3 col-md-6 mb-4">
 <ul>
 
@@ -273,6 +273,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
+<!--             放你要的名稱 -->
               <h6 class="m-0 font-weight-bold text-primary">你的網頁名稱</h6>
             </div>
             <div class="card-body">
