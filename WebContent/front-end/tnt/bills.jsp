@@ -205,10 +205,8 @@
     <section>
         <section class="content">
             <div class="" id="infocontainer">
-<!--                 <div class="row no-gutters justify-content-center"> -->
                     <!--start info list -->
                     <div class="basicInfo__list"  id="basicinfolist" style="left:-320px;"> 
-<!--                     <div class="basicInfo__list col-lg-3" style="display: none;" id="basicinfolist">  -->
                         <div class="basicInfo__list__content bg-white px-4 pt-lg-7 pt-md-5 pt-2 sticky-top">
                             <a class="basicInfo__list-backIcon text-primary basicInfo__list__content-backIcon d-xl-none">
                                 <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="arrow-alt-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-arrow-alt-circle-left fa-w-16">
@@ -303,8 +301,7 @@
                        </div>
                     </div>
                     <!--end shrink bar -->
-                    
-                            <!--Start form Profile-->
+                     <!--Start bill logs-->
 								<div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">交易紀錄</h4>
                                 <!--TAB 有空再做-->
@@ -360,16 +357,39 @@
 												<td>
 													<c:if test="${cashVO.cash_status==1}">完成</c:if>
 													<c:if test="${cashVO.cash_status==0}">未完成</c:if>
-												<td>${cashVO.rec_no}</td>
+												<td>
+													<c:if test="${cashVO.cash_type==\"提領\"}">
+								                    	<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter">本月明細</button>
+								                    </c:if>
+													
+												</td>
 											</tr>
 										</c:forEach>
 							        </tbody>
 							    </table>
 
                             </div>
-                            <!--End form data -->
+                            <!--End bill logs -->
+                            <!-- Modal -->
+							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+							  <div class="modal-dialog modal-dialog-centered" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="exampleModalLongTitle">每月帳單明細</h5>
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							          <span aria-hidden="true">&times;</span>
+							        </button>
+							      </div>
+							      <div class="modal-body">
+							        ...
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-primary">關閉明細</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
                     <!--outer -->
-<!--                 </div> -->
             </div>
         </section>
     </section>
