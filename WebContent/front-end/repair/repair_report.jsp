@@ -86,12 +86,19 @@ text-align:center;
 
 
 <div class="form-group">
-<input type="radio" name="rep_tnt_rpt" value="0" checked> <span class="text">對修繕結果滿意，結案!</span><br>
-<input type="radio" name="rep_tnt_rpt" value="1"> <span class="text">對修繕結果不滿意，再修一次!</span><br>
+<!-- 若狀態為已修畢 -->
+<c:if test="${repairVO.rep_pro eq 4}">
+<input type="radio" name="rep_tnt_rpt" value="1" checked> <span class="text">對修繕結果滿意，結案!</span><br>
+<input type="radio" name="rep_tnt_rpt" value="2"> <span class="text">對修繕結果不滿意，再修一次!</span><br>
+</c:if>
+<!-- 若狀態為再修一次:已修畢 -->
+<c:if test="${repairVO.rep_pro eq 6}">
+<input type="radio" name="rep_tnt_rpt" value="1"><span class="text">確認修繕已結案!</span><br>
+</c:if>
 <input type="hidden" name="action" value="updateRpt">
 <input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>"> <br>
 <a href="${pageContext.request.contextPath }/front-end/repair/listAllRepair.jsp?tnt_no=${tnt_no}"><button class="btn btn-secondary">取消</button></a>	
-<input style="text-align:center" class="btn btn-primary" type="submit" value="送出修改">
+<input style="text-align:center" class="btn btn-primary" type="submit" value="確認送出">
 <button class="btn btn-dark">檢舉</button>
 
 </div>

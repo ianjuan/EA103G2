@@ -634,7 +634,7 @@ text-align:center;
                 			</div>
                 			<div class='row' >
                 				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 	</div>
              </div>
@@ -841,59 +841,7 @@ $(document).ready(function(){
 	});
 });
 
-// b1.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
 
-// b2.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
-
-// b3.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
-
-// b4.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
-
-// b5.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div6.setAttribute('style', 'display:none');
-// });
-
-// b6.addEventListener('click', function(e) {
-// 	div0.setAttribute('style', 'display:none');
-// 	div1.setAttribute('style', 'display:none');
-// 	div2.setAttribute('style', 'display:none');
-// 	div3.setAttribute('style', 'display:none');
-// 	div4.setAttribute('style', 'display:none');
-// 	div5.setAttribute('style', 'display:none');
-// });
 
 
 
