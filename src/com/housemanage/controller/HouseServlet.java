@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import com.cash.model.CashService;
 import com.cash.model.CashVO;
+import com.cont.controller.Schedule;
 import com.housemanage.model.*;
 import com.notify.controller.NotifyServlet;
 
@@ -177,12 +178,12 @@ public class HouseServlet extends HttpServlet {
 			
 //			java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 //			CashService cashSvc = new CashService();
-//			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000);
+//			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000, 1);
 			
 			/*************************** 上架房屋成功通知 **********************/
 			
 			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp");
-
+		
 			String url;
 			if (hos_status.equals("待出租")) {
 				List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);

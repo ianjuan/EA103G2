@@ -8,6 +8,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.cont.controller.Schedule;
+
 public class HouseDAO implements HouseDAO_interface {
 	private static DataSource ds = null;
 	
@@ -144,6 +146,10 @@ public class HouseDAO implements HouseDAO_interface {
 			pstmt.setString(2, houseVO.getLld_no());
 
 			pstmt.executeUpdate();
+			
+			/*************************** 一定時間後下架房屋 **********************/
+			Timer timer = new Timer();
+			timer.schedule(new HouseSchdule("'HOS' || lpad(SEQ_HOS_NO.CURRVAL, 6, '0')", "已下架"), 10000);
 						
 			// Handle any driver errors
 		} catch (SQLException se) {
