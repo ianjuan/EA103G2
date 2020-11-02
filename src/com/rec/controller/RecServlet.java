@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
+import com.cash.model.CashService;
+import com.cash.model.CashVO;
 import com.cont.model.ConService;
 import com.cont.model.ConVO;
 import com.housemanage.model.HouseService;
@@ -337,6 +339,15 @@ public class RecServlet extends HttpServlet {
 				
 				recService.updateRec(con_no, hos_no, rec_mon, rec_water, rec_elec, rec_no, rec_sta, rec_total);
 				
+				CashService cashSvc = new CashService();
+				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+				String mem_no = tnt_no;
+				String cash_inout = CashVO.cashOut;
+				String cash_type = CashVO.tntOut_RecBill;
+				Integer cash_amount = -rec_total;
+				Integer cash_status = 1;
+				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status);
+				
 				//房東收到錢錢
 				ConService conService = new ConService();
 				LldService lldService = new LldService();
@@ -345,6 +356,13 @@ public class RecServlet extends HttpServlet {
 
 				Integer lld_balance = lldService.getOneLldPocket(lld_no).getLld_balance() + rec_total;
 				lldService.updateLldPocket(lld_no, lld_balance);
+				
+				mem_no = lld_no;
+				cash_inout = CashVO.cashIn;
+				cash_type = CashVO.lldIn_RecBill;
+				cash_amount = rec_total;
+				
+				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
 				
 				List<RecVO> list = recService.getLddAllByCon(con_no);
 

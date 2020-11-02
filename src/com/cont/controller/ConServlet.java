@@ -1019,6 +1019,11 @@ public class ConServlet extends HttpServlet {
 				Integer con_sta = 6;
 				conSvc.updatesta(con_sta, con_no);
 				List<ConVO> list = conSvc.tntgetcon(tnt_no);
+				
+				String mem_no = tnt_no;
+				Integer cash_amount = conSvc.getOneCon(con_no).getHos_dep();
+				Timer checkouttimer = new Timer();
+				checkouttimer.schedule(new CheckoutdepSchedule(con_no, mem_no, cash_amount),1000);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				HttpSession session = req.getSession();
