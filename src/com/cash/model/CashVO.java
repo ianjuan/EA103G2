@@ -3,20 +3,35 @@ package com.cash.model;
 import java.sql.Date;
 
 public class CashVO implements java.io.Serializable {
-	public static final String tntOut_YaJin = "tntOut_YaJin";
-	public static final String tntOut_RecBill = "tntOut_RecBill";
-	public static final String tntOut_Checkout = "tntOut_Checkout";
-	public static final String tntOut_Withdraw = "tntOut_Withdraw";
-	public static final String tntIn_YaJinReturn = "tntIn_YaJinReturn";
-	public static final String tntIn_Deposit = "tntIn_Deposit";
+	public static final String tntOut_YaJin = "押金";
+	public static final String tntOut_RecBill = "每月帳單";
+	public static final String tntOut_Checkout = "退房帳單";
+	public static final String tntOut_Withdraw = "提領";
+	public static final String tntIn_YaJinReturn = "退回押金";
+	public static final String tntIn_Deposit = "儲值";
 	
-	public static final String lldOut_YaJinReturn = "lldOut_YaJinReturn";
-	public static final String lldOut_Withdraw = "lldOut_Withdraw";
-	public static final String lldOut_publish = "lldOut_publish";
-	public static final String lldIn_YaJin = "lldIn_YaJin";
-	public static final String lldIn_RecBill = "lldIn_RecBill";
-	public static final String lldIn_Checkout = "lldIn_Checkout";
-	public static final String lldIn_Deposit = "lldIn_Deposit";
+	public static final String lldOut_YaJinReturn = "退回押金";
+	public static final String lldOut_Withdraw = "提領";
+	public static final String lldOut_publish = "上架費";
+	public static final String lldIn_YaJin = "押金";
+	public static final String lldIn_RecBill = "每月帳單";
+	public static final String lldIn_Checkout = "退房帳單";
+	public static final String lldIn_Deposit = "儲值";
+	
+//	public static final String tntOut_YaJin = "tntOut_YaJin";
+//	public static final String tntOut_RecBill = "tntOut_RecBill";
+//	public static final String tntOut_Checkout = "tntOut_Checkout";
+//	public static final String tntOut_Withdraw = "tntOut_Withdraw";
+//	public static final String tntIn_YaJinReturn = "tntIn_YaJinReturn";
+//	public static final String tntIn_Deposit = "tntIn_Deposit";
+//	
+//	public static final String lldOut_YaJinReturn = "lldOut_YaJinReturn";
+//	public static final String lldOut_Withdraw = "lldOut_Withdraw";
+//	public static final String lldOut_publish = "lldOut_publish";
+//	public static final String lldIn_YaJin = "lldIn_YaJin";
+//	public static final String lldIn_RecBill = "lldIn_RecBill";
+//	public static final String lldIn_Checkout = "lldIn_Checkout";
+//	public static final String lldIn_Deposit = "lldIn_Deposit";
 	
 	public static final String cashIn = "in";
 	public static final String cashOut = "out";
