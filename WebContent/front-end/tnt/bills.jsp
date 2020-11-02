@@ -178,12 +178,14 @@
  		table.dataTable.display tbody tr.odd>.sorting_1, table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 { 
  			background: #fff !important; 
  		} 
- 		th.sorting {
-/*  			text-align: center !important;  */
- 		}
  		table.dataTable, table.dataTable th, table.dataTable td {
  			text-align: center !important; 
  		}
+ 		table.dataTable td:nth-child(3){
+ 			padding-left: 5.5% !important;
+    		text-align: left !important;
+ 		}
+ 		    
  		/*dataTable*/
 		.dataTables_wrapper {
 			padding: 30px 15px 0px;
@@ -331,26 +333,34 @@
 												<td>${varStatusName.count}</td>
 												<td>${cashVO.cash_date}</td>
 												<td>
-													<c:if test="${cashVO.cash_type==\"儲值\"}">
-							                            <img src="<%=request.getContextPath()%>/images/cash_deposit.png" width="50">
-							                        </c:if>
-							                        <c:if test="${cashVO.cash_type==\"提領\"}">
-							                            <img src="<%=request.getContextPath()%>/images/cash_withdraw.png" width="50">
-							                        </c:if>
-							                        <c:if test="${cashVO.cash_type==\"收入\"}">
-							                            <img src="<%=request.getContextPath()%>/images/cash_in.png" width="50">
-							                        </c:if>
-							                        <c:if test="${cashVO.cash_type==\"支出\"}">
-							                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+													<c:if test="${cashVO.cash_status==1}">
+														<c:if test="${cashVO.cash_type==\"儲值\"}">
+								                           <img src="<%=request.getContextPath()%>/images/cash_deposit.png" width="50">
+							 	                        </c:if>
+										                <c:if test="${cashVO.cash_type==\"提領\"}">
+								                            <img src="<%=request.getContextPath()%>/images/cash_withdraw.png" width="50">
+								                        </c:if>
+														<c:if test="${cashVO.cash_inout==\"in\"}">
+									                        <c:if test="${cashVO.cash_type!=\"儲值\"}">
+									                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+									                        </c:if>
+								                        </c:if>
+														<c:if test="${cashVO.cash_inout==\"out\"}">
+									                        <c:if test="${cashVO.cash_type!=\"提領\"}">
+									                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+									                        </c:if>
+								                        </c:if>
 							                        </c:if>
 							                        <c:if test="${cashVO.cash_status==0}">
 							                            <img src="<%=request.getContextPath()%>/images/cash_topay.png" width="50">
-							                        </c:if>
+							                        </c:if>									                    
 													&nbsp${cashVO.cash_type}
 												</td>
 												<td>${cashVO.cash_amount}</td>
-												<td>${cashVO.cash_status}</td>
-												<td>${cashVO.con_no}</td>
+												<td>
+													<c:if test="${cashVO.cash_status==1}">完成</c:if>
+													<c:if test="${cashVO.cash_status==0}">未完成</c:if>
+												<td>${cashVO.rec_no}</td>
 											</tr>
 										</c:forEach>
 							        </tbody>
