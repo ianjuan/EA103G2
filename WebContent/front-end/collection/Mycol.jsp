@@ -19,10 +19,14 @@
     		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
     
 </head>
-<style> .btn-img {
+<style> 
+
+		.btn-img {
             background-image: "https://www.flaticon.com/svg/static/icons/svg/236/236831.svg";
         }
-
+		.filled-in{
+		opacity:1 !important;
+		}
         .bg-light {
             background-color: #D7C8B6 !important;
         }
@@ -124,7 +128,7 @@ String	tntno=(String)session.getAttribute("tnt_no");
                 <div class="fav-body">
                     <div class="body-tool">
                         <div class="input">
-                            <input id="all" type="checkbox" name="" />
+                            <input class="filled-in" id="all" type="checkbox" name="" />
                             <label for="all">全選</label>
                         </div>
                         <button class="waves-effect waves-light btn delete red btn-delall"></button>
@@ -245,6 +249,7 @@ $("#sent").click(function(){
 $(document).on("click", ".btn-delall", function() {
 	var hosarr=[];
 	hosNo.forEach(function(value){
+
 		if($("#del-"+value+"").prop( "checked" ))
 		{
 			hosarr.push(value);
@@ -266,7 +271,6 @@ $(document).on("click", ".btn-delall", function() {
 	 		 });
 	 		  console.log("res棒")
 	 	  }//以上成功才執行
-
 	 	  ,
 	 	  error:function(data)
 	 	  {
@@ -287,10 +291,10 @@ function loading (){
 	
 $.each(obj, function(key, value) {
 	console.log(value);
-	hosNo.push(value.HOS_NO);
+	hosNo.push(value.hos_no);
 $(".fav-body").append("<div class='item' id='"+value.hos_no+"' >"+
                         "<div class='select'>"+
-                            "<input id='del-"+value.hos_no+"' type='checkbox' name='' />"+
+                            "<input class='filled-in' id='del-"+value.hos_no+"' type='checkbox' name='' />"+
                             "<label for='del-"+value.hos_no+"'></label>"+
                         "</div>"+
                         "<figure><a><img src='data:image/png;base64,"+value.hos_pic+"' alt='' /></a></figure>"+

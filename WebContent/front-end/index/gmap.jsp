@@ -393,6 +393,14 @@ border-color:transparent;
 .hos-name {
 	margin-top: 5px;
 }
+.copyright li{
+float:left;
+list-style:none;
+margin-left:1.3em;
+}
+.copyright{
+margin-top: 39px;
+}
 </style>
 
 <div><jsp:include page="/front-end/navbar/navbar.jsp" /> </div>
@@ -568,8 +576,8 @@ border-color:transparent;
 					<label class="item_name">可開伙&nbsp;&nbsp;
                             <div class="onoffswitch">
                                 <input type="checkbox" name="furniture"
-								class="onoffswitch-checkbox" id="coke" tabindex="0"> <label
-								class="onoffswitch-label" for="coke"></label>
+								class="onoffswitch-checkbox" id="coke" tabindex="0"> 
+								<label class="onoffswitch-label" for="coke"></label>
                             </div>
                         </label> <label class="item_name"><i
 						class="fas fa-paw"></i>
@@ -633,7 +641,8 @@ border-color:transparent;
 	</div>
 </div>
 </div>
-
+</div>
+<%@ include file="/front-end/index/footer.html" %>
 
 	
 <script src="https://kit.fontawesome.com/c8d34ce05b.js"
@@ -753,7 +762,7 @@ border-color:transparent;
 
        		 if(distance<range){
 				$("#sidebar").append("<div class='row house-row' id='"+value.hos_no+"'><div class='col-5'>"+
-					"<img class='house-img' src='<%=request.getContextPath()%>/hos/hosPic?pic="+value.hos_pic+"'>"+
+					"<img class='house-img' src='<%=request.getContextPath()%>/hos/hosPic?search="+value.hos_pic+"'>"+
 					"</div><div class='col-7'><div class='hos-name'><h5>"+value.hos_name+"</h5>"+		
 					"</div><div><p class='price'>租金:$"+value.hos_rentfee+"元/月</p>"+
 					"<p class='card-text'>地址:"+value.hos_add+"</p></div>"+
@@ -771,7 +780,7 @@ border-color:transparent;
 			console.log("value.marker.position.lat()="+value.marker.position.lat());
 
         
-       		 var content =  "<img src='<%=request.getContextPath()%>/hos/hosPic?pic="+value.hos_pic+"' alt='Denim Jeans' style='width: 100%'>" +
+       		 var content =  "<img src='<%=request.getContextPath()%>/hos/hosPic?search="+value.hos_pic+"' alt='Denim Jeans' style='width: 100%'>" +
         		"<h3>"+value.hos_name+"</h3>"+
         		"<p class='price'>$"+value.hos_rentfee+" 元/月</p>" +
        	 		"<p>"+value.hos_add+"</p>" +
