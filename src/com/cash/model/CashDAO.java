@@ -10,7 +10,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.cash.model.CashVO;
-import com.tnt.model.TntVO;
 
 public class CashDAO implements CashDAO_interface {
 
@@ -56,7 +55,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setString(3, cashVO.getCash_inout());
 			pstmt.setString(4, cashVO.getCash_type());
 			pstmt.setInt(5, cashVO.getCash_amount());
-			pstmt.setString(6, cashVO.getCash_status());
+			pstmt.setInt(6, cashVO.getCash_status());
 			pstmt.executeUpdate();
 
 			// 掘取對應的自增主鍵值
@@ -131,7 +130,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setInt(5, cashVO.getCash_amount());
 			pstmt.setString(6, cashVO.getCon_no());
 			pstmt.setString(7, cashVO.getRec_no());
-			pstmt.setString(8, cashVO.getCash_status());
+			pstmt.setInt(8, cashVO.getCash_status());
 			pstmt.executeUpdate();
 
 			// 掘取對應的自增主鍵值
@@ -204,7 +203,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt.setString(4, cashVO.getCash_type());
 			pstmt.setInt(5, cashVO.getCash_amount());
 			pstmt.setString(6, cashVO.getCon_no());
-			pstmt.setString(7, cashVO.getCash_status());
+			pstmt.setInt(7, cashVO.getCash_status());
 			pstmt.executeUpdate();
 
 			// 掘取對應的自增主鍵值
@@ -253,7 +252,7 @@ public class CashDAO implements CashDAO_interface {
 	}
 	
 	// ===================================================================
-	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no FROM CASH where mem_no = ? order by cash_date";
+	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ? order by cash_date";
 	private static final String GET_ONE_CASHno_STMT = "SELECT cash_no FROM CASH where rec_no = ?";
 	private static final String UPDATE_CASH_STATUS_STMT = "UPDATE CASH set cash_status=? where rec_no=?";
 	@Override
@@ -287,6 +286,7 @@ public class CashDAO implements CashDAO_interface {
 				cashVO.setCash_amount(rs.getInt("cash_amount"));
 				cashVO.setCon_no(rs.getString("con_no"));
 				cashVO.setRec_no(rs.getString("rec_no"));
+				cashVO.setCash_status(rs.getInt("cash_status"));
 				list.add(cashVO);
 			}
 			con.commit();
@@ -388,7 +388,7 @@ public class CashDAO implements CashDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_CASH_STATUS_STMT);
 
-			pstmt.setString(1, cashVO.getCash_status());
+			pstmt.setInt(1, cashVO.getCash_status());
 			pstmt.setString(2, cashVO.getRec_no());
 
 			pstmt.executeUpdate();

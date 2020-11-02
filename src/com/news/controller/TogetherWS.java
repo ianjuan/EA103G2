@@ -37,7 +37,7 @@ public class TogetherWS {
 		for (Object session : connectedSessions) {
 			if (((Session) session).isOpen())
 				((Session) session).getAsyncRemote().sendText(message);
-				JedisHandleMessage.saveNews("後台公告",message);
+//				JedisHandleMessage.saveNews("後台公告",message);
 				
 		}
 		System.out.println("Message received: " + message);

@@ -80,7 +80,6 @@ public class EmployeeServlet extends HttpServlet {
 			} else { // 【帳號 , 密碼有效時, 才做以下工作】
 				EmployeeVO empVO = allowMail(emp_mail);
 				session = req.getSession();
-				System.out.println(empVO.getEmp_no());
 				req.setAttribute("empVO", empVO);
 				RequestDispatcher forgot = req.getRequestDispatcher("/back-end/emp/forgot");// MailService
 				forgot.forward(req, res);
@@ -278,30 +277,36 @@ public class EmployeeServlet extends HttpServlet {
 				empVO = empSvc.updateEmp(emp_no, emp_acc, emp_pwd, emp_title, emp_name, emp_is_delete, emp_pic);
 				// 權限
 				String[] fun_no = req.getParameterValues("fun_no");
+//				System.out.println(fun_no);
 				StringBuilder sb = new StringBuilder();
 				RightService rigSvc = new RightService();
+				if(fun_no!=null) {
 				rigSvc.delRig(emp_no);
+				}
 				if (fun_no != null) {
 					for (int i = 0; i < fun_no.length; i++) {
 						rigSvc.addRig(emp_no, fun_no[i]);
-						if (fun_no[i] == "A") {
-							sb.append("更改其他員工權限");
-						} else if (fun_no[i] == "B") {
-							sb.append("審核檢舉");
-						} else if (fun_no[i] == "C") {
-							sb.append("審核房屋內容");
-						} else if (fun_no[i] == "D") {
-							sb.append("審核身分驗證");
-						} else if (fun_no[i] == "E") {
-							sb.append("審核修繕狀態");
-						} else if (fun_no[i] == "F") {
-							sb.append("管理最新消息");
-						}
+						if (fun_no[i].equals("A")) {
+							sb.append("更改其他員工權限 ");
+						} else if (fun_no[i].equals("B")) {
+							sb.append("審核檢舉 ");
+						} else if (fun_no[i].equals("C")) {
+							sb.append("審核房屋內容 ");
+						} else if (fun_no[i].equals("D")) {
+							sb.append("審核身分驗證 ");
+						} else if (fun_no[i].equals("E")) {
+							sb.append("審核修繕狀態 ");
+						} else if (fun_no[i].equals("F")) {
+							sb.append("管理最新消息 ");
+						} 
 					}
-					/// 第一個參數寫要推送的人 第二個寫標題 第三個寫內容 第四個寫URL
-					System.out.println("你好"+sb);
+					
 				}
-				new NotifyServlet().broadcast(emp_no, "權限變更", "你的權限已被變更為" + sb + "其餘功能將無法使用！", "backend");
+				String name1 = ((String) req.getAttribute("empVO")).substring(0,1);
+				String name =empVO.getEmp_name().substring(0,1);
+				new NotifyServlet().broadcast(emp_no, "權限變更", "<span style='color:green;'>"+name1+"經理	</span>"+"將你的權限變更為：<br>" + sb + "<br>其餘權限將無法繼續使用！", "emp/emp.do?action=getOne_For_Display&emp_no="+emp_no);
+				
+				System.out.println(sb);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("employeeVO", empVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				// 權限

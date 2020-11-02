@@ -13,6 +13,7 @@ public interface LandlordDAO_interface {
 	public List<LldVO> findByNo(String number);
 	public LldVO findEmail(String lld_no);
 	public LldVO findEmail_normal(String lld_no);
+	public LldVO findRepair(String lld_no);
     public void update_auth(LldVO lldvo);
 
 

@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
-<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
+<jsp:useBean id="empSvc1" scope="page" class="com.emp.model.EmployeeService" />
 
 <head>
 <meta charset="utf-8">
@@ -231,7 +231,7 @@
 									aria-expanded="false"> <span
 										class="mr-2v23PnY2C d-none d-lg-inline text-gray-600 small"><c:out value="${empVO.emp_name}" default="請重新登入"></c:out></span>
 										<c:if test="${empVO.emp_pic != null}">
-										<img class="img-profile rounded-circle" src='data:image/png;base64,<c:forEach var="employeeVO" items="${empSvc.getAll()}">
+										<img class="img-profile rounded-circle" src='data:image/png;base64,<c:forEach var="employeeVO" items="${empSvc1.getAll()}">
 										<c:if test="${employeeVO.emp_no == empVO.emp_no }">${employeeVO.emp_pic }</c:if>
 										</c:forEach>'></c:if>
 										
@@ -240,9 +240,9 @@
 									<div
 										class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
-										<a class="dropdown-item" href="javascript:void(0)"> <i
+										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Display&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
-										</a> <a class="dropdown-item" href="#"> <i
+										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
 										</a> <a class="dropdown-item" href="#"> <i
 											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
@@ -320,9 +320,7 @@
 					</c:choose></div>
                         </div>
                         <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
+                         
                         </div>
                       </div>
                     </div>
@@ -417,8 +415,7 @@
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/chart.js/Chart.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
-			<script>
-			
+				<script>
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
 	var host = window.location.host;
@@ -436,18 +433,18 @@
 		};
 		
 		webSocket.onmessage = function(event) {
-			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
+			console.log(jsonObj);
 			if(jsonObj.length>1){
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
-
 			for(var i=0;i<jsonObj.length ;i++){
 				alert_content = JSON.parse(jsonObj[i]).content;
 				alert_title =JSON.parse(jsonObj[i]).title;
+				alert_url=JSON.parse(jsonObj[i]).url;
 				alert_time =new Date(JSON.parse(jsonObj[i]).time);
 				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
 				    <div class="mr-3">
 				    <div class="icon-circle bg-primary">
 				        <i class="fas fa-file-alt text-white"></i>
@@ -461,6 +458,9 @@
 				$('#bell_alert').after(bell_html);
 			}
 			}
+			else if(jsonObj.length==0){
+			}
+			
 			else{
 				var alert_count =$('#alert_count').text();
 				alert_count++;
@@ -497,8 +497,7 @@
 		webSocket.close();
 
 	}
-
-</script>
+	</script>
 			
 	
 </body>

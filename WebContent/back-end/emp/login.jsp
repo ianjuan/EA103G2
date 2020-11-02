@@ -43,21 +43,20 @@
                                             </div>
                                             <form class="user" action="<%=request.getContextPath()%>/back-end/emp/emp.do" method="post">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control form-control-user" id="exampleInputEmail"  placeholder="帳號：" name="emp_acc" value="yybwDf0M">
+                                                    <input type="text" class="form-control form-control-user" id="Account"  placeholder="帳號：" name="emp_acc" >
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="密碼：" name="emp_pwd" value="v23PnY2C">
+                                                    <input type="password" class="form-control form-control-user" id="Password" placeholder="密碼：" name="emp_pwd" >
                                                 </div>
                                                 <div class=" form-group">
-                                                    <div class="custom-control custom-checkbox small">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                        <label class="custom-control-label" for="customCheck">記得帳密</label>
-                                                    </div>
+                                                    
                                                 </div>
                                                 <input type="hidden" name="action" value="login">
 												<input type="submit" value="送出" class="btn btn-primary btn-user btn-block">            
                                                 <hr>
                                             </form>
+                                            <input id="master" type="submit" value="經理快速登入" class="btn btn-primary btn-user">
+                                            <input id="employee" type="submit" value="員工快速登入" class="btn btn-primary btn-user">
                                             <hr>
                                             <div class="text-center">
                                                 <a class="small" href="<%=request.getContextPath()%>/back-end/emp/forgot.jsp">忘記密碼?</a>
@@ -70,6 +69,16 @@
                     </div>
                 </div>
             </div>
+            <script>
+            $('#master').click(function(){
+            	$('#Account').val('yybwDf0M');
+            	$('#Password').val('v23PnY2C');
+            })
+            $('#employee').click(function(){
+            	$('#Account').val('jo1Otouz');
+            	$('#Password').val('ub5jWVpH');
+            })
+            </script>
         </body>
 
         </html>

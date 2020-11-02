@@ -312,6 +312,8 @@
 		<servlet-name>RptlServlet</servlet-name>
 		<url-pattern>/back-end/rptl/RptlServlet</url-pattern>
 		<url-pattern>/front-end/rptl/RptlServlet</url-pattern>
+		<url-pattern>/back-end/member/RptlServlet</url-pattern>
+		
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>RpttcServlet</servlet-name>
@@ -322,7 +324,33 @@
 		<url-pattern>/back-end/rpttc/RpttcServlet</url-pattern>
 		<url-pattern>/front-end/rpttc/RpttcServlet</url-pattern>
 	</servlet-mapping>
-	
+	<servlet>
+		<servlet-name>RptlcServlet</servlet-name>
+		<servlet-class>com.rptlc.controller.RptlcServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RptlcServlet</servlet-name>
+		<url-pattern>/back-end/rptlc/RptlcServlet</url-pattern>
+		<url-pattern>/front-end/rptlc/RptlcServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>RpthcServlet</servlet-name>
+		<servlet-class>com.rpthc.controller.RpthcServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RpthcServlet</servlet-name>
+		<url-pattern>/back-end/rpthc/RpthcServlet</url-pattern>
+		<url-pattern>/front-end/rpthc/RpthcServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>RptrServlet</servlet-name>
+		<servlet-class>com.rptr.controller.RptrServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RptrServlet</servlet-name>
+		<url-pattern>/back-end/rptr/RptrServlet</url-pattern>
+		<url-pattern>/front-end/rptr/RptrServlet</url-pattern>
+	</servlet-mapping>
 
 	<!-- Melon -->
 	<servlet>
@@ -347,7 +375,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFilterBackEnd</filter-name>
-		<url-pattern>/back-end/emp/index.jsp</url-pattern>
+		<url-pattern>/back-end/index.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

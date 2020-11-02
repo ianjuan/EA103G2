@@ -418,5 +418,65 @@ public class LldDAO implements LandlordDAO_interface {
 		// TODO Auto-generated method stub
 
 	}
+	
+	private static final String LANDLORD_GET_REPAIR = "SELECT L.LLD_NO, L.LLD_NAME, L.LLD_EMAIL,H.HOS_NAME FROM REPORT_REPAIR P JOIN REPAIR R ON P.REP_NO= R.REP_NO JOIN CONTRACT C ON R.CON_NO = C.CON_NO JOIN HOUSE H ON C.HOS_NO = H.HOS_NO JOIN LANDLORD L ON H.LLD_NO=L.LLD_NO WHERE RPTR_NO=?";
+
+	@Override
+	public LldVO findRepair(String lld_no) {
+		LldVO lldVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			System.out.println("來到normal_dao email");
+
+			pstmt = con.prepareStatement(LANDLORD_GET_REPAIR);
+			pstmt.setString(1, lld_no);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				lldVO = new LldVO();
+				lldVO.setLld_name(rs.getString("lld_name"));
+				lldVO.setLld_email(rs.getString("lld_email"));
+				lldVO.setLld_acc(rs.getString("hos_name"));
+				lldVO.setLld_no(rs.getString("lld_no"));
+
+			}
+			System.out.println("dao結束傳回去");
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+
+		} catch (Exception se) {
+			se.getMessage();
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return lldVO;
+
+	}
 
 }

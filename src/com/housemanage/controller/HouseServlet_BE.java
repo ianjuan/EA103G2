@@ -160,7 +160,6 @@ public class HouseServlet_BE extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-			
 	}
 	
 	public Integer getReqNum(HttpServletRequest req, String reqKey) {
