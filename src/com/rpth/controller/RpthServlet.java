@@ -405,7 +405,7 @@ public class RpthServlet extends HttpServlet {
 				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
 				String lld_no= lldVO1.getLld_no();
 				MailService mailservice = new MailService();
-				mailservice.sendMail(HosEmail, LldName, HosName, EmailLink);
+				mailservice.sendMailRpth(HosEmail, LldName, HosName, EmailLink);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rpth/rpth_main_page.jsp";

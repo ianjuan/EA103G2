@@ -389,7 +389,7 @@ public class RpthcServlet extends HttpServlet {
 				String EmailLink = "http://localhcmt:8081/EA103G2/front-end/index/index.jsp";
 				System.out.println("rpthc準備Call寄信方法");
 				MailService mailservice = new MailService();
-				mailservice.sendMail(LldEmail, LldName, LldAcc, EmailLink);
+				mailservice.sendMailRpthc(LldEmail, LldName, LldAcc, EmailLink);
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rpthc/rpthc_main_page.jsp";

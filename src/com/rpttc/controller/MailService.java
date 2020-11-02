@@ -13,10 +13,10 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
 //emailVrfLink
-public class MailService {
+public class MailService{
 
 	// 設定傳送郵件:至收信人的Email信箱,Email主旨,Email內容
-	public boolean sendMail(String TntEmail, String TntName, String TntAcc, String emailVrfLink) {
+	public boolean sendMailRpttc(String TntEmail, String TntName, String TntAcc, String emailVrfLink) {
 
 		String color = "#0f868c";
 		String subject = null;

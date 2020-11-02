@@ -7,9 +7,8 @@ import javax.servlet.http.*;
 
 import com.rpth.model.LldService;
 import com.rpth.model.LldVO;
-import com.rpthc.controller.MailService;
+import com.rptr.controller.MailService;
 import com.rptr.model.*;
-import com.tenant_comments.model.Tenant_commentsService;
 import com.rptt.model.*;
 
 public class RptrServlet extends HttpServlet {
@@ -388,11 +387,14 @@ public class RptrServlet extends HttpServlet {
 				LldVO lldVO1 = lldSvc.getRepair(rptr_no);
 				String LldEmail = "xiyuan345@gmail.com";
 				String LldName = lldVO1.getLld_name();
+				System.out.println("rptr"+LldName);
 				String LldAcc = lldVO1.getLld_acc();
+				System.out.println("rptr"+LldAcc);
 				String EmailLink = "http://localhcmt:8081/EA103G2/front-end/index/index.jsp";
-				System.out.println("rpthc準備Call寄信方法");
+				System.out.println("rptr準備Call寄信方法");
 				MailService mailservice = new MailService();
-				mailservice.sendMail(LldEmail, LldName, LldAcc, EmailLink);
+				mailservice.sendMailRptr(LldEmail, LldName, LldAcc, EmailLink);
+				System.out.println("寄信玩回來rptrservlet");
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rptr/rptr_main_page.jsp";
