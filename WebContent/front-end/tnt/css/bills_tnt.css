@@ -1017,7 +1017,15 @@
 		/*------------------------------------------------------------------
 [ bills ]*/
 		/*data form */
-        #myDataTalbe.display{
+        #myDataTalbe.display {
         	line-height: 2;
         	padding-top: 15px;
         }
+        /*month bill detail modal */
+        .btn-primary {
+		    background-color: #17a2b8;
+		    border: #17a2b8;
+		}
+		div.modal-footer {
+			  justify-content: center;
+		}

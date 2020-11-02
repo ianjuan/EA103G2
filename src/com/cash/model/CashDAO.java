@@ -222,9 +222,9 @@ public class CashDAO implements CashDAO_interface {
 	}
 	
 	// ===================================================================
-	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ? order by cash_no DESC";
+	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ? order by cash_no DESC";
 	private static final String GET_ONE_CASHno_STMT = "SELECT cash_no FROM CASH where rec_no = ?";
-	private static final String UPDATE_CASH_STATUS_STMT = "UPDATE CASH set cash_status=? where rec_no=?";
+	private static final String UPDATE_CASH_STATUS_STMT = "UPDATE CASH set cash_status=? where CASH_no=?";
 	@Override
 	public List<CashVO> findByMemNo_Cashlogs(String mem_no) {
 		System.out.println(mem_no);
@@ -248,7 +248,7 @@ public class CashDAO implements CashDAO_interface {
 			while (rs.next()) {
 				// cashVO 也稱為 Domain objects
 				cashVO = new CashVO();
-
+				cashVO.setCash_no(rs.getString("cash_no"));
 				cashVO.setCash_date(rs.getDate("cash_date"));
 				cashVO.setMem_no(rs.getString("mem_no"));
 				cashVO.setCash_inout(rs.getString("cash_inout"));
@@ -359,7 +359,7 @@ public class CashDAO implements CashDAO_interface {
 			pstmt = con.prepareStatement(UPDATE_CASH_STATUS_STMT);
 
 			pstmt.setInt(1, cashVO.getCash_status());
-			pstmt.setString(2, cashVO.getRec_no());
+			pstmt.setString(2, cashVO.getCash_no());
 
 			pstmt.executeUpdate();
 

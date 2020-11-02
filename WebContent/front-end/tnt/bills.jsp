@@ -178,12 +178,14 @@
  		table.dataTable.display tbody tr.odd>.sorting_1, table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 { 
  			background: #fff !important; 
  		} 
- 		th.sorting {
-/*  			text-align: center !important;  */
- 		}
  		table.dataTable, table.dataTable th, table.dataTable td {
  			text-align: center !important; 
  		}
+ 		table.dataTable td:nth-child(3){
+ 			padding-left: 5.5% !important;
+    		text-align: left !important;
+ 		}
+ 		    
  		/*dataTable*/
 		.dataTables_wrapper {
 			padding: 30px 15px 0px;
@@ -203,10 +205,8 @@
     <section>
         <section class="content">
             <div class="" id="infocontainer">
-<!--                 <div class="row no-gutters justify-content-center"> -->
                     <!--start info list -->
                     <div class="basicInfo__list"  id="basicinfolist" style="left:-320px;"> 
-<!--                     <div class="basicInfo__list col-lg-3" style="display: none;" id="basicinfolist">  -->
                         <div class="basicInfo__list__content bg-white px-4 pt-lg-7 pt-md-5 pt-2 sticky-top">
                             <a class="basicInfo__list-backIcon text-primary basicInfo__list__content-backIcon d-xl-none">
                                 <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="arrow-alt-circle-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-arrow-alt-circle-left fa-w-16">
@@ -301,8 +301,7 @@
                        </div>
                     </div>
                     <!--end shrink bar -->
-                    
-                            <!--Start form Profile-->
+                     <!--Start bill logs-->
 								<div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">交易紀錄</h4>
                                 <!--TAB 有空再做-->
@@ -331,35 +330,67 @@
 												<td>${varStatusName.count}</td>
 												<td>${cashVO.cash_date}</td>
 												<td>
-													<c:if test="${cashVO.cash_type==\"儲值\"}">
-							                            <img src="<%=request.getContextPath()%>/images/cash_deposit.png" width="50">
-							                        </c:if>
-							                        <c:if test="${cashVO.cash_type==\"提領\"}">
-							                            <img src="<%=request.getContextPath()%>/images/cash_withdraw.png" width="50">
-							                        </c:if>
-							                        <c:if test="${cashVO.cash_type==\"收入\"}">
-							                            <img src="<%=request.getContextPath()%>/images/cash_in.png" width="50">
-							                        </c:if>
-							                        <c:if test="${cashVO.cash_type==\"支出\"}">
-							                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+													<c:if test="${cashVO.cash_status==1}">
+														<c:if test="${cashVO.cash_type==\"儲值\"}">
+								                           <img src="<%=request.getContextPath()%>/images/cash_deposit.png" width="50">
+							 	                        </c:if>
+										                <c:if test="${cashVO.cash_type==\"提領\"}">
+								                            <img src="<%=request.getContextPath()%>/images/cash_withdraw.png" width="50">
+								                        </c:if>
+														<c:if test="${cashVO.cash_inout==\"in\"}">
+									                        <c:if test="${cashVO.cash_type!=\"儲值\"}">
+									                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+									                        </c:if>
+								                        </c:if>
+														<c:if test="${cashVO.cash_inout==\"out\"}">
+									                        <c:if test="${cashVO.cash_type!=\"提領\"}">
+									                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+									                        </c:if>
+								                        </c:if>
 							                        </c:if>
 							                        <c:if test="${cashVO.cash_status==0}">
 							                            <img src="<%=request.getContextPath()%>/images/cash_topay.png" width="50">
-							                        </c:if>
+							                        </c:if>									                    
 													&nbsp${cashVO.cash_type}
 												</td>
 												<td>${cashVO.cash_amount}</td>
-												<td>${cashVO.cash_status}</td>
-												<td>${cashVO.con_no}</td>
+												<td>
+													<c:if test="${cashVO.cash_status==1}">完成</c:if>
+													<c:if test="${cashVO.cash_status==0}">未完成</c:if>
+												<td>
+													<c:if test="${cashVO.cash_type==\"每月帳單\"}">
+								                    	<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter">本月明細</button>
+								                    	<!-- Modal -->
+														<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+														  <div class="modal-dialog modal-dialog-centered" role="document">
+														    <div class="modal-content">
+														      <div class="modal-header">
+														        <h5 class="modal-title" id="exampleModalLongTitle">每月帳單明細</h5>
+														        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														          <span aria-hidden="true">&times;</span>
+														        </button>
+														      </div>
+														      <div class="modal-body">
+														      <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/>
+														      </div>
+														      <div class="modal-footer">
+														        <button type="button" class="btn btn-primary">關閉明細</button>
+														      </div>
+														    </div>
+														  </div>
+														</div>
+														<!-- Modal End-->
+								                    </c:if>
+													
+												</td>
 											</tr>
 										</c:forEach>
 							        </tbody>
 							    </table>
 
                             </div>
-                            <!--End form data -->
+                            <!--End bill logs -->
                     <!--outer -->
-<!--                 </div> -->
             </div>
         </section>
     </section>
