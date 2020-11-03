@@ -518,7 +518,7 @@ public class TntServlet2 extends HttpServlet {
 				/*************************** 2.開始修改資料 ***************************************/
 				CashService cashSvc = new CashService();
 				String cash_no = "";
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < 20; i++) {
 					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 					cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit,
 							tnt_pocket_deposit, 1);
@@ -538,11 +538,11 @@ public class TntServlet2 extends HttpServlet {
 				tnt_balance = tnt_balance + tnt_pocket_deposit;
 				tntSvc.updateTntPocket(tnt_no, tnt_balance);
 
-				List<CashVO> list = cashSvc.getOneCashlogs(tnt_no);
-				for (CashVO cashVO : list) {
+//				List<CashVO> list = cashSvc.getOneCashlogs(tnt_no);
+//				for (CashVO cashVO : list) {
 //					String cash_no1 = cashVO.getMem_no();
 //					System.out.println("tntservlet2-cashVO list" + cash_no1);
-				}
+//				}
 
 				String returnURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
 						+ req.getContextPath() + req.getServletPath();

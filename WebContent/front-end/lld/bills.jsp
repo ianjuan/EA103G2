@@ -304,14 +304,23 @@
                      <!--Start bill logs-->
 								<div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">交易紀錄</h4>
-                                <!--TAB 有空再做-->
+<!--                                 TAB 有空再做 -->
 <!-- 								<nav class="nav nav-pills nav-fill"> -->
 <!-- 								  <a class="nav-item nav-link active" href="#">Active</a> -->
 <!-- 								  <a class="nav-item nav-link" href="#">Link</a> -->
 <!-- 								  <a class="nav-item nav-link" href="#">Link</a> -->
 <!-- 								  <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 <!-- 								</nav> -->
-								<!--TAB 有空再做-->
+<!-- 								TAB 有空再做 -->
+ 									<select class="wrap-register100 validate-input" data-validate="Gender is required" name="tnt_sex" id="tnt_sex" >
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">
+                                              <option value="" >全部
+                          					  <option value="完成" >完成
+											  <option value="未完成"}>未完成
+                                        </span>
+                                    </select>
+                                    
                                 <table id="myDataTalbe"  class="display">
 							        <thead>
 							            <tr>
@@ -323,7 +332,7 @@
 							                <th>查看明細</th>
 							            </tr>
 							        </thead>
-							        <tbody>
+							        <tbody id="tbody">
 							        
 							        <c:forEach var="cashVO" items="<%=listCashLog%>"  varStatus="varStatusName">
 											<tr>
@@ -339,7 +348,7 @@
 								                        </c:if>
 														<c:if test="${cashVO.cash_inout==\"in\"}">
 									                        <c:if test="${cashVO.cash_type!=\"儲值\"}">
-									                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+									                            <img src="<%=request.getContextPath()%>/images/cash_in.png" width="50">
 									                        </c:if>
 								                        </c:if>
 														<c:if test="${cashVO.cash_inout==\"out\"}">
@@ -371,7 +380,7 @@
 														        </button>
 														      </div>
 														      <div class="modal-body">
-<%-- 														      <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/> --%>
+<%-- 														       <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=REC000001"/> --%>
 														      </div>
 														      <div class="modal-footer">
 														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button>
@@ -412,9 +421,98 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
      
     <script>
+    var cashVO;
+    $(".validate-input").on("change",function(){
+    $.ajax({//資料庫階段
+		  url:"<%=request.getContextPath()%>/lld/LldServlet2",
+	 	  type:"GET",
+	 	  data:{action:"billsQuery",
+	 		 Cash_status:$('#tnt_sex').val()
+	 		  },
+	 	  success:function(data){//以上成功才執行
+	 		  console.log("data="+data);
+	 		 cashVO=JSON.parse(data); 
+	             loading(cashVO);
+	 		  	console.log("res棒");
+	 		  	}
+	 	  ,
+	 	  error:function(data)
+	 	  {
+	 		  console.log("真的不棒")
+	 	  }			  
+	  } )
+    });
+	function loading(vo){
+		$("#tbody").remove();
+		$('#myDataTalbe').append("<tbody id='tbody'></tbody>");
+
+     $.each(vo, function(i,cashVO){      
+    	var img;
+    	var status = cashVO.cash_status==1 ? "完成" :"未完成";
+//     	var fee= cashVO.cash_type== "每月帳單"? 
+    if(cashVO.cash_status==1){
+		if (cashVO.cash_inout=="in"){
+			if(cashVO.cash_type=="儲值"){
+			 img="<img src='<%=request.getContextPath()%>/images/cash_deposit.png' width='50'>";
+
+			}else{
+				img="<img src='<%=request.getContextPath()%>/images/cash_in.png' width='50'>";
+			}
+		}
+	 		 if (cashVO.cash_inout=="out"){
+	 			if(cashVO.cash_type=="提領"){
+	 				img="<img src='<%=request.getContextPath()%>/images/cash_withdraw.png' width='50'>";
+	 			}else{
+	 				img="<img src='<%=request.getContextPath()%>/images/cash_out.png' width='50'>";
+	 			}
+	 		}
+    }
+    if(cashVO.cash_status==0){
+    	img="<img src='<%=request.getContextPath()%>/images/cash_topay.png' width='50'>";
+    }
+
+    if(cashVO.cash_type){
+     $('#tbody').append(
+						"<tr>"+
+							"<td>"+i+"</td>"+
+							"<td>"+cashVO.cash_date+"</td>"+
+							"<td>"+img+" "+cashVO.cash_type+"</td>"+
+							"<td>"+cashVO.cash_amount+"</td>"+
+							"<td>"+status+
+							"<td>"+
+// 								<c:if test='${cashVO.cash_type==\'每月帳單\'}'>
+// 			                    	<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#exampleModalCenter'>本月明細</button>
+// 									<div class='modal fade' id='exampleModalCenter' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>
+// 									  <div class='modal-dialog modal-dialog-centered' role='document'>
+// 									    <div class='modal-content'>
+// 									      <div class='modal-header'>
+// 									        <h5 class='modal-title' id='exampleModalLongTitle'>每月帳單明細</h5>
+// 									        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+// 									          <span aria-hidden='true'>&times;</span>
+// 									        </button>
+// 									      </div>
+// 									      <div class='modal-body'>
+<%-- 														      <jsp:include page='/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}'/> --%> 
+// 									      </div>
+// 									      <div class='modal-footer'>
+// 									        <button type='button' class='btn btn-primary' id='btnCloseDetail'>關閉明細</button>
+// 									      </div>
+// 									    </div>
+// 									  </div>
+// 									</div>
+// 									<!-- Modal End-->
+// 			                    </c:if>
+								
+							"</td>"+
+						"</tr>"
+    
+    )}
+    })
+  }
+   
         $(function () {
             $("#myDataTalbe").DataTable({
-                searching: true, //關閉filter功能
+                searching: false, //關閉filter功能
                 columnDefs: [{
                     targets: [3],
                     orderable: false,

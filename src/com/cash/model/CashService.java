@@ -3,6 +3,8 @@ package com.cash.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 
 public class CashService {
 	CashDAO_interface dao;
@@ -13,6 +15,12 @@ public class CashService {
 	
 	public List<CashVO> getOneCashlogs(String mem_no) {
 		return dao.findByMemNo_Cashlogs(mem_no);
+	}
+	
+	public String getOneCashlogs_query(String mem_no,String status) {
+		List<CashVO> cashlog=dao.findByMemNo_Cashlogs(mem_no,status);
+		 Gson gson= new Gson();
+		 return gson.toJson(cashlog);
 	}
 
 	// 沒有合約編號、沒有帳單編號 -- 自增主鍵值
