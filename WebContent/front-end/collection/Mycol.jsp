@@ -1,3 +1,4 @@
+<%@page import="com.tnt.model.TntVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,8 +18,12 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/swiper.min.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/style.min.css" />
     		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+    		<!-- 	下面2個韋恩需要	 -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/rptt/main.css" type="text/css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 </head>
+<% TntVO tntVO=(TntVO)session.getAttribute("tntVO");%>
 <style> 
 
 		.btn-img {
@@ -286,6 +291,7 @@ $(document).on("click", ".btn-delall", function() {
 
 
 
+
 function loading (){
 	$(".item").remove();
 	
@@ -331,14 +337,85 @@ $(".fav-body").append("<div class='item' id='"+value.hos_no+"' >"+
                            "<a href='<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos="+value.hos_no+"'><img src='<%=request.getContextPath()%>/resource/Mycol/images/tel.svg' alt=''/>預約看屋</a>"+
                             "<a class='select-live' href='#'><img src='<%=request.getContextPath()%>/resource/Mycol/images/home.svg' alt=''/>我要入住</a>"+
                             "<a href='#message'> <img src='<%=request.getContextPath()%>/resource/Mycol/images/comment.svg' alt=''/>聊天</a>"+
-                           " <a class='red' href='#'><img src='<%=request.getContextPath()%>/resource/Mycol/images/report.svg' alt=''/>檢舉</a>"+
+                           " <a class='red' href='#' id='rptl_btn'><img src='<%=request.getContextPath()%>/resource/Mycol/images/report.svg' alt=''/>檢舉</a>"+
                             "</div>"+
                         "  </div>"+
 
                         "</figcaption>"+
                     "</div>");});
+                
 }
 loading ();
 </script>
+<div class="modal fade" id="exampleModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" id="close_btn">&times;</button>
+					<br>
+					<div id="myForm" class="myForm">
+						<label for="name">您的名字:</label> <input class="rpth" type="text"
+							name="tnt_name" value=<%=tntVO.getTnt_name() %> id="iacc" readonly> 
+						<div class="form-group">
+							<label for="reason">檢舉原因:</label>
+							<textarea id="reason" name="rpth_content" required></textarea>
+						</div>
+						<button id="demo">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script>
+
+   $('rptl_btn').click(function(){
+	   var hosno=$(this).val();
+	   $('#exampleModal').modal('show');
+   })
+
+
+
+
+
+
+
+
+
+
+
+
+
+	$('#demo').click(function(){
+		var hosno=$(this).val();	
+		var rpth_content= $('#reason').val().trim()
+		if(rpth_content==''){
+		   swal("檢舉失敗!", "氣氣氣! 但內容還是要寫啦!", "error");
+		}else{
+		$.ajax({
+			type:"POST",
+			url:"<%=request.getContextPath()%>/front-end/rpth/RpthServlet",
+			data:{
+				action:"insert",
+				tnt_no:"<%= tntVO.getTnt_no()%>",
+				hos:hosno,
+			    rpth_content:rpth_content
+			},
+			 success:function(data)
+		 	  {	
+			  swal("檢舉成功!", "感謝，愛租有您真好!", "success");
+		 	  }//以上成功才執行
+		 	  ,
+		 	  error:function(data)
+		 	  {
+		 	  swal("檢舉失敗!", "鳩豆麻爹!", "error");
+		 	}
+		  
+		})}
+		
+		  $("#close_btn").trigger("click");
+	});
+</script>	
 
 </html>

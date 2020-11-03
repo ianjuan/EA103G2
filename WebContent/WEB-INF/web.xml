@@ -306,6 +306,7 @@
 		<url-pattern>/back-end/rpth/RpthServlet</url-pattern>
 		<url-pattern>/front-end/rpth/RpthServlet</url-pattern>
 	    <url-pattern>/front-end/index/RpthServlet</url-pattern>
+	    <url-pattern>/front-end/collection/RpthServlet</url-pattern>
 		
 	</servlet-mapping>
 	<servlet>

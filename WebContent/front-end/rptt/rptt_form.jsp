@@ -22,6 +22,7 @@
 
 
 
+
 <style>
 .trigger-btn {
 	display: inline-block;
@@ -44,7 +45,7 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 					<br>
-					<form action="RpttServlet" method="post" id="myForm" class="myForm">
+					<form action="RpttServlet" id="myForm" class="myForm">
 						<label for="name">您的帳號:</label> <input class="rpth" type="text"
 							name="lld_no" value="LLD000045" id="iacc" readonly> <label
 							for="name">檢舉的房客帳號:</label> <input class="rpth" type="text"
@@ -53,9 +54,8 @@
 							<label for="reason">檢舉原因:</label>
 							<textarea id="reason" name="rptt_content"></textarea>
 						</div>
-
 						<input class="rpth" type="hidden" name="action" value="insert">
-						<button id="demo">提交</button>
+						<button id="demo" >提交</button>
 					</form>
 				</div>
 			</div>
@@ -63,24 +63,26 @@
 	</div>
 
 </body>
-<script type="text/javascript">
-	var form = $('#myForm');
-
-	form.bootstrapValidator({
-
-		fields : {
-
-			rptt_content : {
-				validators : {
-					notEmpty : {
-						message : '原因不能為空'
-					},
-
-				}
-			}
+<script >
+$('#myForm').submit(function(event){
+	event.preventDefault();
+	var $form= $(this);
+	
+	
+	$a.jax({
+        type:'post',
+        url:$form.attr('action'),
+		data:$form.serialize(),
+		success: function(data){
+			alert("send");
+		},
+		
+		error:function(error){
+			alert(fail);
 		}
-
 	});
+	
+});
 </script>
 
 </html>

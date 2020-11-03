@@ -4,11 +4,11 @@
 	box-sizing: border-box;
 }
 
-.myForm {
+form {
 	max-width: 480px;
-	margin-top: 75px;
-	padding: auto;
-
+	margin: 20px auto;
+	padding: 16px;
+	
 }
 
 .rpth {
@@ -68,7 +68,9 @@ div#row_rpth {
 }
 
 .modal {
-    padding-right: 0px !important;
-    height: 69%; !important;
-    width: 28%; !important;
+	padding-right: 0px !important;
+	height: 69%; ! important;
+	width: 28%;
+	!
+	important;
 }
