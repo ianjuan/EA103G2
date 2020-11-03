@@ -14,8 +14,12 @@
 		tnt_no = request.getParameter("tnt_no");
 	}
 	
-	List<ConVO> list = (List<ConVO>)session.getAttribute("list");
-	session.setAttribute("list",list);
+	List<ConVO> conlist = (List<ConVO>)session.getAttribute("conlist");
+	if(conlist == null || conlist.size() == 0){
+		ConService conService = new ConService();
+		conlist = conService.tntgetcon(tnt_no);
+	}
+	session.setAttribute("conlist",conlist);
 	
 	TntService tntService = new TntService();
 	TntVO tntVO = tntService.getOneTntProfile(tnt_no);
@@ -66,7 +70,7 @@
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="gettntcontract">
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
-						<span id="count">共<%=list.size()%>個合約</span>
+						<span id="count">共<%=conlist.size()%>個合約</span>
 					</FORM>
 					
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
@@ -81,7 +85,7 @@
 		<div id="center">
 		<h3 class="houselisttitle">合約管理</h3><hr>
 			<%@ include file="tntpage1"%>
-			<c:forEach var="conVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="conVO" items="${conlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${conVO.con_sta == 0}">

@@ -15,10 +15,14 @@ public class Schedule extends TimerTask {
 	private String url = null;
 	
 	
-	public Schedule(String con_no, Integer con_sta) {
+	public Schedule(String con_no, Integer con_sta, String userNo, String title, String content, String url) {
 		super();
 		this.con_no = con_no;
 		this.con_sta = con_sta;
+		this.userNo = userNo;
+		this.title = title;
+		this.content = content;
+		this.url = url;
 	}
 	
 	@Override
