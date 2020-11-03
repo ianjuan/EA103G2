@@ -494,11 +494,6 @@
                       			location.reload(true);
                       		} 
                       	});  
-//                        var inputs = theform.find('.validate-input .register100');
-//                        inputs.each(function() {
-//                            $(this).val('');
-//                        });
-//                        $('#lld_bank').val('');
                    }
                 },
                 error: function() {

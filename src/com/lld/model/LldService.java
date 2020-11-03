@@ -186,6 +186,7 @@ public class LldService {
 	}
 
 	public LldVO getOneLldBankCard(String lld_no) {
+		System.out.println("service-getOneLldBankCard");
 		return dao.findByPK_bank_card(lld_no);
 	}
 

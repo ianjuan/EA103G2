@@ -90,6 +90,23 @@
             $('#nullnav').attr('style','background-color:#D7C8B6 !important;');
 
         })(jQuery);
+        
+        /*
+         * ================================================================== 
+         *    [ Quick Input ]
+         */
+        var quickInputData = ['yjwuws@gmail.com', '123456789'];
+
+        $('#quickpick').click(function() {
+            var inputs = $('.validate-input .register100');
+            for (var i = 0; i < inputs.length; i++) {
+                if (i !== 8) {
+                    $(inputs[i]).focus();
+                    $(inputs[i]).val(quickInputData[i]);
+                    $(inputs[i]).blur();
+                }
+            }
+        });
 
         /*
          * ================================================================== 

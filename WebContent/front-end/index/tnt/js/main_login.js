@@ -88,6 +88,23 @@
             }
 
         })(jQuery);
+        
+        /*
+         * ================================================================== 
+         *    [ Quick Input ]
+         */
+        var quickInputData = ['ea103g2@gmail.com', '123456789'];
+
+        $('#quickpick').click(function() {
+            var inputs = $('.validate-input .register100');
+            for (var i = 0; i < inputs.length; i++) {
+                if (i !== 8) {
+                    $(inputs[i]).focus();
+                    $(inputs[i]).val(quickInputData[i]);
+                    $(inputs[i]).blur();
+                }
+            }
+        });
 
         /*
          * ================================================================== 

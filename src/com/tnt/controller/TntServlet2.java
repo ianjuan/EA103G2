@@ -158,11 +158,32 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("登入Exception: " + e.getMessage());
 			}
 		}
+		
+		if ("isEmailRepeat".equals(action)) { // 來自Register.jsp的請求 - ajax_isEmailRepeat(tnt_email)
+			System.out.println("action: " + action);
+			out = res.getWriter();
+			String tnt_email = req.getParameter("tnt_email");
+			TntService tntSvc = new TntService();
+			List<TntVO> list = tntSvc.getAllAccount();
+			System.out.println(tnt_email);
+			String isEmailRepeat = "true";
+			for (TntVO tntVO : list) {
+				System.out.println(tntVO.getTnt_email());
+				if (tnt_email.equals(tntVO.getTnt_email())) { 
+					System.out.println(tnt_email.equals(tntVO.getTnt_email()));
+					isEmailRepeat = "false";
+				} 
+			}
+			out.print(isEmailRepeat);
+			out.close();
+			return;
+		}
 
 		if ("register".equals(action)) { // 來自Register.jsp的請求 - ajax_register(formData)
 			System.out.println("action: " + action);
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			out = res.getWriter();
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String tnt_email = req.getParameter("tnt_email");
@@ -226,7 +247,6 @@ public class TntServlet2 extends HttpServlet {
 				// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				Boolean successSendMail = mailService.sendMail_vrf(tnt_email_to, "愛租會員信箱驗證", "tnt", emailVrfLink);
 				if (successSendMail) {
-					out = res.getWriter();
 					out.print("true");
 					out.close();
 				}
@@ -496,12 +516,6 @@ public class TntServlet2 extends HttpServlet {
 				TntVO tntVO = tntSvc.getOneTntPocket(tnt_no);
 				int tnt_balance = tntVO.getTnt_balance();
 				/*************************** 2.開始修改資料 ***************************************/
-//				if (tnt_pocket_deposit > 0) {
-//					tnt_balance = tnt_balance + tnt_pocket_deposit;
-//					tntSvc.updateTntPocket(tnt_no, tnt_balance);
-//					out.print("true");
-//					return;
-//				}
 				CashService cashSvc = new CashService();
 				String cash_no = "";
 				for (int i = 0; i < 5; i++) {
@@ -520,9 +534,7 @@ public class TntServlet2 extends HttpServlet {
 				Integer cash_status = 1;
 				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, "CON000001", cash_status);
 				//@ian
-				
-				
-//				System.out.println(cash_no);
+
 				tnt_balance = tnt_balance + tnt_pocket_deposit;
 				tntSvc.updateTntPocket(tnt_no, tnt_balance);
 
@@ -543,7 +555,7 @@ public class TntServlet2 extends HttpServlet {
 				AioCheckOutOneTime checkoutonetime = new AioCheckOutOneTime();
 				checkoutonetime.setMerchantTradeNo(cash_no); // 訂單編號
 
-				checkoutonetime.setItemName("iZu Landlord Deposit"); // 商品名稱
+				checkoutonetime.setItemName("iZu Tenant Deposit"); // 商品名稱
 				checkoutonetime.setTotalAmount(Integer.toString(tnt_pocket_deposit)); // 總金額
 
 				java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());

@@ -76,7 +76,7 @@
 		<div id="center">
 		<h3 class="houselisttitle">定期帳單</h3><hr>
 			<%@ include file="tntpage1"%>
-			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="rec">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${recVO.rec_sta == 0}">
@@ -140,7 +140,7 @@
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 			     				<c:if test="${recVO.rec_sta == 2}">
-			     				<li><button type="button" id="btn2" data-toggle="modal" data-target="#exampleModalCenter">評價房東</button></li>
+			     				<li><button type="button" id="btn2" data-toggle="modal" data-target="#evaluationdiv${rec.count}">評價房東</button></li>
 								</c:if>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
@@ -165,27 +165,27 @@
 						</div>					
 					</div>
 					
-					<!-- 評價房屋區塊 -->
-					<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<!-- 評價房東區塊 -->
+					<div class="modal fade" id="evaluationdiv${rec.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
-							<form id="evaluation" name="evaluation">
+							<form id="evaluation${rec.count}" name="evaluation" METHOD="post" ACTION="<%=request.getContextPath()%>/landlord_comments/landlord_comments.servlet">
 								<div class="modal-header">
-								    <marquee scrollamount="10" class="evatitle">來對房屋作評價吧~~</marquee>
+								    <marquee scrollamount="10" class="evatitle">來對房東作評價吧~~</marquee>
 								</div>
 								<div class="modal-body">
 									<ul>
 										<li>
 									    	<div class="item">			       				
 									       		<ul class="rating">								   										
-													<li><button type="button" value="5" onclick="eqpmtPoint(event)"><div class="star" value="5" onclick="eqpmtPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="eqpmtPoint(event)"><div class="star" value="4" onclick="eqpmtPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="eqpmtPoint(event)"><div class="star" value="3" onclick="eqpmtPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="eqpmtPoint(event)"><div class="star" value="2" onclick="eqpmtPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="eqpmtPoint(event)"><div class="star" value="1" onclick="eqpmtPoint(event)"></div></button></li>
+													<li><button type="button" value="5" onclick="lcmcleanPoint(event)"><div class="star" value="10" onclick="lcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="lcmcleanPoint(event)"><div class="star" value="9" onclick="lcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="lcmcleanPoint(event)"><div class="star" value="8" onclick="lcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="lcmcleanPoint(event)"><div class="star" value="7" onclick="lcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="lcmcleanPoint(event)"><div class="star" value="6" onclick="lcmcleanPoint(event)"></div></button></li>
 													<span class="logo">
-														<img src="https://www.flaticon.com/svg/static/icons/svg/169/169302.svg">
-														<span class="itemtitle">設備齊全 :</span>
+														<img src="https://www.flaticon.com/premium-icon/icons/svg/3680/3680325.svg">
+														<span class="itemtitle">整潔度 :</span>
 													</span>
 												</ul>
 									       	</div>
@@ -193,14 +193,14 @@
 									    <li>
 									       	<div class="item">			       				
 									       		<ul class="rating">								   
-													<li><button type="button" value="5" onclick="convmtPoint(event)"><div class="star" value="5" onclick="convmtPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="convmtPoint(event)"><div class="star" value="4" onclick="convmtPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="convmtPoint(event)"><div class="star" value="3" onclick="convmtPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="convmtPoint(event)"><div class="star" value="2" onclick="convmtPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="convmtPoint(event)"><div class="star" value="1" onclick="convmtPoint(event)"></div></button></li>
+													<li><button type="button" value="5" onclick="lcmcommutPoint(event)"><div class="star" value="10" onclick="lcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="lcmcommutPoint(event)"><div class="star" value="9" onclick="lcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="lcmcommutPoint(event)"><div class="star" value="8" onclick="lcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="lcmcommutPoint(event)"><div class="star" value="7" onclick="lcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="lcmcommutPoint(event)"><div class="star" value="6" onclick="lcmcommutPoint(event)"></div></button></li>
 													<span class="logo">
-														<img src="https://www.flaticon.com/svg/static/icons/svg/168/168466.svg">
-														<span class="itemtitle">周遭機能 :</span>
+														<img src="https://www.flaticon.com/svg/static/icons/svg/3659/3659776.svg">
+														<span class="itemtitle">溝通度 :</span>
 													</span>
 												</ul>
 									       	</div>
@@ -208,14 +208,14 @@
 									   	<li>
 									       	<div class="item">
 									       		<ul class="rating">								   
-													<li><button type="button" value="5" onclick="neiborPoint(event)"><div class="star" value="5" onclick="neiborPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="neiborPoint(event)"><div class="star" value="4" onclick="neiborPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="neiborPoint(event)"><div class="star" value="3" onclick="neiborPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="neiborPoint(event)"><div class="star" value="2" onclick="neiborPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="neiborPoint(event)"><div class="star" value="1" onclick="neiborPoint(event)"></div></button></li>									    
+													<li><button type="button" value="5" onclick="lcmsatisfyPoint(event)"><div class="star" value="10" onclick="lcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="lcmsatisfyPoint(event)"><div class="star" value="9" onclick="lcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="lcmsatisfyPoint(event)"><div class="star" value="8" onclick="lcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="lcmsatisfyPoint(event)"><div class="star" value="7" onclick="lcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="lcmsatisfyPoint(event)"><div class="star" value="6" onclick="lcmsatisfyPoint(event)"></div></button></li>									    
 													<span class="logo">
-														<img src="https://www.flaticon.com/svg/static/icons/svg/263/263058.svg">
-														<span class="itemtitle">友善鄰居 :</span>
+														<img src="https://www.flaticon.com/premium-icon/icons/svg/3677/3677063.svg">
+														<span class="itemtitle">滿意度 :</span>
 													</span>
 												</ul>
 									       	</div>
@@ -226,14 +226,17 @@
 													<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
 													<span class="itemtitle">評論 :</span>
 												</span>
-										       	<textarea rows="2" wrap="hard" onkeyup="checkLen(this)" name="hcm_commnt"></textarea>
-												<div class="fontstyle">您還可以輸入 <span id="evacount">50</span> 個文字</div>			       		
+										       	<textarea rows="2" wrap="hard" onkeyup="checkLen(this)" name="lcm_commet"></textarea>	       		
 									       	</div>
 									     </li>
 									</ul>
 								</div>
-								<div class="modal-footer">			        					
-									<button type="button" class="btn btn-primary" onclick="notice()">送出</button>					
+								<div class="modal-footer">
+									<input type="hidden" name="con_no" value="${recVO.con_no}">
+<%-- 									<input type="hidden" name="lld_no" value="${conSvc.getOneCon((recVO.con_no)).lld_no}"> --%>
+									<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+									<input type="hidden" name="action" value="insert">
+									<button type="button" class="btn btn-primary" onclick="notice()" value="${rec.count}">送出</button>					
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 								</div>
 							</form>

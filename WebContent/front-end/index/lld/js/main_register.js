@@ -578,8 +578,6 @@
         var quickInputData = ['yjwuws@gmail.com', '吳永志', 'N221219585', '0917597127', '12345678', '12345678', '', '中大路300號'];
         var quickInputDataSelects = ['1', '桃園市', '中壢區'];
 
-
-
         $('#quickpick').click(function() {
             var inputs = $('.validate-input .register100');
             var selects = $('select.wrap-register100');
@@ -610,12 +608,44 @@
             e.preventDefault();
             console.log('btn - next page');
             validateAllProfile();
-            if ($('.alert-validate').length === 0) {
-                $('#divProfile').toggle();
-                $('#divPic').toggle();
-                $('#divbtnRegister').toggle();
+            if ($('.alert-validate').length === 0 && $('.alert-validate-selects').length === 0) {
+            	var lld_email = $('#lld_email').val();
+            	ajax_isEmailRepeat(lld_email);
             }
         });
+        
+        function ajax_isEmailRepeat(lld_email) {
+            $.ajax({ // 存入資料庫階段
+                url: "/EA103G2/lld/LldServlet2",
+                type: "POST",
+                data: {
+                	"action": "isEmailRepeat",
+                	 "lld_email": lld_email
+                },
+                success: function(data) { // 以上成功才執行
+                	console.log("data:" + data);
+                    console.log("res棒");
+                    if (data === 'false') { //密碼錯誤
+                        $('.wrap-validate-login').addClass('validate-input alert-validate-login');
+                    } 
+                    if (data === 'true') {
+                      $('#divProfile').toggle();
+                      $('#divPic').toggle();
+                      $('#divbtnRegister').toggle();
+                   }
+                },
+                error: function() {
+                    console.log("真的不棒");
+                	Swal.fire({
+                		icon: 'warning',
+                		title: '發生錯誤',
+                		text: "請稍後重新點選送出",
+                	    showDenyButton: true,
+                		});
+                }
+            });
+        }
+        
         //submit
         $('#btnRegister.login100-form-btn').click(function(e) {
             e.preventDefault();

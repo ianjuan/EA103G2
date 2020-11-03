@@ -120,13 +120,13 @@ function checkLen(e) {
 	document.getElementById("evacount").innerHTML = maxChars - e.value.length;
 }
 
-function notice(){
-	 swal({title:"確定要送出評價了嗎?", text:"" , icon:"info", buttons: {
+function fillnotice(){
+	 swal({title:"確定要送出帳單了嗎?", text:"" , icon:"info", buttons: {
 	      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 	    }}).then(function(isConfirm){
 		if(isConfirm){
 			swal("成功送出!!", "", "success", {button: "確認"}).then(function(){
-				document.evaluation.submit();
+				document.getElementById("fullin").submit();
 			});
 		} else {
 			return false;

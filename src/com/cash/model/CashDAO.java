@@ -222,7 +222,7 @@ public class CashDAO implements CashDAO_interface {
 	}
 	
 	// ===================================================================
-	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ? order by cash_no DESC";
+	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ? order by cash_date";
 	private static final String GET_ONE_CASHno_STMT = "SELECT cash_no FROM CASH where rec_no = ?";
 	private static final String UPDATE_CASH_STATUS_STMT = "UPDATE CASH set cash_status=? where CASH_no=?";
 	@Override

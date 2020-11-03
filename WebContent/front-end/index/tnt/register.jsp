@@ -26,8 +26,6 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
     <!--===============================================================================================-->
-<!--     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"> -->
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main_register.css">
     <!--===============================================================================================-->
@@ -39,7 +37,6 @@
 <body class="landing">
 <jsp:include page="/front-end/navbar/navbar.jsp"/>
         <div id="quickpick">Quick Input</div>
-
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-form validate-form">
@@ -104,8 +101,11 @@
                             <span class="focus-register100"></span>
                             <span class="label-register100">地址</span>
                         </div>
+                        <div class="wrap-validate-login" data-validate="此信箱已註冊">
+
+                        </div>
                         <div class="container-login100-form-btn">
-                            <button class="login100-form-btn m-t-16" id="btnProfile">Next</button>
+                            <button class="login100-form-btn m-t-10" id="btnProfile">Next</button>
                         </div>
                     </div>
                     <div id="divPic">
@@ -126,7 +126,7 @@
                 </form>
                 <div id="divbtnRegister">
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn m-t-16" id="btnRegister">Sign up</button>
+                        <button class="login100-form-btn m-t-10" id="btnRegister">Sign up</button>
                     </div>
                 </div>
                 <!--divbtnRegister-->

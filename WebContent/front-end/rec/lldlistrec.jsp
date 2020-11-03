@@ -56,6 +56,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js'></script>
 </head>
 <body>
 	<div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
@@ -102,7 +103,7 @@
 		<div id="center">
 		<h3 class="houselisttitle">定期帳單</h3><hr>
 			<%@ include file="page1.file"%>
-			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="rec">
 				<div class="houseinfo">
 					<div class="linfo">
 					<c:if test="${recVO.rec_sta == 0}">
@@ -139,11 +140,10 @@
 						</ul>
 					</div>					
 						<div class="rinfo">
-							
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 								<c:if test="${recVO.rec_sta == 0}">
-								<li><button id="btn1">填寫帳單</button></li>
+								<li><button type="button" id="btn1" data-toggle="modal" data-target="#fullindiv${rec.count}">填寫帳單</button></li>
 								</c:if>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
@@ -165,7 +165,7 @@
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 			     				<c:if test="${recVO.rec_sta != 0}">
-								<li><button type="button" id="btn3" data-toggle="modal" data-target="#exampleModalCenter">評價房客</button></li>
+								<li><button type="button" id="btn3" data-toggle="modal" data-target="#evaluationdiv${rec.count}">評價房客</button></li>
 								</c:if>
 								<input type="hidden" name="rec_no"  value="${recVO.rec_no}">
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
@@ -173,16 +173,14 @@
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 <!-- 			     				<input type="hidden" name="action"	value="getOne_For_Update"> -->
 			     				</FORM>
-								
-														
 							</ul>
 						</div>					
 					</div>
 					<!-- 房東填寫區塊 -->
-					<div class="modal fade" id="fullin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal fade" id="fullindiv${rec.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
-							<form id="fullin" name="fullin">
+							<form id="fullin${rec.count}" name="fullin" METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 								<div class="modal-header">
 								    <h2>填寫本月水電費</h2>
 								</div>
@@ -200,19 +198,23 @@
 										</tr>
 									</table>
 								</div>
-								<div class="modal-footer">			        					
-									<button type="button" class="btn btn-primary" onclick="notice()">送出</button>					
+								<div class="modal-footer">
+									<input type="hidden" name="rec_no" value="${recVO.rec_no}">	
+									<input type="hidden" name="lld_no" value="<%=lld_no%>">
+									<input type="hidden" name="con_no" value="${recVO.con_no}">
+									<input type="hidden" name="action" value="getOne_lld_Update">
+									<button type="button" class="btn btn-primary" onclick="fillnotice(event)" value="${rec.count}">送出</button>					
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-					<!-- 評價房屋區塊 -->
-					<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<!-- 評價房客區塊 -->
+					<div class="modal fade" id="evaluationdiv${rec.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
-							<form id="evaluation" name="evaluation">
+							<form id="evaluation${rec.count}" name="evaluation" METHOD="post" ACTION="<%=request.getContextPath()%>/tenant_comments/tenant_comments.servlet">
 								<div class="modal-header">
 								    <marquee scrollamount="10" class="evatitle">來對房客作評價吧~~</marquee>
 								</div>
@@ -221,13 +223,13 @@
 										<li>
 									    	<div class="item">			       				
 									       		<ul class="rating">								   										
-													<li><button type="button" value="5" onclick="eqpmtPoint(event)"><div class="star" value="5" onclick="eqpmtPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="eqpmtPoint(event)"><div class="star" value="4" onclick="eqpmtPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="eqpmtPoint(event)"><div class="star" value="3" onclick="eqpmtPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="eqpmtPoint(event)"><div class="star" value="2" onclick="eqpmtPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="eqpmtPoint(event)"><div class="star" value="1" onclick="eqpmtPoint(event)"></div></button></li>
+													<li><button type="button" value="5" onclick="tcmcleanPoint(event)"><div class="star" value="10" onclick="tcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="tcmcleanPoint(event)"><div class="star" value="9" onclick="tcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="tcmcleanPoint(event)"><div class="star" value="8" onclick="tcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="tcmcleanPoint(event)"><div class="star" value="7" onclick="tcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="tcmcleanPoint(event)"><div class="star" value="6" onclick="tcmcleanPoint(event)"></div></button></li>
 													<span class="logo">
-														<img src="https://www.flaticon.com/svg/static/icons/svg/169/169302.svg">
+														<img src="https://www.flaticon.com/premium-icon/icons/svg/3680/3680325.svg">
 														<span class="itemtitle">整潔度 :</span>
 													</span>
 												</ul>
@@ -236,13 +238,13 @@
 									    <li>
 									       	<div class="item">			       				
 									       		<ul class="rating">								   
-													<li><button type="button" value="5" onclick="convmtPoint(event)"><div class="star" value="5" onclick="convmtPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="convmtPoint(event)"><div class="star" value="4" onclick="convmtPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="convmtPoint(event)"><div class="star" value="3" onclick="convmtPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="convmtPoint(event)"><div class="star" value="2" onclick="convmtPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="convmtPoint(event)"><div class="star" value="1" onclick="convmtPoint(event)"></div></button></li>
+													<li><button type="button" value="5" onclick="tcmcommutPoint(event)"><div class="star" value="10" onclick="tcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="tcmcommutPoint(event)"><div class="star" value="9" onclick="tcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="tcmcommutPoint(event)"><div class="star" value="8" onclick="tcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="tcmcommutPoint(event)"><div class="star" value="7" onclick="tcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="tcmcommutPoint(event)"><div class="star" value="6" onclick="tcmcommutPoint(event)"></div></button></li>
 													<span class="logo">
-														<img src="https://www.flaticon.com/svg/static/icons/svg/168/168466.svg">
+														<img src="https://www.flaticon.com/svg/static/icons/svg/3659/3659776.svg">
 														<span class="itemtitle">溝通度 :</span>
 													</span>
 												</ul>
@@ -251,13 +253,13 @@
 									   	<li>
 									       	<div class="item">
 									       		<ul class="rating">								   
-													<li><button type="button" value="5" onclick="neiborPoint(event)"><div class="star" value="5" onclick="neiborPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="neiborPoint(event)"><div class="star" value="4" onclick="neiborPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="neiborPoint(event)"><div class="star" value="3" onclick="neiborPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="neiborPoint(event)"><div class="star" value="2" onclick="neiborPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="neiborPoint(event)"><div class="star" value="1" onclick="neiborPoint(event)"></div></button></li>									    
+													<li><button type="button" value="5" onclick="tcmsatisfyPoint(event)"><div class="star" value="10" onclick="tcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="tcmsatisfyPoint(event)"><div class="star" value="9" onclick="tcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="tcmsatisfyPoint(event)"><div class="star" value="8" onclick="tcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="tcmsatisfyPoint(event)"><div class="star" value="7" onclick="tcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="tcmsatisfyPoint(event)"><div class="star" value="6" onclick="tcmsatisfyPoint(event)"></div></button></li>									    
 													<span class="logo">
-														<img src="https://www.flaticon.com/svg/static/icons/svg/263/263058.svg">
+														<img src="https://www.flaticon.com/premium-icon/icons/svg/3677/3677063.svg">
 														<span class="itemtitle">滿意度 :</span>
 													</span>
 												</ul>
@@ -269,14 +271,17 @@
 													<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
 													<span class="itemtitle">評論 :</span>
 												</span>
-										       	<textarea rows="2" wrap="hard" onkeyup="checkLen(this)" name="hcm_commnt"></textarea>
-												<div class="fontstyle">您還可以輸入 <span id="evacount">50</span> 個文字</div>			       		
+										       	<textarea rows="2" wrap="hard" onkeyup="checkLen(this)" name="tcm_commet"></textarea>	       		
 									       	</div>
 									     </li>
 									</ul>
 								</div>
-								<div class="modal-footer">			        					
-									<button type="button" class="btn btn-primary" onclick="notice()">送出</button>					
+								<div class="modal-footer">
+									<input type="hidden" name="con_no" value="${recVO.con_no}">
+									<input type="hidden" name="lld_no" value="<%=lld_no%>">
+									<input type="hidden" name="tnt_no" value="${conSvc.getOneCon((recVO.con_no)).tnt_no}">
+									<input type="hidden" name="action" value="insert">
+									<button type="button" class="btn btn-primary" onclick="notice(event)" value="${rec.count}">送出</button>					
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 								</div>
 							</form>

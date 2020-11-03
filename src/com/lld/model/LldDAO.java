@@ -797,20 +797,31 @@ public class LldDAO implements LandlordDAO_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
+		System.out.println("lldDAO-findByPK_bank_card");
+		
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_BANK_CARD_STMT);
 			pstmt.setString(1, lld_no);
 			rs = pstmt.executeQuery();
-
+			System.out.println("lldDAO-findByPK_bank_card1");
+			
 			while (rs.next()) {
+				System.out.println("lldDAO-findByPK_bank_card2");
 				lldVO = new LldVO();
+				System.out.println("lldDAO-findByPK_bank_card3");
 				lldVO.setLld_card(rs.getString("lld_card"));
+				System.out.println("lldDAO-findByPK_bank_card4");
 				lldVO.setLld_cardsvc(rs.getString("lld_cardsvc"));
+				System.out.println("lldDAO-findByPK_bank_card5");
 				lldVO.setLld_carddue(rs.getDate("lld_carddue"));
+				System.out.println("lldDAO-findByPK_bank_card6");
 				lldVO.setLld_bank(rs.getString("lld_bank"));
+				System.out.println("lldDAO-findByPK_bank_card7");
 				lldVO.setLld_bankbranch(rs.getString("lld_bankbranch"));
+				System.out.println("lldDAO-findByPK_bank_card8");
 				lldVO.setLld_bankacc(rs.getString("lld_bankacc"));
+				
 			}
 
 		} catch (SQLException se) {
