@@ -1,3 +1,4 @@
+<%@page import="com.tnt.model.TntVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,12 +17,14 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/style.min.css" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 		
-<!-- 	下面css韋恩需要	 -->
+<!-- 	下面2個韋恩需要	 -->
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/rptt/main.css" type="text/css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 
   <script
 		src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
+		
 	
   
 </head>
@@ -32,6 +35,7 @@
 <%HouseDetService hds =new HouseDetService();
 Gson gson = new Gson();
 String	tntno=(String)session.getAttribute("tnt_no");
+TntVO tntVO=(TntVO)session.getAttribute("tntVO");
 String hosno=request.getParameter("hos");
 session.setAttribute("HOS",hosno);
  	List<HosDetVO> list = hds.getHosDetfromHOSNO(hosno);
@@ -229,32 +233,31 @@ session.setAttribute("HOS",hosno);
         </div>
     </div>
    </body> 
-    	<div class="modal fade" id="exampleModal">
-		<div class="modal-dialog ">
+    <div class="modal fade" id="exampleModal">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
+						aria-hidden="true" id="close_btn">&times;</button>
+					<br>
 					<div id="myForm" class="myForm">
 						<label for="name">您的名字:</label> <input class="rpth" type="text"
-							name="tnt_name" value="xxx" id="iacc" readonly> <label
-							for="name">檢舉的房屋名稱:</label> <input class="rpth" type="text"
+							name="tnt_name" value=<%=tntVO.getTnt_name() %> id="iacc" readonly> 
+							<label
+							for="name">檢舉的房源:</label> <input class="rpth" type="text"
 							name="hos_name" value=<%= vo.getHos_name() %> id="yacc" readonly>
-							<input type="hidden" name="tnt_no" value=<%=(String)session.getAttribute("tnt_no")%>>
-							<input type="hidden" name="hos_no" value=<%= vo.getHos_no() %>>
 						<div class="form-group">
 							<label for="reason">檢舉原因:</label>
 							<textarea id="reason" name="rpth_content" required></textarea>
 						</div>
-						<input class="rpth" type="hidden" name="action" value="insert">
 						<button id="demo">提交</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-   
-    
+
+
 <div id="datepicker-container">
     <div class="form">
       <div class="content ">
@@ -447,15 +450,52 @@ function initMap() {
                 }
             });
         }
+    
 console.log(picnum);
 
 </script>
+
+
+<!-- 	下面js韋恩需要	 -->
+<script>
+	$('#demo').click(function(){
+		
+		var rpth_content= $('#reason').val().trim()
+		if(rpth_content==''){
+		   swal("檢舉失敗!", "氣氣氣! 但內容還是要寫啦!", "error");
+		}else{
+		$.ajax({
+			type:"POST",
+			url:"<%=request.getContextPath()%>/front-end/rpth/RpthServlet",
+			data:{
+				action:"insert",
+				tnt_no:"<%= tntno%>",
+				hos_no:"<%=hosno %>",
+			    rpth_content:rpth_content
+			},
+			 success:function(data)
+		 	  {	
+			  swal("檢舉成功!", "感謝，愛租有您真好!", "success");
+		 	  }//以上成功才執行
+		 	  ,
+		 	  error:function(data)
+		 	  {
+		 	  swal("檢舉失敗!", "鳩豆麻爹!", "error");
+		 	}
+		  
+		})}
+		
+		  $("#close_btn").trigger("click");
+	});
+</script>	
 
  
 <div id="notice">
     <p> </p>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxL16LHes_Y4e96wJGKpsPGMXQJ_VlBL8&callback=initMap" async defer></script>
+    <script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
     
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/jquery.fancybox.min.js"></script>
@@ -463,6 +503,9 @@ console.log(picnum);
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/materialize.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/swiper.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/app.min.js"></script>
+    
+    
+    
    
 </div>
 
