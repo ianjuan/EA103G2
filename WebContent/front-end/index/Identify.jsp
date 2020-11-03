@@ -1,6 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="zh-Hant">
 
+<% session.removeAttribute("tnt_no"); %>
+<% session.removeAttribute("lld_no"); %>
+
 <head>
     <title>Identify</title>
     <meta charset="UTF-8">
@@ -26,6 +29,25 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/tnt/css/main_login.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
+	<style>
+	.container-login100 {
+        align-items: baseline;
+        }
+    .footer-real {
+    	margin-top: 0px !important;
+    }
+	</style>
+	<style>
+/* 	#btnIdentifylld { */
+/* 		background: #D7C8B6; */
+/* 		color: #916A3C; */
+/* 	} */
+/* 	#btnIdentifylld:hover { */
+/* 		background: #916A3C; */
+/*         color: #fff; */
+/*         font-size: 17px; */
+/* 	} */
+	</style>
 </head>
 
 <body class="landing">
@@ -41,7 +63,7 @@
                             <img src="<%=request.getContextPath()%>/images/lld.png" width="300">
 <!--                             https://www.dd-room.com/_nuxt/img/2b7ea73.png -->
                             <div class="container-login100-form-btn m-t-10">
-                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="login100-form-btn btnIdentify">我是房東</a>
+                               <a href="/EA103G2/front-end/index/lld/login.jsp" class="login100-form-btn btnIdentify" id="btnIdentifylld">我是房東</a>
                             </div>
                         </div>
                         <div class="identity-img-wrap m-r-10 m-l-10">
@@ -57,7 +79,7 @@
             <!--login100-form-->
         </div>
     </div>
-   
+   <%@ include file="/front-end/index/footer.jsp" %>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
