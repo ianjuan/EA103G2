@@ -518,7 +518,7 @@ public class TntServlet2 extends HttpServlet {
 				/*************************** 2.開始修改資料 ***************************************/
 				CashService cashSvc = new CashService();
 				String cash_no = "";
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < 500; i++) {
 					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 					cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit,
 							tnt_pocket_deposit, 1);

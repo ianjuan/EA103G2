@@ -371,7 +371,7 @@
 														        </button>
 														      </div>
 														      <div class="modal-body">
-<%-- 														      <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/> --%>
+														      <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/>
 														      </div>
 														      <div class="modal-footer">
 														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button>
