@@ -147,18 +147,25 @@ public class RpthServlet extends HttpServlet {
 				/*************************** 2.開始新增資料 ***************************************/
 				RpthService rpthSvc = new RpthService();
 				rpthVO = rpthSvc.addRpth(hos_no, tnt_no, rpth_content);
+				return;
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/back-end/rpth/listAllRpth.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				System.out.println("新增完成");
-				successView.forward(req, res);
+//				System.out.println("開始轉交");
+//				String url = "/back-end/rpth/rpth_main_page.jsp";
+//				String hos= req.getParameter("HOS");
+//				System.out.println("hos pa 是"+hos);
+//				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+//				System.out.println("路徑在這ㄚㄚㄚㄚ"+req.getServletPath());
+//				System.out.println("新增完成");
+//				successView.forward(req, res);
+			
+				
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rpth/rpth_form.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rptt/rptt_form.jsp");
 				failureView.forward(req, res);
 			}
 		}
