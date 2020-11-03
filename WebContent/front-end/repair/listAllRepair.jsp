@@ -213,7 +213,7 @@ text-align:center;
                     <h3 class='rep_status'>狀態
                     	<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
                     </h3>
-                    <a href='#'>Q
+                    <a href='#'>
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
 					</a>
