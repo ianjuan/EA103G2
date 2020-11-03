@@ -50,6 +50,15 @@
 		<servlet-name>RecServlet</servlet-name>
 		<url-pattern>/rec/RecServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ComServlet</servlet-name>
+		<servlet-class>com.comment.controller.CommentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ComServlet</servlet-name>
+		<url-pattern>/com/ComServlet</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ContractSingleImgReader</servlet-name>
