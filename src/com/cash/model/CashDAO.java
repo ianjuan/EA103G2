@@ -220,11 +220,13 @@ public class CashDAO implements CashDAO_interface {
 			}
 		}
 	}
-	
+
 	// ===================================================================
 	private static final String GET_ONE_CASHLogs_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ? order by cash_date";
+
 	private static final String GET_ONE_CASHno_STMT = "SELECT cash_no FROM CASH where rec_no = ?";
 	private static final String UPDATE_CASH_STATUS_STMT = "UPDATE CASH set cash_status=? where CASH_no=?";
+	
 	@Override
 	public List<CashVO> findByMemNo_Cashlogs(String mem_no) {
 		System.out.println(mem_no);
@@ -295,9 +297,87 @@ public class CashDAO implements CashDAO_interface {
 		}
 		return list;
 	}
-	
-	
-	
+
+	@Override
+	public List<CashVO> findByMemNo_Cashlogs(String mem_no, String status) {
+		System.out.println(mem_no);
+		String GET_ONE_CASHLogs_query_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ?";
+
+		List<CashVO> list = new ArrayList<CashVO>();
+		CashVO cashVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			if (status.equals("完成")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =1 ";
+			}
+			if (status.equals("未完成")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 ";
+			}
+
+			GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " order by cash_date";
+			System.out.println("指令是"+GET_ONE_CASHLogs_query_STMT);
+			pstmt = con.prepareStatement(GET_ONE_CASHLogs_query_STMT);
+			pstmt.setString(1, mem_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// cashVO 也稱為 Domain objects
+				cashVO = new CashVO();
+				cashVO.setCash_no(rs.getString("cash_no"));
+				cashVO.setCash_date(rs.getDate("cash_date"));
+				cashVO.setMem_no(rs.getString("mem_no"));
+				cashVO.setCash_inout(rs.getString("cash_inout"));
+				cashVO.setCash_type(rs.getString("cash_type"));
+				cashVO.setCash_amount(rs.getInt("cash_amount"));
+				cashVO.setCon_no(rs.getString("con_no"));
+				cashVO.setRec_no(rs.getString("rec_no"));
+				cashVO.setCash_status(rs.getInt("cash_status"));
+				list.add(cashVO);
+			}
+			con.commit();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
 	@Override
 	public String findByRec_no(String rec_no) {
 		String cash_no = null;
@@ -346,7 +426,6 @@ public class CashDAO implements CashDAO_interface {
 		}
 		return cash_no;
 	}
-
 
 	@Override
 	public void update_status(CashVO cashVO) {
