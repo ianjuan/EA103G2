@@ -41,14 +41,18 @@ public class GMapServlet extends HttpServlet {
 		String sort =request.getParameter("sort");
 		String money=request.getParameter("money");
 		String house=request.getParameter("house");
+		String cook=request.getParameter("cook");
+		String pet=request.getParameter("pet");
+		String boy=request.getParameter("boy");
+		String girl=request.getParameter("girl");
 		if ("search".equals(request.getParameter("action"))) {
 			System.out.println("igotu"+request.getParameter("sort"));
 			i++;//測試用
 			String word="這是第"+i+"個訊息";//測試用
 			new NotifyServlet().broadcast("LLD000002", word+"123456", "傳進來的地址是null排序條件價位區間getall房屋型態getall", "");//測試用
 			HousearchService gs= new HousearchService();
-
-			String data =gs.getMapfromSearchKey(city,town,searchbox,sort,money,house,request.getParameter("page")
+			
+			String data =gs.getMapfromSearchKey(city,town,searchbox,sort,money,house,request.getParameter("page"),cook,pet,boy,girl
 					);
 
 			PrintWriter out = response.getWriter();
@@ -61,7 +65,7 @@ public class GMapServlet extends HttpServlet {
 			
 			HousearchService gs= new HousearchService();
 
-			String data =gs.getGMapfromSearchKey(city,town,searchbox,sort,money,house);
+			String data =gs.getGMapfromSearchKey(city,town,searchbox,sort,money,house,cook,pet,boy,girl);
 
 			PrintWriter out = response.getWriter();
 			out.print(data);
