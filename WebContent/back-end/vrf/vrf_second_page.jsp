@@ -12,7 +12,8 @@
 	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
 
 <head>
 

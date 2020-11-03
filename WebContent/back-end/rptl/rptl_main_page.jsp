@@ -14,8 +14,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<jsp:useBean id="empSvc" scope="page"
-	class="com.emp.model.EmployeeService" />
+<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
 
 <head>
 <meta charset="utf-8">

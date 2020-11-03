@@ -35,7 +35,7 @@
 				<div class="search-icon">
 					<i class="fa fa-search search-icon"></i>
 				</div>
-				<form action="RptlServlet" method="post" class="search-form">
+				<form action="RpttServlet" method="post" class="search-form">
 					<input type="text" placeholder="&nbsp&nbsp房東編號/ 身分證字號" id="search"
 						autocomplete="off" name="Number"> <input type="hidden"
 						name="action" value="get_want_landlord">
