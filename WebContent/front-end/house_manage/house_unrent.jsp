@@ -43,6 +43,7 @@
 				<div class="nav-links">
 					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp" class="link">首頁</a>
 					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" id="lld_auth_hos" name="lld_auth_hos" value="<%=lldInfo.getLld_auth_hos()%>">
 						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
@@ -104,7 +105,7 @@
 								<input type="hidden" name="lld_no" value="<%=lld_no%>">
 								<input type="hidden" name="action" value="hosgetall">
 								<c:if test="${aplSvc.hosgetall(houseVO.hos_no).size() != 0}">
-								<li><button id="btn4" type="submit">租屋申請</button></li>
+								<li><button id="btn3" type="submit">租屋申請</button></li>
 								</c:if>
 							</FORM>
 						</ul>
@@ -162,13 +163,13 @@
 				<img src="<%=request.getContextPath()%>/front-end/house_manage/images/pic/house.jpg" id="logo">
 			</label>
 		</div>
-		<div id="foot"></div>
+	</div>
+	<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>
 		<div id="outerdiv" style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;">
 			<div id="innerdiv" style="position: absolute;">
 				<img id="bigimg" style="border: 5px solid #fff;" src="" />
 			</div>
 		</div>
-		
 	<script>
 	    $(document).on("click", "#btn1", function() {
         	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).val();
