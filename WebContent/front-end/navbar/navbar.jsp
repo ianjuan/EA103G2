@@ -47,17 +47,22 @@
     z-index: 999;
     bottom: 2px;
     position: fixed;
-    width: 300px;
-    height: 201px;
-    background-color: #f4f4f4;
-	color:black;
+    width: 278px;
+    height: 128px;
+    background-color: #dee8d9;
+	color:#423524;
+    margin-bottom: 5px;
+    line-height: 2em;
+    font-family: cursive;
+    text-align: center;
+    border-style: double;
 	}
 .message-title{	    
-/* 	background-color: yellow; */
+ 	background-color: #C8D9C1; 
     width: 100%;
-    height: 100px;
-       border-style: groove;
-    margin-bottom: 5px;
+    height: 50px;
+    line-height: 3em;
+        text-align: center;
     }
     .notify-title{
         border-bottom: navy;
@@ -65,9 +70,15 @@
     }
     .notify-group{   
      top: -1px;
-    left: -101%;
+    left: -147%;
     padding-top: 0px;
     padding-bottom:0px;
+    }
+    .notify-box{
+    margin-bottom: 5px;
+    text-align: center;
+    width: 230px;
+    background-color: #d3c3d8;
     }
 </style>
 <script  src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
@@ -194,8 +205,8 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 						if (newtify.url!="")
 							 herfs="href="+newtify.url
 						$(".notify-group").prepend(
-    						"<a class='notify-a-lebel' "+herfs+" style='color:#904E0E;text-decoration: none'>"+	//Style取消底線跟藍色底色
-    							"<div class='message-title'>"+
+    						"<a class='notify-a-lebel' "+herfs+" style='color:#423524;text-decoration: none'>"+	//Style取消底線跟藍色底色
+    							"<div class='notify-box'>"+
     								"<div class='notify-title'>"+newtify.title+"</div>"+
     								"<div class='notify-body'>"+newtify.content+"</div>"+
     							"</div>"+
@@ -212,8 +223,8 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 					 
 				$('.notify-a-lebel:last').remove() 
 				$(".notify-group").prepend(
-						"<a class='notify-a-lebel'"+herfs+" style='color:#904E0E;text-decoration: none'>"+	//Style取消底線跟藍色底色
-							"<div class='message-title' >"+
+						"<a class='notify-a-lebel'"+herfs+" style='color:#423524;text-decoration: none'>"+	//Style取消底線跟藍色底色
+							"<div class='notify-box' >"+
 								"<div class='notify-title'>"+jsonObj.title+"</div>"+
 								"<div class='notify-body'>"+jsonObj.content+"</div>"+
 							"</div>"+
@@ -228,7 +239,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 				
 				$(".new-message-a-lebel").append(
 						"<div class='new-message'>"+
-							"<div class='message-title' style='background-color:yellow;'>"+
+							"<div class='message-title'>"+
 									"<a>"+jsonObj.title+"</a>"+
 							"</div>"+
 						"<a>"+jsonObj.content+"</a>"+

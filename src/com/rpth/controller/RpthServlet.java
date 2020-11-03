@@ -128,14 +128,14 @@ public class RpthServlet extends HttpServlet {
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				System.out.println("housedet近來");
 				String hos_no = req.getParameter("hos_no");
-				
-
+                System.out.println("這格hosno++"+hos_no);
 				String tnt_no = req.getParameter("tnt_no");
-				
+				System.out.println("這格tntno++"+tnt_no);
 				String rpth_content = req.getParameter("rpth_content").trim();
 				System.out.println(rpth_content);
-				if (rpth_content == null || rpth_content.trim().length() == 0) {
+				if (rpth_content == "" || rpth_content.trim().length() == 0) {
 					errorMsgs.add("寶寶檢舉內容空白!寶寶不說");
 				}
 
@@ -147,18 +147,25 @@ public class RpthServlet extends HttpServlet {
 				/*************************** 2.開始新增資料 ***************************************/
 				RpthService rpthSvc = new RpthService();
 				rpthVO = rpthSvc.addRpth(hos_no, tnt_no, rpth_content);
+				System.out.println("要去RETURN啦");
+			    return;
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				String url = "/back-end/rpth/listAllRpth.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
-				System.out.println("新增完成");
-				successView.forward(req, res);
+//				System.out.println("開始轉交");
+//				String url = req.getParameter("url333");
+//				System.out.println("urL3333 是"+url);
+//				String QUERY = req.getParameter("urlQUERY");
+//				System.out.println("urlQUERY 是"+QUERY);
+//				res.sendRedirect(url+"?"+QUERY);
+
+			
+				
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rpth/rpth_form.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rptt/rptt_form.jsp");
 				failureView.forward(req, res);
 			}
 		}

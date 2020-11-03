@@ -77,10 +77,11 @@ button.pass {
 	width: 100%;
 }
 
-body {
-	padding-right: 0 !important
+
+input{
+   font-size: 18px;
 }
-;
+
 </style>
 </head>
 
@@ -358,14 +359,14 @@ body {
 											<div class="col-md">
 												<div class="float-right">
 													<form METHOD="post" ACTION="RptlServlet">
-														<h4>
+														<h5>
 															搜尋: <input type="text" size="27" name="Number"
 																placeholder="輸入檢舉/ 房東/ 房客/ 員工編號"> <input
 																type="hidden" name="action" value="get_want_display">
 															<input type="submit"
 																style="position: absolute; left: -9999px; width: 1px; height: 1px;"
 																tabindex="-1" />
-														</h4>
+														</h5>
 													</form>
 												</div>
 												<div class="float-right">

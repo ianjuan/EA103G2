@@ -31,8 +31,12 @@
 	
 	<style>
 	.container-login100 {
-            align-items: baseline;
-        }
+        align-items: baseline;
+    }
+    .login100-form  {
+        margin: 100px 0px 100px;
+    }
+        
     .footer-real {
     	margin-top: 0px !important;
     }

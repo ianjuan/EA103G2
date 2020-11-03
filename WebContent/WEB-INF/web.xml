@@ -50,6 +50,15 @@
 		<servlet-name>RecServlet</servlet-name>
 		<url-pattern>/rec/RecServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ComServlet</servlet-name>
+		<servlet-class>com.comment.controller.CommentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ComServlet</servlet-name>
+		<url-pattern>/com/ComServlet</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ContractSingleImgReader</servlet-name>
@@ -294,6 +303,8 @@
 		<url-pattern>/front-end/rptt/RpttServlet</url-pattern>
 		<url-pattern>/back-end/vrf/RpttServlet</url-pattern>
 		<url-pattern>/back-end/member/RpttServlet</url-pattern>
+		<url-pattern>/front-end/index/RpttServlet</url-pattern>
+		
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>RpthServlet</servlet-name>
@@ -303,6 +314,9 @@
 		<servlet-name>RpthServlet</servlet-name>
 		<url-pattern>/back-end/rpth/RpthServlet</url-pattern>
 		<url-pattern>/front-end/rpth/RpthServlet</url-pattern>
+	    <url-pattern>/front-end/index/RpthServlet</url-pattern>
+	    <url-pattern>/front-end/collection/RpthServlet</url-pattern>
+		
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>RptlServlet</servlet-name>

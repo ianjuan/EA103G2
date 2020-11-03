@@ -74,7 +74,6 @@
    			color: #3a8c68!important;
 		}
 		
-/* 		 @media (max-width:1199.98px) { */
        @media (max-width:3000px) {
             .basicInfo__list {
                 position: fixed;

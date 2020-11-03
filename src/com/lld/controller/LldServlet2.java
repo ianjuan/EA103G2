@@ -538,11 +538,11 @@ public class LldServlet2 extends HttpServlet {
 				lld_balance = lld_balance + lld_pocket_deposit;
 				lldSvc.updateLldPocket(lld_no, lld_balance);
 
-				List<CashVO> list = cashSvc.getOneCashlogs(lld_no);
-				for (CashVO cashVO : list) {
+//				List<CashVO> list = cashSvc.getOneCashlogs(lld_no);
+//				for (CashVO cashVO : list) {
 //					String cash_no1 = cashVO.getMem_no();
 //					System.out.println("lldservlet2-cashVO list" + cash_no1);
-				}
+//				}
 
 				String returnURL = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort()
 						+ req.getContextPath() + req.getServletPath();
@@ -671,8 +671,24 @@ public class LldServlet2 extends HttpServlet {
 				System.out.println("vrf pics 修改失敗:" + e.getMessage());
 			}
 		}
+// ===================================以下來自我的錢包 pocket.jsp=====================================================
+
+			// 來自pocket.jsp的請求 - ajax_balanceWithdraw(formData)
+			if ("billsQuery".equals(action)) {
+				CashService cashSvc = new CashService();
+				HttpSession session = req.getSession();
+				String lld_no = (String) session.getAttribute("lld_no");
+				String status = req.getParameter("Cash_status");
+				System.out.println("billsQuery的status"+status);
+//				status="成功";
+				String list=cashSvc.getOneCashlogs_query(lld_no, status);
+				out = res.getWriter();
+				out.print(list);
+				out.close();
+			}
 
 	}
+	
 
 	// ===================private methods===========================
 	// 登入驗證

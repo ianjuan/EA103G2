@@ -4,12 +4,11 @@
 	box-sizing: border-box;
 }
 
- 
-.myForm {
+form {
 	max-width: 480px;
 	margin: 20px auto;
 	padding: 16px;
-	border: 1px solid #eaeaea;
+	
 }
 
 .rpth {
@@ -66,4 +65,12 @@ input:focus, textarea:focus, select:focus {
 div#row_rpth {
 	margin: 40px 10px;
 	text-align: center;
+}
+
+.modal {
+	padding-right: 0px !important;
+	height: 69%; ! important;
+	width: 28%;
+	!
+	important;
 }

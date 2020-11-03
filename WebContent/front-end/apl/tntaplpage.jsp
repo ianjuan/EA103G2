@@ -39,13 +39,25 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/contlist_tnt.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/apl/js/tntapl.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
+  .xdsoft_datetimepicker .xdsoft_datepicker {
+           width:  300px;   /* width:  300px; */
+  }
+  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+           height: 151px;   /* height:  151px; */
+  }
+</style>
 </head>
 <body>
 	<div><jsp:include page="/front-end/navbar/navbar.jsp"/></div>
@@ -120,7 +132,7 @@
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 								<c:if test="${con_aplVO.apl_status == 0}">
-								<li><button id="btn1">修改申請</button></li>
+								<li><button type="button" id="btn1" data-toggle="modal" data-target="#fullindiv${apl.count}">修改申請</button></li>
 								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
@@ -158,6 +170,38 @@
 							</ul>
 						</div>					
 					</div>
+					<!-- 房客填寫區塊 -->
+					<div class="modal fade" id="fullindiv${apl.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<form id="fullin${apl.count}" name="fullin" METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
+								<div class="modal-header">
+								    <h2>修改租屋申請時間</h2>
+								</div>
+								<div class="modal-body">
+									<table>
+										<tr>
+											<td>租屋開始時間:</td>
+											<td><input name="apl_str" id="f_date1" type="text" value="${con_aplVO.apl_str}" autocomplete="off"></td>
+										</tr>
+	
+										<tr>
+											<td>租屋結束時間:</td>
+											<td><input name="apl_end" id="f_date2" type="text" value="${con_aplVO.apl_end}" autocomplete="off"></td>
+										</tr>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<input type="hidden" name="tnt_no" value="<%=tnt_no%>">	
+									<input type="hidden" name="apl_no" value="${con_aplVO.apl_no}">
+									<input type="hidden" name="action" value="tntupdate">
+									<button type="button" class="btn btn-primary" onclick="fillnotice(event)" value="${apl.count}">送出</button>					
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</c:forEach>
 			<%@ include file="tntpage2.file"%>
 			<div id="right"></div>
@@ -170,4 +214,29 @@
 			</div>
 		</div>
 </body>
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script>
+$( document ).ready(function() {
+	 $.datetimepicker.setLocale('zh');
+     $('#f_date1').datetimepicker({
+	       theme: '',              //theme: 'dark',
+	       timepicker:false,       //timepicker:true,
+	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+		   value: '${con_aplVO.apl_str}',
+		   maxDate: '${con_aplVO.apl_end}'
+     });
+     
+     $.datetimepicker.setLocale('zh');
+     $('#f_date2').datetimepicker({
+	       theme: '',              //theme: 'dark',
+	       timepicker:false,       //timepicker:true,
+	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+		   value: '${con_aplVO.apl_end}', // value:   new Date(),
+		   minDate: '${con_aplVO.apl_str}'
+     });
+});
+       
+</script>
 </html>

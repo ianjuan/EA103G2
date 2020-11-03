@@ -26,7 +26,7 @@
 		conlist = conService.lldgetcon(lld_no);
 	}
 
-	request.setAttribute("conlist",conlist);
+	session.setAttribute("conlist",conlist);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />

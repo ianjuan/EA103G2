@@ -44,7 +44,7 @@ public class HouseDAO implements HouseDAO_interface {
 	private static final String UPDATE_ELECTFEE = "UPDATE VARFEE_LIST set pay_type=?,pay_amount=? where hos_no=? AND var_no='VAR000002'";
 	private static final String UPDATE_HOSPIC = "INSERT INTO HOUSE_PICTURE (pic_no,hos_no,hos_pic) VALUES ('PIC' || lpad(SEQ_PIC_NO.NEXTVAL, 6, '0'), ?, ?)";
 	private static final String UPDATE_LLDBALANCE = "UPDATE LANDLORD set lld_balance=? where lld_no=?";
-	private static final String GET_LLDINFO = "SELECT lld_name,lld_balance FROM LANDLORD where lld_no=?";
+	private static final String GET_LLDINFO = "SELECT lld_name,lld_balance,lld_auth_hos FROM LANDLORD where lld_no=?";
 	private static final String GET_HOUSEINFO = "SELECT lld_no,hos_no,hos_name,hos_liffun,hos_trans,hos_add,hos_type,hos_room,hos_pat,hos_floor,hos_pnum,hos_lng,hos_lat,hos_status,hos_date,"
 			+ "hos_table,hos_chair,hos_bed,hos_closet,hos_sofa,hos_tv,hos_drink,hos_aircon,hos_refrig,hos_wash,hos_hoter,hos_forth,hos_net,hos_gas,"
 			+ "hos_mdate,hos_mindate,hos_park,hos_sex,hos_iden,hos_cook,hos_pet,hos_smoke,"
@@ -415,6 +415,7 @@ public class HouseDAO implements HouseDAO_interface {
 				houseVO = new HouseVO();
 				houseVO.setLld_name(rs.getString("lld_name"));
 				houseVO.setLld_balance(rs.getInt("lld_balance"));
+				houseVO.setLld_auth_hos(rs.getInt("lld_auth_hos"));
 			}
 
 			// Handle any driver errors
