@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="zh-Hant">
 
+<% session.removeAttribute("tnt_no"); %>
+<% session.removeAttribute("lld_no"); %>
 <head>
     <title>Identify</title>
     <meta charset="UTF-8">
@@ -28,6 +30,17 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 	
 	<style>
+	.container-login100 {
+        align-items: baseline;
+    }
+    .login100-form  {
+        margin: 100px 0px 100px;
+    }
+        
+    .footer-real {
+    	margin-top: 0px !important;
+    }
+    
 	#btnIdentifylld {
 		background: #D7C8B6;
 		color: #916A3C;
@@ -69,7 +82,7 @@
             <!--login100-form-->
         </div>
     </div>
-   
+   	<%@ include file="/front-end/index/footer.jsp"%>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->

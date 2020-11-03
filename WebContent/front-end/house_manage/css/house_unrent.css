@@ -211,6 +211,15 @@ body {
 #btn2 {
     background-color: #FAE7CB;
 }
+#btn3 {
+    background-color: #FDFFC1;
+}
+#btn4 {
+    background-color: #9FF8BF;
+}
+#btn5 {
+    background-color: #B0FCF2;
+}
 .rinfo button{
     width: 70%;
     height: 30px;           

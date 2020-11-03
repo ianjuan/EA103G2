@@ -49,6 +49,7 @@
 				<div class="nav-links">
 					<a href="<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp" class="link" style="color: #D37707;">首頁</a>
 					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" id="lld_auth_hos" name="lld_auth_hos" value="<%=lldInfo.getLld_auth_hos()%>">
 						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
@@ -85,7 +86,7 @@
 				</div>
 				<div class="rinfo">
 					<FORM METHOD="post" name="pub1" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
-						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" id="lld_auth_hos" name="lld_auth_hos" value="<%=lldInfo.getLld_auth_hos()%>">
 						<input type="hidden" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="button" class="link" onclick="checkmoney1()">我要進來囉</button>
@@ -352,6 +353,6 @@
 			</label>		
 		</div>
 	</div>
-	<div id="foot"></div>
+	<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>
 </body>
 </html>
