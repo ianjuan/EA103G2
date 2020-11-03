@@ -111,7 +111,7 @@
 						</c:if>
 						<c:if test="${con_aplVO.apl_status == 3}">
 						<img
-							src="<%=request.getContextPath()%>/front-end/apl/images/tntcancel.png"
+							src="<%=request.getContextPath()%>/front-end/apl/images/tntcan.png"
 							class="pic" />
 						</c:if>
 					</div>

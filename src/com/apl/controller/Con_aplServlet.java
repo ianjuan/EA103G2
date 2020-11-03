@@ -144,6 +144,13 @@ public class Con_aplServlet extends HttpServlet {
 				/*************************** 2.開始修改資料 *****************************************/
 				Con_aplService con_aplSvc = new Con_aplService();
 				con_aplSvc.addfromhouse(tnt_no, hos_no, apl_str, apl_end);
+				
+				HouseService houseService = new HouseService();
+				String userNo = houseService.getHouseInfo(hos_no).getLld_no();
+				String title = "您有一則新租屋申請";
+				String content = "一位房客向您提出租屋申請";
+				String url = "/EA103G2/front-end/apl/lldaplpage.jsp";
+				new NotifyServlet().broadcast(userNo, title, content, url);
 				return;
 
 				/*************************** 其他可能的錯誤處理 *************************************/
@@ -202,7 +209,7 @@ public class Con_aplServlet extends HttpServlet {
 						String userNo = lld_no;
 						String title = "已新增新合約";
 						String content = "請到合約頁面簽署合約";
-						String url = "/front-end/contract/lldlistcontract.jsp";
+						String url = "/EA103G2/front-end/contract/lldlistcontract.jsp";
 						new NotifyServlet().broadcast(userNo, title, content, url);
 
 						// house no longer be sold
@@ -213,17 +220,27 @@ public class Con_aplServlet extends HttpServlet {
 						userNo = lld_no;
 						title = "已更新房屋狀態";
 						content = "已經將房屋更改為出租中";
-						url = "/front-end/house_manage/house_rent.jsp";
+						url = "/EA103G2/front-end/house_manage/house_rent.jsp";
 						new NotifyServlet().broadcast(userNo, title, content, url);
 
+						con_aplService.lldUpdateCon_apl(apl_no, apl_status);
+						List<Con_aplVO> conlist = con_aplService.lldgetAll(lld_no);
+
+						HttpSession session = req.getSession();
+						session.setAttribute("lld_no", lld_no);
+						req.setAttribute("conlist", conlist);
+						url = "/front-end/contract/lldlistcontract.jsp";
+						RequestDispatcher successView = req.getRequestDispatcher(url);
+						successView.forward(req, res);
+						return;
 					}
 
 					con_aplService.lldUpdateCon_apl(apl_no, apl_status);
-					List<Con_aplVO> list = con_aplService.lldgetAll(lld_no);
+					List<Con_aplVO> apllist = con_aplService.lldgetAll(lld_no);
 
 					HttpSession session = req.getSession();
 					session.setAttribute("lld_no", lld_no);
-					session.setAttribute("list", list);
+					session.setAttribute("apllist", apllist);
 					String url = "/front-end/apl/lldaplpage.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
@@ -260,6 +277,12 @@ public class Con_aplServlet extends HttpServlet {
 						HouseService houseService = new HouseService();
 						String hos_status = "出租中";
 						houseService.updateStatus(hos_status, hos_no);
+						
+						String userNo = tnt_no;
+						String title ="房屋申請已核准";
+						String content = "請等待房東簽完合約";
+						String url = "/EA103G2/front-end/contract/tntlistcontract.jsp";
+						new NotifyServlet().broadcast(userNo, title, content, url);
 
 					}
 
@@ -271,9 +294,11 @@ public class Con_aplServlet extends HttpServlet {
 					// once lld accepts it, forward to con page
 					if (apl_status == 1) {
 						ConService conService = new ConService();
-						List<ConVO> list = conService.lldgetcon(lld_no);
+						List<ConVO> conlist = conService.lldgetcon(lld_no);
 						session.setAttribute("lld_no", lld_no);
-						session.setAttribute("list", list);
+						req.setAttribute("conlist", conlist);
+						
+						
 
 						String url = "/front-end/contract/lldlistcontract.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -282,8 +307,8 @@ public class Con_aplServlet extends HttpServlet {
 
 					} else {
 						// or keep checking
-						List<Con_aplVO> list = con_aplService.hosgetall(hos_no);
-						session.setAttribute("list", list);
+						List<Con_aplVO> hosapllist = con_aplService.hosgetall(hos_no);
+						req.setAttribute("hosapllist", hosapllist);
 						session.setAttribute("lld_no", lld_no);
 
 						String url = "/front-end/apl/hoslistapl.jsp";
@@ -357,7 +382,7 @@ public class Con_aplServlet extends HttpServlet {
 				String userNo = houseService.getHouseInfo(con_aplService.getOneCon_apl(apl_no).getHos_no()).getLld_no();
 				String title = "租屋申請更新";
 				String content = "房客已更新租屋申請時間";
-				String url = "/front-end/apl/lldaplpage.jsp";
+				String url = "/EA103G2/front-end/apl/lldaplpage.jsp";
 				new NotifyServlet().broadcast(userNo, title, content, url);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
@@ -399,13 +424,13 @@ public class Con_aplServlet extends HttpServlet {
 				String userNo = houseService.getHouseInfo(con_aplService.getOneCon_apl(apl_no).getHos_no()).getLld_no();
 				String title = "租屋申請更新";
 				String content = "房客已取消租屋申請";
-				String url = "/front-end/apl/lldaplpage.jsp";
+				String url = "<%=request.getContextPath()%>/front-end/apl/lldaplpage.jsp";
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
 				req.setAttribute("apllist", apllist);
-				url = "<%=request.getContextPath()%>/front-end/apl/tntaplpage.jsp";
+				url = "/front-end/apl/tntaplpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
