@@ -15,8 +15,13 @@
 		tnt_no = request.getParameter("tnt_no");
 	}
 	
-	List<RecVO> list = (List<RecVO>)session.getAttribute("list");
-	session.setAttribute("list",list);
+	String con_no = (String) request.getAttribute("con_no");
+	
+	List<RecVO> reclist = (List<RecVO>)session.getAttribute("reclist");
+	if(reclist == null || reclist.size() == 0){
+		
+	}
+	session.setAttribute("reclist",reclist);
 
 %>
 
@@ -76,7 +81,7 @@
 		<div id="center">
 		<h3 class="houselisttitle">定期帳單</h3><hr>
 			<%@ include file="tntpage1"%>
-			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="rec">
+			<c:forEach var="recVO" items="${reclist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="rec">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${recVO.rec_sta == 0}">
@@ -108,6 +113,8 @@
 							<li><span class="infotitle">本月使用水量 : </span><span>${recVO.rec_water}度</span></li>
 							<li><span class="infotitle">本月使用電量 : </span><span>${recVO.rec_elec}度</span></li>
 							<li><span class="infotitle">總金額 : </span><span>${recVO.rec_total}元</span></li>
+
+							
 							</c:if>
 							<li><span class="infotitle">帳單狀態 : </span><span>${recSvc.getRecStatusText(recVO.rec_sta)}</span></li>
 						</ul>
@@ -169,7 +176,7 @@
 					<div class="modal fade" id="evaluationdiv${rec.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
-							<form id="evaluation${rec.count}" name="evaluation" METHOD="post" ACTION="<%=request.getContextPath()%>/landlord_comments/landlord_comments.servlet">
+							<form id="evaluation${rec.count}" name="evaluation" METHOD="post" ACTION="<%=request.getContextPath()%>/com/ComServlet">
 								<div class="modal-header">
 								    <marquee scrollamount="10" class="evatitle">來對房東作評價吧~~</marquee>
 								</div>
@@ -233,10 +240,10 @@
 								</div>
 								<div class="modal-footer">
 									<input type="hidden" name="con_no" value="${recVO.con_no}">
-<%-- 									<input type="hidden" name="lld_no" value="${conSvc.getOneCon((recVO.con_no)).lld_no}"> --%>
+									<input type="hidden" name="lld_no" value="${hosSvc.getHouseInfo(conSvc.getOneCon(recVO.con_no).hos_no).lld_no}">
 									<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-									<input type="hidden" name="action" value="insert">
-									<button type="button" class="btn btn-primary" onclick="notice()" value="${rec.count}">送出</button>					
+									<input type="hidden" name="action" value="tntinsert">
+									<button type="button" class="btn btn-primary" onclick="notice(event)" value="${rec.count}">送出</button>					
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 								</div>
 							</form>

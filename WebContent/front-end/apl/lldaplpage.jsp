@@ -18,12 +18,12 @@
 		lldInfo = houseSvc.getLldInfo(lld_no);
 	}
 
-   List<Con_aplVO> apllist = (List<Con_aplVO>)request.getAttribute("apllist");
+   List<Con_aplVO> apllist = (List<Con_aplVO>)session.getAttribute("apllist");
    if(apllist == null || apllist.size() == 0){
 	   Con_aplService con_aplService = new Con_aplService();
 	   apllist = con_aplService.lldgetAll(lld_no);
    }
-   request.setAttribute("apllist",apllist);
+   session.setAttribute("apllist",apllist);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />

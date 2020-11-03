@@ -9,7 +9,7 @@ public class Landlord_commentsService {
 	private Landlord_commentsDAO_interface dao;
 	
 	public Landlord_commentsService() {
-		dao = new Landlord_commentsJDBCDAO();
+		dao = new Landlord_commentsDAO();
 	}
 	
 	public Landlord_commentsVO addLcm(String tnt_no, String lld_no, Integer lcm_clean, Integer lcm_commut, Integer lcm_satisfy, String lcm_commet, java.sql.Date lcm_time) {

@@ -21,8 +21,15 @@
 		lldInfo = houseSvc.getLldInfo(lld_no);
 	}
 	
-	List<RecVO> list = (List<RecVO>)session.getAttribute("list");
-	session.setAttribute("list", list);
+	String con_no = (String) request.getAttribute("con_no");
+	
+	List<RecVO> reclist = (List<RecVO>)session.getAttribute("reclist");
+	if(reclist == null || reclist.size() == 0){
+		RecService recService = new RecService();
+		reclist = recService.getLddAllByCon(con_no);
+	}
+	session.setAttribute("reclist", reclist);
+	session.setAttribute("con_no", con_no);
 	
 	LldVO lldVO = (LldVO) request.getAttribute("lldVO");
 	HouseVO houseVOlld = (HouseVO) request.getAttribute("houseVOlld");
@@ -88,7 +95,6 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button>
-						<br><span id="count">共<%=list.size()%>個合約</span>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -103,7 +109,7 @@
 		<div id="center">
 		<h3 class="houselisttitle">定期帳單</h3><hr>
 			<%@ include file="page1.file"%>
-			<c:forEach var="recVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="rec">
+			<c:forEach var="recVO" items="${reclist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" varStatus="rec">
 				<div class="houseinfo">
 					<div class="linfo">
 					<c:if test="${recVO.rec_sta == 0}">
