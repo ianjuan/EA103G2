@@ -303,15 +303,15 @@ $('#save').click(function(){//確認新增預約
     			"<div class='business-card centered'>"+
     				"<div class='title' style='border-radius:14px 14px 0 0'>即將到來的預約</div>"+
     				"<div class='content span2'>"+
-    					"<img src='https://i.imgur.com/afYq1aQ.jpg' alt='' class='avatar' />"+
+    					"<img src='<%=request.getContextPath()%>/ImgReader?id="+order.tnt_no+"' alt='' class='avatar' />"+
     				"</div>"+
     				"<div class='content span2'>"+
     					"<span class='finer-print'>預約人:"+order.tnt_name+"<br /> 預約時段:"+order.order_date+ "<br />"+
     						"連絡電話:"+order.tnt_mobile+"<br /> 預約房屋物件:"+order.hos_name+ "<br /> 地址:"+
     						order.hos_add+"<br />"+
     					"</span>"+
-    					"<button>查看房客資訊</button>"+
-    					"<button>取消預約</button>"+
+//     					"<button>查看房客資訊</button>"+
+//     					"<button>取消預約</button>"+
     				"</div>"+
     			"</div>"+
     		"</div>"
@@ -322,15 +322,15 @@ $('#save').click(function(){//確認新增預約
         			"<div class='business-card centered'>"+
         				"<div class='title'>預約時段:"+order.order_date+ "</div>"+
         				"<div class='content span2' style='display:none'>"+
-        					"<img src='https://i.imgur.com/afYq1aQ.jpg' alt='' class='avatar' />"+
+        					"<img src='<%=request.getContextPath()%>/ImgReader?id="+order.tnt_no+"' alt='' class='avatar' />"+
         				"</div>"+
         				"<div class='content span2' style='display:none' > "+
     					"<span class='finer-print'>預約人:"+order.tnt_name+"<br /> 預約時段:"+order.order_date+ "<br />"+
         						"連絡電話:"+order.tnt_mobile+"<br /> 預約房屋物件:"+order.hos_name+ "<br /> 地址:"+
         						order.hos_add+"<br />"+
         					"</span>"+
-        					"<button>查看房客資訊</button>"+
-        					"<button>取消預約</button>"+
+//         					"<button>查看房客資訊</button>"+
+//         					"<button>取消預約</button>"+
         				"</div>"+
         			"</div>"+
         		"</div>"

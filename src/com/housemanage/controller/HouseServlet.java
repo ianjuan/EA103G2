@@ -26,12 +26,17 @@ public class HouseServlet extends HttpServlet {
 		
 		if ("getLldPub".equals(action)) {
 			Integer lld_balance = new Integer(req.getParameter("lld_balance"));
+			Integer lld_auth_hos = new Integer(req.getParameter("lld_auth_hos"));
 			
 			String url = null;
-			if(lld_balance < 1000) {
-				url = "/front-end/lld/pocket.jsp";
-			}else {
-				url = "/front-end/house_manage/house_pub.jsp";
+			if(lld_auth_hos == 1) {
+				if(lld_balance < 1000) {
+					url = "/front-end/lld/pocket.jsp";
+				}else {
+					url = "/front-end/house_manage/house_pub.jsp";
+				}
+			} else {
+				url = "/front-end/lld/verify.jsp";
 			}
 			
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -183,10 +188,6 @@ public class HouseServlet extends HttpServlet {
 			CashService cashSvc = new CashService();
 			cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -1000, 1);
 			
-			/*************************** 上架房屋成功通知 **********************/
-			
-			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "");
-			
 			String url;
 			if (hos_status.equals("待出租")) {
 				List<HouseVO> houseVOunrent = houseSvc.getLldUnRentHouse(lld_no);
@@ -324,10 +325,6 @@ public class HouseServlet extends HttpServlet {
 				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 				CashService cashSvc = new CashService();
 				cashSvc.addCash(cash_date, lld_no, CashVO.cashOut, CashVO.lldOut_publish, -800, 1);
-				
-				/*************************** 上架房屋成功通知 **********************/
-				
-				new NotifyServlet().broadcast(lld_no, "恭喜房屋重新上線啦~~~", "祝您早日租出去^^", "");
 				
 			} else {
 				lld_balance = getReqNum(req, "lld_balance");
