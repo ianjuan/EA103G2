@@ -26,18 +26,12 @@
 <!-- 元 nav bar= -->
 <link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 
-<style>
 
-</style>
+
 </head>
 <body bgcolor='white'>
 
-	
-<jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
-<jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
-<jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
-<jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
-<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
+
 
 
 
@@ -54,9 +48,9 @@
 	<div class='col-md-2' id="leftSpace"></div>						
 	<div class='col-md-8  text-center'>						
 		<h3 class='subtitle'>修繕申請紀錄</h3>	
+
 		
-		
-		
+<!-- 修繕的狀態bar				 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <!--   <a class="navbar-brand" href="#">Navbar</a> -->
 <!--   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
@@ -116,9 +110,14 @@
 			<!-- join -->
 
 	
+<jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
+<jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
+<jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
+<jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
+<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />	
 	
 		<c:forEach var="conVO" items="${conSvc.lldgetcon(lld_no)}">		
-	
+				
 				<c:forEach var="repairVO" items="${repSvc.tntGetAll(conVO.con_no)}">
 							
 					 <c:if test="${repairVO.rep_pro eq 0}">
@@ -155,9 +154,9 @@
           
                     					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
                     				</div>
                	 				</div>
 								<!--修繕起訖 -->
@@ -229,9 +228,9 @@
           
                     					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
                     				</div>
                	 				</div>
 								<!--修繕起訖 -->
@@ -302,9 +301,9 @@
           
                     					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
                     				</div>
                	 				</div>
 								<!--修繕起訖 -->
@@ -375,9 +374,9 @@
           
                     					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
                     				</div>
                	 				</div>
 								<!--修繕起訖 -->
@@ -448,9 +447,9 @@
           
                     					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
                     				</div>
                	 				</div>
 								<!--修繕起訖 -->
@@ -521,9 +520,9 @@
           
                     					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
                     				</div>
                	 				</div>
 								<!--修繕起訖 -->
@@ -595,9 +594,9 @@
           
                     					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
                     				</div>
                	 				</div>
 								<!--修繕起訖 -->
@@ -669,9 +668,9 @@
           
                     					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
                     				</div>
                	 				</div>
 								<!--修繕起訖 -->
