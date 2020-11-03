@@ -62,7 +62,7 @@ window.onload = function(){
 	})
 }
 
-function cleanPoint(e){
+function tcmcleanPoint(e){
 	var input = document.createElement("input");
 	var tcm_clean = document.getElementsByName("tcm_clean");
 	
@@ -84,7 +84,7 @@ function cleanPoint(e){
 	}
 }
 
-function commutPoint(e){
+function tcmcommutPoint(e){
 	var input = document.createElement("input");
 	var tcm_commut = document.getElementsByName("tcm_commut");
 	
@@ -106,7 +106,7 @@ function commutPoint(e){
 	}
 }
 
-function satisfyPoint(e){
+function tcmsatisfyPoint(e){
 	var input = document.createElement("input");
 	var tcm_satisfy = document.getElementsByName("tcm_satisfy");
 	
@@ -127,6 +127,73 @@ function satisfyPoint(e){
 		}
 	}
 }
+
+function lcmcleanPoint(e){
+	var input = document.createElement("input");
+	var lcm_clean = document.getElementsByName("lcm_clean");
+	
+	input.setAttribute("type", "hidden");
+	input.setAttribute("name", "lcm_clean");
+	
+	if(e.target.getAttribute("value") > 5){
+		input.setAttribute("value", e.target.getAttribute("value")-5);
+		e.target.parentElement.parentElement.parentElement.append(input);
+	} else{
+		input.setAttribute("value", e.target.getAttribute("value"));
+		e.target.parentElement.parentElement.append(input);
+	}
+		
+	if(lcm_clean.length > 0){
+		for(var i=0; i<lcm_clean.length-1; i++){
+			lcm_clean[i].remove();
+		}
+	}
+}
+
+function lcmcommutPoint(e){
+	var input = document.createElement("input");
+	var lcm_commut = document.getElementsByName("lcm_commut");
+	
+	input.setAttribute("type", "hidden");
+	input.setAttribute("name", "lcm_commut");
+	
+	if(e.target.getAttribute("value") > 5){
+		input.setAttribute("value", e.target.getAttribute("value")-5);
+		e.target.parentElement.parentElement.parentElement.append(input);
+	} else{
+		input.setAttribute("value", e.target.getAttribute("value"));
+		e.target.parentElement.parentElement.append(input);
+	}
+		
+	if(lcm_commut.length > 0){
+		for(var i=0; i<lcm_commut.length-1; i++){
+			lcm_commut[i].remove();
+		}
+	}
+}
+
+function lcmsatisfyPoint(e){
+	var input = document.createElement("input");
+	var lcm_satisfy = document.getElementsByName("lcm_satisfy");
+	
+	input.setAttribute("type", "hidden");
+	input.setAttribute("name", "lcm_satisfy");
+	
+	if(e.target.getAttribute("value") > 5){
+		input.setAttribute("value", e.target.getAttribute("value")-5);
+		e.target.parentElement.parentElement.parentElement.append(input);
+	} else{
+		input.setAttribute("value", e.target.getAttribute("value"));
+		e.target.parentElement.parentElement.append(input);
+	}
+		
+	if(lcm_satisfy.length > 0){
+		for(var i=0; i<lcm_satisfy.length-1; i++){
+			lcm_satisfy[i].remove();
+		}
+	}
+}
+
 
 function checkLen(e) {
 	var maxChars = 50;//最多字符数

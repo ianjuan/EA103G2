@@ -210,7 +210,7 @@
 						</div>
 					</div>
 				</div>
-					<!-- 評價房屋區塊 -->
+					<!-- 評價房客區塊 -->
 					<div class="modal fade" id="evaluationdiv${rec.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
@@ -223,11 +223,11 @@
 										<li>
 									    	<div class="item">			       				
 									       		<ul class="rating">								   										
-													<li><button type="button" value="5" onclick="cleanPoint(event)"><div class="star" value="10" onclick="cleanPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="cleanPoint(event)"><div class="star" value="9" onclick="cleanPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="cleanPoint(event)"><div class="star" value="8" onclick="cleanPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="cleanPoint(event)"><div class="star" value="7" onclick="cleanPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="cleanPoint(event)"><div class="star" value="6" onclick="cleanPoint(event)"></div></button></li>
+													<li><button type="button" value="5" onclick="tcmcleanPoint(event)"><div class="star" value="10" onclick="tcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="tcmcleanPoint(event)"><div class="star" value="9" onclick="tcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="tcmcleanPoint(event)"><div class="star" value="8" onclick="tcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="tcmcleanPoint(event)"><div class="star" value="7" onclick="tcmcleanPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="tcmcleanPoint(event)"><div class="star" value="6" onclick="tcmcleanPoint(event)"></div></button></li>
 													<span class="logo">
 														<img src="https://www.flaticon.com/premium-icon/icons/svg/3680/3680325.svg">
 														<span class="itemtitle">整潔度 :</span>
@@ -238,11 +238,11 @@
 									    <li>
 									       	<div class="item">			       				
 									       		<ul class="rating">								   
-													<li><button type="button" value="5" onclick="commutPoint(event)"><div class="star" value="10" onclick="commutPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="commutPoint(event)"><div class="star" value="9" onclick="commutPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="commutPoint(event)"><div class="star" value="8" onclick="commutPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="commutPoint(event)"><div class="star" value="7" onclick="commutPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="commutPoint(event)"><div class="star" value="6" onclick="commutPoint(event)"></div></button></li>
+													<li><button type="button" value="5" onclick="tcmcommutPoint(event)"><div class="star" value="10" onclick="tcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="tcmcommutPoint(event)"><div class="star" value="9" onclick="tcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="tcmcommutPoint(event)"><div class="star" value="8" onclick="tcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="tcmcommutPoint(event)"><div class="star" value="7" onclick="tcmcommutPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="tcmcommutPoint(event)"><div class="star" value="6" onclick="tcmcommutPoint(event)"></div></button></li>
 													<span class="logo">
 														<img src="https://www.flaticon.com/svg/static/icons/svg/3659/3659776.svg">
 														<span class="itemtitle">溝通度 :</span>
@@ -253,11 +253,11 @@
 									   	<li>
 									       	<div class="item">
 									       		<ul class="rating">								   
-													<li><button type="button" value="5" onclick="satisfyPoint(event)"><div class="star" value="10" onclick="satisfyPoint(event)"></div></button></li>
-													<li><button type="button" value="4" onclick="satisfyPoint(event)"><div class="star" value="9" onclick="satisfyPoint(event)"></div></button></li>
-													<li><button type="button" value="3" onclick="satisfyPoint(event)"><div class="star" value="8" onclick="satisfyPoint(event)"></div></button></li>
-													<li><button type="button" value="2" onclick="satisfyPoint(event)"><div class="star" value="7" onclick="satisfyPoint(event)"></div></button></li>
-													<li><button type="button" value="1" onclick="satisfyPoint(event)"><div class="star" value="6" onclick="satisfyPoint(event)"></div></button></li>									    
+													<li><button type="button" value="5" onclick="tcmsatisfyPoint(event)"><div class="star" value="10" onclick="tcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="4" onclick="tcmsatisfyPoint(event)"><div class="star" value="9" onclick="tcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="3" onclick="tcmsatisfyPoint(event)"><div class="star" value="8" onclick="tcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="2" onclick="tcmsatisfyPoint(event)"><div class="star" value="7" onclick="tcmsatisfyPoint(event)"></div></button></li>
+													<li><button type="button" value="1" onclick="tcmsatisfyPoint(event)"><div class="star" value="6" onclick="tcmsatisfyPoint(event)"></div></button></li>									    
 													<span class="logo">
 														<img src="https://www.flaticon.com/premium-icon/icons/svg/3677/3677063.svg">
 														<span class="itemtitle">滿意度 :</span>
