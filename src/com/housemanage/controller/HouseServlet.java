@@ -185,7 +185,7 @@ public class HouseServlet extends HttpServlet {
 			
 			/*************************** 上架房屋成功通知 **********************/
 			
-			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", "");
+			new NotifyServlet().broadcast(lld_no, "恭喜新的房屋上線啦~~~", "祝您早日租出去^^", req.getContextPath()+"/front-end/house_manage/house_index.jsp");
 			
 			String url;
 			if (hos_status.equals("待出租")) {
@@ -327,8 +327,7 @@ public class HouseServlet extends HttpServlet {
 				
 				/*************************** 上架房屋成功通知 **********************/
 				
-				new NotifyServlet().broadcast(lld_no, "恭喜房屋重新上線啦~~~", "祝您早日租出去^^", "");
-				
+				new NotifyServlet().broadcast(lld_no, "恭喜房屋重新上線啦~~~", "祝您早日租出去^^", req.getContextPath()+"/front-end/house_manage/house_index.jsp");
 			} else {
 				lld_balance = getReqNum(req, "lld_balance");
 			}
