@@ -14,7 +14,7 @@ public class HousearchService {
 	public HousearchService() {
 			dao=new HousearchDAO();
 		}
-	public String getMapfromSearchKey(String city,String town,String serachbox,String sort,String money,String house,String page) {
+	public String getMapfromSearchKey(String city,String town,String serachbox,String sort,String money,String house,String page,String cook,String pet,String boy,String girl) {
 		System.out.println("排序="+sort);
 		int pagevo =Integer.parseInt(page);
 		Gson gson = new Gson();
@@ -26,11 +26,15 @@ public class HousearchService {
 		 vo.setTown(town);
 		 vo.setSerachbox(serachbox.trim());
 		 vo.setPage(pagevo);
+		 vo.setBoy(boy);
+		 vo.setGirl(girl);
+		 vo.setCook(cook);
+		 vo.setPet(pet);
 		Map<String,HousearchVO> map=dao.getMapfromSearchKey(vo);
 		String backmap=gson.toJson(map);
 		return backmap;
 	}
-	public String getGMapfromSearchKey(String city,String town,String searchbox ,String sort,String money,String house) {
+	public String getGMapfromSearchKey(String city,String town,String searchbox ,String sort,String money,String house,String cook,String pet,String boy,String girl) {
 		System.out.println("排序="+sort);
 		Gson gson = new Gson();
 		HousearchVO vo=new HousearchVO();
@@ -39,6 +43,10 @@ public class HousearchService {
 		 vo.setSort(sort);
 		 vo.setCity(city);
 		 vo.setTown(town);
+		 vo.setBoy(boy);
+		 vo.setGirl(girl);
+		 vo.setCook(cook);
+		 vo.setPet(pet);
 		 vo.setSerachbox(searchbox.trim());
 		Map<String,HousearchVO> map=dao.getGMapfromSearchKey(vo);
 		String backmap=gson.toJson(map);

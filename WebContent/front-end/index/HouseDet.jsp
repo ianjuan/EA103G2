@@ -219,7 +219,8 @@ session.setAttribute("HOS",hosno);
                         <div class="phone"><a ><img src="<%=request.getContextPath()%>/resource/Mycol/images/phone.svg" alt="" />
                                 <p><%= vo.getLld_mobile() %></p>
                             </a></div>
-                        <div class="functions"><a class="blue blue-booking" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a><a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a>
+                        <div class="functions"><a class="blue blue-booking" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a>
+                        <a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a>
                         <a class="red" href="#" data-toggle="modal" data-target="#exampleModal"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />檢舉</a>
                     	   <a class="full select-live" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.svg" alt=""/>我要入住</a>
                         </div>

@@ -576,8 +576,8 @@ margin-top: 39px;
 					<label class="item_name">可開伙&nbsp;&nbsp;
                             <div class="onoffswitch">
                                 <input type="checkbox" name="furniture"
-								class="onoffswitch-checkbox" id="coke" tabindex="0"> 
-								<label class="onoffswitch-label" for="coke"></label>
+								class="onoffswitch-checkbox" id="cook" tabindex="0"> 
+								<label class="onoffswitch-label" for="cook"></label>
                             </div>
                         </label> <label class="item_name"><i
 						class="fas fa-paw"></i>
@@ -588,18 +588,17 @@ margin-top: 39px;
 								class="onoffswitch-checkbox" id="pet" tabindex="0"> <label
 								class="onoffswitch-label" for="pet"></label>
                             </div>
-                        </label> <label class="item_name">可開車&nbsp;&nbsp;
+                        </label> <label class="item_name">限男&nbsp;&nbsp;
                             <div class="onoffswitch">
                                 <input type="checkbox" name="furniture"
-								class="onoffswitch-checkbox" id="deriver" tabindex="0">
-                                <label class="onoffswitch-label"
-								for="deriver"></label>
+								class="onoffswitch-checkbox" id="boy" tabindex="0">
+                                <label class="onoffswitch-label" for="boy"></label>
                             </div>
-                        </label> <label class="item_name">可新增&nbsp;&nbsp;
+                        </label> <label class="item_name">限女&nbsp;&nbsp;
                             <div class="onoffswitch">
                                 <input type="checkbox" name="furniture"
-								class="onoffswitch-checkbox" id="try14" tabindex="0"> <label
-								class="onoffswitch-label" for="try14"></label>
+								class="onoffswitch-checkbox" id="girl" tabindex="0"> <label
+								class="onoffswitch-label" for="girl"></label>
                             </div>
                         </label>
 				</div>
@@ -709,7 +708,11 @@ margin-top: 39px;
     		 		  searchbox:$("#searchbox").val(),
     		 		  sort:$("#selectbox").val(),
       		 		  money:moneybtn,
-      		 		  house:housebtn
+      		 		  house:housebtn,
+    		 		  cook:$("#cook").is(":checked"),
+    		 		  pet:$("#pet").is(":checked"),
+    		 		  boy:$("#boy").is(":checked"),
+    		 		  girl:$("#girl").is(":checked"),
       		 		  },
       		 	  success:function(data){//以上成功才執行
       		 		  console.log("data="+data);
@@ -903,7 +906,10 @@ margin-top: 39px;
 			 geo_coder();
 		   });
   
-		
+		 $("#cook").change(function(){ajax(); });
+		  $("#pet").change(function(){ajax(); });
+		  $("#boy").change(function(){$("#girl").prop('checked',false);ajax(); });
+		  $("#girl").change(function(){$("#boy").prop('checked',false);ajax(); });
 		$("#city").click(function() {
             $(".allcity").toggle();
         });

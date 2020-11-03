@@ -180,6 +180,18 @@ public class HousearchDAO implements HousearchDAO_interface{
 	      if(vo.getSerachbox()!="") {
     		  i=i+" AND h.hos_add LIKE '%"+vo.getSerachbox()+"%'";
 	      }
+	      if("true".equals(vo.getBoy())) {
+	    	  i=i+" AND h.hos_sex ='男生' ";
+	      }
+	      if("true".equals(vo.getGirl())) {
+	    	  i=i+" AND h.hos_sex ='女生' ";
+	      }
+	      if("true".equals(vo.getCook())) {
+	    	  i=i+" AND h.hos_cook ='可以' ";
+	      }
+	      if("true".equals(vo.getPet())) {
+	    	  i=i+" AND h.hos_pet ='可以' ";
+	      }
     	  if(houseList.contains(vo.getHos_type())) {
     		  i=i+" AND h.hos_room LIKE '%"+vo.getHos_type()+"%'";
     	  }
@@ -324,6 +336,18 @@ public class HousearchDAO implements HousearchDAO_interface{
         	  if(moneyList.contains(vo.getMoney())) {
         		  i=i+" AND h.hos_rentfee " + vo.getMoney();
         	  }
+    	      if("true".equals(vo.getBoy())) {
+    	    	  i=i+" AND h.hos_sex ='男生' ";
+    	      }
+    	      if("true".equals(vo.getGirl())) {
+    	    	  i=i+" AND h.hos_sex ='女生' ";
+    	      }
+    	      if("true".equals(vo.getCook())) {
+    	    	  i=i+" AND h.hos_cook ='可以' ";
+    	      }
+    	      if("true".equals(vo.getPet())) {
+    	    	  i=i+" AND h.hos_pet ='可以' ";
+    	      }
         	  if(sortList.contains(vo.getSort())) {
       	 		 i=i+" ORDER BY h."+vo.getSort();
       	 	 }

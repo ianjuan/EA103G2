@@ -31,7 +31,35 @@ public class HousearchVO implements java.io.Serializable {
 	private String town;
 	private String serachbox;
 	private Integer page;
-	
+	private String pet;
+	private String cook;
+	private String boy;
+	private String girl;
+
+	public String getPet() {
+		return pet;
+	}
+	public void setPet(String pet) {
+		this.pet = pet;
+	}
+	public String getCook() {
+		return cook;
+	}
+	public void setCook(String cook) {
+		this.cook = cook;
+	}
+	public String getBoy() {
+		return boy;
+	}
+	public void setBoy(String boy) {
+		this.boy = boy;
+	}
+	public String getGirl() {
+		return girl;
+	}
+	public void setGirl(String girl) {
+		this.girl = girl;
+	}
 	public String getCity() {
 		return city;
 	}
