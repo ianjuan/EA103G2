@@ -15,10 +15,14 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/swiper.min.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/style.min.css" />
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+		
+<!-- 	下面css韋恩需要	 -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/rptt/main.css" type="text/css">
     
 
   <script
 		src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
+	
   
 </head>
 <%@ page import="com.housedet.model.*" %>
@@ -211,7 +215,8 @@ session.setAttribute("HOS",hosno);
                         <div class="phone"><a ><img src="<%=request.getContextPath()%>/resource/Mycol/images/phone.svg" alt="" />
                                 <p><%= vo.getLld_mobile() %></p>
                             </a></div>
-                        <div class="functions"><a class="blue blue-booking" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a><a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a><a class="red" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />檢舉</a>
+                        <div class="functions"><a class="blue blue-booking" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/tel.svg" alt="" />預約看屋</a><a href="#message"> <img src="<%=request.getContextPath()%>/resource/Mycol/images/comment.svg" alt="" />留言</a>
+                        <a class="red" href="#" data-toggle="modal" data-target="#exampleModal"><img src="<%=request.getContextPath()%>/resource/Mycol/images/report.svg" alt="" />檢舉</a>
                     	   <a class="full select-live" href="#"><img src="<%=request.getContextPath()%>/resource/Mycol/images/home.svg" alt=""/>我要入住</a>
                         </div>
                     </div>
@@ -223,10 +228,33 @@ session.setAttribute("HOS",hosno);
             </div>
         </div>
     </div>
+   </body> 
+    	<div class="modal fade" id="exampleModal">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<div id="myForm" class="myForm">
+						<label for="name">您的名字:</label> <input class="rpth" type="text"
+							name="tnt_name" value="xxx" id="iacc" readonly> <label
+							for="name">檢舉的房屋名稱:</label> <input class="rpth" type="text"
+							name="hos_name" value=<%= vo.getHos_name() %> id="yacc" readonly>
+							<input type="hidden" name="tnt_no" value=<%=(String)session.getAttribute("tnt_no")%>>
+							<input type="hidden" name="hos_no" value=<%= vo.getHos_no() %>>
+						<div class="form-group">
+							<label for="reason">檢舉原因:</label>
+							<textarea id="reason" name="rpth_content" required></textarea>
+						</div>
+						<input class="rpth" type="hidden" name="action" value="insert">
+						<button id="demo">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
    
     
-    
-</body>
 <div id="datepicker-container">
     <div class="form">
       <div class="content ">
@@ -305,6 +333,7 @@ session.setAttribute("HOS",hosno);
         height:auto;}}
         /* 以上為NAVBAR*/
     </style>
+
 <script> 
 
 var picnum = JSON.parse('${picnum}');
@@ -422,8 +451,6 @@ console.log(picnum);
 
 </script>
 
-
-
  
 <div id="notice">
     <p> </p>
@@ -436,6 +463,7 @@ console.log(picnum);
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/materialize.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/swiper.min.js"></script>
     <script src="<%=request.getContextPath()%>/resource/Mycol/js/app.min.js"></script>
+   
 </div>
 
 </html>
