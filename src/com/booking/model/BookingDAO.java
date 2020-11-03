@@ -347,7 +347,7 @@ public class BookingDAO implements BookingDAO_interface {
 		try {
 			con = ds.getConnection();
 			// 可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令 可增加指令彈性
-			pstmt = con.prepareStatement("SELECT ro.res_no,RO.ORDER_DATE,RO.RES_TYPE,TNT.TNT_NAME,TNT.TNT_SEX,TNT.TNT_PIC,TNT.TNT_MOBILE,H.HOS_NAME,H.HOS_ADD " + 
+			pstmt = con.prepareStatement("SELECT ro.res_no,TNT.TNT_NO,RO.ORDER_DATE,RO.RES_TYPE,TNT.TNT_NAME,TNT.TNT_SEX,TNT.TNT_PIC,TNT.TNT_MOBILE,H.HOS_NAME,H.HOS_ADD " + 
 					"	FROM RESERVARTION_ORDER RO " + 
 					"	INNER JOIN TENANT TNT ON RO.TNT_NO=TNT.TNT_NO " + 
 					"	INNER JOIN HOUSE H ON RO.HOS_NO=H.HOS_NO " + 
@@ -366,6 +366,7 @@ public class BookingDAO implements BookingDAO_interface {
 				vo.setTnt_sex(rs.getString("TNT_SEX"));
 				vo.setHos_no(rs.getString("RES_TYPE"));
 				vo.setTnt_pic(rs.getBytes("TNT_PIC"));
+				vo.setTnt_no(rs.getString("TNT_NO"));
 				vo.setTnt_mobile(rs.getString("TNT_MOBILE"));
 				vo.setHos_name(rs.getString("HOS_NAME"));
 				vo.setHos_add(rs.getString("HOS_ADD"));
@@ -523,7 +524,7 @@ public class BookingDAO implements BookingDAO_interface {
 		try {
 			con = ds.getConnection();
 			// 可把指令在下面這行之前 先做字串化 再用IF 組合SQL指令 可增加指令彈性
-			pstmt = con.prepareStatement("SELECT ro.res_no,RO.ORDER_DATE,RO.RES_TYPE, L.LLD_NAME,L.LLD_SEX,L.LLD_PIC,L.LLD_MOBILE, H.HOS_NO,H.HOS_NAME,H.HOS_ADD " + 
+			pstmt = con.prepareStatement("SELECT ro.res_no,RO.ORDER_DATE,RO.RES_TYPE,L.LLD_NO, L.LLD_NAME,L.LLD_SEX,L.LLD_PIC,L.LLD_MOBILE, H.HOS_NO,H.HOS_NAME,H.HOS_ADD " + 
 					" FROM RESERVARTION_ORDER RO  " + 
 					" INNER JOIN HOUSE H ON RO.HOS_NO=H.HOS_NO  " + 
 					" INNER JOIN LANDLORD L ON H.LLD_NO =L.LLD_NO  " + 
@@ -546,6 +547,7 @@ public class BookingDAO implements BookingDAO_interface {
 				vo.setHos_add(rs.getString("HOS_ADD"));
 				vo.setOrder_date(rs.getString("ORDER_DATE"));
 				vo.setHos_no(rs.getString("HOS_NO"));
+				vo.setLld_no(rs.getString("LLD_NO"));
 				vo.setResd_date(rs.getString("ORDER_DATE"));
 				vo.setTimefordel(rs.getDate("ORDER_DATE") + rs.getTime("ORDER_DATE").toString());
 				System.out.println(rs.getDate("ORDER_DATE") + rs.getTime("ORDER_DATE").toString());

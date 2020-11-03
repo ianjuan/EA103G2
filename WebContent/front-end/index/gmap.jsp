@@ -642,7 +642,7 @@ margin-top: 39px;
 </div>
 </div>
 </div>
-<%@ include file="/front-end/index/footer.html" %>
+<%@ include file="/front-end/index/footer.jsp" %>
 
 	
 <script src="https://kit.fontawesome.com/c8d34ce05b.js"

@@ -610,7 +610,7 @@ footer {
 		<!-- Card deck -->
 
 	</div>
-<%@ include file="/front-end/index/footer.html" %>
+<%@ include file="/front-end/index/footer.jsp" %>
 	<script
 		src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
 	<script

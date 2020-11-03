@@ -45,7 +45,7 @@ public class GMapServlet extends HttpServlet {
 			System.out.println("igotu"+request.getParameter("sort"));
 			i++;//測試用
 			String word="這是第"+i+"個訊息";//測試用
-			new NotifyServlet().broadcast("LLD000002", word, "我是內文", "");//測試用
+			new NotifyServlet().broadcast("LLD000002", word+"123456", "傳進來的地址是null排序條件價位區間getall房屋型態getall", "");//測試用
 			HousearchService gs= new HousearchService();
 
 			String data =gs.getMapfromSearchKey(city,town,searchbox,sort,money,house,request.getParameter("page")
