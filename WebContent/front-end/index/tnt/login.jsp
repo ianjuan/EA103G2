@@ -42,6 +42,12 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/index/tnt/css/main_login.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
+    
+    <style>      
+    .footer-real {
+    	margin-top: 0px !important;
+    }
+	</style>
 </head>
 
 <body class="landing">
@@ -94,6 +100,8 @@
             <!--login100-form-->
         </div>
     </div>
+    
+    <%@ include file="/front-end/index/footer.jsp"%>
    
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/index/tnt/vendor/jquery/jquery-3.2.1.min.js"></script>

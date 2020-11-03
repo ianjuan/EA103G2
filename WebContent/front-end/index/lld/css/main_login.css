@@ -303,7 +303,7 @@
             /* border: 1px solid red; */
             border-radius: .625rem;
             box-shadow: 0 6px 6px 0 rgba(0, 0, 0, .1);
-            margin: 100px 0px 100px;
+            margin: 0px 0px 100px;
             /*靜改: 寬高, 圓角, 陰影, padding*/
             /* margin-top推下header */
         }
@@ -973,7 +973,7 @@
             vertical-align: middle;
             position: fixed;
             left: 80%;
-            top: 80%;
+            top: 65%;
             /* margin-top: 0px; */
             line-height: 95px;
         }
