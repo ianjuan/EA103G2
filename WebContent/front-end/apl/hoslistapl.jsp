@@ -20,8 +20,8 @@
 		lldInfo = houseSvc.getLldInfo(lld_no);
 	}
 
-   List<Con_aplVO> list = (List<Con_aplVO>)session.getAttribute("list");
-   session.setAttribute("list",list);
+   List<Con_aplVO> hosapllist = (List<Con_aplVO>)request.getAttribute("hosapllist");
+   request.setAttribute("hosapllist",hosapllist);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -69,7 +69,6 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="lldgetAll">
 						<button type="submit" class="link" style="color: #D37707;">租屋申請</button>
-						<br><span id="count">共<%=list.size()%>個申請</span>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -82,8 +81,8 @@
 			</nav>
 		</div>
 		<div id="center">
-			<%@ include file="page1.file"%>
-			<c:forEach var="con_aplVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<%@ include file="hospage1.file"%>
+			<c:forEach var="con_aplVO" items="${hosapllist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${con_aplVO.apl_status == 0}">

@@ -12,12 +12,12 @@
 		tnt_no = request.getParameter("tnt_no");
 	}
 
-	List<Con_aplVO> list = (List<Con_aplVO>)request.getAttribute("list");
-	if(list == null){
+	List<Con_aplVO> apllist = (List<Con_aplVO>)request.getAttribute("apllist");
+	if(apllist == null){
 		Con_aplService con_aplService = new Con_aplService();
-		list = con_aplService.tntgetAll(tnt_no);
+		apllist = con_aplService.tntgetAll(tnt_no);
 	}
-	session.setAttribute("list",list);
+	request.setAttribute("apllist",apllist);
 	session.setAttribute("tnt_no", tnt_no);
 	 
 	TntService tntService = new TntService();
@@ -62,7 +62,7 @@
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 						<input type="hidden" name="action" value="tntgetallapl">
 						<button type="submit" class="link" style="color: #D37707;">租屋申請</button><br>
-						<span id="count">共<%=list.size()%>個申請</span>
+						<span id="count">共<%=apllist.size()%>個申請</span>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cont/ConServlet">
 						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
@@ -81,7 +81,7 @@
 		<div id="center">
 		<h3 class="houselisttitle">租屋申請</h3><hr>
 			<%@ include file="tntpage1"%>
-			<c:forEach var="con_aplVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="con_aplVO" items="${apllist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${con_aplVO.apl_status == 0}">

@@ -10,8 +10,8 @@
 		tnt_no = request.getParameter("tnt_no");
 	}
 
-	List<HouseVO> list = (List<HouseVO>) request.getAttribute("list");
-	pageContext.setAttribute("list", list);	
+	List<HouseVO> reccomandlist = (List<HouseVO>) request.getAttribute("reccomandlist");
+	pageContext.setAttribute("reccomandlist", reccomandlist);	
 %>
 
 <!DOCTYPE html>
@@ -58,7 +58,7 @@
 		</div>
 		<div id="center">
 		<h3 class="houselisttitle">租房推薦</h3><hr>
-			<c:forEach var="houseVO" items="${list}">
+			<c:forEach var="houseVO" items="${reccomandlist}">
 				<div class="houseinfo">
 					<div class="linfo">
 						<img src="<%=request.getContextPath()%>/HouseSingleImgReader?id=${houseVO.hos_no}" class="pic" />

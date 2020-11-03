@@ -13,7 +13,7 @@
 		tnt_no = request.getParameter("tnt_no");
 	}
 	
-	String apl_no = (String) session.getAttribute("apl_no");
+	String apl_no = (String) request.getAttribute("apl_no");
 	
 	Con_aplVO con_aplVO = (Con_aplVO)request.getAttribute("con_aplVO");
 	

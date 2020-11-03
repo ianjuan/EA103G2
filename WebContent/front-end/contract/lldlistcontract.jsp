@@ -20,13 +20,13 @@
 		lldInfo = houseSvc.getLldInfo(lld_no);
 	}
 	
-	List<ConVO> list = (List<ConVO>)session.getAttribute("list");
-	if(list == null || list.isEmpty()){
+	List<ConVO> conlist = (List<ConVO>)request.getAttribute("conlist");
+	if(conlist == null || conlist.isEmpty()){
 		ConService conService = new ConService();
-		list = conService.lldgetcon(lld_no);
+		conlist = conService.lldgetcon(lld_no);
 	}
 
-	session.setAttribute("list",list);
+	request.setAttribute("conlist",conlist);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -80,7 +80,7 @@
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button>
-						<br><span id="count">共<%=list.size()%>個合約</span>
+						<br><span id="count">共<%=conlist.size()%>個合約</span>
 					</FORM>
 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 						<input type="hidden" name="lld_no" value="<%=lld_no%>">
@@ -94,7 +94,7 @@
 		<div id="center">
 		<h3 class="houselisttitle">合約管理</h3><hr>
 			<%@ include file="page1.file"%>
-			<c:forEach var="conVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="conVO" items="${conlist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${conVO.con_sta == 0}">
