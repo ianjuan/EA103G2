@@ -106,7 +106,7 @@ margin-top: 5px;
                                     <a class="icon"><img src="<%=request.getContextPath()%>/front-end/index/images/gplus.svg" width="35px" height="35px" ><span class="label"></span></a>
                                 </li>
                                 <li>
-                                    <a class="icon"><img src="<%=request.getContextPath()%>/front-end/index/images/ig.svg" width="35px" height="35px" ><span class="label"></span></a>
+                                    <a class="icon" href="<%=request.getContextPath()%>/back-end/emp/login.jsp"><img src="<%=request.getContextPath()%>/front-end/index/images/ig.svg" width="35px" height="35px" ><span class="label"></span></a>
                                 </li>
                             </ul>
                         </div>
