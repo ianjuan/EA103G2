@@ -328,8 +328,8 @@ $(".fav-body").append("<div class='item' id='"+value.hos_no+"' >"+
                             "<br>"+
                            " <div class='contact'>"+
                             "<div class='functions'>"+
-                           "<a href='<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos="+value.hos_no+"'><img src='<%=request.getContextPath()%>/resource/Mycol/images/tel.svg' alt=''/>預約看屋</a>"+
-                            "<a class='select-live' href='#'><img src='<%=request.getContextPath()%>/resource/Mycol/images/home.svg' alt=''/>我要入住</a>"+
+                           "<a href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos="+value.hos_no+"'><img src='<%=request.getContextPath()%>/resource/Mycol/images/tel.svg' alt=''/>預約看屋</a>"+
+                            "<a class='select-live' href=''<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos="+value.hos_no+"''><img src='<%=request.getContextPath()%>/resource/Mycol/images/home.svg' alt=''/>我要入住</a>"+
                             "<a href='#message'> <img src='<%=request.getContextPath()%>/resource/Mycol/images/comment.svg' alt=''/>聊天</a>"+
                            " <a class='red' href='#'><img src='<%=request.getContextPath()%>/resource/Mycol/images/report.svg' alt=''/>檢舉</a>"+
                             "</div>"+
