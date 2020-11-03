@@ -87,6 +87,10 @@ img{
 </head>
 <body bgcolor='lightgrey'>
 
+
+
+
+
  <div class='row'>
   <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
 </div>
