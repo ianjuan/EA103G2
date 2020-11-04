@@ -105,7 +105,9 @@ img{
 	
 	<div class="form-group">
 		<label for="exampleFormControlInput1"><h3>預計修畢日期<h3></label>
+		<c:if test="${repairVO.rep_est_enddate ne null}">
 		<span class="text"><%=repairVO.getRep_est_enddate()%></span>
+		</c:if>
 	</div>
 	
 <!-- 	若為待回覆 -->
@@ -114,11 +116,8 @@ img{
 		<label for="exampleFormControlInput1"><h3>修繕進度:
 		<span style="color:orange;">待回覆</span>
 		<h3></label>
-		<span class="text"><input type="radio" name="rep_pro" value="1" checked> 接受此筆修繕</span><br>
-		<span class="text"><input type="radio" name="rep_pro" value="2" > 拒絕此筆修繕</span><br>
-		
-
-
+		<input type="radio" name="rep_pro" value="1" checked id="yes"><span class="text"><label for="yes">接受此筆修繕</label></span><br>
+		<input type="radio" name="rep_pro" value="2" id="no"><span class="text"><label for="no">拒絕此筆修繕</label></span><br>
 	</div>
 	</c:if>
 	
@@ -128,7 +127,7 @@ img{
 	<label for="exampleFormControlInput1"><h3>修繕進度:
 		<span style="color:orange;">處理中</span>
 		<h3></label>
-	<span class="text"><input type="radio" name="rep_pro" value="4" >修繕已完成</span><br>
+	<span class="text"><input type="radio" name="rep_pro" value="4" checked>修繕已完成</span><br>
 </div>
 </c:if>
 
@@ -138,7 +137,7 @@ img{
 	<label for="exampleFormControlInput1"><h3>修繕進度:
 		<span style="color:red;">再修一次:處理中</span>
 		<h3></label>
-	<span class="text"><input type="radio" name="rep_pro" value="6" >再修一次:已完成</span><br>
+	<span class="text"><input type="radio" name="rep_pro" value="6" checked>再修一次:已完成</span><br>
 </div>
 </c:if>
 

@@ -208,8 +208,8 @@ public class RepairServlet extends HttpServlet{
 			ConVO conVO = conSvc.getOneCon(repVO.getCon_no());
 			HouseVO hosVO = hosSvc.getHouseInfo(conVO.getHos_no());
 			String lld_no = hosVO.getLld_no();
-			new NotifyServlet().broadcast(
-					lld_no, "您的房客新增修繕照片!", "您的房客剛剛更新修繕照片，請至修繕管理查看", "");
+//			new NotifyServlet().broadcast(
+//					lld_no, "您的房客新增修繕照片!", "您的房客剛剛更新修繕照片，請至修繕管理查看", "");
 			String url = "/front-end/repair/updPic.jsp";
 			//
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -371,7 +371,6 @@ public class RepairServlet extends HttpServlet{
 			RepairVO repairVO = new RepairVO();
 			repairVO.setCon_no(con_no);
 			repairVO.setRep_dam_obj(rep_dam_obj);
-//			repairVO.setRep_dam_obj(fQty);
 			repairVO.setRep_dam_obj_des(rep_dam_obj_des);
 			repairVO.setRep_case_str(rep_case_str);
 			
@@ -382,8 +381,7 @@ public class RepairServlet extends HttpServlet{
 				failureView.forward(req, res);
 				return;
 			}
-//			System.out.println(rep_dam_obj+fQty);
-//			repairVO.setRep_dam_obj(rep_dam_obj+fQty);
+
 			/***************************2.開始新增資料***************************************/
 			RepairService repairSvc = new RepairService();
 			RepairVO repairVO2 = repairSvc.addRepair(con_no, rep_dam_obj, rep_dam_obj_des, rep_case_str);
@@ -395,8 +393,8 @@ public class RepairServlet extends HttpServlet{
 			ConVO conVO = conSvc.getOneCon(repVO.getCon_no());
 			HouseVO hosVO = hosSvc.getHouseInfo(conVO.getHos_no());
 			String lld_no = hosVO.getLld_no();
-			new NotifyServlet().broadcast(
-					lld_no, "您的房客新增一筆修繕!", "您的房客剛剛更新了一筆修繕，請至修繕管理查看", "");
+//			new NotifyServlet().broadcast(
+//					lld_no, "您的房客新增一筆修繕!", "您的房客剛剛更新了一筆修繕，請至修繕管理查看", "");
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/
 			session.setAttribute("repairVO", repairVO2);
 			String url = "/front-end/repair/addReppic.jsp";
@@ -437,15 +435,7 @@ public class RepairServlet extends HttpServlet{
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			
-//			//Bootstrap_modal
-//			boolean openModal=true;
-//			req.setAttribute("openModal",openModal );
-//			
-//			// ���X��empVO�e��listOneEmp.jsp
-//			RequestDispatcher successView = req
-//					.getRequestDispatcher("/front-end/repair/kkkk.jsp");
-//			successView.forward(req, res);
-//			return;
+
 
 		} catch (Exception e) {
 			errorMsgs.add("無法更新此筆修繕紀錄:" + e.getMessage());
@@ -558,11 +548,6 @@ public class RepairServlet extends HttpServlet{
 //						tnt_no, "您的房東剛剛完成一筆<再修繕>", "請至修繕管理確認", "");
 				
 			}
-
-
-			
-
-			
 			/***************************3.修改完成,準備轉交(Send the Success view)*************/
 			req.setAttribute("lld_no", lld_no); 
 			req.setAttribute("repairVO", repairVO);
@@ -693,8 +678,8 @@ public class RepairServlet extends HttpServlet{
 			/***************************2.開始修改資料*****************************************/
 			RepairService repairSvc = new RepairService();
 			repairVO = repairSvc.updatePro(rep_no, rep_pro);
-			new NotifyServlet().broadcast(
-					lld_no, "您的房客取消了修繕申請", "請至修繕管理查看", "");
+//			new NotifyServlet().broadcast(
+//					lld_no, "您的房客取消了修繕申請", "請至修繕管理查看", "");
 			/***************************3.修改完成,準備轉交(Send the Success view)*************/
 			req.setAttribute("repairVO", repairVO); 
 			System.out.println(repairVO.getRep_dam_obj());
@@ -846,7 +831,7 @@ public class RepairServlet extends HttpServlet{
 				String url = "/front-end/repair/listAllRepair.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
-//				 res.sendRedirect(url);
+
 				/***************************其他可能的錯誤處理*************************************/
 				} catch (Exception e) {
 					errorMsgs.add("房客回報修繕結果失敗，請重新操作:"+e.getMessage());
@@ -926,8 +911,8 @@ if ("updateEnddate".equals(action)) {
 				/***************************2.開始修改資料*****************************************/
 				repairSvc = new RepairService();
 				repairVO = repairSvc.addEnddate(rep_no, rep_est_enddate);
-				new NotifyServlet().broadcast(
-						tnt_no, "房東更新修繕日期", "您的房東剛剛更新了修繕日期，請至修繕管理查看", "");
+//				new NotifyServlet().broadcast(
+//						tnt_no, "房東更新修繕日期", "您的房東剛剛更新了修繕日期，請至修繕管理查看", "");
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("repairVO", repairVO); 
 				String url = "/front-end/repair/lldListAllRepair.jsp";
@@ -991,9 +976,7 @@ if ("updateEnddate".equals(action)) {
 					String lld_no = hosVO.getLld_no();
 					//
 					String rep_dam_obj_des = req.getParameter("rep_dam_obj_des");
-					
-				
-
+			
 					RepairVO repairVO = new RepairVO();
 					repairVO.setRep_no(rep_no);
 					repairVO.setRep_dam_obj_des(rep_dam_obj_des);
@@ -1011,8 +994,8 @@ if ("updateEnddate".equals(action)) {
 					/***************************2.開始修改資料*****************************************/
 					RepairService repairSvc = new RepairService();
 					repairVO = repairSvc.updateDes(rep_no, rep_dam_obj_des);
-					new NotifyServlet().broadcast(
-							lld_no, "房客更新修繕內容", "您的房客剛剛更新了修繕內容，請至修繕管理查看", "");
+//					new NotifyServlet().broadcast(
+//							lld_no, "房客更新修繕內容", "您的房客剛剛更新了修繕內容，請至修繕管理查看", "");
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("repairVO", repairVO); 
 					String url = "/front-end/repair/listAllRepair.jsp";

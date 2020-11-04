@@ -8,75 +8,219 @@
 <%@ page import="com.tnt.model.*"%>
 <%@ page import="com.cont.model.*"%>
 <%@ page import="com.lld.model.*"%>
+<%-- <% session.setAttribute("lld_no", "LLD000897");%>  --%>
 
-
-<% session.setAttribute("lld_no", "LLD000224");%>
-
+<% String lld_no = (String) session.getAttribute("lld_no");
+	if (lld_no == null) {
+		lld_no = request.getParameter("lld_no");
+	} %>
 <html>
 <head>
 <title>房東修繕紀錄 - lldListAllRepair.jsp</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet"> -->
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/NewFile.css"> --%>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script> -->
+<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+<!-- <!-- 元 nav bar= --> 
+<%-- <link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> --%>
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/NewFile.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/NewFileBtn.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<!-- boostrape -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    
-​
+<!-- boostrape -->
+<!-- sweet alert -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- 元 nav bar= -->
+<link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+
 <style>
+
+/*     left nav bar */
+    #left {
+	width: 20%;
+	height: 700px;
+	float: left;
+}
+
+.navbar {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: .5rem 1rem;
+}
+
+/* 上傳圖片btn */
+.btn-primary {
+    color: #fff;
+    background-color: rgb(221, 210, 160);
+    border-color: rgb(221, 210, 160);
+}
+#second a {
+    color: rgb(221, 210, 160);
+    text-decoration: none;
+    background-color: transparent;
+}
+#seconf a:hover {
+    color: darkgrey;
+    text-decoration: none;
+}
+
+.button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -104.5px; /*104.5px is half of the button's width*/
+
+
+/* 文字 */
+h1, h2, h3, h4, h5, h6, table{ 
+     font-family: Microsoft JhengHei; 
+     font-family: 'Montserrat', sans-serif; 
+    
+ } 
+.hos_name{
+	color: pink;
+}
+
+.title {
+text-align:center;
+
+}
+
 
 </style>
 
 </head>
 <body bgcolor='white'>
 
-${lld_no}
+
+<!-- 	top nav bar -->
+	<div class='row'>
+  <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
+	</div>
+
+<section id='second'>
+<div class='.container-md'>
+<!-- join -->
+
+<div class='row'>
+	<div class='col-md-2' id="leftSpace"></div>						
+	<div class='col-md-8  text-center'>						
+		<h3 class='subtitle'>修繕申請紀錄</h3>	
+
+		
+<!-- 修繕的狀態bar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+			<input type="hidden" name="lld_no" value="<%=lld_no%>">
+			<input type="hidden" name="action" value="getLldRepair">
+			<button type="submit" class="nav-link">全部</button>
+		</FORM> 	
+      </li>
+      <li class="nav-item">
+        <button class="nav-link"  id="b1" >處理中</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link"  id="b0" >待回覆</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link"  id="b2" >已婉拒申請</button>
+      </li>
+       <li class="nav-item">
+        <button class="nav-link"  id="b3" >申請被取消</button>
+      </li>
+       <li class="nav-item">
+        <button class="nav-link"  id="b4" >已修畢</button>
+      </li>
+       <li class="nav-item">
+        <button class="nav-link"  id="b5" >再修一次:處理中</button>
+      </li>
+       <li class="nav-item">
+        <button class="nav-link"  id="b6" >再修一次:已修畢</button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link"  id="b7" >已結案</button>
+      </li>
+      
+    </ul>
+
+  </div>
+</nav>
+		
+		
+			<!-- join -->
+
+	
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
 <jsp:useBean id="conSvc" scope="page" class="com.cont.model.ConService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 <jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
-<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
-
-
-<section id='second'>
-<div class='.container-md'>
-
-<!-- join -->
-<%-- 	<c:forEach var="HouseVO" items="${hosSvc.allHouse}">  --%>
-<%-- 		<c:if test="${lld_no==HouseVO.lld_no}">  --%>
-<%-- 			<c:forEach var="ConVO" items="${conSvc.getConbyhos(HouseVO.hos_no)}">  --%>
-<%-- 				<c:if test="${HouseVO.hos_no==ConVO.hos_no}">  --%>
-<%-- 					<c:forEach var="repVO" items="${repSvc.tntGetAll(conVO.con_no)}"> --%>
-<%-- 						<c:if test="${repVO.con_no==conVO.con_no}">	 --%>
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
-<!-- join -->
-<div class='row'>
-	<div class='col-md-2' id="leftSpace"></div>						
-	<div class='col-md-8  text-center'>						
-		<h3 class='subtitle'>修繕申請紀錄</h3>				
-			<!-- join -->
-	<c:forEach var="HouseVO" items="${hosSvc.allHouse}"> 
-		<c:if test="${lld_no==HouseVO.lld_no}"> 
-			<!-- conSvc.getConbyhos(HouseVO.hos_no)===ConVO -->
-					<c:forEach var="repairVO" items="${repSvc.tntGetAll(conSvc.getConbyhos(HouseVO.hos_no).con_no)}">
-						<c:if test="${repairVO.con_no==conSvc.getConbyhos(HouseVO.hos_no).con_no}">	
+<jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />	
+	
+		<c:forEach var="conVO" items="${conSvc.lldgetcon(lld_no)}">		
+				
+				<c:forEach var="repairVO" items="${repSvc.tntGetAll(conVO.con_no)}">
+							
+					 <c:if test="${repairVO.rep_pro eq 0}">
+							
+							<div class='row div-hide div0'>
+							
 							<div class='row' >
+							
 								<!--修繕圖片 -->
+								<c:choose>
+								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
+									<span class='text' style="padding: 30px;">暫無圖片</span>
+								</c:when>
+								<c:otherwise>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							        <input type="hidden" name="action" value="getOne_For_seePic">
 							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
 								</FORM>
+								</c:otherwise>
+								</c:choose>
 								<!--房屋訊息 -->
                 				<div class='col-md-4  text-center'>
                   					<div class='text'>
-                    					<h6 class='rep_status'>${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h6>
+                    					<h6 class='rep_status'>
+                    					<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 2}"><span style="color:pink;">已婉拒申請</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>                    	
+                    					<c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
+										<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>
+          								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
+          
+                    					</h6>
                     					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
-                    					<h5 class='hos_name'>${HouseVO.hos_name}</h5>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
                     					<br>居住日期<br>
-                    					<h6>${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getConbyhos(HouseVO.hos_no).apl_no).apl_end}</h6>   
-                    				</div>       
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
+                    				</div>
                	 				</div>
 								<!--修繕起訖 -->
                	 				<div class='col-md-4 '>
@@ -97,72 +241,539 @@ ${lld_no}
 								<div class='col-md-2'>
 									<div class='allbtn'>
 										<!--btn1 -->
-										 <button class='btn'  data-toggle="modal" data-target="#report" >${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "不滿意":"滿意")}</button><br>
+										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
 										<!--btn2 -->
-										<button class='btn'  data-toggle="modal" data-target="#estEnd" ${(repairVO.rep_pro eq 0)?'':"disabled"} >編輯日期</button><br>
-										<!-- Modal -->
-										<div class="modal fade" id="estEnd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-								  			<div class="modal-dialog" role="document">
-								    			<div class="modal-content">
-								      				<div class="modal-header">
-								       					 <h5 class="modal-title" id="exampleModalLongTitle">預計修繕結束日期</h5>
-								        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          						<span aria-hidden="true">&times;</span>
-								        					</button>
-								      				</div>
-								      				
-								      			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
-								      				<div class="modal-body">
-								
-								        				${repairVO.rep_est_enddate}<br>
-								        				<input name="rep_est_enddate" id="f_date1" type="text" value="${repairVO.rep_est_enddate}">
-														<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
-								      					<input type="hidden" name="action" value="updateEnddate">
-								      				</div>
-								      				<div class="modal-footer">
-								      					<button type="submit" class="btn btn-secondary">送出修改</button></FORM>
-								      					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								      				</div>
-								      			  </div>
-								      			</div>
-											  </div>	
-								      	
+										<button class='btn' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
 										
-									<button class='btn'  data-toggle="modal" data-target="#progress" ${(repairVO.rep_pro eq 1)?'':"disabled"}>更新進度</button><br>												
-									<!-- Modal -->
-									<div class="modal fade" id="progress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										  <div class="modal-dialog" role="document">
-										    <div class="modal-content">
-										      <div class="modal-header">
-										        <h5 class="modal-title" id="exampleModalLabel">目前修繕進度</h5>
-										        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										          <span aria-hidden="true">&times;</span>
-										        </button>
-										      </div>
-										      
-										      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" style="margin-bottom: 0px;">
-										      <div class="modal-body">
-										        	<h5>目前進度 :  ${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"}</h5>
-										        	${repairVO.rep_no}
-										        	<input type="hidden" name="rep_no"  value="${repairVO.rep_no}">
-										      		<input type="hidden" name="rep_pro"  value="1">
-			     									<input type="hidden" name="action"	value="updatePro">
-										      
-										      </div>
-										      <div class="modal-footer"> 	
-			     								<button type="submit" class="btn btn-primary" ${(repairVO.rep_pro eq 0)?'':'disabled'} onClick="window.alert('更新成功');">已修繕完畢</button></FORM> 
-										        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>   
-										      </div>
-										    </div>
-										  </div>
-										</div> <!-- modal -->
-									</div>	<!-- col2 -->
-								</div>   <!-- col8 -->
-							</c:if>  <!--if-->
-<!-- 							<div> -->
-<%-- 							</c:if> --%>
-						</c:forEach>							
-			</c:if>
+								      	<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
+										<button class='btn' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">接受/拒絕申請</a></button><br>
+										
+								</div>
+							</div>
+						</div>
+						</div><%-- 狀態div --%>
+						</c:if><%-- 判斷狀態 --%>
+						
+						
+						<c:if test="${repairVO.rep_pro eq 1}">
+							
+							<div class='row div-hide div1'>
+							
+							<div class='row' >
+							
+								<!--修繕圖片 -->
+								<c:choose>
+								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
+									<span class='text' style="padding: 30px;">暫無圖片</span>
+								</c:when>
+								<c:otherwise>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							        <input type="hidden" name="action" value="getOne_For_seePic">
+							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
+								</FORM>
+								</c:otherwise>
+								</c:choose>
+								<!--房屋訊息 -->
+                				<div class='col-md-4  text-center'>
+                  					<div class='text'>
+                    					<h6 class='rep_status'>
+                    					<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 2}"><span style="color:pink;">已婉拒申請</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>                    	
+                    					<c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
+										<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>
+          								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
+          
+                    					</h6>
+                    					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
+                    					<br>居住日期<br>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
+                    				</div>
+               	 				</div>
+								<!--修繕起訖 -->
+               	 				<div class='col-md-4 '>
+               	 					<table class='repair_info'>
+                      					<tr>
+                        					<th scope="col">| 修繕物件</th>
+                        					<th scope="col">| 申請日期</th>
+                        					<th scope="col">| 修繕完成日期</th>
+                      					</tr>
+                      					<tr>
+                        					<td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
+                        					<td><code><h4> ${repairVO.rep_case_str}</h4></code></td>
+                        					<td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
+                      					</tr>
+                      				</table>
+               	 				</div>
+								<!--按鈕 -->
+								<div class='col-md-2'>
+									<div class='allbtn'>
+										<!--btn1 -->
+										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
+										<!--btn2 -->
+										<button class='btn' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										
+								      	<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
+										<button class='btn' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
+										
+								</div>
+							</div>
+						</div>
+						</div><%-- 狀態div --%>
+						</c:if><%-- 判斷狀態 --%>
+						
+						<c:if test="${repairVO.rep_pro eq 2}">
+							
+							<div class='row div-hide div2'>
+							
+							<div class='row' >
+							
+								<!--修繕圖片 -->
+								<c:choose>
+								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
+									<span class='text' style="padding: 30px;">暫無圖片</span>
+								</c:when>
+								<c:otherwise>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							        <input type="hidden" name="action" value="getOne_For_seePic">
+							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
+								</FORM>
+								</c:otherwise>
+								</c:choose>
+								<!--房屋訊息 -->
+                				<div class='col-md-4  text-center'>
+                  					<div class='text'>
+                    					<h6 class='rep_status'>
+                    				<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 2}"><span style="color:pink;">已婉拒申請</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>                    	
+                    					<c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
+										<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>
+          								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
+          
+                    					</h6>
+                    					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
+                    					<br>居住日期<br>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
+                    				</div>
+               	 				</div>
+								<!--修繕起訖 -->
+               	 				<div class='col-md-4 '>
+               	 					<table class='repair_info'>
+                      					<tr>
+                        					<th scope="col">| 修繕物件</th>
+                        					<th scope="col">| 申請日期</th>
+                        					<th scope="col">| 修繕完成日期</th>
+                      					</tr>
+                      					<tr>
+                        					<td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
+                        					<td><code><h4> ${repairVO.rep_case_str}</h4></code></td>
+                        					<td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
+                      					</tr>
+                      				</table>
+               	 				</div>
+								<!--按鈕 -->
+								<div class='col-md-2'>
+									<div class='allbtn'>
+										<!--btn1 -->
+										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
+										<!--btn2 -->
+										<button class='btn' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										
+								      	<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
+										<button class='btn' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
+										
+								</div>
+							</div>
+						</div>
+						</div><%-- 狀態div --%>
+						</c:if><%-- 判斷狀態 --%>
+						
+						<c:if test="${repairVO.rep_pro eq 3}">
+							
+							<div class='row div-hide div3'>
+							
+							<div class='row' >
+							
+								<!--修繕圖片 -->
+								<c:choose>
+								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
+									<span class='text' style="padding: 30px;">暫無圖片</span>
+								</c:when>
+								<c:otherwise>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							        <input type="hidden" name="action" value="getOne_For_seePic">
+							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
+								</FORM>
+								</c:otherwise>
+								</c:choose>
+								<!--房屋訊息 -->
+                				<div class='col-md-4  text-center'>
+                  					<div class='text'>
+                    					<h6 class='rep_status'>
+                    					<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 2}"><span style="color:pink;">已婉拒申請</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>                    	
+                    					<c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
+										<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>
+          								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
+          
+                    					</h6>
+                    					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
+                    					<br>居住日期<br>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
+                    				</div>
+               	 				</div>
+								<!--修繕起訖 -->
+               	 				<div class='col-md-4 '>
+               	 					<table class='repair_info'>
+                      					<tr>
+                        					<th scope="col">| 修繕物件</th>
+                        					<th scope="col">| 申請日期</th>
+                        					<th scope="col">| 修繕完成日期</th>
+                      					</tr>
+                      					<tr>
+                        					<td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
+                        					<td><code><h4> ${repairVO.rep_case_str}</h4></code></td>
+                        					<td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
+                      					</tr>
+                      				</table>
+               	 				</div>
+								<!--按鈕 -->
+								<div class='col-md-2'>
+									<div class='allbtn'>
+										<!--btn1 -->
+										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
+										<!--btn2 -->
+										<button class='btn' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										
+								      	<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
+										<button class='btn' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
+										
+								</div>
+							</div>
+						</div>
+						</div><%-- 狀態div --%>
+						</c:if><%-- 判斷狀態 --%>
+						
+						<c:if test="${repairVO.rep_pro eq 4}">
+							
+							<div class='row div-hide div4'>
+							
+							<div class='row' >
+							
+								<!--修繕圖片 -->
+								<c:choose>
+								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
+									<span class='text' style="padding: 30px;">暫無圖片</span>
+								</c:when>
+								<c:otherwise>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							        <input type="hidden" name="action" value="getOne_For_seePic">
+							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
+								</FORM>
+								</c:otherwise>
+								</c:choose>
+								<!--房屋訊息 -->
+                				<div class='col-md-4  text-center'>
+                  					<div class='text'>
+                    					<h6 class='rep_status'>
+                    					<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 2}"><span style="color:pink;">已婉拒申請</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>                    	
+                    					<c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
+										<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>
+          								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
+          
+                    					</h6>
+                    					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
+                    					<br>居住日期<br>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
+                    				</div>
+               	 				</div>
+								<!--修繕起訖 -->
+               	 				<div class='col-md-4 '>
+               	 					<table class='repair_info'>
+                      					<tr>
+                        					<th scope="col">| 修繕物件</th>
+                        					<th scope="col">| 申請日期</th>
+                        					<th scope="col">| 修繕完成日期</th>
+                      					</tr>
+                      					<tr>
+                        					<td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
+                        					<td><code><h4> ${repairVO.rep_case_str}</h4></code></td>
+                        					<td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
+                      					</tr>
+                      				</table>
+               	 				</div>
+								<!--按鈕 -->
+								<div class='col-md-2'>
+									<div class='allbtn'>
+										<!--btn1 -->
+										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
+										<!--btn2 -->
+										<button class='btn' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										
+								      	<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
+										<button class='btn' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
+										
+								</div>
+							</div>
+						</div>
+						</div><%-- 狀態div --%>
+						</c:if><%-- 判斷狀態 --%>
+						
+						<c:if test="${repairVO.rep_pro eq 5}">
+							
+							<div class='row div-hide div5'>
+							
+							<div class='row' >
+							
+								<!--修繕圖片 -->
+								<c:choose>
+								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
+									<span class='text' style="padding: 30px;">暫無圖片</span>
+								</c:when>
+								<c:otherwise>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							        <input type="hidden" name="action" value="getOne_For_seePic">
+							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
+								</FORM>
+								</c:otherwise>
+								</c:choose>
+								<!--房屋訊息 -->
+                				<div class='col-md-4  text-center'>
+                  					<div class='text'>
+                    					<h6 class='rep_status'>
+                    					<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 2}"><span style="color:pink;">已婉拒申請</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>                    	
+                    					<c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
+										<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>
+          								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
+          
+                    					</h6>
+                    					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
+                    					<br>居住日期<br>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
+                    				</div>
+               	 				</div>
+								<!--修繕起訖 -->
+               	 				<div class='col-md-4 '>
+               	 					<table class='repair_info'>
+                      					<tr>
+                        					<th scope="col">| 修繕物件</th>
+                        					<th scope="col">| 申請日期</th>
+                        					<th scope="col">| 修繕完成日期</th>
+                      					</tr>
+                      					<tr>
+                        					<td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
+                        					<td><code><h4> ${repairVO.rep_case_str}</h4></code></td>
+                        					<td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
+                      					</tr>
+                      				</table>
+               	 				</div>
+								<!--按鈕 -->
+								<div class='col-md-2'>
+									<div class='allbtn'>
+										<!--btn1 -->
+										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
+										<!--btn2 -->
+										<button class='btn' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										
+								      	<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
+										<button class='btn' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
+										
+								</div>
+							</div>
+						</div>
+						</div><%-- 狀態div --%>
+						</c:if><%-- 判斷狀態 --%>
+						
+						
+							<c:if test="${repairVO.rep_pro eq 6}">
+							
+							<div class='row div-hide div6'>
+							
+							<div class='row' >
+							
+								<!--修繕圖片 -->
+								<c:choose>
+								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
+									<span class='text' style="padding: 30px;">暫無圖片</span>
+								</c:when>
+								<c:otherwise>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							        <input type="hidden" name="action" value="getOne_For_seePic">
+							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
+								</FORM>
+								</c:otherwise>
+								</c:choose>
+								<!--房屋訊息 -->
+                				<div class='col-md-4  text-center'>
+                  					<div class='text'>
+                    					<h6 class='rep_status'>
+                    					<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 2}"><span style="color:pink;">已婉拒申請</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>                    	
+                    					<c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
+										<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>
+          								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
+          
+                    					</h6>
+                    					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
+                    					<br>居住日期<br>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
+                    				</div>
+               	 				</div>
+								<!--修繕起訖 -->
+               	 				<div class='col-md-4 '>
+               	 					<table class='repair_info'>
+                      					<tr>
+                        					<th scope="col">| 修繕物件</th>
+                        					<th scope="col">| 申請日期</th>
+                        					<th scope="col">| 修繕完成日期</th>
+                      					</tr>
+                      					<tr>
+                        					<td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
+                        					<td><code><h4> ${repairVO.rep_case_str}</h4></code></td>
+                        					<td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
+                      					</tr>
+                      				</table>
+               	 				</div>
+								<!--按鈕 -->
+								<div class='col-md-2'>
+									<div class='allbtn'>
+										<!--btn1 -->
+										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
+										<!--btn2 -->
+										<button class='btn' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										
+								      	<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
+										<button class='btn' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
+										
+								</div>
+							</div>
+						</div>
+						</div><%-- 狀態div --%>
+						</c:if><%-- 判斷狀態 --%>
+						
+						
+						<c:if test="${repairVO.rep_pro eq 7}">
+							
+							<div class='row div-hide div7'>
+							
+							<div class='row' >
+							
+								<!--修繕圖片 -->
+								<c:choose>
+								<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">
+									<span class='text' style="padding: 30px;">暫無圖片</span>
+								</c:when>
+								<c:otherwise>
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+							 		<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
+							        <input type="hidden" name="action" value="getOne_For_seePic">
+							     	<button type="submit" class="btn btn-primary" >查看圖片</button>
+								</FORM>
+								</c:otherwise>
+								</c:choose>
+								<!--房屋訊息 -->
+                				<div class='col-md-4  text-center'>
+                  					<div class='text'>
+                    					<h6 class='rep_status'>
+                    					<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 2}"><span style="color:pink;">已婉拒申請</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">申請被取消</span></c:if>
+                    					<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>                    	
+                    					<c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
+										<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>
+          								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
+          
+                    					</h6>
+                    					<a href='#'>修繕編號<br>${repairVO.rep_no}</a>
+                    					<h5 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h5>
+                    					<br>居住日期<br>
+                    					<h6>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h6>
+                    				</div>
+               	 				</div>
+								<!--修繕起訖 -->
+               	 				<div class='col-md-4 '>
+               	 					<table class='repair_info'>
+                      					<tr>
+                        					<th scope="col">| 修繕物件</th>
+                        					<th scope="col">| 申請日期</th>
+                        					<th scope="col">| 修繕完成日期</th>
+                      					</tr>
+                      					<tr>
+                        					<td><code><h3> ${repairVO.rep_dam_obj}</h3><h6>${repairVO.rep_dam_obj_des}</h6></code></td>
+                        					<td><code><h4> ${repairVO.rep_case_str}</h4></code></td>
+                        					<td><code><h4> ${repairVO.rep_est_enddate}</h4></code></td>
+                      					</tr>
+                      				</table>
+               	 				</div>
+								<!--按鈕 -->
+								<div class='col-md-2'>
+									<div class='allbtn'>
+										<!--btn1 -->
+										 <button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
+										<!--btn2 -->
+										<button class='btn' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br>
+										
+								      	<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
+										<button class='btn' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
+										<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br>
+										
+								</div>
+							</div>
+						</div>
+						</div><%-- 狀態div --%>
+						</c:if><%-- 判斷狀態 --%>
+						
+						
+<%-- 					</c:if> --%>
+				</c:forEach>							
+<%-- 			</c:if> --%>
 <%-- 		</c:set> --%>
 <%-- 	</c:if> --%>
 </c:forEach>
@@ -171,12 +782,10 @@ ${lld_no}
 <!-- join -->						
 	</div>						
 </div>
-
 </div>
 </section>
 
 
-</body>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
@@ -193,17 +802,127 @@ ${lld_no}
 </style>
 
 <script>
+$(document).ready(function(){
+	
+
+	$("#b0").click(function() {
+		alert("000")
+		$(".div-hide").each(function(){
+			$(this).hide();
+		});
+		
+		$(".div0").each(function(){
+			$(this).show();
+		});
+		
+		
+	});
+	
+	$("#b1").click(function() {
+		alert("111")
+		$(".div-hide").each(function(){
+			$(this).hide();
+		});
+		
+		$(".div1").each(function(){
+			$(this).show();
+		});
+		
+		
+	});
+	
+	$("#b2").click(function() {
+		alert("222")
+		$(".div-hide").each(function(){
+			$(this).hide();
+		});
+		
+		$(".div2").each(function(){
+			$(this).show();
+		});
+		
+		
+	});
+	
+	$("#b3").click(function() {
+		alert("333")
+		$(".div-hide").each(function(){
+			$(this).hide();
+		});
+		
+		$(".div3").each(function(){
+			$(this).show();
+		});
+		
+		
+	});
+	
+	$("#b4").click(function() {
+		alert("444")
+		$(".div-hide").each(function(){
+			$(this).hide();
+		});
+		
+		$(".div4").each(function(){
+			$(this).show();
+		});
+		
+		
+	});
+	
+	$("#b5").click(function() {
+		alert("555")
+		$(".div-hide").each(function(){
+			$(this).hide();
+		});
+		
+		$(".div5").each(function(){
+			$(this).show();
+		});
+		
+		
+	});
+	
+	$("#b6").click(function() {
+		alert("666")
+		$(".div-hide").each(function(){
+			$(this).hide();
+		});
+		
+		$(".div6").each(function(){
+			$(this).show();
+		});
+		
+		
+	});
+	
+	$("#b7").click(function() {
+		alert("777")
+		$(".div-hide").each(function(){
+			$(this).hide();
+		});
+		
+		$(".div7").each(function(){
+			$(this).show();
+		});
+		
+		
+	});
+});
+
+
+
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
            theme: '',              //theme: 'dark',
  	       timepicker:false,       //timepicker:true,
  	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '${repairVO.rep_est_enddate}',  // value:   new Date(),
+ 		   value: '${repairVO.rep_est_enddate}', // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
            minDate:               '-1970-01-01', // 去除今日(不含)之前
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+//            maxDate:               '+1970-01-01'  // 去除今日(不含)之後
         });
         
         
@@ -255,6 +974,6 @@ ${lld_no}
         //              }
         //              return [true, ""];
         //      }});
-        
-</script>
+ </script>
+ </body>       
 </html>

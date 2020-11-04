@@ -180,58 +180,7 @@
 
 <jsp:useBean id="repSvc" scope="page" class="com.repair.model.RepairService" />
 
-<%-- <c:choose> --%>
-<%-- 	    	<c:when test="${repSvc.getAllPicNo(repairVO.rep_no).size() eq 0}">	 --%>
-<!-- 	    		<div id="trainDiv"> -->
-<!-- 					<div class="center" id="center"> -->
-<!-- 						  <div class="mountains"></div> -->
-<!-- 						  <div class="frame"> -->
-<%-- 						    <div class="train"><span id="${repairVO.rep_pro eq 0? 'noPic':'PicNon'}"><a> ${repairVO.rep_pro eq 0?"暫   無   圖   片，點  我  新  增 ":" 暫   無   圖   片 "}</a> </span> --%>
-<%-- 						      	<a id="goBack" href="${pageContext.request.contextPath }/front-end/repair/listAllRepair.jsp?tnt_no=${tnt_no}"><button class="learn-more">回上一頁</button></a> --%>
-<!-- 						      <div class="engine-front"> -->
-<!-- 						        <div class="chimney"> -->
-<!-- 						          <div class="smoke"></div> -->
-<!-- 						          <div class="smoke smoke-2"></div> -->
-<!-- 						          <div class="smoke smoke-3"></div> -->
-<!-- 						          <div class="smoke smoke-4"></div> -->
-<!-- 						        </div> -->
-<!-- 						      </div> -->
-						
-<!-- 						      <div class="engine-body"></div> -->
-						
-<!-- 						      <div class="compartment"> -->
-<!-- 						        <div class="compartment-window"></div> -->
-<!-- 						      </div> -->
-						
-<!-- 						      <div class="compartment compartment-two"> -->
-<!-- 						        <div class="compartment-window"></div> -->
-<!-- 						      </div> -->
-						
-<!-- 						      <div class="compartment compartment-three"> -->
-<!-- 						        <div class="compartment-window"></div> -->
-<!-- 						      </div> -->
-						
-<!-- 						      <div class="wheel-holder"> -->
-<!-- 						        <div class="wheel"></div> -->
-<!-- 						        <div class="wheel wheel-2"> -->
-<!-- 						          <div class="wheel-joint"></div> -->
-<!-- 						          <div class="wheel-joint wheel-joint-2"></div> -->
-<!-- 						        </div> -->
-<!-- 						        <div class="wheel wheel-3"></div> -->
-<!-- 						        <div class="wheel wheel-4"></div> -->
-<!-- 						        <div class="wheel wheel-5"></div> -->
-<!-- 						        <div class="wheel wheel-6"></div> -->
-<!-- 						        <div class="wheel wheel-7"></div> -->
-<!-- 						        <div class="wheel wheel-8"></div> -->
-<!-- 						        <div class="wheel wheel-9"></div> -->
-<!-- 						      </div> -->
-<!-- 						    </div> -->
-<!-- 						  </div> -->
-<!-- 						  <div class="bridge"></div> -->
-<!-- 					</div> -->
-<!-- 	  	  		</div> -->
-<%-- 	  	  	</c:when> --%>
-<%-- 	  	  <c:otherwise>	 --%>
+
 
 
 
@@ -305,12 +254,12 @@
     	<div id="picShow">
       		<h2>預覽</h2><br>
 	    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1" enctype="multipart/form-data"><br>
-	    		<input type="file" id="myPic" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG"><br>
-	  			<br><input type="reset" id="delete" value="清除全部"> 
+	  			<label class="btn btn-info"><input id="upload_img" style="display:none;" type="file" id="myPic" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
+			  	<i class="fa fa-photo"></i>選擇圖片</label><br>	 
+	  			<br><input type="reset" id="delete" class="btn btn-outline-primary" value="清除全部"><br><br> 
 	  			<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 	   			<input type="hidden" name="action" value="pic_upd_insert" >
 				<button class="btn btn-outline-primary" type="submit" value="上傳" ${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'':'disabled'}>${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳':'無法上傳'}</button>
-	<%-- 			<input type="button" value="reppic_pic" onclick="document.forms[0].reppic_pic.outerHTML='<input type=file name=reppic_pic>'"> --%>
 			</FORM> 
 			<div id="view">
 			</div>
@@ -350,8 +299,7 @@
 </div>
 
 
-<%-- </c:otherwise> --%>
-<%-- </c:choose> --%>
+
 		
 			
 			

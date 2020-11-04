@@ -125,7 +125,9 @@ img{
 		
 	<div class="form-group">
 		<label for="exampleFormControlInput1"><h3>預計修畢日期</h3></label>
-		<span class="text"><%=repairVO.getRep_est_enddate()%></span>
+		<c:if test="${repairVO.rep_est_enddate ne null}">
+			<span class="text"><%=repairVO.getRep_est_enddate()%></span>
+		</c:if>	
 		<input type="hidden" name="action" value="updateEnddate">
 		<input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>"><br>
 		<label for="exampleFormControlInput1"><h3>更新日期</h3></label><br>

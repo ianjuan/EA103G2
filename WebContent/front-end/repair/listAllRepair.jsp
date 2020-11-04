@@ -58,6 +58,24 @@
     padding: .5rem 1rem;
 }
 
+/* 修繕的navbar */
+.navbar-center{
+	float:left;
+	left: 50%;
+	position: relative;
+
+}
+.navbar-collapse-center{
+	 float: right;
+  	left: -50%;
+  	position: relative;
+}
+
+#second .content {
+  
+    padding: 500px;
+    
+}
 /* 上傳圖片btn */
 .btn-primary {
     color: #fff;
@@ -95,6 +113,8 @@ h1, h2, h3, h4, h5, h6, table{
 text-align:center;
 
 }
+
+
 </style>
 <script>
     	
@@ -132,25 +152,19 @@ text-align:center;
   <div class='col-12 '><jsp:include page="/front-end/navbar/navbar.jsp" /></div>
 	</div>
 <section id='second'>	
-<!-- <div class='.container-fluid'> -->
+
 <div class="container">
   <div class="row justify-content-md-center">
-			    <div class="col col-lg-2"></div>
 		
 
 <!-- <div class='row'> -->
 <div class="col-md-auto">
 
     <DIV style="text-align:center;"><h1 class='title'>修繕申請紀錄</h1></DIV> <br> 
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<!--   <a class="navbar-brand" href="#">Navbar</a> -->
-<!--   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> -->
-<!--     <span class="navbar-toggler-icon"></span> -->
-<!--   </button> -->
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+<!-- 修繕的狀態bar-->
+<nav class="navbar navbar-expand-lg navbar-light" >
+  <div class="collapse navbar-collapse navbar-collapse-center" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto navbar-center" >
      <li class="nav-item">
     	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
 			<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
@@ -183,28 +197,12 @@ text-align:center;
         <button class="nav-link"  id="b7" >已結案</button>
       </li>
       
-<!--       <li class="nav-item dropdown"> -->
-<!--         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-<!--           Dropdown -->
-<!--         </a> -->
-<!--         <div class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
-<!--           <a class="dropdown-item" href="#">Action</a> -->
-<!--           <a class="dropdown-item" href="#">Another action</a> -->
-<!--           <div class="dropdown-divider"></div> -->
-<!--           <a class="dropdown-item" href="#">Something else here</a> -->
-<!--         </div> -->
-<!--       </li> -->
-<!--       <li class="nav-item"> -->
-<!--         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
-<!--       </li> -->
+
     </ul>
-<!--     <form class="form-inline my-2 my-lg-0"> -->
-<!--       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-<!--       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-<!--     </form> -->
+
   </div>
 </nav>
-
+</div>
 
 <div class="content"> 
  <c:forEach var="ConVO" items="${conSvc.tntgetcon(tnt_no)}"> 
@@ -716,9 +714,9 @@ text-align:center;
 </c:forEach>
 </div>
       </div>
-      	<div class="col col-lg-2">
+<!--       	<div class="col col-lg-2"> </div> -->
       	 
-    </div>
+   
      
     </div>
 
@@ -744,7 +742,7 @@ $(document).ready(function(){
 	
 
 	$("#b0").click(function() {
-		alert("000")
+// 		alert("000")
 		$(".div-hide").each(function(){
 			$(this).hide();
 		});
@@ -757,7 +755,7 @@ $(document).ready(function(){
 	});
 	
 	$("#b1").click(function() {
-		alert("111")
+// 		alert("111")
 		$(".div-hide").each(function(){
 			$(this).hide();
 		});
@@ -770,7 +768,7 @@ $(document).ready(function(){
 	});
 	
 	$("#b2").click(function() {
-		alert("222")
+// 		alert("222")
 		$(".div-hide").each(function(){
 			$(this).hide();
 		});
@@ -783,7 +781,7 @@ $(document).ready(function(){
 	});
 	
 	$("#b3").click(function() {
-		alert("333")
+// 		alert("333")
 		$(".div-hide").each(function(){
 			$(this).hide();
 		});
@@ -796,7 +794,7 @@ $(document).ready(function(){
 	});
 	
 	$("#b4").click(function() {
-		alert("444")
+// 		alert("444")
 		$(".div-hide").each(function(){
 			$(this).hide();
 		});
@@ -809,7 +807,7 @@ $(document).ready(function(){
 	});
 	
 	$("#b5").click(function() {
-		alert("555")
+// 		alert("555")
 		$(".div-hide").each(function(){
 			$(this).hide();
 		});
@@ -822,7 +820,7 @@ $(document).ready(function(){
 	});
 	
 	$("#b6").click(function() {
-		alert("666")
+// 		alert("666")
 		$(".div-hide").each(function(){
 			$(this).hide();
 		});
@@ -835,7 +833,7 @@ $(document).ready(function(){
 	});
 	
 	$("#b7").click(function() {
-		alert("777")
+// 		alert("777")
 		$(".div-hide").each(function(){
 			$(this).hide();
 		});
@@ -855,7 +853,7 @@ $(document).ready(function(){
 
 	
 $(document).on("click", ".hos_name", function() {
-        	window.location.href='<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos='+$(this).attr('id');
+        	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).attr('id');
 		});
 </script>
 </body>

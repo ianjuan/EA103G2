@@ -84,6 +84,12 @@ text-align:center;
 		<span class="text"><%=repairVO.getRep_case_str()%></span>
 </div>
 
+<c:if test="${repairVO.rep_est_enddate ne null}">
+<div class="form-group">
+		<label for="exampleFormControlInput1"><h3>預計修畢日期<h3></label>	
+		<span class="text"><%=repairVO.getRep_est_enddate()%></span>	
+</div>
+</c:if>
 
 <div class="form-group">
 <input type="radio" name="rep_pro" value="3" checked> <span class="text">取消修繕申請!</span><br>
@@ -91,7 +97,7 @@ text-align:center;
 <input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>"> <br>
 <a href="${pageContext.request.contextPath }/front-end/repair/listAllRepair.jsp?tnt_no=${tnt_no}"><button class="btn btn-secondary">返回</button></a>	
 <input style="text-align:center" class="btn btn-primary" type="submit" value="取消修繕申請">
-<button class="btn btn-dark">檢舉</button>
+
 
 </div>
 

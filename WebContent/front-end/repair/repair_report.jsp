@@ -71,7 +71,7 @@ text-align:center;
 <div class="form-group">
 		
 		<label for="exampleFormControlInput1"><h3>待修物品</h3></label>
-		<span class="text">  <%=repairVO.getRep_dam_obj()%></span>
+		<span class="text"> <%=repairVO.getRep_dam_obj()%></span>
 		
 </div>
 <div class="form-group">
@@ -84,27 +84,35 @@ text-align:center;
 		<span class="text"><%=repairVO.getRep_case_str()%></span>
 </div>
 
-
 <div class="form-group">
+		<label for="exampleFormControlInput1"><h3>預計修畢日期<h3></label>
+		<c:if test="${repairVO.rep_est_enddate ne null}">
+		<span class="text"><%=repairVO.getRep_est_enddate()%></span>
+		</c:if>
+</div>
+
+<div class="form-group" style="text-align:center;">
 <!-- 若狀態為已修畢 -->
 <c:if test="${repairVO.rep_pro eq 4}">
-<input type="radio" name="rep_tnt_rpt" value="1" checked> <span class="text">對修繕結果滿意，結案!</span><br>
-<input type="radio" name="rep_tnt_rpt" value="2"> <span class="text">對修繕結果不滿意，再修一次!</span><br>
+<div style="text-align:left;">
+<input type="radio" name="rep_tnt_rpt" value="1" checked id="good"><span class="text"><label for="good">對修繕結果滿意，結案!</label></span><br>
+<input type="radio" name="rep_tnt_rpt" value="2" id="bad"><span class="text"><label for="bad">對修繕結果不滿意，再修一次!</label></span><br>
+</div>
 </c:if>
 <!-- 若狀態為再修一次:已修畢 -->
 <c:if test="${repairVO.rep_pro eq 6}">
-<input type="radio" name="rep_tnt_rpt" value="1"><span class="text">確認修繕已結案!</span><br>
+<input type="radio" name="rep_tnt_rpt" value="1" checked><span class="text" >確認修繕已結案!</span><br>
 </c:if>
 <input type="hidden" name="action" value="updateRpt">
-<input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>"> <br>
-<a href="${pageContext.request.contextPath }/front-end/repair/listAllRepair.jsp?tnt_no=${tnt_no}"><button class="btn btn-secondary">取消</button></a>	
-<input style="text-align:center" class="btn btn-primary" type="submit" value="確認送出">
-<button class="btn btn-dark">檢舉</button>
-
+<input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>"><br>
+<input style="text-align:center" class="btn btn-primary" type="submit" value="確認送出" >
 </div>
-
 </FORM>
-
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" >
+<input type="hidden" name="lld_no" value="${lld_no}">
+<input type="hidden" name="action" value="getLldRepair">
+<div align="center"><button type="submit" id="cancel" class="btn btn-secondary"> 取 消  </button></div>
+</FORM>
 </div>
     </div>
 <!--     <div class="col col-lg-2"> </div>-->
