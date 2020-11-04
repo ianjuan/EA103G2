@@ -426,7 +426,7 @@
 <%-- 														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/> --%>
 														      </div>
 														      <div class="modal-footer">
-														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button>
+<!-- 														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button> -->
 														      </div>
 														    </div>
 														  </div>
@@ -464,7 +464,7 @@
     <script>
     var cashVO;
     $("#cash_status").on("change",function(){
-    $.ajax({//資料庫階段
+    $.ajax({
 		  url:"<%=request.getContextPath()%>/lld/LldServlet2",
 	 	  type:"GET",
 	 	  data:{action:"billsQuery",
@@ -472,16 +472,16 @@
 	 		  },
 	 	  success:function(data){//以上成功才執行
 	 		  console.log("data="+data);
-	 		 cashVO=JSON.parse(data); 
-	             loading(cashVO);
-	 		  	console.log("res棒");
-	 		  	}
+	 		  cashVO=JSON.parse(data); 
+	          loading(cashVO);
+	 		  console.log("res棒");
+	 		  }
 	 	  ,
 	 	  error:function(data)
 	 	  {
 	 		  console.log("真的不棒")
 	 	  }			  
-	  } )
+	  })
     });
 	function loading(cashlist){
 		$("#tbody").remove();
@@ -519,24 +519,24 @@
     	// Modal
     	var modalStr = '';
     	if (cashVO.cash_type=='每月帳單'){
-//     		modalStr = "<button type='button' class='btn btn-info btn-sm btn-thismonth-detail btnRecBills' data-toggle='modal' data-target='#exampleModalCenter"+(i+1)+"'>本月明細</button>"+
-//     		"<div class='modal fade' id='exampleModalCenter"+(i+1)+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>"+
-//     		  "<div class='modal-dialog modal-dialog-centered' role='document'>"+
-//     		    "<div class='modal-content'>"+
-//     		      "<div class='modal-header'>"+
-//     		        "<h5 class='modal-title' id='exampleModalLongTitle'>週期帳單明細</h5>"+
-//     		      "</div>"+
-//     		      "<div class='modal-body' id='modal-body'>"+
-<%--    		       	"<jsp:include page='/front-end/rec/nowrecdetail_bills.jsp?rec_no=REC000001'/>"+ --%>
-//     		      "</div>"+
-//     		      "<div class='modal-footer'>"+
+    		modalStr = "<button type='button' class='btn btn-info btn-sm btn-thismonth-detail btnRecBills' data-toggle='modal' data-target='#exampleModalCenter"+(i+1)+"'>本月明細</button>"+
+    		"<div class='modal fade' id='exampleModalCenter"+(i+1)+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>"+
+    		  "<div class='modal-dialog modal-dialog-centered' role='document'>"+
+    		    "<div class='modal-content'>"+
+    		      "<div class='modal-header'>"+
+    		        "<h5 class='modal-title' id='exampleModalLongTitle'>週期帳單明細</h5>"+
+    		      "</div>"+
+    		      "<div class='modal-body' id='modal-body'>"+
+    		      
+    		      "</div>"+
+    		      "<div class='modal-footer'>"+
 //     		        "<button type='button' class='btn btn-primary' id='btnCloseDetail'>關閉明細</button>"+
-//     		      "</div>"+
-//     		    "</div>"+
-//     		  "</div>"+
-//     		"</div>";
+    		      "</div>"+
+    		    "</div>"+
+    		  "</div>"+
+    		"</div>";
+
     	}
-		
     if(cashVO.cash_type){
      $('#tbody').append(
 						"<tr>"+
@@ -550,7 +550,23 @@
 							"</td>"+
 						"</tr>"
     )}
-    })
+    if (cashVO.cash_type=='每月帳單'){
+    	console.log(cashVO.rec_no);
+    	$.ajax({
+  		  url:"<%=request.getContextPath()%>/front-end/rec/nowrecdetail_bills.jsp?rec_no="+cashVO.rec_no,
+  	 	  type:"GET",
+  	 	  data:{},
+  	 	  success:function(data){//以上成功才執行
+  	 		  console.log("data="+data);
+  	 		  console.log("res棒");
+  	 		  $('#modal-body').html(data);
+  	 	  },
+  	 	  error:function(data){
+  	 		  console.log("真的不棒")
+  	 	  }			  
+  	  })
+    }
+    }); //each
   }
    		// DataTalbe
         $(function () {
@@ -562,13 +578,6 @@
                 }]
             });
         });
-   		
-//    		$(function () {
-//    			$('.btnRecBills').click(function(){
-//    				console.log($(this).previous);
-//    			}
-//    			})
-//    		});
    		
     </script>
 </body>
