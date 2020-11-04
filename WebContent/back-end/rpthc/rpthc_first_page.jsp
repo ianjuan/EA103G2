@@ -3,11 +3,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.rpthc.model.*"%>
 <%@ page import="com.news.model.*"%>
+<%@page import="com.emp.model.EmployeeVO"%>
 <%@ page import="java.util.*"%>
 
 <%
 	List<RpthcVO> rpthcVO = (List<RpthcVO>) request.getAttribute("rpthcVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("emp_no", "EMP000005");
+	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 <!DOCTYPE html>
 <html lang="en">

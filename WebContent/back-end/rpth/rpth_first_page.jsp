@@ -2,12 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.news.model.*"%>
+<%@page import="com.emp.model.EmployeeVO"%>
 <%@ page import="com.rpth.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
 	List<RpthVO> rpthVO = (List<RpthVO>) request.getAttribute("rpthVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("emp_no", "EMP000005");
+	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 <!DOCTYPE html>
 <html lang="en">

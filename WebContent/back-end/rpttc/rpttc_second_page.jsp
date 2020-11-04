@@ -10,7 +10,6 @@
 	RpttcService rpttcSvc = new RpttcService();
 	List<RpttcVO> list = rpttcSvc.getAllRpttc();
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
 <html lang="en">

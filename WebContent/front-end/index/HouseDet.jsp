@@ -24,8 +24,7 @@
 
   <script
 		src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
-		
-	
+
   
 </head>
 <%@ page import="com.housedet.model.*" %>
@@ -257,6 +256,7 @@ session.setAttribute("HOS",hosno);
 						</div>
 						<button id="demo">提交</button>
 					</div>
+					<button id="quick">阿姨，我不想努力了</button>
 				</div>
 			</div>
 		</div>
@@ -485,12 +485,18 @@ console.log(picnum);
 		 	  ,
 		 	  error:function(data)
 		 	  {
-		 	  swal("檢舉失敗!", "鳩豆麻爹!", "error");
+		 	  swal("檢舉失敗!", "鳩豆麻爹!我看看", "error");
 		 	}
 		  
 		})}
 		
 		  $("#close_btn").trigger("click");
+	});
+	
+	
+	
+	$('#quick').click(function(){
+	    $('#reason').val('這我家啦，是誰放在這裡待租啦，夭壽喔!');	
 	});
 </script>	
 

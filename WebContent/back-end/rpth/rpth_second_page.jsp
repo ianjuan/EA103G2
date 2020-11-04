@@ -10,7 +10,6 @@
 	RpthService rpthSvc = new RpthService();
 	List<RpthVO> list = rpthSvc.getAllRpth();
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
 <html lang="en">
