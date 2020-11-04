@@ -88,7 +88,7 @@ body {
 }
 #foot {
 	width: 100%;
-	height: 80px;
+	height: auto;
 	float: left;
 }      
 #preview {
@@ -245,7 +245,7 @@ body {
 	display: inline-block;
 	float: left;
 	width: 19.4%;
-	height: auto;
+	height: 190px;
 	margin: 2px 2px;
 	border-radius: 10px;
 }
