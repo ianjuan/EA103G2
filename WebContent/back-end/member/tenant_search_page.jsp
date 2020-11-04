@@ -8,7 +8,7 @@
 <%
 	TntVO tntVO = (TntVO) request.getAttribute("TntVO");
 	pageContext.setAttribute("tntVO", tntVO);
-	pageContext.setAttribute("emp_no", "EMP000005");
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -414,7 +414,7 @@ input {
 												<div class="float-right">
 													<form METHOD="post" ACTION="RpttServlet">
 														<h5>
-															搜尋: <input type="text" size="20" name="Number"
+															搜尋: <input type="text" size="22" name="Number"
 																placeholder="輸入房客編號/身份證字號"> <input type="hidden"
 																name="action" value="get_want_member"> <input
 																type="submit"

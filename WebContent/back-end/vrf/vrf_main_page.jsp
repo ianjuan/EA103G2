@@ -3,16 +3,19 @@
 <%@ page import="com.news.model.*"%>
 <%@ page import="com.rptt.model.*"%>
 <%@ page import="java.util.*"%>
+<%@page import="com.emp.model.EmployeeVO"%>
 
 <%
 	TntService tntSvc = new TntService();
 	List<TntVO> list = tntSvc.getUnvrf_Unresult(1, 1);
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
+	EmployeeVO emp = (EmployeeVO) session.getAttribute("empVO");
+	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 <!DOCTYPE html>
 <html lang="en">
-<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
+<jsp:useBean id="empSvc" scope="page"
+	class="com.emp.model.EmployeeService" />
 
 <head>
 
@@ -22,7 +25,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>身分驗證</title>
+<title>I-ZU 身分驗證</title>
 
 <!-- 網頁icon -->
 <link rel="icon"
@@ -41,6 +44,7 @@
 <link
 	href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css"
 	rel="stylesheet">
+	
 <!-- wayne匯入 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -48,6 +52,10 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/back-end/vrf/css/main_vrf_back.css"
+	type="text/css">
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/back-end/vrf/css/easyzoom.css"
 	type="text/css">
 <style>
 .modal-full {
@@ -59,14 +67,14 @@
 	min-height: auto;
 }
 
-.pic {
+#pic {
 	width: 280px;
 	height: 180px;
 	margin: 8px;
 }
 
-input{
-   font-size: 18px;
+input {
+	font-size: 18px;
 }
 </style>
 
@@ -339,11 +347,11 @@ input{
 								<!-- DataTales Example -->
 								<div class="card shadow mb-4">
 									<div class="card-header py-3">
-										<div class="row"  >
+										<div class="row">
 											<div class="col-5">
 												<h4 class="m-0 font-weight-bold text-primary">身分驗證</h4>
 											</div>
-											<div class="col-7" style= "overflow: auto;">
+											<div class="col-7" style="overflow: auto;">
 												<div class="float-right">
 													<form METHOD="post" ACTION="RpttServlet">
 														<h5>
@@ -412,22 +420,25 @@ input{
 															<div class="modal-dialog  modal-full" role="document">
 																<div class="modal-content">
 																	<div class="modal-header">
-																		<div class="modal-body" >
+																		<div class="modal-body">
 																			<div class="row">
 																				<div class="col-9">
 																					<img
 																						src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=front"
-																						class="pic" /> <img
+																						class="zoom" id="pic" /> <img
 																						src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=back"
-																						class="pic" /> <img
+																						class="zoom" id="pic" /> <img
 																						src="<%=request.getContextPath()%>/ImgReader_vrf?id=${tntVO.tnt_no}&type=second"
-																						class="pic" />
+																						class="zoom" id="pic" />
 																				</div>
 																				<div class="col-3">
-																					<label for="name" style="margin-bottom: auto;">會員編號:</label> ${tntVO.tnt_no} <br>
-																					<label for="name" style="margin-bottom: auto;">會員姓名:</label> ${tntVO.tnt_name} <br>
-																					<label for="name" style="margin-bottom: auto;">會員生日:</label> ${tntVO.tnt_birth}
-																			 		<br> <label for="name" style="margin-bottom: auto;">會員身分證字號:</label>
+																					<label for="name" style="margin-bottom: auto;">會員編號:</label>
+																					${tntVO.tnt_no} <br> <label for="name"
+																						style="margin-bottom: auto;">會員姓名:</label>
+																					${tntVO.tnt_name} <br> <label for="name"
+																						style="margin-bottom: auto;">會員生日:</label>
+																					${tntVO.tnt_birth} <br> <label for="name"
+																						style="margin-bottom: auto;">會員身分證字號:</label>
 																					${tntVO.tnt_id}<br>
 																					<form action="RpttServlet" method="post">
 																						<div>
@@ -494,7 +505,46 @@ input{
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!--  	以下js 為恩需要(放大圖片用)---------------------------------- -->
+	
+	<script
+		src="<%=request.getContextPath()%>/back-end/vrf/js/zoomerang.js"></script>
 	<script>
+	
+	Zoomerang
+    .config({
+        maxHeight: 500,
+        maxWidth: 560,
+        bgColor: '#000',
+        bgOpacity: .30,
+        onOpen: openCallback,
+        onClose: closeCallback,
+        onBeforeOpen: beforeOpenCallback,
+        onBeforeClose: beforeCloseCallback
+    })
+    .listen('.zoom')
+
+function openCallback (el) {
+    console.log('zoomed in on: ')
+    console.log(el)
+}
+
+function closeCallback (el) {
+    console.log('zoomed out on: ')
+    console.log(el)
+}
+
+function beforeOpenCallback (el) {
+	console.log('on before zoomed in on:')
+	console.log(el)
+}
+
+function beforeCloseCallback (el) {
+	console.log('on before zoomed out on:')
+	console.log(el)
+}
+
 			
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
@@ -505,8 +555,8 @@ input{
 	var webSocket;
 	var alert_content;
 	var bell_html;
-
-
+	</script>
+	<script>
 	function connect() {
 		webSocket = new WebSocket(endPointURL);
 		webSocket.onopen = function(event) {

@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>I-ZU 後台管理</title>
+<title>I-ZU 查詢房東</title>
 <!-- 網頁icon -->
 <link rel="icon" href="<%=request.getContextPath()%>/back-end/images/castle.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/back-end/images/castle.ico" type="image/x-icon" />
@@ -21,6 +21,26 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
+
+<!---------------------------------------------------- 以下為恩需要 -->
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	
+ </script> 
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+	
+</script>
+<script src="https://use.fontawesome.com/16da862410.js"></script>
+<script
+	src="${pageContext.request.contextPath}/back-end/member/js/member.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/back-end/member/css/landlord_search.css"
+	type="text/css">
+
+
+
 </head>
 
 <body onload="connect();" onunload="disconnect();">
@@ -74,10 +94,8 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">查詢</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a>
+						<a class="collapse-item" href="javascript:void(0)">查詢房東</a> 
+						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -105,20 +123,12 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">檢舉</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rptl/rptl_main_page.jsp">檢舉房東</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rptt/rptt_main_page.jsp">檢舉房客</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rpth/rpth_main_page.jsp">檢舉房屋</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rptlc/rptlc_main_page.jsp">檢舉房東評價</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rpttc/rpttc_main_page.jsp">檢舉房客評價</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rpthc/rpthc_main_page.jsp">檢舉房屋評價</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rptr/rptr_main_page.jsp">檢舉修繕</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptt/main_page.jsp">檢舉房客</a> 
+						<a class="collapse-item" href="javascript:void(0)">檢舉房東</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房屋</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房東評價</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房屋評價</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉修繕</a>
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -281,17 +291,39 @@
 <div class="row">
 <div class="container-fluid">
           <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-<!--             放你要的名稱 -->
-              <h6 class="m-0 font-weight-bold text-primary">你的網頁名稱</h6>
-            </div>
+         
             <div class="card-body">
               <div class="table-responsive">
-<!-- 				html放這 -->
+	<div class="container" style="height: 500px;">
+			<h2>請輸入欲查詢的房東</h2>
+			<div class="search-box">
+				<div class="search-icon">
+					<i class="fa fa-search search-icon"></i>
+				</div>
+				<form action="RpttServlet" method="post" class="search-form">
+					<input type="text" placeholder="&nbsp&nbsp房東編號/ 身分證字號" id="search"
+						autocomplete="off" name="Number"> <input type="hidden"
+						name="action" value="get_want_landlord">
+				</form>
+				<svg class="search-border" version="1.1"
+					xmlns="http://www.w3.org/2000/svg"
+					xmlns:xlink="http://www.w3.org/1999/xlink"
+					xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px"
+					y="0px" viewBox="0 0 671 111"
+					style="enable-background: new 0 0 671 111;" xml:space="preserve">
+                    <path class="border"
+						d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280" />
+                    <path class="border"
+						d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280" />
+                </svg>
+				<div class="go-icon">
+					<i class="fa fa-arrow-right"></i>
+				</div>
+			</div>
+		</div>
               </div>
             </div>
-          </div>
+         
 
         </div> 
 

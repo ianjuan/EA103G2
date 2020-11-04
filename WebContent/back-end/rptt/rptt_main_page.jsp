@@ -4,13 +4,15 @@
 <%@ page import="com.news.model.*"%>
 <%@ page import="com.rptt.model.*"%>
 <%@ page import="java.util.*"%>
+<%@page import="com.emp.model.EmployeeVO"%>
 
 <%
 	RpttService rpttSvc = new RpttService();
 	List<RpttVO> rpttVO1 = rpttSvc.getRptt("0");
 	pageContext.setAttribute("rpttVO", rpttVO1);
 	List<RpttVO> rpttVO = (List<RpttVO>) pageContext.getAttribute("rpttVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("emp_no", "EMP000005");
+	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -431,7 +433,7 @@ input{
 								%><td><form action="RpttServlet" method="post">
 										<input type="hidden" name="action" value="update_employee">
 										<input type="hidden" name="emp_no"
-											value="<%=pageContext.getAttribute("emp_no")%>"> <input
+											value=${empVO.emp_no}> <input
 											type="hidden" name="rptt_no" value="<%=rpttvo.getRptt_no()%>">
 										<input type="hidden" name="rptt_status" value="1">
 										<button type="submit" class="take">接受</button>
@@ -458,7 +460,7 @@ input{
 										<div class="modal-header">
 											<div class="modal-body1">
 												<%
-													if (pageContext.getAttribute("emp_no").equals(rpttvo.getEmp_no())) {
+													if(pageContext.getAttribute("emp_no").equals(rpttvo.getEmp_no())) {
 												%>
 												<form action="RpttServlet" method="post" name="detail"
 													id="detail">

@@ -10,7 +10,6 @@
 	RptrService rptrSvc = new RptrService();
 	List<RptrVO> list = rptrSvc.getAllRptr();
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
 <html lang="en">

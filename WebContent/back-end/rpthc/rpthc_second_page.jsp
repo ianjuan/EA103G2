@@ -9,7 +9,6 @@
 	RpthcService rpthcSvc = new RpthcService();
 	List<RpthcVO> list = rpthcSvc.getAllRpthc();
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
 <html lang="en">

@@ -4,10 +4,13 @@
 <%@ page import="com.rpttc.model.*"%>
 <%@ page import="com.news.model.*"%>
 <%@ page import="java.util.*"%>
+<%@page import="com.emp.model.EmployeeVO"%>
 
 <%
 	List<RpttcVO> rpttcVO = (List<RpttcVO>) request.getAttribute("rpttcVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("emp_no", "EMP000005");
+	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	pageContext.setAttribute("emp_no", emp.getEmp_no());
+	
 %>
 <!DOCTYPE html>
 <html lang="en">

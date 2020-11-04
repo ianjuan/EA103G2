@@ -9,7 +9,6 @@
 	RptlService rptlSvc = new RptlService();
 	List<RptlVO> list = rptlSvc.getAllRptl();
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
 <html lang="en">
