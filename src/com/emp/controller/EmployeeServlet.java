@@ -92,7 +92,7 @@ public class EmployeeServlet extends HttpServlet {
 		}
 		if ("login".equals(action)) {
 			out = res.getWriter();
-
+			System.out.println("hi");
 			// 【取得使用者 帳號(account) 密碼(password)】
 			String emp_acc = req.getParameter("emp_acc");
 			String emp_pwd = req.getParameter("emp_pwd");
@@ -209,10 +209,8 @@ public class EmployeeServlet extends HttpServlet {
 			}
 		}
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
-
+			
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
@@ -305,12 +303,11 @@ public class EmployeeServlet extends HttpServlet {
 					
 				}
 				
-				String name =empVO.getEmp_name().substring(0,1);
-				System.out.println("name"+name);
-				new NotifyServlet().broadcast(emp_no, "權限變更", "<span style='color:blue;'>"+name+"經理	</span>"+"將你的權限變更為：<br>" + sb + "<br>其餘權限將無法繼續使用！", "emp/emp.do?action=getOne_For_Display&emp_no="+emp_no);
+				EmployeeVO evo = (EmployeeVO) req.getSession().getAttribute("empVO");
+				String name =evo.getEmp_name().substring(0,1);
+				Integer title= evo.getEmp_title();
 				
-
-				System.out.println(sb);
+				new NotifyServlet().broadcast(emp_no, "權限變更", "<span style='color:blue;'>"+name+(title==1 ? "主管":"經理")+"</span>"+"將你的權限變更為：<br>" + sb + "<br>其餘權限將無法繼續使用！", "emp/emp.do?action=getOne_For_Display&emp_no="+emp_no);
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("employeeVO", empVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				// 權限
