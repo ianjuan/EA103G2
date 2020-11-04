@@ -459,36 +459,52 @@ public class RepairServlet extends HttpServlet{
 	
 	//房東更新狀態:
 	if ("updatePro".equals(action)) { 
-		System.out.println("有近來");
+		System.out.println("updatePro");
 		List<String> errorMsgs = new LinkedList<String>();
 		// Store this set in the request scope, in case we need to
 		// send the ErrorPage view.
 		req.setAttribute("errorMsgs", errorMsgs);
-		System.out.println("還沒進到try");
 		try {
 			/***************************1.接收請求參數****************************************/
-			
-			String rep_no = req.getParameter("rep_no");
+			//接收請求參數
+			String rep_no = req.getParameter("rep_no"); 
+			System.out.println(rep_no);
+			String str = req.getParameter("rep_pro");
+			System.out.println("rep_no="+str);
+			String lld_no = req.getParameter("lld_no");
+			System.out.println("lld_no="+lld_no);
 			//以下為了取得房客編號，通知
 			RepairService repairSvc = new RepairService();
 			RepairVO repVO = repairSvc.getOneRepair(rep_no);
 			ConService conSvc = new ConService();
 			ConVO conVO = conSvc.getOneCon(repVO.getCon_no());
 			String tnt_no = conVO.getTnt_no();
-			//接收請求參數
-			String str = req.getParameter("rep_pro");
-			Integer newRep_pro=null;
+			
+			//錯誤處理
+			
 			if (str == null || (str.trim()).length() == 0 ) {
 				errorMsgs.add("請更新修繕狀態");
 			}
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/repair/lld_update_repair_progress.jsp");
+				failureView.forward(req, res);
+				return; //程式中斷
+			}
 			
-			if (errorMsgs.isEmpty()) {
+			Integer newRep_pro=null;
+			
 				try {
 					newRep_pro=Integer.valueOf(str.trim());
 				}catch(Exception e) {
 					errorMsgs.add("格式錯誤:請選擇更新狀態");
 				}
-			}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/repair/lld_update_repair_progress.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
 			
 			RepairVO repair_oldVO = repairSvc.getOneRepair(rep_no);
 			RepairVO repairVO = new RepairVO();
@@ -501,82 +517,56 @@ public class RepairServlet extends HttpServlet{
 				failureView.forward(req, res);
 				return; //程式中斷
 			}
-			
+			/***************************2.開始修改資料****************************************/
 			//若為rep_pro==1:接受申請
-			if (newRep_pro == 1) {
+			if (newRep_pro.equals(1)) {
+				System.out.println("進1");
 			System.out.println("接受申請");
-			repairVO.setRep_no(rep_no);
-			repairVO.setRep_pro(1);//狀態改為接受:1
 			rep_pro=1;
-			repairSvc = new RepairService();
 			repairVO =repairSvc.updatePro(rep_no, rep_pro);
-			new NotifyServlet().broadcast(
-					tnt_no, "您的房東婉接受了修繕申請", "請至修繕管理查看", "");
+//			new NotifyServlet().broadcast(
+//					tnt_no, "您的房東接受了修繕申請", "請至修繕管理查看", "");
+			
+			
+			
 			}
 			
 			if (newRep_pro == 2) {
+				System.out.println("進2");
 				System.out.println("拒絕申請");
-				repairVO.setRep_no(rep_no);
-				repairVO.setRep_pro(2);//狀態改為拒絕:2
 				rep_pro=2;
-				repairSvc = new RepairService();
 				repairVO =repairSvc.updatePro(rep_no, rep_pro);
-				new NotifyServlet().broadcast(
-						tnt_no, "您的房東婉拒了修繕申請", "請至修繕管理查看", "");
-				}
+//				new NotifyServlet().broadcast(
+//						tnt_no, "您的房東婉拒了修繕申請", "請至修繕管理查看", "");
+					
+			}
 			if (newRep_pro == 4) {
 				System.out.println("已修畢");
-				repairVO.setRep_no(rep_no);
-				repairVO.setRep_pro(4);//狀態改為已修畢:4
 				rep_pro=4;
-				repairSvc = new RepairService();
 				repairVO =repairSvc.updatePro(rep_no, rep_pro);
-				new NotifyServlet().broadcast(
-						tnt_no, "您的房東剛剛完成一筆修繕", "請至修繕管理確認", "");
-				}
+//				new NotifyServlet().broadcast(
+//						tnt_no, "您的房東剛剛完成一筆修繕", "請至修繕管理確認", "");
+				
+			}
 				
 			
 			if (newRep_pro == 6) {
 				System.out.println("再修一次:已修畢");
-				repairVO.setRep_no(rep_no);
-				repairVO.setRep_pro(6);//狀態改為再修一次:已修畢6
 				rep_pro=6;
-				repairSvc = new RepairService();
-				repairVO =repairSvc.updatePro(rep_no, rep_pro);
-				new NotifyServlet().broadcast(
-						tnt_no, "您的房東剛剛完成一筆<再修繕>", "請至修繕管理確認", "");
-				}
-			/***************************2.開始比對資料****************************************/
-//			RepairService old_repairSvc = new RepairService();
-//			RepairVO repair_oldVO = old_repairSvc.getOneRepair(rep_no);
-			/***************************3.查詢完成(Send the Success view)************/	
-//			Integer oldRep_pro = new Integer(repair_oldVO.getRep_pro());
-//			if (oldRep_pro.equals(newRep_pro)) { //進度更新狀態是否與原狀態一樣
-//					errorMsgs.add("無更新修繕進度");
-//	            }
-//		
-		
-			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("repairVO", repairVO); 
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/repair/lld_update_repair_progress.jsp");
-				failureView.forward(req, res);
-				return; //程式中斷
+				repVO =repairSvc.updatePro(rep_no, rep_pro);
+//				new NotifyServlet().broadcast(
+//						tnt_no, "您的房東剛剛完成一筆<再修繕>", "請至修繕管理確認", "");
+				
 			}
+
+
 			
-			/***************************4.比對成功(Send the Success view)************/	
-//			
-//			RepairVO repairVO = new RepairVO();
-//			repairVO.setRep_no(rep_no);
-//			repairVO.setRep_pro(rep_pro);
-//			
-//			/***************************2.開始修改資料*****************************************/
-//			RepairService repairSvc = new RepairService();
-//			repairVO = repairSvc.updatePro(rep_no, rep_pro);
+
 			
 			/***************************3.修改完成,準備轉交(Send the Success view)*************/
-			req.setAttribute("repairVO", repairVO); 
-			System.out.println(repairVO.getRep_dam_obj());
+			req.setAttribute("lld_no", lld_no); 
+			req.setAttribute("repairVO", repairVO);
+			System.out.println("準備轉交回家");
 			String url = "/front-end/repair/lldListAllRepair.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); 
 			successView.forward(req, res);
@@ -773,14 +763,30 @@ public class RepairServlet extends HttpServlet{
 					errorMsgs.add("請更新修繕結果");
 				}
 				
-				if (errorMsgs.isEmpty()) {
-					try {
-						rep_tnt_rpt=Integer.valueOf(str.trim());
-					}catch(Exception e) {
-						errorMsgs.add("格式錯誤:請選擇更修繕結果");
-					}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/repair/repair_report.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
 				}
 				
+			
+				try {
+					rep_tnt_rpt=Integer.valueOf(str.trim());
+				}catch(Exception e) {
+					errorMsgs.add("格式錯誤:請選擇更修繕結果");
+					}
+				
+				
+				
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/repair/repair_report.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷
+				}
+				
+
 				
 				java.sql.Date rep_tnt_rpttime=new java.sql.Date(System.currentTimeMillis());
 				
@@ -810,8 +816,8 @@ public class RepairServlet extends HttpServlet{
 				rep_pro=7;
 				repairSvc = new RepairService();
 				repairVO =repairSvc.updateRpt(rep_no, rep_tnt_rpt, rep_pro, rep_tnt_rpttime, rep_end_time);
-				new NotifyServlet().broadcast(
-						lld_no, "房客更新修繕結果", "您的房客非常滿意您的修繕結果!", "");
+//				new NotifyServlet().broadcast(
+//						lld_no, "房客更新修繕結果", "您的房客非常滿意您的修繕結果!", "");
 				}
 				//若房客不滿意修繕結果
 				if (rep_tnt_rpt == 2) {
@@ -825,8 +831,8 @@ public class RepairServlet extends HttpServlet{
 					rep_pro=5;
 					repairSvc = new RepairService();
 					repairVO =repairSvc.updateRpt(rep_no, rep_tnt_rpt, rep_pro, rep_tnt_rpttime, rep_end_time );
-					new NotifyServlet().broadcast(
-							lld_no, "房客更新修繕結果", "您的房客不太滿意您的修繕結果，請您再次修繕", "");
+//					new NotifyServlet().broadcast(
+//							lld_no, "房客更新修繕結果", "您的房客不太滿意您的修繕結果，請您再次修繕", "");
 					
 				}
 				System.out.println("rep_pro"+rep_pro);
