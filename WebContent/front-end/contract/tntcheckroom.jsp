@@ -193,6 +193,6 @@
 			</div>
 		</form>
 	</div>
-	<div id="foot"></div>		
+	<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>		
 </body>
 </html>

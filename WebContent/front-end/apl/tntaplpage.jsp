@@ -46,8 +46,6 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/apl/js/tntapl.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
@@ -149,7 +147,7 @@
 			     				<input type="hidden" name="action"	value="tntcancelapl">
 			     				</FORM>
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/HouseDet/HouseDetServlet?hos=${con_aplVO.hos_no}">
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos=${con_aplVO.hos_no}">
 								<li><button id="btn3">瀏覽房屋</button></li>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
@@ -206,7 +204,7 @@
 			<%@ include file="tntpage2.file"%>
 			<div id="right"></div>
 		</div>
-		<div id="foot"></div>
+		<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>
 		<div id="outerdiv"
 			style="position: fixed; top: 0; left: 0; background: rgba(0, 0, 0, 0.7); z-index: 2; width: 100%; height: 100%; display: none;">
 			<div id="innerdiv" style="position: absolute;">
@@ -214,6 +212,8 @@
 			</div>
 		</div>
 </body>
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/apl/js/tntapl.js" charset="UTF-8"></script>
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <script>
 $( document ).ready(function() {

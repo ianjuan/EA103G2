@@ -69,6 +69,12 @@
 						<input type="hidden" name="action" value="gettntcontract">
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
 					</FORM>
+					
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+						<input type="hidden" name="action" value="getTntRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
                 </div>
             </nav>
 		</div>
@@ -292,7 +298,7 @@
 			<div id="right"></div>
 		</form>
 	</div>
-	<div id="foot"></div>
+	<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont2.js" charset="UTF-8"></script>		
 </body>
 </html>
