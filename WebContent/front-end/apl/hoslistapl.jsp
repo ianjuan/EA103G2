@@ -20,8 +20,8 @@
 		lldInfo = houseSvc.getLldInfo(lld_no);
 	}
 
-   List<Con_aplVO> hosapllist = (List<Con_aplVO>)request.getAttribute("hosapllist");
-   request.setAttribute("hosapllist",hosapllist);
+	Con_aplService con_aplService = new Con_aplService();
+	List<Con_aplVO> hosapllist = con_aplService.hosgetall(hos_no);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />

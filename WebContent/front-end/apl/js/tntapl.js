@@ -29,7 +29,7 @@ function notice(e){
 }
 
 function fillnotice(e){
-	 swal({title:"確定要送出帳單了嗎?", text:"" , icon:"info", buttons: {
+	 swal({title:"確定要修改申請時間嗎?", text:"請動作將會變動您的權益" , icon:"info", buttons: {
 	      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 	    }}).then(function(isConfirm){
 		if(isConfirm){

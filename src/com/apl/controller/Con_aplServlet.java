@@ -110,6 +110,7 @@ public class Con_aplServlet extends HttpServlet {
 				List<Con_aplVO> hosapllist = con_aplService.hosgetall(hos_no);
 
 				HttpSession session = req.getSession();
+				req.setAttribute("hos_no", hos_no);
 				session.setAttribute("lld_no", lld_no);
 				session.setAttribute("hosapllist", hosapllist);
 				String url = "/front-end/apl/hoslistapl.jsp";
@@ -395,6 +396,10 @@ public class Con_aplServlet extends HttpServlet {
 				String tnt_no = req.getParameter("tnt_no");
 				Date apl_str = Date.valueOf(req.getParameter("apl_str"));
 				Date apl_end = Date.valueOf(req.getParameter("apl_end"));
+				
+				System.out.println(apl_no);
+				System.out.println(apl_str);
+				System.out.println(apl_end);
 
 				/*************************** 2.開始修改資料 *****************************************/
 				Con_aplService con_aplService = new Con_aplService();

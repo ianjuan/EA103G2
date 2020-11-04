@@ -12,12 +12,10 @@
 		tnt_no = request.getParameter("tnt_no");
 	}
 
-	List<Con_aplVO> apllist = (List<Con_aplVO>)request.getAttribute("apllist");
-	if(apllist == null){
-		Con_aplService con_aplService = new Con_aplService();
-		apllist = con_aplService.tntgetAll(tnt_no);
-	}
-	request.setAttribute("apllist",apllist);
+	Con_aplService con_aplService = new Con_aplService();
+	List<Con_aplVO> apllist = con_aplService.tntgetAll(tnt_no);
+	
+	pageContext.setAttribute("apllist", apllist);
 	session.setAttribute("tnt_no", tnt_no);
 	 
 	TntService tntService = new TntService();
@@ -130,7 +128,7 @@
 							<ul>
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
 								<c:if test="${con_aplVO.apl_status == 0}">
-								<li><button type="button" id="btn1" data-toggle="modal" data-target="#fullindiv${apl.count}">修改申請</button></li>
+								<li><button type="button" id="btn1" data-toggle="modal" data-target="#fullindiv${con_aplVO.apl_no}">修改申請</button></li>
 								</c:if>
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
@@ -169,7 +167,7 @@
 						</div>					
 					</div>
 					<!-- 房客填寫區塊 -->
-					<div class="modal fade" id="fullindiv${apl.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal fade" id="fullindiv${con_aplVO.apl_no}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<form id="fullin${apl.count}" name="fullin" METHOD="post" ACTION="<%=request.getContextPath()%>/apl/Con_aplServlet">
@@ -180,12 +178,12 @@
 									<table>
 										<tr>
 											<td>租屋開始時間:</td>
-											<td><input name="apl_str" id="f_date1" type="text" value="${con_aplVO.apl_str}" autocomplete="off"></td>
+											<td><input name="apl_str" class="f_date1" type="text" value="${con_aplVO.apl_str}" autocomplete="off"></td>
 										</tr>
 	
 										<tr>
 											<td>租屋結束時間:</td>
-											<td><input name="apl_end" id="f_date2" type="text" value="${con_aplVO.apl_end}" autocomplete="off"></td>
+											<td><input name="apl_end" class="f_date2" type="text" value="${con_aplVO.apl_end}" autocomplete="off"></td>
 										</tr>
 									</table>
 								</div>
@@ -218,7 +216,7 @@
 <script>
 $( document ).ready(function() {
 	 $.datetimepicker.setLocale('zh');
-     $('#f_date1').datetimepicker({
+     $('.f_date1').datetimepicker({
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
@@ -228,7 +226,7 @@ $( document ).ready(function() {
      });
      
      $.datetimepicker.setLocale('zh');
-     $('#f_date2').datetimepicker({
+     $('.f_date2').datetimepicker({
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
