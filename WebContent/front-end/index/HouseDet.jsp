@@ -37,6 +37,10 @@ Gson gson = new Gson();
 String	tntno=(String)session.getAttribute("tnt_no");
 TntVO tntVO=(TntVO)session.getAttribute("tntVO");
 String hosno=request.getParameter("hos");
+String tntname="未登入";
+if(tntVO!=null){
+	tntname=tntVO.getTnt_name();
+}
 session.setAttribute("HOS",hosno);
  	List<HosDetVO> list = hds.getHosDetfromHOSNO(hosno);
  	HosDetVO vo=(HosDetVO)list.get(0);
@@ -243,7 +247,7 @@ session.setAttribute("HOS",hosno);
 					<br>
 					<div id="myForm" class="myForm">
 						<label for="name">您的名字:</label> <input class="rpth" type="text"
-							name="tnt_name" value=<%=tntVO.getTnt_name() %> id="iacc" readonly> 
+							name="tnt_name" value=<%= tntname %> id="iacc" readonly> 
 							<label
 							for="name">檢舉的房源:</label> <input class="rpth" type="text"
 							name="hos_name" value=<%= vo.getHos_name() %> id="yacc" readonly>
