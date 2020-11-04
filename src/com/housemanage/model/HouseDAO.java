@@ -149,20 +149,22 @@ public class HouseDAO implements HouseDAO_interface {
 			pstmt.executeUpdate();
 			pstmt.clearParameters();
 
-			/*************************** 一定時間後下架房屋 **********************/
-			String hos_no_sql="select SEQ_HOS_NO.CURRVAL from dual";
-			Statement stmt = con.createStatement();
-			ResultSet rs = null;
-			rs = stmt.executeQuery(hos_no_sql); 
+//			/*************************** 一定時間後下架房屋 **********************/
+//			String hos_no_sql="select SEQ_HOS_NO.CURRVAL from dual";
+//			Statement stmt = con.createStatement();
+//			ResultSet rs = null;
+//			rs = stmt.executeQuery(hos_no_sql); 
+//			
+//			String hos_no = null;
+//			while (rs.next()) {
+//				hos_no = "HOS" + String.format("%0"+6+"d", rs.getInt(1));		 
+//			}
+//			
+//			System.out.println("我要進來了!!!!!!");
+//			Timer timer = new Timer();
+//			timer.schedule(new HouseSchdule(hos_no, "已下架"), 10000);
+//			System.out.println("我要出去了!!!!!!");
 			
-			String hos_no = null;
-			while (rs.next()) {
-				hos_no = "HOS" + String.format("%0"+6+"d", rs.getInt(1));		 
-			}
-			
-			Timer timer = new Timer();
-			timer.schedule(new HouseSchdule(hos_no, "已下架"), 10000);
-
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -289,9 +291,12 @@ public class HouseDAO implements HouseDAO_interface {
 				pstmt.executeUpdate();
 				pstmt.clearParameters();
 				
-				Timer timer = new Timer();
-				timer.schedule(new HouseSchdule(houseVO.getHos_no(), "已下架"), 1800000);
+//				Timer timer = new Timer();
+//				timer.schedule(new HouseSchdule(houseVO.getHos_no(), "已下架"), 1800000);
+//				System.out.println("又進來啦");
 			}
+			
+			return;
 			// Handle any driver errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
