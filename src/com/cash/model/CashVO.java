@@ -33,8 +33,8 @@ public class CashVO implements java.io.Serializable {
 //	public static final String lldIn_Checkout = "lldIn_Checkout";
 //	public static final String lldIn_Deposit = "lldIn_Deposit";
 	
-	public static final String cashIn = "in";
-	public static final String cashOut = "out";
+	public static final String cashIn = "收入";
+	public static final String cashOut = "支出";
 	
 	private String cash_no;
 	private Date cash_date;

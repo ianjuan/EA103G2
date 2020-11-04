@@ -671,7 +671,20 @@ public class TntServlet2 extends HttpServlet {
 				System.out.println("vrf pics 修改失敗:" + e.getMessage());
 			}
 		}
+// ===================================以下來自我的錢包 pocket.jsp=====================================================
 
+			// 來自pocket.jsp的請求 - ajax_balanceWithdraw(formData)
+			if ("billsQuery".equals(action)) {
+				CashService cashSvc = new CashService();
+				HttpSession session = req.getSession();
+				String tnt_no = (String) session.getAttribute("tnt_no");
+				String status = req.getParameter("cash_status");
+				System.out.println("billsQuery的status"+status);
+				String list=cashSvc.getOneCashlogs_query(tnt_no, status);
+				out = res.getWriter();
+				out.print(list);
+				out.close();
+				}		
 	}
 
 	// ===================private methods===========================

@@ -181,7 +181,7 @@
  		table.dataTable, table.dataTable th, table.dataTable td {
  			text-align: center !important; 
  		}
- 		table.dataTable td:nth-child(3){
+ 		table.dataTable td:nth-child(4){
  			padding-left: 5.5% !important;
     		text-align: left !important;
  		}
@@ -245,7 +245,7 @@
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${lldVO.lld_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
-                            <p class="text-gray text-center mb-3">房客</p>
+                            <p class="text-gray text-center mb-3">房東</p>
                             <h4 class="text-center">${lldVO.lld_name} 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
@@ -339,6 +339,15 @@
 <!-- 								  <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 <!-- 								</nav> -->
 <!-- 								TAB 有空再做 -->
+									 <select class="wrap-register100 validate-input" data-validate="" name="cash_inout" id="cash_inout" >
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">
+                                        	  <option value="" >查詢收支
+                                              <option value="" >全部
+                          					  <option value="in" >收入
+                          					  <option value="out">支出
+                                        </span>
+                                    </select>
  									<select class="wrap-register100 validate-input" data-validate="" name="cash_status" id="cash_status" >
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
@@ -350,12 +359,14 @@
 											  <option value="待繳">待繳
                                         </span>
                                     </select>
+                                   
                                     
                                 <table id="myDataTalbe"  class="display">
 							        <thead>
 							            <tr>
 							         		<th>項次</th>
 							                <th>日期</th>
+							                <th>收入/支出</th>
 							                <th>交易種類</th>
 							                <th>交易金額</th>
 							                <th>交易狀態</th>
@@ -368,6 +379,9 @@
 											<tr>
 												<td>${varStatusName.count}</td>
 												<td>${cashVO.cash_date}</td>
+												<td>${cashVO.cash_inout}</td>
+<%-- 												<td><c:if test="${cashVO.cash_inout==\"in\"}">收入</c:if> --%>
+<%-- 													<c:if test="${cashVO.cash_inout==\"out\"}">支出</c:if></td> --%>
 												<td>
 													<c:if test="${cashVO.cash_status==1}">
 														<c:if test="${cashVO.cash_type==\"儲值\"}">
@@ -402,16 +416,8 @@
 													</c:if>
 													<c:if test="${cashVO.cash_inout==\"out\"}">
 														<td><span class="toreceiverow">待繳</span></td>
-<!-- 														<td class="toreceiverow">待繳</td> -->
 													</c:if>
 												</c:if>
-<!-- 												<td> -->
-<%-- 													<c:if test="${cashVO.cash_status==1}">完成</c:if> --%>
-<%-- 													<c:if test="${cashVO.cash_status==0}"> --%>
-<%-- 														<c:if test="${cashVO.cash_inout==\"in\"}">待收</c:if> --%>
-<%-- 														<c:if test="${cashVO.cash_inout==\"out\"}">待繳</c:if> --%>
-<%-- 													</c:if> --%>
-<!-- 												</td> -->
 												<td>
 													<c:if test="${cashVO.cash_type==\"每月帳單\"}">
 								                    	<button type="button" class="btn btn-info btn-sm btn-thismonth-detail btnRecBills" id="${cashVO.rec_no}" data-toggle="modal" data-target="#exampleModalCenter${varStatusName.count}">本月明細</button>
@@ -423,7 +429,7 @@
 														        <h5 class="modal-title" id="exampleModalLongTitle">週期帳單明細</h5>
 														      </div>
 														      <div class="modal-body" id="modal-body">
-<%-- 														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/> --%>
+														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/>
 														      </div>
 														      <div class="modal-footer">
 <!-- 														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button> -->
@@ -463,12 +469,34 @@
      
     <script>
     var cashVO;
+    $("#cash_inout").on("change",function(){
+        $.ajax({
+    		  url:"<%=request.getContextPath()%>/lld/LldServlet2",
+    	 	  type:"GET",
+    	 	  data:{action:"billsQuery",
+    	 		 cash_status:$('#cash_status').val(),
+    	 		 cash_inout:$('#cash_inout').val()
+    	 		  },
+    	 	  success:function(data){//以上成功才執行
+    	 		  console.log("data="+data);
+    	 		  cashVO=JSON.parse(data); 
+    	          loading(cashVO);
+    	 		  console.log("res棒");
+    	 		  }
+    	 	  ,
+    	 	  error:function(data)
+    	 	  {
+    	 		  console.log("真的不棒")
+    	 	  }			  
+    	  })
+        });
     $("#cash_status").on("change",function(){
     $.ajax({
 		  url:"<%=request.getContextPath()%>/lld/LldServlet2",
 	 	  type:"GET",
 	 	  data:{action:"billsQuery",
-	 		 cash_status:$('#cash_status').val()
+	 		 cash_status:$('#cash_status').val(),
+	 		 cash_inout:$('#cash_inout').val()
 	 		  },
 	 	  success:function(data){//以上成功才執行
 	 		  console.log("data="+data);
@@ -483,6 +511,7 @@
 	 	  }			  
 	  })
     });
+    
 	function loading(cashlist){
 		$("#tbody").remove();
 		$('#myDataTalbe').append("<tbody id='tbody'></tbody>");
@@ -542,6 +571,7 @@
 						"<tr>"+
 							"<td>"+(i+1)+"</td>"+
 							"<td>"+cashVO.cash_date+"</td>"+
+							"<td>"+cashVO.cash_inout+"</td>"+
 							"<td>"+img+" "+cashVO.cash_type+"</td>"+
 							"<td>"+cashVO.cash_amount+"</td>"+
 							"<td>"+statusStr+
