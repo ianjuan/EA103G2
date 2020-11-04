@@ -122,19 +122,6 @@
 				</div>
 			</li>
 				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
 			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
@@ -343,8 +330,7 @@
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 			<script type="text/javascript" src="<%=request.getContextPath()%>/back-end/house_manage/js/all_house.js" charset="UTF-8"></script>
 			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-			<script>
-			
+<script id="alert_js">
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
 	var host = window.location.host;
@@ -362,18 +348,19 @@
 		};
 		
 		webSocket.onmessage = function(event) {
-			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
-			if(jsonObj.length>1){
+			console.log(jsonObj);
+			if(jsonObj.length>=1){
+				console.log("hi");
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
-
 			for(var i=0;i<jsonObj.length ;i++){
 				alert_content = JSON.parse(jsonObj[i]).content;
 				alert_title =JSON.parse(jsonObj[i]).title;
+				alert_url=JSON.parse(jsonObj[i]).url;
 				alert_time =new Date(JSON.parse(jsonObj[i]).time);
 				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
 				    <div class="mr-3">
 				    <div class="icon-circle bg-primary">
 				        <i class="fas fa-file-alt text-white"></i>
@@ -387,16 +374,16 @@
 				$('#bell_alert').after(bell_html);
 			}
 			}
-			else{
-				var alert_count =$('#alert_count').text();
-				alert_count++;
+			else if(jsonObj.length!=0){
+				var a = parseInt($('#alert_count').text(),10);
+				alert_count=++a;
 				$('#alert_count').text(alert_count);
-				console.log(alert_count);
 				alert_content = jsonObj.content;
 				alert_title =jsonObj.title;
+				alert_url=jsonObj.url;
 				alert_time =new Date(jsonObj.time);
 				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
 				    <div class="mr-3">
 				    <div class="icon-circle bg-primary">
 				        <i class="fas fa-file-alt text-white"></i>
@@ -406,12 +393,9 @@
 				    <div class="small text-gray-500">${"${alert_day}"}</div>
 				    <span class="font-weight-bold">${"${alert_content}"}</span>
 				</div></a>`;
+
 				$('#bell_alert').after(bell_html);
 			}
-			
-				
-
-
 		};
 
 		webSocket.onclose = function(event) {
@@ -423,8 +407,7 @@
 		webSocket.close();
 
 	}
-
-</script>
+	</script>
 			
 	
 </body>

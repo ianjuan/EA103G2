@@ -177,12 +177,43 @@
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
 			     				<input type="hidden" name="action"	value="tntcheckout">
 			     				</FORM>
+			     				
+			     				<div>
+			     				
+								<li><button id="btn5" data-toggle="modal" data-target="#exampleModal">檢舉房東</button></li>
+								
+<%-- 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>"> --%>
+<%-- 			     				<input type="hidden" name="lld_no" value="${hosSvc.getHouseInfo(conVO.hos_no).lld_no)}"> --%>
+<!-- 			     				<input type="hidden" name="action"	value="tntcheckout"> -->
+			     				</div>
 																					
 							</ul>
 						</div>					
 					</div>
 			</c:forEach>
 			<%@ include file="tntpage2.file"%>
+			 <div class="modal fade" id="exampleModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-body">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true" id="close_btn">&times;</button>
+								<br>
+								<div id="myForm" class="myForm">
+									<label for="name">你的名字:</label> <input class="rpth" type="text"
+										name="tnt_name" id="iacc" readonly> 
+									<label for="name">房東姓名:</label> <input class="rpth" type="text"
+										name="lld_name" id="yacc" readonly>
+									<div class="form-group">
+										<label for="reason">檢舉原因:</label>
+										<textarea id="reason" name="rpth_content" required></textarea>
+									</div>
+									<button id="demo">提交</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			<div id="right"></div>
 		</div>
 		<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>
@@ -192,6 +223,38 @@
 				<img id="bigimg" style="border: 5px solid #fff;" src="" />
 			</div>
 		</div>
+		
+		<script>
+			$('#demo').click(function(){
+				
+				var rpth_content= $('#reason').val().trim()
+				if(rpth_content==''){
+				   swal("檢舉失敗!", "氣氣氣! 但內容還是要寫啦!", "error");
+				}else{
+				$.ajax({
+					type:"POST",
+					url:"<%=request.getContextPath()%>/front-end/rpth/RpthServlet",
+					data:{
+						action:"",
+						tnt_no:"",
+						lld_no:"",
+					    rpth_content:rpth_content
+					},
+					 success:function(data)
+				 	  {	
+					  swal("檢舉成功!", "感謝，愛租有您真好!", "success");
+				 	  }//以上成功才執行
+				 	  ,
+				 	  error:function(data)
+				 	  {
+				 	  swal("檢舉失敗!", "鳩豆麻爹!", "error");
+				 	}
+				  
+				})}
+				
+				  $("#close_btn").trigger("click");
+			});
+		</script>
 </body>
 </html>
 

@@ -1,19 +1,19 @@
 body {
-    font-size: 100%;
+    font-size: 110%;
     font-family: Microsoft JhengHei;
 }
 #body {
 	width: 100%;
-	height: 700px;
+	height: auto;
 }
 #left {
 	width: 20%;
-	height: 700px;
+	height: auto;
 	float: left;
 }
 #center {
 	width: 60%;
-	height: auto;
+	height: 749px;
 	float: left;
 	line-height: 1;
 }
@@ -507,7 +507,35 @@ body {
 	100%{transform: translateX(0px);}
 }
 
+.picbtn {
+	display: none;
+}
+#logo {
+	width: 70px;
+	height: auto;
+	position: fixed;
+	right: 10px;
+	bottom: 85px;
+	cursor: pointer;
+	border-radius: 20px;
+	opacity: 0.8;
+	display: none;
+}
+#logo:hover {
+	width: 75px;
+	opacity: 1;
+}
+#logo:active {
+	transform: translateY(3px);
+}
+
 @media (min-width: 901px) and (max-width: 1400px){
+	#center {
+		height: 780px;
+	}
+	#logo {
+		bottom: 55px;
+	}
 	#housenav {
 		transform: translateX(-30px);
 		width: 170px;
@@ -527,15 +555,21 @@ body {
 	}
 }
 @media (max-width: 900px){
+	#center {
+		height: 785px;
+	}
+	#logo {
+		bottom: 55px;
+	}
 	body{
-		font-size: 90%;
+		font-size: 100%;
 	}
 	#chead {
 		display: none;
 		height: 0px;
 	}
 	#cbody {
-		height: 700px;
+		height: 750px;
 	}
 	#cbody4 .num1{
 		width: 60%;
@@ -630,26 +664,4 @@ body {
 		transform: translateX(0px);
 		opacity: 1;
 	}
-}
-
-.picbtn {
-	display: none;
-}
-#logo {
-	width: 70px;
-	height: auto;
-	position: fixed;
-	right: 10px;
-	bottom: 10px;
-	cursor: pointer;
-	border-radius: 20px;
-	opacity: 0.8;
-	display: none;
-}
-#logo:hover {
-	width: 75px;
-	opacity: 1;
-}
-#logo:active {
-	transform: translateY(3px);
 }
