@@ -33,11 +33,11 @@ public class RpthServlet extends HttpServlet {
 
 				String Number = req.getParameter("Number").trim();
 				if (Number == null || (Number.trim()).length() == 0) {
-					errorMsgs.add("請正確輸入欲搜尋編號");
+					errorMsgs.add("親，空白了要怎麼找");
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_main_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("編號輸入錯誤");
 					return;
@@ -47,9 +47,10 @@ public class RpthServlet extends HttpServlet {
 				RpthService rpthSvc = new RpthService();
 				List<RpthVO> rpthVO = rpthSvc.getRpth(Number);
 				if (rpthVO.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+					errorMsgs.add("親，查無此人，確定一下唄!");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_main_page.jsp");
 					failureView.forward(req, res);
-					System.out.println("此編號找不到");
+					System.out.println("親，查無此人，確定一下唄!");
 					return;
 				}
 
@@ -64,8 +65,8 @@ public class RpthServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				System.out.println("無法取得555");
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+				errorMsgs.add("別給我亂輸入喔!");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_main_page.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -82,11 +83,12 @@ public class RpthServlet extends HttpServlet {
 				String Number = req.getParameter("Number");
 				System.out.println(Number);
 				if (Number == null || (Number.trim()).length() == 0) {
-					errorMsgs.add("請正確輸入欲搜尋編號");
+					errorMsgs.add("親，空白了要怎麼找");
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+					
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_second_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("編號輸入錯誤");
 					return;
@@ -97,7 +99,8 @@ public class RpthServlet extends HttpServlet {
 				System.out.println("有來到Service的方法");
 				List<RpthVO> rpthVO = rpthSvc.getRpth(Number);
 				if (rpthVO.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+					errorMsgs.add("親，查無此人，確定一下唄!");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_second_page.jsp");
 					failureView.forward(req, res);
 					System.out.println("此編號找不到");
 					return;
@@ -114,8 +117,8 @@ public class RpthServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				System.out.println("無法取得555");
-				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/select_page.jsp");
+				errorMsgs.add("別給我亂輸入喔!");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_second_page.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -165,16 +168,14 @@ public class RpthServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/rptt/rptt_form.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/index/index.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-		if ("getOne_For_Update".equals(action)) { // 來自addEmp.jsp的請求
+		if ("getOne_For_Update".equals(action)) { // wayne其實沒用到
 
 			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
@@ -235,8 +236,8 @@ public class RpthServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				errorMsgs.add("奇怪了呢，怎麼不能新增員工呢?");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_main_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -256,11 +257,11 @@ public class RpthServlet extends HttpServlet {
 				System.out.println(emp_no);
 				if (emp_no == null) {
 					System.out.println("空直跑到例外");
-					errorMsgs.add("未填寫要指派的員工編號! 麻煩重新操作一次");
+					errorMsgs.add("親，別忘了選一個替死鬼阿!");
 					RpthService rpthSvc = new RpthService();
 					List<RpthVO> rpthVO = rpthSvc.getRpth("0");
 					req.setAttribute("rpthVO", rpthVO);
-					String url = "/back-end/rpth/rpth_first_page.jsp";
+					String url = "/back-end/rpth/rpth_main_page.jsp";
 					RequestDispatcher FailView = req.getRequestDispatcher(url);
 					FailView.forward(req, res);
 					return;
@@ -288,8 +289,8 @@ public class RpthServlet extends HttpServlet {
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
 				System.out.println("跑到例外");
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				errorMsgs.add("不能指派! 難道是她是你對的人?");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_main_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -326,8 +327,8 @@ public class RpthServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				errorMsgs.add("儲存不了ㄟ! 就自己解決啦!");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_main_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -367,8 +368,8 @@ public class RpthServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				errorMsgs.add("哪尼!他是好人阿!別誣賴他");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_main_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -422,13 +423,13 @@ public class RpthServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/listAllRpth.jsp");
+				errorMsgs.add("壞人為什麼不能受到制裁!天公伯阿!");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rpth/rpth_main_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+		if ("delete".equals(action)) { // wayne沒用到
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -465,11 +466,11 @@ public class RpthServlet extends HttpServlet {
 
 				String Number = req.getParameter("Number").toUpperCase(); // Number可轉大寫且為身份證字號或編號
 				if (Number == null || (Number.trim()).length() == 0) {
-					errorMsgs.add("請正確輸入欲搜尋編號");
+					errorMsgs.add("親，空白了要怎麼找");
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rptt/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/member/landlord_main_page");
 					failureView.forward(req, res);
 					System.out.println("編號輸入錯誤");
 					return;
@@ -491,8 +492,8 @@ public class RpthServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				System.out.println("無法取得555" + e.getMessage());
-				errorMsgs.add("搜尋不到或是未填寫要查詢的編號! 麻煩重新輸入一次");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/vrf/vrf_main_page.jsp");
+				errorMsgs.add("我找我找，就是找不到這個人!給我檢查一下");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/member/landlord_main_page");
 				failureView.forward(req, res);
 			}
 

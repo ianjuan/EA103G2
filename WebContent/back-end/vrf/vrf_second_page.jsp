@@ -9,7 +9,6 @@
 	TntService tntSvc = new TntService();
 	List<TntVO> list = tntSvc.getAllVrf(1, 2);
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +22,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>身分驗證</title>
+<title>I-ZU 身分驗證</title>
 
 <!-- 網頁icon -->
 <link rel="icon"

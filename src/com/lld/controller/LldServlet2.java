@@ -679,17 +679,17 @@ public class LldServlet2 extends HttpServlet {
 				CashService cashSvc = new CashService();
 				HttpSession session = req.getSession();
 				String lld_no = (String) session.getAttribute("lld_no");
-				String status = req.getParameter("cash_status");
-				System.out.println("billsQuery的status"+status);
-//				status="成功";
-				String list=cashSvc.getOneCashlogs_query(lld_no, status);
+				String cash_status = req.getParameter("cash_status");
+				String cash_inout = req.getParameter("cash_inout");
+				System.out.println("billsQuery的cash_inout:"+cash_inout);
+				System.out.println("billsQuery的status:"+cash_status);
+				String list=cashSvc.getOneCashlogs_query(lld_no, cash_status);
 				out = res.getWriter();
 				out.print(list);
 				out.close();
 			}
-
 	}
-	
+
 
 	// ===================private methods===========================
 	// 登入驗證

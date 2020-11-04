@@ -6,6 +6,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.notify.controller.NotifyServlet;
 import com.rptt.model.*;
 
 public class RpttServlet extends HttpServlet {
@@ -478,6 +479,16 @@ public class RpttServlet extends HttpServlet {
 				tntVO1 = tntSvc.passVrf(tnt_no, tnt_id_result, emp_no);
 				System.out.println("tntpass有更新了");
 
+				if (tnt_no.startsWith("T")) {
+					new NotifyServlet().broadcast(tnt_no, "<b><p style='color:blue;'>身分驗證 通過</p></b>", "<p>趕緊來使用愛租吧!</p>",
+							"http://localhost:8081/EA103G2/front-end/tnt/verify.jsp");
+				} else {
+
+					new NotifyServlet().broadcast(tnt_no, "<b><p style='color:blue;'>身分驗證 通過</p></b>", "<p>趕緊來使用愛租吧!</p>",
+							"http://localhost:8081/EA103G2/front-end/lld/verify.jsp");
+
+				}
+
 				TntVO tntVO2 = tntSvc.getEmail(tnt_no);
 				String TntEmail = "xiyuan345@gmail.com";
 				String TntName = tntVO2.getTnt_name();
@@ -531,6 +542,17 @@ public class RpttServlet extends HttpServlet {
 				TntService tntSvc = new TntService();
 				tntVO1 = tntSvc.failVrf(tnt_no, tnt_id_result, emp_no, tnt_id_disapprove, tnt_id_isupload);
 				System.out.println("tntfail有更新了");
+				
+				
+				if (tnt_no.startsWith("T")) {
+					new NotifyServlet().broadcast(tnt_no, "<b><p style='color:red;'>身分驗證未通過</p></b>", "<p>麻煩再重新上傳!</p>",
+							"http://localhost:8081/EA103G2/front-end/tnt/verify.jsp");
+				} else {
+
+					new NotifyServlet().broadcast(tnt_no, "<b><p style='color:red;'>身分驗證未通過</p></b>", "<p>麻煩再重新上傳!</p>",
+							"http://localhost:8081/EA103G2/front-end/lld/verify.jsp");
+
+				}
 
 				TntVO tntVO2 = tntSvc.getEmail(tnt_no);
 				String TntEmail = "xiyuan345@gmail.com";

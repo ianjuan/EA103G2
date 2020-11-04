@@ -4,6 +4,7 @@
 <%@ page import="com.cash.model.*"%>
 <%@ page import="java.util.*"%>
 
+
 <% session.removeAttribute("lld_no"); %>
 <% String tnt_no = (String) session.getAttribute("tnt_no");%>
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
@@ -71,9 +72,10 @@
 		 }
 		 
 		.text-primary {
-   			color: #3a8c68!important;
+   			color: #916A3C!important;
 		}
 		
+/* 		 @media (max-width:1199.98px) { */
        @media (max-width:3000px) {
             .basicInfo__list {
                 position: fixed;
@@ -111,12 +113,12 @@
          } 
          /*現在頁面*/ 
          .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-			color: #3a8c68!important; 
-		    background-color: #AACFBF !important;
+			color: #916A3C!important; 
+		    background-color: #D7C8B6 !important;
 		    font-weight: bold !important;
 			border: transparent !important;
 		    background: transparent !important;
-		    border-bottom: 1px solid #3a8c68 !important;
+		    border-bottom: 1px solid #916A3C !important;
     		border-radius: 0px;
 		}
 		/*其他頁面按鈕*/
@@ -125,9 +127,9 @@
 		}
 		.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
   			color: #fff!important;
-   			border: 1px solid #AACFBF !important; 
+   			border: 1px solid #D7C8B6 !important; 
  		    background: transparent !important;
-  		    background-color: #AACFBF !important;
+  		    background-color: #D7C8B6 !important;
   		    border-radius: 10px;
 		}
 		/*不能按的下一頁*/
@@ -139,22 +141,22 @@
 		}
 		/*現在頁面*/ 
          .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-			color: #3a8c68!important; 
-		    background-color: #AACFBF !important;
+			color: #916A3C!important; 
+		    background-color: #D7C8B6 !important;
 		    font-weight: bold !important;
 			border: transparent !important;
 		    background: transparent !important;
-		    border-bottom: 1px solid #3a8c68 !important;
+		    border-bottom: 1px solid #916A3C !important;
     		border-radius: 0px !important;
 		}
 		/*Serch bar*/
 		.dataTables_wrapper .dataTables_filter input {
-			border: 1px solid #AACFBF !important;
+			border: 1px solid #D7C8B6 !important;
 			border-radius: 25px !important;
 			padding: 0 13px !important;
 		}
 		.dataTables_wrapper .dataTables_filter input:focus {
-			border: 1px solid #3a8c68 !important;
+			border: 1px solid #916A3C !important;
 			border-radius: 25px !important;
 			padding: 0 13px !important;
 		}
@@ -163,16 +165,16 @@
  			background-color: #fff !important; 
  		} 
  		tr:nth-child(even){ 
-   			background: #F2F7F2 !important; 
+   			background: #F7F2F2 !important; 
  		} 
  		tr:nth-child(odd){ 
-   			background: #fff !important; 
+    			background: #fff !important;  
  		} 
  		td.sorting_1:nth-child(even){ 
- /*   			background: #fff !important; */ 
+/*   			background-color: #e9e9e9 !important;  */
  		} 
  		td.sorting_1:nth-child(odd){ 
-   			background: #F2F7F2 !important; 
+   			background: #F7F2F2 !important; 
  		} 
  		table.dataTable.display tbody tr.odd>.sorting_1, table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 { 
  			background: #fff !important; 
@@ -189,6 +191,33 @@
 		.dataTables_wrapper {
 			padding: 30px 15px 0px;
 		}
+		.topayrow {
+			color: #bf2121 !important; 
+		}
+		.toreceiverow {
+			color: #0d3eb1 !important
+		}
+		/*本月明細*/
+		.btn-thismonth-detail {
+		    color: #fff;
+		    background-color: #916A3C !important;
+		    border-color: #916A3C !important;
+		}
+ 		.btn-primary { 
+ 		    color: #fff; 
+ 		    background-color: #916A3C!important;
+ 		    border-color: #916A3C!important;
+ 		}
+       .modal-dialog-centered {
+       		max-width: 35% !important;
+       }
+       .modal-header {
+       		text-align:center !important;
+       }
+       .modal-header{
+           align-items: center !important;
+    	   justify-content: center !important;
+	   }
     </style>
 
 </head>
@@ -217,7 +246,7 @@
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
-                            <p class="text-gray text-center mb-3">房客</p>
+                            <p class="text-gray text-center mb-3">房東</p>
                             <h4 class="text-center">${tntVO.tnt_name} 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
@@ -303,14 +332,25 @@
                      <!--Start bill logs-->
 								<div data-v-9403d44c="" class="bg-white info-form-wrap px-lg-5 px-md-4 px-3 pt-md-5 pt-4 mb-md-7 mb-4">
                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">交易紀錄</h4>
-                                <!--TAB 有空再做-->
+<!--                                 TAB 有空再做 -->
 <!-- 								<nav class="nav nav-pills nav-fill"> -->
 <!-- 								  <a class="nav-item nav-link active" href="#">Active</a> -->
 <!-- 								  <a class="nav-item nav-link" href="#">Link</a> -->
 <!-- 								  <a class="nav-item nav-link" href="#">Link</a> -->
 <!-- 								  <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 <!-- 								</nav> -->
-								<!--TAB 有空再做-->
+<!-- 								TAB 有空再做 -->
+									<select class="wrap-register100 validate-input" data-validate="" name="cash_status" id="cash_status" >
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">
+                                        	  <option value="" >查詢交易狀態
+                                              <option value="" >全部
+                          					  <option value="完成" >完成
+                          					  <option value="未完成">待收/代繳
+											  <option value="待收">待收
+											  <option value="待繳">待繳
+                                        </span>
+                                    </select>
                                 <table id="myDataTalbe"  class="display">
 							        <thead>
 							            <tr>
@@ -322,7 +362,7 @@
 							                <th>查看明細</th>
 							            </tr>
 							        </thead>
-							        <tbody>
+							        <tbody id="tbody">
 							        
 							        <c:forEach var="cashVO" items="<%=listCashLog%>"  varStatus="varStatusName">
 											<tr>
@@ -338,7 +378,7 @@
 								                        </c:if>
 														<c:if test="${cashVO.cash_inout==\"in\"}">
 									                        <c:if test="${cashVO.cash_type!=\"儲值\"}">
-									                            <img src="<%=request.getContextPath()%>/images/cash_out.png" width="50">
+									                            <img src="<%=request.getContextPath()%>/images/cash_in.png" width="50">
 									                        </c:if>
 								                        </c:if>
 														<c:if test="${cashVO.cash_inout==\"out\"}">
@@ -353,40 +393,51 @@
 													&nbsp${cashVO.cash_type}
 												</td>
 												<td>${cashVO.cash_amount}</td>
-												<td>
-													<c:if test="${cashVO.cash_status==1}">完成</c:if>
-													<c:if test="${cashVO.cash_status==0}">未完成</c:if>
+												<c:if test="${cashVO.cash_status==1}">
+													<td>完成</td>
+												</c:if>
+												<c:if test="${cashVO.cash_status==0}">
+													<c:if test="${cashVO.cash_inout==\"in\"}">
+														<td><span class="topayrow">待收</span></td>
+													</c:if>
+													<c:if test="${cashVO.cash_inout==\"out\"}">
+														<td><span class="toreceiverow">待繳</span></td>
+<!-- 														<td class="toreceiverow">待繳</td> -->
+													</c:if>
+												</c:if>
+<!-- 												<td> -->
+<%-- 													<c:if test="${cashVO.cash_status==1}">完成</c:if> --%>
+<%-- 													<c:if test="${cashVO.cash_status==0}"> --%>
+<%-- 														<c:if test="${cashVO.cash_inout==\"in\"}">待收</c:if> --%>
+<%-- 														<c:if test="${cashVO.cash_inout==\"out\"}">待繳</c:if> --%>
+<%-- 													</c:if> --%>
+<!-- 												</td> -->
 												<td>
 													<c:if test="${cashVO.cash_type==\"每月帳單\"}">
-								                    	<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter">本月明細</button>
+								                    	<button type="button" class="btn btn-info btn-sm btn-thismonth-detail btnRecBills" id="${cashVO.rec_no}" data-toggle="modal" data-target="#exampleModalCenter${varStatusName.count}">本月明細</button>
 								                    	<!-- Modal -->
-														<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+														<div class="modal fade" id="exampleModalCenter${varStatusName.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 														  <div class="modal-dialog modal-dialog-centered" role="document">
 														    <div class="modal-content">
 														      <div class="modal-header">
-														        <h5 class="modal-title" id="exampleModalLongTitle">每月帳單明細</h5>
-														        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														          <span aria-hidden="true">&times;</span>
-														        </button>
+														        <h5 class="modal-title" id="exampleModalLongTitle">週期帳單明細</h5>
 														      </div>
-														      <div class="modal-body">
-<%-- 														      <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/> --%>
+														      <div class="modal-body" id="modal-body">
+<%-- 														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/> --%>
 														      </div>
 														      <div class="modal-footer">
-														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button>
+<!-- 														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button> -->
 														      </div>
 														    </div>
 														  </div>
 														</div>
 														<!-- Modal End-->
 								                    </c:if>
-													
 												</td>
 											</tr>
 										</c:forEach>
 							        </tbody>
 							    </table>
-
                             </div>
                             <!--End bill logs -->
                     <!--outer -->
@@ -411,15 +462,123 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
      
     <script>
+    var cashVO;
+    $("#cash_status").on("change",function(){
+    $.ajax({
+		  url:"<%=request.getContextPath()%>/tnt/TntServlet2",
+	 	  type:"GET",
+	 	  data:{action:"billsQuery",
+	 		 cash_status:$('#cash_status').val()
+	 		  },
+	 	  success:function(data){//以上成功才執行
+	 		  console.log("data="+data);
+	 		  cashVO=JSON.parse(data); 
+	          loading(cashVO);
+	 		  console.log("res棒");
+	 		  }
+	 	  ,
+	 	  error:function(data)
+	 	  {
+	 		  console.log("真的不棒")
+	 	  }			  
+	  })
+    });
+	function loading(cashlist){
+		$("#tbody").remove();
+		$('#myDataTalbe').append("<tbody id='tbody'></tbody>");
+
+     $.each(cashlist, function(i,cashVO){      
+    	var img;
+    	var statusStr;
+    	if(cashVO.cash_status==1){
+        	// icon 判斷
+    		if (cashVO.cash_inout=="in"){
+    			if(cashVO.cash_type=="儲值"){
+    			 img="<img src='<%=request.getContextPath()%>/images/cash_deposit.png' width='50'>";
+
+    			}else{
+    				img="<img src='<%=request.getContextPath()%>/images/cash_in.png' width='50'>";
+    			}
+    		}
+    	 		 if (cashVO.cash_inout=="out"){
+    	 			if(cashVO.cash_type=="提領"){
+    	 				img="<img src='<%=request.getContextPath()%>/images/cash_withdraw.png' width='50'>";
+    	 			}else{
+    	 				img="<img src='<%=request.getContextPath()%>/images/cash_out.png' width='50'>";
+    	 			}
+    	 		}
+    	 // status 判斷
+    	 statusStr = '完成';
+        }
+        if(cashVO.cash_status==0){
+        	// icon 判斷
+        	img="<img src='<%=request.getContextPath()%>/images/cash_topay.png' width='50'>";
+        	// status 判斷
+        	statusStr = (cashVO.cash_inout=="in")?"<span class='topayrow'>待收</span>":"<span class='toreceiverow'>待繳</span>";
+        }
+    	// Modal
+    	var modalStr = '';
+    	if (cashVO.cash_type=='每月帳單'){
+    		modalStr = "<button type='button' class='btn btn-info btn-sm btn-thismonth-detail btnRecBills' data-toggle='modal' data-target='#exampleModalCenter"+(i+1)+"'>本月明細</button>"+
+    		"<div class='modal fade' id='exampleModalCenter"+(i+1)+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>"+
+    		  "<div class='modal-dialog modal-dialog-centered' role='document'>"+
+    		    "<div class='modal-content'>"+
+    		      "<div class='modal-header'>"+
+    		        "<h5 class='modal-title' id='exampleModalLongTitle'>週期帳單明細</h5>"+
+    		      "</div>"+
+    		      "<div class='modal-body' id='modal-body'>"+
+    		      
+    		      "</div>"+
+    		      "<div class='modal-footer'>"+
+//     		        "<button type='button' class='btn btn-primary' id='btnCloseDetail'>關閉明細</button>"+
+    		      "</div>"+
+    		    "</div>"+
+    		  "</div>"+
+    		"</div>";
+
+    	}
+    if(cashVO.cash_type){
+     $('#tbody').append(
+						"<tr>"+
+							"<td>"+(i+1)+"</td>"+
+							"<td>"+cashVO.cash_date+"</td>"+
+							"<td>"+img+" "+cashVO.cash_type+"</td>"+
+							"<td>"+cashVO.cash_amount+"</td>"+
+							"<td>"+statusStr+
+							"<td>"+modalStr+
+
+							"</td>"+
+						"</tr>"
+    )}
+    if (cashVO.cash_type=='每月帳單'){
+    	console.log(cashVO.rec_no);
+    	$.ajax({
+  		  url:"<%=request.getContextPath()%>/front-end/rec/nowrecdetail_bills.jsp?rec_no="+cashVO.rec_no,
+  	 	  type:"GET",
+  	 	  data:{},
+  	 	  success:function(data){//以上成功才執行
+  	 		  console.log("data="+data);
+  	 		  console.log("res棒");
+  	 		  $('#modal-body').html(data);
+  	 	  },
+  	 	  error:function(data){
+  	 		  console.log("真的不棒")
+  	 	  }			  
+  	  })
+    }
+    }); //each
+  }
+   		// DataTalbe
         $(function () {
             $("#myDataTalbe").DataTable({
-                searching: true, //關閉filter功能
+                searching: false, //關閉filter功能
                 columnDefs: [{
                     targets: [3],
                     orderable: false,
                 }]
             });
         });
+   		
     </script>
 </body>
 

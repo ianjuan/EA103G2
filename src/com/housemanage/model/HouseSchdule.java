@@ -13,8 +13,12 @@ public class HouseSchdule extends TimerTask{
 	}
 		
 	@Override
-	public void run() {
+	public void run() {		
+		System.out.println("我進來啦~~~~~~~~~~~");
 		HouseService housesvc = new HouseService();
 		housesvc.updateStatus(hos_status, hos_no);
+		this.cancel();
+		System.gc();
+		System.out.println("我出去啦~~~~~~~~~~~");
 	}
 }

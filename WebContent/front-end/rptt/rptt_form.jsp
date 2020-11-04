@@ -45,7 +45,7 @@
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 					<br>
-					<form action="RpttServlet" id="myForm" class="myForm">
+					<div action="RpttServlet" id="myForm" class="myForm">
 						<label for="name">您的帳號:</label> <input class="rpth" type="text"
 							name="lld_no" value="LLD000045" id="iacc" readonly> <label
 							for="name">檢舉的房客帳號:</label> <input class="rpth" type="text"
@@ -56,7 +56,7 @@
 						</div>
 						<input class="rpth" type="hidden" name="action" value="insert">
 						<button id="demo" >提交</button>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
