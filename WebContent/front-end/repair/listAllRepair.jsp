@@ -151,7 +151,14 @@ text-align:center;
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+     <li class="nav-item">
+    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+			<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+			<input type="hidden" name="action" value="getTntRepair">
+			<button type="submit" class="nav-link">全部</button>
+		</FORM>
+	</li>
+      <li class="nav-item">
         <button class="nav-link"  id="b1" >處理中</button>
       </li>
       <li class="nav-item">
