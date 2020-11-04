@@ -56,17 +56,10 @@
 <body>
 	<div id="body">
 		<div id="left">
-
 		</div>
 		<form class="table" name="recForm" METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
 			<div id="center">
-				<div id="chead">
-					<ul>
-						
-					</ul>
-				</div>		
 				<div id="cbody">				
-					<div id="cbody1">
 						<table cellpadding="11">
 							<tr>
 								<th>月份:</th>
@@ -172,17 +165,11 @@
 									<%=recVO.getRec_total()%>元
 								</td>
 							</tr>
-							
-							
-							
 						</table>
 					</div>		        				
-				</div>
-				
 			</div>
 		</FORM>			
-	</div>
-	<div id="foot"></div>		
-	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/rec/js/detailrec.js" charset="UTF-8"></script>	
+	</div>	
+<%-- 	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/rec/js/detailrec.js" charset="UTF-8"></script>	 --%>
 </body>
 </html>

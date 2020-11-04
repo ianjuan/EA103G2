@@ -320,6 +320,12 @@ public class CashDAO implements CashDAO_interface {
 			if (status.equals("未完成")) {
 				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 ";
 			}
+			if (status.equals("待收")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 "+ " AND cash_inout ='in' ";
+			}
+			if (status.equals("待繳")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 "+ " AND cash_inout ='out' ";
+			}
 
 			GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " order by cash_date DESC";
 			System.out.println("指令是"+GET_ONE_CASHLogs_query_STMT);

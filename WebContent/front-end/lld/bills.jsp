@@ -202,14 +202,21 @@
 		    background-color: #916A3C !important;
 		    border-color: #916A3C !important;
 		}
-/* 		.btn-primary { */
-/* 		    color: #fff; */
-/* 		    background-color: #916A3C!important; */
-/* 		    border-color: #916A3C!important; */
-/* 		} */
+ 		.btn-primary { 
+ 		    color: #fff; 
+ 		    background-color: #916A3C!important;
+ 		    border-color: #916A3C!important;
+ 		}
        .modal-dialog-centered {
-       		max-width: 50% !important;
+       		max-width: 35% !important;
        }
+       .modal-header {
+       		text-align:center !important;
+       }
+       .modal-header{
+           align-items: center !important;
+    	   justify-content: center !important;
+	   }
     </style>
 
 </head>
@@ -338,7 +345,9 @@
                                         	  <option value="" >查詢交易狀態
                                               <option value="" >全部
                           					  <option value="完成" >完成
-											  <option value="未完成"}>未完成
+                          					  <option value="未完成">待收/代繳
+											  <option value="待收">待收
+											  <option value="待繳">待繳
                                         </span>
                                     </select>
                                     
@@ -389,13 +398,13 @@
 												</c:if>
 												<c:if test="${cashVO.cash_status==0}">
 													<c:if test="${cashVO.cash_inout==\"in\"}">
-														<td class="topayrow">待收</td>
+														<td><span class="topayrow">待收</span></td>
 													</c:if>
 													<c:if test="${cashVO.cash_inout==\"out\"}">
-														<td class="toreceiverow">待繳</td>
+														<td><span class="toreceiverow">待繳</span></td>
+<!-- 														<td class="toreceiverow">待繳</td> -->
 													</c:if>
 												</c:if>
-												
 <!-- 												<td> -->
 <%-- 													<c:if test="${cashVO.cash_status==1}">完成</c:if> --%>
 <%-- 													<c:if test="${cashVO.cash_status==0}"> --%>
@@ -403,22 +412,18 @@
 <%-- 														<c:if test="${cashVO.cash_inout==\"out\"}">待繳</c:if> --%>
 <%-- 													</c:if> --%>
 <!-- 												</td> -->
-												
 												<td>
 													<c:if test="${cashVO.cash_type==\"每月帳單\"}">
-								                    	<button type="button" class="btn btn-info btn-sm btn-thismonth-detail" data-toggle="modal" data-target="#exampleModalCenter">本月明細</button>
+								                    	<button type="button" class="btn btn-info btn-sm btn-thismonth-detail btnRecBills" id="${cashVO.rec_no}" data-toggle="modal" data-target="#exampleModalCenter${varStatusName.count}">本月明細</button>
 								                    	<!-- Modal -->
-														<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+														<div class="modal fade" id="exampleModalCenter${varStatusName.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 														  <div class="modal-dialog modal-dialog-centered" role="document">
 														    <div class="modal-content">
 														      <div class="modal-header">
 														        <h5 class="modal-title" id="exampleModalLongTitle">週期帳單明細</h5>
-														        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														          <span aria-hidden="true">&times;</span>
-														        </button>
 														      </div>
 														      <div class="modal-body" id="modal-body">
-<%-- 														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=REC000001"/> --%>
+<%-- 														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/> --%>
 														      </div>
 														      <div class="modal-footer">
 														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button>
@@ -428,13 +433,11 @@
 														</div>
 														<!-- Modal End-->
 								                    </c:if>
-													
 												</td>
 											</tr>
 										</c:forEach>
 							        </tbody>
 							    </table>
-
                             </div>
                             <!--End bill logs -->
                     <!--outer -->
@@ -486,63 +489,66 @@
 
      $.each(cashlist, function(i,cashVO){      
     	var img;
-    	var statusStr = cashVO.cash_status==1 ? "完成" :"未完成";
-//     	var fee= cashVO.cash_type== "每月帳單"? 
-    if(cashVO.cash_status==1){
-		if (cashVO.cash_inout=="in"){
-			if(cashVO.cash_type=="儲值"){
-			 img="<img src='<%=request.getContextPath()%>/images/cash_deposit.png' width='50'>";
+    	var statusStr;
+    	if(cashVO.cash_status==1){
+        	// icon 判斷
+    		if (cashVO.cash_inout=="in"){
+    			if(cashVO.cash_type=="儲值"){
+    			 img="<img src='<%=request.getContextPath()%>/images/cash_deposit.png' width='50'>";
 
-			}else{
-				img="<img src='<%=request.getContextPath()%>/images/cash_in.png' width='50'>";
-			}
-		}
-	 		 if (cashVO.cash_inout=="out"){
-	 			if(cashVO.cash_type=="提領"){
-	 				img="<img src='<%=request.getContextPath()%>/images/cash_withdraw.png' width='50'>";
-	 			}else{
-	 				img="<img src='<%=request.getContextPath()%>/images/cash_out.png' width='50'>";
-	 			}
-	 		}
-    }
-    if(cashVO.cash_status==0){
-    	img="<img src='<%=request.getContextPath()%>/images/cash_topay.png' width='50'>";
-    }
-
+    			}else{
+    				img="<img src='<%=request.getContextPath()%>/images/cash_in.png' width='50'>";
+    			}
+    		}
+    	 		 if (cashVO.cash_inout=="out"){
+    	 			if(cashVO.cash_type=="提領"){
+    	 				img="<img src='<%=request.getContextPath()%>/images/cash_withdraw.png' width='50'>";
+    	 			}else{
+    	 				img="<img src='<%=request.getContextPath()%>/images/cash_out.png' width='50'>";
+    	 			}
+    	 		}
+    	 // status 判斷
+    	 statusStr = '完成';
+        }
+        if(cashVO.cash_status==0){
+        	// icon 判斷
+        	img="<img src='<%=request.getContextPath()%>/images/cash_topay.png' width='50'>";
+        	// status 判斷
+        	statusStr = (cashVO.cash_inout=="in")?"<span class='topayrow'>待收</span>":"<span class='toreceiverow'>待繳</span>";
+        }
+    	// Modal
+    	var modalStr = '';
+    	if (cashVO.cash_type=='每月帳單'){
+//     		modalStr = "<button type='button' class='btn btn-info btn-sm btn-thismonth-detail btnRecBills' data-toggle='modal' data-target='#exampleModalCenter"+(i+1)+"'>本月明細</button>"+
+//     		"<div class='modal fade' id='exampleModalCenter"+(i+1)+"' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>"+
+//     		  "<div class='modal-dialog modal-dialog-centered' role='document'>"+
+//     		    "<div class='modal-content'>"+
+//     		      "<div class='modal-header'>"+
+//     		        "<h5 class='modal-title' id='exampleModalLongTitle'>週期帳單明細</h5>"+
+//     		      "</div>"+
+//     		      "<div class='modal-body' id='modal-body'>"+
+<%--    		       	"<jsp:include page='/front-end/rec/nowrecdetail_bills.jsp?rec_no=REC000001'/>"+ --%>
+//     		      "</div>"+
+//     		      "<div class='modal-footer'>"+
+//     		        "<button type='button' class='btn btn-primary' id='btnCloseDetail'>關閉明細</button>"+
+//     		      "</div>"+
+//     		    "</div>"+
+//     		  "</div>"+
+//     		"</div>";
+    	}
+		
     if(cashVO.cash_type){
      $('#tbody').append(
 						"<tr>"+
-							"<td>"+i+"</td>"+
+							"<td>"+(i+1)+"</td>"+
 							"<td>"+cashVO.cash_date+"</td>"+
 							"<td>"+img+" "+cashVO.cash_type+"</td>"+
 							"<td>"+cashVO.cash_amount+"</td>"+
 							"<td>"+statusStr+
-							"<td>"+
-// 								<c:if test='${cashVO.cash_type==\'每月帳單\'}'>
-// 			                    	<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#exampleModalCenter'>本月明細</button>
-// 									<div class='modal fade' id='exampleModalCenter' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>
-// 									  <div class='modal-dialog modal-dialog-centered' role='document'>
-// 									    <div class='modal-content'>
-// 									      <div class='modal-header'>
-// 									        <h5 class='modal-title' id='exampleModalLongTitle'>每月帳單明細</h5>
-// 									        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-// 									          <span aria-hidden='true'>&times;</span>
-// 									        </button>
-// 									      </div>
-// 									      <div class='modal-body'>
-<%-- 														      <jsp:include page='/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}'/> --%> 
-// 									      </div>
-// 									      <div class='modal-footer'>
-// 									        <button type='button' class='btn btn-primary' id='btnCloseDetail'>關閉明細</button>
-// 									      </div>
-// 									    </div>
-// 									  </div>
-// 									</div>
-// 									<!-- Modal End-->
-// 			                    </c:if>
+							"<td>"+modalStr+
+
 							"</td>"+
 						"</tr>"
-    
     )}
     })
   }
@@ -556,6 +562,14 @@
                 }]
             });
         });
+   		
+//    		$(function () {
+//    			$('.btnRecBills').click(function(){
+//    				console.log($(this).previous);
+//    			}
+//    			})
+//    		});
+   		
     </script>
 </body>
 
