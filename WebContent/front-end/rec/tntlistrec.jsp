@@ -74,6 +74,11 @@
 						<input type="hidden" name="action" value="gettntcontract">
 						<button type="submit" class="link" style="color: #D37707;">合約管理</button><br>
 					</FORM>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet">
+						<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
+						<input type="hidden" name="action" value="getTntRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					
 				</div>
 			</nav>
