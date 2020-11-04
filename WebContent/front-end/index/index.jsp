@@ -41,71 +41,76 @@
                 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/index/css/style.css" />
                 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/index/css/style-xlarge.css" />
                 
-                <style>
-            
-            #header h1 a{
-                font-size: 1em;
-            }
-            .nav-item .member{
-    display: flex;
-}
-.nav-item .member .memberpic{
-    width: 45px;
-    margin-right: 5px;
-    outline: none;
- height: 45px;
- margin-top: 2px;
-  border-radius: 30px;
-}
-.nav-item .member .membername{
-    float: right;
-    align-self:center;
-    display: block;
-    align-item:center;
-        color: #4E6258;
-}
-@media ( min-width :981px) {
+<style>           
+	#header h1 a{
+		font-size: 1em;
+		text-decoration: none;
+	}
+	.nav-item .member{
+	    display: flex;
+	}
+	.nav-item .member .memberpic{
+	    width: 45px;
+	    margin-right: 5px;
+	    outline: none;
+	 	height: 45px;
+	 	margin-top: 2px;
+	  	border-radius: 30px;
+	}
+	.nav-item .member .membername{
+	    float: right;
+	    align-self:center;
+	    display: block;
+	    align-item:center;
+	    color: #4E6258;
+	}
+	#nav{
+	    line-height: 3em;
+	}        
+	#header nav{
+	    line-height: 50px;
+	}	            
+	#header nav > ul > li{
+		display: inline-flex;
+	}	
+	#skel-layers-hiddenWrapper{
+		display: none;
+	}	
+	#footer {
+		height: 100px;
+		display:flex;
+	    align-items:center;
+	    justify-content:center;
+	}
+	@media ( min-width :981px) {
 	.nav-item.dropdown{
-float:right;
-margin-top: 15px;
-}
-#header nav > ul > li  a{
-margin-top: 15px;
-}
-}
-@media ( max-width :980px) {
-.nav-item .member{
-/* border-top:none !important; */
-}
-.nav-item .member .memberpic{
-float:left;
-}
-.nav-item .member .membername{
-border-top:none !important;
-padding-top: 0px !important;
-float:left;
-}
-
-}
-
-
-#nav{
-    line-height: 3em;
-}        
-#header nav{
-    line-height: 50px;
-}
-            
-#header nav > ul > li{
-
-display: inline-flex;
-}
-
-#skel-layers-hiddenWrapper{
-	display: none;
-}
-
-            </style>
+		float:right;
+		margin-top: 15px;
+	}
+	#header nav > ul > li  a{
+		margin-top: 15px;
+	}
+	}
+	@media ( max-width :980px) {
+		.nav-item .member{
+		/* border-top:none !important; */
+		}
+		.nav-item .member .memberpic{
+			float:left;
+		}
+		.nav-item .member .membername{
+			border-top:none !important;
+			padding-top: 0px !important;
+			float:left;
+		}
+		#footer {
+			height: 185px;
+			display:flex;
+		    align-items:center;
+		    justify-content:center;
+		}
+	}
+</style>
                 
         </head>
 
@@ -137,26 +142,21 @@ display: inline-flex;
                                 <i class="icon big rounded color1 fa-cloud"></i>
                                 <h3>線上繳費</h3>
                                 <p>忙碌的生活讓你常常忘了繳費
-                                    <br>愛租使用線上付款的方式<br>
-                                    讓你隨時隨地輕鬆付款 </p>
+                                    <br>愛租使用線上付款的方式<br>讓你隨時隨地輕鬆付款</p>
                             </section>
                         </div>
                         <div class="4u 12u$(medium)">
                             <section class="box">
                                 <i class="icon big rounded color8 fas fa-star"></i>
                                 <h3>評分系統</h3>
-                                <p>讓你在尋找房屋/房屋出租時 <br>多一份參考的選項不再輕易 <br>
-                                    遇到糟糕的房東/房客</p>
+                                <p>讓你在尋找房屋/房屋出租時 <br>多一份參考的選項不再輕易<br>遇到糟糕的房東/房客</p>
                             </section>
                         </div>
                         <div class="4u 12u$(medium)">
                             <section class="box">
                                 <i class="icon big rounded color9 fa-desktop"></i>
                                 <h3>線上簽約</h3>
-                                <p>
-                                    怕不小心就簽了不合理的合約? <br>
-                                    愛租使用內政部制式化合約 <br>
-                                    讓你避免潛藏不平等合約的危機</p>
+                                <p>怕不小心就簽了不合理的合約?<br>愛租使用內政部制式化合約<br>讓你避免潛藏不平等合約的危機</p>
                             </section>
                         </div>
                     </div>
