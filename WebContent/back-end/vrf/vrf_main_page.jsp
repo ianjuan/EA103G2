@@ -173,19 +173,6 @@ input{
 					</div>
 				</div></li>
 			<!--前台 -->
-			<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse"
-					aria-labelledby="headingThree" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a>
-					</div>
-				</div></li>
 
 			<!--業務流程 -->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
@@ -484,12 +471,6 @@ input{
 		src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/chart.js/Chart.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<script

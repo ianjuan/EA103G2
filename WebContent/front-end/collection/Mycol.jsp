@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/Mycol/css/style.min.css" />
     		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
     		<!-- 	下面2個韋恩需要	 -->
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/rptt/main.css" type="text/css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/rptt/main_Mycol.css" type="text/css">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 </head>
@@ -69,6 +69,10 @@
 
 <%collectionService ser = new collectionService();
 String	tntno=(String)session.getAttribute("tnt_no");
+String tntname="未登入";
+if(tntVO!=null){
+	tntname=tntVO.getTnt_name();
+}
 
 			String list = ser.getCollectionVOfromTNTNO(tntno);
 			pageContext.setAttribute("list", list);//KEY，VALUE%>
@@ -337,7 +341,7 @@ $(".fav-body").append("<div class='item' id='"+value.hos_no+"' >"+
                            "<a href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos="+value.hos_no+"'><img src='<%=request.getContextPath()%>/resource/Mycol/images/tel.svg' alt=''/>預約看屋</a>"+
                             "<a class='select-live' href=''<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos="+value.hos_no+"''><img src='<%=request.getContextPath()%>/resource/Mycol/images/home.svg' alt=''/>我要入住</a>"+
                             "<a href='#message'> <img src='<%=request.getContextPath()%>/resource/Mycol/images/comment.svg' alt=''/>聊天</a>"+
-                           " <a class='red rptl_btn' href='#' id='"+value.hos_no+"' data-toggle='modal' data-target='#exampleModal'><img src='<%=request.getContextPath()%>/resource/Mycol/images/report.svg' alt=''/>檢舉</a>"+
+                           " <a class='red rptl_btn' href='#' id='"+value.hos_no+"'data-toggle='modal' data-target='#exampleModal'><img src='<%=request.getContextPath()%>/resource/Mycol/images/report.svg' alt=''/>檢舉</a>"+
                             "</div>"+
                         "  </div>"+
 
@@ -356,7 +360,7 @@ loading ();
 					<br>
 					<div id="myForm" class="myForm">
 						<label for="name">您的名字:</label> <input class="rpth" type="text"
-							name="tnt_name" value=<%=tntVO.getTnt_name() %> id="iacc" readonly> 
+							name="tnt_name" value=<%= tntname %> id="iacc" readonly> 
 						<div class="form-group">
 							<label for="reason">檢舉原因:</label>
 							<textarea id="reason" name="rpth_content" required></textarea>
@@ -371,7 +375,8 @@ loading ();
 <script>
 
    $('.rptl_btn').click(function(){
-	   var hosno=$(this).attr("id"), 
+	   var hosno=$(this).attr("id")
+	   var hosname=$(this).attr("name")
 	   $('#demo').click(function(){
 			
 			var rpth_content= $('#reason').val().trim()
@@ -384,12 +389,12 @@ loading ();
 				data:{
 					action:"insert",
 					tnt_no:"<%=(String)session.getAttribute("tnt_no")%>",
-					hos_no:hosno,
+					hos_no: hosno,
 				    rpth_content:rpth_content
 				},
 				 success:function(data)
 			 	  {	
-				  swal("檢舉成功!", "感謝，愛租有您真好!", "success");
+				  swal("檢舉成功!", "收到啦!不乖的交給我們就好", "success");
 			 	  }//以上成功才執行
 			 	  ,
 			 	  error:function(data)
@@ -400,50 +405,10 @@ loading ();
 			})}
 			
 			  $("#close_btn").trigger("click");
-		}); 
+		});
+	  
    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-	$('#demo').click(function(){
-		var hosno=$(this).val();	
-		var rpth_content= $('#reason').val().trim()
-		if(rpth_content==''){
-		   swal("檢舉失敗!", "氣氣氣! 但內容還是要寫啦!", "error");
-		}else{
-		$.ajax({
-			type:"POST",
-			url:"<%=request.getContextPath()%>/front-end/rpth/RpthServlet",
-			data:{
-				action:"insert",
-				tnt_no:"<%= tntVO.getTnt_no()%>",
-				hos:hosno,
-			    rpth_content:rpth_content
-			},
-			 success:function(data)
-		 	  {	
-			  swal("檢舉成功!", "感謝，愛租有您真好!", "success");
-		 	  }//以上成功才執行
-		 	  ,
-		 	  error:function(data)
-		 	  {
-		 	  swal("檢舉失敗!", "鳩豆麻爹!", "error");
-		 	}
-		  
-		})}
-		
-		  $("#close_btn").trigger("click");
-	});
+   
 </script>	
 
 </html>

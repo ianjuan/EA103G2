@@ -32,6 +32,7 @@
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
 <jsp:useBean id="tntSvc" scope="page" class="com.tnt.model.TntService" />
 <jsp:useBean id="lldSvc" scope="page" class="com.lld.model.LldService" />
+<jsp:useBean id="recSvc" scope="page" class="com.rec.model.RecService" />
 <jsp:useBean id="hosSvc" scope="page" class="com.housemanage.model.HouseService" />
 
 <!DOCTYPE html>
@@ -43,7 +44,7 @@
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/rec/css/detailrec.css">
+	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/rec/css/detailrec_bills.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -67,6 +68,12 @@
 				<div id="cbody">				
 					<div id="cbody1">
 						<table cellpadding="11">
+							<tr>
+								<th>月份:</th>
+								<td>
+									${recSvc.getMonthText(recVO.rec_mon)}
+								</td>
+							</tr>
 							
 							<tr>
 								<th>房屋名稱:</th>

@@ -167,10 +167,10 @@
    			background: #F7F2F2 !important; 
  		} 
  		tr:nth-child(odd){ 
-   			background: #fff !important; 
+    			background: #fff !important;  
  		} 
  		td.sorting_1:nth-child(even){ 
- /*   			background: #fff !important; */ 
+/*   			background-color: #e9e9e9 !important;  */
  		} 
  		td.sorting_1:nth-child(odd){ 
    			background: #F7F2F2 !important; 
@@ -190,6 +190,26 @@
 		.dataTables_wrapper {
 			padding: 30px 15px 0px;
 		}
+		.topayrow {
+			color: #bf2121 !important; 
+		}
+		.toreceiverow {
+			color: #0d3eb1 !important
+		}
+		/*本月明細*/
+		.btn-thismonth-detail {
+		    color: #fff;
+		    background-color: #916A3C !important;
+		    border-color: #916A3C !important;
+		}
+/* 		.btn-primary { */
+/* 		    color: #fff; */
+/* 		    background-color: #916A3C!important; */
+/* 		    border-color: #916A3C!important; */
+/* 		} */
+       .modal-dialog-centered {
+       		max-width: 50% !important;
+       }
     </style>
 
 </head>
@@ -315,6 +335,7 @@
  									<select class="wrap-register100 validate-input" data-validate="" name="cash_status" id="cash_status" >
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
+                                        	  <option value="" >查詢交易狀態
                                               <option value="" >全部
                           					  <option value="完成" >完成
 											  <option value="未完成"}>未完成
@@ -363,24 +384,41 @@
 													&nbsp${cashVO.cash_type}
 												</td>
 												<td>${cashVO.cash_amount}</td>
-												<td>
-													<c:if test="${cashVO.cash_status==1}">完成</c:if>
-													<c:if test="${cashVO.cash_status==0}">未完成</c:if>
+												<c:if test="${cashVO.cash_status==1}">
+													<td>完成</td>
+												</c:if>
+												<c:if test="${cashVO.cash_status==0}">
+													<c:if test="${cashVO.cash_inout==\"in\"}">
+														<td class="topayrow">待收</td>
+													</c:if>
+													<c:if test="${cashVO.cash_inout==\"out\"}">
+														<td class="toreceiverow">待繳</td>
+													</c:if>
+												</c:if>
+												
+<!-- 												<td> -->
+<%-- 													<c:if test="${cashVO.cash_status==1}">完成</c:if> --%>
+<%-- 													<c:if test="${cashVO.cash_status==0}"> --%>
+<%-- 														<c:if test="${cashVO.cash_inout==\"in\"}">待收</c:if> --%>
+<%-- 														<c:if test="${cashVO.cash_inout==\"out\"}">待繳</c:if> --%>
+<%-- 													</c:if> --%>
+<!-- 												</td> -->
+												
 												<td>
 													<c:if test="${cashVO.cash_type==\"每月帳單\"}">
-								                    	<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter">本月明細</button>
+								                    	<button type="button" class="btn btn-info btn-sm btn-thismonth-detail" data-toggle="modal" data-target="#exampleModalCenter">本月明細</button>
 								                    	<!-- Modal -->
 														<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 														  <div class="modal-dialog modal-dialog-centered" role="document">
 														    <div class="modal-content">
 														      <div class="modal-header">
-														        <h5 class="modal-title" id="exampleModalLongTitle">每月帳單明細</h5>
+														        <h5 class="modal-title" id="exampleModalLongTitle">週期帳單明細</h5>
 														        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 														          <span aria-hidden="true">&times;</span>
 														        </button>
 														      </div>
 														      <div class="modal-body" id="modal-body">
-<%-- 														       <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=REC000001"/> --%>
+														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=REC000001"/>
 														      </div>
 														      <div class="modal-footer">
 														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button>
@@ -422,12 +460,12 @@
      
     <script>
     var cashVO;
-    $(".validate-input").on("change",function(){
+    $("#cash_status").on("change",function(){
     $.ajax({//資料庫階段
 		  url:"<%=request.getContextPath()%>/lld/LldServlet2",
 	 	  type:"GET",
 	 	  data:{action:"billsQuery",
-	 		 Cash_status:$('#tnt_sex').val()
+	 		 cash_status:$('#cash_status').val()
 	 		  },
 	 	  success:function(data){//以上成功才執行
 	 		  console.log("data="+data);
@@ -442,13 +480,13 @@
 	 	  }			  
 	  } )
     });
-	function loading(vo){
+	function loading(cashlist){
 		$("#tbody").remove();
 		$('#myDataTalbe').append("<tbody id='tbody'></tbody>");
 
-     $.each(vo, function(i,cashVO){      
+     $.each(cashlist, function(i,cashVO){      
     	var img;
-    	var status = cashVO.cash_status==1 ? "完成" :"未完成";
+    	var statusStr = cashVO.cash_status==1 ? "完成" :"未完成";
 //     	var fee= cashVO.cash_type== "每月帳單"? 
     if(cashVO.cash_status==1){
 		if (cashVO.cash_inout=="in"){
@@ -478,7 +516,7 @@
 							"<td>"+cashVO.cash_date+"</td>"+
 							"<td>"+img+" "+cashVO.cash_type+"</td>"+
 							"<td>"+cashVO.cash_amount+"</td>"+
-							"<td>"+status+
+							"<td>"+statusStr+
 							"<td>"+
 // 								<c:if test='${cashVO.cash_type==\'每月帳單\'}'>
 // 			                    	<button type='button' class='btn btn-info btn-sm' data-toggle='modal' data-target='#exampleModalCenter'>本月明細</button>
@@ -508,7 +546,7 @@
     )}
     })
   }
-   
+   		// DataTalbe
         $(function () {
             $("#myDataTalbe").DataTable({
                 searching: false, //關閉filter功能
