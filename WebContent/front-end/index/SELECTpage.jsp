@@ -7,9 +7,11 @@
 <title>Insert title here</title>
 
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resource/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
-	
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resource/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+
 <%@ page import="com.houserch.model.*"%>
 <%
 			HousearchService ser = new HousearchService();
@@ -21,8 +23,6 @@ body, html {
 	height: 100%;
 	width: 100%;
 }
-
-
 
 .body {
 	/*background-color: navy;*/
@@ -38,15 +38,17 @@ body, html {
 	/*background-color: orange;*/
 	
 }
-.btn-secondary{
+
+.btn-secondary {
 	background-color: #AACFBF;
-	border-color:transparent;
-	
+	border-color: transparent;
 }
-.btn-secondary:hover{
+
+.btn-secondary:hover {
 	background-color: #779085;
-border-color:transparent;
+	border-color: transparent;
 }
+
 .btn-cho {
 	background-color: #AACFBF;
 	border-radius: 60px;
@@ -58,7 +60,7 @@ border-color:transparent;
 }
 
 .card {
-background-color: #C8D9C1;	
+	background-color: #C8D9C1;
 }
 
 /*城市*/
@@ -73,12 +75,16 @@ background-color: #C8D9C1;
 	background-color: #ACCBD3;
 	/*搜索按鈕*/
 }
+
 .my-0:hover {
 	background-color: #D8BBC8;
 	/*搜索按鈕*/
 }
-.turn{
-background-color:#ACCBD3;}
+
+.turn {
+	background-color: #ACCBD3;
+}
+
 .mr-auto {
 	margin-top: 33px;
 }
@@ -374,14 +380,16 @@ footer {
 /*             align-self: center; */
 /*             display: block; */
 /*         } */
-        .btn-group>.btn {
-        flex: 1 1 auto;}
+.btn-group>.btn {
+	flex: 1 1 auto;
+}
 </style>
 </head>
 
 <body>
 
-  	 <div><jsp:include page="/front-end/navbar/navbar.jsp"/> </div>
+	<div><jsp:include page="/front-end/navbar/navbar.jsp" />
+	</div>
 
 	<div class="col-12 body">
 		<!-- 縣市 -->
@@ -560,8 +568,8 @@ footer {
 							</div> </label> <label class="item_name">限男&nbsp;&nbsp;
 							<div class="onoffswitch">
 								<input type="checkbox" name="furniture"
-									class="onoffswitch-checkbox" id="boy" tabindex="0">
-								<label class="onoffswitch-label" for="boy"></label>
+									class="onoffswitch-checkbox" id="boy" tabindex="0"> <label
+									class="onoffswitch-label" for="boy"></label>
 							</div>
 						</label> <label class="item_name">限女&nbsp;&nbsp;
 							<div class="onoffswitch">
@@ -595,7 +603,7 @@ footer {
 				</div>
 				<div class="col-8">
 					<nav aria-label="Page navigation example" class="aboutpage">
-						
+
 					</nav>
 				</div>
 			</div>
@@ -610,7 +618,7 @@ footer {
 		<!-- Card deck -->
 
 	</div>
-<%@ include file="/front-end/index/footer.jsp" %>
+	<%@ include file="/front-end/index/footer.jsp"%>
 	<script
 		src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
 	<script
@@ -621,12 +629,10 @@ footer {
 	moneybtn="getall";
 	housebtn="getall";
 	pagebtn=1;
-	 obj= JSON.parse('${list}');
+	obj= JSON.parse('${list}');
 	function ajax(){
 		var town=$("#townch").val();
-		if(town=="選擇鄉鎮"){
-			town="";
-		}
+		if(town=="選擇鄉鎮"){town="";}
 
 		$.ajax({//資料庫階段
 			  url:"<%=request.getContextPath()%>/Housearch/GMapServlet",
@@ -645,9 +651,7 @@ footer {
 		 		  girl:$("#girl").is(":checked"),
 		 		  },
 		 	  success:function(data){//以上成功才執行
-		 		  console.log("data="+data);
 		 			 obj=JSON.parse(data); 
-		 			
 		             loading();
 		 		  	console.log("res棒");
 		 		  	}
@@ -656,23 +660,21 @@ footer {
 		 	  {
 		 		  console.log("真的不棒")
 		 	  }			  
-		  } )
+		  });
 		
 	}
 	
 	
    function loading(){ 
-	   $(".card-deck").remove();
-	   
-   var div = document.createElement("div");
-   var count=0;
-       div.setAttribute("class","card-deck row");
-       $("#card-container").append(div); 
-       console.log(Object.keys(obj).length);
-	   $.each(obj, function(key, value) {
-		   ++count;
-    	$(".card-deck").append(
-    			
+   		$(".card-deck").remove();
+   		var div = document.createElement("div");
+   		var count=0;
+        div.setAttribute("class","card-deck row");
+        $("#card-container").append(div); 
+        console.log(Object.keys(obj).length);
+	    $.each(obj, function(key, value) {
+			++count;
+    		$(".card-deck").append(
 				"<div class='col-xs-12 col-sm-6 col-md-4' id='"+value.hos_no+"'>"+
                     "<div class='card'>"+                             
                        " <div class='view overlay'>"+
@@ -689,26 +691,23 @@ footer {
                        "</div>"+
                     "</div>"+	
                   "</div>"	 
-);
-}); 		 		  
-$("#conter").text("本次搜尋到的房屋數量:"+count);
-$("#conter").val(count);
-pagechange();
+			);
+		}); 		 		  
+		$("#conter").text("本次搜尋到的房屋數量:"+count);
+		$("#conter").val(count);
+		pagechange();
 }
     
-   $("#btn-search").click(function() {
-	   ajax();
-   });
+
 
 
 		/*--------------------以下按鈕方法------------------*/
-		$(".form-control").change(function(){
-			ajax();
- } );
+		$(".form-control").change(function(){ajax();});
+		$("#btn-search").click(function() {ajax();});
 		$("#cook").change(function(){ajax(); })
-		  $("#pet").change(function(){ajax(); })
-		  $("#boy").change(function(){$("#girl").prop('checked',false);ajax(); })
-		  $("#girl").change(function(){$("#boy").prop('checked',false);ajax(); })
+		$("#pet").change(function(){ajax(); })
+		$("#boy").change(function(){$("#girl").prop('checked',false);ajax(); })
+		$("#girl").change(function(){$("#boy").prop('checked',false);ajax(); })
 		
 		$("#city").click(function() {
             $(".allcity").toggle();
@@ -744,15 +743,13 @@ pagechange();
         });
         $(document).on("click", ".moneybtn", function() {
 			moneybtn=$(this).val();
-			   ajax();
-
-		}
-		);
+		    ajax();
+		});
         $(document).on("click", ".housebtn", function() {
         	housebtn=$(this).val();
-     	   ajax();
-
+     	    ajax();
 		});
+        
         $(document).on("click", ".btn-md", function() {
         	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).val();
 		});
@@ -760,11 +757,10 @@ pagechange();
         
         $(document).on("click", ".pagination li.page-item", function() {//分頁
         	if($(this).val()!==999){
-         	   
         	pagebtn=$(this).val();
         	ajax();
-        }}
-		);
+        	};
+        });
         
     	function pagechange(){
         	$(".pagination li.page-item").css("color","black");
@@ -779,7 +775,7 @@ pagechange();
             				"<li class='page-item' value='999'><a class='page-link' >最後一頁</a>"+
             				"</li>"+
             			"</ul>"
-            			)
+            		)
             	}else{
         			$(".aboutpage").append(
         					"<ul class='pagination'>"+
@@ -789,8 +785,9 @@ pagechange();
             				"<li class='page-item' value='999'><a class='page-link' >最後一頁</a>"+
             				"</li>"+
             			"</ul>"
-            			)}
-        	}else{
+            		)}
+        	}
+        	else{
         		if (pagebtn==1){
             		$(".aboutpage").append(
             				"<ul class='pagination'>"+
@@ -814,7 +811,8 @@ pagechange();
         			"</ul>"
         			)}
         	}
-			$(this).css("color","#CD4A2D");}
+			$(this).css("color","#CD4A2D");
+		};
         
 		var area_data = {
 	            '台北市': [
@@ -885,16 +883,16 @@ pagechange();
 	            ]
 	        }
         const studentMap = new Map(Object.entries(area_data));
-		
 		$(".moneybtn").click(function(){
 			$(".moneybtn").css("color","white");
 			$(this).css("color","#CD4A2D");
-		})
+		});
 		$(".housebtn").click(function(){
 			$(".housebtn").css("color","white");
 			$(this).css("color","#CD4A2D");
-		})
-			ajax();
+		});
+		
+	ajax();
 	</script>
 
 </body>

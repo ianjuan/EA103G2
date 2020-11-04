@@ -349,11 +349,10 @@
          	            
         				
         		)
-        	$("#header").css("background-color", "#D7C8B6");
+        		$("#header").css("background-color", "#D7C8B6");
             	$("#navPanel").css("background", "#D7C8B6");
         	}
         	if("<%= tntno %>"!=="null"){
-        <%-- 		<img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" > --%>
         		$("#header").append(
         				 "<h1><a href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a></h1>"+
           	            "<nav id='nav' >"+

@@ -33,23 +33,20 @@ public class bookingServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		//
 		String action=request.getParameter("action");
 		String data =request.getParameter("data");
 		String lld_no=request.getParameter("lld_no");
 		String time=request.getParameter("time");
 		String tntno=request.getParameter("tntno");
 		if ("insert".equals(action)) {
-			// 進行轉換
 			try {
 			    BookingService bks= new BookingService();
 			    String thow =bks.insert(data, lld_no);
 				PrintWriter out = response.getWriter();
 				out.println(thow);
-
+				out.flush();
 				out.close();
 			
 			} catch (Exception e) {
@@ -62,17 +59,15 @@ public class bookingServlet extends HttpServlet {
 			Boolean answer=dao.findTheDayBytnt(tntno,time);
 			PrintWriter out = response.getWriter();
 			out.println(answer);
-
+			out.flush();
 			out.close();
-	} 
+		} 
 		else if ("deletelld".equals(action)) {
 			BookingDAO dao =new BookingDAO();
-			
 				dao.deletelld(data);
 		}
 		else if ("deletetnt".equals(action)) {
 			BookingDAO dao =new BookingDAO();
-			
 				dao.deletetnt(data,time);
 		}
 		else if ("update".equals(action)) {
@@ -84,8 +79,6 @@ public class bookingServlet extends HttpServlet {
 					request.getParameter("tntno"),
 					request.getParameter("type"),
 					request.getParameter("resstatus"));
-
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}}

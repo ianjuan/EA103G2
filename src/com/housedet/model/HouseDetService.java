@@ -10,7 +10,6 @@ public class HouseDetService {
 		
 		List<HosDetVO> list =dao.getHosDetfromHOSNO(hos_no);
 		
-	
 		return list;
 		
 	}
