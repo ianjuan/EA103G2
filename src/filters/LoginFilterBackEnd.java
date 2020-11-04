@@ -1,6 +1,8 @@
 package filters;
 
 import java.io.*;
+import java.util.Arrays;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -23,6 +25,7 @@ public class LoginFilterBackEnd implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 		Object account = session.getAttribute("empVO");
+		System.out.println();
 		if (account == null) {
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/back-end/emp/login.jsp");
