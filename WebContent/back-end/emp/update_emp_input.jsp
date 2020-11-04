@@ -72,6 +72,20 @@
 					</div>
 				</div>
 			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwooooooo"
+				aria-expanded="true" aria-controls="collapseTwooooooo"> <i
+					class="fas fa-user"></i> <span>聊天室</span>
+			</a>
+				<div id="collapseTwooooooo" class="collapse" aria-labelledby="headingTwooooooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">聊天室</h6>
+						<a  class="collapse-item" href="<%=request.getContextPath()%>/back-end/chat.jsp">聊天室</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">查詢員工</a>  -->
+					</div>
+				</div>
+			</li>
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoo"
@@ -122,19 +136,7 @@
 				</div>
 			</li>
 				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
+				
 			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
@@ -252,8 +254,6 @@
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
 										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
 										</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=logout"> 
@@ -406,8 +406,7 @@ $("#imgInp").change(function(){
 	}
 });
 </script>
-			<script>
-			
+<script id="alert_js">
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
 	var host = window.location.host;
@@ -425,18 +424,19 @@ $("#imgInp").change(function(){
 		};
 		
 		webSocket.onmessage = function(event) {
-			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
+			console.log(jsonObj);
 			if(jsonObj.length>=1){
+				console.log("hi");
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
-
 			for(var i=0;i<jsonObj.length ;i++){
 				alert_content = JSON.parse(jsonObj[i]).content;
 				alert_title =JSON.parse(jsonObj[i]).title;
+				alert_url=JSON.parse(jsonObj[i]).url;
 				alert_time =new Date(JSON.parse(jsonObj[i]).time);
 				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
 				    <div class="mr-3">
 				    <div class="icon-circle bg-primary">
 				        <i class="fas fa-file-alt text-white"></i>
@@ -450,10 +450,28 @@ $("#imgInp").change(function(){
 				$('#bell_alert').after(bell_html);
 			}
 			}
-			
-				
+			else if(jsonObj.length!=0){
+				var a = parseInt($('#alert_count').text(),10);
+				alert_count=++a;
+				$('#alert_count').text(alert_count);
+				alert_content = jsonObj.content;
+				alert_title =jsonObj.title;
+				alert_url=jsonObj.url;
+				alert_time =new Date(jsonObj.time);
+				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
+				    <div class="mr-3">
+				    <div class="icon-circle bg-primary">
+				        <i class="fas fa-file-alt text-white"></i>
+				    </div>
+					</div>
+					<div>
+				    <div class="small text-gray-500">${"${alert_day}"}</div>
+				    <span class="font-weight-bold">${"${alert_content}"}</span>
+				</div></a>`;
 
-
+				$('#bell_alert').after(bell_html);
+			}
 		};
 
 		webSocket.onclose = function(event) {
@@ -465,8 +483,7 @@ $("#imgInp").change(function(){
 		webSocket.close();
 
 	}
-
-</script>
+	</script>
 			
 	
 </body>

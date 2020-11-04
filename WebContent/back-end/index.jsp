@@ -126,22 +126,6 @@
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
-			</li>
-				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
-			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
@@ -214,7 +198,7 @@
                                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-bell fa-fw"></i>
                                         <!-- Counter - Alerts -->
-                                        <span id="alert_count" class="badge badge-danger badge-counter"></span>
+                                        <span id="alert_count" class="badge badge-danger badge-counter">0</span>
                                     </a>
                                     <!-- Dropdown - Alerts  fas fa-file-alt text-white fas fa-donate text-white  fas fa-exclamation-triangle text-white--> 
                                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -258,9 +242,7 @@
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
 										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
-										</a>
+										</a> 
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=logout"> 
 											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -293,9 +275,6 @@
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">員工編號</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">${empVO.emp_no}</div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -309,9 +288,6 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">員工姓名</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">${empVO.emp_name}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -338,9 +314,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -354,9 +327,6 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">待處理檢舉</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -429,7 +399,7 @@
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/chart.js/Chart.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
-				<script>
+	<script id="alert_js">
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
 	var host = window.location.host;
@@ -450,6 +420,7 @@
 			var jsonObj = JSON.parse(event.data);
 			console.log(jsonObj);
 			if(jsonObj.length>=1){
+				console.log("hi");
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
 			for(var i=0;i<jsonObj.length ;i++){
@@ -471,6 +442,28 @@
 
 				$('#bell_alert').after(bell_html);
 			}
+			}
+			else if(jsonObj.length!=0){
+				var a = parseInt($('#alert_count').text(),10);
+				alert_count=++a;
+				$('#alert_count').text(alert_count);
+				alert_content = jsonObj.content;
+				alert_title =jsonObj.title;
+				alert_url=jsonObj.url;
+				alert_time =new Date(jsonObj.time);
+				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
+				    <div class="mr-3">
+				    <div class="icon-circle bg-primary">
+				        <i class="fas fa-file-alt text-white"></i>
+				    </div>
+					</div>
+					<div>
+				    <div class="small text-gray-500">${"${alert_day}"}</div>
+				    <span class="font-weight-bold">${"${alert_content}"}</span>
+				</div></a>`;
+
+				$('#bell_alert').after(bell_html);
 			}
 		};
 

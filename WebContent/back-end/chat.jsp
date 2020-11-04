@@ -229,20 +229,6 @@ ul li{
 				</div>
 			</li>
 				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
-			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
@@ -420,8 +406,7 @@ ul li{
 			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
-			<script>
-			
+<script id="alert_js">
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
 	var host = window.location.host;
@@ -439,18 +424,19 @@ ul li{
 		};
 		
 		webSocket.onmessage = function(event) {
-			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
+			console.log(jsonObj);
 			if(jsonObj.length>=1){
+				console.log("hi");
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
-
 			for(var i=0;i<jsonObj.length ;i++){
 				alert_content = JSON.parse(jsonObj[i]).content;
 				alert_title =JSON.parse(jsonObj[i]).title;
+				alert_url=JSON.parse(jsonObj[i]).url;
 				alert_time =new Date(JSON.parse(jsonObj[i]).time);
 				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
 				    <div class="mr-3">
 				    <div class="icon-circle bg-primary">
 				        <i class="fas fa-file-alt text-white"></i>
@@ -464,11 +450,28 @@ ul li{
 				$('#bell_alert').after(bell_html);
 			}
 			}
-		
-			
-				
+			else if(jsonObj.length!=0){
+				var a = parseInt($('#alert_count').text(),10);
+				alert_count=++a;
+				$('#alert_count').text(alert_count);
+				alert_content = jsonObj.content;
+				alert_title =jsonObj.title;
+				alert_url=jsonObj.url;
+				alert_time =new Date(jsonObj.time);
+				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
+				    <div class="mr-3">
+				    <div class="icon-circle bg-primary">
+				        <i class="fas fa-file-alt text-white"></i>
+				    </div>
+					</div>
+					<div>
+				    <div class="small text-gray-500">${"${alert_day}"}</div>
+				    <span class="font-weight-bold">${"${alert_content}"}</span>
+				</div></a>`;
 
-
+				$('#bell_alert').after(bell_html);
+			}
 		};
 
 		webSocket.onclose = function(event) {
@@ -480,8 +483,7 @@ ul li{
 		webSocket.close();
 
 	}
-
-</script>
+	</script>
 			<script id="chat">
 	var MyPoint_chat = "/FriendWS/${empVO.emp_name}";
 	var host_chat = window.location.host;
@@ -568,7 +570,7 @@ ul li{
 	function refreshFriendList_chat(jsonObj_chat) {
 		var friends_chat = jsonObj_chat.users;
 		var row_chat = document.getElementById("row");
-		row_chat.innerHTML = '<h2 style="text-align: center;color: #36b9cc">員工列表</h2>';
+		row_chat.innerHTML = '<h2 style="text-align: center;color: #36b9cc">在線員工列表</h2>';
 		for (var i = 0; i < friends_chat.length; i++) {
 			if (friends_chat[i] === self_chat) { continue; }
 			row_chat.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends_chat[i] + ' ><p>' + friends_chat[i] + '</p></div>';

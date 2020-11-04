@@ -45,11 +45,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>簽合約</title>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont.css">	
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -67,6 +69,7 @@
                 <div class="nav-links">
                     <a href="<%=request.getContextPath()%>/front-end/house_manage/house_index.jsp" class="link">首頁</a>
 					<FORM METHOD="post" name="pub" ACTION="<%=request.getContextPath()%>/house_manage/HouseServlet">
+						<input type="hidden" id="lld_auth_hos" name="lld_auth_hos" value="<%=lldInfo.getLld_auth_hos()%>">
 						<input type="hidden" id="lld_balance" name="lld_balance" value="<%=lldInfo.getLld_balance()%>">
 						<input type="hidden" name="action" value="getLldPub">
 						<button type="button" class="link" onclick="checkmoney()">上架房屋</button>
@@ -94,7 +97,7 @@
 			<div id="center">
 				<div id="chead">
 					<h2>房屋租賃契約書</h2><a id="top" href="#">置頂</a><a id="fur" href="#">傢俱設備</a><a id="fee" href="#">費用</a><a id="signhref" href="#">簽名</a><a id="other_show" href="#">其他項目</a><a id="other_hide" href="#">其他項目</a>
-				</div>		
+				</div>
 				<div id="cbody">
 				        <br>			
 						 立契約書人出租人<mark><b><%=lldVO.getLld_name().trim()%></b></mark>，承租人<mark><b><%=tntVO.getTnt_name().trim()%></b></mark>&nbsp;茲為房屋租賃事宜，雙方同意本契約條款如下： <br><br>
@@ -104,7 +107,7 @@
 						&nbsp;&nbsp;<b>三、車位： </b><mark><b><%=houseVO.getHos_park()%>。</b></mark><br><br>
 						<div id="furdiv">
 							&nbsp;&nbsp;<b>四、租賃附屬設備： </b><br><br>
-							<%=houseVO.getHos_table()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>桌子</b></mark>&nbsp;&nbsp;"+
+							<%=houseVO.getHos_table()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>桌子</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_table'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -112,8 +115,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_table' value='0'>"%>
-							<%=houseVO.getHos_chair()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>椅子</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp張。</label><br>":"<input type='hidden' name='hos_table' value='0'>"%>
+							<%=houseVO.getHos_chair()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>椅子</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_chair'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -121,8 +124,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_chair' value='0'>"%>
-							<%=houseVO.getHos_bed()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>床</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp張。</label><br>":"<input type='hidden' name='hos_chair' value='0'>"%>
+							<%=houseVO.getHos_bed()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>床</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_bed'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -130,8 +133,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_bed' value='0'>"%>
-							<%=houseVO.getHos_closet()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>衣櫃</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp張。</label><br>":"<input type='hidden' name='hos_bed' value='0'>"%>
+							<%=houseVO.getHos_closet()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>衣櫃</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_closet'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -139,8 +142,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp個。</label><br><br><br>":"<input type='hidden' name='hos_closet' value='0'>"%>
-							<%=houseVO.getHos_sofa()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>沙發</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp個。</label><br>":"<input type='hidden' name='hos_closet' value='0'>"%>
+							<%=houseVO.getHos_sofa()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>沙發</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_sofa'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -148,8 +151,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp張。</label><br><br><br>":"<input type='hidden' name='hos_sofa' value='0'>"%>
-							<%=houseVO.getHos_refrig()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>冰箱</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp張。</label><br>":"<input type='hidden' name='hos_sofa' value='0'>"%>
+							<%=houseVO.getHos_refrig()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>冰箱</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_refrig'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -157,8 +160,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_refrig' value='0'>"%>
-							<%=houseVO.getHos_tv()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>電視</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp台。</label><br>":"<input type='hidden' name='hos_refrig' value='0'>"%>
+							<%=houseVO.getHos_tv()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>電視</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_tv'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -166,8 +169,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_tv' value='0'>"%>
-							<%=houseVO.getHos_drink()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>飲水機</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp台。</label><br>":"<input type='hidden' name='hos_tv' value='0'>"%>
+							<%=houseVO.getHos_drink()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>飲水機</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_drink'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -175,8 +178,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_drink' value='0'>"%>
-							<%=houseVO.getHos_aircon()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>冷氣</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp台。</label><br>":"<input type='hidden' name='hos_drink' value='0'>"%>
+							<%=houseVO.getHos_aircon()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>冷氣</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_aircon'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -184,8 +187,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_aircon' value='0'>"%>
-							<%=houseVO.getHos_wash()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>洗衣機</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp台。</label><br>":"<input type='hidden' name='hos_aircon' value='0'>"%>
+							<%=houseVO.getHos_wash()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>洗衣機</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_wash'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -193,8 +196,8 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_wash' value='0'>"%>
-							<%=houseVO.getHos_hoter()>0?"<label class='item_name'>&nbsp;&nbsp<mark><b>熱水器</b></mark>&nbsp;&nbsp;"+
+							"&nbsp;&nbsp台。</label><br>":"<input type='hidden' name='hos_wash' value='0'>"%>
+							<%=houseVO.getHos_hoter()>0?"<label class='item_name'>&nbsp;&nbsp;&nbsp;&nbsp;<mark><b>熱水器</b></mark>&nbsp;&nbsp;"+
 								"<select name='hos_hoter'>"+
 								  "<option value='1'>1</option>"+
 								  "<option value='2'>2</option>"+
@@ -202,7 +205,7 @@
 								  "<option value='4'>4</option>"+
 								  "<option value='5'>5</option>"+
 								"</select>"+
-							"&nbsp;&nbsp台。</label><br><br><br>":"<input type='hidden' name='hos_hoter' value='0'>"%>
+							"&nbsp;&nbsp台。</label><br>":"<input type='hidden' name='hos_hoter' value='0'>"%>
 						</div>						
 						&nbsp;&nbsp;<b>五、其他： </b><%=houseVO.getHos_forth()>0?"<mark><b>第四台</b></mark> ":""%><%=houseVO.getHos_net()>0?"<mark><b>網路</b></mark> ":""%><%=houseVO.getHos_gas()>0?"<mark><b>天然瓦斯</b></mark>":""%>。<br><br>
 						<strong>第二條 租賃期間</strong><br><br>
@@ -364,27 +367,26 @@
 						&nbsp;&nbsp;聯絡電話：<mark><b><%=tntVO.getTnt_mobile()%></b></mark><br><br>
 						&nbsp;&nbsp;電子郵件信箱：<mark><b><%=tntVO.getTnt_email()%></b></mark><br><br><br>
 						
-						名稱：愛租　 <br>
-						戶籍地址：桃園區中壢市中央路300號 <br>
-						通訊地址：桃園區中壢市中央路300號 <br>
-						聯絡電話：0988755012 <br>
-						電子郵件信箱：ea103g2@gmail.com <br>
-<%-- 						 西元<%=conVO.getCon_date()%><br> --%>
+						名稱：愛租<br>
+						戶籍地址：桃園區中壢市中央路300號<br>
+						通訊地址：桃園區中壢市中央路300號<br>
+						聯絡電話：0988755012<br>
+						電子郵件信箱：ea103g2@gmail.com<br>
 				</div>
 				<input type="hidden" name="lld_no" value="<%=lld_no%>">
 				<input type="hidden" name="con_no" value="<%=conVO.getCon_no()%>">
 				<input type="hidden" name="hos_no" value="<%=houseVO.getHos_no()%>">
 				<input type="hidden" name="lld_mobile" value="<%=lldVO.getLld_mobile()%>">
 				<div id="cfoot">
-					<button class="pagebtn" type="button" onclick="notice2()">重新填寫</button>	
+					<button class="pagebtn" type="button" onclick="notice2()">重新填寫</button>
 					<input type="hidden" name="action" value="updateonelldcontract">
-					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>					
+					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>
 				</div>				
 			</div>
 			<div id="right"></div>
 		</form>
 	</div>
-	<div id="foot"></div>
+	<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>
 	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont1.js" charset="UTF-8"></script>
 </body>
