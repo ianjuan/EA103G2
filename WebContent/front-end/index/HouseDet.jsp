@@ -480,7 +480,7 @@ console.log(picnum);
 			},
 			 success:function(data)
 		 	  {	
-			  swal("檢舉成功!", "感謝，愛租有您真好!", "success");
+				 swal("檢舉成功!", "收到啦!不乖的交給我們就好", "success");
 		 	  }//以上成功才執行
 		 	  ,
 		 	  error:function(data)
