@@ -23,6 +23,8 @@ import com.housemanage.model.HouseService;
 import com.housemanage.model.HouseVO;
 import com.lld.model.LldService;
 import com.lld.model.LldVO;
+import com.notify.controller.NotifyServlet;
+import com.notify.model.NotifyDAO;
 import com.rec.model.RecService;
 import com.rec.model.RecVO;
 import com.tnt.model.TntService;
@@ -254,6 +256,65 @@ public class RecServlet extends HttpServlet {
 			}
 		}
 		
+		//tnt fillin rec
+		if ("getOne_lld_Update".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/*************************** 1.接收請求參數 ****************************************/
+				String rec_no = req.getParameter("rec_no");
+				String lld_no = req.getParameter("lld_no");
+				String con_no = req.getParameter("con_no");
+				Integer rec_water = new Integer(req.getParameter("rec_water"));
+				Integer rec_elec = new Integer(req.getParameter("rec_elec"));
+				Integer rec_sta = 1;
+
+				ConService conService = new ConService();
+				String hos_no = conService.getOneCon(con_no).getHos_no();
+
+				HouseService houseService = new HouseService();
+				HouseVO houseVO = houseService.getHouseInfo(hos_no);
+				HouseVO houseVOelectfee = houseService.getHouseElectfee(hos_no);
+				HouseVO houseVOwaterfee = houseService.getHouseWaterfee(hos_no);
+				Integer rec_total = (int) (houseVO.getHos_rentfee()
+						+ (houseVOelectfee.getHos_electfee() * (int) rec_elec)
+						+ houseVOwaterfee.getHos_waterfee() * (int) (rec_water) + houseVO.getHos_gasfee()
+						+ houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee()
+						+ houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
+				/*************************** 2.開始查詢資料 ****************************************/
+				RecService recSvc = new RecService();
+				RecVO recVO = recSvc.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
+
+				RecService recService = new RecService();
+				List<RecVO> reclist = recService.getLddAllByCon(con_no);
+								
+				String userNo = conService.getOneCon(con_no).getTnt_no();
+				String title = "房東已填寫本月帳單";
+				String content = "請盡速繳費";
+				String url = "/EA103G2/front-end/contract/tntlistcontract.jsp";
+				new NotifyServlet().broadcast(userNo, title, content, url);
+
+				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
+				HttpSession session = req.getSession();
+				req.setAttribute("recVO", recVO);
+				session.setAttribute("lld_no", lld_no);
+				req.setAttribute("con_no", con_no);
+				session.setAttribute("reclist", reclist);
+				url = "/front-end/rec/lldlistrec.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+				/*************************** 其他可能的錯誤處理 **********************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/listAllCon_apl.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 		if ("tntpayrec".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -262,10 +323,6 @@ public class RecServlet extends HttpServlet {
 				String tnt_no = req.getParameter("tnt_no");
 				String con_no = req.getParameter("con_no");
 				String rec_no = req.getParameter("rec_no");
-				System.out.println("test");
-				System.out.println(tnt_no);
-				System.out.println(con_no);
-				System.out.println(rec_no);
 
 				RecService recService = new RecService();
 				Integer rec_total = recService.getOneRec(rec_no).getRec_total();
@@ -277,13 +334,9 @@ public class RecServlet extends HttpServlet {
 				
 				RecVO recVO = recService.getOneRec(rec_no);
 				String hos_no = recVO.getHos_no();
-				System.out.println(hos_no);
 				Integer rec_mon = recVO.getRec_mon();
-				System.out.println(rec_mon);
 				Integer rec_water = recVO.getRec_water();
-				System.out.println(rec_water);
 				Integer rec_elec = recVO.getRec_elec();
-				System.out.println(rec_elec);
 				Integer rec_sta = 2;
 				
 				recService.updateRec(con_no, hos_no, rec_mon, rec_water, rec_elec, rec_no, rec_sta, rec_total);
@@ -313,13 +366,19 @@ public class RecServlet extends HttpServlet {
 				
 				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
 				
+				String userNo = lld_no;
+				String title = "房客" + tntService.getOneTntProfile(tnt_no) + "已繳費";
+				String content = "請前往錢包查看入帳";
+				String url = "/EA103G2/front-end/lld/bills.jsp";
+				new NotifyServlet().broadcast(userNo, title, content, url);
+				
 				List<RecVO> reclist = recService.getLddAllByCon(con_no);
 
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
 				session.setAttribute("reclist", reclist);
 				req.setAttribute("con_no", con_no);
-				String url = "/front-end/rec/tntlistrec.jsp";
+				url = "/front-end/rec/tntlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
@@ -371,63 +430,6 @@ public class RecServlet extends HttpServlet {
 			}
 		}
 
-		if ("getOne_lld_Update".equals(action)) {
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				/*************************** 1.接收請求參數 ****************************************/
-				String rec_no = req.getParameter("rec_no");
-				String lld_no = req.getParameter("lld_no");
-				String con_no = req.getParameter("con_no");
-				Integer rec_water = new Integer(req.getParameter("rec_water"));
-				Integer rec_elec = new Integer(req.getParameter("rec_elec"));
-				Integer rec_sta = 1;
-
-				ConService conService = new ConService();
-				String hos_no = conService.getOneCon(con_no).getHos_no();
-				String tnt_no = conService.getOneCon(con_no).getTnt_no();
-
-				HouseService houseService = new HouseService();
-				HouseVO houseVO = houseService.getHouseInfo(hos_no);
-				HouseVO houseVOelectfee = houseService.getHouseElectfee(hos_no);
-				HouseVO houseVOwaterfee = houseService.getHouseWaterfee(hos_no);
-				Integer rec_total = (int) (houseVO.getHos_rentfee()
-						+ (houseVOelectfee.getHos_electfee() * (int) rec_elec)
-						+ houseVOwaterfee.getHos_waterfee() * (int) (rec_water) + houseVO.getHos_gasfee()
-						+ houseVO.getHos_manafee() + houseVO.getHos_netfee() + houseVO.getHos_puwaterfee()
-						+ houseVO.getHos_puelefee() + houseVO.getHos_parkfee() + houseVO.getHos_gasfee());
-				/*************************** 2.開始查詢資料 ****************************************/
-				RecService recSvc = new RecService();
-				RecVO recVO = recSvc.updateRecFromLld(rec_water, rec_elec, rec_no, rec_sta, rec_total);
-
-//				TntService tntService = new TntService();
-//				tntService.updateTntPocket((int)tntService.getOneTntPocket(tnt_no).getTnt_blance() - rec_total);
-//				System.out.println(1);
-
-				RecService recService = new RecService();
-				List<RecVO> reclist = recService.getLddAllByCon(con_no);
-
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				HttpSession session = req.getSession();
-				req.setAttribute("recVO", recVO);
-				session.setAttribute("lld_no", lld_no);
-				req.setAttribute("con_no", con_no);
-				session.setAttribute("reclist", reclist);
-				String url = "/front-end/rec/lldlistrec.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
-				return;
-
-				/*************************** 其他可能的錯誤處理 **********************************/
-			} catch (Exception e) {
-				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/listAllCon_apl.jsp");
-				failureView.forward(req, res);
-			}
-		}
+		
 	}
 }
