@@ -42,7 +42,6 @@ public class BookingDAO implements BookingDAO_interface {
 			pstmt = con.prepareStatement("SELECT r.RESD_NO,r.LLD_NO,r.RESD_DATE,r.RESD_STATUS FROM RESERVATION_DATE r "
 					+ "INNER JOIN HOUSE h on h.lld_no=r.lld_no " + "WHERE h.hos_no = ? ");
 			pstmt.setString(1, hoId);
-			
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -50,7 +49,6 @@ public class BookingDAO implements BookingDAO_interface {
 				vo.setResd_no(rs.getString("RESD_NO"));
 				vo.setLld_no(rs.getString("LLD_NO"));
 				vo.setResd_status(rs.getString("RESD_STATUS"));
-				System.out.println(rs.getString("RESD_STATUS") + "拿到STATUS");
 				vo.setResd_date(rs.getDate("RESD_DATE").toString() + "T" + rs.getTime("RESD_DATE").toString());
 				vo.setTimefordel(rs.getDate("RESD_DATE") + rs.getTime("RESD_DATE").toString());
 				list.add(vo);
@@ -94,7 +92,6 @@ public class BookingDAO implements BookingDAO_interface {
 		PreparedStatement pstmt = null;
 		try {
 			con = ds.getConnection();
-
 			pstmt = con.prepareStatement(
 					"INSERT INTO RESERVATION_DATE (RESD_NO,RESD_DATE,LLD_NO) "
 							+ " VALUES ('RESD' || lpad(SEQ_RESD_NO.NEXTVAL, 5, '0'),TO_DATE(?,'YYYY-MM-DD HH24:mi'),?)",
@@ -247,13 +244,13 @@ public class BookingDAO implements BookingDAO_interface {
 		try {
 			Date date = new Date();
 		    Timestamp nousedate = new Timestamp(date.getTime());
-		      con = ds.getConnection();
+		    con = ds.getConnection();
 		      
-		      pstmt = con.prepareStatement(""
+		    pstmt = con.prepareStatement(""
 		      		+ "insert into reservartion_order (RES_NO, TNT_NO ,HOS_NO ,ORDER_DATE ,RES_TYPE ,RES_STATUS ,RES_ODD)"
 		      		+ " VALUES ('RES' || lpad(SEQ_RES_NO.NEXTVAL, 6, '0'),?,?,TO_DATE(?,'YYYY-MM-DD HH24:mi:ss'),?,?,?) ");
 			System.out.println("tnt="+vo.getTnt_no()+",hos="+vo.getHos_no()+",Order_date="+vo.getOrder_date()+",Order_type="+vo.getRes_type()+",getRes_status="+vo.getRes_status()+",nousedate="+nousedate);
-		      pstmt.setString(1,vo.getTnt_no());
+		    pstmt.setString(1,vo.getTnt_no());
 			pstmt.setString(2,vo.getHos_no());
 			pstmt.setString(3,vo.getOrder_date());
 			pstmt.setString(4,vo.getRes_type());
@@ -266,7 +263,6 @@ public class BookingDAO implements BookingDAO_interface {
 	    	System.out.println("SQL壞了 ");
 	    }
 	    	finally {
-	        	
 	    		if (pstmt != null) {
 	    			try {
 	    				pstmt.close();

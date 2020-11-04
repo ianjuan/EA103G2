@@ -1,27 +1,29 @@
 package com.booking.model;
 
 public class BookingVO  implements java.io.Serializable {
-String resd_no;
-String lld_no;
-String resd_date;
-String resd_status;
-String order_date;
-String tnt_no;
-String res_status;
-String hos_no;
-String res_type;
-String hos_name;
-String hos_add;
-String res_no;
-String tnt_name;
-String tnt_sex;
-String tnt_mobile;
-byte[] tnt_pic;
-String lld_name;
-String lld_sex;
-String lld_mobile;
-byte[] lld_pic;
-String timefordel;
+	
+private  String resd_no;
+private  String lld_no;
+private  String resd_date;
+private  String resd_status;
+private  String order_date;
+private  String tnt_no;
+private  String res_status;
+private  String hos_no;
+private  String res_type;
+private  String hos_name;
+private  String hos_add;
+private  String res_no;
+private  String tnt_name;
+private  String tnt_sex;
+private  String tnt_mobile;
+private  byte[] tnt_pic;
+private  String lld_name;
+private  String lld_sex;
+private  String lld_mobile;
+private  byte[] lld_pic;
+private  String timefordel;
+
 public String getTimefordel() {
 	return timefordel;
 }
