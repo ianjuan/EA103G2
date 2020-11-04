@@ -10,9 +10,9 @@ public class CheckoutdepSchedule extends TimerTask{
 	CashVO cashVO = new CashVO();
 	
 	private String con_no = null;
-	private String cash_inout = cashVO.cashIn;
+	private String cash_inout = "收入";
 	private String mem_no = null;
-	private String cash_type = cashVO.tntIn_YaJinReturn;
+	private String cash_type = "退回押金";
 	private Integer cash_status = 1;
 	private Integer cash_amount = 0;
 	private String userNo = null;
@@ -34,6 +34,7 @@ public class CheckoutdepSchedule extends TimerTask{
 	public void run() {
 		CashService cashService = new CashService();
 		java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+		
 		cashService.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
 		
 		new NotifyServlet().broadcast(userNo, title, content, url);

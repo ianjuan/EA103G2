@@ -1,8 +1,7 @@
 package com.cont.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,23 +17,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import com.apl.model.Con_aplService;
 import com.apl.model.Con_aplVO;
 import com.cash.model.CashService;
 import com.cash.model.CashVO;
-import com.cont.model.ConDAO;
 import com.cont.model.ConService;
 import com.cont.model.ConVO;
-import com.housedet.model.HosDetVO;
 import com.housemanage.model.*;
 import com.lld.model.LldService;
 import com.lld.model.LldVO;
 import com.notify.controller.NotifyServlet;
 import com.rec.model.RecService;
 import com.rec.model.RecVO;
-//import com.sun.javafx.font.directwrite.RECT;
 import com.tnt.model.TntService;
 import com.tnt.model.TntVO;
 
@@ -183,7 +178,6 @@ public class ConServlet extends HttpServlet {
 
 				HttpSession session = req.getSession();
 				session.setAttribute("lld_no", lld_no);
-				session.setAttribute("conlist", conlist);
 				String url = "/front-end/contract/lldlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -210,7 +204,6 @@ public class ConServlet extends HttpServlet {
 
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
-				session.setAttribute("conlist", conlist);
 				String url = "/front-end/contract/tntlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -430,7 +423,6 @@ public class ConServlet extends HttpServlet {
 				/*************************** 查詢完成,準備轉交(Send the Success view) ************/
 				HttpSession session = req.getSession();
 				session.setAttribute("lld_no", lld_no);
-				session.setAttribute("conlist", conlist);
 
 				url = "/front-end/contract/lldlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -602,7 +594,7 @@ public class ConServlet extends HttpServlet {
 				Integer rec_mon = cal.get(Calendar.MONTH) + 1;
 				Integer rec_sta = 0;
 				
-				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta, userNo), 5000, 30000);
+				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta, userNo), 5000, 45000);
 				/*************************** 準備退房 **********************/
 				Date apl_end = aplSvc.getOneCon_apl(apl_no).getApl_end();
 				long apl_end_long = apl_end.getTime();
@@ -628,7 +620,6 @@ public class ConServlet extends HttpServlet {
 
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
-				session.setAttribute("conlist", conlist);
 
 				url = "/front-end/contract/tntlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -714,10 +705,13 @@ public class ConServlet extends HttpServlet {
 				System.out.println("不甜的話");
 				System.out.println(con_chr_itm);
 				System.out.println(con_chr_itm_name);
-				if (con_chr_itm_name == null) {
+				if (con_chr_itm_name.length() == 0) {
 					con_chr_itm_name = "無";
 					con_chr_itm = "無";
 				}
+				System.out.println("========");
+				System.out.println(con_chr_itm);
+				System.out.println(con_chr_itm_name);
 
 				conSvc.updatebeforecheckout(hos_dep, con_dep_sta, con_chkdate, con_comchkdate, con_chk_sta, con_chr_fee,
 						con_chr_itm, con_chr_itm_name, con_is_chr, con_sta, con_no);
@@ -725,7 +719,7 @@ public class ConServlet extends HttpServlet {
 				String userNo = conVO.getTnt_no();
 				String title = "房東已驗房完成";
 				String content = "請房客前往查看結果並準備退房";
-				String url = "/EA103G2/front-end/contract/tntlistcontract";
+				String url = "/EA103G2/front-end/contract/tntlistcontract.jsp";
 				
 				new NotifyServlet().broadcast(userNo, title, content, url);
 
@@ -733,7 +727,6 @@ public class ConServlet extends HttpServlet {
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				HttpSession session = req.getSession();
 				session.setAttribute("lld_no", lld_no);
-				session.setAttribute("conlist", conlist);
 				url = "/front-end/contract/lldlistcontract.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -837,6 +830,7 @@ public class ConServlet extends HttpServlet {
 				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status);
 				/*************************** 加房東錢錢 **********************/
 				String hos_no = conService.getOneCon(con_no).getHos_no();
+				System.out.println(hos_no);
 				lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
 
 				Integer lld_blance = lldService.getOneLldPocket(lld_no).getLld_balance() + rec_total;
@@ -846,10 +840,19 @@ public class ConServlet extends HttpServlet {
 				cash_inout = CashVO.cashIn;
 				cash_type = CashVO.lldIn_RecBill;
 				cash_amount = rec_total;
+				System.out.println(mem_no);
 
 				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
 			}
+			
+			if (reclist == null || reclist.size() == 0) {
+				String hos_no = conService.getOneCon(con_no).getHos_no();
+				System.out.println(hos_no);
+				lld_no = hosSvc.getHouseInfo(hos_no).getLld_no();
+				System.out.println("沒欠定期");
+			}
 
+			System.out.println(lld_no);
 			String userNo = lld_no;
 			String title = "房客已準備退房";
 			String content = "房客已繳清所有費用";
@@ -874,12 +877,12 @@ public class ConServlet extends HttpServlet {
 			Integer cash_amount = conSvc.getOneCon(con_no).getHos_dep();
 			Timer checkouttimer = new Timer();
 			userNo = tnt_no;
+			System.out.println(userNo);
 			checkouttimer.schedule(new CheckoutdepSchedule(userNo, con_no, mem_no, cash_amount), 1000);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			HttpSession session = req.getSession();
 			session.setAttribute("tnt_no", tnt_no);
-			session.setAttribute("conlist", conlist);
 			url = "/front-end/contract/tntlistcontract.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

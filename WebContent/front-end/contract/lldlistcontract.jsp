@@ -19,14 +19,12 @@
 		HouseService houseSvc = new HouseService();
 		lldInfo = houseSvc.getLldInfo(lld_no);
 	}
-	
-	List<ConVO> conlist = (List<ConVO>)request.getAttribute("conlist");
-	if(conlist == null || conlist.isEmpty()){
-		ConService conService = new ConService();
-		conlist = conService.lldgetcon(lld_no);
-	}
 
-	session.setAttribute("conlist",conlist);
+	ConService conService = new ConService();
+	List<ConVO> conlist = conService.lldgetcon(lld_no);
+	
+	pageContext.setAttribute("conlist", conlist);
+
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -118,7 +116,12 @@
 							src="<%=request.getContextPath()%>/front-end/contract/images/checked.png"
 							class="pic" />
 						</c:if>
-						<c:if test="${conVO.con_sta == 4 || conVO.con_sta == 5}">
+						<c:if test="${conVO.con_sta == 4}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/contract/images/precheck.png"
+							class="pic" />
+						</c:if>
+						<c:if test="${conVO.con_sta == 5}">
 						<img
 							src="<%=request.getContextPath()%>/front-end/contract/images/lldcheckroom.png"
 							class="pic" />

@@ -221,8 +221,7 @@ $( document ).ready(function() {
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '${con_aplVO.apl_str}',
-		   maxDate: '${con_aplVO.apl_end}'
+		   value: '${con_aplVO.apl_str}'
      });
      
      $.datetimepicker.setLocale('zh');
@@ -231,8 +230,7 @@ $( document ).ready(function() {
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '${con_aplVO.apl_end}', // value:   new Date(),
-		   minDate: '${con_aplVO.apl_str}'
+		   value: '${con_aplVO.apl_end}' // value:   new Date()
      });
 });
        

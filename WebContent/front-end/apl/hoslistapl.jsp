@@ -21,7 +21,10 @@
 	}
 
 	Con_aplService con_aplService = new Con_aplService();
-	List<Con_aplVO> hosapllist = con_aplService.hosgetall(hos_no);
+	List<Con_aplVO> list = con_aplService.hosgetall(hos_no);
+	
+	request.setAttribute("hos_no", hos_no);
+	pageContext.setAttribute("list", list);
 %>
 
 <jsp:useBean id="aplSvc" scope="page" class="com.apl.model.Con_aplService" />
@@ -35,8 +38,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>租屋申請</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/conlist_lld.css">
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/house_manage/js/house_unrent.js" charset="UTF-8"></script>
+<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/contlist_lld.css">
+<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/house_manage/css/house_evaluation.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/apl/js/lldapl.js" charset="UTF-8"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -76,14 +80,19 @@
 						<input type="hidden" name="action" value="getlldcontract">
 						<button type="submit" class="link">合約管理</button>
 					</FORM>
-					<button type="button" class="link">修繕管理</button>
+					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repiar.servlet">
+						<input type="hidden" name="lld_no" value="<%=lld_no%>">
+						<input type="hidden" name="action" value="getLldRepair">
+						<button type="submit" class="link">修繕管理</button><br>
+					</FORM>
 					<button type="button" class="link">評價管理</button>
 				</div>
 			</nav>
 		</div>
 		<div id="center">
+		<h3 class="houselisttitle">租屋申請</h3><hr>
 			<%@ include file="hospage1.file"%>
-			<c:forEach var="con_aplVO" items="${hosapllist}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+			<c:forEach var="con_aplVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 				<div class="houseinfo">
 					<div class="linfo">
 						<c:if test="${con_aplVO.apl_status == 0}">
@@ -111,7 +120,7 @@
 						<ul>
 <%-- 							<li><span class="infotitle">租屋申請編號 : </span><span>${con_aplVO.apl_no}</span></li> --%>
 							<li><span class="infotitle">房屋名稱 : </span><span>${hosSvc.getHouseInfo(con_aplVO.hos_no).hos_name}</span></li>
-							<li><span class="infotitle">房客姓名 / 評價 : </span><span>${tntSvc.getOneTntProfile(con_aplVO.tnt_no).tnt_name} / 5.0</span></li>
+							<li><span class="infotitle">房客姓名 / 評價 : </span><span>${tntSvc.getOneTntProfile(con_aplVO.tnt_no).tnt_name} / <%=Math.floor(Math.random()*20)/10 + 3%>分</span></li>
 							<li><span class="infotitle">租屋申請時間 : </span><span>${con_aplVO.apl_time}</span></li>
 							<li><span class="infotitle">租屋開始時間 : </span><span>${con_aplVO.apl_str}</span></li>
 							<li><span class="infotitle">租屋結束時間 : </span><span>${con_aplVO.apl_end}</span></li>
@@ -138,25 +147,279 @@
 								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
 			     				<input type="hidden" name="apl_status" value=2>
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
+			     				<input type="hidden" name="hos_no" value="<%=hos_no%>">
 			     				<input type="hidden" name="hos_no" value="${con_aplVO.hos_no}">
 			     				<input type="hidden" name="action"	value="lldupdate">
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>">
-								<li><button id="btn3">房客檔案</button></li>
-								<input type="hidden" name="apl_no"  value="${con_aplVO.apl_no}">
-			     				<input type="hidden" name="apl_status" value=1>
+								<li><button type="button" id="btn3" data-toggle="modal" data-target="#tnt_eva1">房客評價</button></li>
+			     				<input type="hidden" name="tnt_no" value="${con_aplVO.tnt_no}">
 			     				<input type="hidden" name="lld_no" value="<%=lld_no%>">
-			     				<input type="hidden" name="action"	value="lldupdate">
+			     				<input type="hidden" name="action"	value="gettntprofile">
 			     				</FORM>
 			     				
 								<li><button id="btn4">聊天</button></li>
-								
-														
+															
 							</ul>
 						</div>					
 					</div>
+					<div class="modal fade" id="tnt_eva1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+						    	<span class="allhousetitle">房客評價</span>
+						    </div>
+							<div class="modal-body">
+								<div id="accordion">
+								<!-- 每篇評價 -->
+								  	<div class="card">
+								    	<div class="card-header" id="headingOne">
+								      		<h5 class="mb-0">
+										        <button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#eva1" aria-expanded="false" aria-controls="collapseOne" style="float:left;">法蘭克</button>
+										        <span class="listlogo">
+													<img src="https://www.flaticon.com/svg/static/icons/svg/263/263143.svg">
+													<span class="avgpoint">5.0分</span>
+												</span>
+										        <span class="evatime">2020/11/04</span>
+								     		 </h5>
+								    	</div>					
+								    <div id="eva1" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+								      	<div class="card-body">
+								        	<ul>
+												<li>
+											    	<div class="item">			       				
+											       		<ul class="rating">								   										
+															<span class="logo">
+																<img src="https://www.flaticon.com/premium-icon/icons/svg/3680/3680325.svg">
+																<span class="itemtitle">整潔度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											    </li>
+											    <li>
+											       	<div class="item">			       				
+											       		<ul class="rating">								   
+															<span class="logo">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/3659/3659776.svg">
+																<span class="itemtitle">溝通度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											    </li>
+											   	<li>
+											       	<div class="item">
+											       		<ul class="rating">								   								    
+															<span class="logo">
+																<img src="https://www.flaticon.com/premium-icon/icons/svg/3677/3677063.svg">
+																<span class="itemtitle">滿意度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											     </li>					
+											     <li>
+											       	<div class="item">
+												       	<span class="logo" style="float:left;margin-top:5px;">
+															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
+															<span class="itemtitle">房東評論 :</span>
+														</span>
+												       	<textarea rows="2" wrap="hard" name="hcm_commnt" readonly>這是我遇過最好的房客,推推!</textarea>			       		
+											       	</div>
+											     </li>
+											     <li>
+											       	<div class="item">
+												       	<span class="logo" style="float:left;margin-top:5px;">
+															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263101.svg">
+															<span class="itemtitle">房客回覆 :</span>
+														</span>
+												       	<textarea rows="2" wrap="hard" name="hcm_respon" readonly>感謝QQ寶</textarea>			       		
+											       	</div>
+											     </li>
+											</ul>
+								      	</div>
+									</div>
+								</div>
+								<!-- 每篇評價 -->
+								  	<div class="card">
+								    	<div class="card-header" id="headingOne">
+								      		<h5 class="mb-0">
+										        <button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#eva2" aria-expanded="false" aria-controls="collapseOne" style="float:left;">大岩蛇</button>
+										        <span class="listlogo">
+													<img src="https://www.flaticon.com/svg/static/icons/svg/263/263143.svg">
+													<span class="avgpoint">1.0分</span>
+												</span>
+										        <span class="evatime">2019/10/01</span>
+								     		 </h5>
+								    	</div>					
+								    <div id="eva2" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+								      	<div class="card-body">
+								        	<ul>
+												<li>
+											    	<div class="item">			       				
+											       		<ul class="rating">								   										
+															<span class="logo">
+																<img src="https://www.flaticon.com/premium-icon/icons/svg/3680/3680325.svg">
+																<span class="itemtitle">整潔度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											    </li>
+											    <li>
+											       	<div class="item">			       				
+											       		<ul class="rating">								   
+															<span class="logo">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/3659/3659776.svg">
+																<span class="itemtitle">溝通度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											    </li>
+											   	<li>
+											       	<div class="item">
+											       		<ul class="rating">								   								    
+															<span class="logo">
+																<img src="https://www.flaticon.com/premium-icon/icons/svg/3677/3677063.svg">
+																<span class="itemtitle">滿意度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											     </li>					
+											     <li>
+											       	<div class="item">
+												       	<span class="logo" style="float:left;margin-top:5px;">
+															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
+															<span class="itemtitle">房東評論 :</span>
+														</span>
+												       	<textarea rows="2" wrap="hard" name="hcm_commnt" readonly>你無法滿足我</textarea>			       		
+											       	</div>
+											     </li>
+											     <li>
+											       	<div class="item">
+												       	<span class="logo" style="float:left;margin-top:5px;">
+															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263101.svg">
+															<span class="itemtitle">房客回覆 :</span>
+														</span>
+												       	<textarea rows="2" wrap="hard" name="hcm_respon" readonly>抱歉</textarea>			       		
+											       	</div>
+											     </li>
+											</ul>
+								      	</div>
+									</div>
+								</div>
+									<!-- 每篇評價 -->
+								  	<div class="card">
+								    	<div class="card-header" id="headingOne">
+								      		<h5 class="mb-0">
+										        <button type="button" class="btn btn-outline-info" data-toggle="collapse" data-target="#eva3" aria-expanded="false" aria-controls="collapseOne" style="float:left;">陳元元</button>
+										        <span class="listlogo">
+													<img src="https://www.flaticon.com/svg/static/icons/svg/263/263143.svg">
+													<span class="avgpoint">4.0分</span>
+												</span>
+										        <span class="evatime">2018/10/23</span>
+								     		 </h5>
+								    	</div>					
+								    <div id="eva3" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+								      	<div class="card-body">
+								        	<ul>
+												<li>
+											    	<div class="item">			       				
+											       		<ul class="rating">								   										
+															<span class="logo">
+																<img src="https://www.flaticon.com/premium-icon/icons/svg/3680/3680325.svg">
+																<span class="itemtitle">整潔度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											    </li>
+											    <li>
+											       	<div class="item">			       				
+											       		<ul class="rating">								   
+															<span class="logo">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/3659/3659776.svg">
+																<span class="itemtitle">溝通度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											    </li>
+											   	<li>
+											       	<div class="item">
+											       		<ul class="rating">								   								    
+															<span class="logo">
+																<img src="https://www.flaticon.com/premium-icon/icons/svg/3677/3677063.svg">
+																<span class="itemtitle">滿意度 :</span>
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+																<img src="https://www.flaticon.com/svg/static/icons/svg/616/616489.svg">
+															</span>
+														</ul>
+											       	</div>
+											     </li>					
+											     <li>
+											       	<div class="item">
+												       	<span class="logo" style="float:left;margin-top:5px;">
+															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263062.svg">
+															<span class="itemtitle">房東評論 :</span>
+														</span>
+												       	<textarea rows="2" wrap="hard" name="hcm_commnt" readonly>看門狗不好玩</textarea>			       		
+											       	</div>
+											     </li>
+											     <li>
+											       	<div class="item">
+												       	<span class="logo" style="float:left;margin-top:5px;">
+															<img src="https://www.flaticon.com/svg/static/icons/svg/263/263101.svg">
+															<span class="itemtitle">房客回覆 :</span>
+														</span>
+												       	<textarea rows="2" wrap="hard" name="hcm_respon" readonly>2018看門狗是出了?</textarea>			       		
+											       	</div>
+											     </li>
+											</ul>
+								      	</div>
+									</div>
+								</div>
+																			
+							</div>
+						</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>				    
+							</div>
+						</div>
+					</div>
+				</div>	
 			</c:forEach>
+			<%@ include file="page2.file"%>
 			<div id="right"></div>
 		</div>
 		<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>

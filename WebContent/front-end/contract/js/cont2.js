@@ -85,7 +85,6 @@ function notice1(){
 	var sign = document.getElementById("sign").getAttribute("value").trim();
 	var money = parseInt(document.getElementById("tnt_balance").value);
 	var dep = parseInt(document.getElementById("hos_dep").value);
-	console.log(sign);
 	 if(sign === ""){
 		 swal("別忘記要簽名哦~", "你各位簽完記得要按確認阿", "error", {button: "確認"});
 	 } else {
@@ -93,7 +92,7 @@ function notice1(){
 		      Btn: false, confirm: {text:"確認", visible: true}, cancel: {text:"取消", visible: true}
 		    }}).then(function(isConfirm){
 				if(isConfirm){
-					swal("成功送出合約!!", "您的錢包還有" + money + "元", "success", {button: "確認"}).then(function(){
+					swal("成功送出合約!!", "您的錢包還有" + (money - dep) + "元, 請準備入住", "success", {button: "確認"}).then(function(){
 						document.contForm.submit();
 					});
 				} else {
