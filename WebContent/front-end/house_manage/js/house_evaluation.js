@@ -1,4 +1,17 @@
 window.onload = function(){
+	var menuBtn = document.querySelector('.menu-btn');
+    var nav = document.querySelector('#housenav');
+    var lineOne = document.querySelector('#housenav .menu-btn .line--1');
+    var lineTwo = document.querySelector('#housenav .menu-btn .line--2');
+    var lineThree = document.querySelector('#housenav .menu-btn .line--3');
+    var link = document.querySelector('#housenav .nav-links');
+    menuBtn.addEventListener('click', function() {
+        nav.classList.toggle('nav-open');
+        lineOne.classList.toggle('line-cross');
+        lineTwo.classList.toggle('line-fade-out');
+        lineThree.classList.toggle('line-cross');
+        link.classList.toggle('fade-in');
+    })
 	document.querySelectorAll('.rating').forEach(rating => {
 
 	    let entries = rating.querySelectorAll('li')
