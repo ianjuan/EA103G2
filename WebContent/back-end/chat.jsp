@@ -26,6 +26,11 @@
 *, ::after, ::before {
     box-sizing: unset;
 }
+
+.btn-primary{
+background: #36b9cc;
+border-color:antiquewhite;
+}
 .panel {
 	float: right;
 	border: 2px solid #0078ae;
@@ -42,7 +47,7 @@
 }
 
 .input-area {
-	background: #0078ae;
+    background: #36b9cc;
 	box-shadow: inset 0 0 10px #00568c;
 }
 
@@ -68,7 +73,7 @@ h1 {
 }
 
 .statusOutput {
-	background: #0078ae;
+	background: #36b9cc;
 	text-align: center;
 	color: #ffffff;
 	border: 1px solid grey;
@@ -114,7 +119,7 @@ ul li{
 
 .me{
   float: right;
-  background: #0084ff;
+  background: cadetblue;
   color: #fff;
 }
 
@@ -133,7 +138,7 @@ ul li{
 </style>
 </head>
 
-<body onload="connect();" onunload="disconnect();">
+<body onload="connect(),connect_chat();" onunload="disconnect(),disconnect_chat();">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		<!-- Sidebar -->
@@ -389,12 +394,12 @@ ul li{
               <div class="table-responsive">
 <h3 id="statusOutput_chat" class="statusOutput"></h3>
 	<div id="row"></div>
-	<div id="messagesArea" class="panel message-area" ></div>
+	<div id="messagesArea" class="panel message-area" style="height: 200px;"></div>
 	<div class="panel input-area">
-		<input id="message" class="text-field" type="text" placeholder="Message" onkeydown="if (event.keyCode == 13) sendMessage_chat();" /> 
-		<input type="submit" id="sendMessage_chat" class="button" value="Send" onclick="sendMessage_chat();" /> 
-		<input type="button" id="connect_chat" class="button" value="Connect" onclick="connect_chat();" /> 
-		<input type="button" id="disconnect_chat" class="button" value="Disconnect" onclick="disconnect_chat();" />
+		<input id="message" class="text-field" type="text" placeholder="輸入訊息" onkeydown="if (event.keyCode == 13) sendMessage_chat();" /> 
+		<input type="submit" id="sendMessage_chat" class="button btn btn-primary" value="送出" onclick="sendMessage_chat();" /> 
+<!-- 		<input type="button" id="connect_chat" class="button btn btn-primary" value="連線" onclick="();" />  -->
+<!-- 		<input type="button" id="disconnect_chat" class="button btn btn-primary" value="取消連線" onclick="disconnect_chat();" /> -->
 	</div>
               </div>
             </div>
@@ -478,12 +483,12 @@ ul li{
 
 </script>
 			<script id="chat">
-	var MyPoint_chat = "/FriendWS/${empVO.emp_no}";
+	var MyPoint_chat = "/FriendWS/${empVO.emp_name}";
 	var host_chat = window.location.host;
 	var path_chat = window.location.pathname;
 	var webCtx_chat = path_chat.substring(0, path.indexOf('/', 1));
 	var endPointURL_chat = "ws://" + window.location.host + webCtx_chat + MyPoint_chat;
-	var self_chat = '${empVO.emp_no}';
+	var self_chat = '${empVO.emp_name}';
 	var webSocket_chat;
 
 	function connect_chat() {
@@ -493,8 +498,8 @@ ul li{
 		webSocket_chat.onopen = function(event) {
 			console.log("Connect Success!");
 			document.getElementById('sendMessage_chat').disabled = false;
-			document.getElementById('connect_chat').disabled = true;
-			document.getElementById('disconnect_chat').disabled = false;
+// 			document.getElementById('connect_chat').disabled = true;
+// 			document.getElementById('disconnect_chat').disabled = false;
 		};
 
 		webSocket_chat.onmessage = function(event) {
@@ -542,10 +547,10 @@ ul li{
 		var message_chat = inputMessage_chat.value.trim();
 
 		if (message_chat === "") {
-			alert("Input a message");
+			alert("輸入訊息");
 			inputMessage_chat.focus();
 		} else if (friend_chat === "") {
-			alert("Choose a friend");
+			alert("選擇一位員工");
 		} else {
 			var jsonObj_chat = {
 				"type" : "chat",
@@ -563,7 +568,7 @@ ul li{
 	function refreshFriendList_chat(jsonObj_chat) {
 		var friends_chat = jsonObj_chat.users;
 		var row_chat = document.getElementById("row");
-		row_chat.innerHTML = '<p>員工列表</p>';
+		row_chat.innerHTML = '<h2 style="text-align: center;color: #36b9cc">員工列表</h2>';
 		for (var i = 0; i < friends_chat.length; i++) {
 			if (friends_chat[i] === self_chat) { continue; }
 			row_chat.innerHTML +='<div id=' + i + ' class="column" name="friendName" value=' + friends_chat[i] + ' ><p>' + friends_chat[i] + '</p></div>';
@@ -589,8 +594,8 @@ ul li{
 	function disconnect_chat() {
 		webSocket_chat.close();
 		document.getElementById('sendMessage').disabled = true;
-		document.getElementById('connect').disabled = false;
-		document.getElementById('disconnect').disabled = true;
+// 		document.getElementById('connect').disabled = false;
+// 		document.getElementById('disconnect').disabled = true;
 	}
 	
 	function updateFriendName_chat(name) {
