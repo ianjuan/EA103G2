@@ -31,7 +31,8 @@ import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutOneTime;
 import tools.MailService;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
+//@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
+@MultipartConfig
 
 public class LldServlet2 extends HttpServlet {
 
@@ -678,7 +679,7 @@ public class LldServlet2 extends HttpServlet {
 				CashService cashSvc = new CashService();
 				HttpSession session = req.getSession();
 				String lld_no = (String) session.getAttribute("lld_no");
-				String status = req.getParameter("Cash_status");
+				String status = req.getParameter("cash_status");
 				System.out.println("billsQuery的status"+status);
 //				status="成功";
 				String list=cashSvc.getOneCashlogs_query(lld_no, status);
