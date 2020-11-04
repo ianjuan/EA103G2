@@ -302,12 +302,14 @@ public class EmployeeServlet extends HttpServlet {
 					}
 					
 				}
+
 				
 				EmployeeVO evo = (EmployeeVO) req.getSession().getAttribute("empVO");
 				String name =evo.getEmp_name().substring(0,1);
 				Integer title= evo.getEmp_title();
-				
+				if(sb.length()!=0) {	
 				new NotifyServlet().broadcast(emp_no, "權限變更", "<span style='color:blue;'>"+name+(title==1 ? "主管":"經理")+"</span>"+"將你的權限變更為：<br>" + sb + "<br>其餘權限將無法繼續使用！", "emp/emp.do?action=getOne_For_Display&emp_no="+emp_no);
+				}
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("employeeVO", empVO); // 資料庫update成功後,正確的的empVO物件,存入req
 				// 權限
