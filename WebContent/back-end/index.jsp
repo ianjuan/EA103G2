@@ -126,22 +126,6 @@
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
-			</li>
-				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
-			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
@@ -258,9 +242,7 @@
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
 										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
-										</a>
+										</a> 
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=logout"> 
 											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -293,9 +275,6 @@
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">員工編號</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">${empVO.emp_no}</div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -309,9 +288,6 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">員工姓名</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">${empVO.emp_name}</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -338,9 +314,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -354,9 +327,6 @@
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">待處理檢舉</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>

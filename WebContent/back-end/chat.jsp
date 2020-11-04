@@ -229,20 +229,6 @@ ul li{
 				</div>
 			</li>
 				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
-			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
