@@ -39,6 +39,7 @@
 	<title>House_Pub</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont_tnt.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 	
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -290,7 +291,6 @@
 				<input type="hidden" id="hos_dep" name="hos_dep" value="<%=houseVO.getHos_rentfee()%>">
 				<input type="hidden" id="tnt_balance" name="tnt_balance" value="<%=tntSvc.getOneTntPocket(tnt_no).getTnt_balance()%>">
 				<div id="cfoot">
-					<button class="pagebtn" type="button" onclick="notice2()">重新填寫</button>
 					<input type="hidden" name="action" value="updateonetntcontract">
 					<button class="pagebtn" type="button" onclick="notice1()">送出合約</button>					
 				</div>				
