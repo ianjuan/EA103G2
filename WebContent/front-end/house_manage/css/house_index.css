@@ -120,7 +120,7 @@ body {
 }
 #center {
     width: 80%;
-    height: auto;
+    height: 751px;
     overflow: auto;
     float: left;
     text-align: center;
@@ -143,7 +143,7 @@ body {
 .houseinfo {
     width: 18%;
     height: 320px;
-    margin: 15px 15px 0 15px;
+    margin: 25px 15px 0 15px;
     background-color: #F7F2F2;
     border-radius: 15px;
     display: inline-block;
@@ -221,71 +221,6 @@ body {
 	85%{transform: translateX(-1px);}
 	100%{transform: translateX(0px);}
 }
-@media (min-width: 901px) and (max-width: 1400px){
-    .houseinfo {
-        width: 36%;
-        margin: 15px 15px 0 15px;
-    }
-    #housenav {
-        transform: translateX(-30px);
-        width: 170px;        
-    }
-}
-@media (max-width: 900px){
-    .houseinfo {
-        width: 62%;
-    }
-
-    #housenav {
-        transform: translateX(-90px);
-        width: 140px;
-        border-radius: 0% 0% 100% 50%;
-        background: none;            
-    }
-    #housenav.nav-open {
-        transform: translateX(0px);
-        border-radius: 0% 10% 10% 0%;
-        background: #E6E6DE;
-    }
-    #housenav .menu-btn .line.line--1 {
-        width: 30px;
-        transform: rotate(0) translateY(0);
-    }
-    #housenav .menu-btn .line.line--1.line-cross {
-        width: 30px;
-        transform: rotate(45deg) translateY(10px);
-        background: rgba(0,0,0,0.6);
-    }
-    #housenav .menu-btn .line.line--2 {
-        width: 26px;
-        transform: translateX(0);
-        opacity: 1;
-    }
-    #housenav .menu-btn .line.line--2.line-fade-out {
-        width: 28px;
-        transform: translate(30px);
-        opacity: 0;
-
-    }
-    #housenav .menu-btn .line.line--3 {
-        width: 22px;
-        transform: rotate(0) translateY(0);
-    }
-    #housenav .menu-btn .line.line--3.line-cross {
-        width: 30px;
-        transform: rotate(-45deg) translateY(-10px);
-        background: rgba(0,0,0,0.6);                      
-    }
-    #housenav .nav-links {
-        opacity: 0;
-        transform: translateX(-100px);
-    }
-    #housenav .nav-links.fade-in {
-        transform: translateX(0px);
-        opacity: 1;
-    }
-}
-
 table {
 	width: 98%;
 	border-collapse: separate;
@@ -352,7 +287,7 @@ td:hover {
 	height: auto;
 	position: fixed;
 	right: 10px;
-	bottom: 55px;
+	bottom: 85px;
 	cursor: pointer;
 	border-radius: 20px;
 	opacity: 0.8;
@@ -375,4 +310,80 @@ td:hover {
 }
 .logo img:active {
 	transform: translateY(2px);
+}
+@media (min-width: 901px) and (max-width: 1400px){
+    #center {
+	    height: 785px;
+	}
+	#logo {
+		bottom: 50px;
+	}
+    .houseinfo {
+        width: 36%;
+        margin: 15px 15px 0 15px;
+    }
+    #housenav {
+        transform: translateX(-30px);
+        width: 170px;
+    }
+}
+@media (max-width: 900px){
+    #center {
+	    height: 785px;
+	}
+	#logo {
+		bottom: 50px;
+	}
+    .houseinfo {
+        width: 62%;
+    }
+    #housenav {
+        transform: translateX(-90px);
+        width: 140px;
+        border-radius: 0% 0% 100% 50%;
+        background: none;
+        position: fixed;
+    }
+    #housenav.nav-open {
+        transform: translateX(0px);
+        border-radius: 0% 10% 10% 0%;
+        background: #E6E6DE;
+    }
+    #housenav .menu-btn .line.line--1 {
+        width: 30px;
+        transform: rotate(0) translateY(0);
+    }
+    #housenav .menu-btn .line.line--1.line-cross {
+        width: 30px;
+        transform: rotate(45deg) translateY(10px);
+        background: rgba(0,0,0,0.6);
+    }
+    #housenav .menu-btn .line.line--2 {
+        width: 26px;
+        transform: translateX(0);
+        opacity: 1;
+    }
+    #housenav .menu-btn .line.line--2.line-fade-out {
+        width: 28px;
+        transform: translate(30px);
+        opacity: 0;
+
+    }
+    #housenav .menu-btn .line.line--3 {
+        width: 22px;
+        transform: rotate(0) translateY(0);
+    }
+    #housenav .menu-btn .line.line--3.line-cross {
+        width: 30px;
+        transform: rotate(-45deg) translateY(-10px);
+        background: rgba(0,0,0,0.6);                      
+    }
+    #housenav .nav-links {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    #housenav .nav-links.fade-in {
+        transform: translateX(0px);
+        opacity: 1;
+    }
 }
