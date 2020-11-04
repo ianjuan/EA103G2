@@ -3,6 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.rpth.model.*"%>
 <%@ page import="com.news.model.*"%>
+<%@page import="com.emp.model.EmployeeVO"%>
 <%@ page import="java.util.*"%>
 
 <%
@@ -10,7 +11,8 @@
 	List<RpthVO> rpthVO1 = rpthSvc.getRpth("0");
 	pageContext.setAttribute("rpthVO", rpthVO1);
 	List<RpthVO> rpthVO = (List<RpthVO>) pageContext.getAttribute("rpthVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("emp_no", "EMP000005");
+	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 <!DOCTYPE html>
 <html lang="en">

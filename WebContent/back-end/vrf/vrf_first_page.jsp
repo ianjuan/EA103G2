@@ -4,11 +4,13 @@
 <%@ page import="com.rptt.model.*"%>
 <%@ page import="com.news.model.*"%>
 <%@ page import="java.util.*"%>
+<%@page import="com.emp.model.EmployeeVO"%>
 
 <%
 	List<TntVO> list = (List<TntVO>) request.getAttribute("TntVO");
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
+	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +24,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>身分驗證</title>
+<title> I-ZU 身分驗證</title>
 
 <!-- 網頁icon -->
 <link rel="icon"

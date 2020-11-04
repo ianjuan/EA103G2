@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.news.model.*"%>
+<%@page import="com.emp.model.EmployeeVO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.rptl.model.*"%>
 
@@ -9,7 +10,8 @@
 	List<RptlVO> rptlVO1 = rptlSvc.getRptl("0");
 	pageContext.setAttribute("rptlVO", rptlVO1);
 	List<RptlVO> rptlVO = (List<RptlVO>) pageContext.getAttribute("rptlVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	pageContext.setAttribute("emp_no", "EMP000005");
+	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 
 <!DOCTYPE html>

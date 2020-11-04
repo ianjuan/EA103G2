@@ -8,7 +8,6 @@
 <%
 	List<RpthVO> list = (List<RpthVO>) request.getAttribute("rpthVO");
 	pageContext.setAttribute("list", list);
-	pageContext.setAttribute("emp_no", "EMP000005");
 %>
 <!DOCTYPE html>
 <html lang="en">

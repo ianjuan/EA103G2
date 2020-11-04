@@ -471,6 +471,33 @@ public class ConServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("afterpreviewtntcontract".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String tnt_no = (String) req.getParameter("tnt_no");
+				System.out.println(tnt_no);
+
+				ConService conService = new ConService();
+				List<ConVO> list = conService.tntgetcon(tnt_no);
+
+				HttpSession session = req.getSession();
+				session.setAttribute("tnt_no", tnt_no);
+				session.setAttribute("list", list);
+				String url = "/front-end/contract/tntlistcontract.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+				return;
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 		//tnt submit contract
 		if ("updateonetntcontract".equals(action)) {
@@ -575,7 +602,7 @@ public class ConServlet extends HttpServlet {
 				Integer rec_mon = cal.get(Calendar.MONTH) + 1;
 				Integer rec_sta = 0;
 				
-				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta, userNo), 5000, 20000);
+				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta, userNo), 5000, 30000);
 				/*************************** 準備退房 **********************/
 				Date apl_end = aplSvc.getOneCon_apl(apl_no).getApl_end();
 				long apl_end_long = apl_end.getTime();
@@ -985,32 +1012,7 @@ public class ConServlet extends HttpServlet {
 		}
 	}
 	
-//	if ("afterpreviewtntcontract".equals(action)) {
-//		List<String> errorMsgs = new LinkedList<String>();
-//		req.setAttribute("errorMsgs", errorMsgs);
-//
-//		try {
-//			String tnt_no = (String) req.getParameter("tnt_no");
-//			System.out.println(tnt_no);
-//
-//			ConService conService = new ConService();
-//			List<ConVO> list = conService.tntgetcon(tnt_no);
-//
-//			HttpSession session = req.getSession();
-//			session.setAttribute("tnt_no", tnt_no);
-//			session.setAttribute("list", list);
-//			String url = "/front-end/contract/tntlistcontract.jsp";
-//			RequestDispatcher successView = req.getRequestDispatcher(url);
-//			successView.forward(req, res);
-//			return;
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			errorMsgs.add("無法取得資料:" + e.getMessage());
-//			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/apl/select_page.jsp");
-//			failureView.forward(req, res);
-//		}
-//	}
+	
 
 //	if ("gettntfinalcontract".equals(action)) {
 //

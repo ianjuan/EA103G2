@@ -74,8 +74,10 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">查詢</h6>
-						<a class="collapse-item" href="javascript:void(0)">查詢房東</a> 
-						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a>
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -103,31 +105,23 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">檢舉</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptt/main_page.jsp">檢舉房客</a> 
-						<a class="collapse-item" href="javascript:void(0)">檢舉房東</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房屋</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房東評價</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房屋評價</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉修繕</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptl/rptl_main_page.jsp">檢舉房東</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptt/rptt_main_page.jsp">檢舉房客</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpth/rpth_main_page.jsp">檢舉房屋</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptlc/rptlc_main_page.jsp">檢舉房東評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpttc/rpttc_main_page.jsp">檢舉房客評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpthc/rpthc_main_page.jsp">檢舉房屋評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptr/rptr_main_page.jsp">檢舉修繕</a>
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
-				</div>
-			</li>
-				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
-			
+				</div>	
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"

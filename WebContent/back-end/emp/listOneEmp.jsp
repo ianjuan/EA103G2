@@ -135,19 +135,7 @@
 				</div>
 			</li>
 				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
+				
 			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
@@ -265,9 +253,7 @@
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
 										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
-										</a>
+										</a> 
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=logout"> 
 											<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

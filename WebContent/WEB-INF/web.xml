@@ -50,7 +50,7 @@
 		<servlet-name>RecServlet</servlet-name>
 		<url-pattern>/rec/RecServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ComServlet</servlet-name>
 		<servlet-class>com.comment.controller.CommentServlet</servlet-class>
@@ -304,7 +304,7 @@
 		<url-pattern>/back-end/vrf/RpttServlet</url-pattern>
 		<url-pattern>/back-end/member/RpttServlet</url-pattern>
 		<url-pattern>/front-end/index/RpttServlet</url-pattern>
-		
+
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>RpthServlet</servlet-name>
@@ -314,9 +314,9 @@
 		<servlet-name>RpthServlet</servlet-name>
 		<url-pattern>/back-end/rpth/RpthServlet</url-pattern>
 		<url-pattern>/front-end/rpth/RpthServlet</url-pattern>
-	    <url-pattern>/front-end/index/RpthServlet</url-pattern>
-	    <url-pattern>/front-end/collection/RpthServlet</url-pattern>
-		
+		<url-pattern>/front-end/index/RpthServlet</url-pattern>
+		<url-pattern>/front-end/collection/RpthServlet</url-pattern>
+
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>RptlServlet</servlet-name>
@@ -326,7 +326,7 @@
 		<servlet-name>RptlServlet</servlet-name>
 		<url-pattern>/back-end/rptl/RptlServlet</url-pattern>
 		<url-pattern>/front-end/rptl/RptlServlet</url-pattern>
-		
+
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>RpttcServlet</servlet-name>
@@ -389,6 +389,15 @@
 	<filter-mapping>
 		<filter-name>LoginFilterBackEnd</filter-name>
 		<url-pattern>/back-end/index.jsp</url-pattern>
+		<url-pattern>/back-end/vrf/*</url-pattern>
+		<url-pattern>/back-end/rpttc/*</url-pattern>
+		<url-pattern>/back-end/rptlc/*</url-pattern>
+		<url-pattern>/back-end/rpthc/*</url-pattern>
+		<url-pattern>/back-end/rptr/*</url-pattern>
+		<url-pattern>/back-end/rpth/*</url-pattern>
+		<url-pattern>/back-end/rptt/*</url-pattern>
+		<url-pattern>/back-end/rptl/*</url-pattern>
+		<url-pattern>/back-end/member/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

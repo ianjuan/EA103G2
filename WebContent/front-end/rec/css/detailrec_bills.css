@@ -1,0 +1,37 @@
+
+#center {
+	width: 80%;
+	height: auto;
+	margin: 0 auto;
+	line-height: 1;
+}
+
+#cbody table {
+	width: 100%; /*100%*/
+	font-weight: bold;
+	border-collapse: separate;
+	margin: auto;
+}
+#cbody table th {
+	width: 25%;
+	height: auto;
+	background-color: #F2FFF4;
+	border-radius: 15px;
+	text-align: center;
+	border: none;
+	vertical-align: middle;
+}
+#cbody table th:hover {
+	background-color: #D9EFDC;
+}
+#cbody table td {
+	width: 50%;
+	height: auto;
+	background-color: #FBF9F9;
+	border-radius: 15px;
+	border: none;
+	text-align: center;
+}
+#cbody table td:hover {
+	background-color: #F1EBEB;
+}
