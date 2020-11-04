@@ -304,6 +304,7 @@ public class EmployeeServlet extends HttpServlet {
 					}
 					
 				}
+				
 				String name =empVO.getEmp_name().substring(0,1);
 				System.out.println("name"+name);
 				new NotifyServlet().broadcast(emp_no, "權限變更", "<span style='color:blue;'>"+name+"經理	</span>"+"將你的權限變更為：<br>" + sb + "<br>其餘權限將無法繼續使用！", "emp/emp.do?action=getOne_For_Display&emp_no="+emp_no);
