@@ -312,7 +312,7 @@
 <!-- 								  <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 <!-- 								</nav> -->
 <!-- 								TAB 有空再做 -->
- 									<select class="wrap-register100 validate-input" data-validate="Gender is required" name="tnt_sex" id="tnt_sex" >
+ 									<select class="wrap-register100 validate-input" data-validate="" name="cash_status" id="cash_status" >
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
                                               <option value="" >全部
@@ -379,7 +379,7 @@
 														          <span aria-hidden="true">&times;</span>
 														        </button>
 														      </div>
-														      <div class="modal-body">
+														      <div class="modal-body" id="modal-body">
 <%-- 														       <jsp:include page="/front-end/rec/lldnowrecdetail_bills.jsp?rec_no=REC000001"/> --%>
 														      </div>
 														      <div class="modal-footer">
@@ -502,7 +502,6 @@
 // 									</div>
 // 									<!-- Modal End-->
 // 			                    </c:if>
-								
 							"</td>"+
 						"</tr>"
     

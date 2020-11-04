@@ -213,9 +213,9 @@
 <!--                                 <h4 data-v-9403d44c="" class="font-size-lg text-center p-b-10 mb-0">個人身分驗證</h4>  -->
 <!--                                     <hr class="login100-form-title p-b-10"> -->
 									<hr style="margin: 25px 40px;">
-                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate0" >請上傳個人證件<br>通過審核後，您將可以簽訂合約。</div>
-                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate1" >您的身分認證將於24小時內完成<br>通過審核後，您將可以簽訂合約。</div>
-                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate2" >恭喜您已完成身分認證<br>您可以簽訂合約、線上繳費。</div>
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate0" >請上傳個人證件<br>通過審核後，您將可以上架房屋、簽訂合約。</div>
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate1" >您的身分認證將於24小時內完成<br>通過審核後，您將可以上架房屋、簽訂合約。</div>
+                                    <div class="txt-vrfPics-hint vrfstate" id="vrfstate2" >恭喜您已完成身分認證<br>您可以上架房屋、簽訂合約。</div>
                                     <div class="txt-vrfPics-hint vrfstate" id="vrfstate3">您前次提交身分認證資訊，未能通過審核，<br><%=lld_id_disapprove%><br>請重新上傳證件以完成身分驗證。</div>
 				                    <hr style="margin: 25px 40px;">
                             </div>

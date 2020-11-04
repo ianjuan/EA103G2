@@ -337,7 +337,7 @@ $(".fav-body").append("<div class='item' id='"+value.hos_no+"' >"+
                            "<a href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos="+value.hos_no+"'><img src='<%=request.getContextPath()%>/resource/Mycol/images/tel.svg' alt=''/>預約看屋</a>"+
                             "<a class='select-live' href=''<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos="+value.hos_no+"''><img src='<%=request.getContextPath()%>/resource/Mycol/images/home.svg' alt=''/>我要入住</a>"+
                             "<a href='#message'> <img src='<%=request.getContextPath()%>/resource/Mycol/images/comment.svg' alt=''/>聊天</a>"+
-                           " <a class='red' href='#' id='rptl_btn'><img src='<%=request.getContextPath()%>/resource/Mycol/images/report.svg' alt=''/>檢舉</a>"+
+                           " <a class='red rptl_btn' href='#' id='"+value.hos_no+"' data-toggle='modal' data-target='#exampleModal'><img src='<%=request.getContextPath()%>/resource/Mycol/images/report.svg' alt=''/>檢舉</a>"+
                             "</div>"+
                         "  </div>"+
 
@@ -370,10 +370,38 @@ loading ();
 
 <script>
 
-   $('rptl_btn').click(function(){
-	   var hosno=$(this).val();
-	   $('#exampleModal').modal('show');
-   })
+   $('.rptl_btn').click(function(){
+	   var hosno=$(this).attr("id"), 
+	   $('#demo').click(function(){
+			
+			var rpth_content= $('#reason').val().trim()
+			if(rpth_content==''){
+			   swal("檢舉失敗!", "氣氣氣! 但內容還是要寫啦!", "error");
+			}else{
+			$.ajax({
+				type:"POST",
+				url:"<%=request.getContextPath()%>/front-end/rpth/RpthServlet",
+				data:{
+					action:"insert",
+					tnt_no:"<%=(String)session.getAttribute("tnt_no")%>",
+					hos_no:hosno,
+				    rpth_content:rpth_content
+				},
+				 success:function(data)
+			 	  {	
+				  swal("檢舉成功!", "感謝，愛租有您真好!", "success");
+			 	  }//以上成功才執行
+			 	  ,
+			 	  error:function(data)
+			 	  {
+			 	  swal("檢舉失敗!", "鳩豆麻爹!", "error");
+			 	}
+			  
+			})}
+			
+			  $("#close_btn").trigger("click");
+		}); 
+   });
 
 
 

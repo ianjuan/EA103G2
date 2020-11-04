@@ -283,23 +283,23 @@
                         <div class="8u 12u$(medium)">
                             <ul class="copyright">
                                 <li>Copyright&copy; 2020 I-ZU  lnc.</li>
-                                <li>Design: <a href="http://templated.co">EA103-G2</a></li>
-                                <li>Address: <a href="http://unsplash.com">桃園市中壢區中大路300號</a></li>
+                                <li>Design: <a href="<%=request.getContextPath()%>/front-end/index/index.jsp">EA103-G2</a></li>
+                                <li>Address: <a href="<%=request.getContextPath()%>/front-end/index/index.jsp">桃園市中壢區中大路300號</a></li>
                             </ul>
                         </div>
                         <div class="4u$ 12u$(medium)">
                             <ul class="icons">
                                 <li>
-                                    <a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+                                    <a href="https://www.facebook.com" class="icon"><img src="<%=request.getContextPath()%>/front-end/index/images/fb.svg" width="35px" height="35px" ></a>
                                 </li>
                                 <li>
-                                    <a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
+                                    <a href="https://line.me/zh-hant" class="icon" ><img src="<%=request.getContextPath()%>/front-end/index/images/line.svg" width="35px" height="35px" ></a>
                                 </li>
                                 <li>
-                                    <a class="icon rounded fa-google-plus"><span class="label">Google+</span></a>
+                                    <a href="https://mail.google.com/mail" class="icon"><img src="<%=request.getContextPath()%>/front-end/index/images/gplus.svg" width="35px" height="35px" ></a>
                                 </li>
                                 <li>
-                                    <a class="icon rounded fa-linkedin"><span class="label">LinkedIn</span></a>
+                                    <a href="<%=request.getContextPath()%>/back-end/emp/login.jsp" class="icon"><img src="<%=request.getContextPath()%>/front-end/index/images/ig.svg" width="35px" height="35px" ></a>
                                 </li>
                             </ul>
                         </div>
