@@ -43,6 +43,7 @@
 	<title>房客終版合約</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">	
 	<link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/cont_tnt.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
 	
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -277,7 +278,7 @@
 			</div>
 		</FORM>			
 	</div>
-	<div id="foot"></div>	
+	<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>	
 
 	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/cont1.js" charset="UTF-8"></script>		
 </body>
