@@ -769,8 +769,8 @@ align-items: center;
             				"<ul class='pagination' >"+
             				"<li class='page-item' value='999'><a class='page-link' >第一頁</a>"+
             				"<li class='page-item' value='"+pagebtn+"' style='color:red'><a class='page-link' >"+pagebtn+"</a></li>"+
-//             				"<li class='page-item' value='"+(pagebtn+1)+"'><a class='page-link' >"+(pagebtn+1)+"</a></li>"+
-//             				"<li class='page-item' value='"+(pagebtn+2)+"'><a class='page-link' >"+(pagebtn+2)+"</a></li>"+
+            				"<li class='page-item' value='"+(pagebtn+1)+"'><a class='page-link' >"+(pagebtn+1)+"</a></li>"+
+            				"<li class='page-item' value='"+(pagebtn+2)+"'><a class='page-link' >"+(pagebtn+2)+"</a></li>"+
             				"<li class='page-item' value='"+(pagebtn+1)+"'><a class='page-link' >下一頁</a>"+
             				"</li>"+
             			"</ul>"
