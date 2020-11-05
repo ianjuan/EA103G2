@@ -519,7 +519,7 @@ public class LldServlet2 extends HttpServlet {
 				/*************************** 2.開始修改資料 ***************************************/
 				CashService cashSvc = new CashService();
 				String cash_no = "";
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < 2000; i++) {
 					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 					cash_no = cashSvc.addCash(cash_date, lld_no, CashVO.cashIn, CashVO.lldIn_Deposit,
 							lld_pocket_deposit, 1);
@@ -672,7 +672,8 @@ public class LldServlet2 extends HttpServlet {
 				System.out.println("vrf pics 修改失敗:" + e.getMessage());
 			}
 		}
-// ===================================以下來自我的錢包 bills.jsp=====================================================
+		
+// ===================================以下來自我的帳務 bills.jsp=====================================================
 
 			// 來自bills.jsp的請求 - ajax
 			if ("billsQuery".equals(action)) {
@@ -682,18 +683,10 @@ public class LldServlet2 extends HttpServlet {
 				String cash_inout = req.getParameter("cash_inout");
 				String cash_type = req.getParameter("cash_type");
 				String cash_status = req.getParameter("cash_status");
-				
 				System.out.println("billsQuery的cash_inout:"+cash_inout);
 				System.out.println("billsQuery的cash_type:"+cash_type);
 				System.out.println("billsQuery的status:"+cash_status);
-//				System.out.println(cash_inout==null);
-//				String list="";
-//				if (cash_status != null && cash_inout == null) {
-//					list = cashSvc.getOneCashlogs_query(lld_no, cash_status);
-//				}
-//				if (cash_status != null && cash_inout != null) {
 				String list = cashSvc.getOneCashlogs_query(lld_no, cash_inout, cash_type, cash_status);
-//				}
 				out = res.getWriter();
 				out.print(list);
 				out.close();

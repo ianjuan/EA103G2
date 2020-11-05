@@ -339,6 +339,7 @@
 <!-- 								  <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 <!-- 								</nav> -->
 <!-- 								TAB 有空再做 -->
+								<div class="justify-content-between p-t-15" style="display: flex;">
 									 <select class="wrap-register100 validate-input" data-validate="" name="cash_inout" id="cash_inout" >
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
@@ -372,7 +373,7 @@
 											  <option value="待繳">待繳
                                         </span>
                                     </select>
-                                   
+                                   </div>
                                     
                                 <table id="myDataTalbe"  class="display">
 							        <thead>
