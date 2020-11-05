@@ -7,9 +7,12 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.rpth.model.*;
+import com.rptt.model.RpttService;
+import com.rptt.model.RpttVO;
 import com.rptt.model.TntService;
 import com.rptt.model.TntVO;
 import com.housemanage.model.*;
+import com.notify.controller.NotifyServlet;
 
 public class RpthServlet extends HttpServlet {
 
@@ -270,16 +273,19 @@ public class RpthServlet extends HttpServlet {
 				System.out.println(rpth_note);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpthVO rpthVO1 = new RpthVO();
-//				rpthVO1.setRpth_no(rpth_no);
-//				rpthVO1.setEmp_no(emp_no);
-//				rpthVO1.setRpth_note(rpth_note);
-//				System.out.println("裝入完畢");
-
 				RpthService rpthSvc = new RpthService();
+				RpthService rpthSvc2 = new RpthService();
+				List<RpthVO> rpthVO = rpthSvc.getRpth(rpth_no);
+				String old_emp_no = rpthVO.get(0).getEmp_no();
+				System.out.println("舊的" + old_emp_no);
+
+				RpthVO rpthVO1 = new RpthVO();
 				rpthVO1 = rpthSvc.assignEmp(rpth_no, emp_no, rpth_note);
 				System.out.println("emp有更新了");
 
+				new NotifyServlet().broadcast(emp_no, "<b><p style='color:blue;'>【指派】檢舉房屋</p></b>",
+						"<b><p style='color:blue;'>【指派】檢舉房屋</p></b><p>單號:" + rpth_no + "</p>",
+						"http://localhost:8081/EA103G2/back-end/index.jsp");
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rpth/rpth_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
