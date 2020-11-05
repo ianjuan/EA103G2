@@ -228,10 +228,10 @@ text-align:center;
                     <h3 class='rep_status'>狀態
                     	<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -279,6 +279,9 @@ text-align:center;
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 </c:if>            
@@ -294,10 +297,10 @@ text-align:center;
                     	<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
                     	
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -345,6 +348,10 @@ text-align:center;
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 
@@ -360,10 +367,10 @@ text-align:center;
                     	<c:if test="${repairVO.rep_pro eq 2}"><span style="color:green;">申請被婉拒</span></c:if>
                     	
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -413,6 +420,11 @@ text-align:center;
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 
@@ -430,10 +442,10 @@ text-align:center;
                     	<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">已取消申請</span></c:if>
                     	
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -483,6 +495,11 @@ text-align:center;
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 
@@ -498,10 +515,10 @@ text-align:center;
                     	<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>
                     	
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -551,6 +568,11 @@ text-align:center;
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 
@@ -568,10 +590,10 @@ text-align:center;
               <c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
 										
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -621,6 +643,11 @@ text-align:center;
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 </c:if>            
@@ -635,10 +662,10 @@ text-align:center;
                     <h3 class='rep_status'>狀態         
 						<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>										
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -688,6 +715,11 @@ text-align:center;
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 </c:if>            
@@ -701,10 +733,10 @@ text-align:center;
                     <h3 class='rep_status'>狀態         
 						<c:if test="${repairVO.rep_pro eq 7}"><span style="color:lightblue;">已結案</span></c:if>										
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -754,6 +786,11 @@ text-align:center;
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 </c:if>           
@@ -921,9 +958,9 @@ $(document).ready(function(){
 
 
 	
-$(document).on("click", ".hos_name", function() {
-        	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).attr('id');
-		});
+// $(document).on("click", ".hos_name", function() {
+<%--         	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).attr('id'); --%>
+// 		});
 </script>
 </body>
 </html>
