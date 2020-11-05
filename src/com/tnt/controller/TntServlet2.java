@@ -518,21 +518,21 @@ public class TntServlet2 extends HttpServlet {
 				/*************************** 2.開始修改資料 ***************************************/
 				CashService cashSvc = new CashService();
 				String cash_no = "";
-				for (int i = 0; i < 2000; i++) {
+				for (int i = 0; i < 1; i++) {
 					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 					cash_no = cashSvc.addCash(cash_date, tnt_no, CashVO.cashIn, CashVO.tntIn_Deposit,
 							tnt_pocket_deposit, 1);
 				}
 				
 				//@ian
-				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
-//				CashService cashSvc = new CashService();
-				String mem_no = "TNT000001";
-				String cash_inout = CashVO.cashOut;
-				String cash_type = CashVO.tntOut_YaJin;
-				Integer cash_amount = -10000;
-				Integer cash_status = 1;
-				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, "CON000001", cash_status);
+//				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
+////				CashService cashSvc = new CashService();
+//				String mem_no = "TNT000001";
+//				String cash_inout = CashVO.cashOut;
+//				String cash_type = CashVO.tntOut_YaJin;
+//				Integer cash_amount = -10000;
+//				Integer cash_status = 1;
+//				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, "CON000001", cash_status);
 				//@ian
 
 				tnt_balance = tnt_balance + tnt_pocket_deposit;
