@@ -44,7 +44,7 @@
 <link
 	href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css"
 	rel="stylesheet">
-	
+
 <!-- wayne匯入 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -343,7 +343,7 @@ input {
 													<form METHOD="post" ACTION="RpttServlet">
 														<h5>
 															搜尋: <input type="text" size="34" name="Number"
-																placeholder="會員編號/姓名/手機/信箱/身份證字號"> <input
+																placeholder="會員編號/姓名/手機/信箱/身份證字號" id="aa"> <input
 																type="hidden" name="action" value="get_want_vrf_display">
 															<input type="submit"
 																style="position: absolute; left: -9999px; width: 1px; height: 1px;"
@@ -419,6 +419,7 @@ input {
 																						class="zoom" id="pic" />
 																				</div>
 																				<div class="col-3">
+
 																					<label for="name" style="margin-bottom: auto;">會員編號:</label>
 																					${tntVO.tnt_no} <br> <label for="name"
 																						style="margin-bottom: auto;">會員姓名:</label>
@@ -446,8 +447,8 @@ input {
 																							<button type="submit" class="fail" name="action"
 																								value="failVrf">不通過</button>
 																							<label for="reason">退件原因:</label><br>
-																							<textarea id="reason" name="tnt_id_disapprove"
-																								required="required"></textarea>
+																							<textarea id="reason"+${tntVO.tnt_no} class='reason'
+																								name="tnt_id_disapprove" required></textarea>
 																						</div>
 																					</form>
 																				</div>
@@ -468,8 +469,6 @@ input {
 						</div>
 
 					</div>
-
-
 				</div>
 			</div>
 
@@ -487,11 +486,12 @@ input {
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!--  	以下js 為恩需要(放大圖片用)---------------------------------- -->
-	
+	<!--  	以下js 為恩需要(放大圖片用)---------------------------------- -->
+
 	<script
 		src="<%=request.getContextPath()%>/back-end/vrf/js/zoomerang.js"></script>
 	<script>
+	
 	
 	Zoomerang
     .config({
@@ -587,8 +587,8 @@ function beforeCloseCallback (el) {
 	}
 	
 
-
 </script>
+
 
 
 </body>
