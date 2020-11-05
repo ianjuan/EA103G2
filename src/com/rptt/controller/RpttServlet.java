@@ -493,16 +493,16 @@ public class RpttServlet extends HttpServlet {
 
 				}
 
-				TntVO tntVO2 = tntSvc.getEmail(tnt_no);
-				String TntEmail = "xiyuan345@gmail.com";
-				String TntName = tntVO2.getTnt_name();
-				String TntAcc = tntVO2.getTnt_acc();
-				String TntDissaprove = tntVO2.getTnt_id_disapprove();
-				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
-				Integer type = 2;
-				MailService mailservice = new MailService();
-				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
-				System.out.println("驗證成功信寄出去了");
+//				TntVO tntVO2 = tntSvc.getEmail(tnt_no);
+//				String TntEmail = "xiyuan345@gmail.com";
+//				String TntName = tntVO2.getTnt_name();
+//				String TntAcc = tntVO2.getTnt_acc();
+//				String TntDissaprove = tntVO2.getTnt_id_disapprove();
+//				String EmailLink = "http://localhost:8081/EA103G2/front-end/index/index.jsp";
+//				Integer type = 2;
+//				MailService mailservice = new MailService();
+//				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
+//				System.out.println("驗證成功信寄出去了");
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
 				String url = "/back-end/vrf/vrf_main_page.jsp";
@@ -557,21 +557,21 @@ public class RpttServlet extends HttpServlet {
 
 				}
 
-				TntVO tntVO2 = tntSvc.getEmail(tnt_no);
-				String TntEmail = "xiyuan345@gmail.com";
-				String TntName = tntVO2.getTnt_name();
-				String TntAcc = tntVO2.getTnt_acc();
-				String TntDissaprove = tntVO2.getTnt_id_disapprove();
-				Integer type = 3;
-				String EmailLink;
-				if (tnt_no.startsWith("L")) {
-					EmailLink = "http://localhost:8081/EA103G2/front-end/lld/verify.jsp";
-				} else {
-					EmailLink = "http://localhost:8081/EA103G2/front-end/tnt/verify.jsp";
-				}
-				MailService mailservice = new MailService();
-				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
-				System.out.println("驗證失敗信寄出去了");
+//				TntVO tntVO2 = tntSvc.getEmail(tnt_no);
+//				String TntEmail = "xiyuan345@gmail.com";
+//				String TntName = tntVO2.getTnt_name();
+//				String TntAcc = tntVO2.getTnt_acc();
+//				String TntDissaprove = tntVO2.getTnt_id_disapprove();
+//				Integer type = 3;
+//				String EmailLink;
+//				if (tnt_no.startsWith("L")) {
+//					EmailLink = "http://localhost:8081/EA103G2/front-end/lld/verify.jsp";
+//				} else {
+//					EmailLink = "http://localhost:8081/EA103G2/front-end/tnt/verify.jsp";
+//				}
+//				MailService mailservice = new MailService();
+//				mailservice.sendMail(TntEmail, TntName, TntAcc, TntDissaprove, EmailLink, type);
+//				System.out.println("驗證失敗信寄出去了");
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 
