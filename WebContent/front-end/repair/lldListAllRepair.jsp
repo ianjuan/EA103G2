@@ -219,10 +219,10 @@ text-align:center;
           								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
 										<button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
                     				</h3>
-								<a href='#' style="color:darkgrey;">
+<!-- 								<a href='#' style="color:darkgrey;"> -->
                     				<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               						<h3 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h3>
-								</a>
+<!-- 								</a> -->
 								
 								<br><h4>居住日期</h4>
                     			<h2>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h2>   
@@ -299,10 +299,10 @@ text-align:center;
           								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
 										<button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
                     				</h3>
-								<a href='#' style="color:darkgrey;">
+<!-- 								<a href='#' style="color:darkgrey;"> -->
                     				<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               						<h3 class='hos_name'> ${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h3>
-								</a>
+<!-- 								</a> -->
 								
 								<br><h4>居住日期</h4>
                     			<h2>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h2>   
@@ -375,10 +375,10 @@ text-align:center;
           								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
 										<button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
                     				</h3>
-								<a href='#' style="color:darkgrey;">
+<!-- 								<a href='#' style="color:darkgrey;"> -->
                     				<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               						<h3 class='hos_name' >${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h3>
-								</a>
+<!-- 								</a> -->
 								
 								<br><h4>居住日期</h4>
                     			<h2>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h2>   
@@ -451,10 +451,10 @@ text-align:center;
           								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
 										<button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
                     				</h3>
-								<a href='#' style="color:darkgrey;">
+<!-- 								<a href='#' style="color:darkgrey;"> -->
                     				<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               						<h3 class='hos_name'  >${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h3>
-								</a>
+<!-- 								</a> -->
 								
 								<br><h4>居住日期</h4>
                     			<h2>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h2>   
@@ -527,10 +527,10 @@ text-align:center;
           								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
 										<button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
                     				</h3>
-								<a href='#' style="color:darkgrey;">
+<!-- 								<a href='#' style="color:darkgrey;"> -->
                     				<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               						<h3 class='hos_name' >${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h3>
-								</a>
+<!-- 								</a> -->
 								
 								<br><h4>居住日期</h4>
                     			<h2>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h2>   
@@ -603,10 +603,10 @@ text-align:center;
           								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
 										<button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
                     				</h3>
-								<a href='#' style="color:darkgrey;">
+<!-- 								<a href='#' style="color:darkgrey;"> -->
                     				<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               						<h3 class='hos_name'  >${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h3>
-								</a>
+<!-- 								</a> -->
 								
 								<br><h4>居住日期</h4>
                     			<h2>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h2>   
@@ -679,10 +679,10 @@ text-align:center;
           								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
 										<button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
                     				</h3>
-								<a href='#' style="color:darkgrey;">
+<!-- 								<a href='#' style="color:darkgrey;"> -->
                     				<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               						<h3 class='hos_name'>${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h3>
-								</a>
+<!-- 								</a> -->
 								
 								<br><h4>居住日期</h4>
                     			<h2>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h2>   
@@ -755,10 +755,10 @@ text-align:center;
           								<c:if test="${repairVO.rep_pro eq 7}"><span style="color:white;">已結案</span></c:if>
 										<button class='btn'  data-toggle="modal" data-target="#report" }>${repairVO.rep_tnt_rpt eq 0 ? "未評價" : (repairVO.rep_tnt_rpt eq 2? "再修一次":"滿意")}</button><br>
                     				</h3>
-								<a href='#' style="color:darkgrey;">
+<!-- 								<a href='#' style="color:darkgrey;"> -->
                     				<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               						<h3 class='hos_name'  >${hosSvc.getHouseInfo(conSvc.getOneCon(conVO.con_no).hos_no).hos_name}</h3>
-								</a>
+<!-- 								</a> -->
 								
 								<br><h4>居住日期</h4>
                     			<h2>${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_str}~${aplSvc.getOneCon_apl(conSvc.getOneCon(conVO.con_no).apl_no).apl_end}</h2>   
@@ -942,9 +942,9 @@ $(document).ready(function(){
 
 
 
-$(document).on("click", ".hos_name", function() {
-        	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).attr('id');
-		});       
+// $(document).on("click", ".hos_name", function() {
+<%--         	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).attr('id'); --%>
+// 		});       
  </script>
  </body>       
 </html>
