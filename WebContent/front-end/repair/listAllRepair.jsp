@@ -12,7 +12,14 @@
 <% String tnt_no = (String) session.getAttribute("tnt_no");
 	if (tnt_no == null) {
 		tnt_no = request.getParameter("tnt_no");
-	} %>
+	} 
+	
+	RepairVO repVO = null;
+	if (request.getAttribute("repairVO") !=null) {
+		repVO = (RepairVO)request.getAttribute("repairVO");
+	} 
+	
+%>
 
 <html>
 <head>
@@ -63,17 +70,19 @@
 	float:left;
 	left: 50%;
 	position: relative;
-
+	
 }
 .navbar-collapse-center{
-	 float: right;
+	float: right;
   	left: -50%;
   	position: relative;
 }
 
 #second .content {
-  
-    padding: 500px;
+  width: 1200;
+/*     padding: 500px; */
+/* 	padding: 50px 300px; */
+/*  	margin: 50px 300px;  */
     
 }
 /* 上傳圖片btn */
@@ -97,7 +106,7 @@
     bottom: 10px;
     left: 50%;
     margin-left: -104.5px; /*104.5px is half of the button's width*/
-
+}
 
 /* 文字 */
 h1, h2, h3, h4, h5, h6, table{
@@ -115,6 +124,7 @@ text-align:center;
 }
 
 
+
 </style>
 <script>
     	
@@ -130,7 +140,7 @@ text-align:center;
 <!-- <button class="learn-more">Learn More</button> -->
 
 
-<body bgcolor='white'>
+<body bgcolor='white' style="margin:0 auto">
 <%-- <% request.setAttribute("tnt_no", "TNT000002"); --%>
 	
 
@@ -218,55 +228,60 @@ text-align:center;
                     <h3 class='rep_status'>狀態
                     	<c:if test="${repairVO.rep_pro eq 0}"><span style="color:orange;">待回覆</span></c:if>
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
                 </div>
                 
-               		<div class='col-md-2 '>
+               		               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
-                			<div class='row' style="text-align:center;">
-                				<h2 style="text-align:center;">${repairVO.rep_dam_obj}</h2>
-                				<h3>${repairVO.rep_dam_obj_des}</h3>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj}</h2>
+                				<h3 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj_des}</h3>
                 			</div>
-                			<div class='row' >
-			                	<br><div><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
+                			<div class='row text-center' style="margin:0 auto">
+			                	<br><div style="margin:0 auto"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
 							 	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							    <input type="hidden" name="action" value="getOne_For_updPic">
 							    <!-- 處理中:1 則顯示上傳圖片 -->
-							    <button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
+							    <button  type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
 								</FORM></div>
 							</div>
 					</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 申請日期</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_case_str}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
-                			<div class='row' >
-		                		<br><br><br><a href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
-		                		<button class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                			<div class='row text-center' style="margin:0 auto">
+		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
+		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
                 	</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_est_enddate}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<div class='row text-center' style="margin:0 auto">	
+                				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
+                			</c:if>
+                			<div class='row text-center' style="margin:0 auto">
+                				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 </c:if>            
@@ -282,54 +297,63 @@ text-align:center;
                     	<c:if test="${repairVO.rep_pro eq 1}"><span style="color:green;">處理中</span></c:if>
                     	
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
                 </div>
             
-               		<div class='col-md-2 '>
+               		               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
-                			<div class='row' style="text-align:center;">
-                				<h2 style="text-align:center;">${repairVO.rep_dam_obj}</h2>
-                				<h3>${repairVO.rep_dam_obj_des}</h3>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj}</h2>
+                				<h3 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj_des}</h3>
                 			</div>
-                			<div class='row' >
-			                	<br><div><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
+                			<div class='row text-center' style="margin:0 auto">
+			                	<br><div style="margin:0 auto"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
 							 	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							    <input type="hidden" name="action" value="getOne_For_updPic">
 							    <!-- 處理中:1 則顯示上傳圖片 -->
-							    <button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
+							    <button  type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
 								</FORM></div>
 							</div>
 					</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 申請日期</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_case_str}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
-                			<div class='row' >
-		                		<br><br><br><a href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
-		                		<button class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                			<div class='row text-center' style="margin:0 auto">
+		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
+		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
                 	</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_est_enddate}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )? "":' style="display:none" '}>回報結果</button></a><br>
+                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<div class='row text-center' style="margin:0 auto">	
+                				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
+                			</c:if>
+                			<div class='row text-center' style="margin:0 auto">
+                				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
+                			</div>
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
-
 
 </c:if>            
 
@@ -343,10 +367,10 @@ text-align:center;
                     	<c:if test="${repairVO.rep_pro eq 2}"><span style="color:green;">申請被婉拒</span></c:if>
                     	
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -354,42 +378,53 @@ text-align:center;
                 
 				
             
-               		<div class='col-md-2 '>
+               		               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
-                			<div class='row' style="text-align:center;">
-                				<h2 style="text-align:center;">${repairVO.rep_dam_obj}</h2>
-                				<h3>${repairVO.rep_dam_obj_des}</h3>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj}</h2>
+                				<h3 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj_des}</h3>
                 			</div>
-                			<div class='row' >
-			                	<br><div><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
+                			<div class='row text-center' style="margin:0 auto">
+			                	<br><div style="margin:0 auto"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
 							 	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							    <input type="hidden" name="action" value="getOne_For_updPic">
 							    <!-- 處理中:1 則顯示上傳圖片 -->
-							    <button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
+							    <button  type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
 								</FORM></div>
 							</div>
 					</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 申請日期</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_case_str}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
-                			<div class='row' >
-		                		<br><br><br><a href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
-		                		<button class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                			<div class='row text-center' style="margin:0 auto">
+		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
+		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
                 	</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_est_enddate}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )? "":' style="display:none" '}>回報結果</button></a><br>
+                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<div class='row text-center' style="margin:0 auto">	
+                				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
+                			</c:if>
+                			<div class='row text-center' style="margin:0 auto">
+                				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
+                			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 
@@ -407,10 +442,10 @@ text-align:center;
                     	<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">已取消申請</span></c:if>
                     	
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -418,42 +453,53 @@ text-align:center;
                 
 				
             
-               		<div class='col-md-2 '>
+               		               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
-                			<div class='row' style="text-align:center;">
-                				<h2 style="text-align:center;">${repairVO.rep_dam_obj}</h2>
-                				<h3>${repairVO.rep_dam_obj_des}</h3>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj}</h2>
+                				<h3 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj_des}</h3>
                 			</div>
-                			<div class='row' >
-			                	<br><div><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
+                			<div class='row text-center' style="margin:0 auto">
+			                	<br><div style="margin:0 auto"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
 							 	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							    <input type="hidden" name="action" value="getOne_For_updPic">
 							    <!-- 處理中:1 則顯示上傳圖片 -->
-							    <button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
+							    <button  type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
 								</FORM></div>
 							</div>
 					</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 申請日期</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_case_str}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
-                			<div class='row' >
-		                		<br><br><br><a href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
-		                		<button class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                			<div class='row text-center' style="margin:0 auto">
+		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
+		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
                 	</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_est_enddate}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )? "":' style="display:none" '}>回報結果</button></a><br>
+                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<div class='row text-center' style="margin:0 auto">	
+                				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
+                			</c:if>
+                			<div class='row text-center' style="margin:0 auto">
+                				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
+                			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 
@@ -469,10 +515,10 @@ text-align:center;
                     	<c:if test="${repairVO.rep_pro eq 4}"><span style="color:black;">已修繕完畢</span></c:if>
                     	
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -480,42 +526,53 @@ text-align:center;
                 
 				
             
-               		<div class='col-md-2 '>
+               		               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
-                			<div class='row' style="text-align:center;">
-                				<h2 style="text-align:center;">${repairVO.rep_dam_obj}</h2>
-                				<h3>${repairVO.rep_dam_obj_des}</h3>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj}</h2>
+                				<h3 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj_des}</h3>
                 			</div>
-                			<div class='row' >
-			                	<br><div><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
+                			<div class='row text-center' style="margin:0 auto">
+			                	<br><div style="margin:0 auto"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
 							 	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							    <input type="hidden" name="action" value="getOne_For_updPic">
 							    <!-- 處理中:1 則顯示上傳圖片 -->
-							    <button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
+							    <button  type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
 								</FORM></div>
 							</div>
 					</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 申請日期</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_case_str}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
-                			<div class='row' >
-		                		<br><br><br><a href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
-		                		<button class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                			<div class='row text-center' style="margin:0 auto">
+		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
+		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
                 	</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_est_enddate}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )? "":' style="display:none" '}>回報結果</button></a><br>
+                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<div class='row text-center' style="margin:0 auto">	
+                				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
+                			</c:if>
+                			<div class='row text-center' style="margin:0 auto">
+                				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
+                			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 
@@ -533,10 +590,10 @@ text-align:center;
               <c:if test="${repairVO.rep_pro eq 5}"><span style="color:darkgrey;">再修一次:處理中</span></c:if>
 										
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -544,42 +601,53 @@ text-align:center;
                 
 				
             
-               		<div class='col-md-2 '>
+               	               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
-                			<div class='row' style="text-align:center;">
-                				<h2 style="text-align:center;">${repairVO.rep_dam_obj}</h2>
-                				<h3>${repairVO.rep_dam_obj_des}</h3>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj}</h2>
+                				<h3 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj_des}</h3>
                 			</div>
-                			<div class='row' >
-			                	<br><div><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
+                			<div class='row text-center' style="margin:0 auto">
+			                	<br><div style="margin:0 auto"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
 							 	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							    <input type="hidden" name="action" value="getOne_For_updPic">
 							    <!-- 處理中:1 則顯示上傳圖片 -->
-							    <button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
+							    <button  type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
 								</FORM></div>
 							</div>
 					</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 申請日期</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_case_str}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
-                			<div class='row' >
-		                		<br><br><br><a href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
-		                		<button class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                			<div class='row text-center' style="margin:0 auto">
+		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
+		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
                 	</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_est_enddate}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )? "":' style="display:none" '}>回報結果</button></a><br>
+                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<div class='row text-center' style="margin:0 auto">	
+                				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
+                			</c:if>
+                			<div class='row text-center' style="margin:0 auto">
+                				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
+                			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 </c:if>            
@@ -594,10 +662,10 @@ text-align:center;
                     <h3 class='rep_status'>狀態         
 						<c:if test="${repairVO.rep_pro eq 6}"><span style="color:purple;">再修一次:已修繕完畢</span></c:if>										
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -605,42 +673,53 @@ text-align:center;
                 
 				
             
-               		<div class='col-md-2 '>
+               		               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
-                			<div class='row' style="text-align:center;">
-                				<h2 style="text-align:center;">${repairVO.rep_dam_obj}</h2>
-                				<h3>${repairVO.rep_dam_obj_des}</h3>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj}</h2>
+                				<h3 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj_des}</h3>
                 			</div>
-                			<div class='row' >
-			                	<br><div><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
+                			<div class='row text-center' style="margin:0 auto">
+			                	<br><div style="margin:0 auto"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
 							 	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							    <input type="hidden" name="action" value="getOne_For_updPic">
-									<!-- 處理中:1 則顯示上傳圖片 -->
-							    <button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
+							    <!-- 處理中:1 則顯示上傳圖片 -->
+							    <button  type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
 								</FORM></div>
 							</div>
 					</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 申請日期</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_case_str}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
-                			<div class='row' >
-		                		<br><br><br><a href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
-		                		<button class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                			<div class='row text-center' style="margin:0 auto">
+		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
+		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
                 	</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_est_enddate}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
+                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<div class='row text-center' style="margin:0 auto">	
+                				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
+                			</c:if>
+                			<div class='row text-center' style="margin:0 auto">
+                				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
+                			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 </c:if>            
@@ -654,10 +733,10 @@ text-align:center;
                     <h3 class='rep_status'>狀態         
 						<c:if test="${repairVO.rep_pro eq 7}"><span style="color:lightblue;">已結案</span></c:if>										
                     </h3>
-                    <a href='#'>
+<!--                     <a href='#'> -->
                     	<h4>修繕編號<h4><h3>${repairVO.rep_no}</h3>
               			<h3 class='hos_name' id="${ConVO.hos_no}" > ${hosSvc.getHouseInfo(ConVO.hos_no).hos_name} </h3>
-					</a>
+<!-- 					</a> -->
                     <br><h4>居住日期</h4>
                     <h2>${aplSvc.getOneCon_apl(ConVO.apl_no).apl_str}~${aplSvc.getOneCon_apl(ConVO.apl_no).apl_end}</h2>   
                   </div>       
@@ -665,42 +744,53 @@ text-align:center;
                 
 				
             
-               		<div class='col-md-2 '>
+               		               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
-                			<div class='row' style="text-align:center;">
-                				<h2 style="text-align:center;">${repairVO.rep_dam_obj}</h2>
-                				<h3>${repairVO.rep_dam_obj_des}</h3>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj}</h2>
+                				<h3 style="margin:0 auto" style="margin:0 auto">${repairVO.rep_dam_obj_des}</h3>
                 			</div>
-                			<div class='row' >
-			                	<br><div><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
+                			<div class='row text-center' style="margin:0 auto">
+			                	<br><div style="margin:0 auto"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet"> 
 							 	<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
 							    <input type="hidden" name="action" value="getOne_For_updPic">
-									<!-- 處理中:1 則顯示上傳圖片 -->
-							    <button type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
+							    <!-- 處理中:1 則顯示上傳圖片 -->
+							    <button  type="submit" class="btn btn-primary" >${(repairVO.rep_pro eq 1 || repairVO.rep_pro eq 5)?'上傳圖片':'查看圖片'}</button>
 								</FORM></div>
 							</div>
 					</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 申請日期</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_case_str}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
-                			<div class='row' >
-		                		<br><br><br><a href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
-		                		<button class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
+                			<div class='row text-center' style="margin:0 auto">
+		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
+		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
                 	</div>
-                	<div class='col-md-2 '>
+                	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
-                			<div class='row' >
-                				<h2>${repairVO.rep_est_enddate}</h2>
+                			<div class='row text-center' >
+                				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<div class='row' >
-                				<br><br><A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button class="btn btn-primary" ${(repairVO.rep_pro eq 4 )? "":' style="display:none" '}>回報結果</button></a><br>
+                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<div class='row text-center' style="margin:0 auto">	
+                				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
+                			</c:if>
+                			<div class='row text-center' style="margin:0 auto">
+                				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
+                				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
+                			</div>
+                			
+                			
+<!--                 			<div class='row text-center' style="margin:0 auto"> -->
+<!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
+<!--                 			</div> -->
                 	</div>
              </div>
 </c:if>           
@@ -737,8 +827,24 @@ text-align:center;
 
 <%-- <%@ include file="page2.file" %> --%>
 <script>
-
+ 
 $(document).ready(function(){
+// 	if (repVO!=null){	
+// 		var rep_pro = ${repVO.rep_pro};
+// 		var div_no =  ".div"+ rep_pro;
+// 		$(rep_pro).load(function(){
+// 			$(".div-hide").each(function(){
+// 				$(this).hide();
+// 			});
+			
+// 			$(".div_no").each(function(){
+// 				$(this).show();
+// 			});
+// 		})
+// 	}
+	
+	
+	
 	
 
 	$("#b0").click(function() {
@@ -852,9 +958,9 @@ $(document).ready(function(){
 
 
 	
-$(document).on("click", ".hos_name", function() {
-        	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).attr('id');
-		});
+// $(document).on("click", ".hos_name", function() {
+<%--         	window.location.href='<%=request.getContextPath()%>/front-end/index/HouseDet.jsp?hos='+$(this).attr('id'); --%>
+// 		});
 </script>
 </body>
 </html>

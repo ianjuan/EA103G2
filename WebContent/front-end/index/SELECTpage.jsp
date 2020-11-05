@@ -351,37 +351,13 @@ footer {
 	margin-top: 25px;
 	margin-bottom: 7px;
 }
-/*  .btn-img { */
-/*             background-image: "https://www.flaticon.com/svg/static/icons/svg/236/236831.svg"; */
-/*         } */
 
-/*         .bg-light { */
-/*             background-color: #AACFBF !important; */
-/*         } */
-
-/*         .navbar-light .navbar-nav .nav-link { */
-/*             color: #393939 !important; */
-/*             font-weight: bold; */
-/*         } */
-
-/*         .nav-item .member { */
-/*             display: flex; */
-/*             margin-left: 10px; */
-/*         } */
-
-/*         .nav-item .member .memberpic { */
-/*             width: 40px; */
-/*             margin-right: 5px; */
-/*             outline: none; */
-/*         } */
-
-/*         .nav-item .member .membername { */
-/*             float: right; */
-/*             align-self: center; */
-/*             display: block; */
-/*         } */
 .btn-group>.btn {
 	flex: 1 1 auto;
+}
+.page{
+align-items: center;
+    margin-top: 17px;
 }
 </style>
 </head>
@@ -597,11 +573,11 @@ footer {
 		</div>
 		<div class="container" id="card-container">
 			<!-- Card deck -->
-			<div class="row">
-				<div class="col-4">
+			<div class="row page">
+				<div class="col-sm-6 col-md-5">
 					<p id="conter"></p>
 				</div>
-				<div class="col-8">
+				<div class="col-sm-6 col-md-7">
 					<nav aria-label="Page navigation example" class="aboutpage">
 
 					</nav>
@@ -790,7 +766,7 @@ footer {
         	else{
         		if (pagebtn==1){
             		$(".aboutpage").append(
-            				"<ul class='pagination'>"+
+            				"<ul class='pagination' >"+
             				"<li class='page-item' value='999'><a class='page-link' >第一頁</a>"+
             				"<li class='page-item' value='"+pagebtn+"' style='color:red'><a class='page-link' >"+pagebtn+"</a></li>"+
             				"<li class='page-item' value='"+(pagebtn+1)+"'><a class='page-link' >"+(pagebtn+1)+"</a></li>"+

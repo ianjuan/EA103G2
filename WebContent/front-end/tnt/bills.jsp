@@ -28,7 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/front-end/tnt/images/icons/favicon.ico" />
+<%--     <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/front-end/tnt/images/icons/favicon.ico" /> --%>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
@@ -36,9 +36,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animate/animate.css">
+<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animate/animate.css"> --%>
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/css/animsition.min.css">
+<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/css/animsition.min.css"> --%>
     <!--===============================================================================================-->
 <%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/vendor/select2/select2.min.css"> --%>
     <!--===============================================================================================-->
@@ -47,7 +47,7 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/tnt/css/bills_tnt.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
-	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 
 
@@ -72,7 +72,7 @@
 		 }
 		 
 		.text-primary {
-   			color: #916A3C!important;
+   			color: #3A8C68!important;
 		}
 		
 /* 		 @media (max-width:1199.98px) { */
@@ -113,12 +113,12 @@
          } 
          /*現在頁面*/ 
          .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-			color: #916A3C!important; 
-		    background-color: #D7C8B6 !important;
+			color: #3A8C68!important; 
+		    background-color: #AACFBF !important;
 		    font-weight: bold !important;
 			border: transparent !important;
 		    background: transparent !important;
-		    border-bottom: 1px solid #916A3C !important;
+		    border-bottom: 1px solid #3A8C68 !important;
     		border-radius: 0px;
 		}
 		/*其他頁面按鈕*/
@@ -127,9 +127,9 @@
 		}
 		.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
   			color: #fff!important;
-   			border: 1px solid #D7C8B6 !important; 
+   			border: 1px solid #AACFBF !important; 
  		    background: transparent !important;
-  		    background-color: #D7C8B6 !important;
+  		    background-color: #AACFBF !important;
   		    border-radius: 10px;
 		}
 		/*不能按的下一頁*/
@@ -141,22 +141,22 @@
 		}
 		/*現在頁面*/ 
          .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-			color: #916A3C!important; 
-		    background-color: #D7C8B6 !important;
+			color: #3A8C68!important; 
+		    background-color: #AACFBF !important;
 		    font-weight: bold !important;
 			border: transparent !important;
 		    background: transparent !important;
-		    border-bottom: 1px solid #916A3C !important;
+		    border-bottom: 1px solid #3A8C68 !important;
     		border-radius: 0px !important;
 		}
 		/*Serch bar*/
 		.dataTables_wrapper .dataTables_filter input {
-			border: 1px solid #D7C8B6 !important;
+			border: 1px solid #AACFBF !important;
 			border-radius: 25px !important;
 			padding: 0 13px !important;
 		}
 		.dataTables_wrapper .dataTables_filter input:focus {
-			border: 1px solid #916A3C !important;
+			border: 1px solid #3A8C68 !important;
 			border-radius: 25px !important;
 			padding: 0 13px !important;
 		}
@@ -165,7 +165,7 @@
  			background-color: #fff !important; 
  		} 
  		tr:nth-child(even){ 
-   			background: #F7F2F2 !important; 
+   			background: #F2F7F2 !important; 
  		} 
  		tr:nth-child(odd){ 
     			background: #fff !important;  
@@ -174,7 +174,7 @@
 /*   			background-color: #e9e9e9 !important;  */
  		} 
  		td.sorting_1:nth-child(odd){ 
-   			background: #F7F2F2 !important; 
+   			background: #F2F7F2 !important; 
  		} 
  		table.dataTable.display tbody tr.odd>.sorting_1, table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 { 
  			background: #fff !important; 
@@ -182,7 +182,7 @@
  		table.dataTable, table.dataTable th, table.dataTable td {
  			text-align: center !important; 
  		}
- 		table.dataTable td:nth-child(3){
+ 		table.dataTable td:nth-child(4){
  			padding-left: 5.5% !important;
     		text-align: left !important;
  		}
@@ -200,13 +200,13 @@
 		/*本月明細*/
 		.btn-thismonth-detail {
 		    color: #fff;
-		    background-color: #916A3C !important;
-		    border-color: #916A3C !important;
+		    background-color: #3A8C68 !important;
+		    border-color: #3A8C68 !important;
 		}
  		.btn-primary { 
  		    color: #fff; 
- 		    background-color: #916A3C!important;
- 		    border-color: #916A3C!important;
+ 		    background-color: #3A8C68!important;
+ 		    border-color: #3A8C68!important;
  		}
        .modal-dialog-centered {
        		max-width: 35% !important;
@@ -246,7 +246,7 @@
                                      <img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" width="110" class="imgBigHeadPic">
                                  </a>
                             </div>
-                            <p class="text-gray text-center mb-3">房東</p>
+                            <p class="text-gray text-center mb-3">房客</p>
                             <h4 class="text-center">${tntVO.tnt_name} 個人資訊</h4>
                             <ul class="basicInfo__menu mt-4 border-top mx-2 px-4 py-5">
                                 <li class="mb-3">
@@ -266,7 +266,7 @@
                                 </li>
                                 <li class="mb-3">
                                     <a class="basicInfo__menu__link nuxt-link-exact-active nuxt-link-active">
-                                        <img src="data:image/svg+xml;base64,PHN2ZyBpZD0i5ZyW5bGkXzEiIGRhdGEtbmFtZT0i5ZyW5bGkIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxkZWZzPjxzdHlsZT4uY2xzLTF7ZmlsbDojMmQyZDJkO308L3N0eWxlPjwvZGVmcz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04Mi42Myw0My4yOWEzMi42OCwzMi42OCwwLDAsMC02NS4yNiwwLDIuMzMsMi4zMywwLDAsMC0uMDYuNTNWNTdDMTcuMzEsNzQuMzcsMzEuMzcsODcuNSw1MCw4Ny41UzgyLjY5LDc0LjM3LDgyLjY5LDU3VjQzLjgyQTIuMzMsMi4zMywwLDAsMCw4Mi42Myw0My4yOVpNNTAsMTcuNUEyNy42OSwyNy42OSwwLDEsMSwyMi4zMSw0NS4xOSwyNy43MiwyNy43MiwwLDAsMSw1MCwxNy41Wm0wLDY1QzM2LjYxLDgyLjUsMjYuMjksNzUsMjMuMjQsNjMuOTJhMzIuNjQsMzIuNjQsMCwwLDAsNTMuNTIsMEM3My43MSw3NSw2My4zOSw4Mi41LDUwLDgyLjVaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTAsNTMuNzFhMy4xNywzLjE3LDAsMCwxLTMuMTYtMy4xNmgtNWE4LjE2LDguMTYsMCwwLDAsNS42Niw3Ljc2VjYzaDVWNTguMzFBOC4xNiw4LjE2LDAsMCwwLDUwLDQyLjM5YTMuMTYsMy4xNiwwLDEsMSwzLjE2LTMuMTVoNWE4LjE4LDguMTgsMCwwLDAtNS42Ni03Ljc3VjI2LjgzaC01djQuNjRBOC4xNiw4LjE2LDAsMCwwLDUwLDQ3LjM5YTMuMTYsMy4xNiwwLDAsMSwwLDYuMzJaIi8+PC9zdmc+" width="30" class="mr-2">我的帳務</a>
+                                        <img src="data:image/svg+xml;base64,PHN2ZyBpZD0i5ZyW5bGkXzEiIGRhdGEtbmFtZT0i5ZyW5bGkIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmtnt0JveD0iMCAwIDEwMCAxMDAiPjxkZWZzPjxzdHlsZT4uY2xzLTF7ZmlsbDojMmQyZDJkO308L3N0eWxlPjwvZGVmcz48cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik04Mi42Myw0My4yOWEzMi42OCwzMi42OCwwLDAsMC02NS4yNiwwLDIuMzMsMi4zMywwLDAsMC0uMDYuNTNWNTdDMTcuMzEsNzQuMzcsMzEuMzcsODcuNSw1MCw4Ny41UzgyLjY5LDc0LjM3LDgyLjY5LDU3VjQzLjgyQTIuMzMsMi4zMywwLDAsMCw4Mi42Myw0My4yOVpNNTAsMTcuNUEyNy42OSwyNy42OSwwLDEsMSwyMi4zMSw0NS4xOSwyNy43MiwyNy43MiwwLDAsMSw1MCwxNy41Wm0wLDY1QzM2LjYxLDgyLjUsMjYuMjksNzUsMjMuMjQsNjMuOTJhMzIuNjQsMzIuNjQsMCwwLDAsNTMuNTIsMEM3My43MSw3NSw2My4zOSw4Mi41LDUwLDgyLjVaIi8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTAsNTMuNzFhMy4xNywzLjE3LDAsMCwxLTMuMTYtMy4xNmgtNWE4LjE2LDguMTYsMCwwLDAsNS42Niw3Ljc2VjYzaDVWNTguMzFBOC4xNiw4LjE2LDAsMCwwLDUwLDQyLjM5YTMuMTYsMy4xNiwwLDEsMSwzLjE2LTMuMTVoNWE4LjE4LDguMTgsMCwwLDAtNS42Ni03Ljc3VjI2LjgzaC01djQuNjRBOC4xNiw4LjE2LDAsMCwwLDUwLDQ3LjM5YTMuMTYsMy4xNiwwLDAsMSwwLDYuMzJaIi8+PC9zdmc+" width="30" class="mr-2">我的帳務</a>
                                 </li>
                                 <li class="mb-3">
                                     <a href="<%=request.getContextPath()%>/front-end/tnt/booking.jsp" class="basicInfo__menu__link">
@@ -340,7 +340,30 @@
 <!-- 								  <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
 <!-- 								</nav> -->
 <!-- 								TAB 有空再做 -->
-									<select class="wrap-register100 validate-input" data-validate="" name="cash_status" id="cash_status" >
+									<div class="justify-content-between p-t-15" style="display: flex;">
+									 <select class="wrap-register100 validate-input" data-validate="" name="cash_inout" id="cash_inout" >
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">
+                                        	  <option value="" >查詢收支
+                                              <option value="" >全部
+                          					  <option value="in" >收入
+                          					  <option value="out">支出
+                                        </span>
+                                    </select>
+                                    <select class="wrap-register100 validate-input" data-validate="" name="cash_type" id="cash_type" >
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">
+                                        	  <option value="" >查詢交易種類
+                                              <option value="" >全部
+                                              <option value="儲值">儲值
+                                              <option value="提領">提領
+                          					  <option value="押金" >押金
+                          					  <option value="每月帳單">每月帳單
+											  <option value="退房帳單">退房帳單
+											  <option value="上架費">上架費
+                                        </span>
+                                    </select>
+ 									<select class="wrap-register100 validate-input" data-validate="" name="cash_status" id="cash_status" >
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
                                         	  <option value="" >查詢交易狀態
@@ -351,11 +374,14 @@
 											  <option value="待繳">待繳
                                         </span>
                                     </select>
+                                   </div>
+                                    
                                 <table id="myDataTalbe"  class="display">
 							        <thead>
 							            <tr>
 							         		<th>項次</th>
 							                <th>日期</th>
+							                <th>收入/支出</th>
 							                <th>交易種類</th>
 							                <th>交易金額</th>
 							                <th>交易狀態</th>
@@ -368,6 +394,9 @@
 											<tr>
 												<td>${varStatusName.count}</td>
 												<td>${cashVO.cash_date}</td>
+												<td>${cashVO.cash_inout}</td>
+<%-- 												<td><c:if test="${cashVO.cash_inout==\"in\"}">收入</c:if> --%>
+<%-- 													<c:if test="${cashVO.cash_inout==\"out\"}">支出</c:if></td> --%>
 												<td>
 													<c:if test="${cashVO.cash_status==1}">
 														<c:if test="${cashVO.cash_type==\"儲值\"}">
@@ -402,16 +431,8 @@
 													</c:if>
 													<c:if test="${cashVO.cash_inout==\"out\"}">
 														<td><span class="toreceiverow">待繳</span></td>
-<!-- 														<td class="toreceiverow">待繳</td> -->
 													</c:if>
 												</c:if>
-<!-- 												<td> -->
-<%-- 													<c:if test="${cashVO.cash_status==1}">完成</c:if> --%>
-<%-- 													<c:if test="${cashVO.cash_status==0}"> --%>
-<%-- 														<c:if test="${cashVO.cash_inout==\"in\"}">待收</c:if> --%>
-<%-- 														<c:if test="${cashVO.cash_inout==\"out\"}">待繳</c:if> --%>
-<%-- 													</c:if> --%>
-<!-- 												</td> -->
 												<td>
 													<c:if test="${cashVO.cash_type==\"每月帳單\"}">
 								                    	<button type="button" class="btn btn-info btn-sm btn-thismonth-detail btnRecBills" id="${cashVO.rec_no}" data-toggle="modal" data-target="#exampleModalCenter${varStatusName.count}">本月明細</button>
@@ -423,7 +444,7 @@
 														        <h5 class="modal-title" id="exampleModalLongTitle">週期帳單明細</h5>
 														      </div>
 														      <div class="modal-body" id="modal-body">
-<%-- 														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/> --%>
+														       	<jsp:include page="/front-end/rec/nowrecdetail_bills.jsp?rec_no=${cashVO.rec_no}"/>
 														      </div>
 														      <div class="modal-footer">
 <!-- 														        <button type="button" class="btn btn-primary" id="btnCloseDetail">關閉明細</button> -->
@@ -446,14 +467,14 @@
     </section>
 
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/jquery/jquery-3.2.1.min.js"></script>
+<%--     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/jquery/jquery-3.2.1.min.js"></script> --%>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/js/popper.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/tnt/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!--     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/tnt/js/jquery.js"></script>
     <!--===============================================================================================-->
@@ -463,12 +484,58 @@
      
     <script>
     var cashVO;
+    $("#cash_inout").on("change",function(){
+        $.ajax({
+    		  url:"<%=request.getContextPath()%>/tnt/TntServlet2",
+    	 	  type:"GET",
+    	 	  data:{action:"billsQuery",
+    	 		 cash_inout:$('#cash_inout').val(),
+   	 		     cash_type:$('#cash_type').val(),
+   	 		     cash_status:$('#cash_status').val()
+    	 		  },
+    	 	  success:function(data){//以上成功才執行
+    	 		  console.log("data="+data);
+    	 		  cashVO=JSON.parse(data); 
+    	          loading(cashVO);
+    	 		  console.log("res棒");
+    	 		  }
+    	 	  ,
+    	 	  error:function(data)
+    	 	  {
+    	 		  console.log("真的不棒")
+    	 	  }			  
+    	  })
+        });
+    $("#cash_type").on("change",function(){
+        $.ajax({
+    		  url:"<%=request.getContextPath()%>/tnt/TntServlet2",
+    	 	  type:"GET",
+    	 	  data:{action:"billsQuery",
+    	 		  cash_inout:$('#cash_inout').val(),
+    	 		  cash_type:$('#cash_type').val(),
+    	 		  cash_status:$('#cash_status').val()
+    	 		  },
+    	 	  success:function(data){//以上成功才執行
+    	 		  console.log("data="+data);
+    	 		  cashVO=JSON.parse(data); 
+    	          loading(cashVO);
+    	 		  console.log("res棒");
+    	 		  }
+    	 	  ,
+    	 	  error:function(data)
+    	 	  {
+    	 		  console.log("真的不棒")
+    	 	  }			  
+    	  })
+        });
     $("#cash_status").on("change",function(){
     $.ajax({
 		  url:"<%=request.getContextPath()%>/tnt/TntServlet2",
 	 	  type:"GET",
 	 	  data:{action:"billsQuery",
-	 		 cash_status:$('#cash_status').val()
+	 		  cash_inout:$('#cash_inout').val(),
+	 		  cash_type:$('#cash_type').val(),
+	 		  cash_status:$('#cash_status').val()
 	 		  },
 	 	  success:function(data){//以上成功才執行
 	 		  console.log("data="+data);
@@ -483,6 +550,7 @@
 	 	  }			  
 	  })
     });
+    
 	function loading(cashlist){
 		$("#tbody").remove();
 		$('#myDataTalbe').append("<tbody id='tbody'></tbody>");
@@ -542,6 +610,7 @@
 						"<tr>"+
 							"<td>"+(i+1)+"</td>"+
 							"<td>"+cashVO.cash_date+"</td>"+
+							"<td>"+cashVO.cash_inout+"</td>"+
 							"<td>"+img+" "+cashVO.cash_type+"</td>"+
 							"<td>"+cashVO.cash_amount+"</td>"+
 							"<td>"+statusStr+
