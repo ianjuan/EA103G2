@@ -361,7 +361,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="myPieChart" style="display: block; height: 216px; width: 551px;" width="1102" height="432" class="chartjs-render-monitor"></canvas>
+                    <canvas id="myBarChart" style="display: block; height: 216px; width: 551px;" width="1102" height="432" class="chartjs-render-monitor"></canvas>
                   </div>
                   <hr>
                	0.0
@@ -378,7 +378,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
+                    <canvas id="myAreaChart"></canvas>
                   </div>
                   <hr>
                	0.0
@@ -399,6 +399,8 @@
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/chart.js/Chart.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
+			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-bar-demo.js"></script>
+			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-area-demo.js"></script>
 	<script id="alert_js">
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
