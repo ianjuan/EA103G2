@@ -683,7 +683,7 @@
                     		title: '註冊成功',
                     		text: "請盡速至信箱完成驗證",
                     		showConfirmButton: true,
-                    	    confirmButtonText: '點我回首頁',
+                    	    confirmButtonText: '點我登入',
                     		}).then((result) => {
                     		  if (result.isConfirmed) {
                     			  redirect();
@@ -714,5 +714,5 @@
         }
 
         function redirect() {
-            window.location.href = "/EA103G2/front-end/index/index.jsp";
+            window.location.href = "/EA103G2/front-end/index/tnt/login.jsp";
         }
