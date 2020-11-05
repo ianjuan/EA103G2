@@ -672,18 +672,28 @@ public class LldServlet2 extends HttpServlet {
 				System.out.println("vrf pics 修改失敗:" + e.getMessage());
 			}
 		}
-// ===================================以下來自我的錢包 pocket.jsp=====================================================
+// ===================================以下來自我的錢包 bills.jsp=====================================================
 
-			// 來自pocket.jsp的請求 - ajax_balanceWithdraw(formData)
+			// 來自bills.jsp的請求 - ajax
 			if ("billsQuery".equals(action)) {
 				CashService cashSvc = new CashService();
 				HttpSession session = req.getSession();
 				String lld_no = (String) session.getAttribute("lld_no");
-				String cash_status = req.getParameter("cash_status");
 				String cash_inout = req.getParameter("cash_inout");
+				String cash_type = req.getParameter("cash_type");
+				String cash_status = req.getParameter("cash_status");
+				
 				System.out.println("billsQuery的cash_inout:"+cash_inout);
+				System.out.println("billsQuery的cash_type:"+cash_type);
 				System.out.println("billsQuery的status:"+cash_status);
-				String list=cashSvc.getOneCashlogs_query(lld_no, cash_status);
+//				System.out.println(cash_inout==null);
+//				String list="";
+//				if (cash_status != null && cash_inout == null) {
+//					list = cashSvc.getOneCashlogs_query(lld_no, cash_status);
+//				}
+//				if (cash_status != null && cash_inout != null) {
+				String list = cashSvc.getOneCashlogs_query(lld_no, cash_inout, cash_type, cash_status);
+//				}
 				out = res.getWriter();
 				out.print(list);
 				out.close();

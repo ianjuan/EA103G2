@@ -750,13 +750,13 @@
             /*移除箭頭樣式*/
             appearance: none -moz-appearance: none;
             -webkit-appearance: none;
-            /*改變右邊箭頭樣式*/
-            /*background: url("images/icons/angle-down.png") no-repeat right center transparent;*/
             font-size: 18px;
             color: #777777;
             line-height: 3;
             padding: 0 26px;
             font-family: Montserrat-Regular;
+            width: 30%;
+  			display: inline-block;
 
         }
 

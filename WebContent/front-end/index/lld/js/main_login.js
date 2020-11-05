@@ -95,7 +95,7 @@
          * ================================================================== 
          *    [ Quick Input ]
          */
-        var quickInputData = ['HZO7YIsH@hotmail.com', 'aa123456'];
+        var quickInputData = ['Vg4BvBMH@gmail.com', 'aa123456'];
 
         $('#quickpick').click(function() {
             var inputs = $('.validate-input .register100');

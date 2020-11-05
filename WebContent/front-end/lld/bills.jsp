@@ -27,7 +27,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/front-end/lld/images/icons/favicon.ico" />
+<%--     <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/front-end/lld/images/icons/favicon.ico" /> --%>
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
@@ -35,9 +35,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animate/animate.css">
+<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animate/animate.css"> --%>
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/css/animsition.min.css">
+<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/css/animsition.min.css"> --%>
     <!--===============================================================================================-->
 <%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/vendor/select2/select2.min.css"> --%>
     <!--===============================================================================================-->
@@ -46,7 +46,7 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/lld/css/bills_lld.css">
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
-	
+	<!--===============================================================================================-->
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 
 
@@ -348,6 +348,19 @@
                           					  <option value="out">支出
                                         </span>
                                     </select>
+                                    <select class="wrap-register100 validate-input" data-validate="" name="cash_type" id="cash_type" >
+                                        <span class="focus-register100"></span>
+                                        <span class="label-register100">
+                                        	  <option value="" >查詢交易種類
+                                              <option value="" >全部
+                                              <option value="儲值">儲值
+                                              <option value="提領">提領
+                          					  <option value="押金" >押金
+                          					  <option value="每月帳單">每月帳單
+											  <option value="退房帳單">退房帳單
+											  <option value="上架費">上架費
+                                        </span>
+                                    </select>
  									<select class="wrap-register100 validate-input" data-validate="" name="cash_status" id="cash_status" >
                                         <span class="focus-register100"></span>
                                         <span class="label-register100">
@@ -452,14 +465,14 @@
     </section>
 
     <!--===============================================================================================-->
-    <script src="<%=request.getContextPath()%>/front-end/lld/vendor/jquery/jquery-3.2.1.min.js"></script>
+<%--     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/jquery/jquery-3.2.1.min.js"></script> --%>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/js/popper.js"></script>
     <script src="<%=request.getContextPath()%>/front-end/lld/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!--     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> -->
     <!--===============================================================================================-->
     <script src="<%=request.getContextPath()%>/front-end/lld/js/jquery.js"></script>
     <!--===============================================================================================-->
@@ -474,8 +487,31 @@
     		  url:"<%=request.getContextPath()%>/lld/LldServlet2",
     	 	  type:"GET",
     	 	  data:{action:"billsQuery",
-    	 		 cash_status:$('#cash_status').val(),
-    	 		 cash_inout:$('#cash_inout').val()
+    	 		 cash_inout:$('#cash_inout').val(),
+   	 		     cash_type:$('#cash_type').val(),
+   	 		     cash_status:$('#cash_status').val()
+    	 		  },
+    	 	  success:function(data){//以上成功才執行
+    	 		  console.log("data="+data);
+    	 		  cashVO=JSON.parse(data); 
+    	          loading(cashVO);
+    	 		  console.log("res棒");
+    	 		  }
+    	 	  ,
+    	 	  error:function(data)
+    	 	  {
+    	 		  console.log("真的不棒")
+    	 	  }			  
+    	  })
+        });
+    $("#cash_type").on("change",function(){
+        $.ajax({
+    		  url:"<%=request.getContextPath()%>/lld/LldServlet2",
+    	 	  type:"GET",
+    	 	  data:{action:"billsQuery",
+    	 		  cash_inout:$('#cash_inout').val(),
+    	 		  cash_type:$('#cash_type').val(),
+    	 		  cash_status:$('#cash_status').val()
     	 		  },
     	 	  success:function(data){//以上成功才執行
     	 		  console.log("data="+data);
@@ -495,8 +531,9 @@
 		  url:"<%=request.getContextPath()%>/lld/LldServlet2",
 	 	  type:"GET",
 	 	  data:{action:"billsQuery",
-	 		 cash_status:$('#cash_status').val(),
-	 		 cash_inout:$('#cash_inout').val()
+	 		  cash_inout:$('#cash_inout').val(),
+	 		  cash_type:$('#cash_type').val(),
+	 		  cash_status:$('#cash_status').val()
 	 		  },
 	 	  success:function(data){//以上成功才執行
 	 		  console.log("data="+data);
