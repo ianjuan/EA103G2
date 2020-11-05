@@ -365,7 +365,7 @@ public class RecServlet extends HttpServlet {
 				cash_type = CashVO.lldIn_RecBill;
 				cash_amount = rec_total;
 
-				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
+				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status);
 
 				String userNo = lld_no;
 				String title = "房客" + tntService.getOneTntProfile(tnt_no).getTnt_name() + "已繳費";

@@ -18,7 +18,7 @@ public class CheckoutdepSchedule extends TimerTask{
 	private String userNo = null;
 	private String title = "押金已入帳";
 	private String content = "請房客前往錢包查看";
-	private String url = "/EA103G2/front-end/lld/bills.jsp";
+	private String url = "/EA103G2/front-end/tnt/bills.jsp";
 	
 	
 	public CheckoutdepSchedule(String userNo, String con_no, String mem_no, Integer cash_amount) {

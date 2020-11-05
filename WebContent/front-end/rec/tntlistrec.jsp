@@ -148,7 +148,7 @@
 			     				</FORM>
 
 			     				
-			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
+			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>">
 			     				<c:if test="${recVO.rec_sta == 2}">
 			     				<li><button type="button" id="btn2" data-toggle="modal" data-target="#evaluationdiv${rec.count}">評價房東</button></li>
 								</c:if>
@@ -156,7 +156,6 @@
 								<input type="hidden" name="hos_no"  value="${recVO.hos_no}">
 								<input type="hidden" name="con_no"  value="${recVO.con_no}">
 			     				<input type="hidden" name="tnt_no" value="<%=tnt_no%>">
-<!-- 			     				<input type="hidden" name="action"	value="getOne_For_Update"> -->
 			     				</FORM>
 			     				
 			     				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/rec/RecServlet">
