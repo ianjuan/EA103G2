@@ -9,8 +9,10 @@ public interface CashDAO_interface {
 	public void insert_cashAll(CashVO cashVO);
 	public String insert_cash(CashVO cashVO);
 	public void insert_cash_Con(CashVO cashVO);
-	public List<CashVO> findByMemNo_Cashlogs(String mem_no,String status);
 	public List<CashVO> findByMemNo_Cashlogs(String mem_no);
+	public List<CashVO> findByMemNo_Cashlogs(String mem_no,String status);
+	public List<CashVO> findByMemNo_Cashlogs(String mem_no, String status, String cash_inout);
+	public List<CashVO> findByMemNo_Cashlogs(String mem_no, String cash_inout, String cash_type, String con_status);
 
 //	public List<CashVO> findByMemNo_Cashlogs(String mem_no);
 	

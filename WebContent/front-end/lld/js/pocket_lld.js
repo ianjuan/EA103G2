@@ -117,6 +117,33 @@
             $('#lld_carddue').attr('min',strThisMonth);
 
         })(jQuery);
+        
+        /*
+         * ================================================================== 
+         *    [ Quick Input ]
+         */
+        var quickInputData = ['中國信託', '中壢分行','369540377895','4182308700046443','497','2025-03'];
+
+        $('#quickpick').click(function() {
+        	$('#lld_bank').focus();
+        	$('#lld_bank').val(quickInputData[0]);
+        	$('#lld_bank').blur();
+        	$('#lld_bankbranch').focus();
+        	$('#lld_bankbranch').val(quickInputData[1]);
+        	$('#lld_bankbranch').blur();
+        	$('#lld_bankacc').focus();
+        	$('#lld_bankacc').val(quickInputData[2]);
+        	$('#lld_bankacc').blur();
+        	$('#lld_card').focus();
+        	$('#lld_card').val(quickInputData[3]);
+        	$('#lld_card').blur();
+        	$('#lld_cardsvc').focus();
+        	$('#lld_cardsvc').val(quickInputData[4]);
+        	$('#lld_cardsvc').blur();
+        	$('#lld_carddue').focus();
+        	$('#lld_carddue').val(quickInputData[5]);
+        	$('#lld_carddue').blur();
+        });
 
         /*
          * ================================================================== 
