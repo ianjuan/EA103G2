@@ -79,18 +79,15 @@ public class BookingService {
 
 	}
 	public void insertorder(String resdno,String house,String date,String tntno,String type,String resstatus) {
-		BookingVO	vo=new BookingVO();
-			dao.update(resdno);
-//			String a[] = date.split("T");
-//			String order_date=a[0]+" "+a[1]; 
+		BookingVO vo = new BookingVO();
+		dao.update(resdno);
 		vo.setResd_no(resdno);
 		vo.setHos_no(house);
 		vo.setOrder_date(date);
 		vo.setTnt_no(tntno);
 		vo.setRes_type(type);
 		vo.setRes_status(resstatus);
-		
-			dao.insertorder(vo);
+		dao.insertorder(vo);
 		
 	}
 	

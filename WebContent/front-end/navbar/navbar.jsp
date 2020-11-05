@@ -39,9 +39,7 @@
 <!-- 			<a>可愛的元元向您申請了預約看房</a> -->
 <!-- 		</div> -->
 		
-
 		
-<%--              <%=request.getContextPath()%>/front-end/index/Identify.jsp --%>
 <style>
 .new-message{
     z-index: 999;
@@ -84,9 +82,9 @@
 <script  src="<%=request.getContextPath()%>/resource/datetimepicker/jquery.js"></script>
 <script>
 
-if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
+	if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 
-	$("#div-nav").append(
+		$("#div-nav").append(
 			"<nav class='navbar navbar-expand-lg navbar-light bg-light' id='nullnav' style='background-color:#AACFBF !important;'>"+
             "<div class='container'>"+
                 "<a class='navbar-brand' href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a>"+
@@ -103,8 +101,8 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
                 "</div>"+
                 "</div>"+
             "</nav>"
-	)
-}
+		)
+	}
 	if("<%= lldno%>"!=="null"){
 		$("#div-nav").append(
 				"<nav class='navbar navbar-expand-lg navbar-light bg-light' style='background-color:#D7C8B6 !important;'>"+
@@ -139,13 +137,12 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	
 	}
 	if("<%= tntno%>"!=="null"){
-<%-- 		<img src="<%=request.getContextPath()%>/ImgReader?id=${tntVO.tnt_no}" > --%>
 		$("#div-nav").append(
 				"<nav class='navbar navbar-expand-lg navbar-light bg-light' style='background-color:#AACFBF !important;'>"+
 	            "<div class='container'>"+
 	                "<a class='navbar-brand' href='<%=request.getContextPath()%>/front-end/index/index.jsp'>愛租I-ZU</a>"+
 	                "<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>"+
-	                    "<span class='navbar-toggler-icon'></span>"+
+					"<span class='navbar-toggler-icon'></span>"+
 	                "</button>"+
 	                "<div class='collapse navbar-collapse' id='navbarNavAltMarkup'>"+
 	                "<div class='navbar-nav ml-auto'>"+
@@ -159,12 +156,11 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 	                        "<span class='membername'><%= tntvolive ? tntVO.getTnt_name():" " %></span>"+
 	                    "</span>"+
 	                    "<div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>"+
-	                    //btn btn-secondary  dropdown-toggle dropleft
-	                    "<a class='dropdown-item'  role='button' id='Notify' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>最新通知</a>"+
+	                    		"<a class='dropdown-item'  role='button' id='Notify' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>最新通知</a>"+
 	                    		"<div class='dropdown-menu  notify-group' aria-labelledby='Notify'></div>"+
-	                    "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/info.jsp'>個人資訊</a>"+
-	                    "<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/pocket.jsp'>我的錢包</a>"+
-	                    "<a class='dropdown-item' href='<%=request.getContextPath()%>/tnt/TntServlet2?action=logout'>登出</a>"+  
+	                    		"<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/info.jsp'>個人資訊</a>"+
+	                    		"<a class='dropdown-item' href='<%=request.getContextPath()%>/front-end/tnt/pocket.jsp'>我的錢包</a>"+
+	                   		    "<a class='dropdown-item' href='<%=request.getContextPath()%>/tnt/TntServlet2?action=logout'>登出</a>"+  
 	                    "</div>"+
 	                "</li>"+
 	            "</div>"+
@@ -247,8 +243,7 @@ if("<%= lldno%>"=="null" && "<%= tntno%>" =="null"){
 				);
 				
 				$(".new-message").fadeIn(1000);
-				
-				setTimeout(function(){$(".new-message").fadeOut(1000)},3000);
+				setTimeout(function(){$(".new-message").fadeOut(1000)},8000);
 
 			};
 			console.log(jsonObj.title);

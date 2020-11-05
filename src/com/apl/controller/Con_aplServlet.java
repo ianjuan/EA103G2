@@ -51,7 +51,6 @@ public class Con_aplServlet extends HttpServlet {
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				HttpSession session = req.getSession();
 				session.setAttribute("lld_no", lld_no);
-				session.setAttribute("apllist", apllist);
 				String url = "/front-end/apl/lldaplpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -81,7 +80,6 @@ public class Con_aplServlet extends HttpServlet {
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
-				session.setAttribute("apllist", apllist);
 				String url = "/front-end/apl/tntaplpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -105,6 +103,7 @@ public class Con_aplServlet extends HttpServlet {
 			try {
 				String lld_no = req.getParameter("lld_no");
 				String hos_no = req.getParameter("hos_no");
+				System.out.println(hos_no);
 
 				Con_aplService con_aplService = new Con_aplService();
 				List<Con_aplVO> hosapllist = con_aplService.hosgetall(hos_no);
@@ -112,7 +111,6 @@ public class Con_aplServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				req.setAttribute("hos_no", hos_no);
 				session.setAttribute("lld_no", lld_no);
-				session.setAttribute("hosapllist", hosapllist);
 				String url = "/front-end/apl/hoslistapl.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -255,7 +253,6 @@ public class Con_aplServlet extends HttpServlet {
 					
 					HttpSession session = req.getSession();
 					session.setAttribute("lld_no", lld_no);
-					session.setAttribute("apllist", apllist);
 					url = "/front-end/apl/lldaplpage.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
@@ -335,6 +332,7 @@ public class Con_aplServlet extends HttpServlet {
 						List<Con_aplVO> hosapllist = con_aplService.hosgetall(hos_no);
 						req.setAttribute("hosapllist", hosapllist);
 						session.setAttribute("lld_no", lld_no);
+						req.setAttribute("hos_no", hos_no);
 
 						String url = "/front-end/apl/hoslistapl.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -417,7 +415,6 @@ public class Con_aplServlet extends HttpServlet {
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
-				session.setAttribute("apllist", apllist);
 				url = "/front-end/apl/tntaplpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -459,7 +456,6 @@ public class Con_aplServlet extends HttpServlet {
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 				HttpSession session = req.getSession();
 				session.setAttribute("tnt_no", tnt_no);
-				session.setAttribute("apllist", apllist);
 				url = "/front-end/apl/tntaplpage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);

@@ -44,7 +44,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel=stylesheet type="text/css" href="<%=request.getContextPath()%>/front-end/contract/css/checkroom.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
-<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/checkroom.js" charset="UTF-8"></script>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdZqJc7_LPn4ktRl62V9tbknvkyHbMK4w" async defer></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -114,7 +113,7 @@
 							<tr>
 								<th>是否有損毀:</th>
 								<td>
-									<select name="XD">
+									<select id = "torf" name="XD">
 										<option value="1" selected>否</option>
 										<option value="2">是</option>
 									</select>
@@ -124,21 +123,21 @@
 							<tr>
 								<th>損毀物品:</th>
 								<td>
-									<input id="typping" type="TEXT" placeholder="無" name="con_chr_itm_name"/>
+									<input id="con_chr_itm_name" type="TEXT" placeholder="無" name="con_chr_itm_name"/>
 								</td>
 							</tr>
 							
 							<tr>
 								<th>損毀描述:</th>
 								<td>
-									<input id="typping" type="TEXT" placeholder="無" name="con_chr_itm" />
+									<input id="con_chr_itm" type="TEXT" placeholder="無" name="con_chr_itm" />
 								</td>
 							</tr>
 							
 							<tr>
 								<th>毀損費用:</th>
 								<td>
-									<input type="number" id="typping" class="num1" min="0" placeholder="0" step="100" name="con_chr_fee" />元
+									<input type="number" id="con_chr_fee" class="num1" min="0" placeholder="0" step="100" name="con_chr_fee" />元
 								</td>
 							</tr>
 							
@@ -160,6 +159,7 @@
 				  </div>
 		</form>
 	</div>
-	<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>		
+	<div id="foot"><%@ include file="/front-end/index/footer.jsp" %></div>	
+	<script type="text/javascript" src="<%=request.getContextPath()%>/front-end/contract/js/checkroom.js" charset="UTF-8"></script>	
 </body>
 </html>

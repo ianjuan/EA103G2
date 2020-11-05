@@ -17,7 +17,14 @@ window.onload = function(){
 	})			
 }
 
-function notice1(){		
+function notice1(){
+	if(document.getElementById("torf").value.trim() == 2 && (document.getElementById("con_chr_itm_name").value.trim().length === 0 || document.getElementById("con_chr_itm").value.trim().length === 0 || document.getElementById("con_chr_fee").value.trim() == 0)){
+		swal("請填寫損壞物品名稱,描述和費用", "因為您已經勾選有物品損毀", "error", {button: "確認"});
+	} else if(document.getElementById("torf").value == 1 && (document.getElementById("con_chr_itm_name").value.trim().length !== 0 || document.getElementById("con_chr_itm").value.trim().length !== 0 || document.getElementById("con_chr_fee").value.trim() != 0)){
+		swal("請勾選有損毀", "因為您已經填寫損毀物品名稱,描述或費用", "error", {button: "確認"});
+	}else if(document.getElementById("con_chr_itm_name").value.trim().length === 0 && document.getElementById("con_chr_itm").value.trim().length !== 0){
+			swal("請填寫損壞物品名稱...", "因為您已經填寫損毀物品名稱或描述", "error", {button: "確認"});
+	} else{
 	swal({title:"確定送出驗房結果?", text:"如有損壞物品,將跟房客索取賠償費用" , icon:"info", buttons: {
 	      Btn: false, cancel: {text:"取消", visible: true}, confirm: {text:"確認", visible: true}
 	    }}).then(function(isConfirm){
@@ -29,6 +36,7 @@ function notice1(){
 				return false;
 			}
 	    });
+	}
 }
 
 function notice2(){

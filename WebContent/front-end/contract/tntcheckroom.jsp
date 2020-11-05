@@ -112,7 +112,7 @@
 									否
 								</c:if>
 								<c:if test="${conVO.con_chr_fee != 0}">
-									否
+									是
 								</c:if>
 								</td>
 							</tr>
@@ -142,10 +142,10 @@
 							<tr>
 								<th>是否繳清帳單:</th>
 								<td>
-								<c:if test="${recVO.rec_total == 0}">
+								<c:if test="${(checkouttotal - conVO.con_chr_fee) == 0}">
 									是
 								</c:if>
-								<c:if test="${recVO.rec_total != 0}">
+								<c:if test="${(checkouttotal - conVO.con_chr_fee) != 0}">
 									否
 								</c:if>
 								</td>

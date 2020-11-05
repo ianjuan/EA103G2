@@ -20,19 +20,13 @@ import com.notify.controller.NotifyServlet;
 public class GMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        int i=0;//測試用
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public GMapServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String city = request.getParameter("city");
@@ -52,9 +46,7 @@ public class GMapServlet extends HttpServlet {
 			new NotifyServlet().broadcast("LLD000002", word+"123456", "傳進來的地址是null排序條件價位區間getall房屋型態getall", "");//測試用
 			HousearchService gs= new HousearchService();
 			
-			String data =gs.getMapfromSearchKey(city,town,searchbox,sort,money,house,request.getParameter("page"),cook,pet,boy,girl
-					);
-
+			String data =gs.getMapfromSearchKey(city,town,searchbox,sort,money,house,request.getParameter("page"),cook,pet,boy,girl);
 			PrintWriter out = response.getWriter();
 			out.print(data);
 			out.close();
@@ -82,9 +74,6 @@ public class GMapServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

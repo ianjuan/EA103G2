@@ -167,15 +167,14 @@ public class RecServlet extends HttpServlet {
 				String con_no = req.getParameter("con_no");
 				System.out.println(lld_no);
 				System.out.println(con_no);
-				
+
 				ConService conSvc = new ConService();
 				System.out.println(conSvc.getOneCon(con_no).getCon_comchkdate());
-				
 
 				RecService recService = new RecService();
 
 				List<RecVO> reclist = recService.getLddAllByCon(con_no);
-				
+
 				if (reclist == null && reclist.size() == 0) {
 					ConService conService = new ConService();
 					String hos_no = conService.getOneCon(con_no).getHos_no();
@@ -189,7 +188,7 @@ public class RecServlet extends HttpServlet {
 
 					recService.autorec(con_no, hos_no, rec_mon, rec_sta);
 				}
-				
+
 				System.out.println(reclist.size());
 				System.out.println(123);
 
@@ -224,7 +223,7 @@ public class RecServlet extends HttpServlet {
 
 				List<RecVO> reclist = recService.getLddAllByCon(con_no);
 				System.out.println(reclist);
-				
+
 				if (reclist == null && reclist.size() == 0) {
 					ConService conService = new ConService();
 					String hos_no = conService.getOneCon(con_no).getHos_no();
@@ -255,8 +254,8 @@ public class RecServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
-		//tnt fillin rec
+
+		// tnt fillin rec
 		if ("getOne_lld_Update".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -267,8 +266,8 @@ public class RecServlet extends HttpServlet {
 				String rec_no = req.getParameter("rec_no");
 				String lld_no = req.getParameter("lld_no");
 				String con_no = req.getParameter("con_no");
-				Integer rec_water = new Integer(req.getParameter("rec_water"));
-				Integer rec_elec = new Integer(req.getParameter("rec_elec"));
+				Integer rec_water = getReqNum(req, "rec_water");
+				Integer rec_elec = getReqNum(req, "rec_elec");
 				Integer rec_sta = 1;
 
 				ConService conService = new ConService();
@@ -289,9 +288,11 @@ public class RecServlet extends HttpServlet {
 
 				RecService recService = new RecService();
 				List<RecVO> reclist = recService.getLddAllByCon(con_no);
-								
+
+				LldService lldService = new LldService();
+
 				String userNo = conService.getOneCon(con_no).getTnt_no();
-				String title = "房東已填寫本月帳單";
+				String title = "房東" + lldService.getOneLldProfile(lld_no).getLld_name() + "已填寫本月帳單";
 				String content = "請盡速繳費";
 				String url = "/EA103G2/front-end/contract/tntlistcontract.jsp";
 				new NotifyServlet().broadcast(userNo, title, content, url);
@@ -314,7 +315,7 @@ public class RecServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+
 		if ("tntpayrec".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -326,21 +327,21 @@ public class RecServlet extends HttpServlet {
 
 				RecService recService = new RecService();
 				Integer rec_total = recService.getOneRec(rec_no).getRec_total();
-				
-				//房客繳交定期費用
+
+				// 房客繳交定期費用
 				TntService tntService = new TntService();
 				Integer tnt_balance = tntService.getOneTntPocket(tnt_no).getTnt_balance() - rec_total;
 				tntService.updateTntPocket(tnt_no, tnt_balance);
-				
+
 				RecVO recVO = recService.getOneRec(rec_no);
 				String hos_no = recVO.getHos_no();
 				Integer rec_mon = recVO.getRec_mon();
 				Integer rec_water = recVO.getRec_water();
 				Integer rec_elec = recVO.getRec_elec();
 				Integer rec_sta = 2;
-				
+
 				recService.updateRec(con_no, hos_no, rec_mon, rec_water, rec_elec, rec_no, rec_sta, rec_total);
-				
+
 				CashService cashSvc = new CashService();
 				java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 				String mem_no = tnt_no;
@@ -349,8 +350,8 @@ public class RecServlet extends HttpServlet {
 				Integer cash_amount = -rec_total;
 				Integer cash_status = 1;
 				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status);
-				
-				//房東收到錢錢
+
+				// 房東收到錢錢
 				ConService conService = new ConService();
 				LldService lldService = new LldService();
 				HouseService houseService = new HouseService();
@@ -358,20 +359,20 @@ public class RecServlet extends HttpServlet {
 
 				Integer lld_balance = lldService.getOneLldPocket(lld_no).getLld_balance() + rec_total;
 				lldService.updateLldPocket(lld_no, lld_balance);
-				
+
 				mem_no = lld_no;
 				cash_inout = CashVO.cashIn;
 				cash_type = CashVO.lldIn_RecBill;
 				cash_amount = rec_total;
-				
+
 				cashSvc.addCash(cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, cash_status);
-				
+
 				String userNo = lld_no;
-				String title = "房客" + tntService.getOneTntProfile(tnt_no) + "已繳費";
+				String title = "房客" + tntService.getOneTntProfile(tnt_no).getTnt_name() + "已繳費";
 				String content = "請前往錢包查看入帳";
 				String url = "/EA103G2/front-end/lld/bills.jsp";
 				new NotifyServlet().broadcast(userNo, title, content, url);
-				
+
 				List<RecVO> reclist = recService.getLddAllByCon(con_no);
 
 				HttpSession session = req.getSession();
@@ -417,7 +418,7 @@ public class RecServlet extends HttpServlet {
 				req.setAttribute("recVO", recVO);
 				req.setAttribute("con_no", con_no);
 				session.setAttribute("lld_no", lld_no);
-				String url = "/front-end/rec/lldfillrec.jsp";
+				String url = "/front-end/rec/lldlistrec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				return;
@@ -429,7 +430,19 @@ public class RecServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-
-		
 	}
+
+	private Integer getReqNum(HttpServletRequest req, String reqKey) {
+
+		String reqValue = req.getParameter(reqKey);
+		Integer result;
+
+		if (reqValue == null || (reqValue.trim()).length() == 0) {
+			result = 0;
+		} else {
+			result = new Integer(reqValue);
+		}
+		return result;
+	}
+
 }

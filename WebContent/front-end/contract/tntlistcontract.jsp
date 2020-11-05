@@ -14,12 +14,10 @@
 		tnt_no = request.getParameter("tnt_no");
 	}
 	
-	List<ConVO> conlist = (List<ConVO>)session.getAttribute("conlist");
-	if(conlist == null || conlist.size() == 0){
-		ConService conService = new ConService();
-		conlist = conService.tntgetcon(tnt_no);
-	}
-	session.setAttribute("conlist",conlist);
+	ConService conService = new ConService();
+	List<ConVO> conlist = conService.tntgetcon(tnt_no);
+	
+	pageContext.setAttribute("conlist", conlist);
 	
 	TntService tntService = new TntService();
 	TntVO tntVO = tntService.getOneTntProfile(tnt_no);
@@ -108,7 +106,12 @@
 							src="<%=request.getContextPath()%>/front-end/contract/images/checked.png"
 							class="pic" />
 						</c:if>
-						<c:if test="${conVO.con_sta == 4 || conVO.con_sta == 5}">
+						<c:if test="${conVO.con_sta == 4}">
+						<img
+							src="<%=request.getContextPath()%>/front-end/contract/images/precheck.png"
+							class="pic" />
+						</c:if>
+						<c:if test="${conVO.con_sta == 5}">
 						<img
 							src="<%=request.getContextPath()%>/front-end/contract/images/lldcheckroom.png"
 							class="pic" />

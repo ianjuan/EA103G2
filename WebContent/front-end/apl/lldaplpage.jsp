@@ -21,6 +21,8 @@
 
 	   Con_aplService con_aplService = new Con_aplService();
 	   List<Con_aplVO> apllist = con_aplService.lldgetAll(lld_no);
+	   
+	   pageContext.setAttribute("apllist", apllist);
 
 %>
 
