@@ -14,10 +14,10 @@
 		tnt_no = request.getParameter("tnt_no");
 	} 
 	
-	RepairVO repVO = null;
-	if (request.getAttribute("repairVO") !=null) {
-		repVO = (RepairVO)request.getAttribute("repairVO");
-	} 
+// 	RepairVO repVO = null;
+// 	if (request.getAttribute("repairVO") !=null) {
+// 		repVO = (RepairVO)request.getAttribute("repairVO");
+// 	} 
 	
 %>
 

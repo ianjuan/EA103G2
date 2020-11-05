@@ -56,7 +56,9 @@
                                                 <hr>
                                             </form>
                                             <input id="master" type="submit" value="經理快速登入" class="btn btn-primary btn-user">
-                                            <input id="employee" type="submit" value="員工快速登入" class="btn btn-primary btn-user">
+                                            <input id="employee" type="submit" value="員工3號" class="btn btn-primary btn-user">
+<!--                                             韋恩借放按鈕 -->
+                                            <input id="employee1" type="submit" value="員工21號" class="btn btn-primary btn-user" style="margin-top:5px";>
                                             <hr>
                                             <div class="text-center">
                                                 <a class="small" href="<%=request.getContextPath()%>/back-end/emp/forgot.jsp">忘記密碼?</a>
@@ -77,6 +79,10 @@
             $('#employee').click(function(){
             	$('#Account').val('jo1Otouz');
             	$('#Password').val('ub5jWVpH');
+            })
+               $('#employee1').click(function(){
+            	$('#Account').val('BY2PR5AR');
+            	$('#Password').val('kHv0ZQa3');
             })
             </script>
         </body>
