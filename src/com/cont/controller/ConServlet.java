@@ -585,7 +585,7 @@ public class ConServlet extends HttpServlet {
 				Timer timer = new Timer();
 				title = "房東已入住";
 				content ="親愛的房東, 有空去和新朋友打打招呼吧!";
-				url = "/EA103G2/front-end/contract/lldlistcon.jsp";
+				url = "/EA103G2/front-end/contract/lldlistcontract.jsp";
 				timer.schedule(new Schedule(con_no, con_sta, userNo, title, content, url), 3000);
 				
 				/*************************** 每月帳單 **********************/
@@ -878,7 +878,7 @@ public class ConServlet extends HttpServlet {
 			Timer checkouttimer = new Timer();
 			userNo = tnt_no;
 			System.out.println(userNo);
-			checkouttimer.schedule(new CheckoutdepSchedule(userNo, con_no, mem_no, cash_amount), 1000);
+			checkouttimer.schedule(new CheckoutdepSchedule(userNo, con_no, mem_no, cash_amount), 5000);
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			HttpSession session = req.getSession();
