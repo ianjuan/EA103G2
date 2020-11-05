@@ -7,14 +7,15 @@
 
 <%
 	List<RptlVO> rptlVO = (List<RptlVO>) request.getAttribute("rptlVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	EmployeeVO emp = (EmployeeVO) session.getAttribute("empVO");
 	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 
 
 <!DOCTYPE html>
 <html lang="en">
-<jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
+<jsp:useBean id="empSvc" scope="page"
+	class="com.emp.model.EmployeeService" />
 
 <head>
 <meta charset="utf-8">
@@ -62,10 +63,9 @@ button.checkall {
 	margin-right: 15px;
 }
 
-input{
-   font-size: 18px;
+input {
+	font-size: 18px;
 }
-
 </style>
 </head>
 
@@ -480,7 +480,14 @@ input{
 																				value="save_note">儲存</button>
 																			<select class="emp_no" name="emp_no" size="1">
 																				<option value="" disabled selected>---請選擇將指派的同仁---</option>
-																				<option value="EMP000021">EMP000021</option>
+																				<c:choose>
+																					<c:when test="${empVO.emp_no=='EMP000003'}">
+																						<option value="EMP000021">EMP000021</option>
+																					</c:when>
+																					<c:otherwise>
+																						<option value="EMP00003">EMP000003</option>
+																					</c:otherwise>
+																				</c:choose>
 																				<option value="EMP000022">EMP000022</option>
 																				<option value="EMP000023">EMP000023</option>
 																				<option value="EMP000024">EMP000024</option>
@@ -490,8 +497,8 @@ input{
 																		</form>
 																		<%
 																			} else {
-																		%><form action="RptlServlet" method="post" name="detail"
-																			id="detail">
+																		%><form action="RptlServlet" method="post"
+																			name="detail" id="detail">
 																			<input type="hidden" name="rptl_no"
 																				value="<%=rptlvo.getRptl_no()%>"> <input
 																				type="hidden" name="hos_no"
@@ -546,7 +553,7 @@ input{
 		src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/back-end/css/js/demo/datatables-demo.js"></script>
-	
+
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

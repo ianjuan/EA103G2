@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import com.rptl.model.*;
 import com.rptt.model.*;
+import com.notify.controller.NotifyServlet;
 import com.rpth.model.*;
 
 public class RptlServlet extends HttpServlet {
@@ -260,16 +261,19 @@ public class RptlServlet extends HttpServlet {
 				System.out.println(rptl_note);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RptlVO rptlVO1 = new RptlVO();
-//				rptlVO1.setRptl_no(rptl_no);
-//				rptlVO1.setEmp_no(emp_no);
-//				rptlVO1.setRptl_note(rptl_note);
-//				System.out.println("裝入完畢");
-
 				RptlService rptlSvc = new RptlService();
+				RptlService rptlSvc2 = new RptlService();
+				List<RptlVO> rptlVO = rptlSvc.getRptl(rptl_no);
+				String old_emp_no = rptlVO.get(0).getEmp_no();
+				System.out.println("舊的" + old_emp_no);
+
+				RptlVO rptlVO1 = new RptlVO();
 				rptlVO1 = rptlSvc.assignEmp(rptl_no, emp_no, rptl_note);
 				System.out.println("emp有更新了");
 
+				new NotifyServlet().broadcast(emp_no, "<b><p style='color:blue;'>【指派】檢舉房東</p></b>",
+						"<b><p style='color:blue;'>【指派】檢舉房東</p></b><p>單號:" + rptl_no + "</p>",
+						"http://localhost:8081/EA103G2/back-end/index.jsp");
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rptl/rptl_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

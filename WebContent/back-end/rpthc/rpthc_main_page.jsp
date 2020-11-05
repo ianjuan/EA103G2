@@ -11,7 +11,7 @@
 	List<RpthcVO> rpthcVO1 = rpthcSvc.getRpthc("0");
 	pageContext.setAttribute("rpthcVO", rpthcVO1);
 	List<RpthcVO> rpthcVO = (List<RpthcVO>) pageContext.getAttribute("rpthcVO"); //EmpServlet.java(Concroller), 存入req的empVO物件
-	EmployeeVO emp= (EmployeeVO)session.getAttribute("empVO");
+	EmployeeVO emp = (EmployeeVO) session.getAttribute("empVO");
 	pageContext.setAttribute("emp_no", emp.getEmp_no());
 %>
 <html lang="en">
@@ -485,7 +485,14 @@ input {
 																				value="save_note">儲存</button>
 																			<select class="emp_no" name="emp_no" size="1">
 																				<option value="" disabled selected>---請選擇將指派的同仁---</option>
-																				<option value="EMP000021">EMP000021</option>
+																				<c:choose>
+																					<c:when test="${empVO.emp_no=='EMP000003'}">
+																						<option value="EMP000021">EMP000021</option>
+																					</c:when>
+																					<c:otherwise>
+																						<option value="EMP00003">EMP000003</option>
+																					</c:otherwise>
+																				</c:choose>
 																				<option value="EMP000022">EMP000022</option>
 																				<option value="EMP000023">EMP000023</option>
 																				<option value="EMP000024">EMP000024</option>

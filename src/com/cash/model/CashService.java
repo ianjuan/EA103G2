@@ -17,8 +17,20 @@ public class CashService {
 		return dao.findByMemNo_Cashlogs(mem_no);
 	}
 	
-	public String getOneCashlogs_query(String mem_no,String status) {
-		List<CashVO> cashlog=dao.findByMemNo_Cashlogs(mem_no,status);
+	public String getOneCashlogs_query(String mem_no,String con_status) {
+		List<CashVO> cashlog=dao.findByMemNo_Cashlogs(mem_no, con_status);
+		 Gson gson= new Gson();
+		 return gson.toJson(cashlog);
+	}
+	
+	public String getOneCashlogs_query(String mem_no,String con_status, String cash_inout) {
+		List<CashVO> cashlog=dao.findByMemNo_Cashlogs(mem_no,con_status, cash_inout);
+		 Gson gson= new Gson();
+		 return gson.toJson(cashlog);
+	}
+	
+	public String getOneCashlogs_query(String mem_no, String cash_inout,  String cash_type, String con_status) {
+		List<CashVO> cashlog=dao.findByMemNo_Cashlogs(mem_no, cash_inout, cash_type, con_status);
 		 Gson gson= new Gson();
 		 return gson.toJson(cashlog);
 	}

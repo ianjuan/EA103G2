@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.notify.controller.NotifyServlet;
 import com.rpth.model.LldService;
 import com.rpth.model.LldVO;
 import com.rptr.controller.MailService;
@@ -261,16 +262,19 @@ public class RptrServlet extends HttpServlet {
 				System.out.println(rptr_note);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RptrVO rptrVO1 = new RptrVO();
-//				rptrVO1.setRptr_no(rptr_no);
-//				rptrVO1.setEmp_no(emp_no);
-//				rptrVO1.setRptr_note(rptr_note);
-//				System.out.println("裝入完畢");
-
 				RptrService rptrSvc = new RptrService();
+				RptrService rptrSvc2 = new RptrService();
+				List<RptrVO> rptrVO = rptrSvc.getRptr(rptr_no);
+				String old_emp_no = rptrVO.get(0).getEmp_no();
+				System.out.println("舊的" + old_emp_no);
+
+				RptrVO rptrVO1 = new RptrVO();
 				rptrVO1 = rptrSvc.assignEmp(rptr_no, emp_no, rptr_note);
 				System.out.println("emp有更新了");
 
+				new NotifyServlet().broadcast(emp_no, "<b><p style='color:blue;'>【指派】檢舉修繕</p></b>",
+						"<b><p style='color:blue;'>【指派】檢舉修繕</p></b><p>單號:" + rptr_no + "</p>",
+						"http://localhost:8081/EA103G2/back-end/index.jsp");
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rptr/rptr_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -387,15 +391,15 @@ public class RptrServlet extends HttpServlet {
 				LldVO lldVO1 = lldSvc.getRepair(rptr_no);
 				String LldEmail = "xiyuan345@gmail.com";
 				String LldName = lldVO1.getLld_name();
-				System.out.println("rptr"+LldName);
+				System.out.println("rptr" + LldName);
 				String LldAcc = lldVO1.getLld_acc();
-				System.out.println("rptr"+LldAcc);
+				System.out.println("rptr" + LldAcc);
 				String EmailLink = "http://localhcmt:8081/EA103G2/front-end/index/index.jsp";
 				System.out.println("rptr準備Call寄信方法");
 				MailService mailservice = new MailService();
 				mailservice.sendMailRptr(LldEmail, LldName, LldAcc, EmailLink);
 				System.out.println("寄信玩回來rptrservlet");
-				
+
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rptr/rptr_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);

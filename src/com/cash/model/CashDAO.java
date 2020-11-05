@@ -383,6 +383,209 @@ public class CashDAO implements CashDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<CashVO> findByMemNo_Cashlogs(String mem_no, String con_status, String cash_inout) {
+		System.out.println(mem_no);
+		String GET_ONE_CASHLogs_query_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ?";
+
+		List<CashVO> list = new ArrayList<CashVO>();
+		CashVO cashVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			if (con_status.equals("完成")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =1 ";
+			}
+			if (con_status.equals("未完成")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 ";
+			}
+			if (con_status.equals("待收")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 "+ " AND cash_inout ='in' ";
+			}
+			if (con_status.equals("待繳")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 "+ " AND cash_inout ='out' ";
+			}
+			if (cash_inout.equals("in")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_inout ='in' ";
+			}
+			if (cash_inout.equals("out")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_inout ='out' ";
+			}
+
+			GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " order by cash_date DESC";
+			System.out.println("指令是"+GET_ONE_CASHLogs_query_STMT);
+			pstmt = con.prepareStatement(GET_ONE_CASHLogs_query_STMT);
+			pstmt.setString(1, mem_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// cashVO 也稱為 Domain objects
+				cashVO = new CashVO();
+				cashVO.setCash_no(rs.getString("cash_no"));
+				cashVO.setCash_date(rs.getDate("cash_date"));
+				cashVO.setMem_no(rs.getString("mem_no"));
+				cashVO.setCash_inout(rs.getString("cash_inout"));
+				cashVO.setCash_type(rs.getString("cash_type"));
+				cashVO.setCash_amount(rs.getInt("cash_amount"));
+				cashVO.setCon_no(rs.getString("con_no"));
+				cashVO.setRec_no(rs.getString("rec_no"));
+				cashVO.setCash_status(rs.getInt("cash_status"));
+				list.add(cashVO);
+			}
+			con.commit();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<CashVO> findByMemNo_Cashlogs(String mem_no, String cash_inout, String cash_type, String con_status) {
+		System.out.println(mem_no);
+		String GET_ONE_CASHLogs_query_STMT = "SELECT cash_no, cash_date, mem_no, cash_inout, cash_type, cash_amount, con_no, rec_no, cash_status FROM CASH where mem_no = ?";
+
+		List<CashVO> list = new ArrayList<CashVO>();
+		CashVO cashVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			if (con_status.equals("完成")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =1 ";
+			}
+			if (con_status.equals("未完成")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 ";
+			}
+			if (con_status.equals("待收")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 "+ " AND cash_inout ='in' ";
+			}
+			if (con_status.equals("待繳")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_status =0 "+ " AND cash_inout ='out' ";
+			}
+			if (cash_inout.equals("in")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_inout ='in' ";
+			}
+			if (cash_inout.equals("out")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_inout ='out' ";
+			}
+			
+			if (cash_type.equals("儲值")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_type ='儲值' ";
+			}
+			if (cash_type.equals("提領")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_type ='提領' ";
+			}
+			if (cash_type.equals("押金")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_type like '%押金%' ";
+			}
+			if (cash_type.equals("每月帳單")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_type ='每月帳單' ";
+			}
+			if (cash_type.equals("退房帳單")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_type ='退房帳單' ";
+			}
+			if (cash_type.equals("上架費")) {
+				GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " AND cash_type ='上架費' ";
+			}
+
+			GET_ONE_CASHLogs_query_STMT = GET_ONE_CASHLogs_query_STMT + " order by cash_date DESC";
+			System.out.println("指令是"+GET_ONE_CASHLogs_query_STMT);
+			pstmt = con.prepareStatement(GET_ONE_CASHLogs_query_STMT);
+			pstmt.setString(1, mem_no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// cashVO 也稱為 Domain objects
+				cashVO = new CashVO();
+				cashVO.setCash_no(rs.getString("cash_no"));
+				cashVO.setCash_date(rs.getDate("cash_date"));
+				cashVO.setMem_no(rs.getString("mem_no"));
+				cashVO.setCash_inout(rs.getString("cash_inout"));
+				cashVO.setCash_type(rs.getString("cash_type"));
+				cashVO.setCash_amount(rs.getInt("cash_amount"));
+				cashVO.setCon_no(rs.getString("con_no"));
+				cashVO.setRec_no(rs.getString("rec_no"));
+				cashVO.setCash_status(rs.getInt("cash_status"));
+				list.add(cashVO);
+			}
+			con.commit();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 
 	@Override
 	public String findByRec_no(String rec_no) {
