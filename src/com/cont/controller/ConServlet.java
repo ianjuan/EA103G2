@@ -594,7 +594,7 @@ public class ConServlet extends HttpServlet {
 				Integer rec_mon = cal.get(Calendar.MONTH) + 1;
 				Integer rec_sta = 0;
 				
-				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta, userNo), 5000, 45000);
+				timer.schedule(new RecSchedule(con_no, hos_no, rec_mon, rec_sta, userNo), 10000, 100000);
 				/*************************** 準備退房 **********************/
 				Date apl_end = aplSvc.getOneCon_apl(apl_no).getApl_end();
 				long apl_end_long = apl_end.getTime();

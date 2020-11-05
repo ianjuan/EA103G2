@@ -485,8 +485,26 @@ body {
 #cbody table textarea:focus::placeholder {
 	color: white;
 }
+@media (min-width: 901px) and (max-width: 1400px){
+	 #center {
+	    height: 780px;
+	}
+	#housenav {
+		transform: translateX(-30px);
+		width: 170px;
+	}
+	.btn {
+		font-size: 90%;
+	}
+	.pic, #preview1 .pic1div {
+		width: 32%;
+	}
+}
 
 @media (max-width: 900px){
+	#center {
+	    height: 780px;
+	}
 	body{
 		font-size: 90%;
 	}
