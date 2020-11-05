@@ -7,6 +7,7 @@ import javax.servlet.http.*;
 
 import com.rpttc.model.*;
 import com.tenant_comments.model.Tenant_commentsService;
+import com.notify.controller.NotifyServlet;
 import com.rptt.model.*;
 
 public class RpttcServlet extends HttpServlet {
@@ -259,16 +260,19 @@ public class RpttcServlet extends HttpServlet {
 				System.out.println(rpttc_note);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpttcVO rpttcVO1 = new RpttcVO();
-//				rpttcVO1.setRpttc_no(rpttc_no);
-//				rpttcVO1.setEmp_no(emp_no);
-//				rpttcVO1.setRpttc_note(rpttc_note);
-//				System.out.println("裝入完畢");
-
 				RpttcService rpttcSvc = new RpttcService();
+				RpttcService rpttcSvc2 = new RpttcService();
+				List<RpttcVO> rpttcVO = rpttcSvc.getRpttc(rpttc_no);
+				String old_emp_no = rpttcVO.get(0).getEmp_no();
+				System.out.println("舊的" + old_emp_no);
+
+				RpttcVO rpttcVO1 = new RpttcVO();
 				rpttcVO1 = rpttcSvc.assignEmp(rpttc_no, emp_no, rpttc_note);
 				System.out.println("emp有更新了");
 
+				new NotifyServlet().broadcast(emp_no, "<b><p style='color:blue;'>【指派】檢舉房客評價</p></b>",
+						"<b><p style='color:blue;'>【指派】檢舉房客評價</p></b><p>單號:" + rpttc_no + "</p>",
+						"http://localhost:8081/EA103G2/back-end/index.jsp");
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rpttc/rpttc_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
