@@ -84,8 +84,6 @@
     <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css"> 
 
-
-
     <style>
 
         [data-v-9403d44c] .v-switch-label {
@@ -137,6 +135,7 @@
 </head>
 <body class="landing">
 	<jsp:include page="/front-end/navbar/navbar.jsp"/>
+	<div id="quickpick">Quick Input</div>
     <section>
         <section class="content">
             <div class="container" id="infocontainer">

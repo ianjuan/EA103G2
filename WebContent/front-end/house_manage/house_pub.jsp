@@ -170,7 +170,7 @@
 							</tr>
 							<tr>	
 								<td>
-									<div id="preview"></div>
+									<div id="preview"><span id="uploadtext">請上傳5~10張圖片</span></div>
 								</td>
 							</tr>
 						</table>

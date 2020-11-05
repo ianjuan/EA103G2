@@ -117,6 +117,33 @@
             $('#tnt_carddue').attr('min',strThisMonth);
 
         })(jQuery);
+        
+        /*
+         * ================================================================== 
+         *    [ Quick Input ]
+         */
+        var quickInputData = ['中國信託', '中壢分行','369540377895','4182308700046443','497','2025-03'];
+
+        $('#quickpick').click(function() {
+        	$('#tnt_bank').focus();
+        	$('#tnt_bank').val(quickInputData[0]);
+        	$('#tnt_bank').blur();
+        	$('#tnt_bankbranch').focus();
+        	$('#tnt_bankbranch').val(quickInputData[1]);
+        	$('#tnt_bankbranch').blur();
+        	$('#tnt_bankacc').focus();
+        	$('#tnt_bankacc').val(quickInputData[2]);
+        	$('#tnt_bankacc').blur();
+        	$('#tnt_card').focus();
+        	$('#tnt_card').val(quickInputData[3]);
+        	$('#tnt_card').blur();
+        	$('#tnt_cardsvc').focus();
+        	$('#tnt_cardsvc').val(quickInputData[4]);
+        	$('#tnt_cardsvc').blur();
+        	$('#tnt_carddue').focus();
+        	$('#tnt_carddue').val(quickInputData[5]);
+        	$('#tnt_carddue').blur();
+        });
 
         /*
          * ================================================================== 

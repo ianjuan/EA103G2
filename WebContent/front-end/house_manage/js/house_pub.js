@@ -307,6 +307,7 @@ function openfile(e) {
 	var preview = document.getElementById('preview');
 	var img = document.createElement('img');
 	
+	
 	img.setAttribute('src', e.target.result);
 	img.setAttribute("class", "pic");
 	preview.append(img);
@@ -317,6 +318,8 @@ function openfile(e) {
             imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);  
         });  
     });
+	
+	document.getElementById('uploadtext').style.display = "none";
 }        
 
 function del() {
@@ -325,6 +328,7 @@ function del() {
 	for (var i = 0; i < optobj.length; i++) {
 		optobj[i].remove();		
 	}
+	document.getElementById('uploadtext').style.display = "block";
 }
 
 function delpic(){
