@@ -178,7 +178,7 @@
 							</tr>
 							<tr>	
 								<td>
-									<div id="preview" style="height:200px;"></div>
+									<div id="preview" style="height:200px;"><span id="uploadtext"></span></div>
 								</td>
 							</tr>
 							<tr>	

@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/lightslider.css"">
 <script src="<%=request.getContextPath()%>/front-end/repair/js/lightslider.js"></script> 
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/train.css"">
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/repair/css/train.css""> --%>
 
 <!-- 元 nav bar= -->
 <link  rel="stylesheet" href="<%=request.getContextPath()%>/front-end/navbar/navbar.css">
@@ -254,7 +254,7 @@
     	<div id="picShow">
       		<h2>預覽</h2><br>
 	    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" name="form1" enctype="multipart/form-data"><br>
-	  			<label class="btn btn-info"><input id="upload_img" style="display:none;" type="file" id="myPic" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
+	  			<label class="btn btn-info"><input  style="display:none;" type="file" id="myPic" name="reppic_pic" multiple accept="image/png,image/jpg,image/gif,image/JPEG">
 			  	<i class="fa fa-photo"></i>選擇圖片</label><br>	 
 	  			<br><input type="reset" id="delete" class="btn btn-outline-primary" value="清除全部"><br><br> 
 	  			<input type="hidden" name="rep_no" value="${repairVO.rep_no}">
@@ -263,7 +263,7 @@
 			</FORM> 
 			<div id="view">
 			</div>
-		</div>
+		</div> 
     </div>
     
     
@@ -304,19 +304,22 @@
 			
 			
 <script>
-var noPic = document.getElementById("noPic");
-var center = document.getElementById("center");
-var trainDiv = document.getElementById("trainDiv");
-noPic.addEventListener('click', function(e) {
-	var childs = trainDiv.childNodes; 
-	 for(var i = 0; i < childs.length; i++) {  
-		 trainDiv.removeChild(childs[i]); 
-		}
-});
-
+window.onload=function(){
+	 
+	
+// var noPic = document.getElementById("noPic");
+// var center = document.getElementById("center");
+// var trainDiv = document.getElementById("trainDiv");
+// noPic.addEventListener('click', function(e) {
+// 	var childs = trainDiv.childNodes; 
+// 	 for(var i = 0; i < childs.length; i++) {  
+// 		 trainDiv.removeChild(childs[i]); 
+// 		}
+// });
+var view = document.getElementById("view");
 var myPic = document.getElementById("myPic");
 // var filename = document.getElementById("filename");
-
+if(myPic){
 myPic.addEventListener('change', function(e) {
     var pics = myPic.files;
     console.log('pics');
@@ -345,7 +348,7 @@ myPic.addEventListener('change', function(e) {
                 //reader.result?                        
                 img.setAttribute('src', this.result);
                 img.setAttribute('style', "margin:20px" );
-                //將img放到preview區塊
+                //將img放到view區塊
                 view.append(img);
                 e.stopPropagation() //停止向上冒泡
                 console.log('reader註冊結束');
@@ -359,14 +362,14 @@ myPic.addEventListener('change', function(e) {
     pics.value = '';
 }, false); //pics 冒泡
 
-
+}
 //刪除全部圖片
 var delete1 = document.getElementById("delete");
 delete1.addEventListener('click', function(e) {
     view.innerHTML = "";
 });
 
-
+}
 
 </script>
 

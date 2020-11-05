@@ -134,9 +134,20 @@ public class RepairServlet extends HttpServlet{
 			}else {
 				url = "/front-end/repair/updPic.jsp";
 			}
+			//以下為了取得房東編號:通知
+			RepairService repSvc = new RepairService();
+			ConService conSvc = new ConService();
+			HouseService hosSvc = new HouseService();
+			RepairVO repVO = repSvc.getOneRepair(req.getParameter("rep_no"));
+			ConVO conVO = conSvc.getOneCon(repVO.getCon_no());
+			HouseVO hosVO = hosSvc.getHouseInfo(conVO.getHos_no());
+			String lld_no = hosVO.getLld_no();
+//			new NotifyServlet().broadcast(
+//					lld_no, "您的房客新增修繕照片!", "您的房客剛剛更新修繕照片，請至修繕管理查看", "");
+			
 			//為了讓圖片在updPic.jsp新增上傳後能在同業面看到所有pic
 			String rep_no = req.getParameter("rep_no");
-			RepairService repSvc = new RepairService();
+//			RepairService repSvc = new RepairService();
 			RepairVO repairVO = repSvc.getOneRepair(rep_no);
 			req.setAttribute("repairVO", repairVO);
 			
@@ -200,16 +211,7 @@ public class RepairServlet extends HttpServlet{
 			RepairVO repairVO = repairSvc.getOneRepair(rep_no);
 			/***************************3.查詢完成,準備轉交(Send the Success view)************/	
 			req.setAttribute("repairVO", repairVO);
-			//以下為了取得房東編號:通知
-			RepairService repSvc = new RepairService();
-			ConService conSvc = new ConService();
-			HouseService hosSvc = new HouseService();
-			RepairVO repVO = repSvc.getOneRepair(rep_no);
-			ConVO conVO = conSvc.getOneCon(repVO.getCon_no());
-			HouseVO hosVO = hosSvc.getHouseInfo(conVO.getHos_no());
-			String lld_no = hosVO.getLld_no();
-//			new NotifyServlet().broadcast(
-//					lld_no, "您的房客新增修繕照片!", "您的房客剛剛更新修繕照片，請至修繕管理查看", "");
+
 			String url = "/front-end/repair/updPic.jsp";
 			//
 			RequestDispatcher successView = req.getRequestDispatcher(url);

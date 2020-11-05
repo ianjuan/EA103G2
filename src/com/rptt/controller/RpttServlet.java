@@ -6,6 +6,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.emp.model.EmployeeVO;
 import com.notify.controller.NotifyServlet;
 import com.rptt.model.*;
 
@@ -259,16 +260,18 @@ public class RpttServlet extends HttpServlet {
 				System.out.println(rptt_note);
 
 				/*************************** 2.開始查詢資料 ****************************************/
-				RpttVO rpttVO1 = new RpttVO();
-//				rpttVO1.setRptt_no(rptt_no);
-//				rpttVO1.setEmp_no(emp_no);
-//				rpttVO1.setRptt_note(rptt_note);
-//				System.out.println("裝入完畢");
-
 				RpttService rpttSvc = new RpttService();
+				RpttService rpttSvc2 = new RpttService();
+				List<RpttVO> rpttVO = rpttSvc.getRptt(rptt_no);
+				String old_emp_no=rpttVO.get(0).getEmp_no();
+				System.out.println("舊的"+old_emp_no);
+				
+				RpttVO rpttVO1 = new RpttVO();
 				rpttVO1 = rpttSvc.assignEmp(rptt_no, emp_no, rptt_note);
 				System.out.println("emp有更新了");
-
+				
+				new NotifyServlet().broadcast(emp_no, "<b><p style='color:blue;'>【指派】檢舉房客</p></b>", "<p>"+old_emp_no+"指派給你個新任務，單號"+rptt_no+"</p>",
+						"http://localhost:8081/EA103G2/back-end/index.jsp");
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 				String url = "/back-end/rptt/rptt_main_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
