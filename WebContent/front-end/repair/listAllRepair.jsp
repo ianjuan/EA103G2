@@ -217,7 +217,7 @@ text-align:center;
 <div class="content"> 
  <c:forEach var="ConVO" items="${conSvc.tntgetcon(tnt_no)}"> 
 
-		<c:forEach var="repairVO" items="${repSvc.tntGetAll(ConVO.con_no)}">
+<c:forEach var="repairVO" items="${repSvc.tntGetAll(ConVO.con_no)}">
 <!-- 判斷狀態顯示  0~6	   -->
  <c:if test="${repairVO.rep_pro eq 0}">
         
@@ -237,7 +237,7 @@ text-align:center;
                   </div>       
                 </div>
                 
-               		               		<div class='col-md-2 text-center' style="margin:0 auto">
+               		<div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
                 			<div class='row text-center' >
@@ -269,16 +269,18 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<c:if test="${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)}">
                 			<div class='row text-center' style="margin:0 auto">	
                 				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button  class="btn btn-primary" ${((repairVO.rep_pro eq 4) || (repairVO.rep_pro eq 6))? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 			</c:if>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			</c:if>
 <!--                 			<div class='row text-center' style="margin:0 auto"> -->
 <!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
 <!--                 			</div> -->
@@ -338,17 +340,18 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<c:if test="${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)}">
                 			<div class='row text-center' style="margin:0 auto">	
                 				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 			</c:if>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
-                			
+                			</c:if>
 <!--                 			<div class='row text-center' style="margin:0 auto"> -->
 <!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
 <!--                 			</div> -->
@@ -410,17 +413,18 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<c:if test="${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)}">
                 			<div class='row text-center' style="margin:0 auto">	
                 				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 			</c:if>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
-                			
+                			</c:if>
                 			
 <!--                 			<div class='row text-center' style="margin:0 auto"> -->
 <!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
@@ -485,17 +489,18 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<c:if test="${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)}">
                 			<div class='row text-center' style="margin:0 auto">	
                 				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 			</c:if>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
-                			
+                			</c:if>
                 			
 <!--                 			<div class='row text-center' style="margin:0 auto"> -->
 <!--                 			<button class="btn" style="margin:0 auto">檢舉</button> -->
@@ -558,16 +563,18 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<c:if test="${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)}">
                 			<div class='row text-center' style="margin:0 auto">	
                 				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 			</c:if>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			</c:if>
                 			
                 			
 <!--                 			<div class='row text-center' style="margin:0 auto"> -->
@@ -601,7 +608,7 @@ text-align:center;
                 
 				
             
-               	               		<div class='col-md-2 text-center' style="margin:0 auto">
+               	 <div class='col-md-2 text-center' style="margin:0 auto">
                				
                 		<table><tr><th><h3>| 修繕物件</h3></th></tr><tr><td  ></td></tr></table>
                 			<div class='row text-center' >
@@ -633,16 +640,18 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<c:if test="${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)}">
                 			<div class='row text-center' style="margin:0 auto">	
                 				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 			</c:if>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			</c:if>
                 			
                 			
 <!--                 			<div class='row text-center' style="margin:0 auto"> -->
@@ -705,16 +714,18 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<c:if test="${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)}">
                 			<div class='row text-center' style="margin:0 auto">	
                 				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 			</c:if>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			</c:if>
                 			
                 			
 <!--                 			<div class='row text-center' style="margin:0 auto"> -->
@@ -776,16 +787,18 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO.rep_est_enddate}</h2>
                 			</div>
-                			<c:if test="${repairVO.rep_pro eq 4}">
+                			<c:if test="${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)}">
                 			<div class='row text-center' style="margin:0 auto">	
                 				<br><A  style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Report">
-                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)? "":' style="display:none" '}>回報結果</button></a><br>
+                				<button  class="btn btn-primary" ${(repairVO.rep_pro eq 4)||(repairVO.rep_pro eq 6)? "":' style="display:none" '}>回報結果</button></a><br>
                 			</div>
                 			</c:if>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
                 				<br><A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_del_rep">
                 				<button  class="btn btn-primary " ${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)? "":' style="display:none" '}>取消申請</button></a><br>
                 			</div>
+                			</c:if>
                 			
                 			
 <!--                 			<div class='row text-center' style="margin:0 auto"> -->
