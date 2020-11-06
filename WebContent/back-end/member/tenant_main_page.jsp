@@ -79,6 +79,20 @@
 					</div>
 				</div>
 			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwooooooo"
+				aria-expanded="true" aria-controls="collapseTwooooooo"> <i
+					class="fas fa-user"></i> <span>册ぱ</span>
+			</a>
+				<div id="collapseTwooooooo" class="collapse" aria-labelledby="headingTwooooooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">册ぱ</h6>
+						<a  class="collapse-item" href="<%=request.getContextPath()%>/back-end/chat.jsp">册ぱ</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">琩高</a>  -->
+					</div>
+				</div>
+			</li>
 			<!---->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoo"
@@ -89,10 +103,8 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">琩高</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">琩高┬狥</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">琩高┬</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">琩高┬狥</a> 
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">琩高┬</a> 
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">穝糤</a> -->
 					</div>
 				</div>
@@ -137,22 +149,6 @@
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">穝糤</a> -->
 					</div>
 				</div>
-			</li>
-				<!--玡 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span></span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">恨瞶</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">そ</a> 
-					</div>
-				</div>
-			</li>
-			
 			<!--穨叭瑈祘 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"

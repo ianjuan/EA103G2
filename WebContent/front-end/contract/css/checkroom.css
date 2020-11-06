@@ -13,7 +13,7 @@ body {
 }
 #center {
 	width: 60%;
-	height: 700px;
+	height: 750px;
 	float: left;
 	line-height: 1;
 }
@@ -524,6 +524,9 @@ select{
 }
 
 @media (min-width: 901px) and (max-width: 1400px){
+	#center {
+	    height: 770px;
+	}
 	#housenav {
 		transform: translateX(-30px);
 		width: 170px;
@@ -536,6 +539,9 @@ select{
 	}
 }
 @media (max-width: 900px){
+	#center {
+	    height: 770px;
+	}
 	body{
 		font-size: 90%;
 	}

@@ -88,8 +88,8 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">查詢</h6>
-						<a class="collapse-item" href="javascript:void(0)">查詢房東</a> 
-						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a> 
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -117,12 +117,20 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">檢舉</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptt/main_page.jsp">檢舉房客</a> 
-						<a class="collapse-item" href="javascript:void(0)">檢舉房東</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房屋</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房東評價</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房屋評價</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉修繕</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptl/rptl_main_page.jsp">檢舉房東</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptt/rptt_main_page.jsp">檢舉房客</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpth/rpth_main_page.jsp">檢舉房屋</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptlc/rptlc_main_page.jsp">檢舉房東評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpttc/rpttc_main_page.jsp">檢舉房客評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpthc/rpthc_main_page.jsp">檢舉房屋評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptr/rptr_main_page.jsp">檢舉修繕</a>
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -338,7 +346,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6>
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -346,7 +354,7 @@
                     <canvas id="myPieChart"></canvas>
                   </div>
                   <hr>
-               	0.0
+<!--                	0.0 -->
                 </div>
               </div>
             </div>
@@ -356,7 +364,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6>
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -364,7 +372,7 @@
                     <canvas id="myBarChart" style="display: block; height: 216px; width: 551px;" width="1102" height="432" class="chartjs-render-monitor"></canvas>
                   </div>
                   <hr>
-               	0.0
+
                 </div>
               </div>
             </div>
@@ -373,7 +381,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6>
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -381,7 +389,7 @@
                     <canvas id="myAreaChart"></canvas>
                   </div>
                   <hr>
-               	0.0
+               	
                 </div>
               </div>
             </div>

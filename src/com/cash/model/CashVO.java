@@ -18,8 +18,8 @@ public class CashVO implements java.io.Serializable {
 	public static final String lldIn_Checkout = "退房帳單";
 	public static final String lldIn_Deposit = "儲值";
 	
-	public static final String cashIn = "收入";
-	public static final String cashOut = "支出";
+	public static final String cashIn = "in";
+	public static final String cashOut = "out";
 	
 	private String cash_no;
 	private Date cash_date;

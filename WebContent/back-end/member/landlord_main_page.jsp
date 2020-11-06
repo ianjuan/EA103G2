@@ -84,6 +84,20 @@
 					</div>
 				</div>
 			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwooooooo"
+				aria-expanded="true" aria-controls="collapseTwooooooo"> <i
+					class="fas fa-user"></i> <span>聊天室</span>
+			</a>
+				<div id="collapseTwooooooo" class="collapse" aria-labelledby="headingTwooooooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">聊天室</h6>
+						<a  class="collapse-item" href="<%=request.getContextPath()%>/back-end/chat.jsp">聊天室</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">查詢員工</a>  -->
+					</div>
+				</div>
+			</li>
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoo"
@@ -94,10 +108,8 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">查詢</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a> 
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -142,22 +154,6 @@
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
-			</li>
-				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
-			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
@@ -176,7 +172,7 @@
 <!-- 							<a	class="collapse-item" href="javascript:void(0)">檢舉管理</a> 				 -->
 					</div>
 				</div>
-			</li>	
+			</li>		
 			<!-- Divider -->
 
 			<!-- Heading -->

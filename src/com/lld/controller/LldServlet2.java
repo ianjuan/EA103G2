@@ -519,7 +519,7 @@ public class LldServlet2 extends HttpServlet {
 				/*************************** 2.開始修改資料 ***************************************/
 				CashService cashSvc = new CashService();
 				String cash_no = "";
-				for (int i = 0; i < 2000; i++) {
+				for (int i = 0; i < 1; i++) {
 					java.sql.Date cash_date = new java.sql.Date(new java.util.Date().getTime());
 					cash_no = cashSvc.addCash(cash_date, lld_no, CashVO.cashIn, CashVO.lldIn_Deposit,
 							lld_pocket_deposit, 1);

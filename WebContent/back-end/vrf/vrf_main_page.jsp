@@ -44,7 +44,7 @@
 <link
 	href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css"
 	rel="stylesheet">
-	
+
 <!-- wayne匯入 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -98,8 +98,7 @@ input {
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link"
-				href="<%=request.getContextPath()%>/back-end/index.jsp"> <i
+			<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index.jsp"> <i
 					class="fas fa-fw fa-tachometer-alt"></i> <span>儀錶板</span>
 			</a></li>
 			<!-- Divider -->
@@ -116,51 +115,63 @@ input {
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">全體員工</a>
-						<!-- 						<a	class="collapse-item" href="javascript:void(0)">查詢員工</a>  -->
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/emp/addEmp.jsp">新增員工</a>
+						<a  class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/listAllEmp.jsp">全體員工</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">查詢員工</a>  -->
+						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/addEmp.jsp">新增員工</a>
 					</div>
-				</div></li>
+				</div>
+			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwooooooo"
+				aria-expanded="true" aria-controls="collapseTwooooooo"> <i
+					class="fas fa-user"></i> <span>聊天室</span>
+			</a>
+				<div id="collapseTwooooooo" class="collapse" aria-labelledby="headingTwooooooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">聊天室</h6>
+						<a  class="collapse-item" href="<%=request.getContextPath()%>/back-end/chat.jsp">聊天室</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">查詢員工</a>  -->
+					</div>
+				</div>
+			</li>
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoo"
 				aria-expanded="true" aria-controls="collapseTwoo"> <i
 					class="fas fa-user"></i> <span>會員查詢</span>
 			</a>
-				<div id="collapseTwoo" class="collapse"
-					aria-labelledby="headingTwoo" data-parent="#accordionSidebar">
+				<div id="collapseTwoo" class="collapse" aria-labelledby="headingTwoo"
+					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">查詢</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a>
-						<!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a> 
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
-				</div></li>
+				</div>
+			</li>
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwooo"
 				aria-expanded="true" aria-controls="collapseTwooo"> <i
 					class="fas fa-user"></i> <span>身分驗證</span>
 			</a>
-				<div id="collapseTwooo" class="collapse"
-					aria-labelledby="headingTwooo" data-parent="#accordionSidebar">
+				<div id="collapseTwooo" class="collapse" aria-labelledby="headingTwooo"
+					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">身分驗證</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/vrf/vrf_main_page.jsp">身分驗證</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/vrf/vrf_main_page.jsp">身分驗證</a> 
 
 					</div>
-				</div></li>
+				</div>
+			</li>
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoooo"
 				aria-expanded="true" aria-controls="collapseTwoooo"> <i
 					class="fas fa-user"></i> <span>會員檢舉</span>
 			</a>
-				<div id="collapseTwoooo" class="collapse"
-					aria-labelledby="headingTwoooo" data-parent="#accordionSidebar">
+				<div id="collapseTwoooo" class="collapse" aria-labelledby="headingTwoooo"
+					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">檢舉</h6>
 						<a class="collapse-item"
@@ -177,13 +188,11 @@ input {
 							href="<%=request.getContextPath()%>/back-end/rpthc/rpthc_main_page.jsp">檢舉房屋評價</a>
 						<a class="collapse-item"
 							href="<%=request.getContextPath()%>/back-end/rptr/rptr_main_page.jsp">檢舉修繕</a>
-						<!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
-				</div></li>
-			<!--前台 -->
-
+				</div>
 			<!--業務流程 -->
-			<li class="nav-item"><a class="nav-link collapsed" href=""
+				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
 				aria-expanded="true" aria-controls="collapseSix"> <i
 					class="fas fa-user"></i> <span>業務流程 </span>
@@ -192,15 +201,15 @@ input {
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">管理</h6>
-						<!-- 						<a class="collapse-item" href="javascript:void(0)">帳務管理</a>  -->
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/house_manage/all_house.jsp">房屋管理</a>
-						<!-- 						<a	class="collapse-item" href="javascript:void(0)">預約管理</a> -->
-						<!-- 						<a class="collapse-item" href="javascript:void(0)">訂單管理</a>  -->
-						<!-- 						<a	class="collapse-item" href="javascript:void(0)">修繕管理</a>  -->
-						<!-- 							<a	class="collapse-item" href="javascript:void(0)">檢舉管理</a> 				 -->
+<!-- 						<a class="collapse-item" href="javascript:void(0)">帳務管理</a>  -->
+						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/house_manage/all_house.jsp">房屋管理</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">預約管理</a> -->
+<!-- 						<a class="collapse-item" href="javascript:void(0)">訂單管理</a>  -->
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">修繕管理</a>  -->
+<!-- 							<a	class="collapse-item" href="javascript:void(0)">檢舉管理</a> 				 -->
 					</div>
-				</div></li>
+				</div>
+			</li>	
 			<!-- Divider -->
 
 			<!-- Heading -->
@@ -343,7 +352,7 @@ input {
 													<form METHOD="post" ACTION="RpttServlet">
 														<h5>
 															搜尋: <input type="text" size="34" name="Number"
-																placeholder="會員編號/姓名/手機/信箱/身份證字號"> <input
+																placeholder="會員編號/姓名/手機/信箱/身份證字號" id="aa"> <input
 																type="hidden" name="action" value="get_want_vrf_display">
 															<input type="submit"
 																style="position: absolute; left: -9999px; width: 1px; height: 1px;"
@@ -419,6 +428,7 @@ input {
 																						class="zoom" id="pic" />
 																				</div>
 																				<div class="col-3">
+
 																					<label for="name" style="margin-bottom: auto;">會員編號:</label>
 																					${tntVO.tnt_no} <br> <label for="name"
 																						style="margin-bottom: auto;">會員姓名:</label>
@@ -446,8 +456,8 @@ input {
 																							<button type="submit" class="fail" name="action"
 																								value="failVrf">不通過</button>
 																							<label for="reason">退件原因:</label><br>
-																							<textarea id="reason" name="tnt_id_disapprove"
-																								required="required"></textarea>
+																							<textarea id="reason"+${tntVO.tnt_no} class='reason'
+																								name="tnt_id_disapprove" required></textarea>
 																						</div>
 																					</form>
 																				</div>
@@ -468,8 +478,6 @@ input {
 						</div>
 
 					</div>
-
-
 				</div>
 			</div>
 
@@ -487,11 +495,12 @@ input {
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!--  	以下js 為恩需要(放大圖片用)---------------------------------- -->
-	
+	<!--  	以下js 為恩需要(放大圖片用)---------------------------------- -->
+
 	<script
 		src="<%=request.getContextPath()%>/back-end/vrf/js/zoomerang.js"></script>
 	<script>
+	
 	
 	Zoomerang
     .config({
@@ -587,8 +596,8 @@ function beforeCloseCallback (el) {
 	}
 	
 
-
 </script>
+
 
 
 </body>
