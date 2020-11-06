@@ -72,6 +72,20 @@
 					</div>
 				</div>
 			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwooooooo"
+				aria-expanded="true" aria-controls="collapseTwooooooo"> <i
+					class="fas fa-user"></i> <span>聊天室</span>
+			</a>
+				<div id="collapseTwooooooo" class="collapse" aria-labelledby="headingTwooooooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">聊天室</h6>
+						<a  class="collapse-item" href="<%=request.getContextPath()%>/back-end/chat.jsp">聊天室</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">查詢員工</a>  -->
+					</div>
+				</div>
+			</li>
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoo"
@@ -82,8 +96,8 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">查詢</h6>
-						<a class="collapse-item" href="javascript:void(0)">查詢房東</a> 
-						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a> 
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -111,18 +125,23 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">檢舉</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptt/main_page.jsp">檢舉房客</a> 
-						<a class="collapse-item" href="javascript:void(0)">檢舉房東</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房屋</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房東評價</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉房屋評價</a>
-						<a class="collapse-item" href="javascript:void(0)">檢舉修繕</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptl/rptl_main_page.jsp">檢舉房東</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptt/rptt_main_page.jsp">檢舉房客</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpth/rpth_main_page.jsp">檢舉房屋</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptlc/rptlc_main_page.jsp">檢舉房東評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpttc/rpttc_main_page.jsp">檢舉房客評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rpthc/rpthc_main_page.jsp">檢舉房屋評價</a>
+						<a class="collapse-item"
+							href="<%=request.getContextPath()%>/back-end/rptr/rptr_main_page.jsp">檢舉修繕</a>
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
-			</li>
-				<!--前台 -->
-			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"

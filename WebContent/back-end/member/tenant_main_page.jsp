@@ -64,14 +64,6 @@
 			<!-- Heading -->
 			<div class="sidebar-heading">管理</div>
 			<!--員工-->
-			<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/back-end/index.jsp"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>儀錶板</span>
-			</a></li>
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-			<!-- Heading -->
-			<div class="sidebar-heading">管理</div>
-			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwo"
 				aria-expanded="true" aria-controls="collapseTwo"> <i
@@ -157,40 +149,6 @@
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
-			<!--業務流程 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseSix"
-				aria-expanded="true" aria-controls="collapseSix"> <i
-					class="fas fa-user"></i> <span>業務流程 </span>
-			</a>
-				<div id="collapseSix" class="collapse" aria-labelledby="headingSix"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-<!-- 						<a class="collapse-item" href="javascript:void(0)">帳務管理</a>  -->
-						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/house_manage/all_house.jsp">房屋管理</a> 
-<!-- 						<a	class="collapse-item" href="javascript:void(0)">預約管理</a> -->
-<!-- 						<a class="collapse-item" href="javascript:void(0)">訂單管理</a>  -->
-<!-- 						<a	class="collapse-item" href="javascript:void(0)">修繕管理</a>  -->
-<!-- 							<a	class="collapse-item" href="javascript:void(0)">檢舉管理</a> 				 -->
-					</div>
-				</div>
-			</li>	
-				<!--前台 -->
-				<li class="nav-item"><a class="nav-link collapsed" href=""
-				data-toggle="collapse" data-target="#collapseThree"
-				aria-expanded="true" aria-controls="collapseThree"> <i
-					class="fas fa-user"></i> <span>後台</span>
-			</a>
-				<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-					data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">管理</h6>
-						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/emp/announce.jsp">後台公告</a> 
-					</div>
-				</div>
-			</li>
-			
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
