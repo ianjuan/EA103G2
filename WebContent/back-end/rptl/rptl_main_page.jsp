@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.news.model.*"%>
-<%@page import="com.emp.model.EmployeeVO"%>
+<%@ page import="com.emp.model.EmployeeVO"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.rptl.model.*"%>
 
