@@ -106,7 +106,11 @@ public class EmployeeServlet extends HttpServlet {
 				session = req.getSession();
 				EmployeeVO empVO = allowUser(emp_acc, emp_pwd);
 				session.setAttribute("empVO", empVO); // *工作1: 才在session內做已經登入過的標識
-
+				Integer deleted = empVO.getEmp_is_delete();
+				if(deleted ==1 ) {
+					res.sendRedirect(req.getContextPath() + "/back-end/emp/fault.jsp"); // *工作3:
+					return;
+				}
 				try {
 					String location = (String) session.getAttribute("location");
 					System.out.println(location);
