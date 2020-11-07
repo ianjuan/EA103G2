@@ -1,11 +1,15 @@
 package filters;
 import java.io.*;
+import java.util.List;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.emp.model.EmployeeVO;
+import com.rig.model.RightService;
+import com.rig.model.RightVO;
 
-public class LoginFilterBackEnd implements Filter {
+public class LoginFilterBackEndVrf implements Filter {
 
 	private FilterConfig config;
 
@@ -24,16 +28,18 @@ public class LoginFilterBackEnd implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpSession session = req.getSession();
 		Object account = session.getAttribute("empVO");
-		
-		
-		if (account == null ) {
-			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath() + "/back-end/emp/login.jsp");
-			return;
+		EmployeeVO empVO = (EmployeeVO)account;
+		String emp_no =empVO.getEmp_no();
+		RightService rigSvc = new RightService();
+		List<RightVO> list = rigSvc.getAll(emp_no);
+		for(RightVO right :list) {
+			if(right.getFun_no().equals("D")) {
+				chain.doFilter(request, response);
+				return;
+			}
 		}
-
-		else {
-			chain.doFilter(request, response);
-		}
+		res.sendRedirect(req.getContextPath() + "/back-end/emp/noright.jsp");
+		return;
+		
 	}
 }

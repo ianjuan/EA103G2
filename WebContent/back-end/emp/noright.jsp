@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.news.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.emp.model.*"%>
+<%
+	EmployeeVO empVO = (EmployeeVO) request.getAttribute("employeeVO");
+%>
+<jsp:useBean id="funSvc" scope="page" class="com.fun.model.FunctionService" />
 <!DOCTYPE html>
 <html lang="en">
 <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmployeeService" />
@@ -21,6 +26,8 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 </head>
 
 <body onload="connect();" onunload="disconnect();">
@@ -48,6 +55,7 @@
 			<hr class="sidebar-divider">
 			<!-- Heading -->
 			<div class="sidebar-heading">管理</div>
+			
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwo"
@@ -64,6 +72,20 @@
 					</div>
 				</div>
 			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href=""
+				data-toggle="collapse" data-target="#collapseTwooooooo"
+				aria-expanded="true" aria-controls="collapseTwooooooo"> <i
+					class="fas fa-user"></i> <span>聊天室</span>
+			</a>
+				<div id="collapseTwooooooo" class="collapse" aria-labelledby="headingTwooooooo"
+					data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">聊天室</h6>
+						<a  class="collapse-item" href="<%=request.getContextPath()%>/back-end/chat.jsp">聊天室</a> 
+<!-- 						<a	class="collapse-item" href="javascript:void(0)">查詢員工</a>  -->
+					</div>
+				</div>
+			</li>
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoo"
@@ -74,10 +96,8 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">查詢</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/landlord_main_page.jsp">查詢房東</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a>
+						<a class="collapse-item" href="javascript:void(0)">查詢房東</a> 
+						<a	class="collapse-item" href="<%=request.getContextPath()%>/back-end/member/tenant_main_page.jsp">查詢房客</a> 
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
 				</div>
@@ -105,23 +125,18 @@
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">檢舉</h6>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rptl/rptl_main_page.jsp">檢舉房東</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rptt/rptt_main_page.jsp">檢舉房客</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rpth/rpth_main_page.jsp">檢舉房屋</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rptlc/rptlc_main_page.jsp">檢舉房東評價</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rpttc/rpttc_main_page.jsp">檢舉房客評價</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rpthc/rpthc_main_page.jsp">檢舉房屋評價</a>
-						<a class="collapse-item"
-							href="<%=request.getContextPath()%>/back-end/rptr/rptr_main_page.jsp">檢舉修繕</a>
+						<a class="collapse-item" href="<%=request.getContextPath()%>/back-end/rptt/main_page.jsp">檢舉房客</a> 
+						<a class="collapse-item" href="javascript:void(0)">檢舉房東</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房屋</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房東評價</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉房屋評價</a>
+						<a class="collapse-item" href="javascript:void(0)">檢舉修繕</a>
 <!-- 						<a	class="collapse-item" href="javascript:void(0)">新增員工</a> -->
 					</div>
-				</div>	
+				</div>
+			</li>
+				<!--前台 -->
+		
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
@@ -238,8 +253,6 @@
 											class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 個人資料
 										</a> <a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=getOne_For_Update&emp_no=${empVO.emp_no}"> <i
 											class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 設定
-										</a> <a class="dropdown-item" href="#"> <i
-											class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 活動紀錄
 										</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/emp/emp.do?action=logout"> 
@@ -252,50 +265,33 @@
 				<!-- End of Topbar -->
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800"></h1>
-					<!-- -- -- -- -- -- -- -- --Content-- -- -- -- -- -- -- -- -- -- -->
-					
-<div class="col-xl-3 col-md-6 mb-4">
-<ul>
-
-</ul>
-
-</div>
-<div class="row">
-<div class="container-fluid">
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-<!--             放你要的名稱 -->
-              <h6 class="m-0 font-weight-bold text-primary">你的網頁名稱</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-<!-- 				html放這 -->
+<div class="col-lg-6">
+<div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">尚未開通權限</h6>
+                </div>
+                <div class="card-body">
+				請洽主管開通相關權限，謝謝！
+                </div>
               </div>
             </div>
           </div>
 
-        </div> 
-
-
-            </div>
-          </div>
-      
-          </div>
-	</div>
-          </div>
-					</div>
-				
+        </div>
+</div>
+				</div>
 			
 			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/sb-admin-2.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/chart.js/Chart.min.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
+			<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 			<script>
-			
+			Swal.fire('很抱歉，目前你尚未開通相關權限，請洽主管謝謝')
+			</script>
+<script id="alert_js">
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";
 	var host = window.location.host;
@@ -313,18 +309,19 @@
 		};
 		
 		webSocket.onmessage = function(event) {
-			var alert_count=0;
 			var jsonObj = JSON.parse(event.data);
+			console.log(jsonObj);
 			if(jsonObj.length>=1){
+				console.log("hi");
 				$('#alert_count').text(jsonObj.length);
 				alert_count==jsonObj.length;
-
 			for(var i=0;i<jsonObj.length ;i++){
 				alert_content = JSON.parse(jsonObj[i]).content;
 				alert_title =JSON.parse(jsonObj[i]).title;
+				alert_url=JSON.parse(jsonObj[i]).url;
 				alert_time =new Date(JSON.parse(jsonObj[i]).time);
 				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
-				bell_html=`<a class="dropdown-item d-flex align-items-center" href="#">
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
 				    <div class="mr-3">
 				    <div class="icon-circle bg-primary">
 				        <i class="fas fa-file-alt text-white"></i>
@@ -338,11 +335,28 @@
 				$('#bell_alert').after(bell_html);
 			}
 			}
-		
-			
-				
+			else if(jsonObj.length!=0){
+				var a = parseInt($('#alert_count').text(),10);
+				alert_count=++a;
+				$('#alert_count').text(alert_count);
+				alert_content = jsonObj.content;
+				alert_title =jsonObj.title;
+				alert_url=jsonObj.url;
+				alert_time =new Date(jsonObj.time);
+				alert_day = (alert_time.getMonth()+1)+"月"+alert_time.getDate()+"日";
+				bell_html=`<a class="dropdown-item d-flex align-items-center" href="${"${alert_url}"}">
+				    <div class="mr-3">
+				    <div class="icon-circle bg-primary">
+				        <i class="fas fa-file-alt text-white"></i>
+				    </div>
+					</div>
+					<div>
+				    <div class="small text-gray-500">${"${alert_day}"}</div>
+				    <span class="font-weight-bold">${"${alert_content}"}</span>
+				</div></a>`;
 
-
+				$('#bell_alert').after(bell_html);
+			}
 		};
 
 		webSocket.onclose = function(event) {
@@ -354,8 +368,7 @@
 		webSocket.close();
 
 	}
-
-</script>
+	</script>
 			
 	
 </body>
