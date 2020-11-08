@@ -103,8 +103,7 @@
 			</li>
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwooooooo"
-				aria-expanded="true" aria-controls="collapseTwooooooo"> <i
-					class="fas fa-user"></i> <span>聊天室</span>
+				aria-expanded="true" aria-controls="collapseTwooooooo"> <i class="fas fa-comments"></i> <span>聊天室</span>
 			</a>
 				<div id="collapseTwooooooo" class="collapse" aria-labelledby="headingTwooooooo"
 					data-parent="#accordionSidebar">
@@ -118,8 +117,7 @@
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoo"
-				aria-expanded="true" aria-controls="collapseTwoo"> <i
-					class="fas fa-user"></i> <span>會員查詢</span>
+				aria-expanded="true" aria-controls="collapseTwoo"> <i class="fas fa-search"></i> <span>會員查詢</span>
 			</a>
 				<div id="collapseTwoo" class="collapse" aria-labelledby="headingTwoo"
 					data-parent="#accordionSidebar">
@@ -133,8 +131,7 @@
 			</li>
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwooo"
-				aria-expanded="true" aria-controls="collapseTwooo"> <i
-					class="fas fa-user"></i> <span>身分驗證</span>
+				aria-expanded="true" aria-controls="collapseTwooo"> <i class="fas fa-id-badge"></i> <span>身分驗證</span>
 			</a>
 				<div id="collapseTwooo" class="collapse" aria-labelledby="headingTwooo"
 					data-parent="#accordionSidebar">
@@ -147,8 +144,7 @@
 			</li>
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoooo"
-				aria-expanded="true" aria-controls="collapseTwoooo"> <i
-					class="fas fa-user"></i> <span>會員檢舉</span>
+				aria-expanded="true" aria-controls="collapseTwoooo"> <i class="fas fa-clipboard-list"></i> <span>會員檢舉</span>
 			</a>
 				<div id="collapseTwoooo" class="collapse" aria-labelledby="headingTwoooo"
 					data-parent="#accordionSidebar">
@@ -174,8 +170,7 @@
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
-				aria-expanded="true" aria-controls="collapseSix"> <i
-					class="fas fa-user"></i> <span>業務流程 </span>
+				aria-expanded="true" aria-controls="collapseSix"> <i class="fas fa-truck-loading"></i> <span>業務流程 </span>
 			</a>
 				<div id="collapseSix" class="collapse" aria-labelledby="headingSix"
 					data-parent="#accordionSidebar">
@@ -464,60 +459,7 @@
             </div>
             <div class="row">
             
-            <!-- Donut Chart -->
-            
-            <div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <hr>
-<!--                	0.0 -->
-                </div>
-              </div>
-            </div>
-
-<!-- 			地二藍 -->
-            <div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="myBarChart" style="display: block; height: 216px; width: 551px;" width="1102" height="432" class="chartjs-render-monitor"></canvas>
-                  </div>
-                  <hr>
-
-                </div>
-              </div>
-            </div>
-<!-- 			第三 -->
-			<div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                  <hr>
-               	
-                </div>
-              </div>
-            </div>
-            </div>
+           
             
             
             
