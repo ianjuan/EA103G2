@@ -352,6 +352,10 @@ public class EmployeeServlet extends HttpServlet {
 				if (emp_pwd == null || emp_pwd.trim().length() == 0) {
 					errorMsgs.add("密碼請勿空白");
 				}
+				String emp_mail = req.getParameter("emp_mail").trim();
+				if (emp_mail == null || emp_pwd.trim().length() == 0) {
+					errorMsgs.add("信箱請勿空白");
+				}
 				Integer emp_title = null;
 				try {
 					emp_title = new Integer(req.getParameter("emp_title").trim());
@@ -359,13 +363,14 @@ public class EmployeeServlet extends HttpServlet {
 					emp_title = 0;
 					errorMsgs.add("職位請填數字.");
 				}
+				
 
 				EmployeeVO empVO = new EmployeeVO();
 				empVO.setEmp_acc(emp_acc);
 				empVO.setEmp_pwd(emp_pwd);
 				empVO.setEmp_title(emp_title);
 				empVO.setEmp_name(emp_name);
-
+				empVO.setEmp_mail(emp_mail);
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("employeeVO", empVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/emp/addEmp.jsp");
@@ -374,7 +379,7 @@ public class EmployeeServlet extends HttpServlet {
 				}
 				/*************************** 2.開始新增資料 ***************************************/
 				EmployeeService empSvc = new EmployeeService();
-				EmployeeVO empVO_new = empSvc.addEmp(emp_acc, emp_pwd, emp_title, emp_name);
+				EmployeeVO empVO_new = empSvc.addEmp(emp_acc, emp_pwd, emp_title, emp_name,emp_mail);
 				empVO_new.setEmp_is_delete(0);
 				String emp_no = empVO_new.getEmp_no();
 				RightService rigSvc = new RightService();

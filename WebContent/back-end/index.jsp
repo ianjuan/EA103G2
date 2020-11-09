@@ -457,21 +457,68 @@
             </div>
             
             </div>
+                       
             <div class="row">
-            
-           
-            
-            
-            
+
+            <!-- Donut Chart -->  
+
+            <div class="col-xl-4 col-lg-4"> 
+              <div class="card shadow mb-4">  
+                <!-- Card Header - Dropdown --> 
+                <div class="card-header py-3">  
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> --> 
+                </div>  
+                <!-- Card Body -->  
+                <div class="card-body"> 
+                  <div class="chart-pie pt-4">  
+                    <canvas id="myPieChart"></canvas> 
+                  </div>  
+                  <hr>  
+<!--                  0.0 --> 
+                </div>  
+              </div>  
+            </div>  
+
+<!--      地二藍 --> 
+            <div class="col-xl-4 col-lg-4"> 
+              <div class="card shadow mb-4">  
+                <!-- Card Header - Dropdown --> 
+                <div class="card-header py-3">  
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> --> 
+                </div>  
+                <!-- Card Body -->  
+                <div class="card-body"> 
+                  <div class="chart-pie pt-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>  
+                    <canvas id="myBarChart" style="display: block; height: 216px; width: 551px;" width="1102" height="432" class="chartjs-render-monitor"></canvas> 
+                  </div>  
+                  <hr>  
+
+                </div>  
+              </div>  
+            </div>  
+<!--      第三 -->  
+      <div class="col-xl-4 col-lg-4"> 
+              <div class="card shadow mb-4">  
+                <!-- Card Header - Dropdown --> 
+                <div class="card-header py-3">  
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> --> 
+                </div>  
+                <!-- Card Body -->  
+                <div class="card-body"> 
+                  <div class="chart-pie pt-4">  
+                    <canvas id="myAreaChart"></canvas>  
+                  </div>  
+                  <hr>  
+
+                </div>  
+              </div>  
+            </div>  
             </div>
-            
-          </div>
-            
-          </div>
-	</div>
-          </div>
-					</div>
-				
+            </div>
+</div>
+            </div>
+				</div>
+            </div>
 			
 			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
@@ -480,6 +527,7 @@
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-bar-demo.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-area-demo.js"></script>
+			
 	<script id="alert_js">
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";

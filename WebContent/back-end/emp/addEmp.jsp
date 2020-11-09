@@ -321,6 +321,10 @@
 				<td><input type="TEXT" name="emp_name" class="form-control form-control-user" placeholder="員工姓名"
 					value="<%=(empVO == null) ? "" : empVO.getEmp_name()%>" /></td>
 			</tr>
+			<tr>
+				<td><input type="TEXT" name="emp_mail" class="form-control form-control-user" placeholder="員工信箱"
+					value="<%=(empVO == null) ? "" : empVO.getEmp_mail()%>" /></td>
+			</tr>
 				<tr>
 <!-- 				<td>員工權限:</td> -->
 				<td>
