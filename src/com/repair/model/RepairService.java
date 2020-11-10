@@ -9,7 +9,8 @@ public class RepairService {
 	private RepairDAO_interface dao;
 	
 	public RepairService() {
-		dao = new RepairJDBCDAO();
+//		dao = new RepairJDBCDAO();
+		dao = new RepairDAO();
 	}
 	
 	public List<Repair_pictureVO> getAllPicNo(String rep_no){

@@ -267,16 +267,16 @@ text-align:center;
 											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">接受/拒絕</a></button><br><br>
 		                				</div>
 								</div>
-								<class='col-md-2 ' style="margin:0 auto">
+								<div class='col-md-2 ' style="margin:0 auto">
 									<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
 										<div class='row'>
 			                				<h2 >${repairVO.rep_est_enddate}</h2>
 			                			</div>
-  					                	<div class='row'>    	
-		                					<button  style="margin:0 auto" class='btn btn-primary' >
-											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br><br>
-		                				</div>
-<%-- 		                				</c:if> --%>
+<!--   					                	<div class='row'>    	 -->
+<!-- 		                					<button  style="margin:0 auto" class='btn btn-primary' > -->
+<%-- 											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br><br> --%>
+<!-- 		                				</div> -->
+<%-- <%-- 		                				</c:if> --%> 
 								</div>
 						</div>	
 			</c:if>						
@@ -416,21 +416,14 @@ text-align:center;
 										<div class='row' >
 			                				<h2>${repairVO.rep_case_str}</h2>
 			                			</div>
-										<div class='row' style="margin:0 auto">
-		                					<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
-											<button style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更改進度</a></button><br><br>
-		                				</div>
+										
 								</div>
 								<div class='col-md-2 ' style="margin:0 auto">
 									<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
 										<div class='row'>
 			                				<h2 >${repairVO.rep_est_enddate}</h2>
 			                			</div>
-					                	<div class='row' >
-		                					<button  style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br><br>
-		                				</div>
+					                	
 								</div>
 						</div>	
 			</c:if>					
@@ -492,21 +485,14 @@ text-align:center;
 										<div class='row' >
 			                				<h2>${repairVO.rep_case_str}</h2>
 			                			</div>
-										<div class='row' style="margin:0 auto">
-		                					<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
-											<button style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br><br>
-		                				</div>
+										
 								</div>
 								<div class='col-md-2 ' style="margin:0 auto">
 									<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
 										<div class='row'>
 			                				<h2 >${repairVO.rep_est_enddate}</h2>
 			                			</div>
-					                	<div class='row' >
-		                					<button  style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a>></button><br><br>
-		                				</div>
+					                	
 								</div>
 						</div>	
 			</c:if>			
@@ -570,8 +556,8 @@ text-align:center;
 			                			</div>
 										<div class='row' style="margin:0 auto">
 		                					<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
-											<button style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br><br>
+<%-- 											<button style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}> --%>
+<%-- 											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br><br> --%>
 		                				</div>
 								</div>
 								<div class='col-md-2 ' style="margin:0 auto">
@@ -580,8 +566,8 @@ text-align:center;
 			                				<h2 >${repairVO.rep_est_enddate}</h2>
 			                			</div>
 					                	<div class='row' >
-		                					<button  style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br><br>
+<%-- 		                					<button  style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}> --%>
+<%-- 											<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" }>更新日期</a></button><br><br> --%>
 		                				</div>
 								</div>
 						</div>	
@@ -722,8 +708,8 @@ text-align:center;
 			                			</div>
 										<div class='row' style="margin:0 auto">
 		                					<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
-											<button style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br><br>
+<%-- 											<button style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}> --%>
+<%-- 											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br><br> --%>
 		                				</div>
 								</div>
 								<div class='col-md-2 ' style="margin:0 auto">
@@ -732,8 +718,8 @@ text-align:center;
 			                				<h2 >${repairVO.rep_est_enddate}</h2>
 			                			</div>
 					                	<div class='row' >
-		                					<button  style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" >更新日期</a></button><br><br>
+<%-- 		                					<button  style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}> --%>
+<%-- 											<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_enddate" >更新日期</a></button><br><br> --%>
 		                				</div>
 								</div>
 						</div>	
@@ -798,8 +784,8 @@ text-align:center;
 			                			</div>
 										<div class='row' style="margin:0 auto">
 		                					<!--btn3 待回覆/處理中/再修一次:處理中 才可更新-->			
-											<button style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br><br>
+<%-- 											<button style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 0) || (repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}> --%>
+<%-- 											<A style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新進度</a></button><br><br> --%>
 		                				</div>
 								</div>
 								<div class='col-md-2 ' style="margin:0 auto">
@@ -808,8 +794,8 @@ text-align:center;
 			                				<h2 >${repairVO.rep_est_enddate}</h2>
 			                			</div>
 					                	<div class='row' >
-		                					<button  style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}>
-											<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新日期</a></button><br><br>
+<%-- 		                					<button  style="margin:0 auto" class='btn btn-primary' ${(repairVO.rep_pro eq 1 )|| (repairVO.rep_pro eq 5)? "":' style="display:none" '}> --%>
+<%-- 											<A href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=lld_getOne_For_Update_pro">更新日期</a></button><br><br> --%>
 		                				</div>
 								</div>
 						</div>	

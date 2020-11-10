@@ -402,11 +402,13 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
 		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
 		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
+                      		</c:if>
                 	</div>
                 	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
@@ -441,7 +443,6 @@ text-align:center;
                 <div class='col-md-6  text-center'>
                   <div class='text'>
                     <h3 class='rep_status'>狀態
-<%--                     ${repairVO.rep_pro eq 0?"處理中":"已修繕完畢"} --%>
                     	
                     	<c:if test="${repairVO.rep_pro eq 3}"><span style="color:red;">已取消申請</span></c:if>
                     	
@@ -478,11 +479,13 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
 		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
 		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
+                      		</c:if>
                 	</div>
                 	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
@@ -552,11 +555,13 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
 		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
 		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
+                      		</c:if>
                 	</div>
                 	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
@@ -629,11 +634,13 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
 		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
 		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
+                      		</c:if>
                 	</div>
                 	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
@@ -703,11 +710,13 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
 		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
 		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
+                      		</c:if>
                 	</div>
                 	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>
@@ -776,11 +785,13 @@ text-align:center;
                 			<div class='row text-center' >
                 				<h2 style="margin:0 auto">${repairVO .rep_case_str}</h2>
                 			</div>
+                			<c:if test="${(repairVO.rep_pro eq 0 )||(repairVO.rep_pro eq 1)||(repairVO.rep_pro eq 5)}">
                 			<div class='row text-center' style="margin:0 auto">
 		                		<br><br><br><a style="margin:0 auto" href="<%=request.getContextPath()%>/repair/repair.servlet?rep_no=${repairVO.rep_no}&action=getOne_For_Update">
 		                		<button style="margin:0 auto" class="btn btn-primary"  ${repairVO.rep_pro eq 0? "":' style="display:none" '}>
 		                      	編輯</button></a>
                       		</div>
+                      		</c:if>
                 	</div>
                 	<div class='col-md-2 text-center' style="margin:0 auto">
                 		<table><tr><th><h3>| 預估修畢</h3></th></tr><tr><td></td></tr></table>

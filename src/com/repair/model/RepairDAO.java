@@ -25,6 +25,7 @@ import com.repair_picture.model.Repair_pictureVO;
 
 
 public class RepairDAO implements RepairDAO_interface{
+	
 	private static DataSource ds = null;
 	static {
 		try {
@@ -37,29 +38,17 @@ public class RepairDAO implements RepairDAO_interface{
 	
 	
 
-	//�Ыȷs�W�@����µ�ӽ�
 	private static final String INSERT_REPAIR_STMT="INSERT INTO REPAIR (REP_NO, CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_CASE_STR, REP_PRO) VALUES ('REP' || lpad(SEQ_REP_NO.NEXTVAL, 6,'0'), ?, ?, ?, ?, ?) ";
-	//�Ыȭק�ݭת��~�y�z
 	private static final String UPDATE_DES="UPDATE REPAIR SET REP_DAM_OBJ_DES=? WHERE REP_NO=?"; 
-	//�ЪF�^���ЫȪ��w�p�ײ��ɶ�
 	private static final String LLD_UPDATE_ENDDATE_STMT="UPDATE REPAIR SET REP_EST_ENDDATE=? WHERE REP_NO=?"; 
-	//�ЪF����µ�i�׺��w���� (tale Repair:Rep_pro=1, table Repair_picture:++)
 	private static final String LLD_UPDATE_PRO_STMT="UPDATE REPAIR SET REP_PRO=? WHERE REP_NO = ?";
-	//�ЫȽT�{��µ���G (table Repair: REP_TNT_RPT=1 or 2, REP_TNT_RPTTIME=date, REP_END_TIME=date) 
-	private static final String UPDATE_STMT=" UPDATE REPAIR SET REP_TNT_RPT=?, REP_TNT_RPTTIME=?, REP_END_TIME=? WHERE REP_NO=?";
-	//�d�߬Y����µ����(��x���|�B�ЫȩЪF:�d�ݭ�µ�Ӹ`)
+	private static final String UPDATE_STMT=" UPDATE REPAIR SET REP_TNT_RPT=?, REP_TNT_RPTTIME=?, REP_END_TIME=?, REP_PRO=? WHERE REP_NO=?";
 	private static final String GET_ONE_STMT="SELECT REP_NO, CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR WHERE REP_NO=?";
-	//�ЪF���o�Ҧ���µ����:INNER JOIN con_no--CONTRACT--hos_no--HOUSE--lld_no--LANLORD--lld_no
 	private static final String LLD_GET_ALL_STMT="SELECT REP_NO, R.CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR R INNER JOIN CONTRACT C ON C.CON_NO=R.CON_NO INNER JOIN HOUSE H ON H.HOS_NO= C.HOS_NO INNER JOIN LANDLORD L ON H.LLD_NO= L.LLD_NO ORDER BY REP_NO DESC";
 	
-//	private static final String GET_ALL_STMT="SELECT REP_NO, CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR R INNER JOIN CONTRACT C ON C.CON_NO=R.CON_NO INNER JOIN TENANT T ON C.TNT_NO=T.TNT_NO ORDER BY REP_NO DESC";
-	
 	private static final String TNT_GET_ALL_STMT="SELECT REP_NO, CON_NO, REP_DAM_OBJ, REP_DAM_OBJ_DES, REP_PRO, to_char(REP_EST_ENDDATE, 'yyyy-mm-dd')REP_EST_ENDDATE, to_char(REP_CASE_STR, 'yyyy-mm-dd')REP_CASE_STR, to_char(REP_TNT_RPTTIME, 'yyyy-mm-dd')REP_TNT_RPTTIME, REP_TNT_RPT, to_char(REP_END_TIME, 'yyyy-mm-dd')REP_END_TIME FROM REPAIR WHERE CON_NO=?";
-	//新增一張Repair的圖片
 	private static final String INSERT_REPAIR_PIC="INSERT INTO REPAIR_PICTURE (REPPIC_NO, REP_NO, REPPIC_PIC) VALUES ('REPPIC' || lpad(SEQ_REPPIC_NO.NEXTVAL, 6,'0'), ?, ?)";
-	//取出圖片
 	private static final String GET_ALL_PIC_BY_REPNO = "SELECT REPPIC_NO, REP_NO FROM REPAIR_PICTURE WHERE REP_NO=?";
-	//刪除圖片
 	private static final String DEL_REPAIR_PIC="UPDATE REPAIR_PICTURE SET REPPIC_NO=? WHERE REPPIC_NO=?";
 	
 	public List<Repair_pictureVO> getPicsNo (String rep_no) {
@@ -85,37 +74,37 @@ public class RepairDAO implements RepairDAO_interface{
 				listNo.add(repair_pictureVO);
 			}
 		} catch (SQLException se) {
-			System.out.println(("A database Repair error occured. "));
-					se.getMessage();
-					se.printStackTrace(System.err);
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-					
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-
-		
+	System.out.println(("A database Repair error occured. "));
+			se.getMessage();
+			se.printStackTrace(System.err);
+} finally {
+	if (rs != null) {
+		try {
+			rs.close();
+		} catch (SQLException se) {
+			se.printStackTrace(System.err);
+			
+		}
 	}
-	
-	return listNo;
+	if (pstmt != null) {
+		try {
+			pstmt.close();
+		} catch (SQLException se) {
+			se.printStackTrace(System.err);
+		}
+	}
+	if (con != null) {
+		try {
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+		}
+	}
+
+
+}
+
+return listNo;
 }
 	
 		
@@ -195,32 +184,32 @@ public class RepairDAO implements RepairDAO_interface{
 				
 				}
 		}catch(SQLException e) {
-					System.out.println("Couldn't load  FROM Repair database error occured.");
-					e.getMessage();
-					e.printStackTrace(System.err);
-				} finally {
-					if(pstmt!=null) {
-						if(pstmt!=null) {
-							try {
-								pstmt.close();
-							} catch (SQLException e) {
-								
-								e.printStackTrace(System.err);
-							}
-					
-						}
-						if(con !=null) {
-							try {
-								con.close();
-							} catch (SQLException e) {
-								
-								e.printStackTrace(System.err);
-							}
-						}
+			System.out.println("Couldn't load  FROM Repair database error occured.");
+			e.getMessage();
+			e.printStackTrace(System.err);
+		} finally {
+			if(pstmt!=null) {
+				if(pstmt!=null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						
+						e.printStackTrace(System.err);
+					}
+			
+				}
+				if(con !=null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						
+						e.printStackTrace(System.err);
 					}
 				}
-		return repairVO;
 			}
+		}
+return repairVO;
+	}
 				
 	@Override
 	public void enddate_update(RepairVO repairVO) {
@@ -296,6 +285,7 @@ public class RepairDAO implements RepairDAO_interface{
 
 	@Override
 	public void tnt_update(RepairVO RepairVO) {
+		System.out.println("進來Dao的tnt_upd");
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -305,7 +295,8 @@ public class RepairDAO implements RepairDAO_interface{
 			pstmt.setInt(1, RepairVO.getRep_tnt_rpt());
 			pstmt.setDate(2, RepairVO.getRep_tnt_rpttime());
 			pstmt.setDate(3, RepairVO.getRep_end_time());
-			pstmt.setString(4, RepairVO.getRep_no());
+			pstmt.setInt(4, RepairVO.getRep_pro());
+			pstmt.setString(5, RepairVO.getRep_no());
 
 			pstmt.executeUpdate();
 

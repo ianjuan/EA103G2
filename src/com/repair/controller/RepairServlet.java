@@ -119,7 +119,6 @@ public class RepairServlet extends HttpServlet{
 
 			/***************************2.開始新增資料***************************************/
 			System.out.println("準備新增資料");
-//			String rep_no =((RepairVO)session.getAttribute("repairVO")).getRep_no();
 			String rep_no = req.getParameter("rep_no");
 			System.out.println("rep_no = "+rep_no);
 			RepairService repairSvc = new RepairService();
@@ -142,12 +141,11 @@ public class RepairServlet extends HttpServlet{
 			ConVO conVO = conSvc.getOneCon(repVO.getCon_no());
 			HouseVO hosVO = hosSvc.getHouseInfo(conVO.getHos_no());
 			String lld_no = hosVO.getLld_no();
-//			new NotifyServlet().broadcast(
-//					lld_no, "您的房客新增修繕照片!", "您的房客剛剛更新修繕照片，請至修繕管理查看", "");
+			new NotifyServlet().broadcast(
+					lld_no, "您的房客新增修繕照片!", "您的房客剛剛更新修繕照片，請至修繕管理查看", "");
 			
 			//為了讓圖片在updPic.jsp新增上傳後能在同業面看到所有pic
 			String rep_no = req.getParameter("rep_no");
-//			RepairService repSvc = new RepairService();
 			RepairVO repairVO = repSvc.getOneRepair(rep_no);
 			req.setAttribute("repairVO", repairVO);
 			
@@ -339,7 +337,7 @@ public class RepairServlet extends HttpServlet{
 		
 			if (rep_dam_obj == null || rep_dam_obj.trim().length() == 0||rep_dam_obj.trim().equals("")) {
 				errorMsgs.add("待修物品: 請勿空白");
-			} else if(!rep_dam_obj.trim().matches(rep_dam_objReg)) { //以下練習正則(規)表示式(regular-expression)
+			} else if(!rep_dam_obj.trim().matches(rep_dam_objReg)) { 
 				errorMsgs.add("待修物品: 請勿空白");
             }
 			
@@ -395,8 +393,8 @@ public class RepairServlet extends HttpServlet{
 			ConVO conVO = conSvc.getOneCon(repVO.getCon_no());
 			HouseVO hosVO = hosSvc.getHouseInfo(conVO.getHos_no());
 			String lld_no = hosVO.getLld_no();
-//			new NotifyServlet().broadcast(
-//					lld_no, "您的房客新增一筆修繕!", "您的房客剛剛更新了一筆修繕，請至修繕管理查看", "");
+			new NotifyServlet().broadcast(
+					lld_no, "您的房客新增一筆修繕!", "您的房客剛剛更新了一筆修繕，請至修繕管理查看", "");
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/
 			session.setAttribute("repairVO", repairVO2);
 			String url = "/front-end/repair/addReppic.jsp";
@@ -516,8 +514,8 @@ public class RepairServlet extends HttpServlet{
 			System.out.println("接受申請");
 			rep_pro=1;
 			repairVO =repairSvc.updatePro(rep_no, rep_pro);
-//			new NotifyServlet().broadcast(
-//					tnt_no, "您的房東接受了修繕申請", "請至修繕管理查看", "");
+			new NotifyServlet().broadcast(
+					tnt_no, "您的房東接受了修繕申請", "請至修繕管理查看", "");
 			
 			
 			
@@ -528,16 +526,16 @@ public class RepairServlet extends HttpServlet{
 				System.out.println("拒絕申請");
 				rep_pro=2;
 				repairVO =repairSvc.updatePro(rep_no, rep_pro);
-//				new NotifyServlet().broadcast(
-//						tnt_no, "您的房東婉拒了修繕申請", "請至修繕管理查看", "");
+				new NotifyServlet().broadcast(
+						tnt_no, "您的房東婉拒了修繕申請", "請至修繕管理查看", "");
 					
 			}
 			if (newRep_pro.equals(4)) {
 				System.out.println("已修畢");
 				rep_pro=4;
 				repairVO =repairSvc.updatePro(rep_no, rep_pro);
-//				new NotifyServlet().broadcast(
-//						tnt_no, "您的房東剛剛完成一筆修繕", "請至修繕管理確認", "");
+				new NotifyServlet().broadcast(
+						tnt_no, "您的房東剛剛完成一筆修繕", "請至修繕管理確認", "");
 				
 			}
 				
@@ -546,8 +544,8 @@ public class RepairServlet extends HttpServlet{
 				System.out.println("再修一次:已修畢");
 				rep_pro=6;
 				repVO =repairSvc.updatePro(rep_no, rep_pro);
-//				new NotifyServlet().broadcast(
-//						tnt_no, "您的房東剛剛完成一筆<再修繕>", "請至修繕管理確認", "");
+				new NotifyServlet().broadcast(
+						tnt_no, "您的房東剛剛完成一筆<再修繕>", "請至修繕管理確認", "");
 				
 			}
 			/***************************3.修改完成,準備轉交(Send the Success view)*************/
@@ -591,7 +589,7 @@ public class RepairServlet extends HttpServlet{
 			errorMsgs.add("無法更新此筆修繕紀錄:" + e.getMessage());
 			RequestDispatcher failureView = req
 					.getRequestDispatcher("/front-end/repair/listAllRepair.jsp");
-			//返回上一頁
+			
 			failureView.forward(req, res);
 			
 		}	
@@ -803,8 +801,8 @@ public class RepairServlet extends HttpServlet{
 				rep_pro=7;
 				repairSvc = new RepairService();
 				repairVO =repairSvc.updateRpt(rep_no, rep_tnt_rpt, rep_pro, rep_tnt_rpttime, rep_end_time);
-//				new NotifyServlet().broadcast(
-//						lld_no, "房客更新修繕結果", "您的房客非常滿意您的修繕結果!", "");
+				new NotifyServlet().broadcast(
+						lld_no, "房客更新修繕結果", "您的房客非常滿意您的修繕結果!", "");
 				}
 				//若房客不滿意修繕結果
 				if (rep_tnt_rpt.equals(2)) {
@@ -818,8 +816,8 @@ public class RepairServlet extends HttpServlet{
 					rep_pro=5;
 					repairSvc = new RepairService();
 					repairVO =repairSvc.updateRpt(rep_no, rep_tnt_rpt, rep_pro, rep_tnt_rpttime, rep_end_time );
-//					new NotifyServlet().broadcast(
-//							lld_no, "房客更新修繕結果", "您的房客不太滿意您的修繕結果，請您再次修繕", "");
+					new NotifyServlet().broadcast(
+							lld_no, "房客更新修繕結果", "您的房客不太滿意您的修繕結果，請您再次修繕", "");
 					
 				}
 				System.out.println("rep_pro"+rep_pro);
@@ -996,8 +994,8 @@ if ("updateEnddate".equals(action)) {
 					/***************************2.開始修改資料*****************************************/
 					RepairService repairSvc = new RepairService();
 					repairVO = repairSvc.updateDes(rep_no, rep_dam_obj_des);
-//					new NotifyServlet().broadcast(
-//							lld_no, "房客更新修繕內容", "您的房客剛剛更新了修繕內容，請至修繕管理查看", "");
+					new NotifyServlet().broadcast(
+							lld_no, "房客更新修繕內容", "您的房客剛剛更新了修繕內容，請至修繕管理查看", "");
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("repairVO", repairVO); 
 					String url = "/front-end/repair/listAllRepair.jsp";
@@ -1016,7 +1014,7 @@ if ("updateEnddate".equals(action)) {
 			
 			
 			
-			
+			//無用到
 			if("getOne_For_Display".equals(action)) {
 				List<String> errorMsgs = new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);

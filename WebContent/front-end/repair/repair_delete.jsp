@@ -95,14 +95,16 @@ text-align:center;
 <input type="radio" name="rep_pro" value="3" checked> <span class="text">取消修繕申請!</span><br>
 <input type="hidden" name="action" value="delRepair">
 <input type="hidden" name="rep_no" value="<%=repairVO.getRep_no()%>"> <br>
-<a href="${pageContext.request.contextPath }/front-end/repair/listAllRepair.jsp?tnt_no=${tnt_no}"><button class="btn btn-secondary">返回</button></a>	
-<input style="text-align:center" class="btn btn-primary" type="submit" value="取消修繕申請">
-
-
+<div align="center"><input style="text-align:center" class="btn btn-primary" type="submit" value="取消修繕申請"></div>
 </div>
 
 </FORM>
 
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/repair/repair.servlet" >
+<input type="hidden" name="tnt_no" value="${tnt_no}">
+<input type="hidden" name="action" value="getTntRepair">
+<div align="center"><button type="submit" id="cancel" class="btn btn-secondary"> 算 了  </button></div>
+</FORM>
 </div>
     </div>
 <!--     <div class="col col-lg-2"> </div>-->
