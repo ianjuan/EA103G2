@@ -16,7 +16,7 @@ public class EmployeeService {
 	}
 	
 	public EmployeeVO addEmp(String emp_acc, String emp_pwd,Integer emp_title,
-			String emp_name) {
+			String emp_name,String emp_mail) {
 
 		EmployeeVO empVO = new EmployeeVO();
 
@@ -24,6 +24,7 @@ public class EmployeeService {
 		empVO.setEmp_pwd(emp_pwd);
 		empVO.setEmp_title(emp_title);
 		empVO.setEmp_name(emp_name);
+		empVO.setEmp_mail(emp_mail);
 		String emp_no=dao.insert(empVO);
 		empVO.setEmp_no(emp_no);
 		return empVO;

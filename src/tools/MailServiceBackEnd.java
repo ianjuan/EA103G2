@@ -198,7 +198,7 @@ public class MailServiceBackEnd extends HttpServlet{
 		   		"				<b style=\"color:#ff6446;font-size:18px\"><br>編號："+empVO.getEmp_no()+" "+empVO.getEmp_name()+" 你好</b><br><br>\r\n" + 
 		   		"			</div>\r\n" + 
 		   		"			<div>\r\n" + 
-		   		"你的新密碼為："+empVO.getEmp_pwd()+"<br>\r\n" + 
+		   		"你的新密碼為：asdjasodj" + 
 		   		"			</div></div>\r\n" + 
 		   		"              </td>\r\n" + 
 		   		"            </tr>\r\n" + 
@@ -342,9 +342,9 @@ public class MailServiceBackEnd extends HttpServlet{
 		public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 			  String to = req.getParameter("emp_mail");
 		      String subject = "重置密碼通知";
-		      EmployeeVO empVO = (EmployeeVO) req.getSession().getAttribute("empVO");
-
-		       
+		      EmployeeVO empVO = (EmployeeVO) req.getAttribute("empVO");
+		      System.out.println("有跑到信箱這"+to);
+		      System.out.println(empVO);
 		      MailServiceBackEnd mailServiceBackEnd = new MailServiceBackEnd();
 		      mailServiceBackEnd.sendMail(to, subject, empVO);
 		      res.sendRedirect(req.getContextPath()+"/back-end/emp/wait.jsp");

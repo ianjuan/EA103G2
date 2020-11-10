@@ -1,11 +1,48 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.news.model.*"%>
+<%@ page import="com.rptt.model.*"%>
+<%@ page import="com.rptl.model.*"%>
+<%@ page import="com.rpth.model.*"%>
+<%@ page import="com.rptlc.model.*"%>
+<%@ page import="com.rpttc.model.*"%>
+<%@ page import="com.rptr.model.*"%>
+<%@ page import="com.rpthc.model.*"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <jsp:useBean id="empSvc1" scope="page" class="com.emp.model.EmployeeService" />
-
+<%
+	RpthService rpthSvc = new RpthService();
+	List<RpthVO> rpthVO = rpthSvc.getRpth("0");
+	pageContext.setAttribute("rpthVO", rpthVO);
+	
+	RptlcService rptlcSvc = new RptlcService();
+	List<RptlcVO> rptlcVO1 = rptlcSvc.getRptlc("0");
+	pageContext.setAttribute("rptlcVO", rptlcVO1);
+	
+	RpttcService rpttcSvc = new RpttcService();
+	List<RpttcVO> rpttcVO1 = rpttcSvc.getRpttc("0");
+	pageContext.setAttribute("rpttcVO", rpttcVO1);
+	
+	RpthcService rpthcSvc = new RpthcService();
+	List<RpthcVO> rpthcVO1 = rpthcSvc.getRpthc("0");
+	pageContext.setAttribute("rpthcVO", rpthcVO1);
+	
+	RptrService rptrSvc = new RptrService();
+	List<RptrVO> rptrVO1 = rptrSvc.getRptr("0");
+	pageContext.setAttribute("rptrVO", rptrVO1);
+	
+	RpttService rpttSvc = new RpttService();
+	List<RpttVO> rpttVO = rpttSvc.getRptt("0");
+	pageContext.setAttribute("rpttVO", rpttVO);
+	TntService tntSvc = new TntService();
+	List<TntVO> list = tntSvc.getUnvrf_Unresult(1, 1);
+	pageContext.setAttribute("list", list);
+	RptlService rptlSvc = new RptlService();
+	List<RptlVO> rptlVO = rptlSvc.getRptl("0");
+	pageContext.setAttribute("rptlVO", rptlVO);
+%>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -66,8 +103,7 @@
 			</li>
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwooooooo"
-				aria-expanded="true" aria-controls="collapseTwooooooo"> <i
-					class="fas fa-user"></i> <span>聊天室</span>
+				aria-expanded="true" aria-controls="collapseTwooooooo"> <i class="fas fa-comments"></i> <span>聊天室</span>
 			</a>
 				<div id="collapseTwooooooo" class="collapse" aria-labelledby="headingTwooooooo"
 					data-parent="#accordionSidebar">
@@ -81,8 +117,7 @@
 			<!--員工-->
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoo"
-				aria-expanded="true" aria-controls="collapseTwoo"> <i
-					class="fas fa-user"></i> <span>會員查詢</span>
+				aria-expanded="true" aria-controls="collapseTwoo"> <i class="fas fa-search"></i> <span>會員查詢</span>
 			</a>
 				<div id="collapseTwoo" class="collapse" aria-labelledby="headingTwoo"
 					data-parent="#accordionSidebar">
@@ -96,8 +131,7 @@
 			</li>
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwooo"
-				aria-expanded="true" aria-controls="collapseTwooo"> <i
-					class="fas fa-user"></i> <span>身分驗證</span>
+				aria-expanded="true" aria-controls="collapseTwooo"> <i class="fas fa-id-badge"></i> <span>身分驗證</span>
 			</a>
 				<div id="collapseTwooo" class="collapse" aria-labelledby="headingTwooo"
 					data-parent="#accordionSidebar">
@@ -110,8 +144,7 @@
 			</li>
 			<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseTwoooo"
-				aria-expanded="true" aria-controls="collapseTwoooo"> <i
-					class="fas fa-user"></i> <span>會員檢舉</span>
+				aria-expanded="true" aria-controls="collapseTwoooo"> <i class="fas fa-clipboard-list"></i> <span>會員檢舉</span>
 			</a>
 				<div id="collapseTwoooo" class="collapse" aria-labelledby="headingTwoooo"
 					data-parent="#accordionSidebar">
@@ -137,8 +170,7 @@
 			<!--業務流程 -->
 				<li class="nav-item"><a class="nav-link collapsed" href=""
 				data-toggle="collapse" data-target="#collapseSix"
-				aria-expanded="true" aria-controls="collapseSix"> <i
-					class="fas fa-user"></i> <span>業務流程 </span>
+				aria-expanded="true" aria-controls="collapseSix"> <i class="fas fa-truck-loading"></i> <span>業務流程 </span>
 			</a>
 				<div id="collapseSix" class="collapse" aria-labelledby="headingSix"
 					data-parent="#accordionSidebar">
@@ -265,7 +297,7 @@
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800"></h1>
 					<!-- -- -- -- -- -- -- -- --Content-- -- -- -- -- -- -- -- -- -- -->
-					<div id="ajax_result">
+					
 <div class="col-xl-3 col-md-6 mb-4">
 <ul>
 
@@ -290,25 +322,25 @@
 
             <!-- Earnings (Annual) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
+              <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">員工姓名</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">員工姓名</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">${empVO.emp_name}</div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-
+            </div> 
+<!-- 		text-primary text-success text-uppercase -->
             <!-- Tasks Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
+              <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">職位</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">職位</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
                           <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><c:choose>
@@ -329,78 +361,164 @@
 
             <!-- Pending Requests Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">身分驗證</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${list.size()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">待處理檢舉</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">房東檢舉</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${rptlVO.size()}</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             
-            <!-- Donut Chart -->
-            <div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <hr>
-<!--                	0.0 -->
-                </div>
-              </div>
-            </div>
-
-<!-- 			地二藍 -->
-            <div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="myBarChart" style="display: block; height: 216px; width: 551px;" width="1102" height="432" class="chartjs-render-monitor"></canvas>
-                  </div>
-                  <hr>
-
-                </div>
-              </div>
-            </div>
-<!-- 			第三 -->
-<div class="col-xl-4 col-lg-4">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3">
-<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> -->
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                  <hr>
-               	
-                </div>
-              </div>
-            </div>
-            </div>
-          </div>
             
-          </div>
-	</div>
-          </div>
-					</div>
-				
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">房客檢舉</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${rpttVO.size()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">房屋檢舉</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${rpthVO.size()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            </div>
+            <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">房東評價檢舉</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${rptlcVO.size()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">房客評價檢舉</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${rpttcVO.size()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">房屋評價檢舉</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${rpthcVO.size()}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            </div>
+                       
+            <div class="row">
+
+            <!-- Donut Chart -->  
+
+            <div class="col-xl-4 col-lg-4"> 
+              <div class="card shadow mb-4">  
+                <!-- Card Header - Dropdown --> 
+                <div class="card-header py-3">  
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> --> 
+                </div>  
+                <!-- Card Body -->  
+                <div class="card-body"> 
+                  <div class="chart-pie pt-4">  
+                    <canvas id="myPieChart"></canvas> 
+                  </div>  
+                  <hr>  
+<!--                  0.0 --> 
+                </div>  
+              </div>  
+            </div>  
+
+<!--      地二藍 --> 
+            <div class="col-xl-4 col-lg-4"> 
+              <div class="card shadow mb-4">  
+                <!-- Card Header - Dropdown --> 
+                <div class="card-header py-3">  
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> --> 
+                </div>  
+                <!-- Card Body -->  
+                <div class="card-body"> 
+                  <div class="chart-pie pt-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>  
+                    <canvas id="myBarChart" style="display: block; height: 216px; width: 551px;" width="1102" height="432" class="chartjs-render-monitor"></canvas> 
+                  </div>  
+                  <hr>  
+
+                </div>  
+              </div>  
+            </div>  
+<!--      第三 -->  
+      <div class="col-xl-4 col-lg-4"> 
+              <div class="card shadow mb-4">  
+                <!-- Card Header - Dropdown --> 
+                <div class="card-header py-3">  
+<!--                   <h6 class="m-0 font-weight-bold text-primary">圓餅圖</h6> --> 
+                </div>  
+                <!-- Card Body -->  
+                <div class="card-body"> 
+                  <div class="chart-pie pt-4">  
+                    <canvas id="myAreaChart"></canvas>  
+                  </div>  
+                  <hr>  
+
+                </div>  
+              </div>  
+            </div>  
+            </div>
+            </div>
+</div>
+            </div>
+				</div>
+            </div>
 			
 			<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.js"></script>
@@ -409,6 +527,7 @@
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-pie-demo.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-bar-demo.js"></script>
 			<script src="<%=request.getContextPath()%>/back-end/js/demo/chart-area-demo.js"></script>
+			
 	<script id="alert_js">
 	var now =new Date();
 	var MyPoint = "/NotifyServlet/${empVO.emp_no}";

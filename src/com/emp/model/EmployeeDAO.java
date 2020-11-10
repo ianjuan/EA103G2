@@ -27,7 +27,7 @@ public class EmployeeDAO implements EmployeeDAO_interface{
 		}
 	}
 	private static final String INSERT_STMT =
-			"INSERT INTO employee(emp_no,emp_acc,emp_pwd,emp_title,emp_name) values('EMP' || lpad(SEQ_EMP_NO.NEXTVAL, 6,'0'),?,?,?,?)";
+			"INSERT INTO employee(emp_no,emp_acc,emp_pwd,emp_title,emp_name,emp_mail) values('EMP' || lpad(SEQ_EMP_NO.NEXTVAL, 6,'0'),?,?,?,?,?)";
 	private static final String GET_ALL_STMT =
 			"SELECT EMP_NO,EMP_ACC,EMP_PWD,EMP_TITLE,EMP_NAME,EMP_IS_DELETE,EMP_PIC,EMP_MAIL FROM EMPLOYEE";
 	private static final String GET_ONE_STMT = 
@@ -50,8 +50,7 @@ public class EmployeeDAO implements EmployeeDAO_interface{
 			pstmt.setString(2, employeeVO.getEmp_pwd());
 			pstmt.setInt(3, employeeVO.getEmp_title());
 			pstmt.setString(4,employeeVO.getEmp_name());
-
-
+			pstmt.setString(5,employeeVO.getEmp_mail());
 			pstmt.executeUpdate();
 			
 			ResultSet rs = pstmt.getGeneratedKeys();

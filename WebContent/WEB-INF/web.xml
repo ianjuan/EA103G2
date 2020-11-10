@@ -404,4 +404,52 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
+	
+	<filter>
+		<filter-name>LoginFilterBackEndVrf</filter-name>
+		<filter-class>filters.LoginFilterBackEndVrf</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilterBackEndVrf</filter-name>
+		<url-pattern>/back-end/vrf/vrf_main_page.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+		<filter>
+		<filter-name>LoginFilterBackEndHouse</filter-name>
+		<filter-class>filters.LoginFilterBackEndHouse</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilterBackEndHouse</filter-name>
+		<url-pattern>/back-end/house_manage/all_house.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>LoginFilterBackEndReport</filter-name>
+		<filter-class>filters.LoginFilterBackEndReport</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilterBackEndReport</filter-name>
+		<url-pattern>/back-end/rpttc/*</url-pattern>
+		<url-pattern>/back-end/rptlc/*</url-pattern>
+		<url-pattern>/back-end/rpthc/*</url-pattern>
+		<url-pattern>/back-end/rptr/*</url-pattern>
+		<url-pattern>/back-end/rpth/*</url-pattern>
+		<url-pattern>/back-end/rptt/*</url-pattern>
+		<url-pattern>/back-end/rptl/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 </web-app>
